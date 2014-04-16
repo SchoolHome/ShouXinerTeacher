@@ -891,8 +891,8 @@ typedef enum httpEngineState HttpEngineState;
     [loginInfoDict setObject:password forKey:@"password"];
     [loginInfoDict setObject:@"IOS" forKey:@"device_type"];
     [loginInfoDict setObject:[[UIDevice currentDevice] systemVersion] forKey:@"device_version"];
-//    [loginInfoDict setObject:@"ios_v2_teacher" forKey:@"app_platform"];
-    [loginInfoDict setObject:@"ios_v2" forKey:@"app_platform"];
+    [loginInfoDict setObject:@"ios_v2_teacher" forKey:@"app_platform"];
+//    [loginInfoDict setObject:@"ios_v2" forKey:@"app_platform"];
     [loginInfoDict setObject:@"1.0.0.0" forKey:@"app_version"];
     
     NSNumber *first = [[NSUserDefaults standardUserDefaults] objectForKey:@"first_login"];
