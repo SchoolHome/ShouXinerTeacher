@@ -87,7 +87,9 @@
     linkContent.numberOfLines = 2;
     
     if (self.data.forward.author_avatar) {
-        linkIcon.imageURL = [NSURL URLWithString:self.data.forward.author_avatar];
+        
+        NSString *url = [NSString stringWithFormat:@"%@/mlogo",self.data.forward.author_avatar];
+        linkIcon.imageURL = [NSURL URLWithString:url];
     }
     
     link.frame = CGRectMake(K_LEFT_PADDING, kViewFoot(content)+5, 222, 63);

@@ -149,7 +149,9 @@
             }
             
             imageContent[i].hidden = NO;
-            imageContent[i].imageURL = [NSURL URLWithString:self.data.imageList[i]];
+            
+            NSString *url = [NSString stringWithFormat:@"%@/mlogo",self.data.imageList[i]];
+            imageContent[i].imageURL = [NSURL URLWithString:url];
         }
     }
     
