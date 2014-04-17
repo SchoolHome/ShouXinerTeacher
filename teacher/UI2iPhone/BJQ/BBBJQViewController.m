@@ -234,7 +234,7 @@
 -(void)checkNotify{
 
     [[PalmUIManagement sharedInstance] getNotiCount];
-    [self performSelector:@selector(checkNotify) withObject:nil afterDelay:15];
+    [self performSelector:@selector(checkNotify) withObject:nil afterDelay:35.0f];
 
 }
 

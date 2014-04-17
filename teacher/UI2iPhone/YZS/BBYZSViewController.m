@@ -58,7 +58,7 @@
     [super viewWillAppear:animated];
     [self addObservers];
     
-    [[PalmUIManagement sharedInstance] getNotiData:1];
+    [[PalmUIManagement sharedInstance] getNotiData:0];
 }
 
 -(void)viewWillDisappear:(BOOL)animated{

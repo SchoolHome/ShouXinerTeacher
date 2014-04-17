@@ -24,6 +24,8 @@
 
 @property BOOL fromUrl;
 
+@property (nonatomic, strong) UIActivityIndicatorView *activityView;
+
 //计算UIImage的最大Frame
 -(CGRect) calculateImageRect;
 // 保存图片ActionSheet
@@ -123,6 +125,14 @@
     [UIImageView commitAnimations];
 }
 
+- (void)imageViewLoadedImage:(EGOImageView*)imageView{
+
+    [self.activityView stopAnimating];
+}
+- (void)imageViewFailedToLoadImage:(EGOImageView*)imageView error:(NSError*)error{
+    [self.activityView stopAnimating];
+}
+
 - (void)viewDidLoad{
     [super viewDidLoad];
     self.imageView = [[EGOImageView alloc] initWithFrame:self.imageViewRect];
@@ -130,6 +140,19 @@
     
     if (self.url&&self.fromUrl) {
         self.imageView.contentMode = UIViewContentModeScaleAspectFit;
+        
+//        NSString *urlSmall = [NSString stringWithFormat:@"%@/mlogo",self.url];
+//        self.imageView.imageURL = [NSURL URLWithString:urlSmall];
+        
+        self.imageView.delegate = self;
+        
+        self.activityView = [[UIActivityIndicatorView alloc] initWithFrame:CGRectMake(0, 0, 30, 30)];
+        [self.activityView setCenter:self.view.center];
+        [self.activityView setActivityIndicatorViewStyle:UIActivityIndicatorViewStyleWhite];
+        
+        [self.view addSubview:self.activityView];
+        [self.activityView startAnimating];
+        
         self.imageView.imageURL = [NSURL URLWithString:self.url];
     }else{
     
@@ -185,6 +208,7 @@
     if (self.url&&self.fromUrl) {
         self.imageView.frame = CGRectMake(0, 0, 320, height);
         
+        
     }else{
     
         self.imageView.frame = [self calculateImageRect];
@@ -194,6 +218,8 @@
     self.view.backgroundColor = [UIColor blackColor];
     
     [UIImageView commitAnimations];
+    
+    [self.view bringSubviewToFront:self.activityView];
 }
 
 // 动画的结束回调，回调方法内，增加下载按钮

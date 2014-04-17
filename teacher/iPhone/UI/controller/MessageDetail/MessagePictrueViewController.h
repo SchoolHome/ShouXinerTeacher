@@ -22,7 +22,7 @@
 #import <UIKit/UIKit.h>
 #import "HPStatusBarTipView.h"
 #import "EGOImageView.h"
-@interface MessagePictrueViewController : UIViewController <UIScrollViewDelegate,UIActionSheetDelegate>
+@interface MessagePictrueViewController : UIViewController <UIScrollViewDelegate,UIActionSheetDelegate,EGOImageViewDelegate>
 
 // 展示图片的UIImageView
 @property (nonatomic,strong) EGOImageView *imageView;

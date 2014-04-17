@@ -85,7 +85,7 @@
         time = [ts intValue];
     }
     [[PalmUIManagement sharedInstance] getUnReadNotiCount:time];
-    [self performSelector:@selector(checkUnreadCount) withObject:nil afterDelay:5];
+    [self performSelector:@selector(checkUnreadCount) withObject:nil afterDelay:35.0f];
 }
 
 - (void)viewDidLoad

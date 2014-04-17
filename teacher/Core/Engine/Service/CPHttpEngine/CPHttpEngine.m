@@ -895,7 +895,7 @@ typedef enum httpEngineState HttpEngineState;
 //    [loginInfoDict setObject:@"ios_v2" forKey:@"app_platform"];
     [loginInfoDict setObject:@"1.0.0.0" forKey:@"app_version"];
     
-    NSNumber *first = [[NSUserDefaults standardUserDefaults] objectForKey:@"first_login"];
+    NSNumber *first = [[NSUserDefaults standardUserDefaults] objectForKey:[NSString stringWithFormat:@"first_login%@",userName]];
     if (nil == first) {
         [loginInfoDict setObject:[NSNumber numberWithInt:1] forKey:@"first_login"];
     }else{
@@ -939,7 +939,7 @@ typedef enum httpEngineState HttpEngineState;
                     state = HTTPENGINE_STATE_LOGIN_SUC;
 #endif
                     loginResult = [CPPTModelLoginResult fromJsonDict:rspJsonDict];
-                    [[NSUserDefaults standardUserDefaults] setObject:[NSNumber numberWithInt:0] forKey:@"first_login"];
+                    [[NSUserDefaults standardUserDefaults] setObject:[NSNumber numberWithInt:0] forKey:[NSString stringWithFormat:@"first_login%@",userName]];
                     [[NSUserDefaults standardUserDefaults] synchronize];
                 }
 #ifdef SYS_STATE_MIGR
@@ -2200,7 +2200,7 @@ typedef enum httpEngineState HttpEngineState;
     }
     CPDBModelMessage *dbMsg = [[[CPSystemEngine sharedInstance] dbManagement] findMessageWithResID:resourceID];
     /////////////////////////////////////
-    NSString *urlString = [NSString stringWithFormat:@"http://%@/attachment/put/im/im/%@",K_HOST_NAME_OF_PALM_SERVER,[[CPSystemEngine sharedInstance] accountModel].uid];
+    NSString *urlString = [NSString stringWithFormat:@"http://%@/attachment/put/im/im/%@",K_HOST_NAME_OF_PALM_UPLOAD,[[CPSystemEngine sharedInstance] accountModel].uid];
     // url
     NSURL *url = [NSURL URLWithString:urlString];
     // req
@@ -2210,7 +2210,9 @@ typedef enum httpEngineState HttpEngineState;
     // header
     [req addRequestHeader:@"User-Agent" value:@"ASIHTTPRequest"];
     [req addRequestHeader:@"Content-Type" value:fileMimeType];
+#ifdef TEST
     [req addRequestHeader:@"host" value:@"att.shouxiner.com"];
+#endif
     // cookies
 //    [req setRequestCookies:(NSMutableArray *)[self cookiesArray]];
     req.requestCookies = [[NSMutableArray alloc] initWithObjects:[PalmUIManagement sharedInstance].suid, nil];

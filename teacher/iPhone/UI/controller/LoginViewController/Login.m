@@ -129,6 +129,16 @@
     [self.LoginButton setImage:[UIImage imageNamed:@"LoginButtonPress"] forState:UIControlStateHighlighted];
     [self.LoginButton addTarget:self action:@selector(login:) forControlEvents:UIControlEventTouchUpInside];
     [self.bgImage addSubview:self.LoginButton];
+    
+    UILabel *label = [[UILabel alloc] init];
+    label.text = @"手心网 v1.0 教师版";
+    label.textAlignment = NSTextAlignmentLeft;
+    label.textColor = [UIColor whiteColor];
+    label.alpha = 0.6f;
+    label.backgroundColor = [UIColor clearColor];
+    label.frame = CGRectMake(115.0f, self.screenHeight - 27.0f, 150.0f, 20.0f);
+    label.font = [UIFont systemFontOfSize:12.0f];
+    [self.view addSubview:label];
 }
 
 -(void) clickBG : (UIGestureRecognizer *) recognizer{

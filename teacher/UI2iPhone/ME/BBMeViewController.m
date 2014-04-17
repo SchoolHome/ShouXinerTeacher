@@ -169,7 +169,6 @@
                     [cell.contentView addSubview:labelNum];
                     
                     NSString *strCredits = [NSString stringWithFormat:@"%@", [userCredits objectForKey:@"credits"]];
-                    strCredits = @"9999";
                     UIFont *font = [UIFont fontWithName:@"Arial" size:16];
                     CGSize size = [strCredits sizeWithFont:font constrainedToSize:CGSizeMake(150, 20.0f)];
                     if (size.width < 10) {

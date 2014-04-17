@@ -183,15 +183,16 @@
             [cell.headerImageView.layer setMasksToBounds:YES];
             [cell.detailTextLabel setText:nil];
             if (userProfile) {
-                NSLog(@"%@", [userProfile objectForKey:@"avatar"]);
-                NSMutableString *userAvatar = [[NSMutableString alloc] initWithString:[userProfile objectForKey:@"avatar"]];
+                if (![userProfile[@"avatar"] isKindOfClass:[NSNull class]]) {
+                    NSMutableString *userAvatar = [[NSMutableString alloc] initWithString:[userProfile objectForKey:@"avatar"]];
 #ifdef TEST
-                NSRange range = [userAvatar rangeOfString:@"att0.shouxiner.com"];
-                if (range.length>0) {
-                    [userAvatar replaceCharactersInRange:range withString:@"115.29.224.151"];
-                }
+                    NSRange range = [userAvatar rangeOfString:@"att0.shouxiner.com"];
+                    if (range.length>0) {
+                        [userAvatar replaceCharactersInRange:range withString:@"115.29.224.151"];
+                    }
 #endif
-                [cell.headerImageView setImageURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@", userAvatar]]];
+                    [cell.headerImageView setImageURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@", userAvatar]]];
+                }
             }else{
                 [cell.headerImageView setImage:[UIImage imageNamed:@"girl.png"]];
             }
