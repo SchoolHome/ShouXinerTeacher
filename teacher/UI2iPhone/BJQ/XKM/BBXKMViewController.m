@@ -24,6 +24,7 @@
     self.title = @"科目";
     
     kmList = @[@"不指定科目",@"语文",@"数学"];
+    
     //_selectedIndex = 0;
     
     colorList = @[[UIColor colorWithRed:238/255.0 green:140/255.0 blue:35/255.0 alpha:1.0],

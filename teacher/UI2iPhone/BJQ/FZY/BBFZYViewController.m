@@ -58,7 +58,7 @@
             
         }else{  // 上传失败
             [attachList removeAllObjects]; // 只要有一个失败，删除所有返回结果
-            [self showProgressWithText:@"图片发送失败" withDelayTime:0.5];
+            [self showProgressWithText:@"亲，网络不给力哦！" withDelayTime:0.5];
         }
     }
     
@@ -70,7 +70,7 @@
         [attachList removeAllObjects]; // 清空列表
         
         if ([dic[@"hasError"] boolValue]) {
-            [self showProgressWithText:@"发送失败" withDelayTime:0.5];
+            [self showProgressWithText:@"亲，网络不给力哦！" withDelayTime:0.5];
         }else{
         
             [self showProgressWithText:@"发送成功" withDelayTime:0.5];
@@ -180,7 +180,8 @@
         for (int i = 0; i<3; i++) {
             UIImage *image = [imageButton[i] backgroundImageForState:UIControlStateNormal];
             if (image) {
-                NSData *data = UIImageJPEGRepresentation(image, 1.0f);
+                image = [self imageWithImage:image];
+                NSData *data = UIImageJPEGRepresentation(image, 0.5f);
                 [[PalmUIManagement sharedInstance] updateUserImageFile:data withGroupID:[_currentGroup.groupid intValue]];
                 imageCount++;
             }
@@ -189,7 +190,8 @@
         for (int i = 0; i<7; i++) {
             UIImage *image = [imageButton[i] backgroundImageForState:UIControlStateNormal];
             if (image) {
-                NSData *data = UIImageJPEGRepresentation(image, 1.0f);
+                image = [self imageWithImage:image];
+                NSData *data = UIImageJPEGRepresentation(image, 0.5f);
                 [[PalmUIManagement sharedInstance] updateUserImageFile:data withGroupID:[_currentGroup.groupid intValue]];
                 imageCount++;
             }
@@ -269,7 +271,7 @@
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:sendButton];
     
     
-    kmList = @[@"不指定科目",@"语文",@"数学",@"英语",@"体育",@"自然科学",@"其它"];
+    kmList = @[@"不指定科目",@"数学",@"语文",@"英语",@"体育",@"自然科学",@"其它"];
     
     UIView *textBack = [[UIView alloc] initWithFrame:CGRectMake(15, 15, 320-30, 70)];
     [self.view addSubview:textBack];
@@ -481,6 +483,18 @@
 - (void)imagePickerControllerDidCancel:(UIImagePickerController *)picker{
     [self dismissModalViewControllerAnimated:YES];
 
+}
+
+-(UIImage*)imageWithImage:(UIImage*)image
+{
+	CGSize newSize = CGSizeMake(image.size.width*0.3, image.size.height*0.3);
+    UIGraphicsBeginImageContext(newSize);
+    
+    [image drawInRect:CGRectMake(0, 0, newSize.width, newSize.height)];
+    UIImage* newImage = UIGraphicsGetImageFromCurrentImageContext();
+    
+    UIGraphicsEndImageContext();
+    return newImage;
 }
 
 @end
