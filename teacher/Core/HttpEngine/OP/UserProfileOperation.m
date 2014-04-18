@@ -21,9 +21,11 @@
 -(void) updateUserHeaderResult;
 -(void) updateUserImageFile;
 -(void) postTopic;
+-(void) userLogin;
 @end
 
 @implementation UserProfileOperation
+
 
 -(UserProfileOperation *) initGetUser{
     if ([self initOperation]) {
@@ -98,6 +100,51 @@
         [self setHttpRequestPostWithUrl:urlStr params:params];
     }
     return self;
+}
+
+-(UserProfileOperation *) initUserLogin{
+    if ([self initOperation]) {
+        self.type = kUserLogin;
+        
+        CPLGModelAccount *account = [[CPSystemEngine sharedInstance] accountModel];
+        NSMutableDictionary *loginInfoDict = [NSMutableDictionary dictionary];
+        [loginInfoDict setObject:account.loginName forKey:@"username"];
+        [loginInfoDict setObject:account.pwdMD5 forKey:@"password"];
+        [loginInfoDict setObject:@"IOS" forKey:@"device_type"];
+        [loginInfoDict setObject:[[UIDevice currentDevice] systemVersion] forKey:@"device_version"];
+        //    [loginInfoDict setObject:@"ios_v2_teacher" forKey:@"app_platform"];
+        [loginInfoDict setObject:@"ios_v2" forKey:@"app_platform"];
+        [loginInfoDict setObject:@"1.0.0.0" forKey:@"app_version"];
+        [loginInfoDict setObject:[NSNumber numberWithInt:0] forKey:@"first_login"];
+        NSString *urlStr = [NSString stringWithFormat:@"http://%@/mapi/login",K_HOST_NAME_OF_PALM_SERVER];
+        [self setHttpRequestPostWithUrl:urlStr params:loginInfoDict];
+    }
+    return self;
+    
+}
+
+-(void) userLogin{
+#ifdef TEST
+    [self.request addRequestHeader:@"Host" value:@"www.shouxiner.com"];
+#endif
+    __weak PalmFormDataRequest *weakRequest = self.dataRequest;
+    [self.dataRequest setRequestCompleted:^(NSDictionary *data){
+        dispatch_block_t updateTagBlock = ^{
+            NSArray *cookies = weakRequest.responseCookies;
+            for (NSHTTPCookie *cookie in cookies){
+                if([cookie.name isEqualToString:@"PHPSESSID"]){
+                    [PalmUIManagement sharedInstance].php =cookie;
+                    [[NSHTTPCookieStorage sharedHTTPCookieStorage] setCookie:cookie];
+                    
+                }else if([cookie.name isEqualToString:@"SUID"]){
+                    [PalmUIManagement sharedInstance].suid = cookie;
+                    [[NSHTTPCookieStorage sharedHTTPCookieStorage] setCookie:cookie];
+                }
+            }
+        };
+        dispatch_async(dispatch_get_main_queue(), updateTagBlock);
+    }];
+    [self startAsynchronous];
 }
 
 
@@ -203,6 +250,9 @@
             break;
         case kPostTopic:
             [self postTopic];
+            break;
+        case kUserLogin:
+            [self userLogin];
             break;
         default:
             break;

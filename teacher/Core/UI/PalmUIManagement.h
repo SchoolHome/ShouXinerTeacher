@@ -104,4 +104,6 @@
 -(void) getNotiListWithSender : (int) sender withOffset : (int) offset withLimit : (int) limit;
 // 转发有指示
 -(void) postForwardNoti : (int) oaid withGroupID : (int) groupID withMessage : (NSString *) message;
+
+-(void) userLoginToken;
 @end

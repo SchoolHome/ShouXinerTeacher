@@ -179,7 +179,7 @@
 - (void)applicationWillEnterForeground:(UIApplication *)application{
     [self setLatestActiveTime:[CoreUtils getLongFormatWithNowDate]];
     [[CPUIModelManagement sharedInstance] sysActive];
-    
+    [[PalmUIManagement sharedInstance] userLoginToken];
 //    [[PalmUIManagement sharedInstance] postCheckVersion];
 }
 
