@@ -174,23 +174,40 @@
         self.relpyContent.hidden = NO;
         self.likeContent.hidden = NO;
         self.relpyContentBack.hidden = NO;
+        self.relpyContentLine.hidden = NO;
         
-        CGSize s = [self.data.commentsStr sizeConstrainedToSize:CGSizeMake(210, CGFLOAT_MAX)];
-        self.relpyContent.frame = CGRectMake(K_LEFT_PADDING+5, kViewFoot(self.time)+10+45, 210, s.height);
-        self.relpyContent.attributedText = self.data.commentsStr;
-        
-        self.likeContent.frame = CGRectMake(K_LEFT_PADDING+40, kViewFoot(self.time)+10+16, 175, 20);
+        UIFont *font = [UIFont fontWithName:[self.likeContent.font fontName] size:12];
+        CGSize size = [self.data.praisesStr sizeWithFont:font constrainedToSize:CGSizeMake(180.f, CGFLOAT_MAX) lineBreakMode:0];
+        if (size.height < 25) {
+            size.height = 25;
+        }
+        self.likeContent.frame = CGRectMake(K_LEFT_PADDING+35, kViewFoot(self.time)+10+16, 180.f, size.height);
         self.likeContent.text = self.data.praisesStr;
         
-        UIImage *image2 = [UIImage imageNamed:@"BBComentBG"];
-        image2 = [image2 resizableImageWithCapInsets:UIEdgeInsetsMake(45,100,14,100) resizingMode:UIImageResizingModeStretch];
+        self.relpyContentLine.frame = CGRectMake(K_LEFT_PADDING, kViewFoot(self.time)+10+18+size.height, 220, 2);
+        UIImage *image1 = [UIImage imageNamed:@"BBComentX"];
+        self.relpyContentLine.image = image1;
         
-        self.relpyContentBack.frame = CGRectMake(K_LEFT_PADDING, kViewFoot(self.time)+10, 210+10, s.height+10+45);
+        CGSize s = [self.data.commentsStr sizeConstrainedToSize:CGSizeMake(210, CGFLOAT_MAX)];
+        
+        self.relpyContent.frame = CGRectMake(K_LEFT_PADDING+5, kViewFoot(self.time)+10+22+size.height, 210, s.height);
+        self.relpyContent.attributedText = self.data.commentsStr;
+        
+        UIImage *image2 = [UIImage imageNamed:@"BBComentBG"];
+        image2 = [image2 resizableImageWithCapInsets:UIEdgeInsetsMake(45,35,14,100) resizingMode:UIImageResizingModeStretch];
+        
+        CGFloat imageHeight = s.height+10+22+size.height;
+        if (imageHeight < 60) {
+            imageHeight = 60;
+        }
+        
+        self.relpyContentBack.frame = CGRectMake(K_LEFT_PADDING, kViewFoot(self.time)+10, 210+10, imageHeight);
         self.relpyContentBack.image = image2;
     }else{
         self.relpyContent.hidden = YES;
         self.likeContent.hidden = YES;
         self.relpyContentBack.hidden = YES;
+        self.relpyContentLine.hidden = YES;
     }
     
     //[self showDebugRect:YES];

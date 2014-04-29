@@ -68,21 +68,23 @@
             }
             
             CGFloat commentHeight = 0;
-            if ([data.commentsStr length]>0) { // 有评论
-                
-                commentHeight = [data.commentsStr sizeConstrainedToSize:CGSizeMake(210, CGFLOAT_MAX)].height;
-                commentHeight = commentHeight + 10 + 45+5;
-                
-            }else{  // 没有评论
-                if ([data.praisesStr length]>0) {
-                    //
-                    commentHeight = 60; // 固定高度
-                }else{
-                    commentHeight = 0; //修正高度
+            if ([data.praisesStr length]>0) {
+                commentHeight = [data.praisesStr sizeWithFont:[UIFont systemFontOfSize:12]
+                                            constrainedToSize:CGSizeMake(180.f, CGFLOAT_MAX)].height; // 固定高度
+            }
+            if([data.commentsStr length]>0){
+                if (commentHeight < 60) {
+                    commentHeight = 60;
                 }
+                commentHeight = commentHeight + [data.commentsStr sizeConstrainedToSize:CGSizeMake(210, CGFLOAT_MAX)].height+10;
             }
             
-            return titleHeight+contentHeight+imageHeight+commentHeight+K_TIME_HEIGHT+5+10; // 按钮上下空隙
+            if (commentHeight > 0 && commentHeight < 75) {
+                commentHeight = 75;
+            }
+            
+            CGFloat totalHeight = titleHeight+contentHeight+imageHeight+commentHeight+K_TIME_HEIGHT+5+10; // 按钮上下空隙
+            return totalHeight;
             
         }
             break;
@@ -126,20 +128,23 @@
             }
             
             CGFloat commentHeight = 0;
-            if ([data.commentsStr length]>0) { // 有评论
-                
-                commentHeight = [data.commentsStr sizeConstrainedToSize:CGSizeMake(210, CGFLOAT_MAX)].height;
-                commentHeight = commentHeight + 10 + 45+5;
-                
-            }else{  // 没有评论
-                if ([data.praisesStr length]>0) {
-                    //
-                    commentHeight = 60; // 固定高度
-                }else{
-                    commentHeight = 0; //修正高度
-                }
+            if ([data.praisesStr length]>0) {
+                commentHeight = [data.praisesStr sizeWithFont:[UIFont systemFontOfSize:12]
+                                            constrainedToSize:CGSizeMake(180.f, CGFLOAT_MAX)].height; // 固定高度
             }
-            return titleHeight+contentHeight+imageHeight+commentHeight+K_TIME_HEIGHT+5+10; // 按钮上下空隙
+            if([data.commentsStr length]>0){
+                if (commentHeight < 60) {
+                    commentHeight = 60;
+                }
+                commentHeight = commentHeight + [data.commentsStr sizeConstrainedToSize:CGSizeMake(210, CGFLOAT_MAX)].height+10;
+            }
+            
+            if (commentHeight > 0 && commentHeight < 75) {
+                commentHeight = 75;
+            }
+            
+            CGFloat totalHeight = titleHeight+contentHeight+imageHeight+commentHeight+K_TIME_HEIGHT+5+10; // 按钮上下空隙
+            return totalHeight;
         }
             break;
             
@@ -157,20 +162,23 @@
             
             
             CGFloat commentHeight = 0;
-            if ([data.commentsStr length]>0) { // 有评论
-                
-                commentHeight = [data.commentsStr sizeConstrainedToSize:CGSizeMake(210, CGFLOAT_MAX)].height;
-                commentHeight = commentHeight + 10 + 45+5;
-                
-            }else{  // 没有评论
-                if ([data.praisesStr length]>0) {
-                    //
-                    commentHeight = 60; // 固定高度
-                }else{
-                    commentHeight = 0; //修正高度
-                }
+            if ([data.praisesStr length]>0) {
+                commentHeight = [data.praisesStr sizeWithFont:[UIFont systemFontOfSize:12]
+                                            constrainedToSize:CGSizeMake(180.f, CGFLOAT_MAX)].height; // 固定高度
             }
-            return titleHeight+contentHeight+linkHeight+commentHeight+K_TIME_HEIGHT+5+10; // 按钮上下空隙
+            if([data.commentsStr length]>0){
+                if (commentHeight < 60) {
+                    commentHeight = 60;
+                }
+                commentHeight = commentHeight + [data.commentsStr sizeConstrainedToSize:CGSizeMake(210, CGFLOAT_MAX)].height+10;
+            }
+            
+            if (commentHeight > 0 && commentHeight < 75) {
+                commentHeight = 75;
+            }
+            
+            CGFloat totalHeight = titleHeight+contentHeight+linkHeight+commentHeight+K_TIME_HEIGHT+5+10; // 按钮上下空隙
+            return totalHeight; // 按钮上下空隙
 
         }
             break;
@@ -217,20 +225,22 @@
                 }
                 
                 CGFloat commentHeight = 0;
-                if ([data.commentsStr length]>0) { // 有评论
-                    
-                    commentHeight = [data.commentsStr sizeConstrainedToSize:CGSizeMake(210, CGFLOAT_MAX)].height;
-                    commentHeight = commentHeight + 10 + 45+5;
-                    
-                }else{  // 没有评论
-                    if ([data.praisesStr length]>0) {
-                        //
-                        commentHeight = 60; // 固定高度
-                    }else{
-                        commentHeight = 0; //修正高度
-                    }
+                if ([data.praisesStr length]>0) {
+                    commentHeight = [data.praisesStr sizeWithFont:[UIFont systemFontOfSize:12]
+                                                constrainedToSize:CGSizeMake(180.f, CGFLOAT_MAX)].height; // 固定高度
                 }
-                return titleHeight+contentHeight+imageHeight+commentHeight+K_TIME_HEIGHT+5+10; // 按钮上下空隙
+                if([data.commentsStr length]>0){
+                    if (commentHeight < 60) {
+                        commentHeight = 60;
+                    }
+                    commentHeight = commentHeight + [data.commentsStr sizeConstrainedToSize:CGSizeMake(210, CGFLOAT_MAX)].height+10;
+                }
+                
+                if (commentHeight > 0 && commentHeight < 75) {
+                    commentHeight = 75;
+                }
+                CGFloat totalHeight = titleHeight+contentHeight+imageHeight+commentHeight+K_TIME_HEIGHT+5+10; // 按钮上下空隙
+                return totalHeight;
             }
         }
             
