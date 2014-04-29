@@ -3,12 +3,12 @@
     {
       "idiom" : "universal",
       "scale" : "1x",
-      "filename" : "icon-57.png"
+      "filename" : "icon_iPad-50.png"
     },
     {
       "idiom" : "universal",
       "scale" : "2x",
-      "filename" : "icon-57@2x.png"
+      "filename" : "icon_iPad-50@2x.png"
     }
   ],
   "info" : {

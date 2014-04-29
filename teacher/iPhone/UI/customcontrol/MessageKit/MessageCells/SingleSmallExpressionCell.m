@@ -283,7 +283,7 @@
     [super refreshCell];
     ExMessageModel *model = (ExMessageModel*)self.data;
 
-    //背景最大宽度 251  字能占的宽度 251 - 11 - 11
+    //背景最大宽度 251  字能占的宽度 251 - 11 - 11ian
     [self adaptEllipticalBackgroundImage];
     
     textDisplayView.exModel = model;
@@ -350,7 +350,11 @@
     }
     [self.alarmTip setBackgroundImage:[UIImage imageNamed:@"alarm_im_btn_chatset_nor.png"] forState:UIControlStateNormal];
     [self.alarmTip setBackgroundImage:[UIImage imageNamed:@"alarm_im_btn_chatset_press.png"] forState:UIControlStateHighlighted];
-    self.alarmTip.frame = CGRectMake(ellipticalBackground.frame.origin.x - kAvatarWidth + 14, ellipticalBackground.frame.origin.y, 35.0f, 35.0f);
+    if (self.isBelongMe) {
+        self.alarmTip.frame = CGRectMake(ellipticalBackground.frame.origin.x + ellipticalBackground.frame.size.width, ellipticalBackground.frame.origin.y, 35.0f, 35.0f);
+    }else{
+        self.alarmTip.frame = CGRectMake(ellipticalBackground.frame.origin.x-2.0f, ellipticalBackground.frame.origin.y, 35.0f, 35.0f);
+    }
 }
 
 -(void) alarmTipTaped:(HPHeadView *)sender{

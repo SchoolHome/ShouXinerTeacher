@@ -72,10 +72,11 @@
     [super viewDidLoad];
 	// Do any additional setup after loading the view.
     
-    self.dataSource = [PalmUIModelCoding deserializeModel:CacheName];
+    
     if (self.dataSource == nil) {
         self.dataSource = [[BBOASumModel alloc] init];
     }
+    self.dataSource.cacheArray = [PalmUIModelCoding deserializeModel:CacheName];
     
     self.navigationItem.title = @"有通知";
     

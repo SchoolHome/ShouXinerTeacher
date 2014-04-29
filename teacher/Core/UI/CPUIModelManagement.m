@@ -213,6 +213,7 @@ static CPUIModelManagement *sharedInstance = nil;
 {
 //    [[AudioPlayerManager sharedManager] stopBackgroundMusic];
     [[MessageSoundPlayer sharedInstance] stopSound];
+    [[[CPSystemEngine sharedInstance] xmppEngine] disconnect];
 }
 -(void)sysActive
 {

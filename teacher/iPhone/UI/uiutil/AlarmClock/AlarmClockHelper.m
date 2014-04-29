@@ -169,7 +169,7 @@ static NSMutableDictionary *alarmClock;
     }else if ([alarm.alarmClockType intValue] == MysticalSoundAlarm){
         localNotification.alertBody = [NSString stringWithFormat:@"%@托小双捎来了1个有爱的提醒给你哦",alarm.userNickName];
     }
-    localNotification.applicationIconBadgeNumber = localNotification.applicationIconBadgeNumber + 1;
+//    localNotification.applicationIconBadgeNumber = localNotification.applicationIconBadgeNumber + 1;
     localNotification.alertAction = @"查看";
 //    localNotification.soundName = UILocalNotificationDefaultSoundName;
     localNotification.soundName = @"AlarmRing.caf";

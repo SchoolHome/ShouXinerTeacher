@@ -11,7 +11,7 @@ typedef enum{
     FEMALE = 2
 }SEX;
 
-#define CachePath @"/%@/cachetemp/"
+#define CachePath @"/%@/"
 #import <Foundation/Foundation.h>
 
 @interface PalmUIModelCoding : NSObject<NSCoding>

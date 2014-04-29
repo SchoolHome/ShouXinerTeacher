@@ -46,11 +46,13 @@
     
     if (![[NSFileManager defaultManager] fileExistsAtPath:[NSString stringWithFormat:@"%@%@",documentsDirectory,[NSString stringWithFormat:CachePath,account.uid]]]) {
         NSString *myDirectory = [documentsDirectory stringByAppendingPathComponent:[NSString stringWithFormat:CachePath,account.uid]];
-        [[NSFileManager defaultManager] createDirectoryAtPath:myDirectory withIntermediateDirectories:NO attributes:nil error:nil];
+        NSError *error;
+        [[NSFileManager defaultManager] createDirectoryAtPath:myDirectory withIntermediateDirectories:NO attributes:nil error:&error];
     }
     
     NSData *cacheData = [NSKeyedArchiver archivedDataWithRootObject:data];
-    return [cacheData writeToFile:[NSString stringWithFormat:@"%@%@%@",documentsDirectory,[NSString stringWithFormat:CachePath,account.uid],fileName] atomically:YES];
+    NSString *filePath = [NSString stringWithFormat:@"%@%@%@",documentsDirectory,[NSString stringWithFormat:CachePath,account.uid],fileName];
+    return [cacheData writeToFile:filePath atomically:YES];
 }
 
 +(id) deserializeModel : (NSString *)fileName{

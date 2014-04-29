@@ -464,7 +464,7 @@
     //    [[[CPSystemEngine sharedInstance] userManager] getFriendsWithTimeStamp:[[[CPSystemEngine sharedInstance] accountModel] friTimeStamp]];
     //        [self testLoginAction];
     
-    [[UIApplication sharedApplication] setApplicationIconBadgeNumber:0];//.applicationIconBadgeNumber=0;
+//    [[UIApplication sharedApplication] setApplicationIconBadgeNumber:0];//.applicationIconBadgeNumber=0;
 //    [[UIApplication sharedApplication] cancelAllLocalNotifications];
 }
 -(void)initDataByHttpLoginSucess
