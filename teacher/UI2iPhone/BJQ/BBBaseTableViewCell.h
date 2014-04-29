@@ -48,6 +48,7 @@
 @property(nonatomic,strong) OHAttributedLabel *relpyContent;
 
 @property(nonatomic,strong) UIImageView *relpyContentBack;
+@property(nonatomic, strong) UIImageView *relpyContentLine;
 
 @property(nonatomic,strong) UIImageView *relpyContentBackTop;
 @property(nonatomic,strong) UIImageView *relpyContentBackBottom;

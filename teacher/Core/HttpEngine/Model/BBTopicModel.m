@@ -75,7 +75,9 @@
 
                     NSString *text = [NSString stringWithFormat:@"%@: %@\n",cm.username,cm.comment];
                     NSMutableAttributedString *attributedText = [[NSMutableAttributedString alloc] initWithString:text];
-                    [attributedText addAttribute:NSForegroundColorAttributeName value:[UIColor colorWithHexString:@"#4a7f9d"] range:NSMakeRange(0,len)];
+                    if ([[[UIDevice currentDevice] systemVersion] floatValue] > 6) {
+                        [attributedText addAttribute:NSForegroundColorAttributeName value:[UIColor colorWithHexString:@"#4a7f9d"] range:NSMakeRange(0,len)];
+                    }
                     
                     [str appendAttributedString:attributedText];
                 }

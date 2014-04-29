@@ -104,6 +104,9 @@
         _relpyContentBack = [[UIImageView alloc] init];
         [self addSubview:_relpyContentBack];
         
+        _relpyContentLine = [[UIImageView alloc] init];
+        [self addSubview:_relpyContentLine];
+        
         _relpyContentBackTop = [[UIImageView alloc] init];
         [self addSubview:_relpyContentBackTop];
         

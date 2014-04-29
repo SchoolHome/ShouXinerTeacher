@@ -184,7 +184,9 @@
             NSUInteger len = [comment.username length]+2;
             NSString *text = [NSString stringWithFormat:@"%@: %@\n",comment.username,comment.comment];
             NSMutableAttributedString *attributedText = [[NSMutableAttributedString alloc] initWithString:text];
-            [attributedText addAttribute:NSForegroundColorAttributeName value:[UIColor colorWithHexString:@"#4a7f9d"] range:NSMakeRange(0,len)];
+            if ([self currentVersion] > kIOS6) {
+                [attributedText addAttribute:NSForegroundColorAttributeName value:[UIColor colorWithHexString:@"#4a7f9d"] range:NSMakeRange(0,len)];
+            }
             
             NSMutableAttributedString *str = [[NSMutableAttributedString alloc] initWithAttributedString:self.tempTopModelInput.commentsStr];
             [str appendAttributedString:attributedText];
