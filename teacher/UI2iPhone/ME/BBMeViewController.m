@@ -156,12 +156,16 @@
         NSInteger section = indexPath.section - 1;
         [cell.textLabel setText:[[listData objectAtIndex:section] objectAtIndex:indexPath.row]];
         if (indexPath.section == 1 && indexPath.row == 0) {
+            [[cell.contentView viewWithTag:501] removeFromSuperview];
+            [[cell.contentView viewWithTag:502] removeFromSuperview];
             if (userCredits) {
                 if ([[userCredits objectForKey:@"credits"] integerValue]) {
                     UIImage *image = [UIImage imageNamed:@"user_credit_back.png"];
-                    UIImageView *creditImage = [[UIImageView alloc] init];
                     
+                    UIImageView *creditImage = [[UIImageView alloc] init];
                     UILabel *labelNum = [[UILabel alloc] init];
+                    [creditImage setTag:501];
+                    [labelNum setTag:502];
                     [labelNum setTextAlignment:NSTextAlignmentCenter];
                     [labelNum setBackgroundColor:[UIColor clearColor]];
                     [labelNum setTextColor:[UIColor colorWithRed:0.204f green:0.576f blue:0.871 alpha:1.0f]];
