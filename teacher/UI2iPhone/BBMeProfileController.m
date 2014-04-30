@@ -192,6 +192,8 @@
                     }
 #endif
                     [cell.headerImageView setImageURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@", userAvatar]]];
+                }else{
+                    [cell.headerImageView setImage:[UIImage imageNamed:@"girl.png"]];
                 }
             }else{
                 [cell.headerImageView setImage:[UIImage imageNamed:@"girl.png"]];
