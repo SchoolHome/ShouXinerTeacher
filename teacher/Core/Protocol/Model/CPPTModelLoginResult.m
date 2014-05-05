@@ -33,6 +33,11 @@
             result.serverPort = [jsonDict objectForKey:@"im_server_port"];
             result.suid = jsonDict[@"suid"];
             result.uid = jsonDict[@"uid"];
+            result.activated = [[jsonDict objectForKey:@"activated"] boolValue];
+            result.force = [[[jsonDict objectForKey:@"update"] objectForKey:@"force"] boolValue];
+            result.recommend = [[[jsonDict objectForKey:@"update"] objectForKey:@"recommend"] boolValue];
+            result.url = [[jsonDict objectForKey:@"update"] objectForKey:@"url"];
+            result.version = [[jsonDict objectForKey:@"update"] objectForKey:@"version"];
         }
     }
     

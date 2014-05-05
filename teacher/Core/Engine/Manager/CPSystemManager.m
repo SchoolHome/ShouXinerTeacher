@@ -23,7 +23,7 @@
 #import "CPUIModelManagement.h"
 #import "CPMsgManager.h"
 #import "CoreUtils.h"
-
+#import "PalmUIManagement.h"
 #define app_version         @"0.7.2"
 #define app_version_number  3
 
@@ -726,6 +726,8 @@
     }
     [[[CPSystemEngine sharedInstance] accountModel] setSuid:result.suid];
     [[[CPSystemEngine sharedInstance] accountModel] setUid:result.uid];
+    
+    [PalmUIManagement sharedInstance].loginResult = result;
     
     [self loginResponseWithCode:[NSNumber numberWithInt:resCode] response_description:responseDesc result:result];
     

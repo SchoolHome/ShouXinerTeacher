@@ -10,7 +10,7 @@
 #import "HomePageCheatView.h"
 #import "BBUITabBarController.h"
 
-@interface AppDelegate : UIResponder <UIApplicationDelegate,UIAlertViewDelegate,UIAlertViewDelegate>{
+@interface AppDelegate : UIResponder <UIApplicationDelegate,UIAlertViewDelegate>{
     UIImageView *loadingView;
 }
 @property (strong, nonatomic) UIWindow *window;

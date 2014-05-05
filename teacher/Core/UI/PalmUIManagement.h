@@ -8,6 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import "PalmNetWorkService.h"
+#import "CPPTModelLoginResult.h"
 
 #define TRANSFERVALUE @"TransferValue"
 #define TRANSFERVCFROMCLASS @"TransferFromVCClass"
@@ -16,6 +17,9 @@
 @interface PalmUIManagement : NSObject
 
 +(PalmUIManagement *) sharedInstance;
+// 登陆结果
+@property(nonatomic,strong) CPPTModelLoginResult *loginResult;
+
 // 客户端页面间传值KVO
 @property(nonatomic,strong) NSDictionary *transferDic;
 @property(nonatomic,strong) NSDictionary *userProfile;

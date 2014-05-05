@@ -75,6 +75,7 @@
 		19A83D4718D34C8900441FDE /* LoginButton@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 19A83D4318D34C8900441FDE /* LoginButton@2x.png */; };
 		19A83D4818D34C8900441FDE /* LoginButtonPress.png in Resources */ = {isa = PBXBuildFile; fileRef = 19A83D4418D34C8900441FDE /* LoginButtonPress.png */; };
 		19A83D4918D34C8900441FDE /* LoginButtonPress@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 19A83D4518D34C8900441FDE /* LoginButtonPress@2x.png */; };
+		19A88A131917C9DE001AC9B0 /* Crashlytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 19A88A121917C9DE001AC9B0 /* Crashlytics.framework */; };
 		19AD08AF18F67F7900E8AA55 /* user_credit_back.png in Resources */ = {isa = PBXBuildFile; fileRef = 19AD08AD18F67F7900E8AA55 /* user_credit_back.png */; };
 		19AD08B018F67F7900E8AA55 /* user_credit_back@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 19AD08AE18F67F7900E8AA55 /* user_credit_back@2x.png */; };
 		331447AB18C48621008B5B21 /* Login.m in Sources */ = {isa = PBXBuildFile; fileRef = 331447AA18C48621008B5B21 /* Login.m */; };
@@ -1356,6 +1357,7 @@
 		19A83D4318D34C8900441FDE /* LoginButton@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "LoginButton@2x.png"; sourceTree = "<group>"; };
 		19A83D4418D34C8900441FDE /* LoginButtonPress.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = LoginButtonPress.png; sourceTree = "<group>"; };
 		19A83D4518D34C8900441FDE /* LoginButtonPress@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "LoginButtonPress@2x.png"; sourceTree = "<group>"; };
+		19A88A121917C9DE001AC9B0 /* Crashlytics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Crashlytics.framework; sourceTree = "<group>"; };
 		19AD08AD18F67F7900E8AA55 /* user_credit_back.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = user_credit_back.png; sourceTree = "<group>"; };
 		19AD08AE18F67F7900E8AA55 /* user_credit_back@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "user_credit_back@2x.png"; sourceTree = "<group>"; };
 		331447A918C48621008B5B21 /* Login.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Login.h; sourceTree = "<group>"; };
@@ -3155,6 +3157,7 @@
 				332D75C018C3361C007A75D5 /* MapKit.framework in Frameworks */,
 				332D75BE18C33610007A75D5 /* CoreTelephony.framework in Frameworks */,
 				332D75BC18C33606007A75D5 /* SystemConfiguration.framework in Frameworks */,
+				19A88A131917C9DE001AC9B0 /* Crashlytics.framework in Frameworks */,
 				332D75BA18C335FB007A75D5 /* MobileCoreServices.framework in Frameworks */,
 				332D75B818C335EE007A75D5 /* CoreMedia.framework in Frameworks */,
 				332D725718C33464007A75D5 /* CoreGraphics.framework in Frameworks */,
@@ -6590,6 +6593,7 @@
 		7AC51B8118CDD92D00AD1A8C /* UI2iPhone */ = {
 			isa = PBXGroup;
 			children = (
+				19A88A121917C9DE001AC9B0 /* Crashlytics.framework */,
 				197FCF9D18F41D5000EE751B /* navBarBg44.png */,
 				197FCF9E18F41D5000EE751B /* navBarBg44@2x.png */,
 				7A863C7018EB2C000090C430 /* SVPullToRefresh */,
@@ -6674,6 +6678,7 @@
 				332D724D18C33464007A75D5 /* Sources */,
 				332D724E18C33464007A75D5 /* Frameworks */,
 				332D724F18C33464007A75D5 /* Resources */,
+				19A88A111917C919001AC9B0 /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -7403,6 +7408,22 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		19A88A111917C919001AC9B0 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "./Crashlytics.framework/run fb92e12c5ee94966ce5c9aaaa0376675d7f4ca07 e804870cf4cbbac873d3854b98465730bd37f1381cf7433b9869112763784415";
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		332D724D18C33464007A75D5 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
@@ -8101,7 +8122,10 @@
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/teacher/UI2iPhone",
+				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "teacher/teacher-Prefix.pch";
 				HEADER_SEARCH_PATHS = (
@@ -8134,7 +8158,10 @@
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "iPhone Distribution: Shenyang Idtech Information Technology Co., Ltd.";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Shenyang Idtech Information Technology Co., Ltd.";
-				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/teacher/UI2iPhone",
+				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "teacher/teacher-Prefix.pch";
 				HEADER_SEARCH_PATHS = (
