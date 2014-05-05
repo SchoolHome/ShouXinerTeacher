@@ -81,7 +81,7 @@
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
     [dateFormatter setDateFormat:@"HH:mm"];
     [dateFormatter setLocale:[[NSLocale alloc] initWithLocaleIdentifier:@"en_US"]];
-    [dateFormatter setTimeZone:[NSTimeZone timeZoneWithAbbreviation:@"GMT"]];
+    [dateFormatter setTimeZone:[NSTimeZone timeZoneWithAbbreviation:@"GMT+800"]];
     NSString *dateString = [dateFormatter stringFromDate:date];
     
     return dateString;

@@ -893,7 +893,7 @@ typedef enum httpEngineState HttpEngineState;
     [loginInfoDict setObject:[[UIDevice currentDevice] systemVersion] forKey:@"device_version"];
     [loginInfoDict setObject:@"ios_v2_teacher" forKey:@"app_platform"];
 //    [loginInfoDict setObject:@"ios_v2" forKey:@"app_platform"];
-    [loginInfoDict setObject:@"1.0.0.0" forKey:@"app_version"];
+    [loginInfoDict setObject:[[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleVersion"] forKey:@"app_version"];
     
     NSNumber *first = [[NSUserDefaults standardUserDefaults] objectForKey:[NSString stringWithFormat:@"first_login%@",userName]];
     if (nil == first) {

@@ -8055,8 +8055,8 @@
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer: yuan gao (5PS549TGY5)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: yuan gao (5PS549TGY5)";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Shenyang Idtech Information Technology Co., Ltd.";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Shenyang Idtech Information Technology Co., Ltd.";
 				COPY_PHASE_STRIP = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
@@ -8074,7 +8074,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				ONLY_ACTIVE_ARCH = YES;
-				PROVISIONING_PROFILE = "8ADA4211-F5E2-4B2C-BD42-E4012B0B901C";
+				PROVISIONING_PROFILE = "6254ECE3-EB9C-46FA-8BF2-1464DF2443C8";
 				SDKROOT = iphoneos;
 			};
 			name = Debug;
@@ -8096,8 +8096,8 @@
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer: yuan gao (5PS549TGY5)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: yuan gao (5PS549TGY5)";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Shenyang Idtech Information Technology Co., Ltd.";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Shenyang Idtech Information Technology Co., Ltd.";
 				COPY_PHASE_STRIP = YES;
 				ENABLE_NS_ASSERTIONS = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
@@ -8126,6 +8126,9 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/teacher/UI2iPhone",
 				);
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Shenyang Idtech Information Technology Co., Ltd.";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Shenyang Idtech Information Technology Co., Ltd.";
+				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "teacher/teacher-Prefix.pch";
 				HEADER_SEARCH_PATHS = (
@@ -8143,7 +8146,7 @@
 				ONLY_ACTIVE_ARCH = NO;
 				OTHER_LDFLAGS = "-lxml2";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "8ADA4211-F5E2-4B2C-BD42-E4012B0B901C";
+				PROVISIONING_PROFILE = "6254ECE3-EB9C-46FA-8BF2-1464DF2443C8";
 				SDKROOT = iphoneos;
 				VALID_ARCHS = armv7;
 				WRAPPER_EXTENSION = app;
