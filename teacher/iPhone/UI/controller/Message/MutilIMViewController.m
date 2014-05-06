@@ -38,7 +38,6 @@
     [[CPUIModelManagement sharedInstance] addObserver:self forKeyPath:@"addFavoriteGroupDic" options:0 context:@""];
     [[CPUIModelManagement sharedInstance] addObserver:self forKeyPath:@"quitGroupDic" options:0 context:@""];
     [[CPUIModelManagement sharedInstance] addObserver:self forKeyPath:@"removeGroupMemDic" options:0 context:@""];
-    [[TalkingDataHelper sharedInstance] pageBegin:PageType_Groud_IM];
 }
 -(void)viewWillDisappear:(BOOL)animated
 {
@@ -51,7 +50,6 @@
 -(void)viewDidDisappear:(BOOL)animated
 {
     [super viewDidDisappear:animated];
-    [[TalkingDataHelper sharedInstance] pageEnd:PageType_Groud_IM];
 }
 - (void)viewDidLoad
 {

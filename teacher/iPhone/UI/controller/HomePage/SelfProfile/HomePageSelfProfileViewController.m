@@ -18,8 +18,6 @@
 #import "CoreUtils.h"
 #import "TPCMToAMR.h"
 
-#import "TalkingDataHelper.h"
-
 #import "AppDelegate.h"
 #import "HomePageViewController.h"
 
@@ -1122,7 +1120,6 @@
 
 -(void) viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
-    [[TalkingDataHelper sharedInstance] pageBegin:PageType_MySelfProfile];
 }
 
 -(void)viewWillDisappear:(BOOL)animated{
@@ -1131,7 +1128,6 @@
     self.isUpdateTaped = NO;
 
     
-    [[TalkingDataHelper sharedInstance] pageEnd:PageType_MySelfProfile];
     [[MusicPlayerManager sharedInstance] stop];
     [MusicPlayerManager sharedInstance].delegate = nil;
 }

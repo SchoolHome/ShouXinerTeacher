@@ -293,8 +293,6 @@
 		332D759118C33552007A75D5 /* CPPTModelUserInfos.m in Sources */ = {isa = PBXBuildFile; fileRef = 332D746E18C33552007A75D5 /* CPPTModelUserInfos.m */; };
 		332D759218C33552007A75D5 /* CPPTModelUserProfile.m in Sources */ = {isa = PBXBuildFile; fileRef = 332D747018C33552007A75D5 /* CPPTModelUserProfile.m */; };
 		332D759318C33552007A75D5 /* CPPTModelUserRegisterInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 332D747218C33552007A75D5 /* CPPTModelUserRegisterInfo.m */; };
-		332D759418C33552007A75D5 /* libTalkingData.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 332D747518C33552007A75D5 /* libTalkingData.a */; };
-		332D759518C33552007A75D5 /* TalkingDataHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 332D747818C33552007A75D5 /* TalkingDataHelper.m */; };
 		332D759618C33552007A75D5 /* CPUIModelManagement.m in Sources */ = {isa = PBXBuildFile; fileRef = 332D747B18C33552007A75D5 /* CPUIModelManagement.m */; };
 		332D759718C33552007A75D5 /* CPUIModelAnimSlideInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 332D747E18C33552007A75D5 /* CPUIModelAnimSlideInfo.m */; };
 		332D759818C33552007A75D5 /* CPUIModelAudioSlideInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 332D748018C33552007A75D5 /* CPUIModelAudioSlideInfo.m */; };
@@ -914,7 +912,6 @@
 		332D82FD18C33F0B007A75D5 /* RegistFirstViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 332D7CF018C33F09007A75D5 /* RegistFirstViewController.m */; };
 		332D82FE18C33F0B007A75D5 /* RegistInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 332D7CF218C33F09007A75D5 /* RegistInfo.m */; };
 		332D82FF18C33F0B007A75D5 /* RegistViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 332D7CF418C33F09007A75D5 /* RegistViewController.m */; };
-		332D830018C33F0B007A75D5 /* VerifyViewCodeController.m in Sources */ = {isa = PBXBuildFile; fileRef = 332D7CF718C33F0A007A75D5 /* VerifyViewCodeController.m */; };
 		332D830118C33F0B007A75D5 /* CheckMessageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 332D7CFC18C33F0A007A75D5 /* CheckMessageView.m */; };
 		332D830218C33F0B007A75D5 /* CustomAlertView.m in Sources */ = {isa = PBXBuildFile; fileRef = 332D7CFE18C33F0A007A75D5 /* CustomAlertView.m */; };
 		332D830318C33F0B007A75D5 /* LoadingView.m in Sources */ = {isa = PBXBuildFile; fileRef = 332D7D0018C33F0A007A75D5 /* LoadingView.m */; };
@@ -1800,10 +1797,6 @@
 		332D747118C33552007A75D5 /* CPPTModelUserRegisterInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPPTModelUserRegisterInfo.h; sourceTree = "<group>"; };
 		332D747218C33552007A75D5 /* CPPTModelUserRegisterInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CPPTModelUserRegisterInfo.m; sourceTree = "<group>"; };
 		332D747318C33552007A75D5 /* ProtocolModelDefines.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProtocolModelDefines.h; sourceTree = "<group>"; };
-		332D747518C33552007A75D5 /* libTalkingData.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libTalkingData.a; sourceTree = "<group>"; };
-		332D747618C33552007A75D5 /* TalkingData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TalkingData.h; sourceTree = "<group>"; };
-		332D747718C33552007A75D5 /* TalkingDataHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TalkingDataHelper.h; sourceTree = "<group>"; };
-		332D747818C33552007A75D5 /* TalkingDataHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TalkingDataHelper.m; sourceTree = "<group>"; };
 		332D747A18C33552007A75D5 /* CPUIModelManagement.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPUIModelManagement.h; sourceTree = "<group>"; };
 		332D747B18C33552007A75D5 /* CPUIModelManagement.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CPUIModelManagement.m; sourceTree = "<group>"; };
 		332D747D18C33552007A75D5 /* CPUIModelAnimSlideInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPUIModelAnimSlideInfo.h; sourceTree = "<group>"; };
@@ -2564,8 +2557,6 @@
 		332D7CF218C33F09007A75D5 /* RegistInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RegistInfo.m; sourceTree = "<group>"; };
 		332D7CF318C33F09007A75D5 /* RegistViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RegistViewController.h; sourceTree = "<group>"; };
 		332D7CF418C33F09007A75D5 /* RegistViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RegistViewController.m; sourceTree = "<group>"; };
-		332D7CF618C33F0A007A75D5 /* VerifyViewCodeController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VerifyViewCodeController.h; sourceTree = "<group>"; };
-		332D7CF718C33F0A007A75D5 /* VerifyViewCodeController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VerifyViewCodeController.m; sourceTree = "<group>"; };
 		332D7CFA18C33F0A007A75D5 /* AlertDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AlertDelegate.h; sourceTree = "<group>"; };
 		332D7CFB18C33F0A007A75D5 /* CheckMessageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CheckMessageView.h; sourceTree = "<group>"; };
 		332D7CFC18C33F0A007A75D5 /* CheckMessageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CheckMessageView.m; sourceTree = "<group>"; };
@@ -3166,7 +3157,6 @@
 				332D725718C33464007A75D5 /* CoreGraphics.framework in Frameworks */,
 				332D757218C33552007A75D5 /* libidn.a in Frameworks */,
 				332D725918C33464007A75D5 /* UIKit.framework in Frameworks */,
-				332D759418C33552007A75D5 /* libTalkingData.a in Frameworks */,
 				332D725518C33464007A75D5 /* Foundation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -3467,7 +3457,6 @@
 				332D728E18C33551007A75D5 /* DB */,
 				332D72DE18C33551007A75D5 /* Engine */,
 				332D743B18C33552007A75D5 /* Protocol */,
-				332D747418C33552007A75D5 /* TalkingData */,
 				332D747918C33552007A75D5 /* UI */,
 				332D74AB18C33552007A75D5 /* Utils */,
 			);
@@ -4338,17 +4327,6 @@
 			path = Model;
 			sourceTree = "<group>";
 		};
-		332D747418C33552007A75D5 /* TalkingData */ = {
-			isa = PBXGroup;
-			children = (
-				332D747518C33552007A75D5 /* libTalkingData.a */,
-				332D747618C33552007A75D5 /* TalkingData.h */,
-				332D747718C33552007A75D5 /* TalkingDataHelper.h */,
-				332D747818C33552007A75D5 /* TalkingDataHelper.m */,
-			);
-			path = TalkingData;
-			sourceTree = "<group>";
-		};
 		332D747918C33552007A75D5 /* UI */ = {
 			isa = PBXGroup;
 			children = (
@@ -5203,7 +5181,6 @@
 				332D7CC218C33F09007A75D5 /* MessageDetail */,
 				332D7CE318C33F09007A75D5 /* Pet */,
 				332D7CEC18C33F09007A75D5 /* RegistViewController */,
-				332D7CF518C33F09007A75D5 /* VerifyViewController */,
 			);
 			path = controller;
 			sourceTree = "<group>";
@@ -5540,15 +5517,6 @@
 				332D7CF418C33F09007A75D5 /* RegistViewController.m */,
 			);
 			path = RegistViewController;
-			sourceTree = "<group>";
-		};
-		332D7CF518C33F09007A75D5 /* VerifyViewController */ = {
-			isa = PBXGroup;
-			children = (
-				332D7CF618C33F0A007A75D5 /* VerifyViewCodeController.h */,
-				332D7CF718C33F0A007A75D5 /* VerifyViewCodeController.m */,
-			);
-			path = VerifyViewController;
 			sourceTree = "<group>";
 		};
 		332D7CF818C33F0A007A75D5 /* customcontrol */ = {
@@ -7542,7 +7510,6 @@
 				332D834518C33F0B007A75D5 /* SingleSoundExpressionCell.m in Sources */,
 				741EBBC218D4C05A00F21085 /* BBMessageGroupBaseCell.m in Sources */,
 				332D751D18C33552007A75D5 /* JSONKit.m in Sources */,
-				332D830018C33F0B007A75D5 /* VerifyViewCodeController.m in Sources */,
 				332D82EB18C33F0A007A75D5 /* ExMessageModel.m in Sources */,
 				332D751A18C33552007A75D5 /* CPHttpEngineContextObject.m in Sources */,
 				7A59194B18D6BDA500C03DED /* BBPBXViewController.m in Sources */,
@@ -7693,7 +7660,6 @@
 				332D838818C33F0B007A75D5 /* ImageFilter.m in Sources */,
 				7A922F7C18E2CEFC00026C4A /* BBInputView.m in Sources */,
 				332D758D18C33552007A75D5 /* CPPTModelSearchResultUserInfo.m in Sources */,
-				332D759518C33552007A75D5 /* TalkingDataHelper.m in Sources */,
 				332D839018C33F0B007A75D5 /* TSortOperator.m in Sources */,
 				332D82EE18C33F0A007A75D5 /* MessageCellFactory.m in Sources */,
 				332D74E918C33552007A75D5 /* CPDBModelResource.m in Sources */,

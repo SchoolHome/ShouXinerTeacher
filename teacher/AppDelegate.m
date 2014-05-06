@@ -17,12 +17,11 @@
 #import "Login.h"
 #import "RegistFirstViewController.h"
 #import "RegistViewController.h"
-#import "VerifyViewCodeController.h"
+//#import "VerifyViewCodeController.h"
 #import "Guid07ViewController.h"
 #import "FanxerHeader.h"
 
 #import "HomePageViewController.h"
-#import "TalkingData.h"
 #import "AudioRouteChange.h"
 #import "AlarmClockHelper.h"
 #import "HPStatusBarTipView.h"

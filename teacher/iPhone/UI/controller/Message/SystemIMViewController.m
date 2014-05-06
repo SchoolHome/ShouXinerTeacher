@@ -52,12 +52,10 @@
 {
     [super viewDidAppear:animated];
     [[CPUIModelManagement sharedInstance] setCurrentMsgGroup:[[CPUIModelManagement sharedInstance] getMsgGroupWithUserName:@"system"]];
-    [[TalkingDataHelper sharedInstance] pageBegin:PageType_SystemIM];
 }
 -(void)viewDidDisappear:(BOOL)animated
 {
     [super viewDidDisappear:animated];
-    [[TalkingDataHelper sharedInstance] pageEnd:PageType_SystemIM];
 }
 - (void)viewDidUnload
 {

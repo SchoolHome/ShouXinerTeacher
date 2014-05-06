@@ -8,7 +8,6 @@
 
 #import "GroupProfileView.h"
 #import "ImageUtil.h"
-#import "TalkingDataHelper.h"
 
 
 #define LabelTextDotTag 1017
@@ -391,7 +390,6 @@
             if ([self.groupProfileDelegate respondsToSelector:@selector(turnToContactProfileDelegate:)]) {
                 [self.groupProfileDelegate turnToContactProfileDelegate:userInfo];
             } 
-            [[TalkingDataHelper sharedInstance] addEvent:EventLabelType_Enter_Stranger label:LabelType_Click_Stranger_Group];
         }
     }
 }
@@ -1226,7 +1224,6 @@
         if ([self.groupProfileDelegate respondsToSelector:@selector(turnToContactProfileDelegate:)]) {
             [self.groupProfileDelegate turnToContactProfileDelegate:userInfo];
         } 
-        [[TalkingDataHelper sharedInstance] addEvent:EventLabelType_Enter_Stranger label:LabelType_Click_Stranger_Group];
     }
 
 

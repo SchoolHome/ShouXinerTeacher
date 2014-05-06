@@ -61,7 +61,6 @@
 #define FX_SHAKE_ALERT_HEIGHT 30
 
 #define MAX_COUNT 30
-#import "TalkingDataHelper.h"
 @interface RegistViewController (Private)
 
 -(BOOL)doValidate;
@@ -84,7 +83,7 @@
 @end
 
 @implementation RegistViewController
-@synthesize verifycodecontroller;
+//@synthesize verifycodecontroller;
 @synthesize fnav;
 
 -(id)initWithRegistInfo:(RegistInfo *)registinfo{
@@ -152,15 +151,12 @@
 // Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
-    [[TalkingDataHelper sharedInstance] pageBegin:PageType_RegisterPage_StepTwo];
     /*
      进入填写用户名密码页面 调用（1）
      */
-    [[TalkingDataHelper sharedInstance] addEvent:EventType_Enter_Register_UserNameAndPassWord];
 }
 - (void)viewWillDisappear:(BOOL)animated{
     [super viewWillDisappear:animated];
-    [[TalkingDataHelper sharedInstance] pageEnd:PageType_RegisterPage_StepTwo];
 }
 - (void)viewDidAppear:(BOOL)animated{
     [super viewDidAppear:animated];
@@ -888,7 +884,6 @@
             /*
              点击下一步时，网络连接错误 调用（2）
              */
-            [[TalkingDataHelper sharedInstance] addEvent:EventLabelType_Enter_Register_UserNameAndPassWord label:LabelType_UserNameAndPassWord_NextStep_NetWorkError];
             return;
         }
         isreturn=NO;
@@ -981,14 +976,13 @@
                 /*
                 顺利完成填写用户名密码页面的用户 调用（1）
                  */
-                [[TalkingDataHelper sharedInstance] addEvent:EventType_Enter_Register_UserNameAndPassWord_Success];
                 
                 
                 /*
                  此处进行跳转
                  */
-                verifycodecontroller =[[VerifyViewCodeController alloc] initWithNibName:nil bundle:nil region_string:nil mobile_string:mobilenumber.text top_image:mybackgroundimg];
-                [self.navigationController pushViewController:verifycodecontroller animated:YES];  
+//                verifycodecontroller =[[VerifyViewCodeController alloc] initWithNibName:nil bundle:nil region_string:nil mobile_string:mobilenumber.text top_image:mybackgroundimg];
+//                [self.navigationController pushViewController:verifycodecontroller animated:YES];  
                 //verifycodecontroller = nil;
                 
                 
@@ -1011,7 +1005,6 @@
                 /*
                 点击下一步时，用户名重名失败 调用（2）
                  */
-                [[TalkingDataHelper sharedInstance] addEvent:EventLabelType_Enter_Register_UserNameAndPassWord label:LabelType_UserNameAndPassWord_NextStep_UserNameHasExist];
                 accountwarning.hidden=NO;
                 accountwarninglabel.hidden=NO;
                 accountwarninglabel.text=uiManagement.registerDesc;
@@ -1049,7 +1042,6 @@
                 /*
                  点击下一步时，手机号重复失败 调用（2）
                  */
-                [[TalkingDataHelper sharedInstance] addEvent:EventLabelType_Enter_Register_UserNameAndPassWord label:LabelType_UserNameAndPassWord_NextStep_PhoneNumberHasExist];
                 
                 mobilewarring.hidden=NO;
                 

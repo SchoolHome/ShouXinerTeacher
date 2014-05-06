@@ -11,7 +11,6 @@
 
 #import "MessageDetailViewController.h"
 #import "MessageSoundPlayer.h"
-#import "TalkingDataHelper.h"
 #import "MediaStatusManager.h"
 #import "TPCMToAMR.h"
 #import "TimeDetector.h"
@@ -1185,7 +1184,6 @@
         [self.datepicker closeInView];
     }
     
-    [[TalkingDataHelper sharedInstance] addEvent:EventType_Click_TextAlarm];
     
     self.datepicker = [[AlarmDatePickerView alloc] initWithFrame:CGRectMake(0, 460, 320, 460)];
     [self.datepicker setTitle:@"闹闹：把这句话设个时间定时提醒Ta"];
@@ -1228,7 +1226,6 @@
     [message setAlarmTime: dateNumber];
     [[CPUIModelManagement sharedInstance] sendMsgWithGroup:self.messageGroup andMsg:message];
     
-    [[TalkingDataHelper sharedInstance] addEvent:EventType_Click_TextAlarm_Sended];
     
     // 发送小双闹钟
     /*
@@ -1960,9 +1957,6 @@
     ExMessageModel *exModel = (ExMessageModel *)systemActionCell.data;
     AddContactAnalysis analysis = [[RelationshipBrain sharedInstance] getContactAnalysis:exModel];
     
-    // 统计信息
-    [[TalkingDataHelper sharedInstance] addEvent:EventType_Click_Recommend_NotLabel];
-    [[TalkingDataHelper sharedInstance] addEvent:EventLabelType_Enter_Stranger label:LabelType_Click_Recommend_NotLabel];
     
     if ([exModel.messageModel.contentType integerValue]==MSG_CONTENT_TYPE_UNKNOWN)
     {

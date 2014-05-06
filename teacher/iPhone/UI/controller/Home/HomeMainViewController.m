@@ -9,7 +9,6 @@
 #import "HomeMainViewController.h"
 #import "HomeInfo.h"
 #import "HomePageSelfProfileViewController.h"
-#import "TalkingDataHelper.h"
 #import "AddContactViewController.h"
 #import "HomePageViewController.h"
 #import "SingleIMViewController.h"
@@ -368,14 +367,11 @@ needBreakIceWhenCoupleMessageGroupNil = _needBreakIceWhenCoupleMessageGroupNil;
 //        if (self.coupleIMController.view) {
 //            [self.coupleIMController getLoveMessage];
 //        }
-//        [[TalkingDataHelper sharedInstance] pageBegin:PageType_CoupleIM];
-//    }else 
+//    }else
         if([HomeInfo shareObject].currentViewControllerIndex == ContactFriend_CloseFriend)
     {
-        [[TalkingDataHelper sharedInstance] pageBegin:PageType_CloseFriendWall];
     }else if([HomeInfo shareObject].currentViewControllerIndex == ContactFriend_NormalFriend)
     {
-        [[TalkingDataHelper sharedInstance] pageBegin:PageType_FriendWall];
     }
     CGFloat time = [[[NSUserDefaults standardUserDefaults] objectForKey:alertMessageWhenFristTime] floatValue];
     if (time < 5.0) {
@@ -420,14 +416,11 @@ needBreakIceWhenCoupleMessageGroupNil = _needBreakIceWhenCoupleMessageGroupNil;
 {
 //   self.coupleIMController.isInCoupleImViewController = NO;
 //    if ([HomeInfo shareObject].currentViewControllerIndex == ContactFriend_Couple ) {
-//       [[TalkingDataHelper sharedInstance] pageEnd:PageType_CoupleIM]; 
 //    }else
         if([HomeInfo shareObject].currentViewControllerIndex == ContactFriend_CloseFriend)
     {
-       [[TalkingDataHelper sharedInstance] pageEnd:PageType_CloseFriendWall];  
     }else if([HomeInfo shareObject].currentViewControllerIndex == ContactFriend_NormalFriend)
     {
-        [[TalkingDataHelper sharedInstance] pageEnd:PageType_FriendWall]; 
     }
     
     
@@ -505,8 +498,6 @@ needBreakIceWhenCoupleMessageGroupNil = _needBreakIceWhenCoupleMessageGroupNil;
 //                UITableView *tableFriend = (UITableView *)[[self.mutableArrViews objectAtIndex:0] viewWithTag:90011];
 //                
 //                [tableFriend reloadData];
-                [[TalkingDataHelper sharedInstance] pageBegin:PageType_FriendWall];
-                [[TalkingDataHelper sharedInstance] pageEnd:PageType_CoupleIM];
  //               self.coupleIMController.isInCoupleImViewController = NO;
                 [switchButton setFriendStyle];
                 
@@ -517,17 +508,12 @@ needBreakIceWhenCoupleMessageGroupNil = _needBreakIceWhenCoupleMessageGroupNil;
 //                UITableView *tableCloseFriend = (UITableView *)[[self.mutableArrViews objectAtIndex:2] viewWithTag:90010];
 //                [tableCloseFriend reloadData];
 //                self.coupleIMController.isInCoupleImViewController = NO;
-                [[TalkingDataHelper sharedInstance] pageBegin:PageType_CloseFriendWall];
-                [[TalkingDataHelper sharedInstance] pageEnd:PageType_CoupleIM];
                 [switchButton setCloseFriendStyle];
             }
                 break;
 //            case ContactFriend_Couple:
 //            {
 //                
-//                [[TalkingDataHelper sharedInstance] pageEnd:PageType_FriendWall];
-//                [[TalkingDataHelper sharedInstance] pageEnd:PageType_CloseFriendWall];
-//                [[TalkingDataHelper sharedInstance] pageBegin:PageType_CoupleIM];
 //                self.coupleIMController.isInCoupleImViewController = YES;
 //                if ([HomeInfo shareObject].isDeletingInCell) {
 //                    HomeFriendsView *friendView = [self.mutableArrViews objectAtIndex:0];

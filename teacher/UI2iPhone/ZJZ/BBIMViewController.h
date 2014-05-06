@@ -14,7 +14,6 @@
 #import "HomePageSelfProfileViewController.h"
 #import "SingleIndependentProfileViewController.h"
 #import "CustomAlertView.h"
-#import "TalkingDataHelper.h"
 #import "FXBlockViewSubmit.h"
 typedef enum {
     MAGIC_DOWNLOAD_TYPE_NONE_IM,

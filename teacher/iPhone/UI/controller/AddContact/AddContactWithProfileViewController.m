@@ -9,7 +9,6 @@
 #import "AddContactWithProfileViewController.h"
 #import "CPDBManagement.h"
 #import "CPLGModelAccount.h"
-#import "TalkingDataHelper.h"
 #import "HPTopTipView.h"
 @interface AddContactWithProfileViewController ()
 @property (nonatomic) BOOL isFirstAddContact;
@@ -217,13 +216,11 @@
 
 -(void) viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
-    [[TalkingDataHelper sharedInstance] pageBegin:PageType_StrangerProfile];    
 }
 
 -(void) viewWillDisappear:(BOOL)animated{
     [super viewWillDisappear:animated];
     self.profileModel.delegate = nil;
-    [[TalkingDataHelper sharedInstance] pageEnd:PageType_StrangerProfile];
 }
 
 - (void)viewDidLoad{
@@ -456,7 +453,6 @@
             contactType = AddCouple;
         }
         // 统计信息
-        [[TalkingDataHelper sharedInstance] addEvent:EventType_Operation_InStrangerProfile];
         [self addContactRelation:contactType];
     }
 }

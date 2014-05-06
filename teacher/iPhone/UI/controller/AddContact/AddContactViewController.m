@@ -7,7 +7,6 @@
 //
 
 #import "AddContactViewController.h"
-#import "TalkingDataHelper.h"
 #import "HPTopTipView.h"
 #import <AddressBook/AddressBook.h>
 
@@ -251,43 +250,11 @@
 -(void) viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
     isReceiveKVO = YES;
-    
-    switch (self.uiAddContactEnum) {
-        case UIAddFriends:
-            [[TalkingDataHelper sharedInstance] pageBegin:PageType_AddContact_Friend];
-            break;
-        case UIAddCloseFriends:
-            [[TalkingDataHelper sharedInstance] pageBegin:PageType_AddContact_CloseFriend];
-            break;
-        case UIAddLike:
-            [[TalkingDataHelper sharedInstance] pageBegin:PageType_AddContact_Like];
-            break;
-        case UIAddCouple:
-            [[TalkingDataHelper sharedInstance] pageBegin:PageType_AddContact_Couple];
-            break;
-        default:
-            break;
-    }
 }
 
 -(void) viewWillDisappear:(BOOL)animated{
     [super viewWillDisappear:animated];
-    switch (self.uiAddContactEnum) {
-        case UIAddFriends:
-            [[TalkingDataHelper sharedInstance] pageEnd:PageType_AddContact_Friend];
-            break;
-        case UIAddCloseFriends:
-            [[TalkingDataHelper sharedInstance] pageEnd:PageType_AddContact_CloseFriend];
-            break;
-        case UIAddLike:
-            [[TalkingDataHelper sharedInstance] pageEnd:PageType_AddContact_Like];
-            break;
-        case UIAddCouple:
-            [[TalkingDataHelper sharedInstance] pageEnd:PageType_AddContact_Couple];
-            break;
-        default:
-            break;
-    }
+
     self.navigationController.delegate = nil;
 }
 
@@ -322,7 +289,6 @@
 // 传输电话号码与远程服务器通信
 -(void) sendInvited:(id)sender{
     // 统计信息
-    [[TalkingDataHelper sharedInstance] addEvent:EventType_Enter_SSRecommendOrConfirmButton];
     
     NSArray *keys = [self.addContactModel.contactDictionary allKeys];
     NSMutableArray *TelNumber = [NSMutableArray arrayWithCapacity:10];
@@ -330,7 +296,6 @@
         ContactModel *contactDic = [self.addContactModel.contactDictionary objectForKey:key];
         if (contactDic.isSelected && contactDic.isSendedMessage == NO) {
             // 统计信息
-            [[TalkingDataHelper sharedInstance] addEvent:EventType_Enter_InviteContact];
             [TelNumber addObject:contactDic.selectedTelNumber];
             CPLogInfo(@"---------发送检查的电话：%@----------",contactDic.selectedTelNumber);
         }
@@ -389,7 +354,6 @@
     
     if( [MFMessageComposeViewController canSendText] ){
         // 统计信息
-        [[TalkingDataHelper sharedInstance] addEvent:EventType_Enter_SMS];
         MFMessageComposeViewController *controller = [[MFMessageComposeViewController alloc] init];
 //        #warning 短信发送内容未确定，需完善
         controller.recipients = telNumberArray;
@@ -446,7 +410,6 @@
                 }
             }
             // 统计信息
-            [[TalkingDataHelper sharedInstance] addEvent:EventType_SendSMS];
             isClose = YES;
             [self.myTableView reloadData];
             break;
@@ -567,10 +530,8 @@
     switch (self.uiAddContactEnum) {
         case UIAddFriends:
             titleText = @"添加好友";
-            [[TalkingDataHelper sharedInstance] addEvent:EventType_Enter_AddFriendAndCloseFriend];
             break;
         case UIAddCloseFriends:
-            [[TalkingDataHelper sharedInstance] addEvent:EventType_Enter_AddFriendAndCloseFriend];
             titleText = @"添加蜜友";
             break;
         case UIAddLike:
@@ -1235,7 +1196,6 @@
     }
     // 如果是双双推荐，增加统计
     if (cell.isShuangShuangRecommon) {
-        [[TalkingDataHelper sharedInstance] addEvent:EventType_Enter_SSRecommendOrConfirmButton];
     }
     
     userInfor.userInforState = UserStateLoading;
@@ -1374,7 +1334,6 @@
     }
     // 如果是双双推荐，增加统计
     if (EventCell.isShuangShuangRecommon) {
-        [[TalkingDataHelper sharedInstance] addEvent:EventType_Enter_SSRecommendOrConfirmButton];
     }
     // 调用服务端处理数据
     [[CPUIModelManagement sharedInstance] modifyFriendTypeWithCategory:FRIEND_CATEGORY_CLOSER andUserName:data.userName andInviteString:@"" andCouldExpose:YES];
@@ -1391,7 +1350,6 @@
         }
     }
     // 统计信息
-    [[TalkingDataHelper sharedInstance] addEvent:EventLabelType_Enter_Stranger label:LabelType_Click_StrangerImage_AddContact];
     AddContactWithProfileViewController *addContactWithProfile = [[AddContactWithProfileViewController alloc] initAddContactWithUserInfor:userInfor];
     [self.navigationController pushViewController:addContactWithProfile animated:YES];
 }

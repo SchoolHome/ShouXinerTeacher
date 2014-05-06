@@ -49,7 +49,6 @@
 -(void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
-    [[TalkingDataHelper sharedInstance] pageBegin:PageType_ShuangShuang_IM];
 }
 //-(void)viewWillAppear:(BOOL)animated
 //{
@@ -59,7 +58,6 @@
 -(void)viewDidDisappear:(BOOL)animated
 {
     [super viewDidDisappear:animated];
-    [[TalkingDataHelper sharedInstance] pageEnd:PageType_ShuangShuang_IM];
 }
 - (void)viewDidUnload
 {

@@ -15,7 +15,6 @@
 
 #import "KeyboardView.h"
 #import "DateUtil.h"
-#import "TalkingDataHelper.h"
 @interface PetView()
 - (void)initMainItems;
 - (void)initHappyItems;
@@ -103,7 +102,6 @@
     }];
     
     
-    [[TalkingDataHelper sharedInstance] addEvent:EventType_Click_PetAlarm_Sended];
     
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
     [dateFormatter setTimeZone:[NSTimeZone defaultTimeZone]];
@@ -1399,7 +1397,6 @@
                         
                         longPressRecordButton.hidden = NO;
                         
-                        [[TalkingDataHelper sharedInstance] addEvent:EventType_Click_PetAlarm];
                         /*
                         //////
                         NSString *path = [[NSBundle mainBundle] pathForResource:@"pet_sound_chuansheng.mp3" ofType:nil];

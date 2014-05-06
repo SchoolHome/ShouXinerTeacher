@@ -12,7 +12,6 @@
 #import "ColorUtil.h"
 #import "HPTopTipView.h"
 #import "HPStatusBarTipView.h"
-#import "TalkingDataHelper.h"
 
 @implementation HPMPNavgationBar 
 @synthesize rightButton;
@@ -116,12 +115,10 @@
 
 -(void) viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
-    [[TalkingDataHelper sharedInstance] pageBegin:PageType_ChangePassWord];
 }
 
 -(void) viewDidDisappear:(BOOL)animated{
     [super viewDidDisappear:animated];
-    [[TalkingDataHelper sharedInstance] pageEnd:PageType_ChangePassWord];
 }
 
 -(void)baseViewTaped:(id)sender{

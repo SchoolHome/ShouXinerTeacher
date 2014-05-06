@@ -12,7 +12,6 @@
 #import "DateUtil.h"
 
 #import "TPCMToAMR.h"
-#import "TalkingDataHelper.h"
 #import "AlarmClockHelper.h"
 
 #import "CoupleBreakIcePageViewController.h"
@@ -968,7 +967,6 @@ static HomePageViewController *homepage = nil;
     
     CPLogInfo(@"TabBarItemNormalFriends");
     
-    [[TalkingDataHelper sharedInstance] addEvent:EventLabelType_Enter_MainPage label:LabelType_MainPage_Click_FriendButton];
 
     homeMainViewController = [[HomeMainViewController alloc] init];
     [homeMainViewController scrollToCloseFriendRect];
@@ -979,7 +977,6 @@ static HomePageViewController *homepage = nil;
 
 -(void)addButtonTaped:(id)sender{
     
-    [[TalkingDataHelper sharedInstance] addEvent:EventLabelType_Enter_MainPage label:LabelType_MainPage_Click_Add_Friend];
     
     AddContactViewController *addContactViewController = [[AddContactViewController alloc] initWithUIAddContract:UIAddFriends];
     [self.navigationController pushViewController:addContactViewController animated:YES];
@@ -987,7 +984,6 @@ static HomePageViewController *homepage = nil;
 
 -(void)coupleButtonTaped:(id)sender{
     
-    [[TalkingDataHelper sharedInstance] addEvent:EventLabelType_Enter_MainPage label:LabelType_MainPage_Click_UserHeadImage];
     if ([[CPUIModelManagement sharedInstance] hasCouple]) {
         SingleIMViewController *single = [[SingleIMViewController alloc] init:[CPUIModelManagement sharedInstance].coupleMsgGroup];
         [self.navigationController pushViewController:single animated:YES];
@@ -1005,7 +1001,6 @@ static HomePageViewController *homepage = nil;
         {
             [animView hideBackground];
             
-            [[TalkingDataHelper sharedInstance] addEvent:EventLabelType_Enter_MainPage label:LabelType_MainPage_Click_UserHeadImage];
             HomePageSelfProfileViewController *profile = [[HomePageSelfProfileViewController alloc] init];
             self.profileViewController = profile;
             [self.navigationController pushViewController:self.profileViewController animated:YES];
@@ -1020,7 +1015,6 @@ static HomePageViewController *homepage = nil;
         {
             [animView hideBackground];
             
-            [[TalkingDataHelper sharedInstance] addEvent:EventLabelType_Enter_MainPage label:LabelType_MainPage_Click_UserHeadImage];
             
             //SingleIMViewController *single = [[SingleIMViewController alloc] init:[CPUIModelManagement sharedInstance].coupleMsgGroup];
             //[self.navigationController pushViewController:single animated:YES];
@@ -1259,7 +1253,6 @@ static HomePageViewController *homepage = nil;
 
 -(void) viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
-    [[TalkingDataHelper sharedInstance] pageBegin:PageType_MainPage];
     
     //[[HPStatusBarTipView shareInstance] setHidden:NO];
     
@@ -1267,7 +1260,6 @@ static HomePageViewController *homepage = nil;
 
 -(void)viewWillDisappear:(BOOL)animated{
     [super viewWillDisappear:animated];
-    [[TalkingDataHelper sharedInstance] pageEnd:PageType_MainPage];
     [[MusicPlayerManager sharedInstance] stop];
     [MusicPlayerManager sharedInstance].delegate = nil;
     

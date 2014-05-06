@@ -91,9 +91,7 @@
         CPUIModelUserInfo *userInfo = member.userInfo;
 
         if ([userInfo.type integerValue] == USER_RELATION_TYPE_COUPLE || [userInfo.type integerValue] == USER_RELATION_TYPE_MARRIED || [userInfo.type integerValue] == USER_RELATION_TYPE_LOVER) {
-            [[TalkingDataHelper sharedInstance] pageBegin:PageType_CoupleIM];
         }else {
-            [[TalkingDataHelper sharedInstance] pageBegin:PageType_FriendAndCloseFriend_IM];
         }
     }
     
@@ -106,9 +104,7 @@
         CPUIModelUserInfo *userInfo = member.userInfo;
         
         if ([userInfo.type integerValue] == USER_RELATION_TYPE_COUPLE || [userInfo.type integerValue] == USER_RELATION_TYPE_MARRIED || [userInfo.type integerValue] == USER_RELATION_TYPE_LOVER) {
-            [[TalkingDataHelper sharedInstance] pageEnd:PageType_CoupleIM];
         }else {
-            [[TalkingDataHelper sharedInstance] pageEnd:PageType_FriendAndCloseFriend_IM];
         }
     }
 }

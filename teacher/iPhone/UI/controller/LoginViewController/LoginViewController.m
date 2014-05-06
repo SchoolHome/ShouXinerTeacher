@@ -13,7 +13,7 @@
 #import "CPUIModelPersonalInfo.h"
 #import "CPLGModelAccount.h"
 
-#import "VerifyViewCodeController.h"
+//#import "VerifyViewCodeController.h"
 //#import "GroundViewController.h"
 #import "FXTopTipPanelDelegate.h"
 
@@ -99,7 +99,6 @@
 #define FX_FORGET_PASSWORD_PANEL_SPEED 0.5
 #define FX_LOGIN_STATUS_H 20
 #import "RegistFirstViewController.h"
-#import "TalkingDataHelper.h"
 @implementation LoginViewController
 @synthesize fnav;
 @synthesize username_string = _username_string;
@@ -209,13 +208,11 @@
     [super viewWillAppear:animated];
     [self do_add_observer];
     [username_field do_hide_keyboard];
-    [[TalkingDataHelper sharedInstance] pageBegin:PageType_Login];
 }
 - (void)viewWillDisappear:(BOOL)animated{
     [super viewWillDisappear:animated];
     [self do_remove_observer];
     [username_field do_hide_keyboard];
-    [[TalkingDataHelper sharedInstance] pageEnd:PageType_Login];
 }
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 {
@@ -508,9 +505,9 @@
     if(bg_imge == nil){
         bg_imge = REGIST_DEFAULT_IMG;
     }
-    VerifyViewCodeController * verify_c = [[VerifyViewCodeController alloc] initWithNibName:nil bundle:nil region_string:nil mobile_string:mobile_string top_image:bg_imge];
-    [self.navigationController pushViewController:verify_c animated:YES];
-    verify_c = nil;
+//    VerifyViewCodeController * verify_c = [[VerifyViewCodeController alloc] initWithNibName:nil bundle:nil region_string:nil mobile_string:mobile_string top_image:bg_imge];
+//    [self.navigationController pushViewController:verify_c animated:YES];
+//    verify_c = nil;
 }
 - (void)do_goto_forget{
     

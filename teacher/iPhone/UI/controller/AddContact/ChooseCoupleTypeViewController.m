@@ -7,7 +7,6 @@
 //
 
 #import "ChooseCoupleTypeViewController.h"
-#import "TalkingDataHelper.h"
 
 @implementation NotificationContext
 
@@ -56,12 +55,10 @@
 
 -(void) viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
-    [[TalkingDataHelper sharedInstance] pageBegin:PageType_ChooseCoupleOrMarried];
 }
 
 -(void) viewWillDisappear:(BOOL)animated{
     [super viewWillDisappear:animated];
-    [[TalkingDataHelper sharedInstance] pageEnd:PageType_ChooseCoupleOrMarried];
 }
 
 -(void) initView{

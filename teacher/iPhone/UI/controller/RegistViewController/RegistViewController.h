@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "NavigationBothStyle.h"
 #import "FanxerNavigationBarControl.h"
-#import "VerifyViewCodeController.h"
+//#import "VerifyViewCodeController.h"
 #import "FxProcessFixed.h"
 #import "ColorUtil.h"
 #import "FXCheckBox.h"
@@ -22,14 +22,14 @@
 @class FXShakeField;
 
 
-@interface RegistViewController : UIViewController<FanxerNavigationBarDelegate,UITextFieldDelegate,UIAlertViewDelegate,FXShakeFieldDelegate>{
+@interface RegistViewController : UIViewController<FanxerNavigationBarDelegate,UITextFieldDelegate,UIAlertViewDelegate>{
     
     FanxerNavigationBarControl *fnav;
     
     UIImageView *backgroundimg;
     
     
-    VerifyViewCodeController *verifycodecontroller;
+//    VerifyViewCodeController *verifycodecontroller;
     
     FxProcessFixed *process;
    
@@ -92,7 +92,7 @@
 @property(strong,nonatomic) FanxerNavigationBarControl *fnav;
 
 
-@property(strong,nonatomic) VerifyViewCodeController *verifycodecontroller;
+//@property(strong,nonatomic) VerifyViewCodeController *verifycodecontroller;
 
 -(id)initWithRegistInfo:(RegistInfo *)registinfo;
 

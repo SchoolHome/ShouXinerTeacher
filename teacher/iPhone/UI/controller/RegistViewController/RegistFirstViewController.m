@@ -84,7 +84,6 @@
 
 
 #define PICTURE_WIDTH 230
-#import "TalkingDataHelper.h"
 @interface RegistFirstViewController (Private)
 
 -(void)doCaptureImg:(id)sender;
@@ -154,16 +153,13 @@
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
     helper=[RegistHelper defaultHelper];
-    [[TalkingDataHelper sharedInstance] pageBegin:PageType_RegisterPage_StepOne];
     /*
      进入填写个人信息页面的用户数 调用（1)
      */
-    [[TalkingDataHelper sharedInstance] addEvent:EventType_Enter_Register_UserInfor];
     
 }
 - (void)viewWillDisappear:(BOOL)animated{
     [super viewWillDisappear:animated];
-    [[TalkingDataHelper sharedInstance] pageEnd:PageType_RegisterPage_StepOne];
 }
 //-(void)doAnimation{
 //    CATransition *animations = [CATransition animation];
@@ -969,26 +965,22 @@
         /*
          顺利完成个人信息填写页面的用户 调用（1）
          */
-        [[TalkingDataHelper sharedInstance] addEvent:EventType_Enter_Register_UserInfor_Success];
         return YES;
     }else {
         /*
          点击下一步时，头像并且昵称都未填 调用（2）
          */
         if(textfill==NO&&imgfill==NO){
-            [[TalkingDataHelper sharedInstance] addEvent:EventLabelType_Enter_Register_UserInfor label:LabelType_UserInfor_NextStep_UserHeadImageAndNickNameIsNull];
         }
         /*&
          点击下一步时，头像未填 调用（2）
          */
         if(textfill==YES&&imgfill==NO){
-            [[TalkingDataHelper sharedInstance] addEvent:EventLabelType_Enter_Register_UserInfor label:LabelType_UserInfor_NextStep_UserHeadImageIsNull];
         }
         /*
          点击下一步时，昵称未填 调用（2)
          */
         if(textfill==NO&&imgfill==YES){
-            [[TalkingDataHelper sharedInstance] addEvent:EventLabelType_Enter_Register_UserInfor label:LabelType_UserInfor_NextStep_NickHeadImageIsNull];
         }
         [toptippanel ResetMessage:@"请填写抖动项目！"];
         [self WarnningTipShow];

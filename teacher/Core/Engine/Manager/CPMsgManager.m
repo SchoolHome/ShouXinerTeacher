@@ -31,7 +31,6 @@
 #import "CPHttpEngine.h"
 
 #import "CPResManager.h"
-#import "TalkingDataHelper.h"
 #import "HPTopTipView.h"
 #import "AsiGetRequestModel.h"
 
@@ -2513,7 +2512,6 @@
             }
                 break;
             case SystemMessageTypeFriendRecommend:
-                [[TalkingDataHelper sharedInstance] addEvent:EventType_Received_Recommend];
             case SystemMessageTypeAddFriendRequest:
             case SystemMessageTypeAddFriendResponse:
             case SystemMessageTypeRelationDown:

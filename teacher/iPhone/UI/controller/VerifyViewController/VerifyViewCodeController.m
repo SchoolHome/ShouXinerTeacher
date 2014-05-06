@@ -122,7 +122,6 @@
 #define FX_VERIFY_COUNT_DOWN_INTERVAL 60
 
 
-#import "TalkingDataHelper.h"
 #import "AppDelegate.h"
 @implementation VerifyViewCodeController
 @synthesize end_region_string = _end_region_string;
@@ -168,11 +167,9 @@
 #pragma mark - View lifecycle
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
-    [[TalkingDataHelper sharedInstance] pageBegin:PageType_RegisterPage_StepThree];
     /*
      进入填写验证码绑定手机页面的用户数 调用（1）
      */
-    [[TalkingDataHelper sharedInstance] addEvent:EventType_Enter_Register_BindingPhone];
     
     [self do_add_observer];
     
@@ -180,7 +177,6 @@
 }
 - (void)viewWillDisappear:(BOOL)animated{
     [super viewWillDisappear:animated];
-    [[TalkingDataHelper sharedInstance] pageEnd:PageType_RegisterPage_StepThree];
     [self do_remove_observer];
 }
 - (void)viewDidAppear:(BOOL)animated{
@@ -549,7 +545,6 @@
         /*
          点击开始使用双双时，验证码为空 调用（2）
          */
-        [[TalkingDataHelper sharedInstance] addEvent:EventLabelType_Enter_Register_BindingPhone label:LabelType_BindingPhone_NextStep_SecurityCodeIsNull];
         [self do_show_toptip_view_toptip_string:@"验证码不能为空"];
     }
     else{
@@ -560,7 +555,6 @@
             /*
              点击开始使用双双时，网络连接错误 调用（2）
              */
-            [[TalkingDataHelper sharedInstance] addEvent:EventLabelType_Enter_Register_BindingPhone label:LabelType_BindingPhone_NextStep_NetWorkError];
             [self do_show_toptip_view_toptip_string:@"网络连接失败!"];
         }
         
@@ -615,7 +609,6 @@
         /*
          点击重新获取验证码时，调用（1）
          */
-        [[TalkingDataHelper sharedInstance] addEvent:EventType_Enter_Register_Reacquired_SecurityCode];
         [model_management bindMobileNumber:self.end_mobile_string region_number:@"86"];
         [self do_show_loading_view_content_string:@"正在获得验证码"];
         [self do_active_count_down];
@@ -649,7 +642,6 @@
             /*
              顺利完成填写验证码绑定手机页面 调用（1）
              */
-            [[TalkingDataHelper sharedInstance] addEvent:EventType_Enter_Register_BindingPhone_Success];
             AppDelegate *appDelegate = (AppDelegate *)[UIApplication sharedApplication].delegate;
 //            [appDelegate do_launch_app];
         }
@@ -658,7 +650,6 @@
             /*
                 点击开始使用双双时，验证码错误 调用（2）
              */
-            [[TalkingDataHelper sharedInstance] addEvent:EventLabelType_Enter_Register_BindingPhone label:LabelType_BindingPhone_NextStep_SecurityCodeError];
             [self do_hide_loading_view];
             [code_field do_shake];
             [self do_show_toptip_view_toptip_string:result_desc_string];

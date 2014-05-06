@@ -9,7 +9,6 @@
 #import "GroupIndependentProfileViewController.h"
 #import "CPUIModelMessageGroupMember.h"
 #import "SingleIndependentProfileViewController.h"
-#import "TalkingDataHelper.h"
 #import "AddContactViewController.h"
 #import "MutilIMViewController.h"
 
@@ -434,7 +433,6 @@
             
             AddContactWithProfileViewController *profile = [[AddContactWithProfileViewController alloc] initAddContactWithUserInfor:userInfor];
             [self.navigationController pushViewController:profile animated:YES];
-            [[TalkingDataHelper sharedInstance] addEvent:EventLabelType_Enter_Stranger label:LabelType_Click_Stranger_Group];
         }
     
 }

@@ -16,7 +16,6 @@
 //#import "CoupleIMViewController.h"
 #import "CoupleCompletedView.h"
 #import "CPUIModelPersonalInfo.h"
-#import "TalkingDataHelper.h"
 #import "SingleIndependentProfileViewController.h"
 
 @interface AddContactAnswerViewController ()
@@ -153,13 +152,11 @@
 
 -(void) viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
-    [[TalkingDataHelper sharedInstance] pageBegin:PageType_Confirm_Relationship];    
 }
 
 -(void) viewWillDisappear:(BOOL)animated{
     [super viewWillDisappear:animated];
     self.profileModel.delegate = nil;
-    [[TalkingDataHelper sharedInstance] pageEnd:PageType_Confirm_Relationship];
 }
 
 -(void) loadPersonProfileDataCompleted : (id) msg{
