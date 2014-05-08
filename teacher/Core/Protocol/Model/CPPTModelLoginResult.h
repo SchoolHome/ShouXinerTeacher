@@ -26,6 +26,7 @@
 @property (nonatomic) BOOL recommend;
 @property (strong,nonatomic) NSString *url;
 @property (strong,nonatomic) NSString *version;
+@property (nonatomic) BOOL needSetUserName;
 + (CPPTModelLoginResult *)fromJsonDict:(NSDictionary *)jsonDict;
 
 @end

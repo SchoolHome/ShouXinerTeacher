@@ -9,6 +9,7 @@
 #import "Login.h"
 #import "CPUIModelManagement.h"
 #import "PalmUIManagement.h"
+#import "activateViewController.h"
 
 @interface Login ()<UITextFieldDelegate,UIAlertViewDelegate>
 @property (nonatomic,strong) UIImageView *bgImage;
@@ -183,17 +184,21 @@
         
         if(login_code_int == 0){
             if (![PalmUIManagement sharedInstance].loginResult.recommend && ![PalmUIManagement sharedInstance].loginResult.force) {
-                if ([PalmUIManagement sharedInstance].loginResult.activated) {
-                    NSLog(@"激活");
+                if (![PalmUIManagement sharedInstance].loginResult.activated) {
+                    [self closeProgress];
+                    activateViewController *activate = [[activateViewController alloc] initActivateViewController:[PalmUIManagement sharedInstance].loginResult.needSetUserName];
+                    [self.navigationController pushViewController:activate animated:YES];
                 }else{
                     [self closeProgress];
                     AppDelegate *appDelegate = (AppDelegate *)[UIApplication sharedApplication].delegate;
                     [appDelegate launchApp];
                 }
             }else if([PalmUIManagement sharedInstance].loginResult.recommend && ![PalmUIManagement sharedInstance].loginResult.force){
+                [self closeProgress];
                 UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"有更新" message:@"有新版本更新" delegate:self cancelButtonTitle:@"确定" otherButtonTitles:@"取消", nil];
                 [alert show];
             }else if([PalmUIManagement sharedInstance].loginResult.recommend && [PalmUIManagement sharedInstance].loginResult.force){
+                [self closeProgress];
                 UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"有更新" message:@"有新版本更新" delegate:self cancelButtonTitle:@"确定" otherButtonTitles: nil];
                 [alert show];
             }
@@ -211,7 +216,7 @@
             [[UIApplication sharedApplication] openURL:[NSURL URLWithString:[PalmUIManagement sharedInstance].loginResult.url]];
         }
     }else{
-        if ([PalmUIManagement sharedInstance].loginResult.activated) {
+        if (![PalmUIManagement sharedInstance].loginResult.activated) {
             NSLog(@"激活");
         }else{
             [self closeProgress];

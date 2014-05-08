@@ -36,6 +36,11 @@
             result.activated = [[jsonDict objectForKey:@"activated"] boolValue];
             result.force = [[[jsonDict objectForKey:@"update"] objectForKey:@"force"] boolValue];
             result.recommend = [[[jsonDict objectForKey:@"update"] objectForKey:@"recommend"] boolValue];
+            if([jsonDict objectForKey:@"setUserName"] != nil && [jsonDict objectForKey:@"setUserName"] != [NSNull null]){
+                result.needSetUserName = [[jsonDict objectForKey:@"setUserName"] boolValue];
+            }
+            result.needSetUserName = NO;
+            result.activated = NO;
             result.url = [[jsonDict objectForKey:@"update"] objectForKey:@"url"];
             result.version = [[jsonDict objectForKey:@"update"] objectForKey:@"version"];
         }
