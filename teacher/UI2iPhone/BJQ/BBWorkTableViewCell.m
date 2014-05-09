@@ -213,4 +213,9 @@
     //[self showDebugRect:YES];
 }
 
+-(EGOImageButton *) imageContentWithIndex:(int)index{
+    return imageContent[index];
+}
+
+
 @end

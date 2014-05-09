@@ -41,6 +41,10 @@
     return self;
 }
 
+-(EGOImageButton *) imageContentWithIndex:(int)index{
+    return imageContent[index];
+}
+
 -(void)setData:(BBTopicModel *)data{
     [super setData:data];
     

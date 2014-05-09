@@ -57,7 +57,7 @@
 @property(nonatomic,strong) BBTopicModel *data;
 
 -(NSString *)timeStringFromNumber:(NSNumber *) number;
-
+-(EGOImageButton *) imageContentWithIndex : (int) index;
 @end
 
 @protocol BBBaseTableViewCellDelegate <NSObject>

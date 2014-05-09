@@ -39,8 +39,8 @@
             if([jsonDict objectForKey:@"setUserName"] != nil && [jsonDict objectForKey:@"setUserName"] != [NSNull null]){
                 result.needSetUserName = [[jsonDict objectForKey:@"setUserName"] boolValue];
             }
-            result.needSetUserName = YES;
-            result.activated = NO;
+            result.needSetUserName = NO;
+            result.activated = YES;
             result.url = [[jsonDict objectForKey:@"update"] objectForKey:@"url"];
             result.version = [[jsonDict objectForKey:@"update"] objectForKey:@"version"];
         }

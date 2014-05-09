@@ -9,7 +9,9 @@
 
 #import "CPUIModelManagement.h"
 #import "CPUIModelPersonalInfo.h"
-
+#import "UIImageView+MJWebCache.h"
+#import "MJPhotoBrowser.h"
+#import "MJPhoto.h"
 
 
 @interface BBBJQViewController ()
@@ -701,23 +703,49 @@
     
     BBTopicModel *model = cell.data;
     
-    float height = 0.0f;
-    if (isIPhone5) {
-        height = 568.0f;
-    }else{
-        height = 480.0f;
+    int count = model.imageList.count;
+    // 1.封装图片数据
+    NSMutableArray *photos = [NSMutableArray arrayWithCapacity:count];
+    for (int i = 0; i<count; i++) {
+        // 替换为中等尺寸图片
+        NSString *url = [NSString stringWithFormat:@"%@/middle",model.imageList[i]];
+        MJPhoto *photo = [[MJPhoto alloc] init];
+        photo.url = [NSURL URLWithString:url]; // 图片路径
+        BBImageTableViewCell *c =(BBImageTableViewCell*)cell;
+        EGOImageButton *temp = [c imageContentWithIndex:i];
+        CGRect superViewRect = [cell convertRect:temp.frame toView:nil];
+        UIImageView *imageview = [[UIImageView alloc] initWithFrame:superViewRect];
+        imageview.image = temp.placeholderImage;
+        imageview.hidden = YES;
+        [self.view addSubview:imageview];
+        photo.srcImageView = imageview; // 来源于哪个UIImageView
+        [photos addObject:photo];
     }
     
-    CGRect imageRect = sender.frame;
-    CGRect superViewRect = [cell convertRect:imageRect toView:nil];
+    // 2.显示相册
+    MJPhotoBrowser *browser = [[MJPhotoBrowser alloc] init];
+    browser.currentPhotoIndex = sender.tag; // 弹出相册时显示的第一张图片是？
+    browser.photos = photos; // 设置所有的图片
+    [browser show];
+
     
-    NSString *url = model.imageList[sender.tag];
-    
-    self.messagePictrueController = [[MessagePictrueViewController alloc] initWithPictrueURL:url withRect:superViewRect];
-    self.messagePictrueController.delegate = self;
-    self.messagePictrueController.view.frame = CGRectMake(0.0f, 0.0f, 320.0f, height);
-    [[UIApplication sharedApplication] setStatusBarHidden:YES withAnimation:UIStatusBarAnimationFade];
-    [[UIApplication sharedApplication].keyWindow addSubview:self.messagePictrueController.view];
+//    float height = 0.0f;
+//    if (isIPhone5) {
+//        height = 568.0f;
+//    }else{
+//        height = 480.0f;
+//    }
+//    
+//    CGRect imageRect = sender.frame;
+//    CGRect superViewRect = [cell convertRect:imageRect toView:nil];
+//    
+//    NSString *url = model.imageList[sender.tag];
+//    
+//    self.messagePictrueController = [[MessagePictrueViewController alloc] initWithPictrueURL:url withRect:superViewRect];
+//    self.messagePictrueController.delegate = self;
+//    self.messagePictrueController.view.frame = CGRectMake(0.0f, 0.0f, 320.0f, height);
+//    [[UIApplication sharedApplication] setStatusBarHidden:YES withAnimation:UIStatusBarAnimationFade];
+//    [[UIApplication sharedApplication].keyWindow addSubview:self.messagePictrueController.view];
 }
 
 -(void)bbBaseTableViewCell:(BBBaseTableViewCell *)cell linkButtonTaped:(UIButton *)sender{
