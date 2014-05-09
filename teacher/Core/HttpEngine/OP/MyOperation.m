@@ -31,7 +31,11 @@
     if ([self initOperation]) {
         self.type = kCheckVersion;
         NSString *urlStr = [NSString stringWithFormat:@"http://%@/mapi/checkUpdate",K_HOST_NAME_OF_PALM_SERVER];
+#ifdef IS_TEACHER
         NSDictionary *pa = [[NSDictionary alloc] initWithObjectsAndKeys:@"ios_v2_teacher", @"platform", [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleVersion"], @"version", nil];
+#else
+        NSDictionary *pa = [[NSDictionary alloc] initWithObjectsAndKeys:@"ios_v2", @"platform", [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleVersion"], @"version", nil];
+#endif
         [self setHttpRequestPostWithUrl:urlStr params:pa];
     }
     return self;
