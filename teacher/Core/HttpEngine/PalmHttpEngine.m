@@ -71,7 +71,7 @@
     status = [[dic valueForKey:@"errno"] integerValue];
     if (status != 0) {
         self.hasError = YES;
-        self.errorMessage = [dic objectForKey:@"error_message"];
+        self.errorMessage = [dic objectForKey:@"error"];
     }
     if (!self.hasError) {
         [self sendMsgToAutoCloseProgress:request.clazz];
