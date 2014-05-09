@@ -708,7 +708,7 @@
     NSMutableArray *photos = [NSMutableArray arrayWithCapacity:count];
     for (int i = 0; i<count; i++) {
         // 替换为中等尺寸图片
-        NSString *url = [NSString stringWithFormat:@"%@/middle",model.imageList[i]];
+        NSString *url = [NSString stringWithFormat:@"%@",model.imageList[i]];
         MJPhoto *photo = [[MJPhoto alloc] init];
         photo.url = [NSURL URLWithString:url]; // 图片路径
         BBImageTableViewCell *c =(BBImageTableViewCell*)cell;
