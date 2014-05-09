@@ -136,7 +136,11 @@
     [self.bgImage addSubview:self.LoginButton];
     
     UILabel *label = [[UILabel alloc] init];
+#ifdef IS_TEACHER
     label.text = @"手心网 v1.0 教师版";
+#else
+    label.text = @"手心网 v1.0 家长版";
+#endif
     label.textAlignment = NSTextAlignmentLeft;
     label.textColor = [UIColor whiteColor];
     label.alpha = 0.6f;

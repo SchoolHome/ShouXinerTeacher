@@ -268,10 +268,12 @@
 }
 
 -(void)pointTaped:(UITapGestureRecognizer *)gesture{
+#ifdef IS_TEACHER
     BBJFViewController *jf = [[BBJFViewController alloc] init];
     jf.hidesBottomBarWhenPushed = YES;
     jf.url = [NSURL URLWithString:@"http://www.shouxiner.com/teacher_jfen/mobile_web_shop"];
     [self.navigationController pushViewController:jf animated:YES];
+#endif
 }
 
 - (void)viewDidLoad
@@ -372,12 +374,19 @@
     
     bjqTableView.tableHeaderView = head;
     
-    
+#ifdef IS_TEACHER
     UIButton *addButton = [UIButton buttonWithType:UIButtonTypeCustom];
     [addButton setFrame:CGRectMake(0.f, 7.f, 30.f, 30.f)];
     [addButton setBackgroundImage:[UIImage imageNamed:@"BBAdd"] forState:UIControlStateNormal];
     [addButton addTarget:self action:@selector(addNewTaped:) forControlEvents:UIControlEventTouchUpInside];
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:addButton];
+#else
+    UIButton *shareButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    [shareButton setFrame:CGRectMake(0.f, 7.f, 40.f, 30.f)];
+    [shareButton setTitle:@"分享" forState:UIControlStateNormal];
+    [shareButton addTarget:self action:@selector(shareTaped:) forControlEvents:UIControlEventTouchUpInside];
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:shareButton];
+#endif
 //    
 //    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"BBAdd"] style:UIBarButtonItemStylePlain  target:self action:@selector(addNewTaped:)];
     
@@ -645,6 +654,17 @@
 -(void)bbBJDropdownViewTaped:(BBBJDropdownView *) dropdownView_{
 
 }
+
+-(void)shareTaped:(id)sender{
+    
+    BBFZYViewController *fzy = [[BBFZYViewController alloc] init];
+    fzy.hidesBottomBarWhenPushed = YES;
+    fzy.style = 3;
+    fzy.currentGroup = _currentGroup;
+    [self.navigationController pushViewController:fzy animated:YES];
+    
+}
+
 
 #pragma mark - BBBaseTableViewCellDelegate
 
