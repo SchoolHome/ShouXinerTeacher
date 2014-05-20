@@ -45,7 +45,9 @@
 
 
 @property(nonatomic,strong) UILabel *likeContent;
-@property(nonatomic,strong) OHAttributedLabel *relpyContent;
+//@property(nonatomic,strong) OHAttributedLabel *relpyContent;
+@property(nonatomic,strong) NSMutableArray *labelArray;
+@property(nonatomic,strong) NSMutableArray *buttonArray;
 
 @property(nonatomic,strong) UIImageView *relpyContentBack;
 @property(nonatomic, strong) UIImageView *relpyContentLine;
@@ -58,6 +60,7 @@
 
 -(NSString *)timeStringFromNumber:(NSNumber *) number;
 -(EGOImageButton *) imageContentWithIndex : (int) index;
+-(void) hEvent : (UIButton *) sender;
 @end
 
 @protocol BBBaseTableViewCellDelegate <NSObject>
@@ -67,7 +70,7 @@
 -(void)bbBaseTableViewCell:(BBBaseTableViewCell *)cell imageButtonTaped:(EGOImageButton *)sender;
 
 -(void)bbBaseTableViewCell:(BBBaseTableViewCell *)cell linkButtonTaped:(UIButton *)sender;
-
+-(void)bbBaseTableViewCell:(BBBaseTableViewCell *)cell commentButtonTaped:(UIButton *)sender;
 @end
 
 

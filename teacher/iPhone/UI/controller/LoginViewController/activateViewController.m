@@ -29,22 +29,22 @@
 
 -(void) viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(keyboardWillShow:)
-                                                 name:UIKeyboardWillShowNotification
-                                               object:nil];
-    
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(keyboardWillHide:)
-                                                 name:UIKeyboardWillHideNotification
-                                               object:nil];
+//    [[NSNotificationCenter defaultCenter] addObserver:self
+//                                             selector:@selector(keyboardWillShow:)
+//                                                 name:UIKeyboardWillShowNotification
+//                                               object:nil];
+//    
+//    [[NSNotificationCenter defaultCenter] addObserver:self
+//                                             selector:@selector(keyboardWillHide:)
+//                                                 name:UIKeyboardWillHideNotification
+//                                               object:nil];
     [[PalmUIManagement sharedInstance] addObserver:self forKeyPath:@"activateDic" options:0 context:nil];
 }
 
 -(void) viewDidDisappear:(BOOL)animated{
     [super viewDidDisappear:animated];
-    [[NSNotificationCenter defaultCenter] removeObserver:self name:UIKeyboardWillShowNotification object:nil];
-    [[NSNotificationCenter defaultCenter] removeObserver:self name:UIKeyboardWillHideNotification object:nil];
+//    [[NSNotificationCenter defaultCenter] removeObserver:self name:UIKeyboardWillShowNotification object:nil];
+//    [[NSNotificationCenter defaultCenter] removeObserver:self name:UIKeyboardWillHideNotification object:nil];
     [[PalmUIManagement sharedInstance] removeObserver:self forKeyPath:@"activateDic"];
 }
 
@@ -96,13 +96,6 @@
     self.title = @"账号激活";
     [self.navigationController setNavigationBarHidden:NO];
     self.navigationItem.hidesBackButton = YES;
-    UILabel *descLabel = [[UILabel alloc] initWithFrame:CGRectMake(40.0f, 40.0f, 242.5f, 33.5f)];
-    descLabel.text = @"用户名长度4-25个字符，一个中文占两个字符 主要用于登录使用，可使用汉字，字母或者两者组合。";
-    descLabel.numberOfLines = 0;
-    descLabel.textColor = [UIColor redColor];
-    descLabel.font = [UIFont systemFontOfSize:11.0f];
-    descLabel.backgroundColor = [UIColor clearColor];
-    [self.view addSubview:descLabel];
     
     if (self.needSetUserName) {
         UIImageView *fromImage = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"ActivateBigFrom"]];
@@ -149,36 +142,28 @@
         self.confrimPassWord.delegate = self;
         [fromImage addSubview:self.confrimPassWord];
     }else{
-        UIImageView *fromImage = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"ActivateSmallFrom"]];
-        fromImage.frame = CGRectMake((320.0f-283.0f)/2.0f, 110.0f, 283.0f, 173.0f);
+        UIImageView *fromImage = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"ActivateSmallFrom2"]];
+        fromImage.frame = CGRectMake((320.0f-285.0f)/2.0f, 20.0f, 285.0f, 130.0f);
         fromImage.userInteractionEnabled = YES;
         [self.view addSubview:fromImage];
         
-        self.userName = [[UITextField alloc] initWithFrame:CGRectMake(85.0f, 12.0f, 180.0f, 24.0f)];
-        self.userName.backgroundColor = [UIColor clearColor];
-        self.userName.textAlignment = NSTextAlignmentRight;
-        self.userName.returnKeyType = UIReturnKeyDone;
-        self.userName.delegate = self;
-        [fromImage addSubview:self.userName];
+        self.telPhone = [[UITextField alloc] initWithFrame:CGRectMake(95.0f, 12.0f, 170.0f, 24.0f)];
+        self.telPhone.backgroundColor = [UIColor redColor];
+        self.telPhone.textAlignment = NSTextAlignmentRight;
+        self.telPhone.returnKeyType = UIReturnKeyDone;
+        self.telPhone.delegate = self;
+        [fromImage addSubview:self.telPhone];
         
-        self.email = [[UITextField alloc] initWithFrame:CGRectMake(85.0f, 52.0f, 180.0f, 24.0f)];
-        self.email.backgroundColor = [UIColor clearColor];
-        self.email.textAlignment = NSTextAlignmentRight;
-        self.email.returnKeyType = UIReturnKeyDone;
-        self.email.keyboardType = UIKeyboardTypeEmailAddress;
-        self.email.delegate = self;
-        [fromImage addSubview:self.email];
-        
-        self.password = [[UITextField alloc] initWithFrame:CGRectMake(85.0f, 92.0f, 180.0f, 24.0f)];
-        self.password.backgroundColor = [UIColor clearColor];
+        self.password = [[UITextField alloc] initWithFrame:CGRectMake(95.0f, 52.0f, 170.0f, 24.0f)];
+        self.password.backgroundColor = [UIColor redColor];
         self.password.textAlignment = NSTextAlignmentRight;
         self.password.returnKeyType = UIReturnKeyDone;
         self.password.secureTextEntry = YES;
         self.password.delegate = self;
         [fromImage addSubview:self.password];
         
-        self.confrimPassWord = [[UITextField alloc] initWithFrame:CGRectMake(85.0f, 132.0f, 180.0f, 24.0f)];
-        self.confrimPassWord.backgroundColor = [UIColor clearColor];
+        self.confrimPassWord = [[UITextField alloc] initWithFrame:CGRectMake(95.0f, 92.0f, 170.0f, 24.0f)];
+        self.confrimPassWord.backgroundColor = [UIColor redColor];
         self.confrimPassWord.secureTextEntry = YES;
         self.confrimPassWord.textAlignment = NSTextAlignmentRight;
         self.confrimPassWord.returnKeyType = UIReturnKeyDone;
@@ -211,24 +196,24 @@
 }
 
 -(void) clickActivate{
-    NSString *userNameText = [self.userName.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
+//    NSString *userNameText = [self.userName.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
     NSString *telPhoneText = nil;
     if (nil != self.telPhone) {
         telPhoneText = [self.telPhone.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
     }
-    NSString *emailText = [self.email.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
+//    NSString *emailText = [self.email.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
     NSString *passwordText = [self.password.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
     NSString *confrimPassWordText = [self.confrimPassWord.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
     
-    if (nil == userNameText || [userNameText isEqualToString:@""]) {
-        [self showProgressWithText:@"用户名不能为空" withDelayTime:1.0f];
-        return;
-    }
-    
-    if ([userNameText length] > 25 || [userNameText length] < 4) {
-        [self showProgressWithText:@"用户名长度为4-25个字符" withDelayTime:1.0f];
-        return;
-    }
+//    if (nil == userNameText || [userNameText isEqualToString:@""]) {
+//        [self showProgressWithText:@"用户名不能为空" withDelayTime:1.0f];
+//        return;
+//    }
+//    
+//    if ([userNameText length] > 25 || [userNameText length] < 4) {
+//        [self showProgressWithText:@"用户名长度为4-25个字符" withDelayTime:1.0f];
+//        return;
+//    }
     
     if (nil != self.telPhone) {
         if (nil == telPhoneText) {
@@ -237,14 +222,14 @@
         }
     }
     
-    if (nil != emailText && ![emailText isEqualToString:@""]) {
-        NSString *emailRegex = @"[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,4}";
-        NSPredicate *emailTest = [NSPredicate predicateWithFormat:@"SELF MATCHES %@", emailRegex];
-        if (![emailTest evaluateWithObject:emailText]) {
-            [self showProgressWithText:@"邮箱地址不正确" withDelayTime:1.0f];
-            return;
-        }
-    }
+//    if (nil != emailText && ![emailText isEqualToString:@""]) {
+//        NSString *emailRegex = @"[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,4}";
+//        NSPredicate *emailTest = [NSPredicate predicateWithFormat:@"SELF MATCHES %@", emailRegex];
+//        if (![emailTest evaluateWithObject:emailText]) {
+//            [self showProgressWithText:@"邮箱地址不正确" withDelayTime:1.0f];
+//            return;
+//        }
+//    }
     
     if ((nil != passwordText && ![passwordText isEqualToString:@""]) || (nil != confrimPassWordText && ![confrimPassWordText isEqualToString:@""])) {
         if (![passwordText isEqualToString:confrimPassWordText]) {
@@ -252,7 +237,7 @@
             return;
         }
     }
-    [[PalmUIManagement sharedInstance] activate:userNameText withTelPhone:telPhoneText withEmail:emailText withPassWord:passwordText];
+    [[PalmUIManagement sharedInstance] activate:@"" withTelPhone:telPhoneText withEmail:@"" withPassWord:passwordText];
 }
 
 -(void) observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context{

@@ -20,7 +20,7 @@
 @property (nonatomic,copy) NSString *inputText;
 
 @property (nonatomic,strong) MessagePictrueViewController *messagePictrueController;
-
+@property (nonatomic,strong) BBCommentModel *model;
 @end
 
 @implementation BBBJQViewController
@@ -179,17 +179,39 @@
             comment.replyto_username = self.tempTopModelInput.author_username;
             comment.uid = [NSNumber numberWithInteger:[account.uid integerValue]];;
             comment.username = [CPUIModelManagement sharedInstance].uiPersonalInfo.nickName;
+            NSMutableArray *arr = [[NSMutableArray alloc] initWithArray:self.tempTopModelInput.comments];
+            [arr addObject:comment];
+            self.tempTopModelInput.comments = arr;
             
-            NSMutableArray *p = [[NSMutableArray alloc] initWithArray:self.tempTopModel.comments];
-            [p addObject:comment];
-            self.tempTopModel.comments = [NSArray arrayWithArray:p];
-            NSUInteger len = [comment.username length]+2;
-            NSString *text = [NSString stringWithFormat:@"%@: %@\n",comment.username,comment.comment];
-            NSMutableAttributedString *attributedText = [[NSMutableAttributedString alloc] initWithString:text];
-            if ([self currentVersion] > kIOS6) {
-                [attributedText addAttribute:NSForegroundColorAttributeName value:[UIColor colorWithHexString:@"#4a7f9d"] range:NSMakeRange(0,len)];
+            NSUInteger len = [comment.username length]+1;
+            NSMutableAttributedString *attributedText;
+            if ([comment.username isEqualToString:comment.replyto_username]) {
+                NSString *text = [NSString stringWithFormat:@"%@: %@\n",comment.username,comment.comment];
+                attributedText = [[NSMutableAttributedString alloc] initWithString:text];
+                if ([[[UIDevice currentDevice] systemVersion] floatValue] > 6) {
+                    [attributedText addAttribute:NSForegroundColorAttributeName value:[UIColor colorWithHexString:@"#4a7f9d"] range:NSMakeRange(0,len)];
+                }
+            }else{
+                NSString *text = [NSString stringWithFormat:@"%@:回复 %@ %@\n",comment.username,comment.replyto_username,comment.comment];
+                attributedText = [[NSMutableAttributedString alloc] initWithString:text];
+                NSUInteger len1 = [comment.replyto_username length];
+                NSUInteger temp = [[NSString stringWithFormat:@"%@:回复 ",comment.username] length];
+                if ([[[UIDevice currentDevice] systemVersion] floatValue] > 6) {
+                    [attributedText addAttribute:NSForegroundColorAttributeName value:[UIColor colorWithHexString:@"#4a7f9d"] range:NSMakeRange(0,len)];
+                    [attributedText addAttribute:NSForegroundColorAttributeName value:[UIColor colorWithHexString:@"#4a7f9d"] range:NSMakeRange(temp,len1)];
+                }
             }
-            
+            [self.tempTopModelInput.commentStr addObject:attributedText];
+//            NSMutableArray *p = [[NSMutableArray alloc] initWithArray:self.tempTopModel.comments];
+//            [p addObject:comment];
+//            self.tempTopModel.comments = [NSArray arrayWithArray:p];
+//            NSUInteger len = [comment.username length]+2;
+//            NSString *text = [NSString stringWithFormat:@"%@: %@\n",comment.username,comment.comment];
+//            NSMutableAttributedString *attributedText = [[NSMutableAttributedString alloc] initWithString:text];
+//            if ([self currentVersion] > kIOS6) {
+//                [attributedText addAttribute:NSForegroundColorAttributeName value:[UIColor colorWithHexString:@"#4a7f9d"] range:NSMakeRange(0,len)];
+//            }
+//            
             NSMutableAttributedString *str = [[NSMutableAttributedString alloc] initWithAttributedString:self.tempTopModelInput.commentsStr];
             [str appendAttributedString:attributedText];
             self.tempTopModelInput.commentsStr = str;
@@ -686,6 +708,21 @@
     [[UIApplication sharedApplication].keyWindow addSubview:inputBar];
     inputBar.data = cell.data;
     [inputBar beginEdit];
+    self.model = nil;
+    NSIndexPath *indexPath = [bjqTableView indexPathForCell:cell];
+    CGRect r0 = [bjqTableView rectForRowAtIndexPath:indexPath];
+    CGRect r1 = [bjqTableView convertRect:r0 toView:nil];
+    int x = [UIScreen mainScreen].bounds.size.height-260-r1.origin.y-r1.size.height;
+    CGPoint p = CGPointMake(0, bjqTableView.contentOffset.y-x);
+    
+    [bjqTableView setContentOffset:p animated:YES];
+}
+
+-(void)bbBaseTableViewCell:(BBBaseTableViewCell *)cell commentButtonTaped:(UIButton *)sender{
+    [[UIApplication sharedApplication].keyWindow addSubview:inputBar];
+    inputBar.data = cell.data;
+    self.model = [cell.data.comments objectAtIndex:sender.tag-1];
+    [inputBar beginEdit:[NSString stringWithFormat:@"回复%@：",self.model.username]];
     
     NSIndexPath *indexPath = [bjqTableView indexPathForCell:cell];
     CGRect r0 = [bjqTableView rectForRowAtIndexPath:indexPath];
@@ -694,6 +731,7 @@
     CGPoint p = CGPointMake(0, bjqTableView.contentOffset.y-x);
     
     [bjqTableView setContentOffset:p animated:YES];
+
 }
 
 // 点击大图
@@ -715,7 +753,7 @@
         EGOImageButton *temp = [c imageContentWithIndex:i];
         CGRect superViewRect = [cell convertRect:temp.frame toView:nil];
         UIImageView *imageview = [[UIImageView alloc] initWithFrame:superViewRect];
-        imageview.image = temp.placeholderImage;
+        imageview.image = [temp currentBackgroundImage];
         imageview.hidden = YES;
         [self.view addSubview:imageview];
         photo.srcImageView = imageview; // 来源于哪个UIImageView
@@ -761,6 +799,7 @@
 #pragma mark - UIScrollViewDelegate
 - (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView{
     [inputBar endEdit];
+    self.model = nil;
 }
 
 #pragma mark - BBInputViewDelegate
@@ -771,8 +810,12 @@
 //    BBTopicModel *model = view.data;
     self.tempTopModelInput = view.data;
     self.inputText = text;
+    int replyUid = [self.tempTopModelInput.author_uid intValue];
+    if (self.model != nil) {
+        replyUid = [self.model.uid integerValue];
+    }
     [[PalmUIManagement sharedInstance] postComment:text
-                                    withReplyToUid:[self.tempTopModelInput.author_uid intValue]
+                                    withReplyToUid:replyUid
                                        withTopicID:[self.tempTopModelInput.topicid longLongValue]];
     
 }

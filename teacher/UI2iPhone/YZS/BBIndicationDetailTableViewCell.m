@@ -55,11 +55,13 @@
         line.backgroundColor = [UIColor lightGrayColor];
         [self addSubview:line];
         
+#ifdef IS_TEACHER
         share = [UIButton buttonWithType:UIButtonTypeCustom];
         //share.backgroundColor = [UIColor grayColor];
         [share setBackgroundImage:[UIImage imageNamed:@"YZSShared"] forState:UIControlStateNormal];
         [self addSubview:share];
         [share addTarget:self action:@selector(shareTaped:) forControlEvents:UIControlEventTouchUpInside];
+#endif
     }
     return self;
 }

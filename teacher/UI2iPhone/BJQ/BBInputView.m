@@ -47,6 +47,12 @@
 }
 
 -(void)beginEdit{
+    inputTextField.placeholder = @"评论...";
+    [inputTextField becomeFirstResponder];
+}
+
+-(void)beginEdit : (NSString *) placeholder{
+    inputTextField.placeholder = placeholder;
     [inputTextField becomeFirstResponder];
 }
 

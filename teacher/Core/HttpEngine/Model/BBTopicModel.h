@@ -32,6 +32,7 @@
 @property(nonatomic,strong) NSNumber *num_comment;
 @property(nonatomic,strong) NSArray *praises;
 @property(nonatomic,strong) NSArray *comments;
+@property(nonatomic,strong) NSMutableArray *commentStr;
 
 // attach
 @property(nonatomic,strong) NSArray *imageList;

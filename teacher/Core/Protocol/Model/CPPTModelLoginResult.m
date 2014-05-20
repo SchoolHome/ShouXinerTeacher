@@ -40,7 +40,6 @@
                 result.needSetUserName = [[jsonDict objectForKey:@"setUserName"] boolValue];
             }
             result.needSetUserName = NO;
-            result.activated = YES;
             result.url = [[jsonDict objectForKey:@"update"] objectForKey:@"url"];
             result.version = [[jsonDict objectForKey:@"update"] objectForKey:@"version"];
         }
