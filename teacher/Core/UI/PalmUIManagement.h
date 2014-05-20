@@ -66,6 +66,9 @@
 @property(nonatomic,strong) NSHTTPCookie *suid;
 @property(nonatomic,strong) NSString *imServerIP;
 
+// 激活
+@property(nonatomic,strong) NSDictionary *activateDic;
+
 // 获取用户信息
 -(void) getUserProfile;
 // 获取用户通讯录
@@ -108,6 +111,9 @@
 -(void) getNotiListWithSender : (int) sender withOffset : (int) offset withLimit : (int) limit;
 // 转发有指示
 -(void) postForwardNoti : (int) oaid withGroupID : (int) groupID withMessage : (NSString *) message;
+
+// 激活
+-(void) activate : (NSString *) userName withTelPhone : (NSString *) telPhone withEmail : (NSString *) email withPassWord : (NSString *) password;
 
 -(void) userLoginToken;
 @end

@@ -1,7 +1,9 @@
 
 #import "BBFZYViewController.h"
+#import "CTAssetsPickerController.h"
+#import "ViewImageViewController.h"
 
-@interface BBFZYViewController ()
+@interface BBFZYViewController ()<CTAssetsPickerControllerDelegate,viewImageDeletedDelegate>
 
 @property (nonatomic,strong) NSString *placeholder;
 
@@ -134,6 +136,63 @@
 
 -(void)imageButtonTaped:(id)sender{
     [thingsTextView resignFirstResponder];
+    
+    int tag = ((UIButton*)sender).tag;
+    UIImage *temp = [imageButton[tag] backgroundImageForState:UIControlStateNormal];
+    if (!temp) {
+        return;
+    }
+    
+    NSMutableArray *images = [[NSMutableArray alloc] init];
+    
+    if (_style==1) {
+        for (int i = 0; i<3; i++) {
+            UIImage *image = [imageButton[i] backgroundImageForState:UIControlStateNormal];
+            if (image) {
+                [images addObject:image];
+            }
+        }
+    }else{
+        for (int i = 0; i<7; i++) {
+            UIImage *image = [imageButton[i] backgroundImageForState:UIControlStateNormal];
+            if (image) {
+                [images addObject:image];
+            }
+        }
+    }
+    ViewImageViewController *imagesVC = [[ViewImageViewController alloc] initViewImageVC:images withSelectedIndex:tag];
+    imagesVC.delegate = self;
+    [self.navigationController pushViewController:imagesVC animated:YES];
+}
+
+-(void) delectedIndex:(int)index{
+    [imageButton[index] setBackgroundImage:nil forState:UIControlStateNormal];
+}
+
+-(void) reloadView{
+    NSMutableArray *images = [[NSMutableArray alloc] init];
+    if (_style==1) {
+        for (int i = 0; i<3; i++) {
+            UIImage *image = [imageButton[i] backgroundImageForState:UIControlStateNormal];
+            if (image) {
+                [images addObject:image];
+                [imageButton[i] setBackgroundImage:nil forState:UIControlStateNormal];
+            }
+        }
+    }else{
+        for (int i = 0; i<7; i++) {
+            UIImage *image = [imageButton[i] backgroundImageForState:UIControlStateNormal];
+            if (image) {
+                [images addObject:image];
+                [imageButton[i] setBackgroundImage:nil forState:UIControlStateNormal];
+            }
+        }
+    }
+    
+    for (int i = 0; i<[images count]; i++) {
+        [imageButton[i] setBackgroundImage:[images objectAtIndex:i] forState:UIControlStateNormal];
+    }
+    selectCount = [images count];
 }
 
 -(void)imagePickerButtonTaped:(id)sender{
@@ -306,6 +365,7 @@
             
             if (i<3) {
                 [imageButton[i] addTarget:self action:@selector(imageButtonTaped:) forControlEvents:UIControlEventTouchUpInside];
+                imageButton[i].tag = i;
             }else{
                 [imageButton[i] setBackgroundImage:[UIImage imageNamed:@"BBSendAddImage"] forState:UIControlStateNormal];
                 [imageButton[i] addTarget:self action:@selector(imagePickerButtonTaped:) forControlEvents:UIControlEventTouchUpInside];
@@ -329,6 +389,7 @@
             
             if (i<7) {
                 [imageButton[i] addTarget:self action:@selector(imageButtonTaped:) forControlEvents:UIControlEventTouchUpInside];
+                imageButton[i].tag = i;
             }else{
                 
                 [imageButton[i] setBackgroundImage:[UIImage imageNamed:@"BBSendAddImage"] forState:UIControlStateNormal];
@@ -435,12 +496,31 @@
             //
             
         {
-            if ([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypePhotoLibrary]){
-                imagePicker.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
+            if (_style == 1) {
+                if (selectCount >= 3) {
+                    return;
+                }
+            }else{
+                if (selectCount >= 7) {
+                    return;
+                }
             }
-            [self presentViewController:imagePicker animated: YES completion:^{
-                //
-            }];
+            CTAssetsPickerController *picker = [[CTAssetsPickerController alloc] init];
+            picker.assetsFilter = [ALAssetsFilter allPhotos];
+            if (_style == 1){
+                picker.maximumNumberOfSelection = 3 - selectCount;
+            }else{
+                picker.maximumNumberOfSelection = 7 - selectCount;
+            }
+            picker.delegate = self;
+            
+            [self presentViewController:picker animated:YES completion:NULL];
+//            if ([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypePhotoLibrary]){
+//                imagePicker.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
+//            }
+//            [self presentViewController:imagePicker animated: YES completion:^{
+//                //
+//            }];
         }
             
             break;
@@ -453,6 +533,32 @@
     }
 }
 
+#pragma mark - Assets Picker Delegate
+
+- (void)assetsPickerController:(CTAssetsPickerController *)picker didFinishPickingAssets:(NSArray *)assets{
+//    int count = 0;
+//    if (_style == 1) { // 发通知只有3张图
+//        count = 3;
+//        if (selectCount<4) {
+//            [imageButton[selectCount] setBackgroundImage:image forState:UIControlStateNormal];
+//            selectCount++;
+//        }
+//    }else{
+//        count = 7;
+//        if (selectCount<7) {
+//            [imageButton[selectCount] setBackgroundImage:image forState:UIControlStateNormal];
+//            selectCount++;
+//        }
+//    }
+    
+    for (int i = 0; i<[assets count]; i++) {
+        ALAsset *asset = [assets objectAtIndex:i];
+        [imageButton[selectCount] setBackgroundImage:[UIImage imageWithCGImage:[[asset defaultRepresentation] fullScreenImage]] forState:UIControlStateNormal];
+        selectCount++;
+    }
+}
+
+
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info{
     NSString *mediaType = [info objectForKey:UIImagePickerControllerMediaType];
     UIImage *image = nil;
@@ -460,7 +566,7 @@
         image = [info objectForKey:UIImagePickerControllerOriginalImage];
     }
 
-    NSData *data = UIImageJPEGRepresentation(image, 0.4f);
+    NSData *data = UIImageJPEGRepresentation(image, 0.6f);
     image = [[UIImage alloc] initWithData:data];
     
     if (_style == 1) { // 发通知只有3张图

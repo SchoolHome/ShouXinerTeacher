@@ -21,6 +21,7 @@
 @property(nonatomic,strong) BBTopicModel *data;
 
 -(void)beginEdit;
+-(void)beginEdit : (NSString *) placeholder;
 -(void)endEdit;
 @end
 

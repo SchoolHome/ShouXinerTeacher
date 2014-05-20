@@ -11,6 +11,9 @@
 
 #define WWAN_TEST       //外网环境
 
+// 如果定义此宏则是教师版
+#define IS_TEACHER
+
 // 注释掉TEST为线上环境
 //#define TEST
 

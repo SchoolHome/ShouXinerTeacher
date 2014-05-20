@@ -131,6 +131,12 @@ static PalmUIManagement *sharedInstance = nil;
     [[PalmNetWorkService sharedInstance] networkEngine:operation];
 }
 
+// 激活
+-(void) activate : (NSString *) userName withTelPhone : (NSString *) telPhone withEmail : (NSString *) email withPassWord : (NSString *) password{
+    MyOperation *operation = [[MyOperation alloc] initActivate:userName withTelPhone:telPhone withEmail:email withPassWord:password];
+    [[PalmNetWorkService sharedInstance] networkEngine:operation];
+}
+
 -(void) userLoginToken{
     UserProfileOperation *operation = [[UserProfileOperation alloc] initUserLogin];
     [[PalmNetWorkService sharedInstance] networkEngine:operation];

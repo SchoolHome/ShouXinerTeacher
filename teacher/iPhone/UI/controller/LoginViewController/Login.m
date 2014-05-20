@@ -9,6 +9,7 @@
 #import "Login.h"
 #import "CPUIModelManagement.h"
 #import "PalmUIManagement.h"
+#import "activateViewController.h"
 
 @interface Login ()<UITextFieldDelegate,UIAlertViewDelegate>
 @property (nonatomic,strong) UIImageView *bgImage;
@@ -35,9 +36,18 @@
     return [super init];
 }
 
+-(void) viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
+    CPLGModelAccount *account = [[CPSystemEngine sharedInstance] accountModel];
+    if ( nil != account.pwdMD5 && ![account.pwdMD5 isEqualToString:@""]) {
+        [self showProgressWithText:@"正在登陆"];
+    }
+}
+
 -(void) viewDidAppear:(BOOL)animated{
     [super viewDidAppear:animated];
     [[CPUIModelManagement sharedInstance] addObserver:self forKeyPath:@"loginCode" options:0 context:@"loginCode"];
+    
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(keyboardWillShow:)
                                                  name:UIKeyboardWillShowNotification
@@ -47,10 +57,6 @@
                                              selector:@selector(keyboardWillHide:)
                                                  name:UIKeyboardWillHideNotification
                                                object:nil];
-    CPLGModelAccount *account = [[CPSystemEngine sharedInstance] accountModel];
-    if ([account isAutoLogin]){
-        [self showProgressWithText:@"正在登陆"];
-    }
 }
 
 -(void) viewDidDisappear:(BOOL)animated{
@@ -135,7 +141,11 @@
     [self.bgImage addSubview:self.LoginButton];
     
     UILabel *label = [[UILabel alloc] init];
+#ifdef IS_TEACHER
     label.text = @"手心网 v1.0 教师版";
+#else
+    label.text = @"手心网 v1.0 家长版";
+#endif
     label.textAlignment = NSTextAlignmentLeft;
     label.textColor = [UIColor whiteColor];
     label.alpha = 0.6f;
@@ -183,17 +193,21 @@
         
         if(login_code_int == 0){
             if (![PalmUIManagement sharedInstance].loginResult.recommend && ![PalmUIManagement sharedInstance].loginResult.force) {
-                if ([PalmUIManagement sharedInstance].loginResult.activated) {
-                    NSLog(@"激活");
+                if (![PalmUIManagement sharedInstance].loginResult.activated) {
+                    [self closeProgress];
+                    activateViewController *activate = [[activateViewController alloc] initActivateViewController:[PalmUIManagement sharedInstance].loginResult.needSetUserName];
+                    [self.navigationController pushViewController:activate animated:YES];
                 }else{
                     [self closeProgress];
                     AppDelegate *appDelegate = (AppDelegate *)[UIApplication sharedApplication].delegate;
                     [appDelegate launchApp];
                 }
             }else if([PalmUIManagement sharedInstance].loginResult.recommend && ![PalmUIManagement sharedInstance].loginResult.force){
+                [self closeProgress];
                 UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"有更新" message:@"有新版本更新" delegate:self cancelButtonTitle:@"确定" otherButtonTitles:@"取消", nil];
                 [alert show];
             }else if([PalmUIManagement sharedInstance].loginResult.recommend && [PalmUIManagement sharedInstance].loginResult.force){
+                [self closeProgress];
                 UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"有更新" message:@"有新版本更新" delegate:self cancelButtonTitle:@"确定" otherButtonTitles: nil];
                 [alert show];
             }
@@ -211,8 +225,9 @@
             [[UIApplication sharedApplication] openURL:[NSURL URLWithString:[PalmUIManagement sharedInstance].loginResult.url]];
         }
     }else{
-        if ([PalmUIManagement sharedInstance].loginResult.activated) {
-            NSLog(@"激活");
+        if (![PalmUIManagement sharedInstance].loginResult.activated) {
+            activateViewController *activate = [[activateViewController alloc] initActivateViewController:[PalmUIManagement sharedInstance].loginResult.needSetUserName];
+            [self.navigationController pushViewController:activate animated:YES];
         }else{
             [self closeProgress];
             AppDelegate *appDelegate = (AppDelegate *)[UIApplication sharedApplication].delegate;

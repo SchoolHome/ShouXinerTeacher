@@ -11,10 +11,12 @@
 typedef enum{
     kGetCredits,
     kCheckVersion,
+    kActivate,
 }MyType;
 
 @interface MyOperation : PalmOperation
 @property (nonatomic) MyType type;
 -(MyOperation *) initGetCredits;
 -(MyOperation *) initCheckVersion;
+-(MyOperation *) initActivate : (NSString *) userName withTelPhone : (NSString *) telPhone withEmail : (NSString *) email withPassWord : (NSString *) password;
 @end

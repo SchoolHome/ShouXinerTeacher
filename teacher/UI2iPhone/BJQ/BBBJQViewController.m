@@ -9,7 +9,9 @@
 
 #import "CPUIModelManagement.h"
 #import "CPUIModelPersonalInfo.h"
-
+#import "UIImageView+MJWebCache.h"
+#import "MJPhotoBrowser.h"
+#import "MJPhoto.h"
 
 
 @interface BBBJQViewController ()
@@ -18,7 +20,7 @@
 @property (nonatomic,copy) NSString *inputText;
 
 @property (nonatomic,strong) MessagePictrueViewController *messagePictrueController;
-
+@property (nonatomic,strong) BBCommentModel *model;
 @end
 
 @implementation BBBJQViewController
@@ -177,17 +179,39 @@
             comment.replyto_username = self.tempTopModelInput.author_username;
             comment.uid = [NSNumber numberWithInteger:[account.uid integerValue]];;
             comment.username = [CPUIModelManagement sharedInstance].uiPersonalInfo.nickName;
+            NSMutableArray *arr = [[NSMutableArray alloc] initWithArray:self.tempTopModelInput.comments];
+            [arr addObject:comment];
+            self.tempTopModelInput.comments = arr;
             
-            NSMutableArray *p = [[NSMutableArray alloc] initWithArray:self.tempTopModel.comments];
-            [p addObject:comment];
-            self.tempTopModel.comments = [NSArray arrayWithArray:p];
-            NSUInteger len = [comment.username length]+2;
-            NSString *text = [NSString stringWithFormat:@"%@: %@\n",comment.username,comment.comment];
-            NSMutableAttributedString *attributedText = [[NSMutableAttributedString alloc] initWithString:text];
-            if ([self currentVersion] > kIOS6) {
-                [attributedText addAttribute:NSForegroundColorAttributeName value:[UIColor colorWithHexString:@"#4a7f9d"] range:NSMakeRange(0,len)];
+            NSUInteger len = [comment.username length]+1;
+            NSMutableAttributedString *attributedText;
+            if ([comment.username isEqualToString:comment.replyto_username]) {
+                NSString *text = [NSString stringWithFormat:@"%@: %@\n",comment.username,comment.comment];
+                attributedText = [[NSMutableAttributedString alloc] initWithString:text];
+                if ([[[UIDevice currentDevice] systemVersion] floatValue] > 6) {
+                    [attributedText addAttribute:NSForegroundColorAttributeName value:[UIColor colorWithHexString:@"#4a7f9d"] range:NSMakeRange(0,len)];
+                }
+            }else{
+                NSString *text = [NSString stringWithFormat:@"%@:回复 %@ %@\n",comment.username,comment.replyto_username,comment.comment];
+                attributedText = [[NSMutableAttributedString alloc] initWithString:text];
+                NSUInteger len1 = [comment.replyto_username length];
+                NSUInteger temp = [[NSString stringWithFormat:@"%@:回复 ",comment.username] length];
+                if ([[[UIDevice currentDevice] systemVersion] floatValue] > 6) {
+                    [attributedText addAttribute:NSForegroundColorAttributeName value:[UIColor colorWithHexString:@"#4a7f9d"] range:NSMakeRange(0,len)];
+                    [attributedText addAttribute:NSForegroundColorAttributeName value:[UIColor colorWithHexString:@"#4a7f9d"] range:NSMakeRange(temp,len1)];
+                }
             }
-            
+            [self.tempTopModelInput.commentStr addObject:attributedText];
+//            NSMutableArray *p = [[NSMutableArray alloc] initWithArray:self.tempTopModel.comments];
+//            [p addObject:comment];
+//            self.tempTopModel.comments = [NSArray arrayWithArray:p];
+//            NSUInteger len = [comment.username length]+2;
+//            NSString *text = [NSString stringWithFormat:@"%@: %@\n",comment.username,comment.comment];
+//            NSMutableAttributedString *attributedText = [[NSMutableAttributedString alloc] initWithString:text];
+//            if ([self currentVersion] > kIOS6) {
+//                [attributedText addAttribute:NSForegroundColorAttributeName value:[UIColor colorWithHexString:@"#4a7f9d"] range:NSMakeRange(0,len)];
+//            }
+//            
             NSMutableAttributedString *str = [[NSMutableAttributedString alloc] initWithAttributedString:self.tempTopModelInput.commentsStr];
             [str appendAttributedString:attributedText];
             self.tempTopModelInput.commentsStr = str;
@@ -268,10 +292,12 @@
 }
 
 -(void)pointTaped:(UITapGestureRecognizer *)gesture{
+#ifdef IS_TEACHER
     BBJFViewController *jf = [[BBJFViewController alloc] init];
     jf.hidesBottomBarWhenPushed = YES;
     jf.url = [NSURL URLWithString:@"http://www.shouxiner.com/teacher_jfen/mobile_web_shop"];
     [self.navigationController pushViewController:jf animated:YES];
+#endif
 }
 
 - (void)viewDidLoad
@@ -372,12 +398,19 @@
     
     bjqTableView.tableHeaderView = head;
     
-    
+#ifdef IS_TEACHER
     UIButton *addButton = [UIButton buttonWithType:UIButtonTypeCustom];
     [addButton setFrame:CGRectMake(0.f, 7.f, 30.f, 30.f)];
     [addButton setBackgroundImage:[UIImage imageNamed:@"BBAdd"] forState:UIControlStateNormal];
     [addButton addTarget:self action:@selector(addNewTaped:) forControlEvents:UIControlEventTouchUpInside];
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:addButton];
+#else
+    UIButton *shareButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    [shareButton setFrame:CGRectMake(0.f, 7.f, 40.f, 30.f)];
+    [shareButton setTitle:@"分享" forState:UIControlStateNormal];
+    [shareButton addTarget:self action:@selector(shareTaped:) forControlEvents:UIControlEventTouchUpInside];
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:shareButton];
+#endif
 //    
 //    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"BBAdd"] style:UIBarButtonItemStylePlain  target:self action:@selector(addNewTaped:)];
     
@@ -646,6 +679,17 @@
 
 }
 
+-(void)shareTaped:(id)sender{
+    
+    BBFZYViewController *fzy = [[BBFZYViewController alloc] init];
+    fzy.hidesBottomBarWhenPushed = YES;
+    fzy.style = 3;
+    fzy.currentGroup = _currentGroup;
+    [self.navigationController pushViewController:fzy animated:YES];
+    
+}
+
+
 #pragma mark - BBBaseTableViewCellDelegate
 
 // 赞
@@ -664,7 +708,7 @@
     [[UIApplication sharedApplication].keyWindow addSubview:inputBar];
     inputBar.data = cell.data;
     [inputBar beginEdit];
-    
+    self.model = nil;
     NSIndexPath *indexPath = [bjqTableView indexPathForCell:cell];
     CGRect r0 = [bjqTableView rectForRowAtIndexPath:indexPath];
     CGRect r1 = [bjqTableView convertRect:r0 toView:nil];
@@ -674,6 +718,22 @@
     [bjqTableView setContentOffset:p animated:YES];
 }
 
+-(void)bbBaseTableViewCell:(BBBaseTableViewCell *)cell commentButtonTaped:(UIButton *)sender{
+    [[UIApplication sharedApplication].keyWindow addSubview:inputBar];
+    inputBar.data = cell.data;
+    self.model = [cell.data.comments objectAtIndex:sender.tag-1];
+    [inputBar beginEdit:[NSString stringWithFormat:@"回复%@：",self.model.username]];
+    
+    NSIndexPath *indexPath = [bjqTableView indexPathForCell:cell];
+    CGRect r0 = [bjqTableView rectForRowAtIndexPath:indexPath];
+    CGRect r1 = [bjqTableView convertRect:r0 toView:nil];
+    int x = [UIScreen mainScreen].bounds.size.height-260-r1.origin.y-r1.size.height;
+    CGPoint p = CGPointMake(0, bjqTableView.contentOffset.y-x);
+    
+    [bjqTableView setContentOffset:p animated:YES];
+
+}
+
 // 点击大图
 -(void)bbBaseTableViewCell:(BBBaseTableViewCell *)cell imageButtonTaped:(EGOImageButton *)sender{
 
@@ -681,23 +741,49 @@
     
     BBTopicModel *model = cell.data;
     
-    float height = 0.0f;
-    if (isIPhone5) {
-        height = 568.0f;
-    }else{
-        height = 480.0f;
+    int count = model.imageList.count;
+    // 1.封装图片数据
+    NSMutableArray *photos = [NSMutableArray arrayWithCapacity:count];
+    for (int i = 0; i<count; i++) {
+        // 替换为中等尺寸图片
+        NSString *url = [NSString stringWithFormat:@"%@",model.imageList[i]];
+        MJPhoto *photo = [[MJPhoto alloc] init];
+        photo.url = [NSURL URLWithString:url]; // 图片路径
+        BBImageTableViewCell *c =(BBImageTableViewCell*)cell;
+        EGOImageButton *temp = [c imageContentWithIndex:i];
+        CGRect superViewRect = [cell convertRect:temp.frame toView:nil];
+        UIImageView *imageview = [[UIImageView alloc] initWithFrame:superViewRect];
+        imageview.image = [temp currentBackgroundImage];
+        imageview.hidden = YES;
+        [self.view addSubview:imageview];
+        photo.srcImageView = imageview; // 来源于哪个UIImageView
+        [photos addObject:photo];
     }
     
-    CGRect imageRect = sender.frame;
-    CGRect superViewRect = [cell convertRect:imageRect toView:nil];
+    // 2.显示相册
+    MJPhotoBrowser *browser = [[MJPhotoBrowser alloc] init];
+    browser.currentPhotoIndex = sender.tag; // 弹出相册时显示的第一张图片是？
+    browser.photos = photos; // 设置所有的图片
+    [browser show];
+
     
-    NSString *url = model.imageList[sender.tag];
-    
-    self.messagePictrueController = [[MessagePictrueViewController alloc] initWithPictrueURL:url withRect:superViewRect];
-    self.messagePictrueController.delegate = self;
-    self.messagePictrueController.view.frame = CGRectMake(0.0f, 0.0f, 320.0f, height);
-    [[UIApplication sharedApplication] setStatusBarHidden:YES withAnimation:UIStatusBarAnimationFade];
-    [[UIApplication sharedApplication].keyWindow addSubview:self.messagePictrueController.view];
+//    float height = 0.0f;
+//    if (isIPhone5) {
+//        height = 568.0f;
+//    }else{
+//        height = 480.0f;
+//    }
+//    
+//    CGRect imageRect = sender.frame;
+//    CGRect superViewRect = [cell convertRect:imageRect toView:nil];
+//    
+//    NSString *url = model.imageList[sender.tag];
+//    
+//    self.messagePictrueController = [[MessagePictrueViewController alloc] initWithPictrueURL:url withRect:superViewRect];
+//    self.messagePictrueController.delegate = self;
+//    self.messagePictrueController.view.frame = CGRectMake(0.0f, 0.0f, 320.0f, height);
+//    [[UIApplication sharedApplication] setStatusBarHidden:YES withAnimation:UIStatusBarAnimationFade];
+//    [[UIApplication sharedApplication].keyWindow addSubview:self.messagePictrueController.view];
 }
 
 -(void)bbBaseTableViewCell:(BBBaseTableViewCell *)cell linkButtonTaped:(UIButton *)sender{
@@ -713,6 +799,7 @@
 #pragma mark - UIScrollViewDelegate
 - (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView{
     [inputBar endEdit];
+    self.model = nil;
 }
 
 #pragma mark - BBInputViewDelegate
@@ -723,8 +810,12 @@
 //    BBTopicModel *model = view.data;
     self.tempTopModelInput = view.data;
     self.inputText = text;
+    int replyUid = [self.tempTopModelInput.author_uid intValue];
+    if (self.model != nil) {
+        replyUid = [self.model.uid integerValue];
+    }
     [[PalmUIManagement sharedInstance] postComment:text
-                                    withReplyToUid:[self.tempTopModelInput.author_uid intValue]
+                                    withReplyToUid:replyUid
                                        withTopicID:[self.tempTopModelInput.topicid longLongValue]];
     
 }

@@ -13,6 +13,7 @@
 @interface MyOperation ()
 -(void) getCredits;
 -(void) checkVersion;
+-(void) postActivate;
 @end
 
 @implementation MyOperation
@@ -30,11 +31,36 @@
     if ([self initOperation]) {
         self.type = kCheckVersion;
         NSString *urlStr = [NSString stringWithFormat:@"http://%@/mapi/checkUpdate",K_HOST_NAME_OF_PALM_SERVER];
+#ifdef IS_TEACHER
         NSDictionary *pa = [[NSDictionary alloc] initWithObjectsAndKeys:@"ios_v2_teacher", @"platform", [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleVersion"], @"version", nil];
+#else
+        NSDictionary *pa = [[NSDictionary alloc] initWithObjectsAndKeys:@"ios_v2", @"platform", [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleVersion"], @"version", nil];
+#endif
         [self setHttpRequestPostWithUrl:urlStr params:pa];
     }
     return self;
 
+}
+
+-(MyOperation *) initActivate : (NSString *) userName withTelPhone : (NSString *) telPhone withEmail : (NSString *) email withPassWord : (NSString *) password;{
+    if ([self initOperation]) {
+        self.type = kActivate;
+        NSString *urlStr = [NSString stringWithFormat:@"http://%@/mapi/active",K_HOST_NAME_OF_PALM_SERVER];
+        NSMutableDictionary *pa = [[NSMutableDictionary alloc] init];
+        [pa setObject:userName forKey:@"username"];
+        if (nil != telPhone && ![telPhone isEqualToString:@""]) {
+            [pa setObject:telPhone forKey:@"mobile"];
+        }
+        if (nil != email && ![email isEqualToString:@""]) {
+            [pa setObject:email forKey:@"email"];
+        }
+        if (nil != password && ![password isEqualToString:@""]) {
+            [pa setObject:password forKey:@"password"];
+        }
+        
+        [self setHttpRequestPostWithUrl:urlStr params:pa];
+    }
+    return self;
 }
 
 -(void) getCredits{
@@ -64,6 +90,19 @@
     [self startAsynchronous];
 }
 
+-(void) postActivate{
+#ifdef TEST
+    [self.dataRequest addRequestHeader:@"Host" value:@"www.shouxiner.com"];
+#endif
+    [self.dataRequest setRequestCompleted:^(NSDictionary *data){
+        dispatch_block_t updateTagBlock = ^{
+            [PalmUIManagement sharedInstance].activateDic = data;
+        };
+        dispatch_async(dispatch_get_main_queue(), updateTagBlock);
+    }];
+    [self startAsynchronous];
+}
+
 -(void) main{
     switch (self.type) {
         case kGetCredits:
@@ -71,6 +110,9 @@
             break;
         case kCheckVersion:
             [self checkVersion];
+            break;
+        case kActivate:
+            [self postActivate];
             break;
         default:
             break;

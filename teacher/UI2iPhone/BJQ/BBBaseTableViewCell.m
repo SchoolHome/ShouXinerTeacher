@@ -24,6 +24,13 @@
     }
 }
 
+-(void) hEvent : (UIButton *) sender{
+    if (_delegate&&[_delegate respondsToSelector:@selector(bbBaseTableViewCell:commentButtonTaped:)]) {
+        [_delegate bbBaseTableViewCell:self commentButtonTaped:sender];
+    }
+}
+
+
 -(NSString *)timeStringFromNumber:(NSNumber *) number{
     
     NSTimeInterval  t1 = [number longLongValue];
@@ -119,9 +126,9 @@
         [self addSubview:_likeContent];
         _likeContent.backgroundColor = [UIColor clearColor];
         
-        _relpyContent = [[OHAttributedLabel alloc] init];
-        [self addSubview:_relpyContent];
-        _relpyContent.backgroundColor = [UIColor clearColor];
+//        _relpyContent = [[OHAttributedLabel alloc] init];
+//        [self addSubview:_relpyContent];
+//        _relpyContent.backgroundColor = [UIColor clearColor];
         
     }
     return self;
