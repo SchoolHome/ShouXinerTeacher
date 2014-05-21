@@ -105,6 +105,7 @@
 - (UIView *)pageAtIndex:(NSInteger)index{
     UIImageView *imageView = [[UIImageView alloc] initWithFrame:self.view.bounds];
     imageView.image = [self.dataSource objectAtIndex:index];
+    imageView.contentMode = UIViewContentModeScaleAspectFit;
     return imageView;
 }
 

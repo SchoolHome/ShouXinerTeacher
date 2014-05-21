@@ -103,7 +103,10 @@
         __unsafe_unretained MJPhotoLoadingView *loading = _photoLoadingView;
         [_imageView setImageWithURL:_photo.url placeholderImage:_photo.srcImageView.image options:SDWebImageRetryFailed|SDWebImageLowPriority progress:^(NSUInteger receivedSize, long long expectedSize) {
             if (receivedSize > kMinProgress) {
-                loading.progress = (float)receivedSize/expectedSize;
+                if (nil != loading) {
+                    loading.progress = (float)receivedSize/expectedSize;
+                }
+                
             }
         } completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType) {
             [photoView photoDidFinishLoadWithImage:image];
@@ -197,7 +200,9 @@
 - (void)hide
 {
     if (_doubleTap) return;
-    
+    _photoLoadingView = nil;
+    [_imageView setImageWithURL:[NSURL URLWithString:@"file:///abc"]];
+    [_imageView cancelCurrentImageLoad];
     // 移除进度条
     [_photoLoadingView removeFromSuperview];
     self.contentOffset = CGPointZero;

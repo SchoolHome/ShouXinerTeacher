@@ -52,7 +52,6 @@
                 //            if ([_currentGroup.avatar length]>0) {
                 //                avatar.imageURL = [NSURL URLWithString:_currentGroup.avatar];
                 //            }
-                
                 [bjqTableView triggerPullToRefresh];
                 
             }
@@ -192,10 +191,10 @@
                     [attributedText addAttribute:NSForegroundColorAttributeName value:[UIColor colorWithHexString:@"#4a7f9d"] range:NSMakeRange(0,len)];
                 }
             }else{
-                NSString *text = [NSString stringWithFormat:@"%@:回复 %@ %@\n",comment.username,comment.replyto_username,comment.comment];
+                NSString *text = [NSString stringWithFormat:@"%@ 回复 %@: %@\n",comment.username,comment.replyto_username,comment.comment];
                 attributedText = [[NSMutableAttributedString alloc] initWithString:text];
                 NSUInteger len1 = [comment.replyto_username length];
-                NSUInteger temp = [[NSString stringWithFormat:@"%@:回复 ",comment.username] length];
+                NSUInteger temp = [[NSString stringWithFormat:@"%@ 回复 ",comment.username] length];
                 if ([[[UIDevice currentDevice] systemVersion] floatValue] > 6) {
                     [attributedText addAttribute:NSForegroundColorAttributeName value:[UIColor colorWithHexString:@"#4a7f9d"] range:NSMakeRange(0,len)];
                     [attributedText addAttribute:NSForegroundColorAttributeName value:[UIColor colorWithHexString:@"#4a7f9d"] range:NSMakeRange(temp,len1)];
@@ -414,9 +413,10 @@
 //    
 //    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"BBAdd"] style:UIBarButtonItemStylePlain  target:self action:@selector(addNewTaped:)];
     
-    titleButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 160, 44)];
+    titleButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 125, 44)];
     [titleButton setTitle:@"班级" forState:UIControlStateNormal];
     self.navigationItem.titleView = titleButton;
+    titleButton.titleLabel.lineBreakMode = NSLineBreakByTruncatingMiddle;
     [titleButton addTarget:self action:@selector(bjButtonTaped:) forControlEvents:UIControlEventTouchUpInside];
     
     UIImageView *arrow = [[UIImageView alloc] initWithFrame:CGRectMake(124, 9, 22, 22)];

@@ -81,10 +81,10 @@
                             [attributedText addAttribute:NSForegroundColorAttributeName value:[UIColor colorWithHexString:@"#4a7f9d"] range:NSMakeRange(0,len)];
                         }
                     }else{
-                        NSString *text = [NSString stringWithFormat:@"%@:回复 %@ %@\n",cm.username,cm.replyto_username,cm.comment];
+                        NSString *text = [NSString stringWithFormat:@"%@ 回复 %@: %@\n",cm.username,cm.replyto_username,cm.comment];
                         attributedText = [[NSMutableAttributedString alloc] initWithString:text];
                         NSUInteger len1 = [cm.replyto_username length];
-                        NSUInteger temp = [[NSString stringWithFormat:@"%@:回复 ",cm.username] length];
+                        NSUInteger temp = [[NSString stringWithFormat:@"%@ 回复 ",cm.username] length];
                         if ([[[UIDevice currentDevice] systemVersion] floatValue] > 6) {
                             [attributedText addAttribute:NSForegroundColorAttributeName value:[UIColor colorWithHexString:@"#4a7f9d"] range:NSMakeRange(0,len)];
                             [attributedText addAttribute:NSForegroundColorAttributeName value:[UIColor colorWithHexString:@"#4a7f9d"] range:NSMakeRange(temp,len1)];
