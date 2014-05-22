@@ -6,6 +6,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "MJPhotoLoadingView.h"
 
 @class MJPhotoBrowser, MJPhoto, MJPhotoView;
 
@@ -16,6 +17,8 @@
 @end
 
 @interface MJPhotoView : UIScrollView <UIScrollViewDelegate>
+@property(nonatomic,strong) UIImageView *_imageView;
+@property(nonatomic,strong) MJPhotoLoadingView *_photoLoadingView;
 // 图片
 @property (nonatomic, strong) MJPhoto *photo;
 // 代理

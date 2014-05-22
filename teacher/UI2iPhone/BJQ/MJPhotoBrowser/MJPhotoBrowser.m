@@ -10,6 +10,7 @@
 #import "SDWebImageManager+MJ.h"
 #import "MJPhotoView.h"
 #import "MJPhotoToolbar.h"
+#import "UIImageView+WebCache.h"
 
 #define kPadding 10
 #define kPhotoViewTagOffset 1000
@@ -137,6 +138,15 @@
 {
     [UIApplication sharedApplication].statusBarHidden = _statusBarHiddenInited;
     self.view.backgroundColor = [UIColor clearColor];
+    
+    for (UIView *view in [_photoScrollView subviews]) {
+        if ([view isMemberOfClass:[MJPhotoView class]]) {
+            MJPhotoView *mjView = (MJPhotoView *)view;
+            mjView._photoLoadingView = nil;
+            [mjView._imageView setImageWithURL:[NSURL URLWithString:@"file:///abc"]];
+            [mjView._imageView cancelCurrentImageLoad];
+        }
+    }
     
     // 移除工具条
     [_toolbar removeFromSuperview];

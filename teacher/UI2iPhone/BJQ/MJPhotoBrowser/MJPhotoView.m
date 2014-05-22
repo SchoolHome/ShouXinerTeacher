@@ -7,7 +7,7 @@
 
 #import "MJPhotoView.h"
 #import "MJPhoto.h"
-#import "MJPhotoLoadingView.h"
+
 #import "UIImageView+WebCache.h"
 #import <QuartzCore/QuartzCore.h>
 
