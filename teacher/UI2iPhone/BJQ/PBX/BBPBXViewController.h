@@ -5,7 +5,7 @@
 /*
  拍表现
  */
-@interface BBPBXViewController : PalmViewController<UIImagePickerControllerDelegate,UINavigationControllerDelegate>
+@interface BBPBXViewController : PalmViewController<UIImagePickerControllerDelegate,UINavigationControllerDelegate,UIActionSheetDelegate>
 {
 
 }

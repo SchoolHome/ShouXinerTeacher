@@ -1036,6 +1036,9 @@
 		743E85F618D74B850024D371 /* ContactsTableviewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 743E85F518D74B850024D371 /* ContactsTableviewCell.m */; };
 		743E85F918D74CEF0024D371 /* ContactsModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 743E85F818D74CEF0024D371 /* ContactsModel.m */; };
 		74421CD818DF467A000D2F1B /* DisplaySelectedMemberView.m in Sources */ = {isa = PBXBuildFile; fileRef = 74421CD718DF467A000D2F1B /* DisplaySelectedMemberView.m */; };
+		745D7684193F685600AF666E /* BBStudentsListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 745D7683193F685600AF666E /* BBStudentsListViewController.m */; };
+		745D7687193F68A200AF666E /* BBRecommendedRangeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 745D7686193F68A200AF666E /* BBRecommendedRangeViewController.m */; };
+		745D768A193F6A6000AF666E /* BBStudentListTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 745D7689193F6A6000AF666E /* BBStudentListTableViewCell.m */; };
 		7478550518DB545C0070DF87 /* ContactsStartGroupChatViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7478550418DB545C0070DF87 /* ContactsStartGroupChatViewController.m */; };
 		7478550818DB548C0070DF87 /* StartGroupChatTableviewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7478550718DB548C0070DF87 /* StartGroupChatTableviewCell.m */; };
 		749D72AE18D6147200936D5E /* BBMessageGroupBaseTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 749D72AD18D6147200936D5E /* BBMessageGroupBaseTableView.m */; };
@@ -2855,6 +2858,12 @@
 		743E85F818D74CEF0024D371 /* ContactsModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ContactsModel.m; sourceTree = "<group>"; };
 		74421CD618DF467A000D2F1B /* DisplaySelectedMemberView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DisplaySelectedMemberView.h; sourceTree = "<group>"; };
 		74421CD718DF467A000D2F1B /* DisplaySelectedMemberView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DisplaySelectedMemberView.m; sourceTree = "<group>"; };
+		745D7682193F685600AF666E /* BBStudentsListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BBStudentsListViewController.h; sourceTree = "<group>"; };
+		745D7683193F685600AF666E /* BBStudentsListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BBStudentsListViewController.m; sourceTree = "<group>"; };
+		745D7685193F68A200AF666E /* BBRecommendedRangeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BBRecommendedRangeViewController.h; sourceTree = "<group>"; };
+		745D7686193F68A200AF666E /* BBRecommendedRangeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BBRecommendedRangeViewController.m; sourceTree = "<group>"; };
+		745D7688193F6A6000AF666E /* BBStudentListTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BBStudentListTableViewCell.h; sourceTree = "<group>"; };
+		745D7689193F6A6000AF666E /* BBStudentListTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BBStudentListTableViewCell.m; sourceTree = "<group>"; };
 		7478550318DB545C0070DF87 /* ContactsStartGroupChatViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ContactsStartGroupChatViewController.h; sourceTree = "<group>"; };
 		7478550418DB545C0070DF87 /* ContactsStartGroupChatViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ContactsStartGroupChatViewController.m; sourceTree = "<group>"; };
 		7478550618DB548C0070DF87 /* StartGroupChatTableviewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StartGroupChatTableviewCell.h; sourceTree = "<group>"; };
@@ -6302,6 +6311,12 @@
 			children = (
 				7A59194118D6BDA500C03DED /* BBPBXViewController.h */,
 				7A59194218D6BDA500C03DED /* BBPBXViewController.m */,
+				745D7682193F685600AF666E /* BBStudentsListViewController.h */,
+				745D7683193F685600AF666E /* BBStudentsListViewController.m */,
+				745D7688193F6A6000AF666E /* BBStudentListTableViewCell.h */,
+				745D7689193F6A6000AF666E /* BBStudentListTableViewCell.m */,
+				745D7685193F68A200AF666E /* BBRecommendedRangeViewController.h */,
+				745D7686193F68A200AF666E /* BBRecommendedRangeViewController.m */,
 			);
 			path = PBX;
 			sourceTree = "<group>";
@@ -7328,6 +7343,7 @@
 				332D759618C33552007A75D5 /* CPUIModelManagement.m in Sources */,
 				332D750B18C33552007A75D5 /* CPOperationSysInit.m in Sources */,
 				332D75B218C33552007A75D5 /* ioapi.c in Sources */,
+				745D768A193F6A6000AF666E /* BBStudentListTableViewCell.m in Sources */,
 				7A71E9AD18EBADBD00572E4D /* BBOAModel.m in Sources */,
 				332D834318C33F0B007A75D5 /* SingleSoundAlarmedCell.m in Sources */,
 				741EBBC818D4CCA900F21085 /* BBGroupMessageGroupCell.m in Sources */,
@@ -7496,6 +7512,7 @@
 				332D836918C33F0B007A75D5 /* ColorUtil.m in Sources */,
 				332D74D718C33552007A75D5 /* CPDAOUserInfoDataAddition.m in Sources */,
 				332D756918C33552007A75D5 /* DDTTYLogger.m in Sources */,
+				745D7687193F68A200AF666E /* BBRecommendedRangeViewController.m in Sources */,
 				332D834D18C33F0B007A75D5 /* AlarmClockHelper.m in Sources */,
 				7A47062C18D967F2006449F3 /* OHASBasicMarkupParser.m in Sources */,
 				332D82A018C33F0A007A75D5 /* SectionModel.m in Sources */,
@@ -7668,6 +7685,7 @@
 				332D82DB18C33F0A007A75D5 /* IndependentProfileViewController.m in Sources */,
 				332D838A18C33F0B007A75D5 /* NSArray_PointArray.m in Sources */,
 				332D833418C33F0B007A75D5 /* GroupLoveExpressionCell.m in Sources */,
+				745D7684193F685600AF666E /* BBStudentsListViewController.m in Sources */,
 				332D830C18C33F0B007A75D5 /* FXBlockViewCheckBox.m in Sources */,
 				1975B75F18E940F300587B80 /* CircleImageButton.m in Sources */,
 				332D82E518C33F0A007A75D5 /* SystemIMViewController.m in Sources */,

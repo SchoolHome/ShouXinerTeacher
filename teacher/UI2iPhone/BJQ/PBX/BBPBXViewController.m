@@ -4,6 +4,7 @@
 #import "CTAssetsPickerController.h"
 #import "ViewImageViewController.h"
 #import "UIPlaceHolderTextView.h"
+
 @interface BBPBXViewController ()<CTAssetsPickerControllerDelegate,viewImageDeletedDelegate>
 {
     UIPlaceHolderTextView *thingsTextView;
@@ -14,6 +15,7 @@
     
 }
 @property (nonatomic, strong)NSMutableArray *attachList;
+@property (nonatomic, strong)UIScrollView *contentScrollview;
 @end
 
 @implementation BBPBXViewController
@@ -35,10 +37,20 @@
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"发送" style:UIBarButtonItemStyleBordered target:self action:@selector(send)];
     self.navigationItem.rightBarButtonItem.tintColor = [UIColor whiteColor];
     
+    
+    
+    NSLog(@"height == %f",self.view.bounds.size.height);
+    _contentScrollview = [[UIScrollView alloc] initWithFrame:CGRectMake(0.f, 0.f, 320.f, self.view.bounds.size.height-40.f)];
+    _contentScrollview.showsVerticalScrollIndicator = NO;
+    _contentScrollview.backgroundColor = [UIColor clearColor];
+    [self.view addSubview:_contentScrollview];
+    
     //学生列表
+    UIView *ListBack = [[UIView alloc] initWithFrame:CGRectMake(15.f, 15.f, 320-30.f, 70.f)];
     //说赞美的话
     UIView *textBack = [[UIView alloc] initWithFrame:CGRectMake(15, 15, 320-30, 70)];
-    [self.view addSubview:textBack];
+    [_contentScrollview addSubview:textBack];
+    
     CALayer *roundedLayer0 = [textBack layer];
     [roundedLayer0 setMasksToBounds:YES];
     roundedLayer0.cornerRadius = 8.0;
@@ -46,7 +58,7 @@
     roundedLayer0.borderColor = [[UIColor lightGrayColor] CGColor];
     
     thingsTextView = [[UIPlaceHolderTextView alloc] initWithFrame:CGRectMake(20, 20, 320-40, 60)];
-    [self.view addSubview:thingsTextView];
+    [_contentScrollview addSubview:thingsTextView];
     thingsTextView.placeholder = @"说点赞美话...";
     thingsTextView.backgroundColor = [UIColor clearColor];
     
@@ -54,7 +66,7 @@
 
     //选择图片
     UIView *imageBack = [[UIView alloc] initWithFrame:CGRectMake(15, 95, 320-30, 140)];
-    [self.view addSubview:imageBack];
+    [_contentScrollview addSubview:imageBack];
     CALayer *roundedLayer2 = [imageBack layer];
     [roundedLayer2 setMasksToBounds:YES];
     roundedLayer2.cornerRadius = 8.0;
@@ -73,7 +85,7 @@
             }
             
             imageButton[i].backgroundColor = [UIColor colorWithRed:0.5 green:0.5 blue:0.5 alpha:0.5];
-            [self.view addSubview:imageButton[i]];
+            [_contentScrollview addSubview:imageButton[i]];
             
             if (i<7) {
                 [imageButton[i] addTarget:self action:@selector(imageButtonTaped:) forControlEvents:UIControlEventTouchUpInside];
@@ -145,6 +157,10 @@
     }
 
 }
+-(void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event{
+    
+    [thingsTextView resignFirstResponder];
+}
 #pragma mark - ActionSheet
 - (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex{
     
@@ -195,6 +211,27 @@
             break;
     }
 }
+#pragma mark - ViewImageVC Delegate
+-(void) delectedIndex:(int)index{
+    [imageButton[index] setBackgroundImage:nil forState:UIControlStateNormal];
+}
+-(void) reloadView{
+    NSMutableArray *images = [[NSMutableArray alloc] init];
+
+        for (int i = 0; i<7; i++) {
+            UIImage *image = [imageButton[i] backgroundImageForState:UIControlStateNormal];
+            if (image) {
+                [images addObject:image];
+                [imageButton[i] setBackgroundImage:nil forState:UIControlStateNormal];
+            }
+        }
+    
+    for (int i = 0; i<[images count]; i++) {
+        [imageButton[i] setBackgroundImage:[images objectAtIndex:i] forState:UIControlStateNormal];
+    }
+    selectCount = [images count];
+}
+
 #pragma mark - Assets Picker Delegate
 
 - (void)assetsPickerController:(CTAssetsPickerController *)picker didFinishPickingAssets:(NSArray *)assets{
