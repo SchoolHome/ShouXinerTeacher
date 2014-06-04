@@ -258,6 +258,19 @@
 {
     return 70.f;
 }
+-(BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    return YES;
+}
+-(UITableViewCellEditingStyle)tableView:(UITableView *)tableView editingStyleForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    return UITableViewCellEditingStyleDelete;
+}
+-(void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    CPUIModelMessageGroup *tempMsgGroup = [self.tableviewDisplayDataArray objectAtIndex:indexPath.row];
+    [[CPUIModelManagement sharedInstance] deleteMsgGroup:tempMsgGroup];
+}
 #pragma mark SearchBarDelegate
 -(void)searchBar:(UISearchBar *)searchBar textDidChange:(NSString *)searchText
 {
