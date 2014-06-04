@@ -10,7 +10,7 @@
 #import "BBDisplaySelectedStudentsView.h"
 #import "BBStudentListTableViewCell.h"
 #import "BBStudentModel.h"
-@interface BBStudentsListViewController ()<BBDisplaySelectedStudentsViewDelegate>
+@interface BBStudentsListViewController ()<BBDisplaySelectedStudentsViewDelegate,BBStudentListTableViewCellDelegate>
 {
     //searchBar
     UISearchBar *studentListSearchBar;
@@ -19,7 +19,7 @@
     //SelectedDisplay
     BBDisplaySelectedStudentsView *selectedView;
 }
-@property (nonatomic, strong)NSArray *selectedStudentList;
+@property (nonatomic, strong)NSMutableArray *selectedStudentList;
 @property (nonatomic, strong)NSArray *searchResultList;
 @end
 
@@ -38,10 +38,10 @@
     _searchResultList = [[NSArray alloc] initWithArray:searchResultList];
     [studentListTableview  reloadData];
 }
--(NSArray *)selectedStudentList
+-(NSMutableArray *)selectedStudentList
 {
     if (!_selectedStudentList) {
-        _selectedStudentList = [[NSArray alloc] init];
+        _selectedStudentList = [[NSMutableArray alloc] init];
     }
     return _selectedStudentList;
 }
@@ -56,13 +56,22 @@
 -(void)setStudentList:(NSArray *)studentList
 {
     if (studentList.count == 0 || !studentList) {
-        _studentList = [[NSArray alloc] initWithObjects:@"张三",@"张三",@"张三",@"张三", nil];
+
+        _studentList = [[NSArray alloc] initWithObjects:[self getStudentModel],[self getStudentModel],[self getStudentModel],[self getStudentModel], nil];
     }else
     {
         _studentList = studentList;
     }
 }
-
+//************TestMethod*********************//
+-(BBStudentModel *)getStudentModel
+{
+    BBStudentModel *model = [[BBStudentModel alloc] init];
+    model.isSelected = NO;
+    model.studentName = @"张三";
+    return model;
+}
+//************TestMethod*********************//
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
@@ -123,11 +132,24 @@
     }
     // Do any additional setup after loading the view.
 }
-
+-(void)viewWillAppear:(BOOL)animated
+{
+    [self addObserver:self forKeyPath:@"selectedStudentList" options:NSKeyValueObservingOptionNew context:nil];
+}
+-(void)viewDidDisappear:(BOOL)animated
+{
+    [self removeObserver:self forKeyPath:@"selectedStudentList"];
+}
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+-(void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
+{
+    if ([keyPath isEqualToString:@"selectedStudentList"]) {
+            //改变selectedView
+    }
 }
 #pragma mark ViewControllerMethod
 -(void)backAction
@@ -160,6 +182,27 @@
     }
     return tempSearchResult;
 }
+
+//add or remove in selectedItemArray
+-(void)changeSelectedItemArray:(BBStudentModel *)model
+{
+    model.isSelected = !model.isSelected;
+    
+    
+    if (model.isSelected) {
+        [self.selectedStudentList addObject:model];
+    }else
+    {
+        if ([self.selectedStudentList containsObject:model])
+            [self.selectedStudentList removeObject:model];
+
+
+    }
+
+    [studentListTableview reloadRowsAtIndexPaths:[NSArray arrayWithObject:model.currentIndexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
+    //修改UI
+    [selectedView setStudentNames:self.selectedStudentList];
+}
 #pragma mark BBDisplaySelectedStudentsDelegate
 -(void)ConfirmBtnTapped:(NSArray *)selectedStudentInfos
 {
@@ -184,14 +227,15 @@
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-
+    BBStudentListTableViewCell *cell = (BBStudentListTableViewCell *)[tableView cellForRowAtIndexPath:indexPath];
+    [self changeSelectedItemArray:cell.model];
+    
 }
--(void)itemIsSelected:(NSIndexPath *)indexPath
+-(void)itemIsSelected:(BBStudentModel *)studentModel
 {
-
-    BBStudentListTableViewCell *cell =(BBStudentListTableViewCell *) [studentListTableview cellForRowAtIndexPath:indexPath];
-    cell.selectedBtn.selected = !cell.selectedBtn.selected;
-   // [self changeSelectedItemArrayBySelectedStatus:cell.selectedBtn.selected andModel:userInfo];
+    
+    [self changeSelectedItemArray:studentModel];
+    
 }
 #pragma mark UItableviewDatasouce
 -(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
@@ -207,14 +251,14 @@
     title.backgroundColor = [UIColor clearColor];
     title.font = [UIFont boldSystemFontOfSize:14.f];
     title.textColor = [UIColor whiteColor];
-    title.text = @"手心网家长用户";
+    title.text = @"a";
     [sectionView addSubview:title];
     return sectionView;
 }
-- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
-{
-    return @"手心网家长用户";
-}
+//- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
+//{
+//    return @"手心网家长用户";
+//}
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     return self.studentList.count;
@@ -226,14 +270,11 @@
     if (!cell) {
         cell = [[BBStudentListTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIden];
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
-        //cell.delegate = self;
+        cell.delegate = self;
     }
-    
-    
-//    CPUIModelUserInfo *userInfo = [self.contactsForGroupListDataArray objectAtIndex:indexPath.row];
-//    [cell setModel:userInfo];
-    cell.currentIndexPath = indexPath;
-    [cell setStudentName:[self.studentList objectAtIndex:indexPath.row]];
+    BBStudentModel *studentModel = [self.studentList objectAtIndex:indexPath.row];
+    studentModel.currentIndexPath = indexPath;
+    [cell setModel:studentModel];
 
     
     return cell;

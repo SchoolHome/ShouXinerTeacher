@@ -11,4 +11,5 @@
 @interface BBStudentModel : NSObject
 @property (nonatomic) BOOL isSelected;
 @property (nonatomic) NSString *studentName;
+@property (nonatomic, strong) NSIndexPath *currentIndexPath;
 @end
