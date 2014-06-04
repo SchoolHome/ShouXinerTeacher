@@ -1,9 +1,12 @@
 
 
 #import "PalmViewController.h"
+
 /*
  拍表现
  */
-@interface BBPBXViewController : PalmViewController
+@interface BBPBXViewController : PalmViewController<UIImagePickerControllerDelegate,UINavigationControllerDelegate>
+{
 
+}
 @end

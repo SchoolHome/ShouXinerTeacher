@@ -242,11 +242,13 @@
         cell = [tableView dequeueReusableCellWithIdentifier:messageSingleCellIdentifier];
         if (nil == cell) {
             cell = [[BBSingleMessageGroupCell  alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:messageSingleCellIdentifier];
+            cell.backgroundColor = [UIColor clearColor];
         }
     }else{
         cell = [tableView dequeueReusableCellWithIdentifier:messageGroupCellIdentifier];
         if (nil ==cell) {
             cell = [[BBGroupMessageGroupCell  alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:messageGroupCellIdentifier];
+            cell.backgroundColor = [UIColor clearColor];
         }
     }
     
