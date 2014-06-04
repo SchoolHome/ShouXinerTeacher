@@ -7,7 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
-
+@protocol BBDisplaySelectedStudentsViewDelegate<NSObject>
+-(void)ConfirmBtnTapped:(NSArray *)selectedStudentInfos;
+@end
 @interface BBDisplaySelectedStudentsView : UIView
-
+@property (nonatomic, weak)id<BBDisplaySelectedStudentsViewDelegate> delegate;
 @end

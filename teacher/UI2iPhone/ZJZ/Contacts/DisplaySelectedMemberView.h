@@ -17,7 +17,7 @@
 @property (nonatomic , strong) UIScrollView *membersScrollview;
 @property (nonatomic , strong) UIButton *confirmBtn;
 @property (nonatomic , strong) UIImageView *emptyHeadImageview;
-@property (nonatomic , assign) id<DisplaySelectedMemberViewDelegate> delegate;
+@property (nonatomic , weak) id<DisplaySelectedMemberViewDelegate> delegate;
 
 
 

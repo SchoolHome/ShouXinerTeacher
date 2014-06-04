@@ -15,6 +15,20 @@
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     if (self) {
         // Initialization code
+        self.backgroundColor = [UIColor colorWithRed:242/255.f green:236/255.f blue:230/255.f alpha:1.f];
+        //selectedBtn
+        selectedBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+        [selectedBtn setFrame:CGRectMake(5.f, 19.f, 22.f, 22.f)];
+        [selectedBtn addTarget:self action:@selector(selectUser:) forControlEvents:UIControlEventTouchUpInside];
+        [selectedBtn setBackgroundImage:[UIImage imageNamed:@"ZJZUnCheck"] forState:UIControlStateNormal];
+        [selectedBtn setBackgroundImage:[UIImage imageNamed:@"ZJZChecked"] forState:UIControlStateSelected];
+        [self.contentView addSubview:selectedBtn];
+        //姓名
+        userNameLabel = [[UILabel alloc] initWithFrame:CGRectMake(120.f, 21.f, 120.f, 18.f)];
+        userNameLabel.backgroundColor = [UIColor clearColor];
+        userNameLabel.textColor = [UIColor colorWithRed:75/255.f green:120/255.f blue:148/255.f alpha:1.f];
+        userNameLabel.font = [UIFont systemFontOfSize:14.f];
+        [self.contentView addSubview:userNameLabel];
     }
     return self;
 }
@@ -29,6 +43,19 @@
     [super setSelected:selected animated:animated];
 
     // Configure the view for the selected state
+}
+
+-(void)selectUser:(UIButton *)sender
+{
+    
+    if ([self.delegate respondsToSelector:@selector(itemIsSelected:)]) {
+        [self.delegate itemIsSelected:self.currentIndexPath];
+    }
+}
+
+-(void)setStudentName:(NSString *)name
+{
+    userNameLabel.text = name;
 }
 
 @end
