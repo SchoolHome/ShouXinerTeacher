@@ -12,7 +12,7 @@
 #import "UIImageView+MJWebCache.h"
 #import "MJPhotoBrowser.h"
 #import "MJPhoto.h"
-
+#import "BBPBXViewController.h"
 
 @interface BBBJQViewController ()
 @property (nonatomic,strong) BBTopicModel *tempTopModel;
@@ -21,6 +21,8 @@
 
 @property (nonatomic,strong) MessagePictrueViewController *messagePictrueController;
 @property (nonatomic,strong) BBCommentModel *model;
+@property (nonatomic,strong) BBBaseTableViewCell *tempCell;
+@property (nonatomic,strong) UIImageView *tempMoreImage;
 @end
 
 @implementation BBBJQViewController
@@ -642,11 +644,23 @@
 #pragma mark - BBFSDropdownViewDelegate
 
 -(void)bbFSDropdownView:(BBFSDropdownView *) dropdownView_ didSelectedAtIndex:(NSInteger) index_{
-    BBFZYViewController *fzy = [[BBFZYViewController alloc] init];
-    fzy.hidesBottomBarWhenPushed = YES;
-    fzy.style = index_;
-    fzy.currentGroup = _currentGroup;
-    [self.navigationController pushViewController:fzy animated:YES];
+//    BBFZYViewController *fzy = [[BBFZYViewController alloc] init];
+//    fzy.hidesBottomBarWhenPushed = YES;
+//    fzy.style = index_;
+//    fzy.currentGroup = _currentGroup;
+//    [self.navigationController pushViewController:fzy animated:YES];
+    if (index_ == 2) {
+        BBPBXViewController *pbx = [[BBPBXViewController alloc] init];
+        pbx.hidesBottomBarWhenPushed = YES;
+        [self.navigationController pushViewController:pbx animated:YES];
+    }else
+    {
+        BBFZYViewController *fzy = [[BBFZYViewController alloc] init];
+        fzy.hidesBottomBarWhenPushed = YES;
+        fzy.style = index_;
+        fzy.currentGroup = _currentGroup;
+        [self.navigationController pushViewController:fzy animated:YES];
+    }
 }
 
 -(void)bbFSDropdownViewTaped:(BBFSDropdownView *) dropdownView_{
@@ -701,6 +715,57 @@
     }
     [[PalmUIManagement sharedInstance] postPraise:[self.tempTopModel.topicid longLongValue]];
 }
+
+
+// 更多
+-(void)bbBaseTableViewCell:(BBBaseTableViewCell *)cell moreButtonTaped:(UIButton *)sender{
+    
+    if (self.tempMoreImage != nil) {
+        [self.tempMoreImage removeFromSuperview];
+        self.tempMoreImage = nil;
+    }
+    
+    CGRect superViewRect = [cell convertRect:sender.frame toView:nil];
+    self.tempCell = cell;
+    UIImageView *bgImageView = [[UIImageView alloc] initWithFrame:CGRectMake(superViewRect.origin.x - 101.0f, superViewRect.origin.y, 101.0f, 30.0f)];
+    bgImageView.image = [UIImage imageNamed:@"BJQMoreBg"];
+    bgImageView.userInteractionEnabled = YES;
+    bgImageView.hidden = YES;
+    bgImageView.alpha = 0.0f;
+    [self.view addSubview:bgImageView];
+    self.tempMoreImage = bgImageView;
+    
+    UIButton *like = [[UIButton alloc] initWithFrame:CGRectMake(5.5f, 2.5f, 45.0f, 25.0f)];
+    if ([cell.data.am_i_like boolValue]) {
+        [like setBackgroundImage:[UIImage imageNamed:@"BJQHasZanButton"] forState:UIControlStateNormal];
+    }else{
+        [like setBackgroundImage:[UIImage imageNamed:@"BJQHaveNotZanButton"] forState:UIControlStateNormal];
+        [like addTarget:self action:@selector(likeTaped:) forControlEvents:UIControlEventTouchUpInside];
+    }
+    [bgImageView addSubview:like];
+    
+    UIButton *reply = [[UIButton alloc] initWithFrame:CGRectMake(55.5f, 2.5f, 45.0f, 25.0f)];
+    [reply setBackgroundImage:[UIImage imageNamed:@"BJQPingLunButton"] forState:UIControlStateNormal];
+    [reply setBackgroundImage:[UIImage imageNamed:@"BJQPingLunButtonPressed"] forState:UIControlStateHighlighted];
+    
+    [bgImageView addSubview:reply];
+    
+    [UIImageView animateWithDuration:1.5f animations:^{
+        bgImageView.alpha = 1.0f;
+        bgImageView.hidden = NO;
+    } completion:^(BOOL finished) {
+        [reply addTarget:self action:@selector(replyTaped:) forControlEvents:UIControlEventTouchUpInside];
+    }];
+}
+
+-(void)replyTaped:(id)sender{
+    [self bbBaseTableViewCell:self.tempCell likeButtonTaped:nil];
+}
+
+-(void)likeTaped:(id)sender{
+    [self bbBaseTableViewCell:self.tempCell replyButtonTaped:nil];
+}
+
 
 // 评论
 -(void)bbBaseTableViewCell:(BBBaseTableViewCell *)cell replyButtonTaped:(UIButton *)sender{

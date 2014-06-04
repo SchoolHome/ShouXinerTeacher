@@ -40,8 +40,10 @@
 @property(nonatomic,strong) UIImageView *line;
 
 @property(nonatomic,strong) UILabel *time;
-@property(nonatomic,strong) UIButton *like;
-@property(nonatomic,strong) UIButton *reply;
+//@property(nonatomic,strong) UIButton *like;
+//@property(nonatomic,strong) UIButton *reply;
+@property(nonatomic,strong) UIButton *moreButton;
+@property(nonatomic,strong) UIButton *recommendButton;
 
 @property(nonatomic,strong) UIImageView *TuiJianImage;
 @property(nonatomic,strong) UIImageView *RongYuImage;
@@ -73,6 +75,8 @@
 
 -(void)bbBaseTableViewCell:(BBBaseTableViewCell *)cell linkButtonTaped:(UIButton *)sender;
 -(void)bbBaseTableViewCell:(BBBaseTableViewCell *)cell commentButtonTaped:(UIButton *)sender;
+
+-(void)bbBaseTableViewCell:(BBBaseTableViewCell *)cell moreButtonTaped:(UIButton *)sender;
 @end
 
 

@@ -114,8 +114,8 @@
     
     link.frame = CGRectMake(K_LEFT_PADDING, kViewFoot(content)+5, 222, 63);
     
-    self.like.frame = CGRectMake(165, kViewFoot(link)+5, 62, 27);
-    self.reply.frame = CGRectMake(165+70, kViewFoot(link)+5, 62, 27);
+    self.moreButton.frame = CGRectMake(165, kViewFoot(link)+5, 22.0f, 15.0f);
+//    self.reply.frame = CGRectMake(165+70, kViewFoot(link)+5, 62, 27);
     
     self.time.frame = CGRectMake(K_LEFT_PADDING, kViewFoot(link)+5, 60, 27);
     self.time.text = [self timeStringFromNumber:self.data.ts];
