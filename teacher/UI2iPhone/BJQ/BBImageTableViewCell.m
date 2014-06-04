@@ -117,7 +117,7 @@
         timeBegin = kViewFoot(content);
     }
     
-    self.moreButton.frame = CGRectMake(165, timeBegin+5, 22.0f, 15.0f);
+    self.moreButton.frame = CGRectMake(270.0f, timeBegin+12, 22.0f, 15.0f);
 //    self.reply.frame = CGRectMake(165+70, timeBegin+5, 62, 27);
     
     self.time.frame = CGRectMake(K_LEFT_PADDING, timeBegin+5, 60, 27);

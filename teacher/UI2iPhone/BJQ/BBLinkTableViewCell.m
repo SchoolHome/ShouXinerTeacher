@@ -114,7 +114,7 @@
     
     link.frame = CGRectMake(K_LEFT_PADDING, kViewFoot(content)+5, 222, 63);
     
-    self.moreButton.frame = CGRectMake(165, kViewFoot(link)+5, 22.0f, 15.0f);
+    self.moreButton.frame = CGRectMake(270.0f, kViewFoot(link)+12, 22.0f, 15.0f);
 //    self.reply.frame = CGRectMake(165+70, kViewFoot(link)+5, 62, 27);
     
     self.time.frame = CGRectMake(K_LEFT_PADDING, kViewFoot(link)+5, 60, 27);
