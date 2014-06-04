@@ -9,5 +9,5 @@
 #import "PalmViewController.h"
 
 @interface BBStudentsListViewController : PalmViewController
-
+@property (nonatomic, strong)NSArray *studentList;
 @end

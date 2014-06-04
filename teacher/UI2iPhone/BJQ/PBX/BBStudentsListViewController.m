@@ -9,10 +9,43 @@
 #import "BBStudentsListViewController.h"
 
 @interface BBStudentsListViewController ()
-
+{
+    //searchBar
+    UISearchBar *searchBar;
+    //Tableview
+    UITableView *tableview;
+    //SelectedDisplay
+    
+}
+@property (nonatomic, strong)NSArray *selectedStudentList;
 @end
 
 @implementation BBStudentsListViewController
+@synthesize studentList = _studentList;
+-(NSArray *)selectedStudentList
+{
+    if (!_selectedStudentList) {
+        _selectedStudentList = [[NSArray alloc] init];
+    }
+    return _selectedStudentList;
+}
+-(NSArray *)studentList
+{
+    if(!_studentList)
+    {
+        _studentList = [[NSArray alloc] init];
+    }
+    return _studentList;
+}
+-(void)setStudentList:(NSArray *)studentList
+{
+    if (studentList.count == 0 || !studentList) {
+        _studentList = [[NSArray alloc] initWithObjects:@"张三",@"张三",@"张三",@"张三", nil];
+    }else
+    {
+        _studentList = studentList;
+    }
+}
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -33,6 +66,13 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    //searchBar
+    
+    //Tableview
+    
+    //SelectedStudentsDisplay
+    
+    
     // Do any additional setup after loading the view.
 }
 
