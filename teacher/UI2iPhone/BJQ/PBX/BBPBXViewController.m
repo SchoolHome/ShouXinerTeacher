@@ -4,6 +4,7 @@
 #import "CTAssetsPickerController.h"
 #import "ViewImageViewController.h"
 #import "UIPlaceHolderTextView.h"
+#import "BBStudentsListViewController.h"
 
 @interface BBPBXViewController ()<CTAssetsPickerControllerDelegate,viewImageDeletedDelegate>
 {
@@ -15,7 +16,7 @@
     
 }
 @property (nonatomic, strong)NSMutableArray *attachList;
-@property (nonatomic, strong)UIScrollView *contentScrollview;
+@property (nonatomic, strong)ReachTouchScrollview *contentScrollview;
 @end
 
 @implementation BBPBXViewController
@@ -40,15 +41,28 @@
     
     
     NSLog(@"height == %f",self.view.bounds.size.height);
-    _contentScrollview = [[UIScrollView alloc] initWithFrame:CGRectMake(0.f, 0.f, 320.f, self.view.bounds.size.height-40.f)];
+    _contentScrollview = [[ReachTouchScrollview alloc] initWithFrame:CGRectMake(0.f, 0.f, 320.f, self.view.bounds.size.height-40.f)];
+    _contentScrollview.touchDelegate = self;
     _contentScrollview.showsVerticalScrollIndicator = NO;
     _contentScrollview.backgroundColor = [UIColor clearColor];
     [self.view addSubview:_contentScrollview];
     
     //学生列表
-    UIView *ListBack = [[UIView alloc] initWithFrame:CGRectMake(15.f, 15.f, 320-30.f, 70.f)];
+    UIView *listBack = [[UIView alloc] initWithFrame:CGRectMake(15.f, 15.f, 320-30.f, 40.f)];
+    [_contentScrollview addSubview:listBack];
+    
+    CALayer *roundedLayerList = [listBack layer];
+    [roundedLayerList setMasksToBounds:YES];
+    roundedLayerList.cornerRadius = 8.0;
+    roundedLayerList.borderWidth = 1;
+    roundedLayerList.borderColor = [[UIColor lightGrayColor] CGColor];
+    
+    UIButton *turnStudentList = [UIButton buttonWithType:UIButtonTypeCustom];
+    [turnStudentList setFrame:CGRectMake(20, 20, 320-40, 30)];
+    [turnStudentList addTarget:self action:@selector(turnStudentList) forControlEvents:UIControlEventTouchUpInside];
+    [_contentScrollview addSubview:turnStudentList];
     //说赞美的话
-    UIView *textBack = [[UIView alloc] initWithFrame:CGRectMake(15, 15, 320-30, 70)];
+    UIView *textBack = [[UIView alloc] initWithFrame:CGRectMake(15, listBack.frame.origin.y+listBack.frame.size.height+10, 320-30, 70)];
     [_contentScrollview addSubview:textBack];
     
     CALayer *roundedLayer0 = [textBack layer];
@@ -57,7 +71,7 @@
     roundedLayer0.borderWidth = 1;
     roundedLayer0.borderColor = [[UIColor lightGrayColor] CGColor];
     
-    thingsTextView = [[UIPlaceHolderTextView alloc] initWithFrame:CGRectMake(20, 20, 320-40, 60)];
+    thingsTextView = [[UIPlaceHolderTextView alloc] initWithFrame:CGRectMake(20, listBack.frame.origin.y+listBack.frame.size.height+15, 320-40, 60)];
     [_contentScrollview addSubview:thingsTextView];
     thingsTextView.placeholder = @"说点赞美话...";
     thingsTextView.backgroundColor = [UIColor clearColor];
@@ -65,7 +79,7 @@
 
 
     //选择图片
-    UIView *imageBack = [[UIView alloc] initWithFrame:CGRectMake(15, 95, 320-30, 140)];
+    UIView *imageBack = [[UIView alloc] initWithFrame:CGRectMake(15,textBack.frame.origin.y+textBack.frame.size.height+10, 320-30, 140)];
     [_contentScrollview addSubview:imageBack];
     CALayer *roundedLayer2 = [imageBack layer];
     [roundedLayer2 setMasksToBounds:YES];
@@ -74,14 +88,14 @@
     roundedLayer2.borderColor = [[UIColor lightGrayColor] CGColor];
     
     
-
+    CGFloat imageButtonY = textBack.frame.origin.y+textBack.frame.size.height+20;
         
         for (int i = 0; i<8; i++) {
             imageButton[i] = [UIButton buttonWithType:UIButtonTypeCustom];
-            imageButton[i].frame = CGRectMake(35+i*65, 105, 55, 55);
+            imageButton[i].frame = CGRectMake(35+i*65, imageButtonY, 55, 55);
             
             if (i>3) {
-                imageButton[i].frame = CGRectMake(35+(i-4)*65, 105+65, 55, 55);
+                imageButton[i].frame = CGRectMake(35+(i-4)*65, imageButtonY+65, 55, 55);
             }
             
             imageButton[i].backgroundColor = [UIColor colorWithRed:0.5 green:0.5 blue:0.5 alpha:0.5];
@@ -100,6 +114,8 @@
     //推荐到
     
     
+    
+    
 	// Do any additional setup after loading the view.
 }
 
@@ -116,8 +132,10 @@
 {
     
 }
+
+
 #pragma mark NavAction
--(void)back
+-(void)cancel
 {
     [self.navigationController popViewControllerAnimated:YES];
 }
@@ -125,7 +143,15 @@
 {
     
 }
+
+
 #pragma mark ViewControllerMethod
+-(void)turnStudentList
+{
+    BBStudentsListViewController *studentList = [[BBStudentsListViewController alloc] init];
+    [studentList setStudentList:nil];
+    [self.navigationController pushViewController:studentList animated:YES];
+}
 -(void)imageButtonTaped:(id)sender{
     [thingsTextView resignFirstResponder];
     
@@ -157,10 +183,15 @@
     }
 
 }
--(void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event{
-    
+
+
+#pragma mark - ReachTouchScrolviewDelegate
+-(void)scrollviewTouched
+{
     [thingsTextView resignFirstResponder];
 }
+
+
 #pragma mark - ActionSheet
 - (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex{
     
@@ -211,6 +242,8 @@
             break;
     }
 }
+
+
 #pragma mark - ViewImageVC Delegate
 -(void) delectedIndex:(int)index{
     [imageButton[index] setBackgroundImage:nil forState:UIControlStateNormal];
@@ -231,6 +264,7 @@
     }
     selectCount = [images count];
 }
+
 
 #pragma mark - Assets Picker Delegate
 
@@ -279,6 +313,20 @@
     
     UIGraphicsEndImageContext();
     return newImage;
+}
+
+@end
+
+
+
+
+@implementation ReachTouchScrollview
+
+-(void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event{
+    
+    if ([self.touchDelegate respondsToSelector:@selector(scrollviewTouched)]) {
+        [self.touchDelegate scrollviewTouched];
+    }
 }
 
 @end

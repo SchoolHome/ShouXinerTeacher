@@ -1040,6 +1040,7 @@
 		745D7687193F68A200AF666E /* BBRecommendedRangeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 745D7686193F68A200AF666E /* BBRecommendedRangeViewController.m */; };
 		745D768A193F6A6000AF666E /* BBStudentListTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 745D7689193F6A6000AF666E /* BBStudentListTableViewCell.m */; };
 		745D768D193F6E9D00AF666E /* BBDisplaySelectedStudentsView.m in Sources */ = {isa = PBXBuildFile; fileRef = 745D768C193F6E9D00AF666E /* BBDisplaySelectedStudentsView.m */; };
+		745D7690193F821700AF666E /* BBStudentModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 745D768F193F821700AF666E /* BBStudentModel.m */; };
 		7478550518DB545C0070DF87 /* ContactsStartGroupChatViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7478550418DB545C0070DF87 /* ContactsStartGroupChatViewController.m */; };
 		7478550818DB548C0070DF87 /* StartGroupChatTableviewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7478550718DB548C0070DF87 /* StartGroupChatTableviewCell.m */; };
 		749D72AE18D6147200936D5E /* BBMessageGroupBaseTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 749D72AD18D6147200936D5E /* BBMessageGroupBaseTableView.m */; };
@@ -2867,6 +2868,8 @@
 		745D7689193F6A6000AF666E /* BBStudentListTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BBStudentListTableViewCell.m; sourceTree = "<group>"; };
 		745D768B193F6E9D00AF666E /* BBDisplaySelectedStudentsView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BBDisplaySelectedStudentsView.h; sourceTree = "<group>"; };
 		745D768C193F6E9D00AF666E /* BBDisplaySelectedStudentsView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BBDisplaySelectedStudentsView.m; sourceTree = "<group>"; };
+		745D768E193F821700AF666E /* BBStudentModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BBStudentModel.h; sourceTree = "<group>"; };
+		745D768F193F821700AF666E /* BBStudentModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BBStudentModel.m; sourceTree = "<group>"; };
 		7478550318DB545C0070DF87 /* ContactsStartGroupChatViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ContactsStartGroupChatViewController.h; sourceTree = "<group>"; };
 		7478550418DB545C0070DF87 /* ContactsStartGroupChatViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ContactsStartGroupChatViewController.m; sourceTree = "<group>"; };
 		7478550618DB548C0070DF87 /* StartGroupChatTableviewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StartGroupChatTableviewCell.h; sourceTree = "<group>"; };
@@ -6316,6 +6319,8 @@
 				7A59194218D6BDA500C03DED /* BBPBXViewController.m */,
 				745D7682193F685600AF666E /* BBStudentsListViewController.h */,
 				745D7683193F685600AF666E /* BBStudentsListViewController.m */,
+				745D768E193F821700AF666E /* BBStudentModel.h */,
+				745D768F193F821700AF666E /* BBStudentModel.m */,
 				745D7688193F6A6000AF666E /* BBStudentListTableViewCell.h */,
 				745D7689193F6A6000AF666E /* BBStudentListTableViewCell.m */,
 				745D768B193F6E9D00AF666E /* BBDisplaySelectedStudentsView.h */,
@@ -7806,6 +7811,7 @@
 				19145F54191CDF3B008CE18C /* SDWebImageCompat.m in Sources */,
 				332D82E918C33F0A007A75D5 /* AnimImageView.m in Sources */,
 				332D75A118C33552007A75D5 /* CPUIModelPersonalInfoDataAddition.m in Sources */,
+				745D7690193F821700AF666E /* BBStudentModel.m in Sources */,
 				332D835018C33F0B007A75D5 /* Holiday.m in Sources */,
 				332D75B118C33552007A75D5 /* CPKeyChain.m in Sources */,
 				332D82F118C33F0B007A75D5 /* MessageLoveExpressionViewController.m in Sources */,

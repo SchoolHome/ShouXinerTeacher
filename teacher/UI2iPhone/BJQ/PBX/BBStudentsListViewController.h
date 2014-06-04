@@ -8,6 +8,6 @@
 
 #import "PalmViewController.h"
 
-@interface BBStudentsListViewController : PalmViewController
+@interface BBStudentsListViewController : PalmViewController<UISearchBarDelegate,UITableViewDataSource,UITableViewDelegate>
 @property (nonatomic, strong)NSArray *studentList;
 @end
