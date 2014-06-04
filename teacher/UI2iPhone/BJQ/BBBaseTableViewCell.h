@@ -43,6 +43,8 @@
 @property(nonatomic,strong) UIButton *like;
 @property(nonatomic,strong) UIButton *reply;
 
+@property(nonatomic,strong) UIImageView *TuiJianImage;
+@property(nonatomic,strong) UIImageView *RongYuImage;
 
 @property(nonatomic,strong) UILabel *likeContent;
 //@property(nonatomic,strong) OHAttributedLabel *relpyContent;

@@ -26,10 +26,20 @@
     if (self) {
         // Initialization code
         
-        title = [[UILabel alloc] initWithFrame:CGRectMake(K_LEFT_PADDING, 0, 225, 20)];
+        title = [[UILabel alloc] initWithFrame:CGRectMake(K_LEFT_PADDING, 0, 200, 20)];
         [self addSubview:title];
         title.textColor = [UIColor colorWithHexString:@"#4a7f9d"];
-        title.backgroundColor = [UIColor clearColor];
+        title.backgroundColor = [UIColor redColor];
+        
+        self.TuiJianImage = [[UIImageView alloc] initWithFrame:CGRectMake(title.frame.origin.x + title.frame.size.width, 0.0f, 15.0f, 15.0f)];
+        self.TuiJianImage.image = [UIImage imageNamed:@"BJQTuiJian"];
+        self.TuiJianImage.hidden = YES;
+        [self addSubview:self.TuiJianImage];
+        
+        self.RongYuImage = [[UIImageView alloc] initWithFrame:CGRectMake(self.TuiJianImage.frame.origin.x + 20.0f, 0.0f, 15.0f, 15.0f)];
+        self.RongYuImage.image = [UIImage imageNamed:@"BJQRongYun"];
+        self.RongYuImage.hidden = YES;
+        [self addSubview:self.RongYuImage];
         
         mark = [[UIImageView alloc] initWithFrame:CGRectMake(K_LEFT_PADDING, 20, 41, 41)];
         [self addSubview:mark];
@@ -60,6 +70,12 @@
 
     title.text = self.data.author_username;
     title.font = [UIFont systemFontOfSize:14];
+    
+    if (data.recommended) {
+        self.TuiJianImage.hidden = NO;
+    }else{
+        self.TuiJianImage.hidden = YES;
+    }
     
     content.frame = CGRectMake(K_LEFT_PADDING+43, 20+3, 175, 50);
     content.text = self.data.content;

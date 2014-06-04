@@ -17,6 +17,7 @@
     UILabel *linkTitle;
     UILabel *linkContent;
     
+    
 }
 
 @end
