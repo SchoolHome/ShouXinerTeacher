@@ -758,12 +758,25 @@
     }];
 }
 
+// 推荐
+-(void)bbBaseTableViewCell:(BBBaseTableViewCell *)cell recommendButtonTaped:(UIButton *)sender{
+    NSLog(@"1111111111111");
+}
+
 -(void)replyTaped:(id)sender{
-    [self bbBaseTableViewCell:self.tempCell likeButtonTaped:nil];
+    if (self.tempMoreImage != nil) {
+        [self.tempMoreImage removeFromSuperview];
+        self.tempMoreImage = nil;
+    }
+    [self bbBaseTableViewCell:self.tempCell replyButtonTaped:nil];
 }
 
 -(void)likeTaped:(id)sender{
-    [self bbBaseTableViewCell:self.tempCell replyButtonTaped:nil];
+    if (self.tempMoreImage != nil) {
+        [self.tempMoreImage removeFromSuperview];
+        self.tempMoreImage = nil;
+    }
+    [self bbBaseTableViewCell:self.tempCell likeButtonTaped:nil];
 }
 
 
@@ -865,6 +878,10 @@
 - (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView{
     [inputBar endEdit];
     self.model = nil;
+    if (self.tempMoreImage != nil) {
+        [self.tempMoreImage removeFromSuperview];
+        self.tempMoreImage = nil;
+    }
 }
 
 #pragma mark - BBInputViewDelegate

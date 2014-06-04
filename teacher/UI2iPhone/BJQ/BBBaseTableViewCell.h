@@ -61,7 +61,7 @@
 
 
 @property(nonatomic,strong) BBTopicModel *data;
-
+-(void) recommendTaped:(id)sender;
 -(NSString *)timeStringFromNumber:(NSNumber *) number;
 -(EGOImageButton *) imageContentWithIndex : (int) index;
 -(void) hEvent : (UIButton *) sender;
@@ -77,6 +77,7 @@
 -(void)bbBaseTableViewCell:(BBBaseTableViewCell *)cell commentButtonTaped:(UIButton *)sender;
 
 -(void)bbBaseTableViewCell:(BBBaseTableViewCell *)cell moreButtonTaped:(UIButton *)sender;
+-(void)bbBaseTableViewCell:(BBBaseTableViewCell *)cell recommendButtonTaped:(UIButton *)sender;
 @end
 
 

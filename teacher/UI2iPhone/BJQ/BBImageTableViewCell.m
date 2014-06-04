@@ -117,6 +117,16 @@
         timeBegin = kViewFoot(content);
     }
     
+    self.recommendButton.frame = CGRectMake(220.0f, timeBegin+8, 36.0, 16.0f);
+    if (self.data.recommendToGroups || self.data.recommendToHomepage || self.data.recommendToUpGroup) {
+        [self.recommendButton setBackgroundImage:[UIImage imageNamed:@"BJQHasTuiJian"] forState:UIControlStateNormal];
+        [self.recommendButton setBackgroundImage:[UIImage imageNamed:@"BJQHasTuiJian"] forState:UIControlStateHighlighted];
+        [self.recommendButton removeTarget:self action:@selector(recommendTaped:) forControlEvents:UIControlEventTouchUpInside];
+    }else{
+        [self.recommendButton setBackgroundImage:[UIImage imageNamed:@"BJQHaveNotTuiJian"] forState:UIControlStateNormal];
+        [self.recommendButton setBackgroundImage:[UIImage imageNamed:@"BJQHaveNotTuiJian"] forState:UIControlStateHighlighted];
+        [self.recommendButton addTarget:self action:@selector(recommendTaped:) forControlEvents:UIControlEventTouchUpInside];
+    }
     self.moreButton.frame = CGRectMake(270.0f, timeBegin+12, 22.0f, 15.0f);
 //    self.reply.frame = CGRectMake(165+70, timeBegin+5, 62, 27);
     

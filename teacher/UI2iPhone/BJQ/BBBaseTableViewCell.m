@@ -37,6 +37,14 @@
     }
 }
 
+-(void) recommendTaped:(id)sender{
+    if (_delegate && [_delegate respondsToSelector:@selector(bbBaseTableViewCell:recommendButtonTaped:)]) {
+        [_delegate bbBaseTableViewCell:self recommendButtonTaped:sender];
+    }
+}
+
+
+
 
 -(NSString *)timeStringFromNumber:(NSNumber *) number{
     
@@ -119,6 +127,12 @@
         [self.moreButton setBackgroundImage:[UIImage imageNamed:@"BJQMoreButton"] forState:UIControlStateNormal];
         [self.moreButton setBackgroundImage:[UIImage imageNamed:@"BJQMoreButton"] forState:UIControlStateHighlighted];
         [self.moreButton addTarget:self action:@selector(moreTaped:) forControlEvents:UIControlEventTouchUpInside];
+        
+        self.recommendButton = [[UIButton alloc] init];
+        [self addSubview:self.recommendButton];
+        [self.recommendButton setBackgroundImage:[UIImage imageNamed:@"BJQHaveNotTuiJian"] forState:UIControlStateNormal];
+        [self.recommendButton setBackgroundImage:[UIImage imageNamed:@"BJQHaveNotTuiJian"] forState:UIControlStateHighlighted];
+        [self.recommendButton addTarget:self action:@selector(recommendTaped:) forControlEvents:UIControlEventTouchUpInside];
         
         _relpyContentBack = [[UIImageView alloc] init];
         [self addSubview:_relpyContentBack];
