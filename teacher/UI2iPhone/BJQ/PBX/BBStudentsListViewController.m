@@ -234,17 +234,7 @@
 //    [cell setModel:userInfo];
     cell.currentIndexPath = indexPath;
     [cell setStudentName:[self.studentList objectAtIndex:indexPath.row]];
-    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-        BOOL checkResult = [self checkUserInfoIsSelected:userInfo];
-        
-        dispatch_async(dispatch_get_main_queue(),  ^{
-            if (checkResult){
-                cell.selectedBtn.selected = YES;
-            }
-            else cell.selectedBtn.selected = NO;
-            
-        });
-    });
+
     
     return cell;
 }
