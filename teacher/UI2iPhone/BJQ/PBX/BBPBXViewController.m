@@ -5,11 +5,13 @@
 #import "ViewImageViewController.h"
 #import "UIPlaceHolderTextView.h"
 #import "BBStudentsListViewController.h"
-
+#import "BBStudentModel.h"
 @interface BBPBXViewController ()<CTAssetsPickerControllerDelegate,viewImageDeletedDelegate>
 {
     UIPlaceHolderTextView *thingsTextView;
     UIButton *imageButton[8];
+    UILabel *studentList;
+    UILabel *reCommendedList;
     
     int selectCount;
     int imageCount;
@@ -40,7 +42,6 @@
     
     
     
-    NSLog(@"height == %f",self.view.bounds.size.height);
     _contentScrollview = [[ReachTouchScrollview alloc] initWithFrame:CGRectMake(0.f, 0.f, 320.f, self.view.bounds.size.height-40.f)];
     _contentScrollview.touchDelegate = self;
     _contentScrollview.showsVerticalScrollIndicator = NO;
@@ -49,6 +50,7 @@
     
     //学生列表
     UIView *listBack = [[UIView alloc] initWithFrame:CGRectMake(15.f, 15.f, 320-30.f, 40.f)];
+    listBack.tag = 1001;
     [_contentScrollview addSubview:listBack];
     
     CALayer *roundedLayerList = [listBack layer];
@@ -58,9 +60,27 @@
     roundedLayerList.borderColor = [[UIColor lightGrayColor] CGColor];
     
     UIButton *turnStudentList = [UIButton buttonWithType:UIButtonTypeCustom];
-    [turnStudentList setFrame:CGRectMake(20, 20, 320-40, 30)];
+    [turnStudentList setFrame:CGRectMake(5, 5, 320-40, 30)];
     [turnStudentList addTarget:self action:@selector(turnStudentList) forControlEvents:UIControlEventTouchUpInside];
-    [_contentScrollview addSubview:turnStudentList];
+    turnStudentList.titleLabel.textAlignment = NSTextAlignmentLeft;
+    [listBack addSubview:turnStudentList];
+    
+    studentList = [[UILabel alloc] initWithFrame:CGRectMake(5.f, 5.f, 190, 20.f)];
+    studentList.backgroundColor = [UIColor clearColor];
+    studentList.text = @"@:点名表扬,可不选...";
+    studentList.numberOfLines = 20;
+    studentList.font = [UIFont boldSystemFontOfSize:14.f];
+    studentList.textColor = [UIColor colorWithRed:131/255.f green:131/255.f blue:131/255.f alpha:1.f];
+    [turnStudentList addSubview:studentList];
+    
+    UILabel *studentListTitle = [[UILabel alloc] initWithFrame:CGRectMake(195.f, 5.f, 70, 20.f)];
+    studentListTitle.backgroundColor = [UIColor clearColor];
+    studentListTitle.text = @"学生列表 >";
+    studentListTitle.textAlignment = NSTextAlignmentRight;
+    studentListTitle.font = [UIFont boldSystemFontOfSize:14.f];
+    studentListTitle.textColor = [UIColor colorWithRed:131/255.f green:131/255.f blue:131/255.f alpha:1.f];
+    [turnStudentList addSubview:studentListTitle];
+    
     //说赞美的话
     UIView *textBack = [[UIView alloc] initWithFrame:CGRectMake(15, listBack.frame.origin.y+listBack.frame.size.height+10, 320-30, 70)];
     [_contentScrollview addSubview:textBack];
@@ -71,8 +91,9 @@
     roundedLayer0.borderWidth = 1;
     roundedLayer0.borderColor = [[UIColor lightGrayColor] CGColor];
     
-    thingsTextView = [[UIPlaceHolderTextView alloc] initWithFrame:CGRectMake(20, listBack.frame.origin.y+listBack.frame.size.height+15, 320-40, 60)];
-    [_contentScrollview addSubview:thingsTextView];
+    thingsTextView = [[UIPlaceHolderTextView alloc] initWithFrame:CGRectMake(5, 5, 320-40, 60)];
+    [textBack addSubview:thingsTextView];
+    thingsTextView.font = [UIFont boldSystemFontOfSize:14.f];
     thingsTextView.placeholder = @"说点赞美话...";
     thingsTextView.backgroundColor = [UIColor clearColor];
     
@@ -88,18 +109,18 @@
     roundedLayer2.borderColor = [[UIColor lightGrayColor] CGColor];
     
     
-    CGFloat imageButtonY = textBack.frame.origin.y+textBack.frame.size.height+20;
+
         
         for (int i = 0; i<8; i++) {
             imageButton[i] = [UIButton buttonWithType:UIButtonTypeCustom];
-            imageButton[i].frame = CGRectMake(35+i*65, imageButtonY, 55, 55);
+            imageButton[i].frame = CGRectMake(20+i*65, 10, 55, 55);
             
             if (i>3) {
-                imageButton[i].frame = CGRectMake(35+(i-4)*65, imageButtonY+65, 55, 55);
+                imageButton[i].frame = CGRectMake(20+(i-4)*65, 10+65, 55, 55);
             }
             
             imageButton[i].backgroundColor = [UIColor colorWithRed:0.5 green:0.5 blue:0.5 alpha:0.5];
-            [_contentScrollview addSubview:imageButton[i]];
+            [imageBack addSubview:imageButton[i]];
             
             if (i<7) {
                 [imageButton[i] addTarget:self action:@selector(imageButtonTaped:) forControlEvents:UIControlEventTouchUpInside];
@@ -112,10 +133,35 @@
         }
     
     //推荐到
+    UIView *reCommendedBack = [[UIView alloc] initWithFrame:CGRectMake(15,imageBack.frame.origin.y+imageBack.frame.size.height+10, 320-30, 40)];
+    [_contentScrollview addSubview:reCommendedBack];
+    CALayer *roundedLayer3 = [reCommendedBack layer];
+    [roundedLayer3 setMasksToBounds:YES];
+    roundedLayer3.cornerRadius = 8.0;
+    roundedLayer3.borderWidth = 1;
+    roundedLayer3.borderColor = [[UIColor lightGrayColor] CGColor];
     
+    UIButton *turnReCommendedList = [UIButton buttonWithType:UIButtonTypeCustom];
+    [turnReCommendedList setFrame:CGRectMake(5, 5, 320-40, 30)];
+    [turnReCommendedList addTarget:self action:@selector(turnReCommendedList) forControlEvents:UIControlEventTouchUpInside];
+    [reCommendedBack addSubview:turnReCommendedList];
     
+    reCommendedList = [[UILabel alloc] initWithFrame:CGRectMake(5.f, 5.f, 200, 20.f)];
+    reCommendedList.backgroundColor = [UIColor clearColor];
+    reCommendedList.text = @"推荐到:可不选...";
+    reCommendedList.font = [UIFont boldSystemFontOfSize:14.f];
+    reCommendedList.textColor = [UIColor colorWithRed:131/255.f green:131/255.f blue:131/255.f alpha:1.f];
+    [turnReCommendedList addSubview:reCommendedList];
     
+    UILabel *reCommendedListTitle = [[UILabel alloc] initWithFrame:CGRectMake(205.f, 5.f, 60, 20.f)];
+    reCommendedListTitle.backgroundColor = [UIColor clearColor];
+    reCommendedListTitle.text = @"范围 >";
+    reCommendedListTitle.textAlignment = NSTextAlignmentRight;
+    reCommendedListTitle.font = [UIFont boldSystemFontOfSize:14.f];
+    reCommendedListTitle.textColor = [UIColor colorWithRed:131/255.f green:131/255.f blue:131/255.f alpha:1.f];
+    [turnReCommendedList addSubview:reCommendedListTitle];
     
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(receiveSeletedStudentList:) name:@"SelectedStudentList" object:nil];
 	// Do any additional setup after loading the view.
 }
 
@@ -146,11 +192,61 @@
 
 
 #pragma mark ViewControllerMethod
+-(void)receiveSeletedStudentList:(NSNotification *)noti
+{
+    NSArray *selectedStudents = (NSArray *)[noti object];
+    NSMutableString *studentListText = [NSMutableString string];
+    for ( int i = 0; i< selectedStudents.count; i++) {
+        BBStudentModel *tempModel = [selectedStudents objectAtIndex:i];
+        if (i == 0) {
+            studentListText = [NSMutableString stringWithString:[studentListText stringByAppendingFormat:@"@:%@",tempModel.studentName]];
+        }else
+        {
+            studentListText = [NSMutableString stringWithString:[studentListText stringByAppendingFormat:@"、%@",tempModel.studentName]];
+        }
+
+    }
+    NSLog(@"%d",studentListText.length);
+    for (int i = 15; i<studentListText.length; i++) {
+        if (i % 15 == 0) {
+            [studentListText insertString:@"\n" atIndex:i];
+        }
+        
+    }
+    
+    //CGSize strSize = [studentListText sizeWithFont:[UIFont boldSystemFontOfSize:14.f] forWidth:190.f lineBreakMode:UILineBreakModeWordWrap];
+    CGSize strSize = [studentListText sizeWithFont:[UIFont boldSystemFontOfSize:14.f] constrainedToSize:CGSizeMake(190.f, 400.f)];
+    CGRect tempStudentListFrame = studentList.frame;
+    tempStudentListFrame.size.height = strSize.height;
+    studentList.frame = tempStudentListFrame;
+    
+    studentList.text = studentListText;
+    
+    
+    NSInteger offsetY ;
+    for (UIView *tempView in self.contentScrollview.subviews) {
+        if (tempView.tag == 1001) {
+            NSInteger tempViewHeight = tempView.frame.size.height;
+            CGRect tempViewFrame = tempView.frame;
+            tempViewFrame.size.height = strSize.height + 20;
+            tempView.frame = tempViewFrame;
+            offsetY = tempView.frame.size.height - tempViewHeight;
+        }else
+        {
+            
+            tempView.center = CGPointMake(tempView.center.x, tempView.center.y+offsetY);
+        }
+    }
+}
 -(void)turnStudentList
 {
-    BBStudentsListViewController *studentList = [[BBStudentsListViewController alloc] init];
-    [studentList setStudentList:nil];
-    [self.navigationController pushViewController:studentList animated:YES];
+    BBStudentsListViewController *studentListVC = [[BBStudentsListViewController alloc] init];
+    //[studentList setStudentList:nil];
+    [self.navigationController pushViewController:studentListVC animated:YES];
+}
+-(void)turnReCommendedList
+{
+    
 }
 -(void)imageButtonTaped:(id)sender{
     [thingsTextView resignFirstResponder];

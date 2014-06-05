@@ -26,7 +26,7 @@
         //姓名
         userNameLabel = [[UILabel alloc] initWithFrame:CGRectMake(40.f, 21.f, 120.f, 18.f)];
         userNameLabel.backgroundColor = [UIColor clearColor];
-        userNameLabel.textColor = [UIColor colorWithRed:75/255.f green:120/255.f blue:148/255.f alpha:1.f];
+        userNameLabel.textColor = [UIColor colorWithRed:59/255.f green:107/255.f blue:139/255.f alpha:1.f];
         userNameLabel.font = [UIFont systemFontOfSize:14.f];
         [self.contentView addSubview:userNameLabel];
     }

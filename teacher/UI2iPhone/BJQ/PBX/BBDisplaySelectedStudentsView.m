@@ -25,6 +25,7 @@
         studentNamesLabel = [[UILabel alloc] initWithFrame:CGRectZero];
         studentNamesLabel.backgroundColor = [UIColor clearColor];
         studentNamesLabel.font = [UIFont systemFontOfSize:14.f];
+        studentNamesLabel.textColor = [UIColor colorWithRed:59/255.f green:107/255.f blue:139/255.f alpha:1.f];
         [selectedStudentsScrollview addSubview:studentNamesLabel];
         
         confirmBtn = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -58,6 +59,9 @@
     if (studentNames.count == 0) {
         studentNamesLabel.text = @"";
         [selectedStudentsScrollview setContentSize:CGSizeZero];
+        
+        [confirmBtn setTitle:@"确认" forState:UIControlStateNormal];
+        confirmBtn.enabled = NO;
         return;
     }
     
@@ -69,6 +73,23 @@
         else names = [names stringByAppendingFormat:@"、%@",name];
     }
     
-    NSLog(@"names == %@",names);
+    
+    CGSize textSize = [names sizeWithFont:[UIFont systemFontOfSize:14.f]];
+    if (textSize.width > 240) {
+        selectedStudentsScrollview.contentSize = CGSizeMake(textSize.width, selectedStudentsScrollview.frame.size.height);
+        [studentNamesLabel setFrame:CGRectMake(2.f, 0.f, textSize.width+2, selectedStudentsScrollview.frame.size.height)];
+    }else
+    {
+        selectedStudentsScrollview.contentSize = CGSizeMake(240.f, selectedStudentsScrollview.frame.size.height);
+        [studentNamesLabel setFrame:CGRectMake(2.f, 0.f, 222.f, selectedStudentsScrollview.frame.size.height)];
+    }
+    
+    studentNamesLabel.text = names;
+    
+
+    [confirmBtn setTitle:[NSString stringWithFormat:@"确定(%d)",studentNames.count] forState:UIControlStateNormal];
+    confirmBtn.enabled = YES;
+
+
 }
 @end
