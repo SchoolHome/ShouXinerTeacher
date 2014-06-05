@@ -149,6 +149,13 @@ static PalmUIManagement *sharedInstance = nil;
     [[PalmNetWorkService sharedInstance] networkEngine:operation];
 }
 
+// 拍表现
+-(void) postPBX : (int) groupid withTitle : (NSString *) title withContent : (NSString *) content withAttach : (NSString *) attach
+      withAward : (NSString *) students withToHomePage : (BOOL) hasHomePage withToUpGroup : (BOOL) hasTopGroup{
+    UserProfileOperation *operation =[[UserProfileOperation alloc] initPostPBX:groupid withTitle:title withContent:content withAttach:attach withAward:students withToHomePage:hasHomePage withToUpGroup:hasTopGroup];
+    [[PalmNetWorkService sharedInstance] networkEngine:operation];
+}
+
 -(void) userLoginToken{
     UserProfileOperation *operation = [[UserProfileOperation alloc] initUserLogin];
     [[PalmNetWorkService sharedInstance] networkEngine:operation];
