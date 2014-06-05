@@ -144,7 +144,12 @@
             }
             
             CGFloat totalHeight = titleHeight+contentHeight+imageHeight+commentHeight+K_TIME_HEIGHT+5+10; // 按钮上下空隙
-            return totalHeight;
+            
+            if ([data.subject integerValue]== 1) {
+                return totalHeight +40.0f;
+            }else{
+                return totalHeight;
+            }
         }
             break;
             

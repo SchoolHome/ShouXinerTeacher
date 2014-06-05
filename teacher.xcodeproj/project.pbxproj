@@ -91,6 +91,7 @@
 		195B1A9618E5982800B3F9A7 /* ZJZBack@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 195B1A9418E5982800B3F9A7 /* ZJZBack@2x.png */; };
 		195B1A9918E5997D00B3F9A7 /* ZJZAddPeople.png in Resources */ = {isa = PBXBuildFile; fileRef = 195B1A9718E5997D00B3F9A7 /* ZJZAddPeople.png */; };
 		195B1A9A18E5997D00B3F9A7 /* ZJZAddPeople@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 195B1A9818E5997D00B3F9A7 /* ZJZAddPeople@2x.png */; };
+		19601EA81940446E001776F1 /* BBPBXTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 19601EA71940446E001776F1 /* BBPBXTableViewCell.m */; };
 		196421A21928A52600944016 /* XLCycleScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = 196421A11928A52600944016 /* XLCycleScrollView.m */; };
 		196421A51928A8D200944016 /* ViewImageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 196421A41928A8D200944016 /* ViewImageViewController.m */; };
 		196421A81928D18D00944016 /* BBDelete.png in Resources */ = {isa = PBXBuildFile; fileRef = 196421A61928D18D00944016 /* BBDelete.png */; };
@@ -1356,6 +1357,8 @@
 		195B1A9418E5982800B3F9A7 /* ZJZBack@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ZJZBack@2x.png"; sourceTree = "<group>"; };
 		195B1A9718E5997D00B3F9A7 /* ZJZAddPeople.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ZJZAddPeople.png; sourceTree = "<group>"; };
 		195B1A9818E5997D00B3F9A7 /* ZJZAddPeople@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ZJZAddPeople@2x.png"; sourceTree = "<group>"; };
+		19601EA61940446E001776F1 /* BBPBXTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BBPBXTableViewCell.h; path = teacher/UI2iPhone/BJQ/BBPBXTableViewCell.h; sourceTree = SOURCE_ROOT; };
+		19601EA71940446E001776F1 /* BBPBXTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BBPBXTableViewCell.m; path = teacher/UI2iPhone/BJQ/BBPBXTableViewCell.m; sourceTree = SOURCE_ROOT; };
 		196421A01928A52600944016 /* XLCycleScrollView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XLCycleScrollView.h; sourceTree = "<group>"; };
 		196421A11928A52600944016 /* XLCycleScrollView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XLCycleScrollView.m; sourceTree = "<group>"; };
 		196421A31928A8D200944016 /* ViewImageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ViewImageViewController.h; sourceTree = "<group>"; };
@@ -6530,6 +6533,8 @@
 				7AC51B9B18CDDA6900AD1A8C /* BBWorkTableViewCell.m */,
 				7AC51B9C18CDDA6900AD1A8C /* BBImageTableViewCell.h */,
 				7AC51B9D18CDDA6900AD1A8C /* BBImageTableViewCell.m */,
+				19601EA61940446E001776F1 /* BBPBXTableViewCell.h */,
+				19601EA71940446E001776F1 /* BBPBXTableViewCell.m */,
 				7A74DBA418FAD9C400EBFA93 /* BBJFViewController.h */,
 				7A74DBA518FAD9C400EBFA93 /* BBJFViewController.m */,
 				7A922F7A18E2CEFC00026C4A /* BBInputView.h */,
@@ -7811,6 +7816,7 @@
 				19145F54191CDF3B008CE18C /* SDWebImageCompat.m in Sources */,
 				332D82E918C33F0A007A75D5 /* AnimImageView.m in Sources */,
 				332D75A118C33552007A75D5 /* CPUIModelPersonalInfoDataAddition.m in Sources */,
+				19601EA81940446E001776F1 /* BBPBXTableViewCell.m in Sources */,
 				745D7690193F821700AF666E /* BBStudentModel.m in Sources */,
 				332D835018C33F0B007A75D5 /* Holiday.m in Sources */,
 				332D75B118C33552007A75D5 /* CPKeyChain.m in Sources */,

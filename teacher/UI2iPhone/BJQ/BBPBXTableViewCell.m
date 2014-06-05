@@ -1,18 +1,14 @@
 //
-//  BBWorkTableViewCell.m
-//  BBTeacher
+//  BBPBXTableViewCell.m
+//  teacher
 //
-//  Created by xxx on 14-3-4.
-//  Copyright (c) 2014年 xxx. All rights reserved.
+//  Created by singlew on 14-6-5.
+//  Copyright (c) 2014年 ws. All rights reserved.
 //
 
-#import "BBWorkTableViewCell.h"
+#import "BBPBXTableViewCell.h"
 
-@interface BBWorkTableViewCell ()
-@end
-
-@implementation BBWorkTableViewCell
-
+@implementation BBPBXTableViewCell
 
 -(void)imageButtonTaped:(EGOImageButton *)sender{
     if (self.delegate&&[self.delegate respondsToSelector:@selector(bbBaseTableViewCell:imageButtonTaped:)]) {
@@ -41,11 +37,18 @@
         self.RongYuImage.hidden = YES;
         [self addSubview:self.RongYuImage];
         
-        mark = [[UIImageView alloc] initWithFrame:CGRectMake(K_LEFT_PADDING, 20, 41, 41)];
+        newLine = [[UILabel alloc] initWithFrame:CGRectMake(K_LEFT_PADDING, 20.0f, 60.0f, 20.0f)];
+        newLine.text = @"新的表现";
+        newLine.textAlignment = NSTextAlignmentLeft;
+        newLine.textColor = [UIColor blackColor];
+        newLine.font = [UIFont boldSystemFontOfSize:14.0f];
+        [self addSubview:newLine];
+        
+        mark = [[UIImageView alloc] initWithFrame:CGRectMake(K_LEFT_PADDING, 40, 41, 41)];
         [self addSubview:mark];
         //mark.backgroundColor = [UIColor redColor];
         mark.image = [UIImage imageNamed:@"BBYuWen"];
-
+        
         contentBack = [[UIImageView alloc] init];
         [self addSubview:contentBack];
         
@@ -67,7 +70,7 @@
 
 -(void)setData:(BBTopicModel *)data{
     [super setData:data];
-
+    
     title.text = self.data.author_username;
     title.font = [UIFont systemFontOfSize:14];
     title.lineBreakMode = NSLineBreakByTruncatingTail;
@@ -81,20 +84,20 @@
         self.TuiJianImage.hidden = YES;
     }
     
-    content.frame = CGRectMake(K_LEFT_PADDING+43, 20+3, 175, 50);
+    content.frame = CGRectMake(K_LEFT_PADDING+43, 40+3, 175, 50);
     content.text = self.data.content;
     content.font = [UIFont systemFontOfSize:14];
     content.numberOfLines = 0;
     [content sizeToFit];
     
     if (content.frame.size.height>=(41-6)) {
-        contentBack.frame = CGRectMake(K_LEFT_PADDING+41, 20, 180, kViewHeight(content)+6); //content.frame;
+        contentBack.frame = CGRectMake(K_LEFT_PADDING+41, 40, 180, kViewHeight(content)+6); //content.frame;
     }else{
-        contentBack.frame = CGRectMake(K_LEFT_PADDING+41, 20, 180, 41);
+        contentBack.frame = CGRectMake(K_LEFT_PADDING+41, 40, 180, 41);
     }
     
     UIImage *backimage = [UIImage imageNamed:@"BBYuWenContent"];
-
+    
     if ([self.data.topictype intValue]==2) { // 作业
         //
         switch ([self.data.subject intValue]) {
@@ -140,11 +143,15 @@
                 backimage = [UIImage imageNamed:@"BBOtherContent"];
                 break;
         }
-        
-    }else{  // 通知
-    
-//        mark.image = [UIImage imageNamed:@"BBComentNotification"];
-//        backimage = [UIImage imageNamed:@"BBComentNotificationContent"];
+
+    }else if ([self.data.topictype intValue]==4){
+        // 拍表现
+        if ([self.data.subject intValue]==1) {
+            mark.image = [UIImage imageNamed:@"BJQBiaoXian"];
+            backimage = [UIImage imageNamed:@"BJQBiaoXianRight"];
+        }
+    }else{
+        // 通知
         mark.image = [UIImage imageNamed:@"BBComentNotification"];
         backimage = [UIImage imageNamed:@"BBYuWenContent"];
     }
@@ -197,14 +204,14 @@
         [self.recommendButton addTarget:self action:@selector(recommendTaped:) forControlEvents:UIControlEventTouchUpInside];
     }
     self.moreButton.frame = CGRectMake(280.0f, timeBegin+12, 22.0f, 15.0f);
-
+    
     
     self.time.frame = CGRectMake(K_LEFT_PADDING, timeBegin+5, 60, 27);
     self.time.text = [self timeStringFromNumber:self.data.ts];
     
     if ([self.data.praisesStr length]>0||[self.data.commentsStr length]>0) {
         //
-//        self.relpyContent.hidden = YES;
+        //        self.relpyContent.hidden = YES;
         for (int i = 0 ; i<[self.labelArray count]; i++) {
             OHAttributedLabel *tempLabel = [self.labelArray objectAtIndex:i];
             UIButton *tempButton = [self.buttonArray objectAtIndex:i];
@@ -252,8 +259,8 @@
             i++;
             per.height = replay.frame.origin.y + replay.frame.size.height;
         }
-//        self.relpyContent.frame = CGRectMake(K_LEFT_PADDING+5, kViewFoot(self.time)+10+22+size.height, 210, s.height);
-//        self.relpyContent.attributedText = self.data.commentsStr;
+        //        self.relpyContent.frame = CGRectMake(K_LEFT_PADDING+5, kViewFoot(self.time)+10+22+size.height, 210, s.height);
+        //        self.relpyContent.attributedText = self.data.commentsStr;
         
         UIImage *image2 = [UIImage imageNamed:@"BBComentBG"];
         image2 = [image2 resizableImageWithCapInsets:UIEdgeInsetsMake(45,35,14,100) resizingMode:UIImageResizingModeStretch];
@@ -267,7 +274,7 @@
         self.relpyContentBack.image = image2;
         self.relpyContentBack.userInteractionEnabled = YES;
     }else{
-//        self.relpyContent.hidden = YES;
+        //        self.relpyContent.hidden = YES;
         self.likeContent.hidden = YES;
         self.relpyContentBack.hidden = YES;
         self.relpyContentLine.hidden = YES;
@@ -288,6 +295,5 @@
 -(EGOImageButton *) imageContentWithIndex:(int)index{
     return imageContent[index];
 }
-
 
 @end

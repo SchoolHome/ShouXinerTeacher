@@ -13,6 +13,8 @@
 #import "MJPhotoBrowser.h"
 #import "MJPhoto.h"
 #import "BBPBXViewController.h"
+#import "BBPBXTableViewCell.h"
+
 
 @interface BBBJQViewController ()
 @property (nonatomic,strong) BBTopicModel *tempTopModel;
@@ -521,7 +523,7 @@
     static NSString *cellIdentifier1 = @"linkCell";
     static NSString *cellIdentifier2 = @"replyCell";
     static NSString *cellIdentifier3 = @"imageCell";
-    
+    static NSString *cellIdentifier4 = @"pbxCell";
     BBTopicModel *model = self.allTopicList[indexPath.row];
     /*
     1 班级通知
@@ -570,16 +572,27 @@
         case 4:  // 拍表现4，随便说4
             //
         {
-            BBBaseTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier3];
-            if (!cell) {
-                cell = [[BBImageTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier3];
+            if ([model.subject integerValue] == 1) {
+                BBBaseTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier4];
+                if (!cell) {
+                    cell = [[BBPBXTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier4];
+                    cell.delegate = self;
+                    cell.selectionStyle = UITableViewCellSelectionStyleNone;
+                }
+                [cell setData:model];
                 cell.delegate = self;
-                cell.selectionStyle = UITableViewCellSelectionStyleNone;
+                return cell;
+            }else{
+                BBBaseTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier3];
+                if (!cell) {
+                    cell = [[BBImageTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier3];
+                    cell.delegate = self;
+                    cell.selectionStyle = UITableViewCellSelectionStyleNone;
+                }
+                [cell setData:model];
+                cell.delegate = self;
+                return cell;
             }
-            
-            [cell setData:model];
-            cell.delegate = self;
-            return cell;
         }
             break;
 
