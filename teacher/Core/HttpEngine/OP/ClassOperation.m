@@ -399,6 +399,9 @@
         case kPostForwardNoti:
             [self postForwardNoti];
             break;
+        case kPostRecommend:
+            [self postRecommend];
+            break;
         default:
             break;
     }
