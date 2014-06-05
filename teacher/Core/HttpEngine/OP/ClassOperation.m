@@ -22,6 +22,7 @@
 -(void) getUnReadCount;
 -(void) getNotiSenderList;
 -(void) postForwardNoti;
+-(void) postRecommend;
 @end
 
 @implementation ClassOperation
@@ -70,6 +71,18 @@
         NSString *urlStr = [NSString stringWithFormat:@"http://%@/mapi/comment/%lli",K_HOST_NAME_OF_PALM_SERVER,topicID];
         [self setHttpRequestPostWithUrl:urlStr params:[NSDictionary dictionaryWithObjectsAndKeys:commentContent,@"comment",
                                                        [NSNumber numberWithInt:uid],@"replyto",nil]];
+    }
+    return self;
+}
+
+// 推荐话题
+-(ClassOperation *) initPostRecommend : (long long) topicID withToHomePage : (BOOL) hasHomePage withToUpGroup : (BOOL) hasUpGroup{
+    if ([self initOperation]) {
+        self.type = kPostRecommend;
+        NSString *urlStr = [NSString stringWithFormat:@"http://%@/mapi/recommend",K_HOST_NAME_OF_PALM_SERVER];
+        [self setHttpRequestPostWithUrl:urlStr params:[NSDictionary dictionaryWithObjectsAndKeys:[NSNumber numberWithLongLong:topicID],@"topicid",
+                                                       [NSNumber numberWithBool:hasHomePage],@"toHomePage",
+                                                       [NSNumber numberWithBool:hasUpGroup],@"toUpGroup",nil]];
     }
     return self;
 }
@@ -231,6 +244,21 @@
         dispatch_block_t t = ^{
             DDLogCInfo(@"%@",data);
             [PalmUIManagement sharedInstance].praiseResult = data;
+        };
+        dispatch_async(dispatch_get_main_queue(), t);
+    }];
+    [self startAsynchronous];
+}
+
+-(void) postRecommend{
+    self.dataRequest.requestCookies = [[NSMutableArray alloc] initWithObjects:[PalmUIManagement sharedInstance].php, nil];
+#ifdef TEST
+    [self.dataRequest addRequestHeader:@"Host" value:@"www.shouxiner.com"];
+#endif
+    [self.dataRequest setRequestCompleted:^(NSDictionary *data){
+        dispatch_block_t t = ^{
+            DDLogCInfo(@"%@",data);
+            [PalmUIManagement sharedInstance].recommendResult = data;
         };
         dispatch_async(dispatch_get_main_queue(), t);
     }];

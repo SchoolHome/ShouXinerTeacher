@@ -137,8 +137,21 @@ static PalmUIManagement *sharedInstance = nil;
     [[PalmNetWorkService sharedInstance] networkEngine:operation];
 }
 
+// 获取学生列表
+-(void) getGroupStudents : (NSString *) groupids{
+    GroupOperation *operation = [[GroupOperation alloc] initGetGroupStudent:groupids];
+    [[PalmNetWorkService sharedInstance] networkEngine:operation];
+}
+
+// 推荐话题
+-(void) postRecommend : (long long) topicID withToHomePage : (BOOL) hasHomePage withToUpGroup : (BOOL) hasUpGroup{
+    ClassOperation *operation = [[ClassOperation alloc] initPostRecommend:topicID withToHomePage:hasHomePage withToUpGroup:hasUpGroup];
+    [[PalmNetWorkService sharedInstance] networkEngine:operation];
+}
+
 -(void) userLoginToken{
     UserProfileOperation *operation = [[UserProfileOperation alloc] initUserLogin];
     [[PalmNetWorkService sharedInstance] networkEngine:operation];
 }
+
 @end

@@ -10,10 +10,11 @@
 
 typedef enum {
     kGetGroupList,
+    kGetGroupStudent,
 }GroupListType;
 
 @interface GroupOperation : PalmOperation
 -(GroupOperation *) initGetGroupList;
-
+-(GroupOperation *) initGetGroupStudent : (NSString *) groupids;
 @property(nonatomic) GroupListType type;
 @end

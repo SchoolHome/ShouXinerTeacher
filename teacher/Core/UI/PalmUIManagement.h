@@ -49,7 +49,10 @@
 @property(nonatomic,strong) NSDictionary *praiseResult;
 // 发表评论
 @property(nonatomic,strong) NSDictionary *commentResult;
-
+// 学生列表
+@property(nonatomic,strong) NSDictionary *groupStudents;
+// 转发
+@property(nonatomic,strong) NSDictionary *recommendResult;
 // 新消息数量
 @property(nonatomic,strong) NSDictionary *notifyCount;
 // 新消息列表
@@ -116,4 +119,9 @@
 -(void) activate : (NSString *) userName withTelPhone : (NSString *) telPhone withEmail : (NSString *) email withPassWord : (NSString *) password;
 
 -(void) userLoginToken;
+// 获取学生列表
+-(void) getGroupStudents : (NSString *) groupids;
+
+// 推荐话题
+-(void) postRecommend : (long long) topicID withToHomePage : (BOOL) hasHomePage withToUpGroup : (BOOL) hasUpGroup;
 @end
