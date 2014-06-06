@@ -47,6 +47,7 @@
 }
 
 - (void)launchLogin{
+    [UIApplication sharedApplication].statusBarHidden = NO;
     [self do_clear_controllers];
     Login * login_c_temp = [[Login alloc] init];
     UINavigationController * login_nav_c_temp = [[UINavigationController alloc] initWithRootViewController:login_c_temp];
@@ -58,6 +59,7 @@
 }
 
 - (void)launchApp{
+    [UIApplication sharedApplication].statusBarHidden = NO;
     [self do_clear_controllers];
     for (UIView *aView in [self.window subviews]) {
         [aView removeFromSuperview];

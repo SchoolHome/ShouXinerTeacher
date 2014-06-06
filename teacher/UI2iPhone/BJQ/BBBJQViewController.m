@@ -662,7 +662,7 @@
 //    fzy.style = index_;
 //    fzy.currentGroup = _currentGroup;
 //    [self.navigationController pushViewController:fzy animated:YES];
-    if (index_ == 2) {
+    if (index_ == 0) {
         BBPBXViewController *pbx = [[BBPBXViewController alloc] init];
         pbx.hidesBottomBarWhenPushed = YES;
         [self.navigationController pushViewController:pbx animated:YES];
@@ -670,7 +670,13 @@
     {
         BBFZYViewController *fzy = [[BBFZYViewController alloc] init];
         fzy.hidesBottomBarWhenPushed = YES;
-        fzy.style = index_;
+        if (index_ == 1) {
+            fzy.style = 0;
+        }else if (index_ == 2){
+            fzy.style = 1;
+        }else{
+            fzy.style = 3;
+        }
         fzy.currentGroup = _currentGroup;
         [self.navigationController pushViewController:fzy animated:YES];
     }
