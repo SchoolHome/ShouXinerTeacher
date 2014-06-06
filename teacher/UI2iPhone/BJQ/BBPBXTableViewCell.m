@@ -37,7 +37,7 @@
         self.RongYuImage.hidden = YES;
         [self addSubview:self.RongYuImage];
         
-        newLine = [[UILabel alloc] initWithFrame:CGRectMake(K_LEFT_PADDING, 20.0f, 60.0f, 20.0f)];
+        newLine = [[UILabel alloc] initWithFrame:CGRectMake(K_LEFT_PADDING, 18.0f, 60.0f, 20.0f)];
         newLine.text = @"新的表现";
         newLine.textAlignment = NSTextAlignmentLeft;
         newLine.textColor = [UIColor blackColor];
