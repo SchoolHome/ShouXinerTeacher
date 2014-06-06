@@ -12,10 +12,12 @@
     UIButton *imageButton[8];
     UILabel *studentList;
     UILabel *reCommendedList;
+    UILabel *studentListTitle;
     
     int selectCount;
     int imageCount;
     
+    NSArray *selectedArray;
 }
 @property (nonatomic, strong)NSMutableArray *attachList;
 @property (nonatomic, strong)ReachTouchScrollview *contentScrollview;
@@ -34,6 +36,8 @@
     [super viewDidLoad];
     self.title = @"拍表现";
     
+    selectedArray = [[NSArray alloc] init];
+    
     //取消发送按钮
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"取消" style:UIBarButtonItemStyleBordered target:self action:@selector(cancel)];
     self.navigationItem.leftBarButtonItem.tintColor = [UIColor whiteColor];
@@ -44,6 +48,7 @@
     
     _contentScrollview = [[ReachTouchScrollview alloc] initWithFrame:CGRectMake(0.f, 0.f, 320.f, self.view.bounds.size.height-40.f)];
     _contentScrollview.touchDelegate = self;
+    _contentScrollview.delegate = self;
     _contentScrollview.showsVerticalScrollIndicator = NO;
     _contentScrollview.backgroundColor = [UIColor clearColor];
     [self.view addSubview:_contentScrollview];
@@ -68,12 +73,12 @@
     studentList = [[UILabel alloc] initWithFrame:CGRectMake(5.f, 5.f, 190, 20.f)];
     studentList.backgroundColor = [UIColor clearColor];
     studentList.text = @"@:点名表扬,可不选...";
-    studentList.numberOfLines = 20;
+    studentList.numberOfLines = 50;
     studentList.font = [UIFont boldSystemFontOfSize:14.f];
     studentList.textColor = [UIColor colorWithRed:131/255.f green:131/255.f blue:131/255.f alpha:1.f];
     [turnStudentList addSubview:studentList];
     
-    UILabel *studentListTitle = [[UILabel alloc] initWithFrame:CGRectMake(195.f, 5.f, 70, 20.f)];
+    studentListTitle = [[UILabel alloc] initWithFrame:CGRectMake(195.f, 5.f, 70, 20.f)];
     studentListTitle.backgroundColor = [UIColor clearColor];
     studentListTitle.text = @"学生列表 >";
     studentListTitle.textAlignment = NSTextAlignmentRight;
@@ -83,6 +88,7 @@
     
     //说赞美的话
     UIView *textBack = [[UIView alloc] initWithFrame:CGRectMake(15, listBack.frame.origin.y+listBack.frame.size.height+10, 320-30, 70)];
+    textBack.tag = 1002;
     [_contentScrollview addSubview:textBack];
     
     CALayer *roundedLayer0 = [textBack layer];
@@ -94,6 +100,7 @@
     thingsTextView = [[UIPlaceHolderTextView alloc] initWithFrame:CGRectMake(5, 5, 320-40, 60)];
     [textBack addSubview:thingsTextView];
     thingsTextView.font = [UIFont boldSystemFontOfSize:14.f];
+    thingsTextView.delegate = self;
     thingsTextView.placeholder = @"说点赞美话...";
     thingsTextView.backgroundColor = [UIColor clearColor];
     
@@ -134,6 +141,7 @@
     
     //推荐到
     UIView *reCommendedBack = [[UIView alloc] initWithFrame:CGRectMake(15,imageBack.frame.origin.y+imageBack.frame.size.height+10, 320-30, 40)];
+    reCommendedBack.tag = 1003;
     [_contentScrollview addSubview:reCommendedBack];
     CALayer *roundedLayer3 = [reCommendedBack layer];
     [roundedLayer3 setMasksToBounds:YES];
@@ -195,6 +203,9 @@
 -(void)receiveSeletedStudentList:(NSNotification *)noti
 {
     NSArray *selectedStudents = (NSArray *)[noti object];
+    
+    selectedArray = [[NSArray alloc] initWithArray:selectedStudents];
+    
     NSMutableString *studentListText = [NSMutableString string];
     for ( int i = 0; i< selectedStudents.count; i++) {
         BBStudentModel *tempModel = [selectedStudents objectAtIndex:i];
@@ -207,20 +218,36 @@
 
     }
     NSLog(@"%d",studentListText.length);
-    for (int i = 15; i<studentListText.length; i++) {
-        if (i % 15 == 0) {
-            [studentListText insertString:@"\n" atIndex:i];
-        }
-        
-    }
+//    for (int i = 18; i<studentListText.length; i++) {
+//        if (i % 20 == 0) {
+//            [studentListText insertString:@"\n" atIndex:i];
+//        }
+//        
+//    }
     
     //CGSize strSize = [studentListText sizeWithFont:[UIFont boldSystemFontOfSize:14.f] forWidth:190.f lineBreakMode:UILineBreakModeWordWrap];
-    CGSize strSize = [studentListText sizeWithFont:[UIFont boldSystemFontOfSize:14.f] constrainedToSize:CGSizeMake(190.f, 400.f)];
+    CGSize strSize = [studentListText sizeWithFont:[UIFont boldSystemFontOfSize:14.f] constrainedToSize:CGSizeMake(220.f, 800.f)];
+    if (strSize.height < 20) strSize.height = 20;
+        
+    
     CGRect tempStudentListFrame = studentList.frame;
     tempStudentListFrame.size.height = strSize.height;
+
+    
+    
+    if (selectedStudents.count == 0) {
+        studentListTitle.text = @"学生列表 >";
+        studentList.text = @"@:点名表扬,可不选...";
+        tempStudentListFrame.size.width = 190.f;
+    }else
+    {
+        studentListTitle.text = @" >";
+        studentList.text = studentListText;
+        tempStudentListFrame.size.width = 240.f;
+    }
+    
     studentList.frame = tempStudentListFrame;
     
-    studentList.text = studentListText;
     
     
     NSInteger offsetY ;
@@ -235,12 +262,17 @@
         {
             
             tempView.center = CGPointMake(tempView.center.x, tempView.center.y+offsetY);
+            if (tempView.tag == 1003) {
+                self.contentScrollview.contentSize = CGSizeMake(320.f, tempView.frame.origin.y+tempView.frame.size.height + 40);
+            }
         }
     }
+    
+    
 }
 -(void)turnStudentList
 {
-    BBStudentsListViewController *studentListVC = [[BBStudentsListViewController alloc] init];
+    BBStudentsListViewController *studentListVC = [[BBStudentsListViewController alloc] initWithSelectedStudents:selectedArray];
     //[studentList setStudentList:nil];
     [self.navigationController pushViewController:studentListVC animated:YES];
 }
@@ -284,10 +316,17 @@
 #pragma mark - ReachTouchScrolviewDelegate
 -(void)scrollviewTouched
 {
-    [thingsTextView resignFirstResponder];
+    if ([thingsTextView isFirstResponder]) {
+        [thingsTextView resignFirstResponder];
+    }
+    
 }
-
-
+//-(void)scrollViewDidScroll:(UIScrollView *)scrollView
+//{
+//    if ([thingsTextView isFirstResponder]) {
+//        [thingsTextView resignFirstResponder];
+//    }
+//}
 #pragma mark - ActionSheet
 - (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex{
     
@@ -361,6 +400,18 @@
     selectCount = [images count];
 }
 
+#pragma mark TextViewDelegate
+-(BOOL)textViewShouldBeginEditing:(UITextView *)textView
+{
+    CGRect rect = [textView convertRect:textView.frame toView:self.contentScrollview];
+    if (rect.origin.y > self.view.bounds.size.height - 240) {
+        NSLog(@"%@",textView.superview);
+        [self.contentScrollview setContentOffset:CGPointMake(0.f, rect.origin.y-50.f) animated:YES];
+    }
+
+    //[self.contentScrollview scrollRectToVisible:textView.superview.frame animated:YES];
+    return YES;
+}
 
 #pragma mark - Assets Picker Delegate
 

@@ -61,7 +61,7 @@
         [selectedStudentsScrollview setContentSize:CGSizeZero];
         
         [confirmBtn setTitle:@"确认" forState:UIControlStateNormal];
-        confirmBtn.enabled = NO;
+        //confirmBtn.enabled = NO;
         return;
     }
     

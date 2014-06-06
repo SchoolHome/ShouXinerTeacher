@@ -26,12 +26,13 @@
     
     NSArray *tempStudentList;
 }
-@property (nonatomic, strong)NSMutableArray *selectedStudentList;
+
 @property (nonatomic, strong)NSMutableArray *sectionArray;
+@property (nonatomic, strong)NSMutableArray *selectedStudentList;
 @end
 
 @implementation BBStudentsListViewController
-
+@synthesize selectedStudentList = _selectedStudentList;
 
 -(NSMutableArray *)sectionArray
 {
@@ -47,6 +48,7 @@
     }
     return _selectedStudentList;
 }
+
 /*
 -(void)setStudentList:(NSArray *)studentList
 {
@@ -120,7 +122,52 @@
     }
     return self;
 }
+-(id)initWithSelectedStudents:(NSArray *)selectedStu
+{
+    self = [self initWithNibName:nil bundle:nil];
+    if (self) {
+        NSMutableArray *tempModels = [self getStudentModelArray];
+        // Sort data
+        UILocalizedIndexedCollation *theCollation = [UILocalizedIndexedCollation currentCollation];
+        for (BBStudentModel *tempModel in tempModels) {
+            NSInteger sect = [theCollation sectionForObject:tempModel
+                                    collationStringSelector:@selector(studentName)];
+            NSLog(@"%d",sect);
+            tempModel.sectionNumber = sect;
+        }
+        
+        NSInteger highSection = [[theCollation sectionTitles] count];
+        NSMutableArray *sectionArrays = [NSMutableArray arrayWithCapacity:highSection];
+        for (int i=0; i<=highSection; i++) {
+            NSMutableArray *sectionArray = [NSMutableArray arrayWithCapacity:1];
+            [sectionArrays addObject:sectionArray];
+        }
+        
+        for (BBStudentModel *tempModel in tempModels) {
+            for (BBStudentModel *tempSelectedStu in selectedStu) {
+                if (tempModel.studentID == tempSelectedStu.studentID) {
+                    tempModel.isSelected = YES;
+                    break;
+                }
+            }
+            [(NSMutableArray *)[sectionArrays objectAtIndex:tempModel.sectionNumber] addObject:tempModel];
+        }
+        
+        for (NSMutableArray *sectionArray in sectionArrays) {
+            // if (sectionArray.count > 0) {
+            NSArray *sortedSection = [theCollation sortedArrayFromArray:sectionArray collationStringSelector:@selector(studentName)];
+            [self.sectionArray addObject:sortedSection];
+            //}
+            
+        }
+        
+           // [selectedView setStudentNames:selectedStu];
+        
 
+        self.selectedStudentList = [[NSMutableArray alloc] initWithArray:selectedStu];
+    }
+    return self;
+}
 - (void)viewDidLoad
 {
     [super viewDidLoad];
@@ -158,36 +205,12 @@
     //SelectedStudentsDisplay
     selectedView =  [[BBDisplaySelectedStudentsView alloc] initWithFrame:CGRectMake(0.f, studentListTableview.frame.origin.y+studentListTableview.frame.size.height+2, 320.f, 50.f)];
     selectedView.delegate = self;
+    if (self.selectedStudentList.count > 0) {
+        [selectedView setStudentNames:self.selectedStudentList];
+    }
+    
     [self.view addSubview:selectedView];
     
-    NSMutableArray *tempModels = [self getStudentModelArray];
-    // Sort data
-    UILocalizedIndexedCollation *theCollation = [UILocalizedIndexedCollation currentCollation];
-    for (BBStudentModel *tempModel in tempModels) {
-        NSInteger sect = [theCollation sectionForObject:tempModel
-                                collationStringSelector:@selector(studentName)];
-        NSLog(@"%d",sect);
-        tempModel.sectionNumber = sect;
-    }
-    
-    NSInteger highSection = [[theCollation sectionTitles] count];
-    NSMutableArray *sectionArrays = [NSMutableArray arrayWithCapacity:highSection];
-    for (int i=0; i<=highSection; i++) {
-        NSMutableArray *sectionArray = [NSMutableArray arrayWithCapacity:1];
-        [sectionArrays addObject:sectionArray];
-    }
-    
-    for (BBStudentModel *tempModel in tempModels) {
-        [(NSMutableArray *)[sectionArrays objectAtIndex:tempModel.sectionNumber] addObject:tempModel];
-    }
-    
-    for (NSMutableArray *sectionArray in sectionArrays) {
-       // if (sectionArray.count > 0) {
-            NSArray *sortedSection = [theCollation sortedArrayFromArray:sectionArray collationStringSelector:@selector(studentName)];
-            [self.sectionArray addObject:sortedSection];
-        //}
-
-    }
     
     if (!IOS7) {
         for (UIView *subview in studentListSearchBar.subviews)
@@ -318,6 +341,11 @@
 -(void)confirmBtnTapped
 {
     NSLog(@"%@",self.selectedStudentList);
+//    for (NSArray *section in self.sectionArray) {
+//        for (BBStudentModel  *studentModel in section){
+//            [self.selectedStudentList addObject:studentModel];
+//        }
+//    }
     [[NSNotificationCenter defaultCenter] postNotificationName:@"SelectedStudentList" object:self.selectedStudentList];
     [self.navigationController popViewControllerAnimated:YES];
 }

@@ -10,4 +10,6 @@
 
 @interface BBStudentsListViewController : PalmViewController<UISearchBarDelegate,UITableViewDataSource,UITableViewDelegate,UISearchDisplayDelegate>
 
+
+-(id)initWithSelectedStudents:(NSArray *)selectedStu;
 @end
