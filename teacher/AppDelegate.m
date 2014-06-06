@@ -104,7 +104,7 @@
         GuidViewController * guid = [[GuidViewController alloc] init];
         UINavigationController * nav = [[UINavigationController alloc] initWithRootViewController:guid];
         [nav setNavigationBarHidden:YES];
-        [self.window addSubview:nav.view];
+        self.window.rootViewController = nav;
         [self.window makeKeyAndVisible];
         [[NSUserDefaults standardUserDefaults] setObject:GuidVersion forKey:@"guidVersion"];
         [[NSUserDefaults standardUserDefaults] synchronize];

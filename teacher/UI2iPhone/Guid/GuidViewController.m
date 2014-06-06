@@ -8,6 +8,7 @@
 
 #import "GuidViewController.h"
 #import "AppDelegate.h"
+#import "CPUIModelManagement.h"
 
 @interface GuidViewController ()
 @property (nonatomic,strong) UIButton *button;
@@ -78,8 +79,22 @@
 }
 
 -(void) loadLogin:(id)sender{
-//    AppDelegate *appDelegate = (AppDelegate *)[UIApplication sharedApplication].delegate;
-//    [appDelegate launchLogin];
+    AppDelegate *appDelegate = (AppDelegate *)[UIApplication sharedApplication].delegate;
+    
+    CPUIModelManagement * model_management = [CPUIModelManagement sharedInstance];
+    NSInteger sys_status_int = [model_management sysOnlineStatus];
+    if(sys_status_int == SYS_STATUS_NO_ACTIVE){
+        //        [self do_launch_verify];
+    }else if(sys_status_int == SYS_STATUS_NO_LOGINED){
+        //
+        if ([[CPUIModelManagement sharedInstance] hasLoginUser]) {
+            [appDelegate launchLogin]; // 非第一次登录
+        }else{
+            [appDelegate launchLogin];
+        }
+    }else{
+        [appDelegate launchApp];
+    }
 }
 
 - (void)didReceiveMemoryWarning
