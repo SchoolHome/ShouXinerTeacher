@@ -28,6 +28,7 @@
 #import "MediaStatusManager.h"
 #import "CoreUtils.h"
 #import <Crashlytics/Crashlytics.h>
+#import "GuidViewController.h"
 
 @implementation AppDelegate
 
@@ -96,6 +97,19 @@
     
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     // Override point for customization after application launch.
+    
+    NSString *guidVersion = [[NSUserDefaults standardUserDefaults] objectForKey:@"guidVersion"];
+    if (guidVersion == nil || [guidVersion isEqualToString:GuidVersion]) {
+        [self do_clear_controllers];
+        GuidViewController * guid = [[GuidViewController alloc] init];
+        UINavigationController * nav = [[UINavigationController alloc] initWithRootViewController:guid];
+        [nav setNavigationBarHidden:YES];
+        [self.window addSubview:nav.view];
+        [self.window makeKeyAndVisible];
+        [[NSUserDefaults standardUserDefaults] setObject:GuidVersion forKey:@"guidVersion"];
+        [[NSUserDefaults standardUserDefaults] synchronize];
+        return YES;
+    }
     
     CPUIModelManagement * model_management = [CPUIModelManagement sharedInstance];
     NSInteger sys_status_int = [model_management sysOnlineStatus];

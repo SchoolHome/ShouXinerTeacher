@@ -7,7 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "PalmViewController.h"
 
-@interface GuidViewController : UIViewController
+@interface GuidViewController : PalmViewController
 
 @end
