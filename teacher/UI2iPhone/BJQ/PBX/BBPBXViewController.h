@@ -1,7 +1,7 @@
 
 
 #import "PalmViewController.h"
-
+#import "BBGroupModel.h"
 @protocol ReachTouchScrollviewDelegate <NSObject>
 
 -(void)scrollviewTouched;
@@ -20,6 +20,7 @@ UIScrollViewDelegate>
 {
 
 }
+@property(nonatomic,strong) BBGroupModel *currentGroup;
 @end
 
 

@@ -22,7 +22,7 @@
 }
 
 @property (nonatomic, strong) BBStudentModel *model;
-
+@property (nonatomic, strong) NSDictionary *content;
 @property (nonatomic, weak) id<BBStudentListTableViewCellDelegate> delegate;
 
 

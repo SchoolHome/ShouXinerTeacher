@@ -665,6 +665,7 @@
     if (index_ == 2) {
         BBPBXViewController *pbx = [[BBPBXViewController alloc] init];
         pbx.hidesBottomBarWhenPushed = YES;
+        pbx.currentGroup = _currentGroup;
         [self.navigationController pushViewController:pbx animated:YES];
     }else
     {

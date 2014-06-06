@@ -3,9 +3,13 @@
 #import "BBPBXViewController.h"
 #import "CTAssetsPickerController.h"
 #import "ViewImageViewController.h"
-#import "UIPlaceHolderTextView.h"
 #import "BBStudentsListViewController.h"
+#import "BBRecommendedRangeViewController.h"
+
+#import "UIPlaceHolderTextView.h"
+
 #import "BBStudentModel.h"
+
 @interface BBPBXViewController ()<CTAssetsPickerControllerDelegate,viewImageDeletedDelegate>
 {
     UIPlaceHolderTextView *thingsTextView;
@@ -17,13 +21,32 @@
     int selectCount;
     int imageCount;
     
-    NSArray *selectedArray;
+    NSArray *selectedStuArray;
+    NSArray *selectedRangeArray;
 }
 @property (nonatomic, strong)NSMutableArray *attachList;
 @property (nonatomic, strong)ReachTouchScrollview *contentScrollview;
 @end
 
 @implementation BBPBXViewController
+-(void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
+{
+    /*
+     #define ASI_REQUEST_HAS_ERROR @"hasError"
+     #define ASI_REQUEST_ERROR_MESSAGE @"errorMessage"
+     #define ASI_REQUEST_DATA @"data"
+     #define ASI_REQUEST_CONTEXT @"context"
+     */
+    if ([keyPath isEqualToString:@"groupStudents"]) {
+        NSDictionary *students = [PalmUIManagement sharedInstance].groupStudents;
+        NSLog(@"students==%@",students);
+        
+        [self closeProgress];
+    }else if ([keyPath isEqualToString:@"recommendResult"])
+    {
+        
+    }
+}
 -(NSMutableArray *)attachList
 {
     if (!_attachList) {
@@ -36,7 +59,10 @@
     [super viewDidLoad];
     self.title = @"拍表现";
     
-    selectedArray = [[NSArray alloc] init];
+    selectedStuArray = [[NSArray alloc] init];
+    selectedRangeArray = [[NSArray alloc] init];
+    
+    
     
     //取消发送按钮
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"取消" style:UIBarButtonItemStyleBordered target:self action:@selector(cancel)];
@@ -154,11 +180,13 @@
     [turnReCommendedList addTarget:self action:@selector(turnReCommendedList) forControlEvents:UIControlEventTouchUpInside];
     [reCommendedBack addSubview:turnReCommendedList];
     
+    
     reCommendedList = [[UILabel alloc] initWithFrame:CGRectMake(5.f, 5.f, 200, 20.f)];
     reCommendedList.backgroundColor = [UIColor clearColor];
     reCommendedList.text = @"推荐到:可不选...";
     reCommendedList.font = [UIFont boldSystemFontOfSize:14.f];
     reCommendedList.textColor = [UIColor colorWithRed:131/255.f green:131/255.f blue:131/255.f alpha:1.f];
+    
     [turnReCommendedList addSubview:reCommendedList];
     
     UILabel *reCommendedListTitle = [[UILabel alloc] initWithFrame:CGRectMake(205.f, 5.f, 60, 20.f)];
@@ -170,6 +198,7 @@
     [turnReCommendedList addSubview:reCommendedListTitle];
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(receiveSeletedStudentList:) name:@"SelectedStudentList" object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(receiveSeletedRangeList:) name:@"SeletedRangeList" object:nil];
 	// Do any additional setup after loading the view.
 }
 
@@ -180,11 +209,14 @@
 }
 -(void)viewWillAppear:(BOOL)animated
 {
-
+    [[PalmUIManagement sharedInstance] addObserver:self forKeyPath:@"groupStudents" options:0 context:nil];
+    [[PalmUIManagement sharedInstance] addObserver:self forKeyPath:@"recommendResult" options:0 context:nil];
+    
 }
 -(void)viewDidDisappear:(BOOL)animated
 {
-    
+    [[PalmUIManagement sharedInstance] removeObserver:self forKeyPath:@"groupStudents"];
+    [[PalmUIManagement sharedInstance] removeObserver:self forKeyPath:@"recommendResult"];
 }
 
 
@@ -200,11 +232,40 @@
 
 
 #pragma mark ViewControllerMethod
+-(void)receiveSeletedRangeList:(NSNotification *)noti
+{
+    NSArray *selectedRanges = (NSArray *)[noti object];
+    selectedRangeArray = [[NSArray alloc] initWithArray:selectedRanges];
+    
+    if (selectedRanges.count == 0) {
+        reCommendedList.text = @"推荐到:可不选...";
+        return;
+    }
+    
+    NSString *rangeNames = @"推荐到：";
+    for (int i =0 ; i< selectedRanges.count ; i++) {
+        NSString *tempRangeName = [selectedRanges objectAtIndex:i];
+        if (i == 0) rangeNames = [rangeNames stringByAppendingString:tempRangeName];
+        else rangeNames = [rangeNames stringByAppendingFormat:@"、%@",tempRangeName];
+        
+    }
+    
+    if (IOS6) {
+        NSMutableAttributedString *attributedStr = [[NSMutableAttributedString alloc] initWithString:rangeNames];
+
+        [attributedStr addAttribute:NSForegroundColorAttributeName
+                              value:[UIColor colorWithRed:59/255.f green:107/255.f blue:139/255.f alpha:1.f] range:NSMakeRange(4, attributedStr.length-4)];
+        reCommendedList.attributedText = attributedStr;
+    }else
+    {
+        reCommendedList.text = rangeNames;
+    }
+}
 -(void)receiveSeletedStudentList:(NSNotification *)noti
 {
     NSArray *selectedStudents = (NSArray *)[noti object];
     
-    selectedArray = [[NSArray alloc] initWithArray:selectedStudents];
+    selectedStuArray = [[NSArray alloc] initWithArray:selectedStudents];
     
     NSMutableString *studentListText = [NSMutableString string];
     for ( int i = 0; i< selectedStudents.count; i++) {
@@ -238,11 +299,23 @@
     if (selectedStudents.count == 0) {
         studentListTitle.text = @"学生列表 >";
         studentList.text = @"@:点名表扬,可不选...";
+        studentList.textColor = [UIColor colorWithRed:131/255.f green:131/255.f blue:131/255.f alpha:1.f];
         tempStudentListFrame.size.width = 190.f;
     }else
     {
         studentListTitle.text = @" >";
-        studentList.text = studentListText;
+        if (IOS6) {
+            NSMutableAttributedString *attributedStr = [[NSMutableAttributedString alloc] initWithString:studentListText];
+            [attributedStr addAttribute:NSForegroundColorAttributeName value:[UIColor blackColor] range:NSMakeRange(0, 2)];
+            [attributedStr addAttribute:NSForegroundColorAttributeName
+                                  value:[UIColor colorWithRed:59/255.f green:107/255.f blue:139/255.f alpha:1.f] range:NSMakeRange(2, attributedStr.length-2)];
+            studentList.attributedText = attributedStr;
+        }else
+        {
+            studentList.text = studentListText;
+        }
+
+        
         tempStudentListFrame.size.width = 240.f;
     }
     
@@ -272,13 +345,17 @@
 }
 -(void)turnStudentList
 {
-    BBStudentsListViewController *studentListVC = [[BBStudentsListViewController alloc] initWithSelectedStudents:selectedArray];
-    //[studentList setStudentList:nil];
-    [self.navigationController pushViewController:studentListVC animated:YES];
+    [[PalmUIManagement sharedInstance] getGroupStudents:[self.currentGroup.groupid stringValue]];
+    [self showProgressWithText:@"正在获取..."];
+    
+//    BBStudentsListViewController *studentListVC = [[BBStudentsListViewController alloc] initWithSelectedStudents:selectedStuArray];
+//    //[studentList setStudentList:nil];
+//    [self.navigationController pushViewController:studentListVC animated:YES];
 }
 -(void)turnReCommendedList
 {
-    
+    BBRecommendedRangeViewController *recommendedRangeVC = [[BBRecommendedRangeViewController alloc] initWithRanges:selectedRangeArray];
+    [self.navigationController pushViewController:recommendedRangeVC animated:YES];
 }
 -(void)imageButtonTaped:(id)sender{
     [thingsTextView resignFirstResponder];
