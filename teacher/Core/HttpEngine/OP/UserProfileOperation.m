@@ -240,6 +240,7 @@
 #ifdef TEST
     [self.dataRequest addRequestHeader:@"Host" value:@"www.shouxiner.com"];
 #endif
+    self.dataRequest.requestCookies = [[NSMutableArray alloc] initWithObjects:[PalmUIManagement sharedInstance].php, nil];
     [self.dataRequest setRequestCompleted:^(NSDictionary *data){
         dispatch_block_t updateTagBlock = ^{
             [PalmUIManagement sharedInstance].topicResult = data;
