@@ -27,7 +27,7 @@
 
 -(GroupOperation *) initGetGroupStudent : (NSString *) groupids{
     if ([self initOperation]) {
-        self.type = kGetGroupList;
+        self.type = kGetGroupStudent;
         NSString *urlStr = [NSString stringWithFormat:@"http://%@/mapi/getGroupStudent?gids=%@",K_HOST_NAME_OF_PALM_SERVER,groupids];
         [self setHttpRequestGetWithUrl:urlStr];
     }
@@ -45,7 +45,7 @@
         };
         dispatch_async(dispatch_get_main_queue(), t);
     }];
-    [self.request startAsynchronous];
+    [self startAsynchronous];
 }
 
 -(void) getGroupStudents{
@@ -59,7 +59,7 @@
         };
         dispatch_async(dispatch_get_main_queue(), t);
     }];
-    [self.request startAsynchronous];
+    [self startAsynchronous];
 }
 
 -(void) main{
