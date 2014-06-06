@@ -48,11 +48,61 @@
             BBStudentsListViewController *studentListVC = [[BBStudentsListViewController alloc] initWithSelectedStudents:selectedStuArray withStudentModel:students];
             [self.navigationController pushViewController:studentListVC animated:YES];
         }
+        if ([@"updateImageResult" isEqualToString:keyPath])  // 图片上传成功
+        {
+            NSDictionary *dic = [PalmUIManagement sharedInstance].updateImageResult;
+            NSLog(@"dic %@",dic);
+            if (![dic[@"hasError"] boolValue]) { // 上传成功
+                NSDictionary *data = dic[@"data"];
+                if (data) {
+                    [self.attachList addObject:[data JSONString]];
+                }
+                
+                if ([self.attachList count]==imageCount) {  // 所有都上传完毕
+                    
+                    
+                    
+                    
+                    NSString *attach = [self.attachList componentsJoinedByString:@"***"];
+                    BOOL hasHomePage = NO;
+                    BOOL hasTopGroup = NO;
+                    for (NSString *tempRange in selectedRangeArray) {
+                        if ([tempRange isEqualToString:@"班级圈"]) {
+                            hasTopGroup = YES;
+                        }else if ([tempRange isEqualToString:@"手心网"])
+                        {
+                            hasTopGroup = YES;
+                        }
+                    }
+                    
+                    
+                    [[PalmUIManagement sharedInstance] postPBX:[self.currentGroup.groupid intValue] withTitle:@"拍表现" withContent:thingsTextView.text withAttach:attach withAward:[self getAward] withToHomePage:hasHomePage withToUpGroup:hasTopGroup];
+                }
+                
+            }else{  // 上传失败
+                [self.attachList removeAllObjects]; // 只要有一个失败，删除所有返回结果
+                [self showProgressWithText:@"亲，网络不给力哦！" withDelayTime:0.5];
+            }
+        }
+        
+        if ([@"topicResult" isEqualToString:keyPath])  // 图片上传成功
+        {
+            NSDictionary *dic = [PalmUIManagement sharedInstance].topicResult;
+            NSLog(@"dic %@",dic);
+            
+            [self.attachList removeAllObjects]; // 清空列表
+            
+            if ([dic[@"hasError"] boolValue]) {
+                [self showProgressWithText:@"亲，网络不给力哦！" withDelayTime:0.5];
+            }else{
+                
+                [self showProgressWithText:@"发送成功" withDelayTime:0.5];
+                [self.navigationController popViewControllerAnimated:YES];
+            }
+        }
+
 
         [self closeProgress];
-    }else if ([keyPath isEqualToString:@"recommendResult"])
-    {
-        
     }
 }
 -(NSMutableArray *)attachList
@@ -217,14 +267,20 @@
 }
 -(void)viewWillAppear:(BOOL)animated
 {
+    [super viewWillAppear:animated];
+    
+    [[PalmUIManagement sharedInstance] addObserver:self forKeyPath:@"updateImageResult" options:0 context:NULL];
+    [[PalmUIManagement sharedInstance] addObserver:self forKeyPath:@"topicResult" options:0 context:NULL];
     [[PalmUIManagement sharedInstance] addObserver:self forKeyPath:@"groupStudents" options:0 context:nil];
-    [[PalmUIManagement sharedInstance] addObserver:self forKeyPath:@"recommendResult" options:0 context:nil];
     
 }
 -(void)viewDidDisappear:(BOOL)animated
 {
+    [super viewWillDisappear:animated];
+    
+    [[PalmUIManagement sharedInstance] removeObserver:self forKeyPath:@"updateImageResult"];
+    [[PalmUIManagement sharedInstance] removeObserver:self forKeyPath:@"topicResult"];
     [[PalmUIManagement sharedInstance] removeObserver:self forKeyPath:@"groupStudents"];
-    [[PalmUIManagement sharedInstance] removeObserver:self forKeyPath:@"recommendResult"];
 }
 
 
@@ -239,23 +295,67 @@
      -(void) postPBX : (int) groupid withTitle : (NSString *) title withContent : (NSString *) content withAttach : (NSString *) attach
      withAward : (NSString *) students withToHomePage : (BOOL) hasHomePage withToUpGroup : (BOOL) hasTopGroup;
      */
-    BOOL hasHomePage = NO;
-    BOOL hasTopGroup = NO;
-    for (NSString *tempRange in selectedRangeArray) {
-        if ([tempRange isEqualToString:@"班级圈"]) {
-            hasTopGroup = YES;
-        }else if ([tempRange isEqualToString:@"手心网"])
-        {
-            hasTopGroup = YES;
-        }
+    
+    if ([thingsTextView.text length]==0) {  // 没有输入文本
+        
+        [self showProgressWithText:@"请输入文字" withDelayTime:0.1];
+        
+        return;
     }
     
+    imageCount = 0;
+    
+
+        for (int i = 0; i<7; i++) {
+            UIImage *image = [imageButton[i] backgroundImageForState:UIControlStateNormal];
+            if (image) {
+                image = [self imageWithImage:image];
+                NSData *data = UIImageJPEGRepresentation(image, 0.5f);
+                [[PalmUIManagement sharedInstance] updateUserImageFile:data withGroupID:[_currentGroup.groupid intValue]];
+                imageCount++;
+            }
+        }
     
     
-   // [[PalmUIManagement sharedInstance] postPBX:[self.currentGroup.groupid intValue] withTitle:@"" withContent:thingsTextView.text withAttach:<#(NSString *)#> withAward:<#(NSString *)#> withToHomePage:hasHomePage withToUpGroup:hasTopGroup];
+    if (imageCount == 0) {  // 没有图片
+        //
+    
+        BOOL hasHomePage = NO;
+        BOOL hasTopGroup = NO;
+        for (NSString *tempRange in selectedRangeArray) {
+            if ([tempRange isEqualToString:@"班级圈"]) {
+                hasTopGroup = YES;
+            }else if ([tempRange isEqualToString:@"手心网"])
+            {
+                hasTopGroup = YES;
+            }
+        }
+        
+
+        [[PalmUIManagement sharedInstance] postPBX:[self.currentGroup.groupid intValue] withTitle:@"拍表现" withContent:thingsTextView.text withAttach:@"" withAward:[self getAward] withToHomePage:hasHomePage withToUpGroup:hasTopGroup];
+    }
+    
+    [thingsTextView resignFirstResponder];
+    [self showProgressWithText:@"正在发送..."];
+    
+
+    
+
+
+    
+   //
 }
 
-
+-(NSString *)getAward
+{
+    NSString *award;
+    for (int i= 0; i <selectedStuArray.count ;i++ ) {
+        BBStudentModel *model = [selectedStuArray objectAtIndex:i];
+        if (i == 0) award = [NSString stringWithFormat:@"%d",model.studentID];
+        else [award stringByAppendingFormat:@",%d",model.studentID];
+    }
+    return award;
+}
 #pragma mark ViewControllerMethod
 -(void)receiveSeletedRangeList:(NSNotification *)noti
 {
