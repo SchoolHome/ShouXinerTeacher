@@ -129,12 +129,25 @@
     }
     return self;
 }
--(id)initWithSelectedStudents:(NSArray *)selectedStu
+-(id)initWithSelectedStudents:(NSArray *)selectedStu withStudentModel:(NSDictionary  *)models
 {
     self = [self initWithNibName:nil bundle:nil];
     if (self) {
         self.selectedStudentList = [[NSMutableArray alloc] initWithArray:selectedStu];
-       
+        NSMutableArray *tempStudentsArr = [[NSMutableArray alloc] init];
+        for (NSString *studentID in models.allKeys) {
+            NSDictionary *studentModel = [models objectForKey:studentID];
+            BBStudentModel *model = [[BBStudentModel alloc] init];
+            model.studentID = [studentID integerValue];
+            model.studentName = [studentModel objectForKey:@"uname"];
+            for (BBStudentModel *tempSelectedStu in self.selectedStudentList) {
+                if (model.studentID == tempSelectedStu.studentID) {
+                    model.isSelected = YES;
+                }
+            }
+            [tempStudentsArr addObject:model];
+        }
+        [self sortDataByModels:tempStudentsArr];
     }
     return self;
 }
@@ -234,12 +247,6 @@
     }
     
     for (BBStudentModel *tempModel in studentModels) {
-        for (BBStudentModel *tempSelectedStu in self.selectedStudentList) {
-            if (tempModel.studentID == tempSelectedStu.studentID) {
-                tempModel.isSelected = YES;
-                break;
-            }
-        }
         [(NSMutableArray *)[sectionArrays objectAtIndex:tempModel.sectionNumber] addObject:tempModel];
     }
     

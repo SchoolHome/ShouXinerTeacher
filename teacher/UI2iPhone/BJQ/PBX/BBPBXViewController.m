@@ -38,9 +38,17 @@
      #define ASI_REQUEST_CONTEXT @"context"
      */
     if ([keyPath isEqualToString:@"groupStudents"]) {
-        NSDictionary *students = [PalmUIManagement sharedInstance].groupStudents;
-        NSLog(@"students==%@",students);
-        
+        NSDictionary *dic = [PalmUIManagement sharedInstance].groupStudents;
+        if (![dic objectForKey:ASI_REQUEST_HAS_ERROR]) {
+            //-(void) showProgressWithText : (NSString *) context withDelayTime : (NSUInteger) sec;
+            [self showProgressWithText:[dic objectForKey:ASI_REQUEST_ERROR_MESSAGE] withDelayTime:3];
+        }else
+        {
+            NSDictionary *students = [[[dic objectForKey:ASI_REQUEST_DATA] objectForKey:@"list"] objectForKey:[self.currentGroup.groupid stringValue]];
+            BBStudentsListViewController *studentListVC = [[BBStudentsListViewController alloc] initWithSelectedStudents:selectedStuArray withStudentModel:students];
+            [self.navigationController pushViewController:studentListVC animated:YES];
+        }
+
         [self closeProgress];
     }else if ([keyPath isEqualToString:@"recommendResult"])
     {
@@ -227,7 +235,24 @@
 }
 -(void)send
 {
+    /*
+     -(void) postPBX : (int) groupid withTitle : (NSString *) title withContent : (NSString *) content withAttach : (NSString *) attach
+     withAward : (NSString *) students withToHomePage : (BOOL) hasHomePage withToUpGroup : (BOOL) hasTopGroup;
+     */
+    BOOL hasHomePage = NO;
+    BOOL hasTopGroup = NO;
+    for (NSString *tempRange in selectedRangeArray) {
+        if ([tempRange isEqualToString:@"班级圈"]) {
+            hasTopGroup = YES;
+        }else if ([tempRange isEqualToString:@"手心网"])
+        {
+            hasTopGroup = YES;
+        }
+    }
     
+    
+    
+   // [[PalmUIManagement sharedInstance] postPBX:[self.currentGroup.groupid intValue] withTitle:@"" withContent:thingsTextView.text withAttach:<#(NSString *)#> withAward:<#(NSString *)#> withToHomePage:hasHomePage withToUpGroup:hasTopGroup];
 }
 
 
