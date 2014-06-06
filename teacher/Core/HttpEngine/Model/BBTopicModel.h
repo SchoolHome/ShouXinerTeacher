@@ -34,10 +34,11 @@
 @property(nonatomic,strong) NSArray *comments;
 @property(nonatomic,strong) NSMutableArray *commentStr;
 @property(nonatomic) BOOL award;
+@property(nonatomic) BOOL recommended;
 @property(nonatomic) BOOL recommendToGroups;
 @property(nonatomic) BOOL recommendToHomepage;
 @property(nonatomic) BOOL recommendToUpGroup;
-@property(nonatomic) BOOL recommended;
+
 
 // attach
 @property(nonatomic,strong) NSArray *imageList;

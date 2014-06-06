@@ -84,6 +84,14 @@
         self.TuiJianImage.hidden = YES;
     }
     
+    if (data.award) {
+        self.RongYuImage.frame = CGRectMake(self.TuiJianImage.frame.origin.x + 20.0f, 2.0f, 15.0f, 15.0f);
+        self.RongYuImage.hidden = NO;
+    }else{
+        self.RongYuImage.frame = CGRectMake(self.TuiJianImage.frame.origin.x + 20.0f, 2.0f, 15.0f, 15.0f);
+        self.RongYuImage.hidden = YES;
+    }
+    
     content.frame = CGRectMake(K_LEFT_PADDING+43, 40+3, 175, 50);
     content.text = self.data.content;
     content.font = [UIFont systemFontOfSize:14];
