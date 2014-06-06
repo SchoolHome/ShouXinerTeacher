@@ -179,7 +179,7 @@
             CPLGModelAccount *account = [[CPSystemEngine sharedInstance] accountModel];
             comment.comment = self.inputText;
             comment.replyto = self.tempTopModelInput.author_uid;
-            comment.replyto_username = self.tempTopModelInput.author_username;
+            comment.replyto_username = self.model.username;
             comment.uid = [NSNumber numberWithInteger:[account.uid integerValue]];;
             comment.username = [CPUIModelManagement sharedInstance].uiPersonalInfo.nickName;
             NSMutableArray *arr = [[NSMutableArray alloc] initWithArray:self.tempTopModelInput.comments];
@@ -188,7 +188,7 @@
             
             NSUInteger len = [comment.username length]+1;
             NSMutableAttributedString *attributedText;
-            if ([comment.username isEqualToString:comment.replyto_username]) {
+            if ([comment.username isEqualToString:comment.replyto_username] || comment.replyto_username == nil) {
                 NSString *text = [NSString stringWithFormat:@"%@: %@\n",comment.username,comment.comment];
                 attributedText = [[NSMutableAttributedString alloc] initWithString:text];
                 if ([[[UIDevice currentDevice] systemVersion] floatValue] > 6) {
@@ -662,7 +662,7 @@
 //    fzy.style = index_;
 //    fzy.currentGroup = _currentGroup;
 //    [self.navigationController pushViewController:fzy animated:YES];
-    if (index_ == 2) {
+    if (index_ == 0) {
         BBPBXViewController *pbx = [[BBPBXViewController alloc] init];
         pbx.hidesBottomBarWhenPushed = YES;
         pbx.currentGroup = _currentGroup;
@@ -671,7 +671,13 @@
     {
         BBFZYViewController *fzy = [[BBFZYViewController alloc] init];
         fzy.hidesBottomBarWhenPushed = YES;
-        fzy.style = index_;
+        if (index_ == 1) {
+            fzy.style = 0;
+        }else if (index_ == 2){
+            fzy.style = 1;
+        }else{
+            fzy.style = 3;
+        }
         fzy.currentGroup = _currentGroup;
         [self.navigationController pushViewController:fzy animated:YES];
     }

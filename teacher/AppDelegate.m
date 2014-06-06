@@ -28,6 +28,7 @@
 #import "MediaStatusManager.h"
 #import "CoreUtils.h"
 #import <Crashlytics/Crashlytics.h>
+#import "GuidViewController.h"
 
 @implementation AppDelegate
 
@@ -46,6 +47,7 @@
 }
 
 - (void)launchLogin{
+    [UIApplication sharedApplication].statusBarHidden = NO;
     [self do_clear_controllers];
     Login * login_c_temp = [[Login alloc] init];
     UINavigationController * login_nav_c_temp = [[UINavigationController alloc] initWithRootViewController:login_c_temp];
@@ -57,6 +59,7 @@
 }
 
 - (void)launchApp{
+    [UIApplication sharedApplication].statusBarHidden = NO;
     [self do_clear_controllers];
     for (UIView *aView in [self.window subviews]) {
         [aView removeFromSuperview];
@@ -96,6 +99,19 @@
     
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     // Override point for customization after application launch.
+    
+    NSString *guidVersion = [[NSUserDefaults standardUserDefaults] objectForKey:@"guidVersion"];
+    if (guidVersion == nil || [guidVersion isEqualToString:GuidVersion]) {
+        [self do_clear_controllers];
+        GuidViewController * guid = [[GuidViewController alloc] init];
+        UINavigationController * nav = [[UINavigationController alloc] initWithRootViewController:guid];
+        [nav setNavigationBarHidden:YES];
+        self.window.rootViewController = nav;
+        [self.window makeKeyAndVisible];
+        [[NSUserDefaults standardUserDefaults] setObject:GuidVersion forKey:@"guidVersion"];
+        [[NSUserDefaults standardUserDefaults] synchronize];
+        return YES;
+    }
     
     CPUIModelManagement * model_management = [CPUIModelManagement sharedInstance];
     NSInteger sys_status_int = [model_management sysOnlineStatus];
