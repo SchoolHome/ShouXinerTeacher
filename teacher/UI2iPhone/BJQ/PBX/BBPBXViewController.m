@@ -48,6 +48,7 @@
             BBStudentsListViewController *studentListVC = [[BBStudentsListViewController alloc] initWithSelectedStudents:selectedStuArray withStudentModel:students];
             [self.navigationController pushViewController:studentListVC animated:YES];
         }
+        }
         if ([@"updateImageResult" isEqualToString:keyPath])  // 图片上传成功
         {
             NSDictionary *dic = [PalmUIManagement sharedInstance].updateImageResult;
@@ -103,7 +104,7 @@
 
 
         [self closeProgress];
-    }
+    
 }
 -(NSMutableArray *)attachList
 {
@@ -267,7 +268,7 @@
 }
 -(void)viewWillAppear:(BOOL)animated
 {
-    [super viewWillAppear:animated];
+    //[super viewWillAppear:animated];
     
     [[PalmUIManagement sharedInstance] addObserver:self forKeyPath:@"updateImageResult" options:0 context:NULL];
     [[PalmUIManagement sharedInstance] addObserver:self forKeyPath:@"topicResult" options:0 context:NULL];
@@ -276,7 +277,7 @@
 }
 -(void)viewDidDisappear:(BOOL)animated
 {
-    [super viewWillDisappear:animated];
+    //[super viewWillDisappear:animated];
     
     [[PalmUIManagement sharedInstance] removeObserver:self forKeyPath:@"updateImageResult"];
     [[PalmUIManagement sharedInstance] removeObserver:self forKeyPath:@"topicResult"];
