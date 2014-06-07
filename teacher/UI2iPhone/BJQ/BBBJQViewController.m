@@ -2,6 +2,7 @@
 #import "BBBJQViewController.h"
 #import "BBXXXViewController.h"
 #import "BBJFViewController.h"
+#import "BBRecommendedRangeViewController.h"
 
 #import "BBCellHeight.h"
 #import "BBBJQManager.h"
@@ -17,6 +18,8 @@
 
 
 @interface BBBJQViewController ()
+{
+}
 @property (nonatomic,strong) BBTopicModel *tempTopModel;
 @property (nonatomic,strong) BBTopicModel *tempTopModelInput;
 @property (nonatomic,copy) NSString *inputText;
@@ -441,6 +444,8 @@
     
     [[PalmUIManagement sharedInstance] getUserCredits];
     
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(receiveSeletedRangeList:) name:@"SeletedRangeList" object:nil];
+    
     [self checkNotify];
 }
 
@@ -459,7 +464,15 @@
     
     [self removeObservers];
 }
+-(void)receiveSeletedRangeList:(NSNotification *)noti
+{
+    NSArray *selectedRanges = (NSArray *)[noti object];
+    
+    
 
+    
+  
+}
 #pragma mark - UITableViewDatasource
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
     return 1;
@@ -781,6 +794,9 @@
 // 推荐
 -(void)bbBaseTableViewCell:(BBBaseTableViewCell *)cell recommendButtonTaped:(UIButton *)sender{
     NSLog(@"1111111111111");
+    BBRecommendedRangeViewController *recommendedRangeVC = [[BBRecommendedRangeViewController alloc] initWithRanges:nil];
+    recommendedRangeVC.hidesBottomBarWhenPushed = YES;
+    [self.navigationController pushViewController:recommendedRangeVC animated:YES];
 }
 
 -(void)replyTaped:(id)sender{
