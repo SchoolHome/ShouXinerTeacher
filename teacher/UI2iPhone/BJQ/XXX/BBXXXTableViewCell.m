@@ -55,6 +55,13 @@
         thumbnail = [[EGOImageView alloc] initWithFrame:CGRectMake(240, 30, 60, 60)];
         [self addSubview:thumbnail];
         thumbnail.backgroundColor = [UIColor clearColor];
+        
+        contentPreView = [[UILabel alloc] initWithFrame:CGRectMake(240, 30, 60, 60)];
+        contentPreView.textColor = [UIColor lightGrayColor];
+        contentPreView.font = [UIFont systemFontOfSize:12];
+        contentPreView.numberOfLines = 4;
+        [self addSubview:contentPreView];
+        contentPreView.backgroundColor = [UIColor clearColor];
     }
     return self;
 }
