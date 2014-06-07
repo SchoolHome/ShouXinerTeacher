@@ -164,6 +164,7 @@
     studentListTableview.dataSource = self;
     studentListTableview.backgroundColor = [UIColor clearColor];
     studentListTableview.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
+    studentListTableview.sectionIndexBackgroundColor = [UIColor clearColor];
     [self.view addSubview:studentListTableview];
     
     //searchBar
@@ -247,7 +248,10 @@
     }
     
     for (BBStudentModel *tempModel in studentModels) {
-        [(NSMutableArray *)[sectionArrays objectAtIndex:tempModel.sectionNumber] addObject:tempModel];
+        if (![tempModel.studentName isEqualToString:@""]) {
+            [(NSMutableArray *)[sectionArrays objectAtIndex:tempModel.sectionNumber] addObject:tempModel];
+        }
+
     }
     
     for (NSMutableArray *sectionArray in sectionArrays) {
@@ -333,8 +337,9 @@
     }
     
 //    [studentListTableview reloadRowsAtIndexPaths:[NSArray arrayWithObject:model.currentIndexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
-    if (searchStatusActive) [studentListSearchDisplay.searchResultsTableView reloadRowsAtIndexPaths:[NSArray arrayWithObject:model.currentIndexPath] withRowAnimation:UITableViewRowAnimationNone];
-    else [studentListTableview  reloadRowsAtIndexPaths:[NSArray arrayWithObject:model.currentIndexPath] withRowAnimation:UITableViewRowAnimationNone];
+    if (searchStatusActive) [studentListSearchDisplay.searchResultsTableView reloadRowsAtIndexPaths:[NSArray arrayWithObject:model.currentIndexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
+    else [studentListTableview reloadData];
+        //[studentListTableview  reloadRowsAtIndexPaths:[NSArray arrayWithObject:model.currentIndexPath] withRowAnimation:UITableViewRowAnimationTop];
     
     //修改UI
     [selectedView setStudentNames:self.selectedStudentList];
@@ -434,6 +439,7 @@
 }
 - (NSArray *)sectionIndexTitlesForTableView:(UITableView *)tableView
 {
+    
     if (tableView == self.searchDisplayController.searchResultsTableView) {
         return nil;
     } else {
