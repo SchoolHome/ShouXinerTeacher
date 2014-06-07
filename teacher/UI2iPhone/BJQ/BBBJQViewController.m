@@ -28,6 +28,8 @@
 @property (nonatomic,strong) BBCommentModel *model;
 @property (nonatomic,strong) BBBaseTableViewCell *tempCell;
 @property (nonatomic,strong) UIImageView *tempMoreImage;
+
+@property (nonatomic,strong) BBTopicModel *recommendUsed;
 @end
 
 @implementation BBBJQViewController
@@ -464,6 +466,7 @@
     
     [self removeObservers];
 }
+
 -(void)receiveSeletedRangeList:(NSNotification *)noti
 {
     NSArray *selectedRanges = (NSArray *)[noti object];
@@ -479,9 +482,16 @@
         }
     }
     
-
-    
-  
+    if (hasHomePage || hasTopGroup) {
+        if (self.recommendUsed != nil) {
+            [[PalmUIManagement sharedInstance] postRecommend:[self.recommendUsed.topicid longLongValue] withToHomePage:hasTopGroup withToUpGroup:hasTopGroup];
+            self.recommendUsed.recommendToHomepage = hasHomePage;
+            self.recommendUsed.recommendToGroups = hasTopGroup;
+            [bjqTableView reloadData];
+        }
+    }else{
+        self.recommendUsed = nil;
+    }
 }
 #pragma mark - UITableViewDatasource
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
@@ -803,6 +813,7 @@
 
 // 推荐
 -(void)bbBaseTableViewCell:(BBBaseTableViewCell *)cell recommendButtonTaped:(UIButton *)sender{
+    self.recommendUsed = cell.data;
     BBRecommendedRangeViewController *recommendedRangeVC = [[BBRecommendedRangeViewController alloc] initWithRanges:nil];
     recommendedRangeVC.hidesBottomBarWhenPushed = YES;
     [self.navigationController pushViewController:recommendedRangeVC animated:YES];
