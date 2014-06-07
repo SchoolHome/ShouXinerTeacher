@@ -328,7 +328,7 @@
                 hasTopGroup = YES;
             }else if ([tempRange isEqualToString:@"手心网"])
             {
-                hasTopGroup = YES;
+                hasHomePage = YES;
             }
         }
         
