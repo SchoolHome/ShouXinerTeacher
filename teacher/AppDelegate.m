@@ -101,7 +101,7 @@
     // Override point for customization after application launch.
     
     NSString *guidVersion = [[NSUserDefaults standardUserDefaults] objectForKey:@"guidVersion"];
-    if (guidVersion == nil || [guidVersion isEqualToString:GuidVersion]) {
+    if (guidVersion == nil || ![guidVersion isEqualToString:GuidVersion]) {
         [self do_clear_controllers];
         GuidViewController * guid = [[GuidViewController alloc] init];
         UINavigationController * nav = [[UINavigationController alloc] initWithRootViewController:guid];
