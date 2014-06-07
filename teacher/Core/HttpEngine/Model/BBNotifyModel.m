@@ -28,6 +28,13 @@
         nt.topicid = dict[@"topicid"];
         nt.topic_title = dict[@"topic_title"];
         nt.type = dict[@"type"];
+
+//        @property(nonatomic,strong) NSString *imageUrl;
+//        @property(nonatomic,strong) NSString *content;
+//        @property(nonatomic,strong) NSString *comment;
+        nt.imageUrl = dict[@"image"];
+        nt.content = dict[@"content"];
+        nt.comment = dict[@"comment"];
         
         return nt;
     }

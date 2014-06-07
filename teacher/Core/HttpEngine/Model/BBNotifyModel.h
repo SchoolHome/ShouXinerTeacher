@@ -23,5 +23,8 @@
 @property(nonatomic,strong) NSString *topic_title;
 @property(nonatomic,strong) NSString *type;
 
+@property(nonatomic,strong) NSString *imageUrl;
+@property(nonatomic,strong) NSString *content;
+@property(nonatomic,strong) NSString *comment;
 +(BBNotifyModel *)fromJson:(NSDictionary *)dict;
 @end
