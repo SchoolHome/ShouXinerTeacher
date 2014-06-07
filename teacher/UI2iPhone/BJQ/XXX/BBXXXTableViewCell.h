@@ -23,6 +23,7 @@
     UIImageView *like;
     UILabel *time;
     EGOImageView *thumbnail;
+    UILabel *contentPreView;
 }
 
 @property(nonatomic,strong) BBNotifyModel *data;

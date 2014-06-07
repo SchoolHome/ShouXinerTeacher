@@ -274,8 +274,10 @@
 
 -(void)addNewTaped:(id)sender{
 
-    [[UIApplication sharedApplication].keyWindow addSubview:fsDropdownView];
-    [fsDropdownView show];
+    [self newNotifyTaped:sender];
+    
+//    [[UIApplication sharedApplication].keyWindow addSubview:fsDropdownView];
+//    [fsDropdownView show];
 }
 
 -(void)newNotifyTaped:(id)sender{
