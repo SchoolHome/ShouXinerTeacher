@@ -793,7 +793,6 @@
 
 // 推荐
 -(void)bbBaseTableViewCell:(BBBaseTableViewCell *)cell recommendButtonTaped:(UIButton *)sender{
-    NSLog(@"1111111111111");
     BBRecommendedRangeViewController *recommendedRangeVC = [[BBRecommendedRangeViewController alloc] initWithRanges:nil];
     recommendedRangeVC.hidesBottomBarWhenPushed = YES;
     [self.navigationController pushViewController:recommendedRangeVC animated:YES];
