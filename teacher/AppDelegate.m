@@ -95,7 +95,6 @@
     
     [DDLog addLogger:fileLogger];
 	[DDLog addLogger:[DDTTYLogger sharedInstance]];
-    [[CPSystemEngine sharedInstance] initSystem];
     
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     // Override point for customization after application launch.
@@ -113,6 +112,7 @@
         return YES;
     }
     
+    [[CPSystemEngine sharedInstance] initSystem];
     CPUIModelManagement * model_management = [CPUIModelManagement sharedInstance];
     NSInteger sys_status_int = [model_management sysOnlineStatus];
     if(sys_status_int == SYS_STATUS_NO_ACTIVE){

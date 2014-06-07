@@ -80,7 +80,7 @@
 
 -(void) loadLogin:(id)sender{
     AppDelegate *appDelegate = (AppDelegate *)[UIApplication sharedApplication].delegate;
-    
+    [[CPSystemEngine sharedInstance] initSystem];
     CPUIModelManagement * model_management = [CPUIModelManagement sharedInstance];
     NSInteger sys_status_int = [model_management sysOnlineStatus];
     if(sys_status_int == SYS_STATUS_NO_ACTIVE){
