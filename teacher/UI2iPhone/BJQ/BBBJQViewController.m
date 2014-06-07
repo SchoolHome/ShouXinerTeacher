@@ -468,6 +468,16 @@
 {
     NSArray *selectedRanges = (NSArray *)[noti object];
     
+    BOOL hasHomePage = NO;
+    BOOL hasTopGroup = NO;
+    for (NSString *tempRange in selectedRanges) {
+        if ([tempRange isEqualToString:@"班级圈"]) {
+            hasTopGroup = YES;
+        }else if ([tempRange isEqualToString:@"手心网"])
+        {
+            hasHomePage = YES;
+        }
+    }
     
 
     
