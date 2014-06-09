@@ -17,4 +17,5 @@
 
 - (void)showLoading;
 - (void)showFailure;
+- (void) stop;
 @end
