@@ -48,6 +48,7 @@
             BBStudentsListViewController *studentListVC = [[BBStudentsListViewController alloc] initWithSelectedStudents:selectedStuArray withStudentModel:students];
             [self.navigationController pushViewController:studentListVC animated:YES];
         }
+        [self closeProgress];
         }
         if ([@"updateImageResult" isEqualToString:keyPath])  // 图片上传成功
         {
@@ -103,7 +104,7 @@
         }
 
 
-        [self closeProgress];
+    
     
 }
 -(NSMutableArray *)attachList
