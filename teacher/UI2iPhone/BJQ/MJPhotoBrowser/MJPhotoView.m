@@ -16,6 +16,7 @@
     BOOL _doubleTap;
     UIImageView *_imageView;
     MJPhotoLoadingView *_photoLoadingView;
+    
 }
 @end
 
@@ -97,18 +98,20 @@
         self.scrollEnabled = NO;
         // 直接显示进度条
         [_photoLoadingView showLoading];
+        
         [self addSubview:_photoLoadingView];
         
         __unsafe_unretained MJPhotoView *photoView = self;
         __unsafe_unretained MJPhotoLoadingView *loading = _photoLoadingView;
         [_imageView setImageWithURL:_photo.url placeholderImage:_photo.srcImageView.image options:SDWebImageRetryFailed|SDWebImageLowPriority progress:^(NSUInteger receivedSize, long long expectedSize) {
-            if (receivedSize > kMinProgress) {
-                if (nil != loading) {
-                    loading.progress = (float)receivedSize/expectedSize;
-                }
-                
-            }
+//            if (receivedSize > kMinProgress) {
+//                if (nil != loading && [loading superview] != nil) {
+////                    loading.progress = (float)receivedSize/expectedSize;
+//                }
+//                
+//            }
         } completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType) {
+            [loading stop];
             [photoView photoDidFinishLoadWithImage:image];
         }];
     }
@@ -200,11 +203,14 @@
 - (void)hide
 {
     if (_doubleTap) return;
-    _photoLoadingView = nil;
-    [_imageView setImageWithURL:[NSURL URLWithString:@"file:///abc"]];
-    [_imageView cancelCurrentImageLoad];
-    // 移除进度条
     [_photoLoadingView removeFromSuperview];
+    _photoLoadingView = nil;
+    [_imageView cancelCurrentImageLoad];
+    [_imageView cancelCurrentArrayLoad];
+    [_imageView setImageWithURL:[NSURL URLWithString:@"file:///abc"]];
+    
+    // 移除进度条
+    
     self.contentOffset = CGPointZero;
     
     // 清空底部的小图

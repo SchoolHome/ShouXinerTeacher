@@ -14,6 +14,7 @@
 {
     UILabel *_failureLabel;
     MJPhotoProgressView *_progressView;
+    UIActivityIndicatorView *_activity;
 }
 
 @end
@@ -27,7 +28,7 @@
 
 - (void)showFailure
 {
-    [_progressView removeFromSuperview];
+    [_activity stopAnimating];
     
     if (_failureLabel == nil) {
         _failureLabel = [[UILabel alloc] init];
@@ -47,13 +48,13 @@
 {
     [_failureLabel removeFromSuperview];
     
-    if (_progressView == nil) {
-        _progressView = [[MJPhotoProgressView alloc] init];
-        _progressView.bounds = CGRectMake( 0, 0, 60, 60);
-        _progressView.center = self.center;
+    if (_activity == nil) {
+        _activity = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhite];
+        _activity.center = self.center;
+        [_activity startAnimating];
+        [_activity setHidesWhenStopped:YES];
     }
-    _progressView.progress = kMinProgress;
-    [self addSubview:_progressView];
+    [self addSubview:_activity];
 }
 
 #pragma mark - customlize method
@@ -63,6 +64,12 @@
     _progressView.progress = progress;
     if (progress >= 1.0) {
         [_progressView removeFromSuperview];
+    }
+}
+
+- (void) stop{
+    if (_activity) {
+        [_activity stopAnimating];
     }
 }
 @end
