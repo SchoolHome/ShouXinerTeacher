@@ -238,7 +238,7 @@
     self.indexPath = indexpath;
     switch (indexpath.row) {
         case 0:
-            self.rangeLabel.text = @"班级圈";
+            self.rangeLabel.text = @"校园圈";
             break;
         case 1:
             self.rangeLabel.text = @"手心网";

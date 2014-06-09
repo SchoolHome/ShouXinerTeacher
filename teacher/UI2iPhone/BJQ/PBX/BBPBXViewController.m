@@ -324,7 +324,7 @@
         BOOL hasHomePage = NO;
         BOOL hasTopGroup = NO;
         for (NSString *tempRange in selectedRangeArray) {
-            if ([tempRange isEqualToString:@"班级圈"]) {
+            if ([tempRange isEqualToString:@"校园圈"]) {
                 hasTopGroup = YES;
             }else if ([tempRange isEqualToString:@"手心网"])
             {
@@ -349,13 +349,26 @@
 
 -(NSString *)getAward
 {
-    NSString *award;
-    for (int i= 0; i <selectedStuArray.count ;i++ ) {
-        BBStudentModel *model = [selectedStuArray objectAtIndex:i];
-        if (i == 0) award = [NSString stringWithFormat:@"%d",model.studentID];
-        else [award stringByAppendingFormat:@",%d",model.studentID];
+//    NSString *award;
+//    for (int i= 0; i <selectedStuArray.count ;i++ ) {
+//        BBStudentModel *model = [selectedStuArray objectAtIndex:i];
+//        if (i == 0) award = [NSString stringWithFormat:@"%d",model.studentID];
+//        else [award stringByAppendingFormat:@",%d",model.studentID];
+//
+//    }
+    NSMutableString *studentListText = [NSMutableString string];
+    for ( int i = 0; i< selectedStuArray.count; i++) {
+        BBStudentModel *tempModel = [selectedStuArray objectAtIndex:i];
+        if (i == 0) {
+            studentListText = [NSMutableString stringWithString:[studentListText stringByAppendingFormat:@"%d",tempModel.studentID]];
+        }else
+        {
+            studentListText = [NSMutableString stringWithString:[studentListText stringByAppendingFormat:@",%d",tempModel.studentID]];
+        }
+        
     }
-    return award;
+    NSLog(@"%@",studentListText);
+    return [NSString stringWithFormat:@"%@",studentListText];
 }
 #pragma mark ViewControllerMethod
 -(void)receiveSeletedRangeList:(NSNotification *)noti
