@@ -166,6 +166,7 @@
     BBRecommendedRangeTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:rangeTableviewCellIden];
     if (!cell) {
         cell = [[BBRecommendedRangeTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:rangeTableviewCellIden];
+        cell.delegate = self;
         cell.backgroundColor = [UIColor clearColor];
     }
     
@@ -173,7 +174,7 @@
     cell.selectedBtn.selected = NO;
     for (int i = 0 ; i< self.selectedRanges.count ; i++) {
         NSString *tempRangeStr = [self.selectedRanges objectAtIndex:i];
-        if ([tempRangeStr isEqualToString:@"班级圈"] && indexPath.row == 0) {
+        if ([tempRangeStr isEqualToString:@"校园圈"] && indexPath.row == 0) {
             cell.selectedBtn.selected = YES;
         }else if ([tempRangeStr isEqualToString:@"手心网"] && indexPath.row == 1)
             cell.selectedBtn.selected = YES;
@@ -238,7 +239,7 @@
     self.indexPath = indexpath;
     switch (indexpath.row) {
         case 0:
-            self.rangeLabel.text = @"班级圈";
+            self.rangeLabel.text = @"校园圈";
             break;
         case 1:
             self.rangeLabel.text = @"手心网";
