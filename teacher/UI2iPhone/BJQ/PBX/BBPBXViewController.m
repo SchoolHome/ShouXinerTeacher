@@ -367,7 +367,6 @@
         }
         
     }
-    NSLog(@"%@",studentListText);
     return [NSString stringWithFormat:@"%@",studentListText];
 }
 #pragma mark ViewControllerMethod
