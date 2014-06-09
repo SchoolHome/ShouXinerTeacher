@@ -68,11 +68,11 @@
                     BOOL hasHomePage = NO;
                     BOOL hasTopGroup = NO;
                     for (NSString *tempRange in selectedRangeArray) {
-                        if ([tempRange isEqualToString:@"班级圈"]) {
+                        if ([tempRange isEqualToString:@"校园圈"]) {
                             hasTopGroup = YES;
                         }else if ([tempRange isEqualToString:@"手心网"])
                         {
-                            hasTopGroup = YES;
+                            hasHomePage = YES;
                         }
                     }
                     
