@@ -148,14 +148,14 @@
         [self.view addSubview:fromImage];
         
         self.telPhone = [[UITextField alloc] initWithFrame:CGRectMake(95.0f, 12.0f, 170.0f, 24.0f)];
-        self.telPhone.backgroundColor = [UIColor redColor];
+        self.telPhone.backgroundColor = [UIColor clearColor];
         self.telPhone.textAlignment = NSTextAlignmentRight;
         self.telPhone.returnKeyType = UIReturnKeyDone;
         self.telPhone.delegate = self;
         [fromImage addSubview:self.telPhone];
         
         self.password = [[UITextField alloc] initWithFrame:CGRectMake(95.0f, 52.0f, 170.0f, 24.0f)];
-        self.password.backgroundColor = [UIColor redColor];
+        self.password.backgroundColor = [UIColor clearColor];
         self.password.textAlignment = NSTextAlignmentRight;
         self.password.returnKeyType = UIReturnKeyDone;
         self.password.secureTextEntry = YES;
@@ -163,7 +163,7 @@
         [fromImage addSubview:self.password];
         
         self.confrimPassWord = [[UITextField alloc] initWithFrame:CGRectMake(95.0f, 92.0f, 170.0f, 24.0f)];
-        self.confrimPassWord.backgroundColor = [UIColor redColor];
+        self.confrimPassWord.backgroundColor = [UIColor clearColor];
         self.confrimPassWord.secureTextEntry = YES;
         self.confrimPassWord.textAlignment = NSTextAlignmentRight;
         self.confrimPassWord.returnKeyType = UIReturnKeyDone;
