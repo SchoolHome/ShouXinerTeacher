@@ -87,6 +87,8 @@
     [self.view addSubview:xxxTableView];
     [xxxTableView reloadData];
     
+    xxxTableView.backgroundColor = [UIColor colorWithHexString:@"#f5f0eb"];
+    
     __weak BBXXXViewController *wekSelf = self;
     // 刷新
     [xxxTableView addPullToRefreshWithActionHandler:^{
