@@ -149,6 +149,7 @@
         _likeContent = [[UILabel alloc] init];
         _likeContent.textColor = [UIColor colorWithHexString:@"#4a7f9d"];
         _likeContent.font = [UIFont systemFontOfSize:12];
+        _likeContent.numberOfLines = 0;
         [self addSubview:_likeContent];
         _likeContent.backgroundColor = [UIColor clearColor];
         
