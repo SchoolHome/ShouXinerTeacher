@@ -122,14 +122,34 @@
     selectedStuArray = [[NSArray alloc] init];
     selectedRangeArray = [[NSArray alloc] init];
     
-    
-    
+    /*
     //取消发送按钮
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"取消" style:UIBarButtonItemStyleBordered target:self action:@selector(cancel)];
-    self.navigationItem.leftBarButtonItem.tintColor = [UIColor whiteColor];
+    self.navigationItem.leftBarButtonItem.tintColor = [UIColor clearColor];
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"发送" style:UIBarButtonItemStyleBordered target:self action:@selector(send)];
-    self.navigationItem.rightBarButtonItem.tintColor = [UIColor whiteColor];
+    self.navigationItem.rightBarButtonItem.tintColor = [UIColor clearColor];
+    */
+    // left
+    UIButton *backButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    [backButton setFrame:CGRectMake(0.f, 15.f, 40.f, 24.f)];
+    [backButton setTitle:@"取消" forState:UIControlStateNormal];
+    [backButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    [backButton setTitleColor:[UIColor orangeColor] forState:UIControlStateHighlighted];
+    [backButton.titleLabel setFont:[UIFont systemFontOfSize:16]];
+    [backButton setTitleEdgeInsets:UIEdgeInsetsMake(8, 0, 0, 0)];
+    [backButton addTarget:self action:@selector(cancel) forControlEvents:UIControlEventTouchUpInside];
+    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:backButton];
     
+    // right
+    UIButton *sendButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    [sendButton setFrame:CGRectMake(0.f, 15.f, 40.f, 24.f)];
+    [sendButton setTitle:@"发送" forState:UIControlStateNormal];
+    [sendButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    [sendButton setTitleColor:[UIColor orangeColor] forState:UIControlStateHighlighted];
+    [sendButton.titleLabel setFont:[UIFont systemFontOfSize:16]];
+    [sendButton setTitleEdgeInsets:UIEdgeInsetsMake(8, 0, 0, 0)];
+    [sendButton addTarget:self action:@selector(send) forControlEvents:UIControlEventTouchUpInside];
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:sendButton];
     
     
     _contentScrollview = [[ReachTouchScrollview alloc] initWithFrame:CGRectMake(0.f, 0.f, 320.f, self.view.bounds.size.height-40.f)];

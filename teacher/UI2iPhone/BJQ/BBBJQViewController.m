@@ -483,7 +483,7 @@
     
     if (hasHomePage || hasTopGroup) {
         if (self.recommendUsed != nil) {
-            [[PalmUIManagement sharedInstance] postRecommend:[self.recommendUsed.topicid longLongValue] withToHomePage:hasTopGroup withToUpGroup:hasTopGroup];
+            [[PalmUIManagement sharedInstance] postRecommend:[self.recommendUsed.topicid longLongValue] withToHomePage:hasHomePage withToUpGroup:hasTopGroup];
             self.recommendUsed.recommendToHomepage = hasHomePage;
             self.recommendUsed.recommendToGroups = hasTopGroup;
             [bjqTableView reloadData];
