@@ -7,6 +7,7 @@
 //
 
 #import "BBSingleMessageGroupCell.h"
+#import <QuartzCore/QuartzCore.h>
 
 @implementation BBSingleMessageGroupCell
 
