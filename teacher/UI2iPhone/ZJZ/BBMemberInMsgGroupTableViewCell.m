@@ -7,7 +7,6 @@
 //
 
 #import "BBMemberInMsgGroupTableViewCell.h"
-#import <QuartzCore/QuartzCore.h>
 
 @implementation BBMemberInMsgGroupTableViewCell
 

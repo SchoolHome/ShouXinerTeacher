@@ -7,7 +7,6 @@
 //
 
 #import "BBFSDropdownView.h"
-
 #define kDropdownWidth      83
 #define kDropdownCellHeight 44
 

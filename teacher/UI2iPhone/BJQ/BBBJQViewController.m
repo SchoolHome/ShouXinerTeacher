@@ -15,8 +15,6 @@
 #import "MJPhoto.h"
 #import "BBPBXViewController.h"
 #import "BBPBXTableViewCell.h"
-#import <QuartzCore/QuartzCore.h>
-
 
 @interface BBBJQViewController ()
 {
