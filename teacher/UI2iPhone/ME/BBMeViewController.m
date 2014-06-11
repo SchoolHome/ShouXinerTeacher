@@ -12,7 +12,7 @@
 #import "BBShopViewController.h"
 #import "BBHelpViewController.h"
 #import "BBFeedbackViewController.h"
-#import "BBAddressBookViewController.h"
+#import "BBHonorViewController.h"
 #import "ContactsViewController.h"
 #import "EGOImageView.h"
 #import <QuartzCore/QuartzCore.h>
@@ -53,7 +53,7 @@
 	// Do any additional setup after loading the view.
     self.navigationItem.title = @"我";
     
-    listData = [[NSArray alloc] initWithObjects:[NSArray arrayWithObjects:@"我的商城", @"我的通讯录", nil],
+    listData = [[NSArray alloc] initWithObjects:[NSArray arrayWithObjects:@"我的商城", @"班级荣誉", @"我的通讯录", nil],
                 [NSArray arrayWithObjects:@"软件更新", @"帮助中心", @"反馈和建议", nil], nil];
     
     
@@ -211,6 +211,10 @@
                 BBShopViewController *shopViewController = [[BBShopViewController alloc] init];
                 shopViewController.hidesBottomBarWhenPushed = YES;
                 [self.navigationController pushViewController:shopViewController animated:YES];
+            }else if(indexPath.row == 1) {//荣誉
+                BBHonorViewController *honorViewController = [[BBHonorViewController alloc] init];
+                honorViewController.hidesBottomBarWhenPushed = YES;
+                [self.navigationController pushViewController:honorViewController animated:YES];
             }else{//通讯录
                 ContactsViewController *contactsViewController = [[ContactsViewController alloc] init];
                 contactsViewController.hidesBottomBarWhenPushed = YES;

@@ -30,7 +30,7 @@
 		047823DA18D2A9F60012D87D /* BBMeTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 047823D918D2A9F60012D87D /* BBMeTableViewCell.m */; };
 		047823DD18D2C8660012D87D /* BBMeProfileController.m in Sources */ = {isa = PBXBuildFile; fileRef = 047823DC18D2C8660012D87D /* BBMeProfileController.m */; };
 		047823E018D2CABE0012D87D /* BBMeProfileTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 047823DF18D2CABE0012D87D /* BBMeProfileTableViewCell.m */; };
-		04C95FAF18E928C5004F2AF4 /* BBAddressBookViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 04C95FAE18E928C5004F2AF4 /* BBAddressBookViewController.m */; };
+		04B262141947EC7500B6D036 /* BBHonorViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 04B262131947EC7500B6D036 /* BBHonorViewController.m */; };
 		04D431C6190F89F9004B2806 /* BBComentBG.png in Resources */ = {isa = PBXBuildFile; fileRef = 04D431C2190F89F9004B2806 /* BBComentBG.png */; };
 		04D431C7190F89F9004B2806 /* BBComentBG@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 04D431C3190F89F9004B2806 /* BBComentBG@2x.png */; };
 		04D431C8190F89F9004B2806 /* BBComentX.png in Resources */ = {isa = PBXBuildFile; fileRef = 04D431C4190F89F9004B2806 /* BBComentX.png */; };
@@ -1272,8 +1272,8 @@
 		047823DC18D2C8660012D87D /* BBMeProfileController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BBMeProfileController.m; sourceTree = "<group>"; };
 		047823DE18D2CABE0012D87D /* BBMeProfileTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BBMeProfileTableViewCell.h; sourceTree = "<group>"; };
 		047823DF18D2CABE0012D87D /* BBMeProfileTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BBMeProfileTableViewCell.m; sourceTree = "<group>"; };
-		04C95FAD18E928C5004F2AF4 /* BBAddressBookViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BBAddressBookViewController.h; sourceTree = "<group>"; };
-		04C95FAE18E928C5004F2AF4 /* BBAddressBookViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BBAddressBookViewController.m; sourceTree = "<group>"; };
+		04B262121947EC7500B6D036 /* BBHonorViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BBHonorViewController.h; sourceTree = "<group>"; };
+		04B262131947EC7500B6D036 /* BBHonorViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BBHonorViewController.m; sourceTree = "<group>"; };
 		04D431C2190F89F9004B2806 /* BBComentBG.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = BBComentBG.png; sourceTree = "<group>"; };
 		04D431C3190F89F9004B2806 /* BBComentBG@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "BBComentBG@2x.png"; sourceTree = "<group>"; };
 		04D431C4190F89F9004B2806 /* BBComentX.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = BBComentX.png; sourceTree = "<group>"; };
@@ -3219,8 +3219,8 @@
 				0420E12118E13FC7003997ED /* BBHelpViewController.m */,
 				0420E12318E13FEB003997ED /* BBFeedbackViewController.h */,
 				0420E12418E13FEB003997ED /* BBFeedbackViewController.m */,
-				04C95FAD18E928C5004F2AF4 /* BBAddressBookViewController.h */,
-				04C95FAE18E928C5004F2AF4 /* BBAddressBookViewController.m */,
+				04B262121947EC7500B6D036 /* BBHonorViewController.h */,
+				04B262131947EC7500B6D036 /* BBHonorViewController.m */,
 			);
 			name = ME;
 			sourceTree = "<group>";
@@ -7709,7 +7709,6 @@
 				0420E12218E13FC7003997ED /* BBHelpViewController.m in Sources */,
 				332D82F518C33F0B007A75D5 /* MessageSoundPlayer.m in Sources */,
 				332D831418C33F0B007A75D5 /* AGMedallionView.m in Sources */,
-				04C95FAF18E928C5004F2AF4 /* BBAddressBookViewController.m in Sources */,
 				332D82AC18C33F0A007A75D5 /* AFSectionHeaderView.m in Sources */,
 				332D832718C33F0B007A75D5 /* KBEmojiView.m in Sources */,
 				332D752A18C33552007A75D5 /* XMPPElement.m in Sources */,
@@ -7778,6 +7777,7 @@
 				332D82DB18C33F0A007A75D5 /* IndependentProfileViewController.m in Sources */,
 				332D838A18C33F0B007A75D5 /* NSArray_PointArray.m in Sources */,
 				332D833418C33F0B007A75D5 /* GroupLoveExpressionCell.m in Sources */,
+				04B262141947EC7500B6D036 /* BBHonorViewController.m in Sources */,
 				745D7684193F685600AF666E /* BBStudentsListViewController.m in Sources */,
 				332D830C18C33F0B007A75D5 /* FXBlockViewCheckBox.m in Sources */,
 				1975B75F18E940F300587B80 /* CircleImageButton.m in Sources */,
@@ -8038,8 +8038,8 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				CODE_SIGN_IDENTITY = "iPhone Developer: yuan gao (5PS549TGY5)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: yuan gao (5PS549TGY5)";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Shenyang Idtech Information Technology Co., Ltd.";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Shenyang Idtech Information Technology Co., Ltd.";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
@@ -8061,7 +8061,7 @@
 				ONLY_ACTIVE_ARCH = NO;
 				OTHER_LDFLAGS = "-lxml2";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "8ADA4211-F5E2-4B2C-BD42-E4012B0B901C";
+				PROVISIONING_PROFILE = "6254ECE3-EB9C-46FA-8BF2-1464DF2443C8";
 				SDKROOT = iphoneos;
 				VALID_ARCHS = armv7;
 				WRAPPER_EXTENSION = app;
@@ -8073,8 +8073,8 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				CODE_SIGN_IDENTITY = "iPhone Developer: yuan gao (5PS549TGY5)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: yuan gao (5PS549TGY5)";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Shenyang Idtech Information Technology Co., Ltd.";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Shenyang Idtech Information Technology Co., Ltd.";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/teacher/UI2iPhone",
@@ -8096,7 +8096,7 @@
 				);
 				OTHER_LDFLAGS = "-lxml2";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "8ADA4211-F5E2-4B2C-BD42-E4012B0B901C";
+				PROVISIONING_PROFILE = "6254ECE3-EB9C-46FA-8BF2-1464DF2443C8";
 				SDKROOT = iphoneos;
 				VALID_ARCHS = armv7;
 				WRAPPER_EXTENSION = app;

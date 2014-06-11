@@ -1,21 +1,21 @@
 //
-//  BBAddressBookViewController.m
+//  BBHonorViewController.m
 //  teacher
 //
-//  Created by mac on 14-3-31.
+//  Created by mac on 14-6-11.
 //  Copyright (c) 2014年 ws. All rights reserved.
 //
 
-#import "BBAddressBookViewController.h"
+#import "BBHonorViewController.h"
 
-@interface BBAddressBookViewController ()
+@interface BBHonorViewController ()
 {
-    UIWebView *addressBookWebView;
+    UIWebView *honorWebView;
     UIActivityIndicatorView *activityView;
 }
 @end
 
-@implementation BBAddressBookViewController
+@implementation BBHonorViewController
 
 - (id)init
 {
@@ -29,29 +29,29 @@
 -(void)loadView
 {
     [super loadView];
-    self.navigationItem.title = @"通讯录";
+    self.navigationItem.title = @"班级荣誉";
     UIButton *back = [UIButton buttonWithType:UIButtonTypeCustom];
     [back setFrame:CGRectMake(0.f, 7.f, 30.f, 30.f)];
     [back setBackgroundImage:[UIImage imageNamed:@"ZJZBack.png"] forState:UIControlStateNormal];
     [back addTarget:self action:@selector(backViewController) forControlEvents:UIControlEventTouchUpInside];
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:back];
     
-    addressBookWebView = [[UIWebView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self.screenHeight-44-20)];
-    [addressBookWebView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:@"http://www.shouxiner.com"]]];
-    [addressBookWebView setDelegate:(id<UIWebViewDelegate>)self];
+    honorWebView = [[UIWebView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self.screenHeight-44-20)];
+    [honorWebView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:@"http://www.shouxiner.com/webview/group_awards"]]];
+    [honorWebView setDelegate:(id<UIWebViewDelegate>)self];
     
     activityView = [[UIActivityIndicatorView alloc] initWithFrame:CGRectMake(0, 0, 30, 30)];
-    [activityView setCenter:addressBookWebView.center];
+    [activityView setCenter:honorWebView.center];
     [activityView setActivityIndicatorViewStyle:UIActivityIndicatorViewStyleWhite];
-    [addressBookWebView addSubview:activityView];
+    [honorWebView addSubview:activityView];
     
-    [self.view addSubview:addressBookWebView];
+    [self.view addSubview:honorWebView];
 }
 
 - (void)webViewDidStartLoad:(UIWebView *)webView
 {
     [activityView startAnimating];
-    [addressBookWebView addSubview:activityView];
+    [honorWebView addSubview:activityView];
 }
 
 - (void)webViewDidFinishLoad:(UIWebView *)webView
