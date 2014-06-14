@@ -126,7 +126,7 @@
     if (imageUrl == [NSNull null] || [imageUrl isEqualToString:@""] ) {
         contentPreView.hidden = NO;
         thumbnail.hidden = YES;
-        contentPreView.text = data.content;
+        if (data.content != [NSNull null]) contentPreView.text = data.content;
     }else
     {
         thumbnail.hidden = NO;
