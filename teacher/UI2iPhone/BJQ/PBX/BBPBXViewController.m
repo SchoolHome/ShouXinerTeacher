@@ -45,8 +45,14 @@
         }else
         {
             NSDictionary *students = [[[dic objectForKey:ASI_REQUEST_DATA] objectForKey:@"list"] objectForKey:[self.currentGroup.groupid stringValue]];
-            BBStudentsListViewController *studentListVC = [[BBStudentsListViewController alloc] initWithSelectedStudents:selectedStuArray withStudentModel:students];
-            [self.navigationController pushViewController:studentListVC animated:YES];
+            if (students) {
+                BBStudentsListViewController *studentListVC = [[BBStudentsListViewController alloc] initWithSelectedStudents:selectedStuArray withStudentModel:students];
+                [self.navigationController pushViewController:studentListVC animated:YES];
+            }else
+            {
+                [self showProgressWithText:@"学生列表获取失败" withDelayTime:3];
+            }
+
         }
         [self closeProgress];
         }
