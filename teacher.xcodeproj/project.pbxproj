@@ -161,6 +161,12 @@
 		19C08C3F193F1BAA00C548CD /* BJQRongYun@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 19C08C27193F1BAA00C548CD /* BJQRongYun@2x.png */; };
 		19C08C40193F1BAA00C548CD /* BJQTuiJian.png in Resources */ = {isa = PBXBuildFile; fileRef = 19C08C28193F1BAA00C548CD /* BJQTuiJian.png */; };
 		19C08C41193F1BAA00C548CD /* BJQTuiJian@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 19C08C29193F1BAA00C548CD /* BJQTuiJian@2x.png */; };
+		19E1A0E2194EB2E6009C06F7 /* 4.png in Resources */ = {isa = PBXBuildFile; fileRef = 19E1A0DC194EB2E6009C06F7 /* 4.png */; };
+		19E1A0E3194EB2E6009C06F7 /* 4@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 19E1A0DD194EB2E6009C06F7 /* 4@2x.png */; };
+		19E1A0E4194EB2E6009C06F7 /* 4s@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 19E1A0DE194EB2E6009C06F7 /* 4s@2x.png */; };
+		19E1A0E5194EB2E6009C06F7 /* 5.png in Resources */ = {isa = PBXBuildFile; fileRef = 19E1A0DF194EB2E6009C06F7 /* 5.png */; };
+		19E1A0E6194EB2E6009C06F7 /* 5@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 19E1A0E0194EB2E6009C06F7 /* 5@2x.png */; };
+		19E1A0E7194EB2E6009C06F7 /* 5s@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 19E1A0E1194EB2E6009C06F7 /* 5s@2x.png */; };
 		19EF58461917CF0D00371505 /* Crashlytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 19EF58451917CF0D00371505 /* Crashlytics.framework */; };
 		331447AB18C48621008B5B21 /* Login.m in Sources */ = {isa = PBXBuildFile; fileRef = 331447AA18C48621008B5B21 /* Login.m */; };
 		332D725518C33464007A75D5 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 332D725418C33464007A75D5 /* Foundation.framework */; };
@@ -1457,6 +1463,12 @@
 		19C08C27193F1BAA00C548CD /* BJQRongYun@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "BJQRongYun@2x.png"; path = "BJQ2/BJQRongYun@2x.png"; sourceTree = "<group>"; };
 		19C08C28193F1BAA00C548CD /* BJQTuiJian.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = BJQTuiJian.png; path = BJQ2/BJQTuiJian.png; sourceTree = "<group>"; };
 		19C08C29193F1BAA00C548CD /* BJQTuiJian@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "BJQTuiJian@2x.png"; path = "BJQ2/BJQTuiJian@2x.png"; sourceTree = "<group>"; };
+		19E1A0DC194EB2E6009C06F7 /* 4.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 4.png; sourceTree = "<group>"; };
+		19E1A0DD194EB2E6009C06F7 /* 4@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "4@2x.png"; sourceTree = "<group>"; };
+		19E1A0DE194EB2E6009C06F7 /* 4s@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "4s@2x.png"; sourceTree = "<group>"; };
+		19E1A0DF194EB2E6009C06F7 /* 5.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 5.png; sourceTree = "<group>"; };
+		19E1A0E0194EB2E6009C06F7 /* 5@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "5@2x.png"; sourceTree = "<group>"; };
+		19E1A0E1194EB2E6009C06F7 /* 5s@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "5s@2x.png"; sourceTree = "<group>"; };
 		19EF58451917CF0D00371505 /* Crashlytics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Crashlytics.framework; sourceTree = "<group>"; };
 		331447A918C48621008B5B21 /* Login.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Login.h; sourceTree = "<group>"; };
 		331447AA18C48621008B5B21 /* Login.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Login.m; sourceTree = "<group>"; };
@@ -3297,6 +3309,12 @@
 		192446FD1941C0BD0077D5DB /* Guid */ = {
 			isa = PBXGroup;
 			children = (
+				19E1A0DC194EB2E6009C06F7 /* 4.png */,
+				19E1A0DD194EB2E6009C06F7 /* 4@2x.png */,
+				19E1A0DE194EB2E6009C06F7 /* 4s@2x.png */,
+				19E1A0DF194EB2E6009C06F7 /* 5.png */,
+				19E1A0E0194EB2E6009C06F7 /* 5@2x.png */,
+				19E1A0E1194EB2E6009C06F7 /* 5s@2x.png */,
 				192446FE1941C0BD0077D5DB /* 1.png */,
 				192446FF1941C0BD0077D5DB /* 1@2x.png */,
 				192447001941C0BD0077D5DB /* 1s@2x.png */,
@@ -6888,6 +6906,7 @@
 				1924471B1941C0BD0077D5DB /* bgs@2x.png in Resources */,
 				332D7F9E18C33F0A007A75D5 /* headpic_group_40x40@2x.png in Resources */,
 				332D822318C33F0A007A75D5 /* bg_im_graybackround@2x.png in Resources */,
+				19E1A0E2194EB2E6009C06F7 /* 4.png in Resources */,
 				332D7E6218C33F0A007A75D5 /* alarm_im_icon_gray@2x.png in Resources */,
 				332D7F4318C33F0A007A75D5 /* icon_index_she@2x.png in Resources */,
 				7A334B2318F2DE60001F57C4 /* BBPBX.png in Resources */,
@@ -6949,6 +6968,7 @@
 				332D7F3C18C33F0A007A75D5 /* headpic_index_120x120@2x.png in Resources */,
 				332D823518C33F0A007A75D5 /* bt_im_profile_refresh@2x.png in Resources */,
 				7A334AF318F2BF6F001F57C4 /* BBBottomIndexPress3@2x.png in Resources */,
+				19E1A0E7194EB2E6009C06F7 /* 5s@2x.png in Resources */,
 				332D7F9618C33F0A007A75D5 /* float_im_state_text@2x.png in Resources */,
 				332D7F5218C33F0A007A75D5 /* icon_im_point_whtie@2x.png in Resources */,
 				332D7FD118C33F0A007A75D5 /* item_im_bar_input_mask@2x.png in Resources */,
@@ -7026,6 +7046,7 @@
 				195B1A9A18E5997D00B3F9A7 /* ZJZAddPeople@2x.png in Resources */,
 				332D7EE218C33F0A007A75D5 /* icon_step2_man@2x.png in Resources */,
 				332D7F9F18C33F0A007A75D5 /* headpic_im_120x120@2x.png in Resources */,
+				19E1A0E3194EB2E6009C06F7 /* 4@2x.png in Resources */,
 				332D7F1618C33F0A007A75D5 /* wall_newmsg_my@2x.png in Resources */,
 				192447191941C0BD0077D5DB /* bg.png in Resources */,
 				332D824318C33F0A007A75D5 /* profile_bg_recent_others@2x.png in Resources */,
@@ -7129,6 +7150,7 @@
 				04D431C6190F89F9004B2806 /* BBComentBG.png in Resources */,
 				332D7FD918C33F0A007A75D5 /* complete_more@2x.png in Resources */,
 				332D7F8A18C33F0A007A75D5 /* btn_video_talkpress@2x.png in Resources */,
+				19E1A0E4194EB2E6009C06F7 /* 4s@2x.png in Resources */,
 				332D7EFD18C33F0A007A75D5 /* bg_close@2x.png in Resources */,
 				332D7FDD18C33F0A007A75D5 /* item_step2_textbg@2x.png in Resources */,
 				332D822B18C33F0A007A75D5 /* bt_im_profile_inputsth@2x.png in Resources */,
@@ -7140,6 +7162,7 @@
 				332D823C18C33F0A007A75D5 /* btn_Female-symbol_im@2x.png in Resources */,
 				332D7F1118C33F0A007A75D5 /* pic_firend@2x.jpg in Resources */,
 				7A46B21418F44CC4006AEA00 /* BBheart@2x.png in Resources */,
+				19E1A0E5194EB2E6009C06F7 /* 5.png in Resources */,
 				1950ADB418D2B72A002120C4 /* Login@2x.png in Resources */,
 				332D757118C33552007A75D5 /* libidn-1.15.tar.gz in Resources */,
 				332D7FB018C33F0A007A75D5 /* line03_im@2x.png in Resources */,
@@ -7184,6 +7207,7 @@
 				332D823E18C33F0A007A75D5 /* btn_hidecirclepress_im@2x.png in Resources */,
 				332D7F8418C33F0A007A75D5 /* btn_save_profile@2x.png in Resources */,
 				7AA5002018DF168600FC59C4 /* BBLine.png in Resources */,
+				19E1A0E6194EB2E6009C06F7 /* 5@2x.png in Resources */,
 				332D7FD818C33F0A007A75D5 /* bt_more_head@2x.png in Resources */,
 				332D7FA618C33F0A007A75D5 /* icon_sign_check@2x.png in Resources */,
 				7A334AEB18F2BF6F001F57C4 /* BBBottomIndex3@2x.png in Resources */,
