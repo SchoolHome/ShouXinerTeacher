@@ -163,8 +163,13 @@
         mark.image = [UIImage imageNamed:@"BBComentNotification"];
         backimage = [UIImage imageNamed:@"BBYuWenContent"];
     }
-    
-    backimage = [backimage resizableImageWithCapInsets:UIEdgeInsetsMake(20,20,20,30) resizingMode:UIImageResizingModeStretch];
+    if ([[[UIDevice currentDevice] systemVersion] floatValue] >= 6.0) {
+        backimage = [backimage resizableImageWithCapInsets:UIEdgeInsetsMake(20,20,20,30) resizingMode:UIImageResizingModeStretch];
+    }else
+    {
+        backimage = [backimage resizableImageWithCapInsets:UIEdgeInsetsMake(20,20,20,30)];
+    }
+
     contentBack.image = backimage;
     
     
