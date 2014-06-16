@@ -672,7 +672,7 @@
 }
 
 #pragma mark - Assets Picker Delegate
-
+/*
 -(void)assetPickerController:(ZYQAssetPickerController *)picker didFinishPickingAssets:(NSArray *)assets{
     for (int i = 0; i<[assets count]; i++) {
         ALAsset *asset = [assets objectAtIndex:i];
@@ -717,7 +717,54 @@
     UIGraphicsEndImageContext();
     return newImage;
 }
+ */
 
+#pragma mark - ZYQAssetPickerController Delegate
+-(void)assetPickerController:(ZYQAssetPickerController *)picker didFinishPickingAssets:(NSArray *)assets{
+    for (int i = 0; i<[assets count]; i++) {
+        ALAsset *asset = [assets objectAtIndex:i];
+        [imageButton[selectCount] setBackgroundImage:[UIImage imageWithCGImage:[[asset defaultRepresentation] fullScreenImage]] forState:UIControlStateNormal];
+        selectCount++;
+    }
+}
+
+
+- (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info{
+    NSString *mediaType = [info objectForKey:UIImagePickerControllerMediaType];
+    UIImage *image = nil;
+    if ([mediaType isEqualToString:@"public.image"]){
+        image = [info objectForKey:UIImagePickerControllerOriginalImage];
+    }
+    
+    NSData *data = UIImageJPEGRepresentation(image, 0.6f);
+    image = [[UIImage alloc] initWithData:data];
+    
+
+        
+        if (selectCount<7) {
+            [imageButton[selectCount] setBackgroundImage:image forState:UIControlStateNormal];
+            selectCount++;
+        
+    }
+    
+    [self dismissModalViewControllerAnimated:YES];
+}
+
+- (void)imagePickerControllerDidCancel:(UIImagePickerController *)picker{
+    [self dismissModalViewControllerAnimated:YES];
+    
+}
+-(UIImage*)imageWithImage:(UIImage*)image
+{
+	CGSize newSize = CGSizeMake(image.size.width*0.3, image.size.height*0.3);
+    UIGraphicsBeginImageContext(newSize);
+    
+    [image drawInRect:CGRectMake(0, 0, newSize.width, newSize.height)];
+    UIImage* newImage = UIGraphicsGetImageFromCurrentImageContext();
+    
+    UIGraphicsEndImageContext();
+    return newImage;
+}
 @end
 
 
