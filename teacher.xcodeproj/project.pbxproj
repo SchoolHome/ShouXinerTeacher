@@ -90,9 +90,6 @@
 		1927E4C018E5544E0079EA53 /* ZJZSenderSound@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1927E4B818E5544E0079EA53 /* ZJZSenderSound@2x.png */; };
 		1927E4C118E5544E0079EA53 /* ZJZSenderText.png in Resources */ = {isa = PBXBuildFile; fileRef = 1927E4B918E5544E0079EA53 /* ZJZSenderText.png */; };
 		1927E4C218E5544E0079EA53 /* ZJZSenderText@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1927E4BA18E5544E0079EA53 /* ZJZSenderText@2x.png */; };
-		193065C11927C7E600D33834 /* CTAssetsPickerController.m in Sources */ = {isa = PBXBuildFile; fileRef = 193065BD1927C7E600D33834 /* CTAssetsPickerController.m */; };
-		193065C21927C7E600D33834 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 193065BE1927C7E600D33834 /* Images.xcassets */; };
-		193065C31927C7E600D33834 /* NSDate+TimeInterval.m in Sources */ = {isa = PBXBuildFile; fileRef = 193065C01927C7E600D33834 /* NSDate+TimeInterval.m */; };
 		193617FC1926764000548F7E /* ActivateSmallFrom2.png in Resources */ = {isa = PBXBuildFile; fileRef = 193617FA1926764000548F7E /* ActivateSmallFrom2.png */; };
 		193617FD1926764000548F7E /* ActivateSmallFrom2@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 193617FB1926764000548F7E /* ActivateSmallFrom2@2x.png */; };
 		193E593E18D9908200DB1FF4 /* BBmessageMainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 193E593D18D9908200DB1FF4 /* BBmessageMainViewController.m */; };
@@ -1374,11 +1371,6 @@
 		1927E4B818E5544E0079EA53 /* ZJZSenderSound@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ZJZSenderSound@2x.png"; sourceTree = "<group>"; };
 		1927E4B918E5544E0079EA53 /* ZJZSenderText.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ZJZSenderText.png; sourceTree = "<group>"; };
 		1927E4BA18E5544E0079EA53 /* ZJZSenderText@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ZJZSenderText@2x.png"; sourceTree = "<group>"; };
-		193065BC1927C7E600D33834 /* CTAssetsPickerController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CTAssetsPickerController.h; sourceTree = "<group>"; };
-		193065BD1927C7E600D33834 /* CTAssetsPickerController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CTAssetsPickerController.m; sourceTree = "<group>"; };
-		193065BE1927C7E600D33834 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
-		193065BF1927C7E600D33834 /* NSDate+TimeInterval.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDate+TimeInterval.h"; sourceTree = "<group>"; };
-		193065C01927C7E600D33834 /* NSDate+TimeInterval.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDate+TimeInterval.m"; sourceTree = "<group>"; };
 		193617FA1926764000548F7E /* ActivateSmallFrom2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ActivateSmallFrom2.png; sourceTree = "<group>"; };
 		193617FB1926764000548F7E /* ActivateSmallFrom2@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ActivateSmallFrom2@2x.png"; sourceTree = "<group>"; };
 		193E593C18D9908200DB1FF4 /* BBmessageMainViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BBmessageMainViewController.h; sourceTree = "<group>"; };
@@ -3353,18 +3345,6 @@
 				1927E4BA18E5544E0079EA53 /* ZJZSenderText@2x.png */,
 			);
 			path = IMAndKeyboard;
-			sourceTree = "<group>";
-		};
-		193065BB1927C7E600D33834 /* CTAssetsPickerController */ = {
-			isa = PBXGroup;
-			children = (
-				193065BC1927C7E600D33834 /* CTAssetsPickerController.h */,
-				193065BD1927C7E600D33834 /* CTAssetsPickerController.m */,
-				193065BE1927C7E600D33834 /* Images.xcassets */,
-				193065BF1927C7E600D33834 /* NSDate+TimeInterval.h */,
-				193065C01927C7E600D33834 /* NSDate+TimeInterval.m */,
-			);
-			path = CTAssetsPickerController;
 			sourceTree = "<group>";
 		};
 		1950ADA918D2B293002120C4 /* Resource */ = {
@@ -6400,7 +6380,6 @@
 				19E1A0F4194ED5D1009C06F7 /* ZYQAssetPickerController */,
 				196421A01928A52600944016 /* XLCycleScrollView.h */,
 				196421A11928A52600944016 /* XLCycleScrollView.m */,
-				193065BB1927C7E600D33834 /* CTAssetsPickerController */,
 				7A076ACF18E1D67E00911291 /* UIPlaceholderTextView.h */,
 				7A076AD018E1D67E00911291 /* UIPlaceholderTextView.m */,
 				7A59193E18D6BDA500C03DED /* BBFZYViewController.h */,
@@ -6777,7 +6756,6 @@
 				7A334B0A18F2C49F001F57C4 /* BBSendButton@2x.png in Resources */,
 				332D7FB618C33F0A007A75D5 /* btn_backmsgwall@2x.png in Resources */,
 				332D7F7518C33F0A007A75D5 /* btn_im_pause_white_white_black@2x.png in Resources */,
-				193065C21927C7E600D33834 /* Images.xcassets in Resources */,
 				332D7FA318C33F0A007A75D5 /* icon_coupleNotFriend.png in Resources */,
 				332D7E5A18C33F0A007A75D5 /* alarm_im_btn_pt_play_press@2x.png in Resources */,
 				332D7FBB18C33F0A007A75D5 /* im_profile_sex2@2x.png in Resources */,
@@ -7489,7 +7467,6 @@
 				332D752518C33552007A75D5 /* Reachability.m in Sources */,
 				332D751818C33552007A75D5 /* ASINetworkQueue.m in Sources */,
 				332D757C18C33552007A75D5 /* CPPTModelContactInfos.m in Sources */,
-				193065C31927C7E600D33834 /* NSDate+TimeInterval.m in Sources */,
 				332D752818C33552007A75D5 /* NSXMLElement+XMPP.m in Sources */,
 				332D82D718C33F0A007A75D5 /* GroupProfileTableViewCell.m in Sources */,
 				1975B76E18E9427100587B80 /* UIImage+Resize.m in Sources */,
@@ -7517,7 +7494,6 @@
 				332D838B18C33F0B007A75D5 /* QuadraticBezierCurve.m in Sources */,
 				7478550818DB548C0070DF87 /* StartGroupChatTableviewCell.m in Sources */,
 				7AC51BA018CDDA6900AD1A8C /* BBCellHeight.m in Sources */,
-				193065C11927C7E600D33834 /* CTAssetsPickerController.m in Sources */,
 				332D829C18C33F0A007A75D5 /* CoupleCompletedView.m in Sources */,
 				332D74D918C33552007A75D5 /* FMDatabase.m in Sources */,
 				332D74CF18C33552007A75D5 /* CPDAOMessageGroupMember.m in Sources */,

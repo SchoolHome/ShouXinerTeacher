@@ -1,6 +1,5 @@
 
 #import "BBFZYViewController.h"
-#import "CTAssetsPickerController.h"
 #import "ViewImageViewController.h"
 #import "ZYQAssetPickerController.h"
 
