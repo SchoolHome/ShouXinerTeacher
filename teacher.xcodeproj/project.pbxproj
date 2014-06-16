@@ -167,6 +167,8 @@
 		19E1A0E5194EB2E6009C06F7 /* 5.png in Resources */ = {isa = PBXBuildFile; fileRef = 19E1A0DF194EB2E6009C06F7 /* 5.png */; };
 		19E1A0E6194EB2E6009C06F7 /* 5@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 19E1A0E0194EB2E6009C06F7 /* 5@2x.png */; };
 		19E1A0E7194EB2E6009C06F7 /* 5s@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 19E1A0E1194EB2E6009C06F7 /* 5s@2x.png */; };
+		19E1A0F8194ED5D1009C06F7 /* ZYQAssetPicker.Bundle in Resources */ = {isa = PBXBuildFile; fileRef = 19E1A0F5194ED5D1009C06F7 /* ZYQAssetPicker.Bundle */; };
+		19E1A0F9194ED5D1009C06F7 /* ZYQAssetPickerController.m in Sources */ = {isa = PBXBuildFile; fileRef = 19E1A0F7194ED5D1009C06F7 /* ZYQAssetPickerController.m */; };
 		19EF58461917CF0D00371505 /* Crashlytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 19EF58451917CF0D00371505 /* Crashlytics.framework */; };
 		331447AB18C48621008B5B21 /* Login.m in Sources */ = {isa = PBXBuildFile; fileRef = 331447AA18C48621008B5B21 /* Login.m */; };
 		332D725518C33464007A75D5 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 332D725418C33464007A75D5 /* Foundation.framework */; };
@@ -1469,6 +1471,9 @@
 		19E1A0DF194EB2E6009C06F7 /* 5.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 5.png; sourceTree = "<group>"; };
 		19E1A0E0194EB2E6009C06F7 /* 5@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "5@2x.png"; sourceTree = "<group>"; };
 		19E1A0E1194EB2E6009C06F7 /* 5s@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "5s@2x.png"; sourceTree = "<group>"; };
+		19E1A0F5194ED5D1009C06F7 /* ZYQAssetPicker.Bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = ZYQAssetPicker.Bundle; sourceTree = "<group>"; };
+		19E1A0F6194ED5D1009C06F7 /* ZYQAssetPickerController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZYQAssetPickerController.h; sourceTree = "<group>"; };
+		19E1A0F7194ED5D1009C06F7 /* ZYQAssetPickerController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZYQAssetPickerController.m; sourceTree = "<group>"; };
 		19EF58451917CF0D00371505 /* Crashlytics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Crashlytics.framework; sourceTree = "<group>"; };
 		331447A918C48621008B5B21 /* Login.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Login.h; sourceTree = "<group>"; };
 		331447AA18C48621008B5B21 /* Login.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Login.m; sourceTree = "<group>"; };
@@ -3518,6 +3523,16 @@
 			children = (
 			);
 			path = RoundRectImageButton;
+			sourceTree = "<group>";
+		};
+		19E1A0F4194ED5D1009C06F7 /* ZYQAssetPickerController */ = {
+			isa = PBXGroup;
+			children = (
+				19E1A0F5194ED5D1009C06F7 /* ZYQAssetPicker.Bundle */,
+				19E1A0F6194ED5D1009C06F7 /* ZYQAssetPickerController.h */,
+				19E1A0F7194ED5D1009C06F7 /* ZYQAssetPickerController.m */,
+			);
+			path = ZYQAssetPickerController;
 			sourceTree = "<group>";
 		};
 		332D724818C33464007A75D5 = {
@@ -6382,6 +6397,7 @@
 		7A59193D18D6BDA500C03DED /* FZY */ = {
 			isa = PBXGroup;
 			children = (
+				19E1A0F4194ED5D1009C06F7 /* ZYQAssetPickerController */,
 				196421A01928A52600944016 /* XLCycleScrollView.h */,
 				196421A11928A52600944016 /* XLCycleScrollView.m */,
 				193065BB1927C7E600D33834 /* CTAssetsPickerController */,
@@ -6899,6 +6915,7 @@
 				1914B13D18E7181700D68027 /* ZJZUnReadSound.png in Resources */,
 				332D7F4218C33F0A007A75D5 /* icon_index_heart@2x.png in Resources */,
 				7AA5002F18DF168600FC59C4 /* BBZan@2x.png in Resources */,
+				19E1A0F8194ED5D1009C06F7 /* ZYQAssetPicker.Bundle in Resources */,
 				332D822418C33F0A007A75D5 /* bg_im_profile_name@2x.png in Resources */,
 				332D7F1418C33F0A007A75D5 /* wall_newmsg_hy@2x.png in Resources */,
 				332D7FBE18C33F0A007A75D5 /* pic_im_drlt003@2x.jpg in Resources */,
@@ -7728,6 +7745,7 @@
 				332D833118C33F0B007A75D5 /* ExpressionsParser.m in Sources */,
 				332D752418C33552007A75D5 /* MKNetworkOperation.m in Sources */,
 				7A4D2A1B18DAEE2400C128B4 /* BBYZSShareViewController.m in Sources */,
+				19E1A0F9194ED5D1009C06F7 /* ZYQAssetPickerController.m in Sources */,
 				33771E4518C9D20900FB5002 /* AsiGetRequestModel.m in Sources */,
 				332D753D18C33552007A75D5 /* XMPPIQ+JabberRPC.m in Sources */,
 				0420E12218E13FC7003997ED /* BBHelpViewController.m in Sources */,

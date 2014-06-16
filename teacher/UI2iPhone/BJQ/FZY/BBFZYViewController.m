@@ -2,8 +2,9 @@
 #import "BBFZYViewController.h"
 #import "CTAssetsPickerController.h"
 #import "ViewImageViewController.h"
+#import "ZYQAssetPickerController.h"
 
-@interface BBFZYViewController ()<CTAssetsPickerControllerDelegate,viewImageDeletedDelegate>
+@interface BBFZYViewController ()<ZYQAssetPickerControllerDelegate,viewImageDeletedDelegate>
 
 @property (nonatomic,strong) NSString *placeholder;
 
@@ -505,16 +506,38 @@
                     return;
                 }
             }
-            CTAssetsPickerController *picker = [[CTAssetsPickerController alloc] init];
-            picker.assetsFilter = [ALAssetsFilter allPhotos];
+//            CTAssetsPickerController *picker = [[CTAssetsPickerController alloc] init];
+//            picker.assetsFilter = [ALAssetsFilter allPhotos];
+//            if (_style == 1){
+//                picker.maximumNumberOfSelection = 3 - selectCount;
+//            }else{
+//                picker.maximumNumberOfSelection = 7 - selectCount;
+//            }
+//            picker.delegate = self;
+//            
+//            [self presentViewController:picker animated:YES completion:NULL];
+            
+            
+            ZYQAssetPickerController *picker = [[ZYQAssetPickerController alloc] init];
             if (_style == 1){
                 picker.maximumNumberOfSelection = 3 - selectCount;
             }else{
                 picker.maximumNumberOfSelection = 7 - selectCount;
             }
-            picker.delegate = self;
+            picker.assetsFilter = [ALAssetsFilter allPhotos];
+            picker.showEmptyGroups=NO;
+            picker.delegate=self;
+            picker.selectionFilter = [NSPredicate predicateWithBlock:^BOOL(id evaluatedObject, NSDictionary *bindings) {
+                if ([[(ALAsset*)evaluatedObject valueForProperty:ALAssetPropertyType] isEqual:ALAssetTypeVideo]) {
+                    NSTimeInterval duration = [[(ALAsset*)evaluatedObject valueForProperty:ALAssetPropertyDuration] doubleValue];
+                    return duration >= 5;
+                } else {
+                    return YES;
+                }
+            }];
             
             [self presentViewController:picker animated:YES completion:NULL];
+            
 //            if ([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypePhotoLibrary]){
 //                imagePicker.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
 //            }
@@ -533,9 +556,9 @@
     }
 }
 
-#pragma mark - Assets Picker Delegate
-
-- (void)assetsPickerController:(CTAssetsPickerController *)picker didFinishPickingAssets:(NSArray *)assets{
+//#pragma mark - Assets Picker Delegate
+//
+//- (void)assetsPickerController:(CTAssetsPickerController *)picker didFinishPickingAssets:(NSArray *)assets{
 //    int count = 0;
 //    if (_style == 1) { // 发通知只有3张图
 //        count = 3;
@@ -551,6 +574,15 @@
 //        }
 //    }
     
+//    for (int i = 0; i<[assets count]; i++) {
+//        ALAsset *asset = [assets objectAtIndex:i];
+//        [imageButton[selectCount] setBackgroundImage:[UIImage imageWithCGImage:[[asset defaultRepresentation] fullScreenImage]] forState:UIControlStateNormal];
+//        selectCount++;
+//    }
+//}
+
+#pragma mark - ZYQAssetPickerController Delegate
+-(void)assetPickerController:(ZYQAssetPickerController *)picker didFinishPickingAssets:(NSArray *)assets{
     for (int i = 0; i<[assets count]; i++) {
         ALAsset *asset = [assets objectAtIndex:i];
         [imageButton[selectCount] setBackgroundImage:[UIImage imageWithCGImage:[[asset defaultRepresentation] fullScreenImage]] forState:UIControlStateNormal];
