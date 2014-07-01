@@ -9,6 +9,8 @@
 #import <Foundation/Foundation.h>
 
 @interface ContactsModel : NSObject
+//userInfoID
+@property (nonatomic) NSInteger modelID;
 //key
 @property (nonatomic , strong) NSString *modelKey;
 //avatar
@@ -24,4 +26,12 @@
 @property (nonatomic , strong) NSString *userName;
 //selected
 @property (nonatomic , assign) BOOL isSelected;
+
+@property (nonatomic) NSInteger sectionNumber;
+
+@property (nonatomic, assign) BOOL isTeacher;
+
+@property (nonatomic, assign) BOOL isParent;
+//userinfo里的userInfo.regionNumber字段为是否激活
+@property (nonatomic, assign) BOOL isActive;
 @end

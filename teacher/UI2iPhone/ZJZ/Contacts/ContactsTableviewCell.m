@@ -9,7 +9,6 @@
 #define SmallIconHeight 22.f
 #define AllButtonsWidth 320.f-self.userNameLabel.frame.origin.x-self.userNameLabel.frame.size.width
 #import "ContactsTableviewCell.h"
-
 @implementation ContactsTableviewCell
 
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
@@ -32,24 +31,24 @@
         
         //聊天
         UIButton *chat = [UIButton buttonWithType:UIButtonTypeCustom];
-        [chat setFrame:CGRectMake(self.userNameLabel.frame.origin.x+self.userNameLabel.frame.size.width+(AllButtonsWidth-SmallIconWidth*3)/4, (60-SmallIconHeight)/2, SmallIconWidth, SmallIconHeight)];
+        [chat setFrame:CGRectMake(230, (60-SmallIconHeight)/2, SmallIconWidth, SmallIconHeight)];
         //chat.backgroundColor = [UIColor redColor];
         [chat setBackgroundImage:[UIImage imageNamed:@"ZJZCellChat"] forState:UIControlStateNormal];
         [chat addTarget:self action:@selector(chat) forControlEvents:UIControlEventTouchUpInside];
         [self.contentView addSubview:chat];
         //打电话
         UIButton *call = [UIButton buttonWithType:UIButtonTypeCustom];
-        [call setFrame:CGRectMake(chat.frame.origin.x+chat.frame.size.width+(AllButtonsWidth-SmallIconWidth*3)/4, (60-SmallIconHeight)/2, SmallIconWidth, SmallIconHeight)];
+        [call setFrame:CGRectMake(230+SmallIconWidth, (60-SmallIconHeight)/2, SmallIconWidth, SmallIconHeight)];
         //call.backgroundColor = [UIColor yellowColor];
         [call setBackgroundImage:[UIImage imageNamed:@"ZJZCallPhone"] forState:UIControlStateNormal];
         [call addTarget:self action:@selector(call) forControlEvents:UIControlEventTouchUpInside];
         [self.contentView addSubview:call];
         //发短信
-        UIButton *message= [UIButton buttonWithType:UIButtonTypeCustom];
-        [message setFrame:CGRectMake(call.frame.origin.x+call.frame.size.width+(AllButtonsWidth-SmallIconWidth*3)/4, (60-SmallIconHeight)/2, SmallIconWidth, SmallIconHeight)];
-        [message setBackgroundImage:[UIImage imageNamed:@"ZJZSendSMS"] forState:UIControlStateNormal];
-        [message addTarget:self action:@selector(message) forControlEvents:UIControlEventTouchUpInside];
-        [self.contentView addSubview:message];
+//        UIButton *message= [UIButton buttonWithType:UIButtonTypeCustom];
+//        [message setFrame:CGRectMake(call.frame.origin.x+call.frame.size.width+(AllButtonsWidth-SmallIconWidth*3)/4, (60-SmallIconHeight)/2, SmallIconWidth, SmallIconHeight)];
+//        [message setBackgroundImage:[UIImage imageNamed:@"ZJZSendSMS"] forState:UIControlStateNormal];
+//        [message addTarget:self action:@selector(message) forControlEvents:UIControlEventTouchUpInside];
+//        [self.contentView addSubview:message];
     }
     return self;
 }
@@ -60,11 +59,11 @@
 
     // Configure the view for the selected state
 }
--(void)setModel:(CPUIModelUserInfo *)model
+-(void)setModel:(ContactsModel *)model
 {
     _model = model;
     
-    UIImage *avatarImage = [UIImage imageWithContentsOfFile:model.headerPath];
+    UIImage *avatarImage = [UIImage imageWithContentsOfFile:model.avatarPath];
     if (!avatarImage) {
         avatarImage  = [UIImage imageNamed:@"girl.png"];
     }
@@ -74,7 +73,7 @@
     self.userHeadImageView.layer.cornerRadius = 25.0;
     self.userHeadImageView.layer.borderColor = [[UIColor whiteColor] CGColor];
     
-    _userNameLabel.text = model.nickName;
+    _userNameLabel.text = model.userName;
 }
 -(void)chat
 {
@@ -85,13 +84,13 @@
 -(void)call
 {
     if ([self.delegate respondsToSelector:@selector(makeCall:)]) {
-        [self.delegate makeCall:self.model.mobileNumber];
+        [self.delegate makeCall:self.model.mobile];
     }
 }
 -(void)message
 {
     if ([self.delegate respondsToSelector:@selector(sendMessage:)]) {
-        [self.delegate sendMessage:self.model.mobileNumber];
+        [self.delegate sendMessage:self.model.mobile];
     }
 }
 @end
