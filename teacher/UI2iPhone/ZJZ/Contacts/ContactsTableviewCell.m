@@ -81,17 +81,11 @@
         self.backgroundColor = [UIColor colorWithRed:242/255.f green:236/255.f blue:230/255.f alpha:1.f];
         [self viewWithTag:1001].hidden = NO;
         [self viewWithTag:1002].hidden = YES;
-//        [chat setBackgroundImage:[UIImage imageNamed:@"ZJZCellChat"] forState:UIControlStateNormal];
-//        [chat addTarget:self action:@selector(chat) forControlEvents:UIControlEventTouchUpInside];
-//        [chat removeTarget:self action:@selector(message) forControlEvents:UIControlEventTouchUpInside];
     }else
     {
         self.backgroundColor = [UIColor colorWithRed:187/255.f green:187/255.f blue:187/255.f alpha:1.f];
         [self viewWithTag:1001].hidden = YES;
         [self viewWithTag:1002].hidden = NO;
-//        [chat setBackgroundImage:[UIImage imageNamed:@"ZJZAdd"] forState:UIControlStateNormal];
-//        [chat addTarget:self action:@selector(message) forControlEvents:UIControlEventTouchUpInside];
-//        [chat removeTarget:self action:@selector(chat) forControlEvents:UIControlEventTouchUpInside];
     }
 }
 -(void)chat

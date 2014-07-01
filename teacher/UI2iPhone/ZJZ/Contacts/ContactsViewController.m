@@ -138,25 +138,32 @@
 -(void)setTeachersListSection:(NSMutableArray *)teachersListSection
 {
     _teachersListSection = teachersListSection;
-    [self.contactsListTableview reloadData];
+    if (type == CONTACT_TYPE_TEACHER) {
+        [self.contactsListTableview reloadData];
+    }
+    
 }
 
 -(void)setParentsListSection:(NSMutableArray *)parentsListSection
 {
+
     _parentsListSection = parentsListSection;
-    [self.contactsListTableview reloadData];
+    if (type == CONTACT_TYPE_PARENT) {
+        [self.contactsListTableview reloadData];
+    }
 }
 
 -(void)setTeachers:(NSArray *)teachers
 {
     _teachers = teachers;
-    [self sortDataByModels:teachers];
+    [self setTeachersListSection:[self sortDataByModels:teachers]];
+    
 }
 
 -(void)setParents:(NSArray *)parents
 {
     _parents = parents;
-    [self sortDataByModels:parents];
+    [self setParentsListSection:[self sortDataByModels:parents]];
 }
 #pragma mark Observer
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
@@ -203,6 +210,7 @@
     NSMutableArray *parentArray = [[NSMutableArray alloc] init];
     for (CPUIModelUserInfo *model in [CPUIModelManagement sharedInstance].friendArray) {
         ContactsModel *tempModel = [[ContactsModel alloc] init];
+        tempModel.modelID = [model.userInfoID integerValue];
         tempModel.avatarPath = model.headerPath;
         //tempModel.jid = model.
         tempModel.mobile = model.mobileNumber;
@@ -230,7 +238,7 @@
 //    BBMembersInMsgGroupViewController *member = [[BBMembersInMsgGroupViewController alloc] init];
 //    [self.navigationController pushViewController:member animated:YES];
 }
--(void)sortDataByModels:(NSArray *)studentModels
+-(NSMutableArray *)sortDataByModels:(NSArray *)studentModels
 {
     
     // Sort data
@@ -264,8 +272,8 @@
         //}
         
     }
-    
-    [self setTeachersListSection:tempSectionArray];
+    return tempSectionArray;
+
     
     // [selectedView setStudentNames:selectedStu];
     
