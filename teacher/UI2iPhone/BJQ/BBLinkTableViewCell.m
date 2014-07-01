@@ -98,6 +98,9 @@
     content.font = [UIFont systemFontOfSize:14];
     content.numberOfLines = 0;
     [content sizeToFit];
+    UILongPressGestureRecognizer *longPress = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(longPress:)];
+    [content addGestureRecognizer:longPress];
+    content.userInteractionEnabled = YES;
     
     linkTitle.text = self.data.forward.title;
     linkTitle.font = [UIFont systemFontOfSize:14];

@@ -22,13 +22,23 @@
         NSDictionary *jsonData = [[PalmUIManagement sharedInstance].notiList objectForKey:ASI_REQUEST_DATA];
         NSArray *jsonArray = [jsonData objectForKey:@"list"];
         
-//        NSArray *allvalues = [jsonData allValues];
         for (int i =0; i<[jsonArray count]; i++) {
             BBOAModel *oa = [[BBOAModel alloc] init];
             [oa conver:jsonArray[i]];
             [self.oalist addObject:oa];
         }
         [self.dataSource updateCacheArray:self.oalist];
+        [self.dataSource.cacheArray sortUsingComparator:^NSComparisonResult(id obj1, id obj2) {
+            BBOAModel *oa1 = obj1;
+            BBOAModel *oa2 = obj2;
+            if ([oa1.ts longLongValue] > [oa2.ts longLongValue]) {
+                return NSOrderedAscending;
+            }else if ([oa1.ts longLongValue] == [oa2.ts longLongValue]){
+                return NSOrderedSame;
+            }else{
+                return NSOrderedDescending;
+            }
+        }];
         [yzsTableView reloadData];
         
         if (![[PalmUIManagement sharedInstance].notiList[@"hasError"] boolValue]) { // 加载成功，保存时间
@@ -57,8 +67,11 @@
 
     [super viewWillAppear:animated];
     [self addObservers];
-    
-    [[PalmUIManagement sharedInstance] getNotiData:0];
+    NSUserDefaults *def = [NSUserDefaults standardUserDefaults];
+    CPLGModelAccount *account = [[CPSystemEngine sharedInstance] accountModel];
+    NSString *key = [NSString stringWithFormat:@"check_yzs_unread_time_%@",account.uid];
+    NSNumber *timer = [def objectForKey:key];
+    [[PalmUIManagement sharedInstance] getNotiData:[timer intValue]];
 }
 
 -(void)viewWillDisappear:(BOOL)animated{
@@ -113,7 +126,7 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     static NSString *cellIdentifier = @"defCell";
     
-    BBIndicationTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
+    BBIndicationTableViewCell *cell = nil;
     if (!cell) {
         cell = [[BBIndicationTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier];
         //cell.selectionStyle = UITableViewCellSelectionStyleNone;
@@ -133,6 +146,8 @@
     
     BBYZSDetailViewController *content = [[BBYZSDetailViewController alloc] init];
     content.oaModel = self.dataSource.cacheArray[indexPath.row];
+    [self.dataSource updateCacheUnReadedWithZero:content.oaModel.sender_uid];
+    [yzsTableView reloadData];
     content.hidesBottomBarWhenPushed = YES;
     [self.navigationController pushViewController:content animated:YES];
     
