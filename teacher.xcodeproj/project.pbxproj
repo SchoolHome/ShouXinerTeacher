@@ -1094,6 +1094,8 @@
 		74A4E5F718DFE8B8000F79E6 /* ZJZUnCheck.png in Resources */ = {isa = PBXBuildFile; fileRef = 74A4E5DF18DFE8B8000F79E6 /* ZJZUnCheck.png */; };
 		74A4E5F818DFE8B8000F79E6 /* ZJZUnCheck@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 74A4E5E018DFE8B8000F79E6 /* ZJZUnCheck@2x.png */; };
 		74E85D8D18D0445A00F1F1D5 /* BBZJZViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 74E85D8C18D0445A00F1F1D5 /* BBZJZViewController.m */; };
+		74EF7DFF1962BE4600DCD5A3 /* ZJZ_Seg_Parent@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 74EF7DFD1962BE4600DCD5A3 /* ZJZ_Seg_Parent@2x.png */; };
+		74EF7E001962BE4600DCD5A3 /* ZJZ_Seg_Teacher@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 74EF7DFE1962BE4600DCD5A3 /* ZJZ_Seg_Teacher@2x.png */; };
 		7A076A9518DFFF1B00911291 /* BBComentBottomBG.png in Resources */ = {isa = PBXBuildFile; fileRef = 7A076A9318DFFF1B00911291 /* BBComentBottomBG.png */; };
 		7A076A9618DFFF1B00911291 /* BBComentBottomBG@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7A076A9418DFFF1B00911291 /* BBComentBottomBG@2x.png */; };
 		7A076AB318E14F9800911291 /* BBXXXTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A076AB018E14F9800911291 /* BBXXXTableViewCell.m */; };
@@ -2953,6 +2955,8 @@
 		74A4E5E018DFE8B8000F79E6 /* ZJZUnCheck@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ZJZUnCheck@2x.png"; sourceTree = "<group>"; };
 		74E85D8B18D0445A00F1F1D5 /* BBZJZViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BBZJZViewController.h; sourceTree = "<group>"; };
 		74E85D8C18D0445A00F1F1D5 /* BBZJZViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BBZJZViewController.m; sourceTree = "<group>"; };
+		74EF7DFD1962BE4600DCD5A3 /* ZJZ_Seg_Parent@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ZJZ_Seg_Parent@2x.png"; sourceTree = "<group>"; };
+		74EF7DFE1962BE4600DCD5A3 /* ZJZ_Seg_Teacher@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ZJZ_Seg_Teacher@2x.png"; sourceTree = "<group>"; };
 		7A076A9318DFFF1B00911291 /* BBComentBottomBG.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = BBComentBottomBG.png; sourceTree = "<group>"; };
 		7A076A9418DFFF1B00911291 /* BBComentBottomBG@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "BBComentBottomBG@2x.png"; sourceTree = "<group>"; };
 		7A076AAF18E14F9800911291 /* BBXXXTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BBXXXTableViewCell.h; sourceTree = "<group>"; };
@@ -6202,6 +6206,8 @@
 		74A4E5C818DFE8A9000F79E6 /* ZJZ */ = {
 			isa = PBXGroup;
 			children = (
+				74EF7DFD1962BE4600DCD5A3 /* ZJZ_Seg_Parent@2x.png */,
+				74EF7DFE1962BE4600DCD5A3 /* ZJZ_Seg_Teacher@2x.png */,
 				195B1A9718E5997D00B3F9A7 /* ZJZAddPeople.png */,
 				195B1A9818E5997D00B3F9A7 /* ZJZAddPeople@2x.png */,
 				195B1A9318E5982800B3F9A7 /* ZJZBack.png */,
@@ -6711,6 +6717,7 @@
 			files = (
 				332D7F6B18C33F0A007A75D5 /* btn_im_chuansheng_grey@2x.png in Resources */,
 				332D828F18C33F0A007A75D5 /* surepress_im_magicdownload@2x.png in Resources */,
+				74EF7DFF1962BE4600DCD5A3 /* ZJZ_Seg_Parent@2x.png in Resources */,
 				7A334AF018F2BF6F001F57C4 /* BBBottomIndexPress2.png in Resources */,
 				332D7F9318C33F0A007A75D5 /* float_im_magicdownload@2x.png in Resources */,
 				332D7FC818C33F0A007A75D5 /* surepress_im_magicdownload@2x.png in Resources */,
@@ -6854,6 +6861,7 @@
 				1924471A1941C0BD0077D5DB /* bg@2x.png in Resources */,
 				332D7F6D18C33F0A007A75D5 /* btn_im_losepicture_grey@2x.png in Resources */,
 				332D7F4918C33F0A007A75D5 /* item_index_greypiece@2x.png in Resources */,
+				74EF7E001962BE4600DCD5A3 /* ZJZ_Seg_Teacher@2x.png in Resources */,
 				192447151941C0BD0077D5DB /* 3@2x.png in Resources */,
 				332D822518C33F0A007A75D5 /* bt_im_profile_1line@2x.png in Resources */,
 				7AA5002318DF168600FC59C4 /* BBMessageLine@2x.png in Resources */,
@@ -8020,7 +8028,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 5.1;
 				ONLY_ACTIVE_ARCH = YES;
-				PROVISIONING_PROFILE = "93453D1A-BA01-4DC8-AB3C-8FB73275C659";
+				PROVISIONING_PROFILE = "6254ECE3-EB9C-46FA-8BF2-1464DF2443C8";
 				SDKROOT = iphoneos;
 			};
 			name = Debug;
@@ -8053,7 +8061,7 @@
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 5.1;
-				PROVISIONING_PROFILE = "93453D1A-BA01-4DC8-AB3C-8FB73275C659";
+				PROVISIONING_PROFILE = "6254ECE3-EB9C-46FA-8BF2-1464DF2443C8";
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
 			};
@@ -8087,7 +8095,7 @@
 				ONLY_ACTIVE_ARCH = NO;
 				OTHER_LDFLAGS = "-lxml2";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "8ADA4211-F5E2-4B2C-BD42-E4012B0B901C";
+				PROVISIONING_PROFILE = "6254ECE3-EB9C-46FA-8BF2-1464DF2443C8";
 				SDKROOT = iphoneos;
 				VALID_ARCHS = armv7;
 				WRAPPER_EXTENSION = app;
@@ -8122,7 +8130,7 @@
 				);
 				OTHER_LDFLAGS = "-lxml2";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "8ADA4211-F5E2-4B2C-BD42-E4012B0B901C";
+				PROVISIONING_PROFILE = "6254ECE3-EB9C-46FA-8BF2-1464DF2443C8";
 				SDKROOT = iphoneos;
 				VALID_ARCHS = armv7;
 				WRAPPER_EXTENSION = app;

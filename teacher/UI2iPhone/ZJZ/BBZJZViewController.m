@@ -50,6 +50,13 @@
     }
     
     self.navigationItem.title = @"找家长";
+    _messageListTableview = [[BBMessageGroupBaseTableView alloc] initWithFrame:CGRectMake(0.f, 40.f, 320.f, self.screenHeight-150.f) style:UITableViewStylePlain];
+    _messageListTableview.backgroundColor = [UIColor clearColor];
+    _messageListTableview.messageGroupBaseTableViewdelegate = self;
+    _messageListTableview.delegate = self;
+    _messageListTableview.dataSource = self;
+    _messageListTableview.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
+    [self.view addSubview:_messageListTableview];
     
     _messageListTableSearchBar = [[UISearchBar alloc] initWithFrame:CGRectMake(0, 0, 320, 32)];
     _messageListTableSearchBar.backgroundColor = [UIColor clearColor];
@@ -58,13 +65,7 @@
     [self.view addSubview:_messageListTableSearchBar];
     _messageListTableSearchBar.delegate = self;
     
-    _messageListTableview = [[BBMessageGroupBaseTableView alloc] initWithFrame:CGRectMake(0.f, 40.f, 320.f, self.screenHeight-150.f) style:UITableViewStylePlain];
-    _messageListTableview.backgroundColor = [UIColor clearColor];
-    _messageListTableview.messageGroupBaseTableViewdelegate = self;
-    _messageListTableview.delegate = self;
-    _messageListTableview.dataSource = self;
-    _messageListTableview.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
-    [self.view addSubview:_messageListTableview];
+
     
     self.view.backgroundColor = [UIColor colorWithRed:242/255.f green:236/255.f blue:230/255.f alpha:1.f];
 	// Do any additional setup after loading the view.

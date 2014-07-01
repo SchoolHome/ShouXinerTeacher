@@ -7,11 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
-//#import "ContactsModel.h"
-#import "CPUIModelUserInfo.h"
+#import "ContactsModel.h"
+//#import "CPUIModelUserInfo.h"
 @protocol ContactsTableviewCellDelegate <NSObject>
 @optional
--(void)beginChat:(CPUIModelUserInfo *)model;
+-(void)beginChat:(ContactsModel *)model;
 -(void)sendMessage:(NSString *)mobileNumber;
 -(void)makeCall:(NSString *)mobileNumber;
 @end
@@ -22,5 +22,5 @@
 //头像
 @property (nonatomic , strong) UIImageView *userHeadImageView;
 //model
-@property (nonatomic , strong) CPUIModelUserInfo *model;
+@property (nonatomic , strong) ContactsModel *model;
 @end
