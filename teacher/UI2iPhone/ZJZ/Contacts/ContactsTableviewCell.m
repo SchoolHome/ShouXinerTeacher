@@ -16,7 +16,7 @@
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     if (self) {
         // Initialization code
-        self.backgroundColor = [UIColor colorWithRed:242/255.f green:236/255.f blue:230/255.f alpha:1.f];
+        
         //姓名
         _userNameLabel = [[UILabel alloc] initWithFrame:CGRectMake(70.f, 21.f, 120.f, 18.f)];
         _userNameLabel.backgroundColor = [UIColor clearColor];
@@ -32,6 +32,7 @@
         //聊天
         UIButton *chat = [UIButton buttonWithType:UIButtonTypeCustom];
         [chat setFrame:CGRectMake(230, (60-SmallIconHeight)/2, SmallIconWidth, SmallIconHeight)];
+        chat.tag = 1001;
         //chat.backgroundColor = [UIColor redColor];
         [chat setBackgroundImage:[UIImage imageNamed:@"ZJZCellChat"] forState:UIControlStateNormal];
         [chat addTarget:self action:@selector(chat) forControlEvents:UIControlEventTouchUpInside];
@@ -44,11 +45,12 @@
         [call addTarget:self action:@selector(call) forControlEvents:UIControlEventTouchUpInside];
         [self.contentView addSubview:call];
         //发短信
-//        UIButton *message= [UIButton buttonWithType:UIButtonTypeCustom];
-//        [message setFrame:CGRectMake(call.frame.origin.x+call.frame.size.width+(AllButtonsWidth-SmallIconWidth*3)/4, (60-SmallIconHeight)/2, SmallIconWidth, SmallIconHeight)];
-//        [message setBackgroundImage:[UIImage imageNamed:@"ZJZSendSMS"] forState:UIControlStateNormal];
-//        [message addTarget:self action:@selector(message) forControlEvents:UIControlEventTouchUpInside];
-//        [self.contentView addSubview:message];
+        UIButton *message= [UIButton buttonWithType:UIButtonTypeCustom];
+        message.tag = 1002;
+        [message setFrame:CGRectMake(230, (60-SmallIconHeight)/2, SmallIconWidth, SmallIconHeight)];
+        [message setBackgroundImage:[UIImage imageNamed:@"ZJZAdd"] forState:UIControlStateNormal];
+        [message addTarget:self action:@selector(message) forControlEvents:UIControlEventTouchUpInside];
+        [self.contentView addSubview:message];
     }
     return self;
 }
@@ -74,23 +76,42 @@
     self.userHeadImageView.layer.borderColor = [[UIColor whiteColor] CGColor];
     
     _userNameLabel.text = model.userName;
+    
+    if (model.isActive) {
+        self.backgroundColor = [UIColor colorWithRed:242/255.f green:236/255.f blue:230/255.f alpha:1.f];
+        [self viewWithTag:1001].hidden = NO;
+        [self viewWithTag:1002].hidden = YES;
+//        [chat setBackgroundImage:[UIImage imageNamed:@"ZJZCellChat"] forState:UIControlStateNormal];
+//        [chat addTarget:self action:@selector(chat) forControlEvents:UIControlEventTouchUpInside];
+//        [chat removeTarget:self action:@selector(message) forControlEvents:UIControlEventTouchUpInside];
+    }else
+    {
+        self.backgroundColor = [UIColor colorWithRed:187/255.f green:187/255.f blue:187/255.f alpha:1.f];
+        [self viewWithTag:1001].hidden = YES;
+        [self viewWithTag:1002].hidden = NO;
+//        [chat setBackgroundImage:[UIImage imageNamed:@"ZJZAdd"] forState:UIControlStateNormal];
+//        [chat addTarget:self action:@selector(message) forControlEvents:UIControlEventTouchUpInside];
+//        [chat removeTarget:self action:@selector(chat) forControlEvents:UIControlEventTouchUpInside];
+    }
 }
 -(void)chat
 {
-    if ([self.delegate respondsToSelector:@selector(beginChat:)]) {
-        [self.delegate beginChat:self.model];
-    }
+        if ([self.delegate respondsToSelector:@selector(beginChat:)]) {
+            [self.delegate beginChat:self.model];
+        }
 }
+
 -(void)call
 {
-    if ([self.delegate respondsToSelector:@selector(makeCall:)]) {
-        [self.delegate makeCall:self.model.mobile];
-    }
+        if ([self.delegate respondsToSelector:@selector(makeCall:)]) {
+            [self.delegate makeCall:self.model.mobile];
+        }
 }
+
 -(void)message
 {
-    if ([self.delegate respondsToSelector:@selector(sendMessage:)]) {
-        [self.delegate sendMessage:self.model.mobile];
-    }
+        if ([self.delegate respondsToSelector:@selector(sendMessage:)]) {
+            [self.delegate sendMessage:self.model.mobile];
+        }
 }
 @end

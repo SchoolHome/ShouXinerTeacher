@@ -209,7 +209,8 @@
         //tempModel.uid = [infoDic objectForKey:@"uid"];
         tempModel.userName = model.nickName;
         //是否激活
-        
+        NSLog(@"%d",[model.sex integerValue]);
+        tempModel.isActive = [model.sex integerValue] == 0 ? NO : YES;
         //是否是家长
         
         //是否是老师
@@ -463,6 +464,7 @@
 {
     CPUIModelUserInfo *userInfo = [self getUserInfoByModelID:model.modelID];
     if (!userInfo) {
+        [self showProgressWithText:@"未获取到信息" withDelayTime:3];
         return;
     }
     [[CPUIModelManagement sharedInstance] createConversationWithUsers:[NSArray arrayWithObject:userInfo] andMsgGroups:nil andType:CREATE_CONVER_TYPE_COMMON];
@@ -470,32 +472,47 @@
 -(void)sendMessage:(NSString *)mobileNumber
 {
     if ([mobileNumber isEqualToString:@"0"]) {
+        [self showProgressWithText:@"对方未绑定电话号码" withDelayTime:3];
         return;
     }
+    self.phoneNumber = mobileNumber;
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"" message:[NSString stringWithFormat:@"确认要给%@发送短信吗?",mobileNumber] delegate:self cancelButtonTitle:nil otherButtonTitles:@"确定",@"取消", nil];
+    alert.tag = 2;
+    [alert show];
     
-    NSString *mobileNumberUrlStr = [NSString stringWithFormat:@"sms://%@",mobileNumber];
-    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:mobileNumberUrlStr]];
+//    NSString *mobileNumberUrlStr = [NSString stringWithFormat:@"sms://%@",mobileNumber];
+//    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:mobileNumberUrlStr]];
 }
 -(void)makeCall:(NSString *)mobileNumber
 {
     if ([mobileNumber isEqualToString:@"0"]) {
+        [self showProgressWithText:@"对方未绑定电话号码" withDelayTime:3];
         return;
     }
     self.phoneNumber = mobileNumber;
-//    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"电话" message:[NSString stringWithFormat: @"确认拨打%@",mobileNumber] delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"确认", nil];
-//    [alert show];
-    NSString *mobileNumberUrlStr = [NSString stringWithFormat:@"telprompt://%@",mobileNumber];
-    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:mobileNumberUrlStr]];
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"电话" message:[NSString stringWithFormat: @"确认拨打%@",mobileNumber] delegate:self cancelButtonTitle:nil otherButtonTitles:@"确认",@"取消", nil];
+    alert.tag = 1;
+    [alert show];
+//    NSString *mobileNumberUrlStr = [NSString stringWithFormat:@"telprompt://%@",mobileNumber];
+//    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:mobileNumberUrlStr]];
     
 }
 
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
-    if (buttonIndex != 0) {
+    
+    if (buttonIndex == 0) {
 //        NSURL *phoneURL = [NSURL URLWithString:[NSString stringWithFormat:@"tel:%@",self.phoneNumber]];
 //        UIWebView *phoneCallWebView = [[UIWebView alloc] initWithFrame:CGRectZero];
 //        [phoneCallWebView loadRequest:[NSURLRequest requestWithURL:phoneURL]];
-        NSString *mobileNumberUrlStr = [NSString stringWithFormat:@"telprompt://%@",self.phoneNumber];
-        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:mobileNumberUrlStr]];
+        if (alertView.tag == 1) {
+            NSString *mobileNumberUrlStr = [NSString stringWithFormat:@"telprompt://%@",self.phoneNumber];
+            [[UIApplication sharedApplication] openURL:[NSURL URLWithString:mobileNumberUrlStr]];
+        }else if (alertView.tag == 2)
+        {
+            NSString *mobileNumberUrlStr = [NSString stringWithFormat:@"sms://%@",self.phoneNumber];
+            [[UIApplication sharedApplication] openURL:[NSURL URLWithString:mobileNumberUrlStr]];
+        }
+
     }
 }
 

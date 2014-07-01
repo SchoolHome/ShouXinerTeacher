@@ -111,10 +111,9 @@
 }
 
 -(void) add{
-    BBMembersInMsgGroupViewController *c = [[BBMembersInMsgGroupViewController alloc] init];
-    NSMutableArray *array = [[NSMutableArray alloc] initWithArray:self.modelMessageGroup.memberList];
-    [c setMembers:array andMsgGroup:self.modelMessageGroup];
-    [self.navigationController pushViewController:c animated:YES];
+    UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:@"" delegate:self cancelButtonTitle:@"取消" destructiveButtonTitle:nil otherButtonTitles:@"群成员",@"退出该群", nil];
+    [actionSheet showInView:self.view];
+
 }
 
 - (void)viewDidUnload
@@ -127,7 +126,29 @@
 {
     return (interfaceOrientation == UIInterfaceOrientationPortrait);
 }
-
+#pragma mark ActionSheet
+-(void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    switch (buttonIndex) {
+        case 0:
+        {
+            BBMembersInMsgGroupViewController *c = [[BBMembersInMsgGroupViewController alloc] init];
+            NSMutableArray *array = [[NSMutableArray alloc] initWithArray:self.modelMessageGroup.memberList];
+            [c setMembers:array andMsgGroup:self.modelMessageGroup];
+            [self.navigationController pushViewController:c animated:YES];
+        }
+            break;
+        case 1:
+        {
+            UIAlertView *quitGroupAlert = [[UIAlertView alloc] initWithTitle:@"" message:@"退出后将不再接受该群的任何消息,是否退出？" delegate:self cancelButtonTitle:nil otherButtonTitles:@"确认",@"取消", nil];
+            quitGroupAlert.tag = selfQuitGroupAlertTag;
+            [quitGroupAlert show];
+        }
+            break;
+        default:
+            break;
+    }
+}
 #pragma mark Observer
 -(void)refreshMsgGroup
 {
@@ -249,7 +270,11 @@
         if ([[[CPUIModelManagement sharedInstance].quitGroupDic objectForKey:group_manage_dic_res_code]integerValue]== RESPONSE_CODE_SUCESS) {
             
             [[HPTopTipView shareInstance] showMessage:@"操作成功" duration:2.0f];
+            
+            [self.navigationController popToRootViewControllerAnimated:YES];
+            quitGroupFlag = NO;
         }else {
+            NSLog(@"%@",[[CPUIModelManagement sharedInstance].quitGroupDic objectForKey:group_manage_dic_res_desc]);
             [[HPTopTipView shareInstance] showMessage:[[CPUIModelManagement sharedInstance].quitGroupDic objectForKey:group_manage_dic_res_desc] duration:3.5f];
         }
     }
@@ -464,6 +489,9 @@
     {
         [self.navigationController popToRootViewControllerAnimated:YES];
         quitGroupFlag = NO;
+    }else if (alertView.tag == selfQuitGroupAlertTag && buttonIndex == 0)
+    {
+        [self quitGroup:self.modelMessageGroup];
     }
     
     
