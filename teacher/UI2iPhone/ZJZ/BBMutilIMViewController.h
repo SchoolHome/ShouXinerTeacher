@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "BBIMViewController.h"
 #import "GroupProfileView.h"
-@interface BBMutilIMViewController : BBIMViewController <GroupProfileViewDelegate,ProfileViewDelegate,LoadingDelegate>
+@interface BBMutilIMViewController : BBIMViewController <GroupProfileViewDelegate,ProfileViewDelegate,LoadingDelegate,UIActionSheetDelegate>
 {
     BOOL quitGroupFlag;
 }

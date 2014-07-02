@@ -16,6 +16,11 @@
 -(void)makeCall:(NSString *)mobileNumber;
 @end
 @interface ContactsTableviewCell : UITableViewCell
+{
+    
+}
+
+
 @property (nonatomic , assign) id<ContactsTableviewCellDelegate> delegate;
 //姓名
 @property (nonatomic , strong) UILabel *userNameLabel;
