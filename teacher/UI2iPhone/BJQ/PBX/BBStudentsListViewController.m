@@ -164,7 +164,6 @@
     studentListTableview.dataSource = self;
     studentListTableview.backgroundColor = [UIColor clearColor];
     studentListTableview.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
-    studentListTableview.sectionIndexBackgroundColor = [UIColor clearColor];
     [self.view addSubview:studentListTableview];
     
     //searchBar
@@ -208,7 +207,7 @@
         }
         
         //[_messageListTableSearchBar setScopeBarBackgroundImage:[UIImage imageNamed:@"ZJZSearch"]];
-    }
+    }else studentListTableview.sectionIndexBackgroundColor = [UIColor clearColor];
     
     
     // Do any additional setup after loading the view.

@@ -54,12 +54,21 @@
         self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:back];
 
         UISegmentedControl *segement =  [[UISegmentedControl alloc] initWithItems:[NSArray arrayWithObjects:@"",@"", nil]];
+
+        [segement setWidth:0.1 forSegmentAtIndex:0];
+        [segement setWidth:0.1 forSegmentAtIndex:1];
         segement.tintColor = [UIColor clearColor];
+        segement.segmentedControlStyle = UISegmentedControlStyleBar;
         segement.selectedSegmentIndex = 0;
         [segement addTarget:self action:@selector(segementValueChanged:) forControlEvents:UIControlEventValueChanged];
+        
         [segement setDividerImage:[UIImage imageNamed:@"ZJZ_Seg_Teacher"] forLeftSegmentState:UIControlStateSelected rightSegmentState:UIControlStateNormal barMetrics:UIBarMetricsDefault];
+        [segement setDividerImage:[UIImage imageNamed:@"ZJZ_Seg_Teacher"] forLeftSegmentState:UIControlStateHighlighted rightSegmentState:UIControlStateNormal barMetrics:UIBarMetricsDefault];
         [segement setDividerImage:[UIImage imageNamed:@"ZJZ_Seg_Parent"] forLeftSegmentState:UIControlStateNormal rightSegmentState:UIControlStateSelected barMetrics:UIBarMetricsDefault];
+        [segement setDividerImage:[UIImage imageNamed:@"ZJZ_Seg_Parent"] forLeftSegmentState:UIControlStateNormal rightSegmentState:UIControlStateHighlighted barMetrics:UIBarMetricsDefault];
+
         self.navigationItem.titleView = segement;
+        NSLog(@"%@",segement.subviews);
         
         searchResultList = [[NSMutableArray alloc] init];
     }
@@ -85,7 +94,7 @@
     _contactsListTableview.delegate = self;
     _contactsListTableview.dataSource = self;
     _contactsListTableview.messageGroupBaseTableViewdelegate = self;
-    _contactsListTableview.sectionIndexBackgroundColor = [UIColor clearColor];
+    
     _contactsListTableview.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
     [self.view addSubview:_contactsListTableview];
     
@@ -99,6 +108,7 @@
     _contactsSearchDisplay.delegate = self;
     _contactsSearchDisplay.searchResultsDelegate = self;
     _contactsSearchDisplay.searchResultsDataSource = self;
+    _contactsSearchDisplay.searchResultsTableView.backgroundColor = [UIColor colorWithRed:242/255.f green:236/255.f blue:230/255.f alpha:1.f];
     _contactsSearchDisplay.searchResultsTableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
     
 
@@ -107,6 +117,7 @@
     //[[PalmUIManagement sharedInstance] getuserContacts];
 	// Do any additional setup after loading the view.
     if (!IOS7) {
+        
         for (UIView *subview in _contactsTableSearchBar.subviews)
         {
             if ([subview isKindOfClass:NSClassFromString(@"UISearchBarBackground")])
@@ -115,7 +126,8 @@
                 break;
             }
         }
-    }
+    }else _contactsListTableview.sectionIndexBackgroundColor = [UIColor clearColor];
+    
      [self classifyData];
 }
 
@@ -454,6 +466,7 @@
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     if (tableView == self.searchDisplayController.searchResultsTableView) {
+        NSLog(@"%@",self.searchDisplayController.searchResultsTableView);
         return searchResultList.count;
     }else
     {
