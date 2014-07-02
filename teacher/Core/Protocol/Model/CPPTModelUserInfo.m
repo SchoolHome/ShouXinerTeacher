@@ -72,7 +72,19 @@
 //            userInfo.regionNumber = [NSString stringWithFormat:@"%d",[[jsonDict objectForKey:@"activated"] intValue]];
             userInfo.mobileNumber = [jsonDict objectForKey:@"mobile"];
             userInfo.relationType = [NSNumber numberWithInt:1];
-            userInfo.coupleAccount = [jsonDict objectForKey:K_USERINFO_KEY_COUPLE];
+            
+            BOOL isTeacher = [[jsonDict objectForKey:@"isTeacher"] boolValue];
+            BOOL isParent = [[jsonDict objectForKey:@"isParent"] boolValue];
+            NSString *result = @"";
+            if (isTeacher && isParent) {
+                result = @"TeacherAndParent";
+            }else if (isTeacher && !isParent){
+                result = @"Teacher";
+            }else{
+                result = @"Parent";
+            }
+            
+            userInfo.coupleAccount = result;
         }
     }
     
