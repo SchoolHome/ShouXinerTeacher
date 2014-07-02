@@ -48,7 +48,7 @@
         UIButton *message= [UIButton buttonWithType:UIButtonTypeCustom];
         message.tag = 1002;
         [message setFrame:CGRectMake(230, (60-SmallIconHeight)/2, SmallIconWidth, SmallIconHeight)];
-        [message setBackgroundImage:[UIImage imageNamed:@"ZJZAdd"] forState:UIControlStateNormal];
+        [message setBackgroundImage:[UIImage imageNamed:@"BBAddContacts"] forState:UIControlStateNormal];
         [message addTarget:self action:@selector(message) forControlEvents:UIControlEventTouchUpInside];
         [self.contentView addSubview:message];
     }
@@ -83,7 +83,7 @@
         [self viewWithTag:1002].hidden = YES;
     }else
     {
-        self.backgroundColor = [UIColor colorWithRed:187/255.f green:187/255.f blue:187/255.f alpha:1.f];
+        self.backgroundColor = [UIColor colorWithRed:189/255.f green:189/255.f blue:189/255.f alpha:1.f];
         [self viewWithTag:1001].hidden = YES;
         [self viewWithTag:1002].hidden = NO;
     }

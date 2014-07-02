@@ -219,12 +219,35 @@
         //是否激活
         NSLog(@"%d",[model.sex integerValue]);
         tempModel.isActive = [model.sex integerValue] == 0 ? NO : YES;
-        //是否是家长
+        //是否是家长   //是否是老师
+        if ([model.coupleAccount isEqualToString:@"Teacher"]) {
+            tempModel.isTeacher = YES;
+            tempModel.isParent  = NO;
+            
+            [teacherArray addObject:tempModel];
+        }else if ([model.coupleAccount isEqualToString:@"Parent"])
+        {
+            tempModel.isTeacher = NO;
+            tempModel.isParent  = YES;
+            
+            [parentArray addObject:tempModel];
+        }else if ([model.coupleAccount isEqualToString:@"TeacherAndParent"])
+        {
+            tempModel.isTeacher = YES;
+            tempModel.isParent  = YES;
+            
+            [teacherArray addObject:tempModel];
+            [parentArray addObject:tempModel];
+        }else
+        {
+            tempModel.isTeacher = NO;
+            tempModel.isParent  = NO;
+        }
+      
         
-        //是否是老师
-        [teacherArray addObject:tempModel];
     }
     [self setTeachers:teacherArray];
+    [self setParents:parentArray];
 }
 -(void)backAction
 {
@@ -378,7 +401,8 @@
         
         
         UIView *sectionView = [[UIView alloc] initWithFrame:CGRectZero];
-        sectionView.backgroundColor = [UIColor blackColor];
+        //sectionView.backgroundColor = [UIColor blackColor];
+        sectionView.backgroundColor = [UIColor colorWithRed:128/255.f green:143/255.f blue:155/255.f alpha:1.f];
         
         UILabel *title = [[UILabel alloc] initWithFrame:CGRectMake(10.f, 6.f, 200.f, 20.f)];
         title.backgroundColor = [UIColor clearColor];
