@@ -17,6 +17,9 @@
     if (self) {
         // Initialization code
         
+        backgroundVIew = [[UIImageView alloc] initWithFrame:CGRectMake(0.f, 0.f, self.frame.size.width, 60.f)];
+        [self addSubview:backgroundVIew];
+        
         //姓名
         _userNameLabel = [[UILabel alloc] initWithFrame:CGRectMake(70.f, 21.f, 120.f, 18.f)];
         _userNameLabel.backgroundColor = [UIColor clearColor];
@@ -77,13 +80,14 @@
     
     _userNameLabel.text = model.userName;
     
+    [self sendSubviewToBack:backgroundVIew];
     if (model.isActive) {
-        self.backgroundColor = [UIColor colorWithRed:242/255.f green:236/255.f blue:230/255.f alpha:1.f];
+        backgroundVIew.backgroundColor = [UIColor colorWithRed:242/255.f green:236/255.f blue:230/255.f alpha:1.f];
         [self viewWithTag:1001].hidden = NO;
         [self viewWithTag:1002].hidden = YES;
     }else
     {
-        self.backgroundColor = [UIColor colorWithRed:189/255.f green:189/255.f blue:189/255.f alpha:1.f];
+        backgroundVIew.backgroundColor = [UIColor colorWithRed:189/255.f green:189/255.f blue:189/255.f alpha:1.f];
         [self viewWithTag:1001].hidden = YES;
         [self viewWithTag:1002].hidden = NO;
     }

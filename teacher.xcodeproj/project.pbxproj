@@ -3155,6 +3155,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				332D75CE18C33676007A75D5 /* MessageUI.framework in Frameworks */,
 				19EF58461917CF0D00371505 /* Crashlytics.framework in Frameworks */,
 				332D75E018C336FC007A75D5 /* CoreMIDI.framework in Frameworks */,
 				332D75DE18C336DB007A75D5 /* libxml2.dylib in Frameworks */,
@@ -3165,7 +3166,6 @@
 				332D75D418C336A4007A75D5 /* QuartzCore.framework in Frameworks */,
 				332D75D218C33694007A75D5 /* libicucore.dylib in Frameworks */,
 				332D75D018C33680007A75D5 /* AddressBook.framework in Frameworks */,
-				332D75CE18C33676007A75D5 /* MessageUI.framework in Frameworks */,
 				332D75CC18C3366E007A75D5 /* AudioToolbox.framework in Frameworks */,
 				332D75CA18C3365D007A75D5 /* AVFoundation.framework in Frameworks */,
 				332D75C818C33651007A75D5 /* MediaPlayer.framework in Frameworks */,
@@ -6688,9 +6688,6 @@
 				LastUpgradeCheck = 0510;
 				ORGANIZATIONNAME = ws;
 				TargetAttributes = {
-					332D725018C33464007A75D5 = {
-						DevelopmentTeam = A998A43TW3;
-					};
 					332D726B18C33464007A75D5 = {
 						TestTargetID = 332D725018C33464007A75D5;
 					};
@@ -8080,8 +8077,8 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				CODE_SIGN_IDENTITY = "iPhone Distribution: Shenyang Idtech Information Technology Co., Ltd.";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Shenyang Idtech Information Technology Co., Ltd.";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
@@ -8103,7 +8100,7 @@
 				ONLY_ACTIVE_ARCH = NO;
 				OTHER_LDFLAGS = "-lxml2";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "6254ECE3-EB9C-46FA-8BF2-1464DF2443C8";
+				PROVISIONING_PROFILE = "8ADA4211-F5E2-4B2C-BD42-E4012B0B901C";
 				SDKROOT = iphoneos;
 				VALID_ARCHS = armv7;
 				WRAPPER_EXTENSION = app;
@@ -8115,8 +8112,8 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				CODE_SIGN_IDENTITY = "iPhone Distribution: Shenyang Idtech Information Technology Co., Ltd.";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Shenyang Idtech Information Technology Co., Ltd.";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/teacher/UI2iPhone",
@@ -8138,7 +8135,7 @@
 				);
 				OTHER_LDFLAGS = "-lxml2";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "6254ECE3-EB9C-46FA-8BF2-1464DF2443C8";
+				PROVISIONING_PROFILE = "8ADA4211-F5E2-4B2C-BD42-E4012B0B901C";
 				SDKROOT = iphoneos;
 				VALID_ARCHS = armv7;
 				WRAPPER_EXTENSION = app;

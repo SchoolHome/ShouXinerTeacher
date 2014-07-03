@@ -17,11 +17,13 @@
 @end
 @interface ContactsTableviewCell : UITableViewCell
 {
-    
+    UIImageView *backgroundVIew;
 }
 
 
 @property (nonatomic , assign) id<ContactsTableviewCellDelegate> delegate;
+//背景
+
 //姓名
 @property (nonatomic , strong) UILabel *userNameLabel;
 //头像
