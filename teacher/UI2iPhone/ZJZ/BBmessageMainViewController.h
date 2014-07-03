@@ -87,6 +87,7 @@
 #define deleteFriendsAlertTag 9010
 #define quitGroupAlertTag 9011
 #define imageviewKeybordTag 9012
+#define selfQuitGroupAlertTag 9013
 #import <UIKit/UIKit.h>
 #import <QuartzCore/QuartzCore.h>
 #import "AGMedallionView.h"

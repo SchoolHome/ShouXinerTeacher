@@ -66,7 +66,12 @@
         }
     }
     
-    self.button = [[UIButton alloc] initWithFrame:CGRectMake(1280.0f + 87.5, self.screenHeight - 120.0f, 145.0f, 32.0f)];
+    float height = 120.0f;
+    if (!isIPhone5) {
+        height = 80.0f;
+    }
+    
+    self.button = [[UIButton alloc] initWithFrame:CGRectMake(1280.0f + 87.5, self.screenHeight - height, 145.0f, 32.0f)];
     [self.button setBackgroundImage:[UIImage imageNamed:@"begin"] forState:UIControlStateNormal];
     [self.button setBackgroundImage:[UIImage imageNamed:@"begin"] forState:UIControlStateHighlighted];
     [self.button addTarget:self action:@selector(loadLogin:) forControlEvents:UIControlEventTouchUpInside];

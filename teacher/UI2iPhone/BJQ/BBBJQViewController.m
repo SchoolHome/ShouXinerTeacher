@@ -17,8 +17,6 @@
 #import "BBPBXTableViewCell.h"
 
 @interface BBBJQViewController ()
-{
-}
 @property (nonatomic,strong) BBTopicModel *tempTopModel;
 @property (nonatomic,strong) BBTopicModel *tempTopModelInput;
 @property (nonatomic,copy) NSString *inputText;
@@ -27,7 +25,7 @@
 @property (nonatomic,strong) BBCommentModel *model;
 @property (nonatomic,strong) BBBaseTableViewCell *tempCell;
 @property (nonatomic,strong) UIImageView *tempMoreImage;
-
+@property (nonatomic,strong) NSString *contentText;
 @property (nonatomic,strong) BBTopicModel *recommendUsed;
 @end
 
@@ -775,6 +773,11 @@
         [self.tempMoreImage removeFromSuperview];
         self.tempMoreImage = nil;
     }
+    if (nil != copyContentButton) {
+        [copyContentButton removeFromSuperview];
+        self.contentText = @"";
+        copyContentButton = nil;
+    }
     
     CGRect superViewRect = [cell convertRect:sender.frame toView:self.view];
     self.tempCell = cell;
@@ -807,6 +810,38 @@
     } completion:^(BOOL finished) {
         [reply addTarget:self action:@selector(replyTaped:) forControlEvents:UIControlEventTouchUpInside];
     }];
+}
+
+// 复制
+-(void) bbBaseTableViewCell:(BBBaseTableViewCell *)cell touchPoint:(CGPoint)touchPoint longPressText:(NSString *)text{
+    if (nil != copyContentButton) {
+        [copyContentButton removeFromSuperview];
+        self.contentText = @"";
+        copyContentButton = nil;
+    }
+    if (self.tempMoreImage != nil) {
+        [self.tempMoreImage removeFromSuperview];
+        self.tempMoreImage = nil;
+    }
+
+    CGPoint superPointaa = [cell convertPoint:touchPoint toView:self.view];
+    copyContentButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    [copyContentButton setBackgroundImage:[UIImage imageNamed:@"BBCopyContent"] forState:UIControlStateNormal];
+    [copyContentButton setBackgroundImage:[UIImage imageNamed:@"BBCopyContent"] forState:UIControlStateHighlighted];
+    copyContentButton.frame = CGRectMake(superPointaa.x - 32.0f, superPointaa.y - 80.0f, 64.0f, 37.0f);
+    [copyContentButton addTarget:self action:@selector(copyContent) forControlEvents:UIControlEventTouchUpInside];
+    self.contentText = text;
+    [self.view addSubview:copyContentButton];
+}
+
+-(void) copyContent{
+    UIPasteboard *pasteboard = [UIPasteboard generalPasteboard];
+    [pasteboard setString:self.contentText];
+    if (nil != copyContentButton) {
+        [copyContentButton removeFromSuperview];
+        self.contentText = @"";
+        copyContentButton = nil;
+    }
 }
 
 // 推荐
@@ -964,6 +999,18 @@
 -(void)endCloseImageAnimation
 {
     
+}
+
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView{
+    if (nil != copyContentButton) {
+        [copyContentButton removeFromSuperview];
+        self.contentText = @"";
+        copyContentButton = nil;
+    }
+    if (self.tempMoreImage != nil) {
+        [self.tempMoreImage removeFromSuperview];
+        self.tempMoreImage = nil;
+    }
 }
 
 - (void)didReceiveMemoryWarning

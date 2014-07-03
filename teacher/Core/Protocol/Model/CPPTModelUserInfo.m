@@ -67,12 +67,24 @@
             userInfo.uName = [jsonDict objectForKey:@"jid"];
             userInfo.nickName = [jsonDict objectForKey:@"username"];
             userInfo.icon = [jsonDict objectForKey:@"avatar"];
-            userInfo.gender = [jsonDict objectForKey:K_USERINFO_KEY_GENDER];
+            userInfo.gender = [jsonDict objectForKey:@"activated"];
             userInfo.lifeStatus = [jsonDict objectForKey:@"uid"];
-            userInfo.regionNumber = [jsonDict objectForKey:K_USERINFO_KEY_REGION_NUMBER];
+//            userInfo.regionNumber = [NSString stringWithFormat:@"%d",[[jsonDict objectForKey:@"activated"] intValue]];
             userInfo.mobileNumber = [jsonDict objectForKey:@"mobile"];
             userInfo.relationType = [NSNumber numberWithInt:1];
-            userInfo.coupleAccount = [jsonDict objectForKey:K_USERINFO_KEY_COUPLE];
+            
+            BOOL isTeacher = [[jsonDict objectForKey:@"isTeacher"] boolValue];
+            BOOL isParent = [[jsonDict objectForKey:@"isParent"] boolValue];
+            NSString *result = @"";
+            if (isTeacher && isParent) {
+                result = @"TeacherAndParent";
+            }else if (isTeacher && !isParent){
+                result = @"Teacher";
+            }else{
+                result = @"Parent";
+            }
+            
+            userInfo.coupleAccount = result;
         }
     }
     

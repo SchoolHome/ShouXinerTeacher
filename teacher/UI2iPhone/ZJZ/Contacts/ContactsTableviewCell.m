@@ -9,7 +9,6 @@
 #define SmallIconHeight 22.f
 #define AllButtonsWidth 320.f-self.userNameLabel.frame.origin.x-self.userNameLabel.frame.size.width
 #import "ContactsTableviewCell.h"
-
 @implementation ContactsTableviewCell
 
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
@@ -17,7 +16,7 @@
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     if (self) {
         // Initialization code
-        self.backgroundColor = [UIColor colorWithRed:242/255.f green:236/255.f blue:230/255.f alpha:1.f];
+        
         //姓名
         _userNameLabel = [[UILabel alloc] initWithFrame:CGRectMake(70.f, 21.f, 120.f, 18.f)];
         _userNameLabel.backgroundColor = [UIColor clearColor];
@@ -32,22 +31,24 @@
         
         //聊天
         UIButton *chat = [UIButton buttonWithType:UIButtonTypeCustom];
-        [chat setFrame:CGRectMake(self.userNameLabel.frame.origin.x+self.userNameLabel.frame.size.width+(AllButtonsWidth-SmallIconWidth*3)/4, (60-SmallIconHeight)/2, SmallIconWidth, SmallIconHeight)];
+        [chat setFrame:CGRectMake(230, (60-SmallIconHeight)/2, SmallIconWidth, SmallIconHeight)];
+        chat.tag = 1001;
         //chat.backgroundColor = [UIColor redColor];
         [chat setBackgroundImage:[UIImage imageNamed:@"ZJZCellChat"] forState:UIControlStateNormal];
         [chat addTarget:self action:@selector(chat) forControlEvents:UIControlEventTouchUpInside];
         [self.contentView addSubview:chat];
         //打电话
         UIButton *call = [UIButton buttonWithType:UIButtonTypeCustom];
-        [call setFrame:CGRectMake(chat.frame.origin.x+chat.frame.size.width+(AllButtonsWidth-SmallIconWidth*3)/4, (60-SmallIconHeight)/2, SmallIconWidth, SmallIconHeight)];
+        [call setFrame:CGRectMake(230+SmallIconWidth, (60-SmallIconHeight)/2, SmallIconWidth, SmallIconHeight)];
         //call.backgroundColor = [UIColor yellowColor];
         [call setBackgroundImage:[UIImage imageNamed:@"ZJZCallPhone"] forState:UIControlStateNormal];
         [call addTarget:self action:@selector(call) forControlEvents:UIControlEventTouchUpInside];
         [self.contentView addSubview:call];
         //发短信
         UIButton *message= [UIButton buttonWithType:UIButtonTypeCustom];
-        [message setFrame:CGRectMake(call.frame.origin.x+call.frame.size.width+(AllButtonsWidth-SmallIconWidth*3)/4, (60-SmallIconHeight)/2, SmallIconWidth, SmallIconHeight)];
-        [message setBackgroundImage:[UIImage imageNamed:@"ZJZSendSMS"] forState:UIControlStateNormal];
+        message.tag = 1002;
+        [message setFrame:CGRectMake(230, (60-SmallIconHeight)/2, SmallIconWidth, SmallIconHeight)];
+        [message setBackgroundImage:[UIImage imageNamed:@"BBAddContacts"] forState:UIControlStateNormal];
         [message addTarget:self action:@selector(message) forControlEvents:UIControlEventTouchUpInside];
         [self.contentView addSubview:message];
     }
@@ -60,11 +61,11 @@
 
     // Configure the view for the selected state
 }
--(void)setModel:(CPUIModelUserInfo *)model
+-(void)setModel:(ContactsModel *)model
 {
     _model = model;
     
-    UIImage *avatarImage = [UIImage imageWithContentsOfFile:model.headerPath];
+    UIImage *avatarImage = [UIImage imageWithContentsOfFile:model.avatarPath];
     if (!avatarImage) {
         avatarImage  = [UIImage imageNamed:@"girl.png"];
     }
@@ -74,24 +75,37 @@
     self.userHeadImageView.layer.cornerRadius = 25.0;
     self.userHeadImageView.layer.borderColor = [[UIColor whiteColor] CGColor];
     
-    _userNameLabel.text = model.nickName;
+    _userNameLabel.text = model.userName;
+    
+    if (model.isActive) {
+        self.backgroundColor = [UIColor colorWithRed:242/255.f green:236/255.f blue:230/255.f alpha:1.f];
+        [self viewWithTag:1001].hidden = NO;
+        [self viewWithTag:1002].hidden = YES;
+    }else
+    {
+        self.backgroundColor = [UIColor colorWithRed:189/255.f green:189/255.f blue:189/255.f alpha:1.f];
+        [self viewWithTag:1001].hidden = YES;
+        [self viewWithTag:1002].hidden = NO;
+    }
 }
 -(void)chat
 {
-    if ([self.delegate respondsToSelector:@selector(beginChat:)]) {
-        [self.delegate beginChat:self.model];
-    }
+        if ([self.delegate respondsToSelector:@selector(beginChat:)]) {
+            [self.delegate beginChat:self.model];
+        }
 }
+
 -(void)call
 {
-    if ([self.delegate respondsToSelector:@selector(makeCall:)]) {
-        [self.delegate makeCall:self.model.mobileNumber];
-    }
+        if ([self.delegate respondsToSelector:@selector(makeCall:)]) {
+            [self.delegate makeCall:self.model.mobile];
+        }
 }
+
 -(void)message
 {
-    if ([self.delegate respondsToSelector:@selector(sendMessage:)]) {
-        [self.delegate sendMessage:self.model.mobileNumber];
-    }
+        if ([self.delegate respondsToSelector:@selector(sendMessage:)]) {
+            [self.delegate sendMessage:self.model.mobile];
+        }
 }
 @end

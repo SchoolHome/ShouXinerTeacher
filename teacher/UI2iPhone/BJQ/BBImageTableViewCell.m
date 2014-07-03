@@ -76,6 +76,9 @@
     content.text = self.data.content;
     content.font = [UIFont systemFontOfSize:14];
     content.numberOfLines = 0;
+    UILongPressGestureRecognizer *longPress = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(longPress:)];
+    [content addGestureRecognizer:longPress];
+    content.userInteractionEnabled = YES;
     [content sizeToFit];
     
     

@@ -9,6 +9,9 @@
 #import "BBBaseTableViewCell.h"
 #import "CoreUtils.h"
 
+@interface BBBaseTableViewCell ()
+
+@end
 
 @implementation BBBaseTableViewCell
 
@@ -43,7 +46,12 @@
     }
 }
 
-
+-(void) longPress : (UILongPressGestureRecognizer *) gesture{
+    if (_delegate && [_delegate respondsToSelector:@selector(bbBaseTableViewCell:touchPoint:longPressText:)]) {
+        CGPoint point = [gesture locationInView:self];
+        [_delegate bbBaseTableViewCell:self touchPoint:point longPressText:_data.content];
+    }
+}
 
 
 -(NSString *)timeStringFromNumber:(NSNumber *) number{
@@ -150,9 +158,9 @@
         _likeContent.textColor = [UIColor colorWithHexString:@"#4a7f9d"];
         _likeContent.font = [UIFont systemFontOfSize:12];
         _likeContent.numberOfLines = 0;
+        
         [self addSubview:_likeContent];
         _likeContent.backgroundColor = [UIColor clearColor];
-        
 //        _relpyContent = [[OHAttributedLabel alloc] init];
 //        [self addSubview:_relpyContent];
 //        _relpyContent.backgroundColor = [UIColor clearColor];

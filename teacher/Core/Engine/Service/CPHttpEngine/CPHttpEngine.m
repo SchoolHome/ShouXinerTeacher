@@ -4225,7 +4225,8 @@ typedef enum httpEngineState HttpEngineState;
 #endif
     
     //cookies ++
-    [op addHeaders:[NSHTTPCookie requestHeaderFieldsWithCookies:[self cookiesArray]]];
+//    [op addHeaders:[NSHTTPCookie requestHeaderFieldsWithCookies:[self cookiesArray]]];
+    [op addHeaders:[NSHTTPCookie requestHeaderFieldsWithCookies:[[NSArray alloc] initWithObjects:[PalmUIManagement sharedInstance].suid, nil]]];
     //cookies --
     
     CPHttpEngineContextObject *ctxObj = [[CPHttpEngineContextObject alloc] init];

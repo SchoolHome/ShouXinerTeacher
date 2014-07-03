@@ -18,7 +18,7 @@
 // 通过oalist获取的数据更新列表
 -(void) updateCacheArray : (NSArray *) oaModelArray;
 // 更新该条记录未读数为零
--(void) updateCacheUnReadedWithZero:(NSString *) senderUid;
+-(void) updateCacheUnReadedWithZero:(NSNumber *) senderUid;
 @end
 
 @interface BBOAModel : PalmUIModelCoding

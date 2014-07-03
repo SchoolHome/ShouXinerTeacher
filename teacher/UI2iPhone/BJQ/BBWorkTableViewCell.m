@@ -85,6 +85,9 @@
     content.text = self.data.content;
     content.font = [UIFont systemFontOfSize:14];
     content.numberOfLines = 0;
+    UILongPressGestureRecognizer *longPress = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(longPress:)];
+    [content addGestureRecognizer:longPress];
+    content.userInteractionEnabled = YES;
     [content sizeToFit];
     
     if (content.frame.size.height>=(41-6)) {
@@ -149,7 +152,13 @@
         backimage = [UIImage imageNamed:@"BBYuWenContent"];
     }
     
-    backimage = [backimage resizableImageWithCapInsets:UIEdgeInsetsMake(20,20,20,30) resizingMode:UIImageResizingModeStretch];
+    if ([[[UIDevice currentDevice] systemVersion] floatValue] >= 6.0) {
+        backimage = [backimage resizableImageWithCapInsets:UIEdgeInsetsMake(20,20,20,30) resizingMode:UIImageResizingModeStretch];
+    }else
+    {
+        backimage = [backimage resizableImageWithCapInsets:UIEdgeInsetsMake(20,20,20,30)];
+    }
+    
     contentBack.image = backimage;
     
     

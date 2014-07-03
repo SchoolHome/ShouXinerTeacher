@@ -9,6 +9,13 @@
 #import "BBIndicationTableViewCell.h"
 #import "ColorUtil.h"
 
+@interface BBIndicationTableViewCell ()
+
+@property (nonatomic,strong) UIImageView *imageBaige;
+@property (nonatomic,strong) UILabel *baigeNumber;
+
+@end
+
 @implementation BBIndicationTableViewCell
 
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
@@ -93,6 +100,30 @@
     title.text = _data.title;
     
     time.text = [self dateString:_data.ts];
+    
+    if ([_data.unReaded intValue] != 0) {
+        self.imageBaige = [[UIImageView alloc] initWithImage:[[UIImage imageNamed:@"ZJZBaige"] stretchableImageWithLeftCapWidth:10 topCapHeight:10]];
+        self.imageBaige.frame = CGRectMake(40.0f, 5.0f, 18.0f, 18.0f);
+        [self addSubview:self.imageBaige];
+        
+        self.baigeNumber = [[UILabel alloc] init];
+        self.baigeNumber.backgroundColor = [UIColor clearColor];
+        self.baigeNumber.textColor = [UIColor whiteColor];
+        self.baigeNumber.font = [UIFont systemFontOfSize:10.0f];
+        self.baigeNumber.text = [NSString stringWithFormat:@"%d",[_data.unReaded intValue]];
+        self.baigeNumber.frame = CGRectMake(0.0f, 0.0f, 0.0f, 0.0f);
+        [self.baigeNumber sizeToFit];
+        self.baigeNumber.center = CGPointMake(9.0f, 9.0f);
+        [self.imageBaige addSubview:self.baigeNumber];
+    }else{
+        self.baigeNumber.hidden = YES;
+        [self.baigeNumber removeFromSuperview];
+        self.baigeNumber = nil;
+        self.imageBaige.hidden = YES;
+        [self.imageBaige removeFromSuperview];
+        self.imageBaige = nil;
+    }
+    
     
 //    int m = arc4random()%25+1;
 //    

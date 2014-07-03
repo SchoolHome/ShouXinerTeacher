@@ -48,10 +48,10 @@
     [PalmUIModelCoding serializeModel:self.cacheArray withFileName:CacheName];
 }
 
--(void) updateCacheUnReadedWithZero:(NSString *) senderUid{
+-(void) updateCacheUnReadedWithZero:(NSNumber *) senderUid{
     [self.cacheArray enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
         BBOAModel *model = obj;
-        if ([model.sender_uid isEqual:senderUid]) {
+        if ([model.sender_uid longValue] == [senderUid longValue]) {
             model.unReaded = [NSNumber numberWithInt:0];
         }
     }];
