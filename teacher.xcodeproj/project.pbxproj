@@ -8077,8 +8077,8 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Developer: yuan gao (5PS549TGY5)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: yuan gao (5PS549TGY5)";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
@@ -8092,15 +8092,13 @@
 				);
 				INFOPLIST_FILE = "teacher/teacher-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 5.1;
-				LIBRARY_SEARCH_PATHS = (
-					"$(inherited)",
 					"\"$(SRCROOT)\"/teacher/Core/TalkingData",
 					"\"$(SRCROOT)\"/teacher/Core//Engine/Service/XMPPFramework/Vendor/libidn",
 				);
 				ONLY_ACTIVE_ARCH = NO;
 				OTHER_LDFLAGS = "-lxml2";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "8ADA4211-F5E2-4B2C-BD42-E4012B0B901C";
+				PROVISIONING_PROFILE = "93453D1A-BA01-4DC8-AB3C-8FB73275C659";
 				SDKROOT = iphoneos;
 				VALID_ARCHS = armv7;
 				WRAPPER_EXTENSION = app;
@@ -8112,8 +8110,8 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Developer: yuan gao (5PS549TGY5)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: yuan gao (5PS549TGY5)";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/teacher/UI2iPhone",
@@ -8135,7 +8133,7 @@
 				);
 				OTHER_LDFLAGS = "-lxml2";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "8ADA4211-F5E2-4B2C-BD42-E4012B0B901C";
+				PROVISIONING_PROFILE = "93453D1A-BA01-4DC8-AB3C-8FB73275C659";
 				SDKROOT = iphoneos;
 				VALID_ARCHS = armv7;
 				WRAPPER_EXTENSION = app;
@@ -8184,68 +8182,3 @@
 		};
 /* End XCBuildConfiguration section */
 
-/* Begin XCConfigurationList section */
-		332D724C18C33464007A75D5 /* Build configuration list for PBXProject "teacher" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				332D727B18C33464007A75D5 /* Debug */,
-				332D727C18C33464007A75D5 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		332D727D18C33464007A75D5 /* Build configuration list for PBXNativeTarget "teacher" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				332D727E18C33464007A75D5 /* Debug */,
-				332D727F18C33464007A75D5 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		332D728018C33464007A75D5 /* Build configuration list for PBXNativeTarget "teacherTests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				332D728118C33464007A75D5 /* Debug */,
-				332D728218C33464007A75D5 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-/* End XCConfigurationList section */
-
-/* Begin XCVersionGroup section */
-		332D73AC18C33551007A75D5 /* XMPPRoom.xcdatamodeld */ = {
-			isa = XCVersionGroup;
-			children = (
-				332D73AD18C33551007A75D5 /* XMPPRoom.xcdatamodel */,
-			);
-			currentVersion = 332D73AD18C33551007A75D5 /* XMPPRoom.xcdatamodel */;
-			path = XMPPRoom.xcdatamodeld;
-			sourceTree = "<group>";
-			versionGroupType = wrapper.xcdatamodel;
-		};
-		332D73AF18C33551007A75D5 /* XMPPRoomHybrid.xcdatamodeld */ = {
-			isa = XCVersionGroup;
-			children = (
-				332D73B018C33551007A75D5 /* XMPPRoomHybrid.xcdatamodel */,
-			);
-			currentVersion = 332D73B018C33551007A75D5 /* XMPPRoomHybrid.xcdatamodel */;
-			path = XMPPRoomHybrid.xcdatamodeld;
-			sourceTree = "<group>";
-			versionGroupType = wrapper.xcdatamodel;
-		};
-		332D73BD18C33551007A75D5 /* XMPPvCard.xcdatamodeld */ = {
-			isa = XCVersionGroup;
-			children = (
-				332D73BE18C33551007A75D5 /* XMPPvCard.xcdatamodel */,
-			);
-			currentVersion = 332D73BE18C33551007A75D5 /* XMPPvCard.xcdatamodel */;
-			path = XMPPvCard.xcdatamodeld;
-			sourceTree = "<group>";
-			versionGroupType = wrapper.xcdatamodel;
-		};
-/* End XCVersionGroup section */
-	};
-	rootObject = 332D724918C33464007A75D5 /* Project object */;
-}

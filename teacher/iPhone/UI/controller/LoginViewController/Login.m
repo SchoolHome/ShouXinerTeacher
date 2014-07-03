@@ -133,8 +133,13 @@
     self.password.secureTextEntry = YES;
     [self.bgImage addSubview:self.password];
     
+    height = 0.0f;
+    if ([[[UIDevice currentDevice] systemVersion] floatValue] <= 7.0){
+        height = 20.0f;
+    }
+    
     self.LoginButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    self.LoginButton.frame = CGRectMake((320.0f - 271.0f)/2.0f, self.screenHeight - 43.0f*2, 271.0f, 43.0f);
+    self.LoginButton.frame = CGRectMake((320.0f - 271.0f)/2.0f, self.screenHeight - 43.0f*2 - height, 271.0f, 43.0f);
     [self.LoginButton setImage:[UIImage imageNamed:@"LoginButton"] forState:UIControlStateNormal];
     [self.LoginButton setImage:[UIImage imageNamed:@"LoginButtonPress"] forState:UIControlStateHighlighted];
     [self.LoginButton addTarget:self action:@selector(login:) forControlEvents:UIControlEventTouchUpInside];
@@ -150,7 +155,7 @@
     label.textColor = [UIColor whiteColor];
     label.alpha = 0.6f;
     label.backgroundColor = [UIColor clearColor];
-    label.frame = CGRectMake(115.0f, self.screenHeight - 27.0f, 150.0f, 20.0f);
+    label.frame = CGRectMake(115.0f, self.screenHeight - 27.0f - height, 150.0f, 20.0f);
     label.font = [UIFont systemFontOfSize:12.0f];
     [self.view addSubview:label];
 }
