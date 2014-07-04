@@ -15,7 +15,8 @@
 #import "ContactsStartGroupChatViewController.h"
 //test
 #import "BBMembersInMsgGroupViewController.h"
-@interface ContactsViewController ()<UIAlertViewDelegate>
+#import <MessageUI/MessageUI.h>
+@interface ContactsViewController ()<UIAlertViewDelegate,MFMessageComposeViewControllerDelegate>
 {
     UISearchDisplayController *_contactsSearchDisplay;
     UISearchBar *_contactsTableSearchBar;
@@ -554,13 +555,42 @@
             [[UIApplication sharedApplication] openURL:[NSURL URLWithString:mobileNumberUrlStr]];
         }else if (alertView.tag == 2)
         {
-            NSString *mobileNumberUrlStr = [NSString stringWithFormat:@"sms://%@",self.phoneNumber];
-            [[UIApplication sharedApplication] openURL:[NSURL URLWithString:mobileNumberUrlStr]];
+//            NSString *mobileNumberUrlStr = [NSString stringWithFormat:@"sms://%@",self.phoneNumber];
+//            [[UIApplication sharedApplication] openURL:[NSURL URLWithString:mobileNumberUrlStr]];
+            if ([MFMessageComposeViewController canSendText]) {
+                MFMessageComposeViewController *picker =[[MFMessageComposeViewController alloc] init];
+                picker.recipients = [NSArray arrayWithObject:self.phoneNumber];
+                picker.messageComposeDelegate =self;
+                
+                picker.body=[NSString stringWithFormat:@"'%@'邀请您下载手心网客户端，app.shouxiner.com",[CPUIModelManagement sharedInstance].uiPersonalInfo.nickName];
+                [self presentModalViewController:picker animated:YES];
+            }else [self showProgressWithText:@"当前设备不支持短信" withDelayTime:2.5f];
+
+
         }
 
     }
 }
-
+- (void)messageComposeViewController:(MFMessageComposeViewController *)controller
+                 didFinishWithResult:(MessageComposeResult)result {
+    
+    switch(result)
+    {
+        caseMessageComposeResultCancelled:
+            
+            break;
+        caseMessageComposeResultSent:
+            
+            break;
+        caseMessageComposeResultFailed:
+            [self showProgressWithText:@"短信发送失败" withDelayTime:2.5f];
+            break;
+        default:
+            
+            break;
+    }
+    [self dismissModalViewControllerAnimated:YES];
+}
 #pragma mark SearchBarDelegate
 -(BOOL)searchBarShouldBeginEditing:(UISearchBar *)searchBar
 {

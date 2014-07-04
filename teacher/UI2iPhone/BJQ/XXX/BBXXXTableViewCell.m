@@ -101,7 +101,7 @@
     icon.image = nil;
     
     if (_data.sender_avatar) {
-        icon.imageURL = [NSURL URLWithString:_data.sender_avatar];
+        icon.imageURL = [NSURL URLWithString:[NSString stringWithFormat:@"%@/logo3",_data.sender_avatar]];
     }
     
     //icon.imageURL = [NSURL URLWithString:_data.sender_avatar];
@@ -131,7 +131,7 @@
     {
         thumbnail.hidden = NO;
         contentPreView.hidden = YES;
-        [thumbnail  setImageURL:[NSURL URLWithString:imageUrl]];
+        [thumbnail  setImageURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@/mlogo",imageUrl]]];
     }
     //[self showDebugRect:YES];
 }
