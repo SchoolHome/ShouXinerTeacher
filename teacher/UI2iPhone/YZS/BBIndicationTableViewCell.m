@@ -47,10 +47,11 @@
 //        roundedLayer1.borderWidth = 0.5;
 //        roundedLayer1.borderColor = [[UIColor grayColor] CGColor];
         
-        title = [[UILabel alloc] initWithFrame:CGRectMake(70, 5, 230, 20)];
+        title = [[UILabel alloc] initWithFrame:CGRectMake(70, 5, 185, 20)];
         [self addSubview:title];
         title.textColor = [UIColor colorWithHexString:@"#4a7f9d"];
         title.backgroundColor = [UIColor clearColor];
+        title.lineBreakMode = NSLineBreakByTruncatingTail;
         
         time = [[UILabel alloc] initWithFrame:CGRectMake(260, 5, 50, 20)];
         [self addSubview:time];
