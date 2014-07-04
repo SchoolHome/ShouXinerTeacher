@@ -12,6 +12,7 @@
 @interface BBYZSViewController ()
 @property (nonatomic,strong) NSMutableArray *oalist;
 @property (nonatomic,strong) BBOASumModel *dataSource;
+@property (nonatomic) int temptime;
 @end
 
 @implementation BBYZSViewController
@@ -44,7 +45,7 @@
         if (![[PalmUIManagement sharedInstance].notiList[@"hasError"] boolValue]) { // 加载成功，保存时间
             NSUserDefaults *def = [NSUserDefaults standardUserDefaults];
             int time = [[NSDate date] timeIntervalSince1970];
-            
+            self.temptime = time;
             CPLGModelAccount *account = [[CPSystemEngine sharedInstance] accountModel];
             NSString *key = [NSString stringWithFormat:@"check_yzs_unread_time_%@",account.uid];
             
@@ -67,11 +68,15 @@
 
     [super viewWillAppear:animated];
     [self addObservers];
-    NSUserDefaults *def = [NSUserDefaults standardUserDefaults];
-    CPLGModelAccount *account = [[CPSystemEngine sharedInstance] accountModel];
-    NSString *key = [NSString stringWithFormat:@"check_yzs_unread_time_%@",account.uid];
-    NSNumber *timer = [def objectForKey:key];
-    [[PalmUIManagement sharedInstance] getNotiData:[timer intValue]];
+    if (self.temptime == 0) {
+        NSUserDefaults *def = [NSUserDefaults standardUserDefaults];
+        CPLGModelAccount *account = [[CPSystemEngine sharedInstance] accountModel];
+        NSString *key = [NSString stringWithFormat:@"check_yzs_unread_time_%@",account.uid];
+        NSNumber *timer = [def objectForKey:key];
+        self.temptime = [timer intValue];
+    }
+    
+    [[PalmUIManagement sharedInstance] getNotiData:self.temptime];
 }
 
 -(void)viewWillDisappear:(BOOL)animated{
@@ -147,7 +152,7 @@
     BBYZSDetailViewController *content = [[BBYZSDetailViewController alloc] init];
     content.oaModel = self.dataSource.cacheArray[indexPath.row];
     [self.dataSource updateCacheUnReadedWithZero:content.oaModel.sender_uid];
-    [yzsTableView reloadData];
+//    [yzsTableView reloadData];
     content.hidesBottomBarWhenPushed = YES;
     [self.navigationController pushViewController:content animated:YES];
     
