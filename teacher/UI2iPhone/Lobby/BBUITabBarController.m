@@ -8,7 +8,7 @@
 
 #import "BBUITabBarController.h"
 #import "CPUIModelManagement.h"
-
+#import "CustomNavigationController.h"
 @interface BBUITabBarController ()
 
 @end
@@ -94,19 +94,19 @@
 	// Do any additional setup after loading the view.
     
     BBBJQViewController *c1 = [[BBBJQViewController alloc] init];
-    UINavigationController *n1 = [[UINavigationController alloc] initWithRootViewController:c1];
+    CustomNavigationController *n1 = [[CustomNavigationController alloc] initWithRootViewController:c1];
     n1.tabBarItem.title = @"BJQ";
     
     BBZJZViewController *c2 = [[BBZJZViewController alloc] init];
-    UINavigationController *n2 = [[UINavigationController alloc] initWithRootViewController:c2];
+    CustomNavigationController *n2 = [[CustomNavigationController alloc] initWithRootViewController:c2];
     n2.tabBarItem.title = @"ZJZ";
     
     BBYZSViewController *c3 = [[BBYZSViewController alloc] init];
-    UINavigationController *n3 = [[UINavigationController alloc] initWithRootViewController:c3];
+    CustomNavigationController *n3 = [[CustomNavigationController alloc] initWithRootViewController:c3];
     n3.tabBarItem.title = @"YZS";
     
     BBMeViewController *c4 = [[BBMeViewController alloc] init];
-    UINavigationController *n4 = [[UINavigationController alloc] initWithRootViewController:c4];
+    CustomNavigationController *n4 = [[CustomNavigationController alloc] initWithRootViewController:c4];
     n4.tabBarItem.title = @"ME";
     
     NSArray *ctrls = [NSArray arrayWithObjects:n1,n2,n3,n4,nil];

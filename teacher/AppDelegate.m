@@ -50,7 +50,7 @@
     [UIApplication sharedApplication].statusBarHidden = NO;
     [self do_clear_controllers];
     Login * login_c_temp = [[Login alloc] init];
-    UINavigationController * login_nav_c_temp = [[UINavigationController alloc] initWithRootViewController:login_c_temp];
+    CustomNavigationController * login_nav_c_temp = [[CustomNavigationController alloc] initWithRootViewController:login_c_temp];
     [login_nav_c_temp setNavigationBarHidden:YES];
     self.login_nav_c = login_nav_c_temp;
     login_nav_c_temp = nil;
@@ -78,11 +78,13 @@
     }else{
         image = [UIImage imageNamed:@"navBarBg44"];
     }
-    [[UINavigationBar appearance] setBackgroundImage:image forBarMetrics:UIBarMetricsDefault];
+  //  [[UINavigationBar appearance] setBackgroundImage:image forBarMetrics:UIBarMetricsDefault];
+    [[UINavigationBar appearanceWhenContainedIn:[CustomNavigationController class], nil] setBackgroundImage:image forBarMetrics:UIBarMetricsDefault];
     
     
     NSDictionary *attributes=[NSDictionary dictionaryWithObjectsAndKeys:[UIColor whiteColor],UITextAttributeTextColor,[UIFont boldSystemFontOfSize:18],UITextAttributeFont, nil];
-    [[UINavigationBar appearance] setTitleTextAttributes:attributes];
+    //[[UINavigationBar appearance] setTitleTextAttributes:attributes];
+    [[UINavigationBar appearanceWhenContainedIn:[CustomNavigationController class], nil] setTitleTextAttributes:attributes];
     
     
     [[UIApplication sharedApplication] registerForRemoteNotificationTypes:(UIRemoteNotificationTypeBadge | UIRemoteNotificationTypeSound | UIRemoteNotificationTypeAlert)];
@@ -103,7 +105,7 @@
     if (guidVersion == nil || ![guidVersion isEqualToString:GuidVersion]) {
         [self do_clear_controllers];
         GuidViewController * guid = [[GuidViewController alloc] init];
-        UINavigationController * nav = [[UINavigationController alloc] initWithRootViewController:guid];
+        CustomNavigationController * nav = [[CustomNavigationController alloc] initWithRootViewController:guid];
         [nav setNavigationBarHidden:YES];
         self.window.rootViewController = nav;
         [self.window makeKeyAndVisible];
