@@ -22,13 +22,16 @@
     {
         NSDictionary *jsonData = [[PalmUIManagement sharedInstance].notiList objectForKey:ASI_REQUEST_DATA];
         NSArray *jsonArray = [jsonData objectForKey:@"list"];
-        
+        NSLog(@"----------------------------%d",[jsonArray count]);
         for (int i =0; i<[jsonArray count]; i++) {
             BBOAModel *oa = [[BBOAModel alloc] init];
             [oa conver:jsonArray[i]];
             [self.oalist addObject:oa];
         }
-        [self.dataSource updateCacheArray:self.oalist];
+        if ([jsonArray count] != 0) {
+            [self.dataSource updateCacheArray:self.oalist];
+        }
+        
         [self.dataSource.cacheArray sortUsingComparator:^NSComparisonResult(id obj1, id obj2) {
             BBOAModel *oa1 = obj1;
             BBOAModel *oa2 = obj2;
@@ -75,7 +78,7 @@
         NSNumber *timer = [def objectForKey:key];
         self.temptime = [timer intValue];
     }
-    
+    NSLog(@"----------------------------%d",self.temptime);
     [[PalmUIManagement sharedInstance] getNotiData:self.temptime];
 }
 
