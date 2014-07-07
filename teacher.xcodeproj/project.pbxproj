@@ -1058,6 +1058,7 @@
 		74233BB118D6C3DE0086C1BD /* ContactsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 74233BB018D6C3DE0086C1BD /* ContactsViewController.m */; };
 		743E85F618D74B850024D371 /* ContactsTableviewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 743E85F518D74B850024D371 /* ContactsTableviewCell.m */; };
 		743E85F918D74CEF0024D371 /* ContactsModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 743E85F818D74CEF0024D371 /* ContactsModel.m */; };
+		7441DF3B1969813900D9928A /* CustomNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7441DF3A1969813900D9928A /* CustomNavigationController.m */; };
 		74421CD818DF467A000D2F1B /* DisplaySelectedMemberView.m in Sources */ = {isa = PBXBuildFile; fileRef = 74421CD718DF467A000D2F1B /* DisplaySelectedMemberView.m */; };
 		745D7684193F685600AF666E /* BBStudentsListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 745D7683193F685600AF666E /* BBStudentsListViewController.m */; };
 		745D7687193F68A200AF666E /* BBRecommendedRangeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 745D7686193F68A200AF666E /* BBRecommendedRangeViewController.m */; };
@@ -2909,6 +2910,8 @@
 		743E85F518D74B850024D371 /* ContactsTableviewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ContactsTableviewCell.m; sourceTree = "<group>"; };
 		743E85F718D74CEF0024D371 /* ContactsModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ContactsModel.h; sourceTree = "<group>"; };
 		743E85F818D74CEF0024D371 /* ContactsModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ContactsModel.m; sourceTree = "<group>"; };
+		7441DF391969813900D9928A /* CustomNavigationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomNavigationController.h; sourceTree = "<group>"; };
+		7441DF3A1969813900D9928A /* CustomNavigationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomNavigationController.m; sourceTree = "<group>"; };
 		74421CD618DF467A000D2F1B /* DisplaySelectedMemberView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DisplaySelectedMemberView.h; sourceTree = "<group>"; };
 		74421CD718DF467A000D2F1B /* DisplaySelectedMemberView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DisplaySelectedMemberView.m; sourceTree = "<group>"; };
 		745D7682193F685600AF666E /* BBStudentsListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BBStudentsListViewController.h; sourceTree = "<group>"; };
@@ -3592,6 +3595,8 @@
 				332D777D18C33F06007A75D5 /* iPhone */,
 				332D728318C3348E007A75D5 /* AppDelegate.h */,
 				332D728418C3348E007A75D5 /* AppDelegate.m */,
+				7441DF391969813900D9928A /* CustomNavigationController.h */,
+				7441DF3A1969813900D9928A /* CustomNavigationController.m */,
 				332D726618C33464007A75D5 /* Images.xcassets */,
 				332D725B18C33464007A75D5 /* Supporting Files */,
 			);
@@ -7438,6 +7443,7 @@
 				332D74EA18C33552007A75D5 /* CPDBModelUserInfo.m in Sources */,
 				332D82F018C33F0B007A75D5 /* MessageExpressionViewController.m in Sources */,
 				1975B75E18E940F300587B80 /* EGOCache.m in Sources */,
+				7441DF3B1969813900D9928A /* CustomNavigationController.m in Sources */,
 				332D836E18C33F0B007A75D5 /* MediaUtils.m in Sources */,
 				332D82DF18C33F0A007A75D5 /* ProfileView.m in Sources */,
 				332D835C18C33F0B007A75D5 /* TimeTestAppDelegate.m in Sources */,
