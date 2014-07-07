@@ -9,17 +9,17 @@
 #import <UIKit/UIKit.h>
 #import "HomePageCheatView.h"
 #import "BBUITabBarController.h"
-
+#import "CustomNavigationController.h"
 @interface AppDelegate : UIResponder <UIApplicationDelegate,UIAlertViewDelegate>{
     UIImageView *loadingView;
 }
 @property (strong, nonatomic) UIWindow *window;
 
 @property (strong,nonatomic) NSNumber *latestActiveTime;
-@property (strong,nonatomic) UINavigationController * login_nav_c;
-@property (strong,nonatomic) UINavigationController * verify_nav_c;
-@property (strong,nonatomic) UINavigationController * ground_nav_c;
-@property (strong,nonatomic) UINavigationController * guid_nav_c;
+@property (strong,nonatomic) CustomNavigationController * login_nav_c;
+@property (strong,nonatomic) CustomNavigationController * verify_nav_c;
+@property (strong,nonatomic) CustomNavigationController * ground_nav_c;
+@property (strong,nonatomic) CustomNavigationController * guid_nav_c;
 
 @property (nonatomic,strong) NSString *url;
 
