@@ -158,7 +158,9 @@ static PalmUIManagement *sharedInstance = nil;
 
 -(void) userLoginToken{
     UserProfileOperation *operation = [[UserProfileOperation alloc] initUserLogin];
-    [[PalmNetWorkService sharedInstance] networkEngine:operation];
+    if (operation != nil) {
+        [[PalmNetWorkService sharedInstance] networkEngine:operation];
+    }
 }
 
 @end
