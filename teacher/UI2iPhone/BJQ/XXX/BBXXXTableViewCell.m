@@ -119,6 +119,8 @@
     }else if([_data.type isEqualToString:@"tcomment"]){
         like.hidden = YES;
         content.hidden = NO;
+        
+        
     }
     
     
