@@ -10,7 +10,7 @@
 #endif
 
 #define WWAN_TEST       //外网环境
-
+//#define RECTDEBUG
 // 如果定义此宏则是教师版
 #define IS_TEACHER
 

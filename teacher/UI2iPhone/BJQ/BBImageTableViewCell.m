@@ -160,6 +160,7 @@
         self.likeContent.frame = CGRectMake(K_LEFT_PADDING+35, kViewFoot(self.time)+10+16, 180.f, size.height);
         self.likeContent.text = self.data.praisesStr;
         
+        
         self.relpyContentLine.frame = CGRectMake(K_LEFT_PADDING, kViewFoot(self.time)+10+18+size.height, 220, 2);
         UIImage *image1 = [UIImage imageNamed:@"BBComentX"];
         self.relpyContentLine.image = image1;
@@ -217,7 +218,9 @@
         [self.labelArray removeAllObjects];
         [self.buttonArray removeAllObjects];
     }
-    //[self showDebugRect:YES];
+#ifdef RECTDEBUG
+    [self showDebugRect:YES];
+#endif
 }
 
 

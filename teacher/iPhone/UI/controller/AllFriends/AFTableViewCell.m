@@ -25,7 +25,9 @@
             _item[i].delegate = self;
             [self addSubview:_item[i]];
             
-            //[self showDebugRect:YES];
+#ifdef RECTDEBUG
+            [self showDebugRect:YES];
+#endif
         }
     }
     return self;
