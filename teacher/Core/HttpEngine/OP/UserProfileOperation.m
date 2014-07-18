@@ -126,6 +126,9 @@
         
         CPLGModelAccount *account = [[CPSystemEngine sharedInstance] accountModel];
         NSMutableDictionary *loginInfoDict = [NSMutableDictionary dictionary];
+        if ([loginInfoDict count] == 0) {
+            return nil;
+        }
         [loginInfoDict setObject:account.loginName forKey:@"username"];
         [loginInfoDict setObject:account.pwdMD5 forKey:@"password"];
         [loginInfoDict setObject:@"IOS" forKey:@"device_type"];

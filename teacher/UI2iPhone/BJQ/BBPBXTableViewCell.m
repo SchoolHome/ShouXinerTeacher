@@ -311,8 +311,9 @@
         [self.labelArray removeAllObjects];
         [self.buttonArray removeAllObjects];
     }
-    
-    //[self showDebugRect:YES];
+#ifdef RECTDEBUG
+    [self showDebugRect:YES];
+#endif
 }
 
 

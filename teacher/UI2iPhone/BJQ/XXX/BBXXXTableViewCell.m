@@ -135,7 +135,9 @@
         contentPreView.hidden = YES;
         [thumbnail  setImageURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@/mlogo",imageUrl]]];
     }
-    //[self showDebugRect:YES];
+#ifdef RECTDEBUG
+    [self showDebugRect:YES];
+#endif
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated

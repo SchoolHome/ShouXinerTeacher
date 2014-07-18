@@ -72,6 +72,11 @@
                 commentHeight = [data.praisesStr sizeWithFont:[UIFont systemFontOfSize:12]
                                             constrainedToSize:CGSizeMake(180.f, CGFLOAT_MAX)].height; // 固定高度
             }
+            if (commentHeight > 14.0f && commentHeight < 60.0f){
+                commentHeight += commentHeight - 10.0f;
+            }else if(commentHeight > 60.0f) {
+                commentHeight += 44.0f;
+            }
             if([data.commentsStr length]>0){
                 if (commentHeight < 60) {
                     commentHeight = 60;
@@ -127,13 +132,23 @@
                 imageHeight = imageHeight +10; // 上下空隙
             }
             
+//            data.praisesStr = @"第三空间覅无收到了风科技为啥收到覅欧文理";
+//            data.praisesStr = @"第三空间覅无收到了风科技为啥收到覅欧文理科第三空间覅无收到了风科技为啥收到覅欧文理科第三空间覅无收到了";
+//            data.praisesStr = @"第三空间覅无收到了风科技为啥收到覅欧文理科第三空间覅无收到了风科技为啥收到覅欧文理科第三空间覅无收到了第三空间覅无收到了风科技为啥收到覅欧文理科第三空间覅无收到了风科技为啥收到覅欧文理科第三空间覅无收到了";
+//            data.praisesStr = @"第三空间";
             CGFloat commentHeight = 0;
             if ([data.praisesStr length]>0) {
-                commentHeight = [data.praisesStr sizeWithFont:[UIFont systemFontOfSize:12]
-                                            constrainedToSize:CGSizeMake(180.f, CGFLOAT_MAX)].height; // 固定高度
+                commentHeight = [data.praisesStr sizeWithFont:[UIFont systemFontOfSize:12.f]
+                                            constrainedToSize:CGSizeMake(180.f, CGFLOAT_MAX) lineBreakMode:0].height; // 固定高度
             }
+            if (commentHeight > 14.0f && commentHeight < 60.0f){
+                commentHeight += commentHeight - 10.0f;
+            }else if(commentHeight > 60.0f) {
+                commentHeight += 44.0f;
+            }
+            
             if([data.commentsStr length]>0){
-                if (commentHeight < 60) {
+                if (commentHeight < 60.0f) {
                     commentHeight = 60;
                 }
                 commentHeight = commentHeight + [data.commentsStr sizeConstrainedToSize:CGSizeMake(210, CGFLOAT_MAX)].height+10+ [data.commentStr count] *1.3f;
@@ -170,6 +185,11 @@
             if ([data.praisesStr length]>0) {
                 commentHeight = [data.praisesStr sizeWithFont:[UIFont systemFontOfSize:12]
                                             constrainedToSize:CGSizeMake(180.f, CGFLOAT_MAX)].height; // 固定高度
+            }
+            if (commentHeight > 14.0f && commentHeight < 60.0f){
+                commentHeight += commentHeight - 10.0f;
+            }else if(commentHeight > 60.0f) {
+                commentHeight += 44.0f;
             }
             if([data.commentsStr length]>0){
                 if (commentHeight < 60) {
@@ -233,6 +253,11 @@
                 if ([data.praisesStr length]>0) {
                     commentHeight = [data.praisesStr sizeWithFont:[UIFont systemFontOfSize:12]
                                                 constrainedToSize:CGSizeMake(180.f, CGFLOAT_MAX)].height; // 固定高度
+                }
+                if (commentHeight > 14.0f && commentHeight < 60.0f){
+                    commentHeight += commentHeight - 10.0f;
+                }else if(commentHeight > 60.0f) {
+                    commentHeight += 44.0f;
                 }
                 if([data.commentsStr length]>0){
                     if (commentHeight < 60) {
