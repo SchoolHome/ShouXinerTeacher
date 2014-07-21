@@ -47,7 +47,6 @@
         [call setBackgroundImage:[UIImage imageNamed:@"ZJZCallPhone"] forState:UIControlStateNormal];
         [call addTarget:self action:@selector(call) forControlEvents:UIControlEventTouchUpInside];
         [self.contentView addSubview:call];
-        
         //发短信
         UIButton *message= [UIButton buttonWithType:UIButtonTypeCustom];
         message.tag = 1002;
@@ -55,17 +54,6 @@
         [message setBackgroundImage:[UIImage imageNamed:@"BBAddContacts"] forState:UIControlStateNormal];
         [message addTarget:self action:@selector(message) forControlEvents:UIControlEventTouchUpInside];
         [self.contentView addSubview:message];
-        [self.contentView bringSubviewToFront:message];
-        [self.contentView bringSubviewToFront:call];
-        [self.contentView bringSubviewToFront:chat];
-        
-        for (id view in self.contentView.subviews) {
-            NSLog(@"contentView == %@",view);
-        }
-        
-        for (id view in self.subviews) {
-            NSLog(@"cell == %@",view);
-        }
     }
     return self;
 }
@@ -120,9 +108,7 @@
 
 -(void)message
 {
-    NSLog(@"message method in");
         if ([self.delegate respondsToSelector:@selector(sendMessage:)]) {
-            NSLog(@"delegate in");
             [self.delegate sendMessage:self.model.mobile];
         }
 }
