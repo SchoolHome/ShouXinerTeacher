@@ -67,6 +67,7 @@
 		1914B13E18E7181700D68027 /* ZJZUnReadSound@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1914B13C18E7181700D68027 /* ZJZUnReadSound@2x.png */; };
 		1915BAE718D585E600098CBF /* ClassOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 1915BAE618D585E600098CBF /* ClassOperation.m */; };
 		1915BAF118D5C04A00098CBF /* UserProfileOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 1915BAF018D5C04A00098CBF /* UserProfileOperation.m */; };
+		191692B2197D430000D6C634 /* XMPPNoticeMessage.m in Sources */ = {isa = PBXBuildFile; fileRef = 191692B1197D430000D6C634 /* XMPPNoticeMessage.m */; };
 		192446E01941BFA10077D5DB /* GuidViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 192446DF1941BFA10077D5DB /* GuidViewController.m */; };
 		1924470E1941C0BD0077D5DB /* 1.png in Resources */ = {isa = PBXBuildFile; fileRef = 192446FE1941C0BD0077D5DB /* 1.png */; };
 		1924470F1941C0BD0077D5DB /* 1@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 192446FF1941C0BD0077D5DB /* 1@2x.png */; };
@@ -1351,6 +1352,8 @@
 		1915BAE618D585E600098CBF /* ClassOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ClassOperation.m; sourceTree = "<group>"; };
 		1915BAEF18D5C04A00098CBF /* UserProfileOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserProfileOperation.h; sourceTree = "<group>"; };
 		1915BAF018D5C04A00098CBF /* UserProfileOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserProfileOperation.m; sourceTree = "<group>"; };
+		191692B0197D430000D6C634 /* XMPPNoticeMessage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XMPPNoticeMessage.h; sourceTree = "<group>"; };
+		191692B1197D430000D6C634 /* XMPPNoticeMessage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XMPPNoticeMessage.m; sourceTree = "<group>"; };
 		19221C591927AF020033E459 /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Default.png; sourceTree = "<group>"; };
 		19221C5A1927AF140033E459 /* Default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default@2x.png"; sourceTree = "<group>"; };
 		19221C5B1927AF240033E459 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
@@ -4060,6 +4063,8 @@
 				332D739218C33551007A75D5 /* XMPPSystemMessage.m */,
 				332D739318C33551007A75D5 /* XMPPUserMessage.h */,
 				332D739418C33551007A75D5 /* XMPPUserMessage.m */,
+				191692B0197D430000D6C634 /* XMPPNoticeMessage.h */,
+				191692B1197D430000D6C634 /* XMPPNoticeMessage.m */,
 			);
 			path = CPExtensions;
 			sourceTree = "<group>";
@@ -7567,6 +7572,7 @@
 				192446E01941BFA10077D5DB /* GuidViewController.m in Sources */,
 				332D82A218C33F0A007A75D5 /* StrangerHeaderImage.m in Sources */,
 				332D75A018C33552007A75D5 /* CPUIModelPersonalInfoData.m in Sources */,
+				191692B2197D430000D6C634 /* XMPPNoticeMessage.m in Sources */,
 				332D74EE18C33552007A75D5 /* CPConnManager.m in Sources */,
 				332D839218C33F0B007A75D5 /* UIImage+Utility.m in Sources */,
 				332D835518C33F0B007A75D5 /* TaggingLunar.m in Sources */,

@@ -838,6 +838,11 @@ andTmpFilePath:(NSString *)filePath
     [operation setQueuePriority:NSOperationQueuePriorityHigh];
     [self addDbQueueWithOperation:operation];
 }
+//2014-7
+-(void)receiveNoticeMsgByOperationWithNotices:(NSArray *)notices{
+    
+}
+
 -(void)updateMsgSendResponseByOperationWithID:(NSNumber *)msgID andStatus:(NSNumber *)status
 {
     CPOperationMsgSendResponse *operation = [[CPOperationMsgSendResponse alloc] initWithMsgID:msgID andStatus:status];

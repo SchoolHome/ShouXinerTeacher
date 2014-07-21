@@ -18,6 +18,7 @@
 #import "XMPPSystemMessage.h"
 #import "XMPPUserMessage.h"
 #import "XMPPGroupMessage.h"
+#import "XMPPNoticeMessage.h"
 
 #import "XMPPMessage+XEP0045.h"
 
@@ -334,6 +335,16 @@ static int haha;
     }
 }
 
+//2014-7
+-(void) notifyNoticeMessageReceived:(XMPPNoticeMessage *)noticeMessage{
+    for(id<CPXmppEngineObserver> obs in self.observerArray){
+        if( [obs conformsToProtocol:@protocol(CPXmppEngineObserver)]
+           && [obs respondsToSelector:@selector(handleNoticeMessageReceived:)] ){
+            [obs handleNoticeMessageReceived:noticeMessage];
+        }
+    }
+}
+
 - (void)notifyGroupMessageReceived:(XMPPGroupMessage *)groupMessage
 {
     for(id<CPXmppEngineObserver> obs in self.observerArray)
@@ -449,6 +460,14 @@ static int haha;
     if(systemMessage)
     {
         [self notifySystemMessageReceived:systemMessage];
+    }
+}
+
+// 2014-7
+-(void) handleNoticeMessage : (XMPPMessage *)message{
+    XMPPNoticeMessage *noticeMessage = [XMPPNoticeMessage fromXMLElement:message];
+    if (noticeMessage) {
+        
     }
 }
 
@@ -766,7 +785,12 @@ static int haha;
     else if([message isSystemMessageWithBody])//if([message isSystemMessage])
     {
         [self handleSystemMessage:message];
+    }else if ([[[message attributeForName:@"type"] stringValue] isEqualToString:@"normal"] &&
+              [[[message attributeForName:@"subType"] stringValue] isEqualToString:@"sys_direct"]){
+        // 2014-7
+        [self handleNoticeMessage:message];
     }
+    
     else 
     {
         CPLogInfo(@"-1- %@",message);

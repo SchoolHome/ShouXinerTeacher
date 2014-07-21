@@ -32,4 +32,6 @@
 //sysMsg: XMPPSystemMessage
 - (void)handleSystemMessageReceived:(NSObject *)sysMessage;
 
+//2014-7
+-(void) handleNoticeMessageReceived:(NSObject *)noticeMessage;
 @end
