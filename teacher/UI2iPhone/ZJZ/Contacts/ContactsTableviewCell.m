@@ -108,7 +108,9 @@
 
 -(void)message
 {
+    NSLog(@"message method in");
         if ([self.delegate respondsToSelector:@selector(sendMessage:)]) {
+            NSLog(@"delegate in");
             [self.delegate sendMessage:self.model.mobile];
         }
 }
