@@ -536,9 +536,11 @@
 -(void)sendMessage:(NSString *)mobileNumber
 {
     if ([mobileNumber isEqualToString:@"0"]) {
-        [self showProgressWithText:@"对方未绑定电话号码" withDelayTime:3];
-        return;
+        //[self showProgressWithText:@"对方未绑定电话号码" withDelayTime:3];
+        [[HPTopTipView shareInstance] showMessage:@"对方未绑定电话号码"];
+        //return;
     }
+    NSLog(@"mobileNumber == %@",mobileNumber);
     self.phoneNumber = mobileNumber;
     UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"" message:[NSString stringWithFormat:@"确认要给%@发送短信吗?",mobileNumber] delegate:self cancelButtonTitle:nil otherButtonTitles:@"确定",@"取消", nil];
     alert.tag = 2;
