@@ -54,22 +54,28 @@
         [back addTarget:self action:@selector(backAction) forControlEvents:UIControlEventTouchUpInside];
         self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:back];
 
-        UISegmentedControl *segement =  [[UISegmentedControl alloc] initWithItems:[NSArray arrayWithObjects:@"",@"", nil]];
-
-        [segement setWidth:0.1 forSegmentAtIndex:0];
-        [segement setWidth:0.1 forSegmentAtIndex:1];
-        segement.tintColor = [UIColor clearColor];
-        segement.segmentedControlStyle = UISegmentedControlStyleBar;
-        segement.selectedSegmentIndex = 0;
-        [segement addTarget:self action:@selector(segementValueChanged:) forControlEvents:UIControlEventValueChanged];
+//        UISegmentedControl *segement =  [[UISegmentedControl alloc] initWithItems:[NSArray arrayWithObjects:@"",@"", nil]];
+//
+//        [segement setWidth:0.1 forSegmentAtIndex:0];
+//        [segement setWidth:0.1 forSegmentAtIndex:1];
+//        segement.tintColor = [UIColor clearColor];
+//        segement.segmentedControlStyle = UISegmentedControlStyleBar;
+//        segement.selectedSegmentIndex = 0;
+//        [segement addTarget:self action:@selector(segementValueChanged:) forControlEvents:UIControlEventValueChanged];
+//        
+//        [segement setDividerImage:[UIImage imageNamed:@"ZJZ_Seg_Teacher"] forLeftSegmentState:UIControlStateSelected rightSegmentState:UIControlStateNormal barMetrics:UIBarMetricsDefault];
+//        [segement setDividerImage:[UIImage imageNamed:@"ZJZ_Seg_Teacher"] forLeftSegmentState:UIControlStateHighlighted rightSegmentState:UIControlStateNormal barMetrics:UIBarMetricsDefault];
+//        [segement setDividerImage:[UIImage imageNamed:@"ZJZ_Seg_Parent"] forLeftSegmentState:UIControlStateNormal rightSegmentState:UIControlStateSelected barMetrics:UIBarMetricsDefault];
+//        [segement setDividerImage:[UIImage imageNamed:@"ZJZ_Seg_Parent"] forLeftSegmentState:UIControlStateNormal rightSegmentState:UIControlStateHighlighted barMetrics:UIBarMetricsDefault];
+//
+//        self.navigationItem.titleView = segement;
         
-        [segement setDividerImage:[UIImage imageNamed:@"ZJZ_Seg_Teacher"] forLeftSegmentState:UIControlStateSelected rightSegmentState:UIControlStateNormal barMetrics:UIBarMetricsDefault];
-        [segement setDividerImage:[UIImage imageNamed:@"ZJZ_Seg_Teacher"] forLeftSegmentState:UIControlStateHighlighted rightSegmentState:UIControlStateNormal barMetrics:UIBarMetricsDefault];
-        [segement setDividerImage:[UIImage imageNamed:@"ZJZ_Seg_Parent"] forLeftSegmentState:UIControlStateNormal rightSegmentState:UIControlStateSelected barMetrics:UIBarMetricsDefault];
-        [segement setDividerImage:[UIImage imageNamed:@"ZJZ_Seg_Parent"] forLeftSegmentState:UIControlStateNormal rightSegmentState:UIControlStateHighlighted barMetrics:UIBarMetricsDefault];
-
-        self.navigationItem.titleView = segement;
-        NSLog(@"%@",segement.subviews);
+        UIButton *segementBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+        [segementBtn setFrame:CGRectMake(0.f, 0.f, 128.f, 27.f)];
+        [segementBtn setBackgroundImage:[UIImage imageNamed:@"ZJZ_Seg_Teacher"] forState:UIControlStateNormal];
+        [segementBtn setBackgroundImage:[UIImage imageNamed:@"ZJZ_Seg_Parent"] forState:UIControlStateSelected];
+        [segementBtn addTarget:self action:@selector(segeValueChanged:) forControlEvents:UIControlEventTouchUpInside];
+        self.navigationItem.titleView = segementBtn;
         
         searchResultList = [[NSMutableArray alloc] init];
     }
@@ -205,6 +211,18 @@
     }
 }
 #pragma mark ContactsViewController
+-(void)segeValueChanged :(UIButton *)sender
+{
+    sender.selected = !sender.selected;
+    
+    if (sender.selected) {
+        type = CONTACT_TYPE_PARENT;
+    }else
+    {
+        type = CONTACT_TYPE_TEACHER;
+    }
+    [self.contactsListTableview reloadData];
+}
 -(void)segementValueChanged:(UISegmentedControl *)seg
 {
     if (seg.selectedSegmentIndex == 0) {

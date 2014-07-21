@@ -191,8 +191,13 @@
         
         
         UIImage *image2 = [UIImage imageNamed:@"BBComentBG"];
-        image2 = [image2 resizableImageWithCapInsets:UIEdgeInsetsMake(45,35,14,100) resizingMode:UIImageResizingModeStretch];
-        
+        //image2 = [image2 resizableImageWithCapInsets:UIEdgeInsetsMake(45,35,14,100) resizingMode:UIImageResizingModeStretch];
+        if ([[[UIDevice currentDevice] systemVersion] floatValue] >= 6.0 ? YES : NO) {
+            image2 = [image2 resizableImageWithCapInsets:UIEdgeInsetsMake(45,35,14,100) resizingMode:UIImageResizingModeStretch];
+        }else
+        {
+            image2 = [image2 resizableImageWithCapInsets:UIEdgeInsetsMake(45,35,14,100)];
+        }
         CGFloat imageHeight = s.height+10+22+size.height;
         if (imageHeight < 60) {
             imageHeight = 60;

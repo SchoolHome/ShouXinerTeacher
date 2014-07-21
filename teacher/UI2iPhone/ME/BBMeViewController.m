@@ -179,6 +179,7 @@
                         size.width = 10;
                     }
                     image = [image resizableImageWithCapInsets:UIEdgeInsetsMake(10, 10, 10, 10)];
+
                     [labelNum setFrame:CGRectMake(260-size.width-10, 12, size.width+10, 20)];
                     [creditImage setFrame:labelNum.frame];
                     [creditImage setImage:image];
