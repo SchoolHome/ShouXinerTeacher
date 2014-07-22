@@ -1063,6 +1063,7 @@
 		74421CD818DF467A000D2F1B /* DisplaySelectedMemberView.m in Sources */ = {isa = PBXBuildFile; fileRef = 74421CD718DF467A000D2F1B /* DisplaySelectedMemberView.m */; };
 		745470CB197D43A500200E4E /* CPOperationReceiveYTZMessage.m in Sources */ = {isa = PBXBuildFile; fileRef = 745470CA197D43A500200E4E /* CPOperationReceiveYTZMessage.m */; };
 		745C5C67197E3DCC00BD07D4 /* CPDAONotifyMessage.m in Sources */ = {isa = PBXBuildFile; fileRef = 745C5C66197E3DCC00BD07D4 /* CPDAONotifyMessage.m */; };
+		745C5C6A197E457900BD07D4 /* CPDBModelNotifyMessage.m in Sources */ = {isa = PBXBuildFile; fileRef = 745C5C69197E457900BD07D4 /* CPDBModelNotifyMessage.m */; };
 		745D7684193F685600AF666E /* BBStudentsListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 745D7683193F685600AF666E /* BBStudentsListViewController.m */; };
 		745D7687193F68A200AF666E /* BBRecommendedRangeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 745D7686193F68A200AF666E /* BBRecommendedRangeViewController.m */; };
 		745D768A193F6A6000AF666E /* BBStudentListTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 745D7689193F6A6000AF666E /* BBStudentListTableViewCell.m */; };
@@ -2923,6 +2924,8 @@
 		745470CA197D43A500200E4E /* CPOperationReceiveYTZMessage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CPOperationReceiveYTZMessage.m; sourceTree = "<group>"; };
 		745C5C65197E3DCC00BD07D4 /* CPDAONotifyMessage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPDAONotifyMessage.h; sourceTree = "<group>"; };
 		745C5C66197E3DCC00BD07D4 /* CPDAONotifyMessage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CPDAONotifyMessage.m; sourceTree = "<group>"; };
+		745C5C68197E457900BD07D4 /* CPDBModelNotifyMessage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPDBModelNotifyMessage.h; sourceTree = "<group>"; };
+		745C5C69197E457900BD07D4 /* CPDBModelNotifyMessage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CPDBModelNotifyMessage.m; sourceTree = "<group>"; };
 		745D7682193F685600AF666E /* BBStudentsListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BBStudentsListViewController.h; sourceTree = "<group>"; };
 		745D7683193F685600AF666E /* BBStudentsListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BBStudentsListViewController.m; sourceTree = "<group>"; };
 		745D7685193F68A200AF666E /* BBRecommendedRangeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BBRecommendedRangeViewController.h; sourceTree = "<group>"; };
@@ -3749,6 +3752,8 @@
 				332D72C318C33551007A75D5 /* CPDBModelContact.m */,
 				332D72C418C33551007A75D5 /* CPDBModelContactWay.h */,
 				332D72C518C33551007A75D5 /* CPDBModelContactWay.m */,
+				745C5C68197E457900BD07D4 /* CPDBModelNotifyMessage.h */,
+				745C5C69197E457900BD07D4 /* CPDBModelNotifyMessage.m */,
 				332D72C618C33551007A75D5 /* CPDBModelMessage.h */,
 				332D72C718C33551007A75D5 /* CPDBModelMessage.m */,
 				332D72C818C33551007A75D5 /* CPDBModelMessageGroup.h */,
@@ -7541,6 +7546,7 @@
 				7AC51BA018CDDA6900AD1A8C /* BBCellHeight.m in Sources */,
 				332D829C18C33F0A007A75D5 /* CoupleCompletedView.m in Sources */,
 				332D74D918C33552007A75D5 /* FMDatabase.m in Sources */,
+				745C5C6A197E457900BD07D4 /* CPDBModelNotifyMessage.m in Sources */,
 				332D74CF18C33552007A75D5 /* CPDAOMessageGroupMember.m in Sources */,
 				332D82BC18C33F0A007A75D5 /* HomeCloseFriendTableViewCell.m in Sources */,
 				332D758118C33552007A75D5 /* CPPTModelGroupInfo.m in Sources */,
