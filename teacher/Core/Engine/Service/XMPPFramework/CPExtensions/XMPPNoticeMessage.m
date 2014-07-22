@@ -39,7 +39,7 @@
         NSString *msgTitle = nil;
         NSString *msgContent = nil;
         NSString *msgLink = nil;
-        NSString *msgImageUrl = nil;
+        NSArray *msgImageUrl = nil;
         
         switch (userMsgType){
             case UserMessageTypeNotice:{
