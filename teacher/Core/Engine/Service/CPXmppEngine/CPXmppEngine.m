@@ -467,7 +467,7 @@ static int haha;
 -(void) handleNoticeMessage : (XMPPMessage *)message{
     XMPPNoticeMessage *noticeMessage = [XMPPNoticeMessage fromXMLElement:message];
     if (noticeMessage) {
-        
+        [self notifyNoticeMessageReceived:noticeMessage];
     }
 }
 
