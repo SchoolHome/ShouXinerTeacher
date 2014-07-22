@@ -8,6 +8,40 @@
 
 #import "CPOperationReceiveYTZMessage.h"
 
-@implementation CPOperationReceiveYTZMessage
+#import "CPSystemEngine.h"
+#import "XMPPNoticeMessage.h"
 
+@implementation CPOperationReceiveYTZMessage
+- (id) initWithMsgs:(NSArray *) receiveMsgs
+{
+    self = [super init];
+    if (self)
+    {
+        YTZMsgs = receiveMsgs;
+    }
+    return self;
+}
+-(NSNumber *)excuteUserMsgWithMsg:(XMPPNoticeMessage *)msg
+{
+    
+    return [NSNumber numberWithInteger:1];
+}
+-(void)main
+{
+    @autoreleasepool
+    {
+        for(NSObject *receiveMsg in YTZMsgs)
+        {
+            NSNumber *newMsgID = nil;
+            if (receiveMsg&&[receiveMsg isKindOfClass:[XMPPNoticeMessage class]])
+            {
+                newMsgID = [self excuteUserMsgWithMsg:(XMPPNoticeMessage *)receiveMsg];
+            }
+            if (newMsgID)
+            {
+                //[[[CPSystemEngine sharedInstance] msgManager] refreshMsgGroupByAppendMsgWithNewMsgID:newMsgID];
+            }
+        }
+    }
+}
 @end
