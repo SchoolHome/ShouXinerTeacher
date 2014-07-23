@@ -43,7 +43,7 @@
 #import "CPOperationHttpMsgSend.h"
 #import "CPOperationHttpMsgReSend.h"
 #import "CPOperationReceiveYTZMessage.h"
-
+#import "PalmUIManagement.h"
 #define KEY_USERNAME_PASSWORD @"com.fanxer.iShuangShuang.usernamepassword"
 #define KEY_USERNAME     @"com.fanxer.iShuangShuang.username"
 #define KEY_PASSWORD     @"com.fanxer.iShuangShuang.password"
@@ -1268,6 +1268,15 @@ andTmpFilePath:(NSString *)filePath
     };
     dispatch_async(dispatch_get_main_queue(), updateTagBlock);
 }
+
+//2014-7
+-(void)updateTagByNoticeMsg{
+    dispatch_block_t updateTagBlock = ^{
+        [[PalmUIManagement sharedInstance] setNoticeArrayTag:[NSNumber numberWithInt:0]];
+    };
+    dispatch_async(dispatch_get_main_queue(), updateTagBlock);
+}
+
 -(void)updateTagByUsersHeaderImgWithUserID:(NSNumber *)userID
 {
     __block NSNumber * updateUserID = userID;

@@ -72,6 +72,10 @@
 // 激活
 @property(nonatomic,strong) NSDictionary *activateDic;
 
+// 有通知
+@property(nonatomic,strong) NSNumber *noticeArrayTag;
+@property(nonatomic,strong) NSArray *noticeArray;
+
 // 获取用户信息
 -(void) getUserProfile;
 // 获取用户通讯录
