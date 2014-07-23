@@ -16,7 +16,7 @@
 #import "XMPPNoticeMessage.h"
 #import "CoreUtils.h"
 
-
+#import "PalmUIManagement.h"
 @implementation CPOperationReceiveYTZMessage
 - (id) initWithMsgs:(NSArray *) receiveMsgs
 {
@@ -87,6 +87,7 @@
             if (newMsgID)
             {
                 //[[[CPSystemEngine sharedInstance] msgManager] refreshMsgGroupByAppendMsgWithNewMsgID:newMsgID];
+                [[PalmUIManagement sharedInstance] setNoticeArray:[[[CPSystemEngine sharedInstance] dbManagement] findAllNewNotiyfMessages]];
                 [[CPSystemEngine sharedInstance] updateTagByNoticeMsg];
             }
         }

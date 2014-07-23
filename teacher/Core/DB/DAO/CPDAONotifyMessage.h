@@ -36,4 +36,5 @@
 -(CPDBModelNotifyMessage *)findMessageWithResID:(NSNumber *)id;
 
 -(NSInteger )getUnreadedNotifyMessageCount:(NSString *)fromName;
+-(NSArray *)findAllNewMessages;
 @end

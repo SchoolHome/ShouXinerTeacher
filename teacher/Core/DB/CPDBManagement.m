@@ -55,6 +55,7 @@
     userAdditionDAO = [[CPDAOUserInfoDataAddition alloc] initWithStatusCode:initDbStatusCode];
     //notifyMessage change
     notifyMsgDAO = [[CPDAONotifyMessage alloc] initWithStatusCode:initDbStatusCode];
+    //
     petInfoDAO = [[CPDAOPetInfo alloc] initWithStatusCode:initDbStatusCode];
     
     [[[CPSystemEngine sharedInstance] dbManagement] findAllUserInfos];
@@ -1579,5 +1580,9 @@
     [self dbCommit];
     
     return objID;
+}
+-(NSArray *)findAllNewNotiyfMessages
+{
+    return   [notifyMsgDAO findAllNewMessages];
 }
 @end

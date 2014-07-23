@@ -229,5 +229,7 @@
 
 //notifyMessage change
 -(NSNumber *)insertNotifyMessage:(CPDBModelNotifyMessage *)dbMessage;
+
+-(NSArray *)findAllNewNotiyfMessages;
 //-(NSNumber *)insertUrlsWithUrl:(NSString *)url andNotifyMessageID : (NSNumber *)notifyMsgID;
 @end
