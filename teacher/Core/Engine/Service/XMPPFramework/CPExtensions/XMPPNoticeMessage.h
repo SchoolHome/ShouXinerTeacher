@@ -13,6 +13,8 @@
 
 @property (nonatomic,strong) NSNumber *oaid;
 @property (nonatomic,strong) NSNumber *bodyFrom;
+@property (nonatomic,strong) NSString *fromUserName;
+@property (nonatomic,strong) NSString *fromUserAvatar;
 @property (nonatomic,strong) NSString *title;
 @property (nonatomic,strong) NSString *content;
 @property (nonatomic,strong) NSString *link;

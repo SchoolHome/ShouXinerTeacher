@@ -40,6 +40,8 @@
         NSString *msgContent = nil;
         NSString *msgLink = nil;
         NSArray *msgImageUrl = nil;
+        NSString *msgUserName = nil;
+        NSString *msgUserAvatar = nil;
         
         switch (userMsgType){
             case UserMessageTypeNotice:{
@@ -51,6 +53,8 @@
                 msgContent = [jsonDict objectForKey:@"content"];
                 msgLink = [jsonDict objectForKey:@"link"];
                 msgImageUrl = [jsonDict objectForKey:@"img"];
+                msgUserName = [jsonDict objectForKey:@"from_uname"];
+                msgUserAvatar = [jsonDict objectForKey:@"from_avatar"];
             }
             break;
             case UserMessageTypeUnknown:
@@ -81,6 +85,8 @@
         noticeMessage.content = msgContent;
         noticeMessage.link = msgLink;
         noticeMessage.imageUrl = msgImageUrl;
+        noticeMessage.fromUserName = msgUserName;
+        noticeMessage.fromUserAvatar = msgUserAvatar;
         
         noticeMessage.resourceMimeType = nil;
         noticeMessage.delayedTime = delayedTime;
