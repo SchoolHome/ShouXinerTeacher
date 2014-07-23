@@ -23,5 +23,6 @@
 #import "CPDAOContact.h"
 #import "CPDAOContactWay.h"
 #import "CPDAOPetInfo.h"
+#import "CPDAONotifyMessage.h"
 
 #endif

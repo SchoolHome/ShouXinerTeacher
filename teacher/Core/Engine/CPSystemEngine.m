@@ -42,6 +42,7 @@
 
 #import "CPOperationHttpMsgSend.h"
 #import "CPOperationHttpMsgReSend.h"
+#import "CPOperationReceiveYTZMessage.h"
 
 #define KEY_USERNAME_PASSWORD @"com.fanxer.iShuangShuang.usernamepassword"
 #define KEY_USERNAME     @"com.fanxer.iShuangShuang.username"
@@ -840,7 +841,9 @@ andTmpFilePath:(NSString *)filePath
 }
 //2014-7
 -(void)receiveNoticeMsgByOperationWithNotices:(NSArray *)notices{
-    
+    CPOperationReceiveYTZMessage *operation = [[CPOperationReceiveYTZMessage alloc]initWithMsgs:notices];
+    [operation setQueuePriority:NSOperationQueuePriorityHigh];
+    [self addDbQueueWithOperation:operation];
 }
 
 -(void)updateMsgSendResponseByOperationWithID:(NSNumber *)msgID andStatus:(NSNumber *)status

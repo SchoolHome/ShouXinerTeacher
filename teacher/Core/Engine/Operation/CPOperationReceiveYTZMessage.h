@@ -9,5 +9,9 @@
 #import "CPOperation.h"
 
 @interface CPOperationReceiveYTZMessage : CPOperation
+{
+    NSArray *YTZMsgs;
+}
 
+- (id) initWithMsgs:(NSArray *) receiveMsgs;
 @end

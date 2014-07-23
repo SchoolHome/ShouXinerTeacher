@@ -30,6 +30,8 @@
     CPDAOContact                    *contactDAO;
     CPDAOContactWay                 *contactWayDAO;
     CPDAOPetInfo                    *petInfoDAO;
+//notifyMessage change    
+    CPDAONotifyMessage      *notifyMsgDAO;
     
     CPDataBaseManager               *dbManager;
     
@@ -224,5 +226,7 @@
 - (void)updatePetDataWithID:(NSNumber *)objID obj:(CPDBModelPetData *)dbPetData;
 
 -(CPDBModelMessage *)findMessageWithResID:(NSNumber *)objID;
+
+//notifyMessage change
 
 @end

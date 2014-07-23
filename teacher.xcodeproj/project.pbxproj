@@ -1062,6 +1062,8 @@
 		7441DF3B1969813900D9928A /* CustomNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7441DF3A1969813900D9928A /* CustomNavigationController.m */; };
 		74421CD818DF467A000D2F1B /* DisplaySelectedMemberView.m in Sources */ = {isa = PBXBuildFile; fileRef = 74421CD718DF467A000D2F1B /* DisplaySelectedMemberView.m */; };
 		745470CB197D43A500200E4E /* CPOperationReceiveYTZMessage.m in Sources */ = {isa = PBXBuildFile; fileRef = 745470CA197D43A500200E4E /* CPOperationReceiveYTZMessage.m */; };
+		745C5C67197E3DCC00BD07D4 /* CPDAONotifyMessage.m in Sources */ = {isa = PBXBuildFile; fileRef = 745C5C66197E3DCC00BD07D4 /* CPDAONotifyMessage.m */; };
+		745C5C6A197E457900BD07D4 /* CPDBModelNotifyMessage.m in Sources */ = {isa = PBXBuildFile; fileRef = 745C5C69197E457900BD07D4 /* CPDBModelNotifyMessage.m */; };
 		745D7684193F685600AF666E /* BBStudentsListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 745D7683193F685600AF666E /* BBStudentsListViewController.m */; };
 		745D7687193F68A200AF666E /* BBRecommendedRangeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 745D7686193F68A200AF666E /* BBRecommendedRangeViewController.m */; };
 		745D768A193F6A6000AF666E /* BBStudentListTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 745D7689193F6A6000AF666E /* BBStudentListTableViewCell.m */; };
@@ -2920,6 +2922,10 @@
 		74421CD718DF467A000D2F1B /* DisplaySelectedMemberView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DisplaySelectedMemberView.m; sourceTree = "<group>"; };
 		745470C9197D43A500200E4E /* CPOperationReceiveYTZMessage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPOperationReceiveYTZMessage.h; sourceTree = "<group>"; };
 		745470CA197D43A500200E4E /* CPOperationReceiveYTZMessage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CPOperationReceiveYTZMessage.m; sourceTree = "<group>"; };
+		745C5C65197E3DCC00BD07D4 /* CPDAONotifyMessage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPDAONotifyMessage.h; sourceTree = "<group>"; };
+		745C5C66197E3DCC00BD07D4 /* CPDAONotifyMessage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CPDAONotifyMessage.m; sourceTree = "<group>"; };
+		745C5C68197E457900BD07D4 /* CPDBModelNotifyMessage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPDBModelNotifyMessage.h; sourceTree = "<group>"; };
+		745C5C69197E457900BD07D4 /* CPDBModelNotifyMessage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CPDBModelNotifyMessage.m; sourceTree = "<group>"; };
 		745D7682193F685600AF666E /* BBStudentsListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BBStudentsListViewController.h; sourceTree = "<group>"; };
 		745D7683193F685600AF666E /* BBStudentsListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BBStudentsListViewController.m; sourceTree = "<group>"; };
 		745D7685193F68A200AF666E /* BBRecommendedRangeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BBRecommendedRangeViewController.h; sourceTree = "<group>"; };
@@ -3684,6 +3690,8 @@
 			children = (
 				332D729218C33551007A75D5 /* BaseDAO.h */,
 				332D729318C33551007A75D5 /* BaseDAO.m */,
+				745C5C65197E3DCC00BD07D4 /* CPDAONotifyMessage.h */,
+				745C5C66197E3DCC00BD07D4 /* CPDAONotifyMessage.m */,
 				332D729418C33551007A75D5 /* CPDAOBabyInfoData.h */,
 				332D729518C33551007A75D5 /* CPDAOBabyInfoData.m */,
 				332D729618C33551007A75D5 /* CPDAOContact.h */,
@@ -3744,6 +3752,8 @@
 				332D72C318C33551007A75D5 /* CPDBModelContact.m */,
 				332D72C418C33551007A75D5 /* CPDBModelContactWay.h */,
 				332D72C518C33551007A75D5 /* CPDBModelContactWay.m */,
+				745C5C68197E457900BD07D4 /* CPDBModelNotifyMessage.h */,
+				745C5C69197E457900BD07D4 /* CPDBModelNotifyMessage.m */,
 				332D72C618C33551007A75D5 /* CPDBModelMessage.h */,
 				332D72C718C33551007A75D5 /* CPDBModelMessage.m */,
 				332D72C818C33551007A75D5 /* CPDBModelMessageGroup.h */,
@@ -7536,6 +7546,7 @@
 				7AC51BA018CDDA6900AD1A8C /* BBCellHeight.m in Sources */,
 				332D829C18C33F0A007A75D5 /* CoupleCompletedView.m in Sources */,
 				332D74D918C33552007A75D5 /* FMDatabase.m in Sources */,
+				745C5C6A197E457900BD07D4 /* CPDBModelNotifyMessage.m in Sources */,
 				332D74CF18C33552007A75D5 /* CPDAOMessageGroupMember.m in Sources */,
 				332D82BC18C33F0A007A75D5 /* HomeCloseFriendTableViewCell.m in Sources */,
 				332D758118C33552007A75D5 /* CPPTModelGroupInfo.m in Sources */,
@@ -7769,6 +7780,7 @@
 				0420E12218E13FC7003997ED /* BBHelpViewController.m in Sources */,
 				332D82F518C33F0B007A75D5 /* MessageSoundPlayer.m in Sources */,
 				332D831418C33F0B007A75D5 /* AGMedallionView.m in Sources */,
+				745C5C67197E3DCC00BD07D4 /* CPDAONotifyMessage.m in Sources */,
 				332D82AC18C33F0A007A75D5 /* AFSectionHeaderView.m in Sources */,
 				332D832718C33F0B007A75D5 /* KBEmojiView.m in Sources */,
 				332D752A18C33552007A75D5 /* XMPPElement.m in Sources */,
@@ -8035,8 +8047,8 @@
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer: yuan gao (5PS549TGY5)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: yuan gao (5PS549TGY5)";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Shenyang Idtech Information Technology Co., Ltd.";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Shenyang Idtech Information Technology Co., Ltd.";
 				COPY_PHASE_STRIP = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
@@ -8054,7 +8066,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 5.1;
 				ONLY_ACTIVE_ARCH = YES;
-				PROVISIONING_PROFILE = "709F75F5-36D5-4576-A1CF-D7490871D808";
+				PROVISIONING_PROFILE = "6254ECE3-EB9C-46FA-8BF2-1464DF2443C8";
 				SDKROOT = iphoneos;
 			};
 			name = Debug;
@@ -8075,8 +8087,8 @@
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer: yuan gao (5PS549TGY5)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: yuan gao (5PS549TGY5)";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Shenyang Idtech Information Technology Co., Ltd.";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Shenyang Idtech Information Technology Co., Ltd.";
 				COPY_PHASE_STRIP = YES;
 				ENABLE_NS_ASSERTIONS = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
@@ -8087,7 +8099,7 @@
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 5.1;
-				PROVISIONING_PROFILE = "709F75F5-36D5-4576-A1CF-D7490871D808";
+				PROVISIONING_PROFILE = "6254ECE3-EB9C-46FA-8BF2-1464DF2443C8";
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
 			};
@@ -8098,8 +8110,8 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				CODE_SIGN_IDENTITY = "iPhone Developer: yuan gao (5PS549TGY5)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: yuan gao (5PS549TGY5)";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Shenyang Idtech Information Technology Co., Ltd.";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Shenyang Idtech Information Technology Co., Ltd.";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
@@ -8121,7 +8133,7 @@
 				ONLY_ACTIVE_ARCH = NO;
 				OTHER_LDFLAGS = "-lxml2";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "8ADA4211-F5E2-4B2C-BD42-E4012B0B901C";
+				PROVISIONING_PROFILE = "6254ECE3-EB9C-46FA-8BF2-1464DF2443C8";
 				SDKROOT = iphoneos;
 				VALID_ARCHS = armv7;
 				WRAPPER_EXTENSION = app;
@@ -8133,8 +8145,8 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				CODE_SIGN_IDENTITY = "iPhone Developer: yuan gao (5PS549TGY5)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: yuan gao (5PS549TGY5)";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Shenyang Idtech Information Technology Co., Ltd.";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Shenyang Idtech Information Technology Co., Ltd.";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/teacher/UI2iPhone",
@@ -8156,7 +8168,7 @@
 				);
 				OTHER_LDFLAGS = "-lxml2";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "8ADA4211-F5E2-4B2C-BD42-E4012B0B901C";
+				PROVISIONING_PROFILE = "6254ECE3-EB9C-46FA-8BF2-1464DF2443C8";
 				SDKROOT = iphoneos;
 				VALID_ARCHS = armv7;
 				WRAPPER_EXTENSION = app;
