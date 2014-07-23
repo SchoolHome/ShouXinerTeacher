@@ -37,4 +37,6 @@
 
 -(NSInteger )getUnreadedNotifyMessageCount:(NSString *)fromName;
 -(NSArray *)findAllNewMessages;
+//根据fromJID获取所有此jid的数据
+-(NSArray *)findAllMessagesOfFromJID:(NSString *)fromJID;
 @end

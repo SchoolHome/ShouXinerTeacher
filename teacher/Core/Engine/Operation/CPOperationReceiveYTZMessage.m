@@ -65,11 +65,9 @@
     {
         [dbMsg setDate:[CoreUtils getLongFormatWithNowDate]];
     }
-        
- 
-
+    
     NSNumber  *newMsgID = [[[CPSystemEngine sharedInstance] dbManagement] insertNotifyMessage:dbMsg];
-
+    
     return newMsgID;
 
 }

@@ -1583,6 +1583,7 @@
 }
 -(NSArray *)findAllNewNotiyfMessages
 {
+    NSLog(@"%@",[notifyMsgDAO findAllNewMessages]);
     return   [notifyMsgDAO findAllNewMessages];
 }
 @end

@@ -17,8 +17,8 @@
     {
         if (statusCode==1)
         {
-            //[self createNotifyMessageTable];
-            //[self createNotifyMessageUrlsTable];
+            [self createNotifyMessageTable];
+            [self createNotifyMessageUrlsTable];
         }else
         {
             if (![self isTableOK:@"notifyMessageUrl"]) {
@@ -55,9 +55,10 @@
 }
 -(void)createNotifyMessageTable
 {
-    [db executeUpdate:@"CREATE TABLE notifyMessage (id INTEGER PRIMARY KEY  AUTOINCREMENT,oaid INTEGER,bodyFrom INTEGER,title TEXT,content TEXT,link TEXT,from TEXT,to TEXT,type INTEGER ,xmppType INTEGER,fromUserName TEXT,fromUserAvatar TEXT,mobile TEXT,flag INTEGER,date INTEGER,is_readed INTEGER,msg_text TEXT,content_type INTEGER,location_info TEXT,attach_res_id INTEGER,body_content TEXT,msg_owner_name TEXT)"];
+    [db executeUpdate:@"CREATE TABLE notifyMessage (id INTEGER PRIMARY KEY  AUTOINCREMENT,oaid INTEGER,bodyFrom INTEGER,title TEXT,content TEXT,link TEXT,fromJID TEXT,toJID TEXT,type INTEGER ,xmppType INTEGER,fromUserName TEXT,fromUserAvatar TEXT,mobile TEXT,flag INTEGER,date INTEGER,is_readed INTEGER,msg_text TEXT,content_type INTEGER,location_info TEXT,body_content TEXT,msg_owner_name TEXT)"];
     if ([db hadError])
     {
+        NSLog(@"Err %d: %@", [db lastErrorCode], [db lastErrorMessage]);
         CPLogError(@"Err %d: %@", [db lastErrorCode], [db lastErrorMessage]);
     }
 }
@@ -85,10 +86,12 @@
 -(NSNumber *)insertUrlsWithUrl:(NSString *)url andNotifyMessageID : (NSNumber *)notifyMsgID
 {
 
-        NSString *sqlStr = [NSString stringWithFormat:@"insert into notifyMessageUrls(messageID,url) values (%@,%@)",notifyMsgID,url];
-        [db executeUpdate:sqlStr];
+        NSString *sqlStr = [NSString stringWithFormat:@"insert into notifyMessageUrl(messageID,url) values (%@,%@)",notifyMsgID,url];
+        NSLog(@"%@",sqlStr);
+        [db executeUpdate:@"insert into notifyMessageUrl(messageID,url) values (?,?)",notifyMsgID,url];
         if ([db hadError])
         {
+            NSLog(@"Err %d: %@",[db lastErrorCode], [db lastErrorMessage]);
             CPLogError(@"Err %d: %@", [db lastErrorCode], [db lastErrorMessage]);
         }
     
@@ -108,14 +111,14 @@
         [dbMessage setDate:[CoreUtils getLongFormatWithNowDate]];
     }
     NSLog(@"-10- %@",dbMessage);
-    NSString *sqlstr = [NSString stringWithFormat:@"insert into notifyMessage (mobile,flag,date,is_readed,msg_text,content_type,location_info,body_content,msg_owner_name,oaid ,bodyFrom,title,content ,link,from,to,type,xmppType,fromUserName,fromUserAvatar) values (%@,%@,%@,%@,%@,%@,%@,%@,%@,%@,%@,%@,%@,%@,%@,%@,%@,%@,%@,%@)",
-                        dbMessage.mobile,dbMessage.flag,dbMessage.date,dbMessage.isReaded,dbMessage.msgText,dbMessage.contentType,dbMessage.locationInfo,dbMessage.bodyContent,dbMessage.msgOwnerName,dbMessage.oaid,dbMessage.bodyFrom,dbMessage.title,dbMessage.content,dbMessage.link,dbMessage.from,dbMessage.to ,dbMessage.type,dbMessage.xmppType,dbMessage.fromUserName,dbMessage.fromUserAvatar];
+    NSString *sqlstr = [NSString stringWithFormat:@"insert into notifyMessage (oaid,bodyFrom ,title ,content,link ,fromJID ,toJID ,type,xmppType,fromUserName ,fromUserAvatar ,mobile ,flag ,date ,is_readed ,msg_text ,content_type ,location_info ,body_content ,msg_owner_name ) values (%@,%@,%@,%@,%@,%@,%@,%@,%@,%@,%@,%@,%@,%@,%@,%@,%@,%@,%@,%@)",dbMessage.oaid,dbMessage.bodyFrom,dbMessage.title,dbMessage.content,dbMessage.title,dbMessage.title,dbMessage.title,dbMessage.type,dbMessage.xmppType,dbMessage.fromUserName,dbMessage.fromUserAvatar,dbMessage.mobile,dbMessage.flag,dbMessage.date,dbMessage.isReaded,dbMessage.msgText,dbMessage.contentType,dbMessage.locationInfo,dbMessage.bodyContent,dbMessage.msgOwnerName];
     NSLog(@"-11- %@",sqlstr);
-    [db executeUpdate:sqlstr];
+    [db executeUpdate:@"insert into notifyMessage (oaid,bodyFrom ,title ,content,link ,fromJID ,toJID ,type,xmppType,fromUserName ,fromUserAvatar ,mobile ,flag ,date ,is_readed ,msg_text ,content_type ,location_info ,body_content ,msg_owner_name ) values (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)",dbMessage.oaid,dbMessage.bodyFrom,dbMessage.title,dbMessage.content,dbMessage.link,dbMessage.from,dbMessage.to,dbMessage.type,dbMessage.xmppType,dbMessage.fromUserName,dbMessage.fromUserAvatar,dbMessage.mobile,dbMessage.flag,dbMessage.date,dbMessage.isReaded,dbMessage.msgText,dbMessage.contentType,dbMessage.locationInfo,dbMessage.bodyContent,dbMessage.msgOwnerName];
     NSLog(@"-12- %@",dbMessage);
     if ([db hadError])
     {
         NSLog(@"-13- %@",dbMessage);
+        NSLog(@"Err %d: %@",[db lastErrorCode], [db lastErrorMessage]);
         CPLogError(@"Err %d: %@", [db lastErrorCode], [db lastErrorMessage]);
     }
     return [self lastRowID];
@@ -141,25 +144,30 @@
 {
     CPDBModelNotifyMessage *dbMessage = [[CPDBModelNotifyMessage alloc] init];
     [dbMessage setMsgID:[NSNumber numberWithLongLong:[rs longLongIntForColumn:@"id"]]];
-    [dbMessage setMsgGroupID:[NSNumber numberWithLongLong:[rs longLongIntForColumn:@"group_id"]]];
-    [dbMessage setMsgSenderID:[rs stringForColumn:@"msg_sender_id"]];
-    [dbMessage setMsgGroupServerID:[rs stringForColumn:@"msg_group_server_id"]];
-    [dbMessage setMobile:[rs stringForColumn:@"mobile"]];
-    [dbMessage setFlag:[NSNumber numberWithInt:[rs intForColumn:@"flag"]]];
-    [dbMessage setSendState:[NSNumber numberWithInt:[rs intForColumn:@"send_state"]]];
-    [dbMessage setDate:[NSNumber numberWithLongLong:[rs longLongIntForColumn:@"date"]]];
-    [dbMessage setIsReaded:[NSNumber numberWithInt:[rs intForColumn:@"is_readed"]]];
-    [dbMessage setMsgText:[rs stringForColumn:@"msg_text"]];
-    [dbMessage setContentType:[NSNumber numberWithInt:[rs intForColumn:@"content_type"]]];
-    [dbMessage setLocationInfo:[rs stringForColumn:@"location_info"]];
-    [dbMessage setAttachResID:[NSNumber numberWithLongLong:[rs longLongIntForColumn:@"attach_res_id"]]];
     [dbMessage setOaid:[NSNumber numberWithLongLong:[rs longLongIntForColumn:@"oaid"]]];
     [dbMessage setBodyFrom:[NSNumber numberWithLongLong:[rs longLongIntForColumn:@"bodyFrom"]]];
     [dbMessage setTitle:[rs stringForColumn:@"title"]];
     [dbMessage setContent:[rs stringForColumn:@"content"]];
     [dbMessage setLink:[rs stringForColumn:@"link"]];
+    [dbMessage setFrom:[rs stringForColumn:@"fromJID"]];
+    [dbMessage setTo:[rs stringForColumn:@"toJID"]];
+    [dbMessage setType:[NSNumber numberWithLongLong:[rs longLongIntForColumn:@"type"]]];
+    [dbMessage setXmppType:[NSNumber numberWithLongLong:[rs longLongIntForColumn:@"xmppType"]]];
+    [dbMessage setFromUserName:[rs stringForColumn:@"fromUserName"]];
+    [dbMessage setFromUserAvatar:[rs stringForColumn:@"fromUserAvatar"]];
+    
+    [dbMessage setMobile:[rs stringForColumn:@"mobile"]];
+    [dbMessage setFlag:[NSNumber numberWithInt:[rs intForColumn:@"flag"]]];
+    [dbMessage setDate:[NSNumber numberWithLongLong:[rs longLongIntForColumn:@"date"]]];
+    [dbMessage setIsReaded:[NSNumber numberWithInt:[rs intForColumn:@"is_readed"]]];
+    [dbMessage setMsgText:[rs stringForColumn:@"msg_text"]];
+    [dbMessage setContentType:[NSNumber numberWithInt:[rs intForColumn:@"content_type"]]];
+    [dbMessage setLocationInfo:[rs stringForColumn:@"location_info"]];
+
+
     [dbMessage setBodyContent:[rs stringForColumn:@"body_content"]];
     [dbMessage setMsgOwnerName:[rs stringForColumn:@"msg_owner_name"]];
+    [dbMessage setImageUrl:[self findAllUrlsByNotifyMessageID:[dbMessage.msgID integerValue]]];
     return dbMessage;
 }
 -(CPDBModelNotifyMessage *)findMessageWithID:(NSNumber *)id
@@ -189,7 +197,7 @@
 }
 -(NSArray *)findAllMessagesWithFromName:(NSString *)fromName
 {
-    FMResultSet *rs = [db executeQuery:@"select * from notifyMessage where from = ?",fromName];
+    FMResultSet *rs = [db executeQuery:@"select * from notifyMessage where fromJID = ?",fromName];
     NSMutableArray *MessageList = [[NSMutableArray alloc] init];
     while ([rs next])
     {
@@ -201,7 +209,7 @@
 //获取未读数
 -(NSInteger )getUnreadedNotifyMessageCount:(NSString *)fromName
 {
-    FMResultSet *rs = [db executeQuery:@"select count(*) from notifyMessage where from = ? and is_readed=?",fromName,[NSNumber numberWithInt:0]];
+    FMResultSet *rs = [db executeQuery:@"select count(*) from notifyMessage where fromJID = ? and is_readed=?",fromName,[NSNumber numberWithInt:1]];
     NSInteger unreadedCount = 0;
     while ([rs next])
     {
@@ -213,7 +221,19 @@
 //获取不同fromName最后一条数据
 -(NSArray *)findAllNewMessages
 {
-    FMResultSet *rs = [db executeQuery:@"select top 1* from notifyMessage order by from desc group by from"];
+    FMResultSet *rs = [db executeQuery:@" SELECT * FROM notifyMessage group by fromJID ORDER BY id desc"];
+    NSMutableArray *MessageList = [[NSMutableArray alloc] init];
+    while ([rs next])
+    {
+        [MessageList addObject:[self getMessageWithResultSet:rs]];
+    }
+    [rs close];
+    return MessageList;
+}
+//根据fromJID获取所有此jid的数据
+-(NSArray *)findAllMessagesOfFromJID:(NSString *)fromJID
+{
+    FMResultSet *rs = [db executeQuery:@" SELECT * FROM notifyMessage where fromJID=?",fromJID];
     NSMutableArray *MessageList = [[NSMutableArray alloc] init];
     while ([rs next])
     {
