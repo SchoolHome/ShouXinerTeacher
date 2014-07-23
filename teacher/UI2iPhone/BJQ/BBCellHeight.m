@@ -99,7 +99,7 @@
             //title + content + image +comment
             CGFloat titleHeight = K_TITLE_HEIGHT;
             CGFloat contentHeight = [data.content sizeWithFont:[UIFont systemFontOfSize:14]
-                                             constrainedToSize:CGSizeMake(225, CGFLOAT_MAX)].height;
+                                             constrainedToSize:CGSizeMake(175, CGFLOAT_MAX)].height;
             
             CGFloat imageHeight = 0;
             if ([data.imageList count]>0) {
