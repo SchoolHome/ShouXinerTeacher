@@ -35,6 +35,8 @@
 {    
     if (isInited)
     {
+        
+        
         return;
     }
     BOOL isSucess = [dbManager initDatabaseWithLoginName:loginName];
@@ -51,7 +53,8 @@
     userDAO = [[CPDAOUserInfo alloc] initWithStatusCode:initDbStatusCode];
     userInfoDAO = [[CPDAOUserInfoData alloc] initWithStatusCode:initDbStatusCode];
     userAdditionDAO = [[CPDAOUserInfoDataAddition alloc] initWithStatusCode:initDbStatusCode];
-    
+    //notifyMessage change
+    notifyMsgDAO = [[CPDAONotifyMessage alloc] initWithStatusCode:initDbStatusCode];
     petInfoDAO = [[CPDAOPetInfo alloc] initWithStatusCode:initDbStatusCode];
     
     [[[CPSystemEngine sharedInstance] dbManagement] findAllUserInfos];

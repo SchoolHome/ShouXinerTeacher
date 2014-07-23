@@ -194,6 +194,9 @@ typedef enum
 -(void)createConversationWithUsers:(NSArray *)userArray andMsgGroups:(NSArray *)msgGroups andType:(NSInteger)type;
 -(void)updateConversationWithPtModels:(NSArray *)ptModels;
 -(void)receiveMsgByOperationWithMsgs:(NSArray *)msgs;
+//2014-7
+-(void)receiveNoticeMsgByOperationWithNotices:(NSArray *)notices;
+
 -(void)updateMsgSendResponseByOperationWithID:(NSNumber *)msgID andStatus:(NSNumber *)status;
 -(void)removeWillSendMsgsByOperationWithIDs:(NSArray *)msgIDs;
 -(void)createConversationByOperationWithObj:(NSObject *)obj;

@@ -19,6 +19,8 @@
 @class XMPPUserMessage;
 @class CPUIModelUserInfo;
 @class CPDBModelMessage;
+//2014-7
+@class XMPPNoticeMessage;
 
 @interface CPMsgManager : NSObject<CPHttpEngineObserver,CPXmppEngineObserver>
 {

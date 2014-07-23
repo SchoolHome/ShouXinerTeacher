@@ -25,6 +25,7 @@ typedef enum{
     UserMessageTypeAsk = 8,
     UserMessageTypeAnswer = 9,
     UserMessageTypeAlarm = 10,
+    UserMessageTypeNotice = 11,
 }UserMessageType;
 
 @interface XMPPUserMessage : NSObject
