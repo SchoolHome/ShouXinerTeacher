@@ -98,8 +98,14 @@
         {
             //title + content + image +comment
             CGFloat titleHeight = K_TITLE_HEIGHT;
-            CGFloat contentHeight = [data.content sizeWithFont:[UIFont systemFontOfSize:14]
-                                             constrainedToSize:CGSizeMake(175, CGFLOAT_MAX)].height;
+            CGFloat contentHeight = 0;
+            if (data.subject.integerValue == 1) {//拍表现
+                contentHeight = [data.content sizeWithFont:[UIFont systemFontOfSize:14]
+                                         constrainedToSize:CGSizeMake(175, CGFLOAT_MAX)].height;
+            }else{//随便说
+                contentHeight = [data.content sizeWithFont:[UIFont systemFontOfSize:14]
+                                         constrainedToSize:CGSizeMake(225, CGFLOAT_MAX)].height;
+            }
             
             CGFloat imageHeight = 0;
             if ([data.imageList count]>0) {
