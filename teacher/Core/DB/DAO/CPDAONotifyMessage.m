@@ -55,7 +55,7 @@
 }
 -(void)createNotifyMessageTable
 {
-    [db executeUpdate:@"CREATE TABLE notifyMessage (id INTEGER PRIMARY KEY  AUTOINCREMENT,group_id INTEGER,oaid INTEGER,bodyFrom INTEGER,title TEXT,content TEXT,link TEXT,headImagePath TEXT,msg_sender_id TEXT,msg_group_server_id TEXT,mobile TEXT,flag INTEGER,send_state INTEGER,date INTEGER,is_readed INTEGER,msg_text TEXT,content_type INTEGER,location_info TEXT,attach_res_id INTEGER,body_content TEXT,msg_owner_name TEXT)"];
+    [db executeUpdate:@"CREATE TABLE notifyMessage (id INTEGER PRIMARY KEY  AUTOINCREMENT,oaid INTEGER,bodyFrom INTEGER,title TEXT,content TEXT,link TEXT,from TEXT,to TEXT,type INTEGER ,xmppType INTEGER,fromUserName TEXT,fromUserAvatar TEXT,mobile TEXT,flag INTEGER,date INTEGER,is_readed INTEGER,msg_text TEXT,content_type INTEGER,location_info TEXT,attach_res_id INTEGER,body_content TEXT,msg_owner_name TEXT)"];
     if ([db hadError])
     {
         CPLogError(@"Err %d: %@", [db lastErrorCode], [db lastErrorMessage]);
@@ -82,16 +82,17 @@
     [rs close];
     return urlList;
 }
--(void)insertUrlsWithArray:(CPDBModelNotifyMessage *)dbMessage andNotifyMessageID : (NSNumber *)notifyMsgID
+-(NSNumber *)insertUrlsWithUrl:(NSString *)url andNotifyMessageID : (NSNumber *)notifyMsgID
 {
-    for (NSString *url in dbMessage.imageUrl) {
+
         NSString *sqlStr = [NSString stringWithFormat:@"insert into notifyMessageUrls(messageID,url) values (%@,%@)",notifyMsgID,url];
         [db executeUpdate:sqlStr];
         if ([db hadError])
         {
             CPLogError(@"Err %d: %@", [db lastErrorCode], [db lastErrorMessage]);
         }
-    }
+    
+    return [self lastRowID];
 }
 #pragma mark NotifyMessageTable
 //需要数据：from to type xmppType delayedTime
@@ -107,8 +108,8 @@
         [dbMessage setDate:[CoreUtils getLongFormatWithNowDate]];
     }
     NSLog(@"-10- %@",dbMessage);
-    NSString *sqlstr = [NSString stringWithFormat:@"insert into notifyMessage (group_id,msg_sender_id,msg_group_server_id,mobile,flag,send_state,date,is_readed,msg_text,content_type,location_info,attach_res_id,body_content,msg_owner_name,oaid ,bodyFrom,title,content ,link,headImagePath) values (%@,%@,%@,%@,%@,%@,%@,%@,%@,%@,%@,%@,%@,%@,%@,%@,%@,%@,%@,%@)",
-                        dbMessage.msgGroupID,dbMessage.msgSenderID,dbMessage.msgGroupServerID,dbMessage.mobile,dbMessage.flag,dbMessage.sendState,dbMessage.date,dbMessage.isReaded,dbMessage.msgText,dbMessage.contentType,dbMessage.locationInfo,dbMessage.attachResID,dbMessage.bodyContent,dbMessage.msgOwnerName,dbMessage.oaid,dbMessage.bodyFrom,dbMessage.title,dbMessage.link,@""];
+    NSString *sqlstr = [NSString stringWithFormat:@"insert into notifyMessage (mobile,flag,date,is_readed,msg_text,content_type,location_info,body_content,msg_owner_name,oaid ,bodyFrom,title,content ,link,from,to,type,xmppType,fromUserName,fromUserAvatar) values (%@,%@,%@,%@,%@,%@,%@,%@,%@,%@,%@,%@,%@,%@,%@,%@,%@,%@,%@,%@)",
+                        dbMessage.mobile,dbMessage.flag,dbMessage.date,dbMessage.isReaded,dbMessage.msgText,dbMessage.contentType,dbMessage.locationInfo,dbMessage.bodyContent,dbMessage.msgOwnerName,dbMessage.oaid,dbMessage.bodyFrom,dbMessage.title,dbMessage.content,dbMessage.link,dbMessage.from,dbMessage.to ,dbMessage.type,dbMessage.xmppType,dbMessage.fromUserName,dbMessage.fromUserAvatar];
     NSLog(@"-11- %@",sqlstr);
     [db executeUpdate:sqlstr];
     NSLog(@"-12- %@",dbMessage);
@@ -118,6 +119,14 @@
         CPLogError(@"Err %d: %@", [db lastErrorCode], [db lastErrorMessage]);
     }
     return [self lastRowID];
+}
+-(void)updateMessageReadedWithID:(NSNumber *)objID  obj:(NSNumber *)msgReaded
+{
+    [db executeUpdate:@"update notifyMessage set is_readed = ? where id = ?",msgReaded,objID];
+    if ([db hadError])
+    {
+        CPLogError(@"Err %d: %@", [db lastErrorCode], [db lastErrorMessage]);
+    }
 }
 -(void)updateMessageWithID:(NSNumber *)objID  obj:(CPDBModelNotifyMessage *)dbMessage
 {

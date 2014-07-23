@@ -196,7 +196,7 @@ typedef enum
 -(void)receiveMsgByOperationWithMsgs:(NSArray *)msgs;
 //2014-7
 -(void)receiveNoticeMsgByOperationWithNotices:(NSArray *)notices;
-
+//
 -(void)updateMsgSendResponseByOperationWithID:(NSNumber *)msgID andStatus:(NSNumber *)status;
 -(void)removeWillSendMsgsByOperationWithIDs:(NSArray *)msgIDs;
 -(void)createConversationByOperationWithObj:(NSObject *)obj;

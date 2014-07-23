@@ -11,8 +11,11 @@
 #import "CPDBModelNotifyMessage.h"
 @interface CPDAONotifyMessage : BaseDAO
 - (id)initWithStatusCode:(NSInteger)statusCode;
+-(NSArray *)findAllUrlsByNotifyMessageID:(NSInteger )notifyMsgID;
+-(NSNumber *)insertUrlsWithUrl:(NSString *)url andNotifyMessageID : (NSNumber *)notifyMsgID;
 
 -(NSNumber *)insertMessage:(CPDBModelNotifyMessage *)dbMessage;
+-(void)updateMessageReadedWithID:(NSNumber *)objID  obj:(NSNumber *)msgReaded;
 -(void)updateMessageWithID:(NSNumber *)objID  obj:(CPDBModelNotifyMessage *)dbMessage;
 -(CPDBModelNotifyMessage *)getMessageWithResultSet:(FMResultSet *)rs;
 -(CPDBModelNotifyMessage *)findMessageWithID:(NSNumber *)id;

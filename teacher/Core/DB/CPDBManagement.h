@@ -32,7 +32,7 @@
     CPDAOPetInfo                    *petInfoDAO;
 //notifyMessage change    
     CPDAONotifyMessage      *notifyMsgDAO;
-    
+//
     CPDataBaseManager               *dbManager;
     
     NSArray                         *contactArray_;
@@ -228,5 +228,6 @@
 -(CPDBModelMessage *)findMessageWithResID:(NSNumber *)objID;
 
 //notifyMessage change
-
+-(NSNumber *)insertNotifyMessage:(CPDBModelNotifyMessage *)dbMessage;
+//-(NSNumber *)insertUrlsWithUrl:(NSString *)url andNotifyMessageID : (NSNumber *)notifyMsgID;
 @end
