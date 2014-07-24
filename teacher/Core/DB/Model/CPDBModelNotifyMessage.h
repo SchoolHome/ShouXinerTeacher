@@ -23,7 +23,7 @@
 @property (nonatomic, strong) NSNumber *xmppType;
 @property (nonatomic,strong) NSString *fromUserName;
 @property (nonatomic,strong) NSString *fromUserAvatar;
-
+@property (nonatomic,strong) NSNumber *unReadedCount; //only available by msg isequal msgGroup
 
 
 @end

@@ -31,7 +31,7 @@
         _contentLabel.font = [UIFont systemFontOfSize:14.f];
         [self.contentView addSubview:_contentLabel];
         //头像
-        _userHeadImageView = [[UIImageView alloc] initWithFrame:CGRectMake(5.f, 10.f, 50.f, 50.f)];
+        _userHeadImageView = [[EGOImageView alloc] initWithFrame:CGRectMake(5.f, 10.f, 50.f, 50.f)];
         [self.contentView addSubview:_userHeadImageView];
         //时间
         _dateLabel = [[UILabel alloc] initWithFrame:CGRectMake(235.f, 10.f, 70.f, 18.f)];
@@ -209,6 +209,60 @@
         }
 }
 
-
+-(void)setDBModelNotifyMsgGroup:(CPDBModelNotifyMessage *)msgGroup
+{
+    if (msgGroup) {
+        _msgGroup = msgGroup;
+        if ([msgGroup.unReadedCount integerValue] == 0) self.imageviewMessageAlert.hidden = YES;
+        else self.imageviewMessageAlert.hidden = NO;
+        
+        
+        //        if ([msgGroup.unReadedCount integerValue] < 100) {
+        //            _unreadedCountLabel.text = [NSString stringWithFormat:@"%d",[msgGroup.unReadedCount integerValue]];
+        //        }else {
+        //            _unreadedCountLabel.text = @"99+";
+        //        }
+        //        [_unreadedCountLabel sizeThatFits:CGSizeMake(20, 20)];
+        //        _unreadedCountLabel.layer.cornerRadius = 10.0;
+        //        _unreadedCountLabel.layer.borderWidth = 0.5;
+        //        _unreadedCountLabel.layer.borderColor = [[UIColor grayColor] CGColor];
+        
+        if ([msgGroup.unReadedCount integerValue] < 100) {
+            CGSize unReaderTextSize = [[NSString stringWithFormat:@"%d",[msgGroup.unReadedCount integerValue]] sizeWithFont:[UIFont systemFontOfSize:12]];
+            [self.imageviewMessageAlert setFrame:CGRectMake(55/4*3.f-unReaderTextSize.width/2.f, -55/4.f+15.f, unReaderTextSize.width + 13.f, 20.f)];
+        }else {
+            CGSize unReaderTextSize = [[NSString stringWithFormat:@"%d+",99] sizeWithFont:[UIFont systemFontOfSize:12]];
+            [self.imageviewMessageAlert setFrame:CGRectMake(55/4*3.f-unReaderTextSize.width/2.f, -55/4.f+15.f, unReaderTextSize.width + 10.f, 20.f)];
+        }
+        
+        //未读数
+        
+        
+        if (!_unreadedCountLabel) {
+            _unreadedCountLabel = [[UILabel alloc] initWithFrame:CGRectMake(3.f, 4.f, self.imageviewMessageAlert.frame.size.width-6, 12)];
+            _unreadedCountLabel.textColor = [UIColor colorWithRed:245/255.f green:245/255.f blue:245/255.f alpha:1.f];
+            _unreadedCountLabel.font = [UIFont fontWithName:@"Helvetica-Bold" size:12.f];
+            _unreadedCountLabel.backgroundColor = [UIColor clearColor];
+            _unreadedCountLabel.textAlignment = UITextAlignmentCenter;
+            [self.imageviewMessageAlert addSubview:_unreadedCountLabel];
+        }else {
+            [_unreadedCountLabel setFrame:CGRectMake(3.f, 4.f, self.imageviewMessageAlert.frame.size.width-6, 12)];
+        }
+        if ([msgGroup.unReadedCount integerValue] < 100) {
+            _unreadedCountLabel.text = [NSString stringWithFormat:@"%d",[msgGroup.unReadedCount integerValue]];
+        }else {
+            _unreadedCountLabel.text = @"99+";
+        }
+        
+        
+        
+        NSDate *messageDate = [NSDate dateWithTimeIntervalSince1970:[msgGroup.date longLongValue]/1000];
+        //NSString *messageStr = [[HomeInfo shareObject] compareDate:messageDate];
+        NSString *messageStr = [[[DateUtil alloc] init] compareDate:messageDate];
+        _dateLabel.text = messageStr;
+        _contentLabel.text = msgGroup.content;
+        
+    }
+}
 
 @end

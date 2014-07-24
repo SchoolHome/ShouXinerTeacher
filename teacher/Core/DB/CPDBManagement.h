@@ -231,5 +231,8 @@
 -(NSNumber *)insertNotifyMessage:(CPDBModelNotifyMessage *)dbMessage;
 
 -(NSArray *)findAllNewNotiyfMessages;
+
+-(NSArray *)findNotifyMessagesOfCurrentFromJID:(NSString *)currentFromJID;
+-(NSInteger)allNotiUnreadedMessageCount;
 //-(NSNumber *)insertUrlsWithUrl:(NSString *)url andNotifyMessageID : (NSNumber *)notifyMsgID;
 @end

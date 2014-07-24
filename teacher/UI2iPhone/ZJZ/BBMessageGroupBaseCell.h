@@ -11,6 +11,9 @@
 #import "CPUIModelMessageGroupMember.h"
 #import "CPUIModelUserInfo.h"
 #import "CPUIModelMessage.h"
+#import "CPDBModelNotifyMessage.h"
+
+#import "EGOImageView.h"
 @interface BBMessageGroupBaseCell : UITableViewCell
 //notifyMessage change
 @property (nonatomic , strong) id msgGroup;
@@ -19,7 +22,7 @@
 //内容
 @property (nonatomic , strong) UILabel *contentLabel;
 //头像
-@property (nonatomic , strong) UIImageView *userHeadImageView;
+@property (nonatomic , strong) EGOImageView *userHeadImageView;
 //时间
 @property (nonatomic , strong) UILabel *dateLabel;
 //未读数
@@ -29,4 +32,6 @@
 
 //notifyMessage change
 -(void)setUIModelMsgGroup:(CPUIModelMessageGroup *)msgGroup;
+
+-(void)setDBModelNotifyMsgGroup:(CPDBModelNotifyMessage *)msgGroup;
 @end

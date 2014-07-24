@@ -163,11 +163,11 @@
     [dbMessage setMsgText:[rs stringForColumn:@"msg_text"]];
     [dbMessage setContentType:[NSNumber numberWithInt:[rs intForColumn:@"content_type"]]];
     [dbMessage setLocationInfo:[rs stringForColumn:@"location_info"]];
-
-
     [dbMessage setBodyContent:[rs stringForColumn:@"body_content"]];
     [dbMessage setMsgOwnerName:[rs stringForColumn:@"msg_owner_name"]];
+    
     [dbMessage setImageUrl:[self findAllUrlsByNotifyMessageID:[dbMessage.msgID integerValue]]];
+    [dbMessage setUnReadedCount:[NSNumber numberWithInteger:[self getUnreadedNotifyMessageCount:[rs stringForColumn:@"fromJID"]]]];
     return dbMessage;
 }
 -(CPDBModelNotifyMessage *)findMessageWithID:(NSNumber *)id
@@ -241,5 +241,17 @@
     }
     [rs close];
     return MessageList;
+}
+//获取所有未读数
+-(NSInteger)getAllNotiUnreadedMessageCount
+{
+    FMResultSet *rs = [db executeQuery:@"select count(*) from notifyMessage where  is_readed=?",[NSNumber numberWithInt:1]];
+    NSInteger unreadedCount = 0;
+    while ([rs next])
+    {
+        unreadedCount = [rs intForColumnIndex:0];
+    }
+    [rs close];
+    return unreadedCount;
 }
 @end

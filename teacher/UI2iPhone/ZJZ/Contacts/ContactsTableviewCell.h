@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "ContactsModel.h"
+
 //#import "CPUIModelUserInfo.h"
 @protocol ContactsTableviewCellDelegate <NSObject>
 @optional

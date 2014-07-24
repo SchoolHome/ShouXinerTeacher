@@ -20,6 +20,7 @@
 //notifyMessage change
 #import "BBNotifyMessageGroupCell.h"
 #import "CPDBModelNotifyMessage.h"
+#import "CPDBManagement.h"
 //
 @interface BBZJZViewController ()
 @property (nonatomic , strong)NSArray *tableviewDisplayDataArray;
@@ -95,6 +96,8 @@
     for (CPUIModelMessageGroup *messageGroup in _tableviewDisplayDataArray) {
         unReadCount += [messageGroup.unReadedCount intValue];
     }
+    
+    unReadCount += [[[CPSystemEngine sharedInstance] dbManagement] allNotiUnreadedMessageCount];
     
     __block NSInteger count = unReadCount;
     dispatch_block_t updateTagBlock = ^{
@@ -240,7 +243,9 @@
         };
         dispatch_async(dispatch_get_main_queue(), updateTagBlock);
     }else if ([cell.msgGroup isKindOfClass:[CPDBModelNotifyMessage class]]){
-        
+        CPDBModelNotifyMessage *msgGroup = cell.msgGroup;
+        NSArray *msgGroupOfCurrentFrom = [[[CPSystemEngine sharedInstance] dbManagement] findNotifyMessagesOfCurrentFromJID:msgGroup.from];
+        NSLog(@"msgGroupOfCurrentFrom%@",msgGroupOfCurrentFrom);
     }
 
     
@@ -286,7 +291,7 @@
                 cell = [[BBNotifyMessageGroupCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:messageNotifyCellIdentifier];
                 cell.backgroundColor = [UIColor clearColor];
             }
-            
+            [cell setDBModelNotifyMsgGroup:tempMsgGroup];
         }
     return cell;
 }

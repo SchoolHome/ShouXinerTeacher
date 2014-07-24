@@ -27,5 +27,19 @@
     // Drawing code
 }
 */
-
+-(void)setDBModelNotifyMsgGroup:(CPDBModelNotifyMessage *)msgGroup
+{
+    [super setDBModelNotifyMsgGroup:msgGroup];
+    if (msgGroup) {
+        self.userNameLabel.text = msgGroup.fromUserName;
+        [self.userHeadImageView setPlaceholderImage:[UIImage imageNamed:@"girl.png"]];
+        [self.userHeadImageView setImageURL:[NSURL URLWithString:msgGroup.fromUserAvatar]];
+    }
+    
+    
+    [self.userHeadImageView.layer setMasksToBounds:YES];
+    self.userHeadImageView.layer.borderWidth = 0;
+    self.userHeadImageView.layer.cornerRadius = 25.0;
+    self.userHeadImageView.layer.borderColor = [[UIColor whiteColor] CGColor];
+}
 @end

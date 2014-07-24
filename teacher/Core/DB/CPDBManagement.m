@@ -1586,4 +1586,12 @@
     NSLog(@"%@",[notifyMsgDAO findAllNewMessages]);
     return   [notifyMsgDAO findAllNewMessages];
 }
+-(NSArray *)findNotifyMessagesOfCurrentFromJID:(NSString *)currentFromJID
+{
+    return [notifyMsgDAO findAllMessagesOfFromJID:currentFromJID];
+}
+-(NSInteger)allNotiUnreadedMessageCount
+{
+    return [notifyMsgDAO getAllNotiUnreadedMessageCount];
+}
 @end
