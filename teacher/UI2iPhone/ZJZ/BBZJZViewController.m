@@ -100,9 +100,6 @@
         }
         
     }
-    
-    unReadCount += [[[CPSystemEngine sharedInstance] dbManagement] allNotiUnreadedMessageCount];
-    
     __block NSInteger count = unReadCount;
     dispatch_block_t updateTagBlock = ^{
         [[CPUIModelManagement sharedInstance] setFriendMsgUnReadedCount:count];
@@ -242,12 +239,17 @@
         
         __block NSInteger count = [CPUIModelManagement sharedInstance].friendMsgUnReadedCount;
         count -= [messageGroup.unReadedCount intValue];
-        count += [[[CPSystemEngine sharedInstance] dbManagement] allNotiUnreadedMessageCount];
         dispatch_block_t updateTagBlock = ^{
             [[CPUIModelManagement sharedInstance] setFriendMsgUnReadedCount:count];
         };
         dispatch_async(dispatch_get_main_queue(), updateTagBlock);
     }else if ([cell.msgGroup isKindOfClass:[CPDBModelNotifyMessage class]]){
+        //设置未读数
+        __block NSInteger count = [CPUIModelManagement sharedInstance].friendMsgUnReadedCount;
+        dispatch_block_t updateTagBlock = ^{
+            [[CPUIModelManagement sharedInstance] setFriendMsgUnReadedCount:count];
+        };
+        
         CPDBModelNotifyMessage *msgGroup = cell.msgGroup;
         NSArray *msgGroupOfCurrentFrom = [[[CPSystemEngine sharedInstance] dbManagement] findNotifyMessagesOfCurrentFromJID:msgGroup.from];
         NSLog(@"msgGroupOfCurrentFrom%@",msgGroupOfCurrentFrom);
