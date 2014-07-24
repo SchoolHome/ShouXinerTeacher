@@ -279,6 +279,9 @@ typedef enum
 -(void)updateTagByCheckUpdateWithDic:(NSDictionary *)dicData;
 //2014-7
 -(void)updateTagByNoticeMsg;
+-(void)updateTagByFriendMsgUnReadedCount;
+
+
 -(void)updateTagForPetDataChange:(NSDictionary *)dict;
 /********************add relationDel KVO by wang shuo*************************/
 -(void)updateTagByUserRelationDel;

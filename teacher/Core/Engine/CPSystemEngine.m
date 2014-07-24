@@ -1276,6 +1276,14 @@ andTmpFilePath:(NSString *)filePath
     };
     dispatch_async(dispatch_get_main_queue(), updateTagBlock);
 }
+-(void)updateTagByFriendMsgUnReadedCount{
+    __block NSInteger count = [CPUIModelManagement sharedInstance].friendMsgUnReadedCount;
+    dispatch_block_t updateTagBlock = ^{
+        [[CPUIModelManagement sharedInstance] setFriendMsgUnReadedCount:count];
+    };
+    dispatch_async(dispatch_get_main_queue(), updateTagBlock);
+}
+
 
 -(void)updateTagByUsersHeaderImgWithUserID:(NSNumber *)userID
 {
