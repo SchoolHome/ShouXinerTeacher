@@ -63,6 +63,7 @@ typedef enum
 @class CPPetManager;
 @class CPDBModelUserInfoData;
 @class CPUIModelPersonalInfo;
+
 @interface CPSystemEngine : NSObject<addressBookDelegate>
 {
     NSOperationQueue *dbProcessingQueue;//数据库操作的多任务队列

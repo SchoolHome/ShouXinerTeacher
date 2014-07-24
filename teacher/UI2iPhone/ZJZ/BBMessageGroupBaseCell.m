@@ -75,138 +75,138 @@
 }
 
 #pragma mark setter
--(void)setMsgGroup:(CPUIModelMessageGroup *)msgGroup
+//notifyMessage change
+-(void)setUIModelMsgGroup:(CPUIModelMessageGroup *)msgGroup
 {
-    
-    if (msgGroup) {
-        _msgGroup = msgGroup;
-        if ([msgGroup.unReadedCount integerValue] == 0) self.imageviewMessageAlert.hidden = YES;
-        else self.imageviewMessageAlert.hidden = NO;
-        
-        
-//        if ([msgGroup.unReadedCount integerValue] < 100) {
-//            _unreadedCountLabel.text = [NSString stringWithFormat:@"%d",[msgGroup.unReadedCount integerValue]];
-//        }else {
-//            _unreadedCountLabel.text = @"99+";
-//        }
-//        [_unreadedCountLabel sizeThatFits:CGSizeMake(20, 20)];
-//        _unreadedCountLabel.layer.cornerRadius = 10.0;
-//        _unreadedCountLabel.layer.borderWidth = 0.5;
-//        _unreadedCountLabel.layer.borderColor = [[UIColor grayColor] CGColor];
-
-        if ([msgGroup.unReadedCount integerValue] < 100) {
-            CGSize unReaderTextSize = [[NSString stringWithFormat:@"%d",[msgGroup.unReadedCount integerValue]] sizeWithFont:[UIFont systemFontOfSize:12]];
-            [self.imageviewMessageAlert setFrame:CGRectMake(55/4*3.f-unReaderTextSize.width/2.f, -55/4.f+15.f, unReaderTextSize.width + 13.f, 20.f)];
-        }else {
-            CGSize unReaderTextSize = [[NSString stringWithFormat:@"%d+",99] sizeWithFont:[UIFont systemFontOfSize:12]];
-            [self.imageviewMessageAlert setFrame:CGRectMake(55/4*3.f-unReaderTextSize.width/2.f, -55/4.f+15.f, unReaderTextSize.width + 10.f, 20.f)];
-        }
-        
-        //未读数
-        
-        
-        if (!_unreadedCountLabel) {
-            _unreadedCountLabel = [[UILabel alloc] initWithFrame:CGRectMake(3.f, 4.f, self.imageviewMessageAlert.frame.size.width-6, 12)];
-            _unreadedCountLabel.textColor = [UIColor colorWithRed:245/255.f green:245/255.f blue:245/255.f alpha:1.f];
-            _unreadedCountLabel.font = [UIFont fontWithName:@"Helvetica-Bold" size:12.f];
-            _unreadedCountLabel.backgroundColor = [UIColor clearColor];
-            _unreadedCountLabel.textAlignment = UITextAlignmentCenter;
-            [self.imageviewMessageAlert addSubview:_unreadedCountLabel];
-        }else {
-            [_unreadedCountLabel setFrame:CGRectMake(3.f, 4.f, self.imageviewMessageAlert.frame.size.width-6, 12)];
-        }
-        if ([msgGroup.unReadedCount integerValue] < 100) {
-            _unreadedCountLabel.text = [NSString stringWithFormat:@"%d",[msgGroup.unReadedCount integerValue]];
-        }else {
-            _unreadedCountLabel.text = @"99+";
-        }
-        
-
-        
-        if (msgGroup.msgList.count >0) {
-            CPUIModelMessage *message = [msgGroup.msgList objectAtIndex:msgGroup.msgList.count-1];
-            // _dateLabel.text = [CoreUtils getStringNormalFormatWithNumber:msgGroup.updateDate];
-            if ([message.date longLongValue]/1000 > [msgGroup.updateDate longLongValue]/1000 ) {
-                NSDate *messageDate = [NSDate dateWithTimeIntervalSince1970:[message.date longLongValue]/1000];
-                //NSString *messageStr = [[HomeInfo shareObject] compareDate:messageDate];
-                NSString *messageStr = [[[DateUtil alloc] init] compareDate:messageDate];
-                _dateLabel.text = messageStr;
-                
+        if (msgGroup) {
+            _msgGroup = msgGroup;
+            if ([msgGroup.unReadedCount integerValue] == 0) self.imageviewMessageAlert.hidden = YES;
+            else self.imageviewMessageAlert.hidden = NO;
+            
+            
+            //        if ([msgGroup.unReadedCount integerValue] < 100) {
+            //            _unreadedCountLabel.text = [NSString stringWithFormat:@"%d",[msgGroup.unReadedCount integerValue]];
+            //        }else {
+            //            _unreadedCountLabel.text = @"99+";
+            //        }
+            //        [_unreadedCountLabel sizeThatFits:CGSizeMake(20, 20)];
+            //        _unreadedCountLabel.layer.cornerRadius = 10.0;
+            //        _unreadedCountLabel.layer.borderWidth = 0.5;
+            //        _unreadedCountLabel.layer.borderColor = [[UIColor grayColor] CGColor];
+            
+            if ([msgGroup.unReadedCount integerValue] < 100) {
+                CGSize unReaderTextSize = [[NSString stringWithFormat:@"%d",[msgGroup.unReadedCount integerValue]] sizeWithFont:[UIFont systemFontOfSize:12]];
+                [self.imageviewMessageAlert setFrame:CGRectMake(55/4*3.f-unReaderTextSize.width/2.f, -55/4.f+15.f, unReaderTextSize.width + 13.f, 20.f)];
             }else {
-                NSDate *messageDate = [NSDate dateWithTimeIntervalSince1970:[msgGroup.updateDate longLongValue]/1000];
-                //NSString *messageStr = [[HomeInfo shareObject] compareDate:messageDate];
-                NSString *messageStr = [[[DateUtil alloc] init] compareDate:messageDate];
-                _dateLabel.text = messageStr;
-                
+                CGSize unReaderTextSize = [[NSString stringWithFormat:@"%d+",99] sizeWithFont:[UIFont systemFontOfSize:12]];
+                [self.imageviewMessageAlert setFrame:CGRectMake(55/4*3.f-unReaderTextSize.width/2.f, -55/4.f+15.f, unReaderTextSize.width + 10.f, 20.f)];
             }
             
-            if ([message.flag integerValue] == MSG_FLAG_RECEIVE) {
-                switch ([message.contentType integerValue]) {
-                    case MSG_CONTENT_TYPE_TEXT:
-                    {
-                        _contentLabel.text = message.msgText;
-                    }
-                        break;
-                    case MSG_CONTENT_TYPE_IMG:
-                    {
-                        _contentLabel.text = @"收到一张图片";
-                    }
-                        break;
-                    case MSG_CONTENT_TYPE_AUDIO:
-                    {
-                        _contentLabel.text = @"收到一条语音";
-                    }
-                        break;
-                    case MSG_CONTENT_TYPE_VIDEO:
-                    {
-                        _contentLabel.text = @"收到一段视频";
-                    }
-                        break;
-                    default:
-                    {
-                        _contentLabel.text = message.msgText;
-                    }
-                        break;
+            //未读数
+            
+            
+            if (!_unreadedCountLabel) {
+                _unreadedCountLabel = [[UILabel alloc] initWithFrame:CGRectMake(3.f, 4.f, self.imageviewMessageAlert.frame.size.width-6, 12)];
+                _unreadedCountLabel.textColor = [UIColor colorWithRed:245/255.f green:245/255.f blue:245/255.f alpha:1.f];
+                _unreadedCountLabel.font = [UIFont fontWithName:@"Helvetica-Bold" size:12.f];
+                _unreadedCountLabel.backgroundColor = [UIColor clearColor];
+                _unreadedCountLabel.textAlignment = UITextAlignmentCenter;
+                [self.imageviewMessageAlert addSubview:_unreadedCountLabel];
+            }else {
+                [_unreadedCountLabel setFrame:CGRectMake(3.f, 4.f, self.imageviewMessageAlert.frame.size.width-6, 12)];
+            }
+            if ([msgGroup.unReadedCount integerValue] < 100) {
+                _unreadedCountLabel.text = [NSString stringWithFormat:@"%d",[msgGroup.unReadedCount integerValue]];
+            }else {
+                _unreadedCountLabel.text = @"99+";
+            }
+            
+            
+            
+            if (msgGroup.msgList.count >0) {
+                CPUIModelMessage *message = [msgGroup.msgList objectAtIndex:msgGroup.msgList.count-1];
+                // _dateLabel.text = [CoreUtils getStringNormalFormatWithNumber:msgGroup.updateDate];
+                if ([message.date longLongValue]/1000 > [msgGroup.updateDate longLongValue]/1000 ) {
+                    NSDate *messageDate = [NSDate dateWithTimeIntervalSince1970:[message.date longLongValue]/1000];
+                    //NSString *messageStr = [[HomeInfo shareObject] compareDate:messageDate];
+                    NSString *messageStr = [[[DateUtil alloc] init] compareDate:messageDate];
+                    _dateLabel.text = messageStr;
+                    
+                }else {
+                    NSDate *messageDate = [NSDate dateWithTimeIntervalSince1970:[msgGroup.updateDate longLongValue]/1000];
+                    //NSString *messageStr = [[HomeInfo shareObject] compareDate:messageDate];
+                    NSString *messageStr = [[[DateUtil alloc] init] compareDate:messageDate];
+                    _dateLabel.text = messageStr;
+                    
                 }
+                
+                if ([message.flag integerValue] == MSG_FLAG_RECEIVE) {
+                    switch ([message.contentType integerValue]) {
+                        case MSG_CONTENT_TYPE_TEXT:
+                        {
+                            _contentLabel.text = message.msgText;
+                        }
+                            break;
+                        case MSG_CONTENT_TYPE_IMG:
+                        {
+                            _contentLabel.text = @"收到一张图片";
+                        }
+                            break;
+                        case MSG_CONTENT_TYPE_AUDIO:
+                        {
+                            _contentLabel.text = @"收到一条语音";
+                        }
+                            break;
+                        case MSG_CONTENT_TYPE_VIDEO:
+                        {
+                            _contentLabel.text = @"收到一段视频";
+                        }
+                            break;
+                        default:
+                        {
+                            _contentLabel.text = message.msgText;
+                        }
+                            break;
+                    }
+                }else
+                {
+                    switch ([message.contentType integerValue]) {
+                        case MSG_CONTENT_TYPE_TEXT:
+                        {
+                            _contentLabel.text = [NSString stringWithFormat:@"我:%@",message.msgText];
+                        }
+                            break;
+                        case MSG_CONTENT_TYPE_IMG:
+                        {
+                            _contentLabel.text = @"我:发送一张图片";
+                        }
+                            break;
+                        case MSG_CONTENT_TYPE_AUDIO:
+                        {
+                            _contentLabel.text = @"我:发送一条语音";
+                        }
+                            break;
+                        case MSG_CONTENT_TYPE_VIDEO:
+                        {
+                            _contentLabel.text = @"我:发送一断视频";
+                        }
+                            break;
+                        default:
+                        {
+                            _contentLabel.text = message.msgText;
+                        }
+                            break;
+                    }
+                }
+                
             }else
             {
-                switch ([message.contentType integerValue]) {
-                    case MSG_CONTENT_TYPE_TEXT:
-                    {
-                        _contentLabel.text = [NSString stringWithFormat:@"我:%@",message.msgText];
-                    }
-                        break;
-                    case MSG_CONTENT_TYPE_IMG:
-                    {
-                        _contentLabel.text = @"我:发送一张图片";
-                    }
-                        break;
-                    case MSG_CONTENT_TYPE_AUDIO:
-                    {
-                        _contentLabel.text = @"我:发送一条语音";
-                    }
-                        break;
-                    case MSG_CONTENT_TYPE_VIDEO:
-                    {
-                        _contentLabel.text = @"我:发送一断视频";
-                    }
-                        break;
-                    default:
-                    {
-                        _contentLabel.text = message.msgText;
-                    }
-                        break;
-                }
+                NSDate *messageDate = [NSDate dateWithTimeIntervalSince1970:[msgGroup.updateDate longLongValue]/1000];
+                NSString *messageStr = [[[DateUtil alloc] init] compareDate:messageDate];
+                _dateLabel.text = messageStr;
+                _contentLabel.text = @"你们还没聊过天哦，快来说两句";
             }
-     
-        }else
-        {
-            NSDate *messageDate = [NSDate dateWithTimeIntervalSince1970:[msgGroup.updateDate longLongValue]/1000];
-            NSString *messageStr = [[[DateUtil alloc] init] compareDate:messageDate];
-            _dateLabel.text = messageStr;
-            _contentLabel.text = @"你们还没聊过天哦，快来说两句";
         }
-    }
 }
 
 

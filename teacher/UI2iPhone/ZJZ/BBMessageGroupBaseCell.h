@@ -12,7 +12,8 @@
 #import "CPUIModelUserInfo.h"
 #import "CPUIModelMessage.h"
 @interface BBMessageGroupBaseCell : UITableViewCell
-@property (nonatomic , strong) CPUIModelMessageGroup *msgGroup;
+//notifyMessage change
+@property (nonatomic , strong) id msgGroup;
 //姓名
 @property (nonatomic , strong) UILabel *userNameLabel;
 //内容
@@ -25,4 +26,7 @@
 @property (nonatomic , strong) UILabel *unreadedCountLabel;
 //未读书背景图
 @property (nonatomic ,strong) UIImageView *imageviewMessageAlert;
+
+//notifyMessage change
+-(void)setUIModelMsgGroup:(CPUIModelMessageGroup *)msgGroup;
 @end

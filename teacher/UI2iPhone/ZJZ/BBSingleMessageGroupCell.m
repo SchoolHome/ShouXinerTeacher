@@ -25,10 +25,10 @@
 
     // Configure the view for the selected state
 }
-
--(void)setMsgGroup:(CPUIModelMessageGroup *)msgGroup
+//notifyMessage change
+-(void)setUIModelMsgGroup:(CPUIModelMessageGroup *)msgGroup
 {
-    [super setMsgGroup:msgGroup];
+    [super setUIModelMsgGroup:msgGroup];
     
     if (msgGroup) {
         if (msgGroup.memberList.count > 0) {
