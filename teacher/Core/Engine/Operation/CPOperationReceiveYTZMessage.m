@@ -87,6 +87,7 @@
                 //[[[CPSystemEngine sharedInstance] msgManager] refreshMsgGroupByAppendMsgWithNewMsgID:newMsgID];
                 [[PalmUIManagement sharedInstance] setNoticeArray:[[[CPSystemEngine sharedInstance] dbManagement] findAllNewNotiyfMessages]];
                 [[CPSystemEngine sharedInstance] updateTagByNoticeMsg];
+                [[CPSystemEngine sharedInstance] updateTagByFriendMsgUnReadedCount];
             }
         }
     }

@@ -15,7 +15,7 @@
 -(NSNumber *)insertUrlsWithUrl:(NSString *)url andNotifyMessageID : (NSNumber *)notifyMsgID;
 
 -(NSNumber *)insertMessage:(CPDBModelNotifyMessage *)dbMessage;
--(void)updateMessageReadedWithID:(NSNumber *)objID  obj:(NSNumber *)msgReaded;
+-(void)updateMessageReadedWithID:(NSString *)fromJID  obj:(NSNumber *)msgReaded;
 -(void)updateMessageWithID:(NSNumber *)objID  obj:(CPDBModelNotifyMessage *)dbMessage;
 -(CPDBModelNotifyMessage *)getMessageWithResultSet:(FMResultSet *)rs;
 -(CPDBModelNotifyMessage *)findMessageWithID:(NSNumber *)id;

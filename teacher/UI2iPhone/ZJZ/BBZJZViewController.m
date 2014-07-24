@@ -244,13 +244,16 @@
         };
         dispatch_async(dispatch_get_main_queue(), updateTagBlock);
     }else if ([cell.msgGroup isKindOfClass:[CPDBModelNotifyMessage class]]){
+        CPDBModelNotifyMessage *msgGroup = cell.msgGroup;
         //设置未读数
+        
+        [[[CPSystemEngine sharedInstance] dbManagement] updateMessageReadedWithID:msgGroup.from obj:[NSNumber numberWithInteger:0]];
         __block NSInteger count = [CPUIModelManagement sharedInstance].friendMsgUnReadedCount;
         dispatch_block_t updateTagBlock = ^{
             [[CPUIModelManagement sharedInstance] setFriendMsgUnReadedCount:count];
         };
-        
-        CPDBModelNotifyMessage *msgGroup = cell.msgGroup;
+        dispatch_async(dispatch_get_main_queue(), updateTagBlock);
+
         NSArray *msgGroupOfCurrentFrom = [[[CPSystemEngine sharedInstance] dbManagement] findNotifyMessagesOfCurrentFromJID:msgGroup.from];
         NSLog(@"msgGroupOfCurrentFrom%@",msgGroupOfCurrentFrom);
     }

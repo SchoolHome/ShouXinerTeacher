@@ -234,5 +234,6 @@
 
 -(NSArray *)findNotifyMessagesOfCurrentFromJID:(NSString *)currentFromJID;
 -(NSInteger)allNotiUnreadedMessageCount;
+-(void)updateMessageReadedWithID:(NSString *)fromJID  obj:(NSNumber *)msgReaded;
 //-(NSNumber *)insertUrlsWithUrl:(NSString *)url andNotifyMessageID : (NSNumber *)notifyMsgID;
 @end

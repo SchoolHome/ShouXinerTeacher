@@ -1594,4 +1594,10 @@
 {
     return [notifyMsgDAO getAllNotiUnreadedMessageCount];
 }
+-(void)updateMessageReadedWithID:(NSString *)fromJID  obj:(NSNumber *)msgReaded
+{
+    [self dbBeginTransaction];
+    [notifyMsgDAO updateMessageReadedWithID:fromJID obj:msgReaded];
+    [self dbCommit];
+}
 @end

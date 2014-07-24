@@ -123,9 +123,9 @@
     }
     return [self lastRowID];
 }
--(void)updateMessageReadedWithID:(NSNumber *)objID  obj:(NSNumber *)msgReaded
+-(void)updateMessageReadedWithID:(NSString *)fromJID  obj:(NSNumber *)msgReaded
 {
-    [db executeUpdate:@"update notifyMessage set is_readed = ? where id = ?",msgReaded,objID];
+    [db executeUpdate:@"update notifyMessage set is_readed = ? where fromJID = ?",msgReaded,fromJID];
     if ([db hadError])
     {
         CPLogError(@"Err %d: %@", [db lastErrorCode], [db lastErrorMessage]);
