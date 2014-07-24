@@ -255,6 +255,9 @@
         dispatch_async(dispatch_get_main_queue(), updateTagBlock);
 
         NSArray *msgGroupOfCurrentFrom = [[[CPSystemEngine sharedInstance] dbManagement] findNotifyMessagesOfCurrentFromJID:msgGroup.from];
+        [[CPSystemEngine sharedInstance] updateTagByNoticeMsg];
+        
+        
         NSLog(@"msgGroupOfCurrentFrom%@",msgGroupOfCurrentFrom);
     }
 
