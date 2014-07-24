@@ -9,6 +9,8 @@
 #import "BBUITabBarController.h"
 #import "CPUIModelManagement.h"
 #import "CustomNavigationController.h"
+#import "CPDBManagement.h"
+
 @interface BBUITabBarController ()
 
 @end
@@ -41,7 +43,7 @@
     
     if ([keyPath isEqualToString:@"friendMsgUnReadedCount"]) {
         int count = [CPUIModelManagement sharedInstance].friendMsgUnReadedCount;
-        
+        count += [[[CPSystemEngine sharedInstance] dbManagement] allNotiUnreadedMessageCount];
         if (count <= 0) {
             markMessage.hidden = YES;
         }else{
