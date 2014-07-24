@@ -93,8 +93,12 @@
     [super viewWillAppear:animated];
     
     int unReadCount = 0;
-    for (CPUIModelMessageGroup *messageGroup in _tableviewDisplayDataArray) {
-        unReadCount += [messageGroup.unReadedCount intValue];
+    for (id messageGroup in _tableviewDisplayDataArray) {
+        if ([messageGroup isKindOfClass:[CPUIModelMessageGroup class]]) {
+            CPUIModelMessageGroup *msgGroup = messageGroup;
+            unReadCount += [msgGroup.unReadedCount intValue];
+        }
+        
     }
     
     unReadCount += [[[CPSystemEngine sharedInstance] dbManagement] allNotiUnreadedMessageCount];
@@ -238,6 +242,7 @@
         
         __block NSInteger count = [CPUIModelManagement sharedInstance].friendMsgUnReadedCount;
         count -= [messageGroup.unReadedCount intValue];
+        count += [[[CPSystemEngine sharedInstance] dbManagement] allNotiUnreadedMessageCount];
         dispatch_block_t updateTagBlock = ^{
             [[CPUIModelManagement sharedInstance] setFriendMsgUnReadedCount:count];
         };
