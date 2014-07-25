@@ -29,6 +29,7 @@
 #import "CoreUtils.h"
 #import <Crashlytics/Crashlytics.h>
 #import "GuidViewController.h"
+#import "CPDBManagement.h"
 
 @implementation AppDelegate
 
@@ -66,6 +67,7 @@
     }
     BBUITabBarController *tab = [[BBUITabBarController alloc] init];
     self.window.rootViewController = tab;
+    [[[CPSystemEngine sharedInstance] dbManagement] findAllNewNotiyfMessages];
 }
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions{
