@@ -1600,4 +1600,10 @@
     [notifyMsgDAO updateMessageReadedWithID:fromJID obj:msgReaded];
     [self dbCommit];
 }
+-(void)deleteMsgGroupByFrom:(NSString *)fromJID
+{
+    [self dbBeginTransaction];
+    [notifyMsgDAO deleteMsgGroupByFrom:fromJID];
+    [self dbCommit];
+}
 @end

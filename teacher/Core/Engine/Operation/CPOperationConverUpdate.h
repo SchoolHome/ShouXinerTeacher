@@ -17,6 +17,8 @@ typedef enum
     UPDATE_CONVER_TYPE_REMOVE = 5,
     UPDATE_CONVER_TYPE_UPGRADE = 6,
     UPDATE_CONVER_TYPE_DELETE = 7,
+    UPDATE_CONVER_TYPE_NOTIFY_DELETE = 8,
+    UPDATE_CONVER_TYPE_NOTIFY_UPDATE = 9
 }UpdateConverType;
 
 @interface CPOperationConverUpdate : CPOperation
