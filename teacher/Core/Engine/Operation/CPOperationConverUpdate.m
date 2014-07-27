@@ -342,6 +342,17 @@
     NSNumber *currentMsgGroupID = [[[CPSystemEngine sharedInstance] dbManagement] insertMessageGroupByMemberList:(CPDBModelMessageGroup *)groupObj];
     [[[CPSystemEngine sharedInstance] msgManager] refreshMsgListWithMsgGroupID:currentMsgGroupID isCreated:YES];
 }
+-(void)deleteNotifyMsgGroup
+{
+    CPDBModelNotifyMessage *msgGroup = (CPDBModelNotifyMessage *)groupObj;
+    [[[CPSystemEngine sharedInstance] dbManagement] deleteMsgGroupByFrom:msgGroup.from];
+    //通知ui
+    [[CPSystemEngine sharedInstance] updateTagByNoticeMsg];
+}
+-(void)updateNotifyMsgGroup
+{
+    
+}
 -(void)main
 {
     @autoreleasepool 
@@ -368,6 +379,12 @@
                 break;
             case UPDATE_CONVER_TYPE_DELETE:
                 [self deleteMsgGroup];
+                break;
+            case UPDATE_CONVER_TYPE_NOTIFY_DELETE:
+                [self deleteNotifyMsgGroup];
+                break;
+            case UPDATE_CONVER_TYPE_NOTIFY_UPDATE:
+                [self updateNotifyMsgGroup];
                 break;
         }
     }

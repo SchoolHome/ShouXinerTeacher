@@ -40,4 +40,5 @@
 //根据fromJID获取所有此jid的数据
 -(NSArray *)findAllMessagesOfFromJID:(NSString *)fromJID;
 -(NSInteger)getAllNotiUnreadedMessageCount;
+-(void)deleteMsgGroupByFrom:(NSString *)fromJID;
 @end

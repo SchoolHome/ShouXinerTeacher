@@ -280,7 +280,7 @@ typedef enum
 //2014-7
 -(void)updateTagByNoticeMsg;
 -(void)updateTagByFriendMsgUnReadedCount;
-
+-(void)deleteNotifyMessageGroupByOperationWithObj:(NSObject *)obj;
 
 -(void)updateTagForPetDataChange:(NSDictionary *)dict;
 /********************add relationDel KVO by wang shuo*************************/

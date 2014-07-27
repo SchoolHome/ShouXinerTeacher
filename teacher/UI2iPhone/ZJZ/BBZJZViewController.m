@@ -325,6 +325,12 @@
     id tempMsgGroup = [self.tableviewDisplayDataArray objectAtIndex:indexPath.row];
     if ([tempMsgGroup isKindOfClass:[CPUIModelMessageGroup class]]) {
         [[CPUIModelManagement sharedInstance] deleteMsgGroup:tempMsgGroup];
+    }else if ([tempMsgGroup isKindOfClass:[CPDBModelNotifyMessage class]])
+    {
+        [[CPSystemEngine sharedInstance] deleteNotifyMessageGroupByOperationWithObj:tempMsgGroup];
+//        CPDBModelNotifyMessage *msgGroup = tempMsgGroup;
+//        [[[CPSystemEngine sharedInstance] dbManagement] deleteMsgGroupByFrom:msgGroup.from];
+        
     }
     
 }

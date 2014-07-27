@@ -254,4 +254,12 @@
     [rs close];
     return unreadedCount;
 }
+-(void)deleteMsgGroupByFrom:(NSString *)fromJID
+{
+    [db executeUpdate:@"delete from message where fromJID = ?",fromJID];
+    if ([db hadError])
+    {
+        CPLogError(@"Err %d: %@", [db lastErrorCode], [db lastErrorMessage]);
+    }
+}
 @end
