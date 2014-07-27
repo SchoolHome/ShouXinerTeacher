@@ -256,7 +256,7 @@
 }
 -(void)deleteMsgGroupByFrom:(NSString *)fromJID
 {
-    [db executeUpdate:@"delete from message where fromJID = ?",fromJID];
+    [db executeUpdate:@"delete from notifyMessage where fromJID = ?",fromJID];
     if ([db hadError])
     {
         CPLogError(@"Err %d: %@", [db lastErrorCode], [db lastErrorMessage]);

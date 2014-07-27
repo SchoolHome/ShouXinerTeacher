@@ -21,6 +21,8 @@
 #import "XMPPGroupMemberChangeMessage.h"
 #import "CPResManager.h"
 #import "CoreUtils.h"
+
+#import "PalmUIManagement.h"
 @implementation CPOperationConverUpdate
 - (id) initWithData:(NSObject *)obj withType:(NSInteger)type
 {
@@ -346,16 +348,31 @@
 {
     CPDBModelNotifyMessage *msgGroup = (CPDBModelNotifyMessage *)groupObj;
     [[[CPSystemEngine sharedInstance] dbManagement] deleteMsgGroupByFrom:msgGroup.from];
+    //更新缓存
+    [[PalmUIManagement sharedInstance] setNoticeArray:[[[CPSystemEngine sharedInstance] dbManagement] findAllNewNotiyfMessages]];
     //通知ui
     [[CPSystemEngine sharedInstance] updateTagByNoticeMsg];
 }
 -(void)updateNotifyMsgGroup
 {
+    CPDBModelNotifyMessage *msgGroup = (CPDBModelNotifyMessage *)groupObj;
+    //更改数据库未读数
+    [[[CPSystemEngine sharedInstance] dbManagement] updateMessageReadedWithID:msgGroup.from obj:[NSNumber numberWithInteger:0]];
     
+    //设置未读数
+    __block NSInteger count = [CPUIModelManagement sharedInstance].friendMsgUnReadedCount;
+    dispatch_block_t updateTagBlock = ^{
+        [[CPUIModelManagement sharedInstance] setFriendMsgUnReadedCount:count];
+    };
+    dispatch_async(dispatch_get_main_queue(), updateTagBlock);
+    //刷新缓存
+    [[PalmUIManagement sharedInstance] setNoticeArray:[[[CPSystemEngine sharedInstance] dbManagement] findAllNewNotiyfMessages]];
+    //更新ui
+    [[CPSystemEngine sharedInstance] updateTagByNoticeMsg];
 }
 -(void)main
 {
-    @autoreleasepool 
+    @autoreleasepool
     {
         switch (updateType)
         {

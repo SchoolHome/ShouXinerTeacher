@@ -247,17 +247,10 @@
         CPDBModelNotifyMessage *msgGroup = cell.msgGroup;
         //设置未读数
         
-        [[[CPSystemEngine sharedInstance] dbManagement] updateMessageReadedWithID:msgGroup.from obj:[NSNumber numberWithInteger:0]];
-        __block NSInteger count = [CPUIModelManagement sharedInstance].friendMsgUnReadedCount;
-        dispatch_block_t updateTagBlock = ^{
-            [[CPUIModelManagement sharedInstance] setFriendMsgUnReadedCount:count];
-        };
-        dispatch_async(dispatch_get_main_queue(), updateTagBlock);
+        [[CPSystemEngine sharedInstance] updateUnreadedMessageStatusChanged:msgGroup];
 
+        
         NSArray *msgGroupOfCurrentFrom = [[[CPSystemEngine sharedInstance] dbManagement] findNotifyMessagesOfCurrentFromJID:msgGroup.from];
-        [[CPSystemEngine sharedInstance] updateTagByNoticeMsg];
-        
-        
         NSLog(@"msgGroupOfCurrentFrom%@",msgGroupOfCurrentFrom);
     }
 

@@ -902,6 +902,11 @@ andTmpFilePath:(NSString *)filePath
     CPOperationConverUpdate *operation = [[CPOperationConverUpdate alloc] initWithData:obj withType:UPDATE_CONVER_TYPE_NOTIFY_DELETE];
     [self addDbQueueWithOperation:operation];
 }
+-(void)updateUnreadedMessageStatusChanged:(NSObject *)obj
+{
+    CPOperationConverUpdate *operation = [[CPOperationConverUpdate alloc] initWithData:obj withType:UPDATE_CONVER_TYPE_NOTIFY_UPDATE];
+    [self addDbQueueWithOperation:operation];
+}
 -(void)getMsgListPagedByOperationWithMsgGroup:(CPUIModelMessageGroup *)uiMsgGroup
 {
     CPOperationMsgListByPage *operation = [[CPOperationMsgListByPage alloc] initWithMsgGroup:uiMsgGroup];
