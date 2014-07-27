@@ -67,7 +67,8 @@
     }
     BBUITabBarController *tab = [[BBUITabBarController alloc] init];
     self.window.rootViewController = tab;
-    [[[CPSystemEngine sharedInstance] dbManagement] findAllNewNotiyfMessages];
+    //2014-7
+    [PalmUIManagement sharedInstance].noticeArray = [[[CPSystemEngine sharedInstance] dbManagement] findAllNewNotiyfMessages];
 }
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions{
