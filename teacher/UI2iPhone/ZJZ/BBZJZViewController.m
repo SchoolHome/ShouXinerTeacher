@@ -177,14 +177,17 @@
             if ([msgGroup isMsgSingleGroup] && msgGroup.memberList.count>0) {
                 CPUIModelMessageGroupMember *member = [msgGroup.memberList objectAtIndex:0];
                 CPUIModelUserInfo *userInfo = member.userInfo;
-                NSRange containStrRange = [userInfo.nickName rangeOfString:keyword options:NSCaseInsensitiveSearch];
-                if (containStrRange.length > 0) {
-                //有当前关键字结果
-                    [tempSearchResult addObject:msgGroup];
-                }else
-                {
-                //没有
+                if (msgGroup.msgList > 0) {
+                    NSRange containStrRange = [userInfo.nickName rangeOfString:keyword options:NSCaseInsensitiveSearch];
+                    if (containStrRange.length > 0 ) {
+                        //有当前关键字结果
+                        [tempSearchResult addObject:msgGroup];
+                    }else
+                    {
+                        //没有
+                    }
                 }
+
             }else
             {
                 CPLogInfo(@"msggroup.memberList == 0 or isNotSIngleGroup");

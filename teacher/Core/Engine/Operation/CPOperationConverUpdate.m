@@ -344,6 +344,7 @@
     NSNumber *currentMsgGroupID = [[[CPSystemEngine sharedInstance] dbManagement] insertMessageGroupByMemberList:(CPDBModelMessageGroup *)groupObj];
     [[[CPSystemEngine sharedInstance] msgManager] refreshMsgListWithMsgGroupID:currentMsgGroupID isCreated:YES];
 }
+//notifyMessage change
 -(void)deleteNotifyMsgGroup
 {
     CPDBModelNotifyMessage *msgGroup = (CPDBModelNotifyMessage *)groupObj;
@@ -370,6 +371,7 @@
     //更新ui
     [[CPSystemEngine sharedInstance] updateTagByNoticeMsg];
 }
+//notifyMessage change
 -(void)main
 {
     @autoreleasepool
