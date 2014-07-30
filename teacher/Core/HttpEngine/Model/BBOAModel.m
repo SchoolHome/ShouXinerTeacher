@@ -37,6 +37,25 @@
                 isFound = YES;
                 int unReaded = [sumModel.unReaded intValue] + 1;
                 sumModel.unReaded = [NSNumber numberWithInt:unReaded];
+                /*
+                 @property(nonatomic,strong) NSNumber *oaid;
+                 @property(nonatomic,strong) NSNumber *sender_uid;
+                 @property(nonatomic,strong) NSString *sender_username;
+                 @property(nonatomic,strong) NSString *sender_avatar;
+                 @property(nonatomic,strong) NSString *title;
+                 @property(nonatomic,strong) NSString *content;
+                 @property(nonatomic,strong) NSNumber *ts;
+                 @property(nonatomic,strong) NSNumber *attach_num;
+                 @property(nonatomic,strong) NSString *url;
+                 */
+                sumModel.oaid = model.oaid;
+                sumModel.sender_username = model.sender_username;
+                sumModel.sender_avatar = model.sender_avatar;
+                sumModel.title = model.title;
+                sumModel.content = model.content;
+                sumModel.ts = model.ts;
+                sumModel.attach_num = model.attach_num;
+                sumModel.url = model.url;
                 break;
             }
         }
