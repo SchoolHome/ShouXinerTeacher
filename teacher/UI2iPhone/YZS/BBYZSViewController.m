@@ -29,6 +29,19 @@
             [self.oalist addObject:oa];
         }
         if ([jsonArray count] != 0) {
+            
+            [self.oalist sortUsingComparator:^NSComparisonResult(id obj1, id obj2) {
+                BBOAModel *oa1 = obj1;
+                BBOAModel *oa2 = obj2;
+                if ([oa1.ts longLongValue] > [oa2.ts longLongValue]) {
+                    return NSOrderedDescending ;
+                }else if ([oa1.ts longLongValue] == [oa2.ts longLongValue]){
+                    return NSOrderedSame;
+                }else{
+                    return NSOrderedAscending;
+                }
+            }];
+            
             [self.dataSource updateCacheArray:self.oalist];
         }
         
@@ -56,6 +69,7 @@
             [def setObject:[NSNumber numberWithInt:time] forKey:key];
             [def synchronize];
         }
+        [self.oalist removeAllObjects];
     }
 }
 
