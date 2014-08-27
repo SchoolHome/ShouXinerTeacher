@@ -134,25 +134,6 @@ static NSArray *nationalFlags = nil;
     
     for (int i =0 ;i<[self.resultArray count];i++) {
         width = width + [[widthsArray objectAtIndex:i] floatValue];
-        
-        
-//        if (i+1<[self.resultArray count]) {
-//            
-//            if ([[self.resultArray objectAtIndex:i] isEqualToString:@"\n"]) {
-//                [dest addObject:[NSNumber numberWithInt:i]];
-//                width = 0.0f;
-//                CPLogInfo(@"i %d",i);
-//                continue;
-//            }
-//            
-//            if (width+[[widthsArray objectAtIndex:i+1] floatValue]>kMaxWidth) {  //边界
-//                [dest addObject:[NSNumber numberWithInt:i]];
-//                width = 0.0f;
-//                continue;
-//            }
-//        }
-        
-        
 
         if (width<=kMaxWidth) {   // 优先处理遇到换行的情况
             if ([[self.resultArray objectAtIndex:i] isEqualToString:@"\n"]) {

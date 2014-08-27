@@ -91,6 +91,11 @@
 		1927E4C018E5544E0079EA53 /* ZJZSenderSound@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1927E4B818E5544E0079EA53 /* ZJZSenderSound@2x.png */; };
 		1927E4C118E5544E0079EA53 /* ZJZSenderText.png in Resources */ = {isa = PBXBuildFile; fileRef = 1927E4B918E5544E0079EA53 /* ZJZSenderText.png */; };
 		1927E4C218E5544E0079EA53 /* ZJZSenderText@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1927E4BA18E5544E0079EA53 /* ZJZSenderText@2x.png */; };
+		1935742919AD69B60085DC5F /* ADDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1935742219AD69B60085DC5F /* ADDetailViewController.m */; };
+		1935742A19AD69B60085DC5F /* ADImageview.m in Sources */ = {isa = PBXBuildFile; fileRef = 1935742419AD69B60085DC5F /* ADImageview.m */; };
+		1935742B19AD69B60085DC5F /* BBScrollViewInfoModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 1935742619AD69B60085DC5F /* BBScrollViewInfoModel.m */; };
+		1935742C19AD69B60085DC5F /* BBScrollViewWithPageControl.m in Sources */ = {isa = PBXBuildFile; fileRef = 1935742819AD69B60085DC5F /* BBScrollViewWithPageControl.m */; };
+		1935742F19AD69C90085DC5F /* SystemOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 1935742E19AD69C90085DC5F /* SystemOperation.m */; };
 		193617FC1926764000548F7E /* ActivateSmallFrom2.png in Resources */ = {isa = PBXBuildFile; fileRef = 193617FA1926764000548F7E /* ActivateSmallFrom2.png */; };
 		193617FD1926764000548F7E /* ActivateSmallFrom2@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 193617FB1926764000548F7E /* ActivateSmallFrom2@2x.png */; };
 		193E593E18D9908200DB1FF4 /* BBmessageMainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 193E593D18D9908200DB1FF4 /* BBmessageMainViewController.m */; };
@@ -1385,6 +1390,16 @@
 		1927E4B818E5544E0079EA53 /* ZJZSenderSound@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ZJZSenderSound@2x.png"; sourceTree = "<group>"; };
 		1927E4B918E5544E0079EA53 /* ZJZSenderText.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ZJZSenderText.png; sourceTree = "<group>"; };
 		1927E4BA18E5544E0079EA53 /* ZJZSenderText@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ZJZSenderText@2x.png"; sourceTree = "<group>"; };
+		1935742119AD69B60085DC5F /* ADDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ADDetailViewController.h; sourceTree = "<group>"; };
+		1935742219AD69B60085DC5F /* ADDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ADDetailViewController.m; sourceTree = "<group>"; };
+		1935742319AD69B60085DC5F /* ADImageview.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ADImageview.h; sourceTree = "<group>"; };
+		1935742419AD69B60085DC5F /* ADImageview.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ADImageview.m; sourceTree = "<group>"; };
+		1935742519AD69B60085DC5F /* BBScrollViewInfoModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BBScrollViewInfoModel.h; sourceTree = "<group>"; };
+		1935742619AD69B60085DC5F /* BBScrollViewInfoModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BBScrollViewInfoModel.m; sourceTree = "<group>"; };
+		1935742719AD69B60085DC5F /* BBScrollViewWithPageControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BBScrollViewWithPageControl.h; sourceTree = "<group>"; };
+		1935742819AD69B60085DC5F /* BBScrollViewWithPageControl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BBScrollViewWithPageControl.m; sourceTree = "<group>"; };
+		1935742D19AD69C90085DC5F /* SystemOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SystemOperation.h; sourceTree = "<group>"; };
+		1935742E19AD69C90085DC5F /* SystemOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SystemOperation.m; sourceTree = "<group>"; };
 		193617FA1926764000548F7E /* ActivateSmallFrom2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ActivateSmallFrom2.png; sourceTree = "<group>"; };
 		193617FB1926764000548F7E /* ActivateSmallFrom2@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ActivateSmallFrom2@2x.png"; sourceTree = "<group>"; };
 		193E593C18D9908200DB1FF4 /* BBmessageMainViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BBmessageMainViewController.h; sourceTree = "<group>"; };
@@ -3327,6 +3342,14 @@
 		192446DD1941BF860077D5DB /* Guid */ = {
 			isa = PBXGroup;
 			children = (
+				1935742119AD69B60085DC5F /* ADDetailViewController.h */,
+				1935742219AD69B60085DC5F /* ADDetailViewController.m */,
+				1935742319AD69B60085DC5F /* ADImageview.h */,
+				1935742419AD69B60085DC5F /* ADImageview.m */,
+				1935742519AD69B60085DC5F /* BBScrollViewInfoModel.h */,
+				1935742619AD69B60085DC5F /* BBScrollViewInfoModel.m */,
+				1935742719AD69B60085DC5F /* BBScrollViewWithPageControl.h */,
+				1935742819AD69B60085DC5F /* BBScrollViewWithPageControl.m */,
 				192446DE1941BFA10077D5DB /* GuidViewController.h */,
 				192446DF1941BFA10077D5DB /* GuidViewController.m */,
 			);
@@ -6155,6 +6178,8 @@
 		33771E2F18C9CC9D00FB5002 /* OP */ = {
 			isa = PBXGroup;
 			children = (
+				1935742D19AD69C90085DC5F /* SystemOperation.h */,
+				1935742E19AD69C90085DC5F /* SystemOperation.m */,
 				1915BAEF18D5C04A00098CBF /* UserProfileOperation.h */,
 				1915BAF018D5C04A00098CBF /* UserProfileOperation.m */,
 				33771E3918C9CD0400FB5002 /* PalmOperation.h */,
@@ -7422,6 +7447,7 @@
 				332D74F018C33552007A75D5 /* CPPersonalManager.m in Sources */,
 				332D753F18C33552007A75D5 /* XMPPJabberRPCModule.m in Sources */,
 				33771E1B18C9B9A000FB5002 /* PalmUIManagement.m in Sources */,
+				1935742C19AD69B60085DC5F /* BBScrollViewWithPageControl.m in Sources */,
 				332D75A518C33552007A75D5 /* CPUIModelPetInfo.m in Sources */,
 				741EBBC518D4CC7B00F21085 /* BBSingleMessageGroupCell.m in Sources */,
 				332D82F718C33F0B007A75D5 /* RelationshipBrain.m in Sources */,
@@ -7539,6 +7565,7 @@
 				332D830318C33F0B007A75D5 /* LoadingView.m in Sources */,
 				19145F50191CDF3B008CE18C /* MJPhotoView.m in Sources */,
 				332D833718C33F0B007A75D5 /* GroupSoundCell.m in Sources */,
+				1935742A19AD69B60085DC5F /* ADImageview.m in Sources */,
 				332D74D418C33552007A75D5 /* CPDAOResource.m in Sources */,
 				1970BC4D191BB26600F63454 /* activateViewController.m in Sources */,
 				332D75AE18C33552007A75D5 /* CoreUtils.m in Sources */,
@@ -7687,6 +7714,7 @@
 				332D82A018C33F0A007A75D5 /* SectionModel.m in Sources */,
 				332D74E218C33552007A75D5 /* CPDBModelMessageGroup.m in Sources */,
 				332D75A718C33552007A75D5 /* CPUIModelPetSmallAnim.m in Sources */,
+				1935742F19AD69C90085DC5F /* SystemOperation.m in Sources */,
 				332D754218C33552007A75D5 /* XMPPMessage+XEP0045.m in Sources */,
 				332D755518C33552007A75D5 /* XMPPvCardAvatarModule.m in Sources */,
 				332D832018C33F0B007A75D5 /* FXStatusPanel.m in Sources */,
@@ -7871,6 +7899,7 @@
 				332D829718C33F0A007A75D5 /* ChineseToPinyin.m in Sources */,
 				332D758218C33552007A75D5 /* CPPTModelGroupInfoList.m in Sources */,
 				332D752D18C33552007A75D5 /* XMPPMessage.m in Sources */,
+				1935742919AD69B60085DC5F /* ADDetailViewController.m in Sources */,
 				743E85F918D74CEF0024D371 /* ContactsModel.m in Sources */,
 				332D837518C33F0B007A75D5 /* AAFilter.cpp in Sources */,
 				332D830B18C33F0B007A75D5 /* FXBlockViewAlert.m in Sources */,
@@ -7902,6 +7931,7 @@
 				332D74DE18C33552007A75D5 /* CPDBModelBabyInfoData.m in Sources */,
 				332D74E418C33552007A75D5 /* CPDBModelPersonalInfo.m in Sources */,
 				332D75AB18C33552007A75D5 /* CPUIModelUserInfoData.m in Sources */,
+				1935742B19AD69B60085DC5F /* BBScrollViewInfoModel.m in Sources */,
 				332D835D18C33F0B007A75D5 /* TimeTestViewController.m in Sources */,
 				332D754418C33552007A75D5 /* XMPPRoom.m in Sources */,
 				332D838418C33F0B007A75D5 /* TFileOperator.m in Sources */,

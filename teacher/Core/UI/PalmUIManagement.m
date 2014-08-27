@@ -11,6 +11,7 @@
 #import "MyOperation.h"
 #import "GroupOperation.h"
 #import "ClassOperation.h"
+#import "SystemOperation.h"
 
 @implementation PalmUIManagement
 static PalmUIManagement *sharedInstance = nil;
@@ -161,6 +162,17 @@ static PalmUIManagement *sharedInstance = nil;
     if (operation != nil) {
         [[PalmNetWorkService sharedInstance] networkEngine:operation];
     }
+}
+
+-(void) foreground{
+    SystemOperation *operation = [[SystemOperation alloc] initGetAdvInfo];
+    [[PalmNetWorkService sharedInstance] networkEngine:operation];
+}
+
+//获取班级圈广告
+-(void) getAdvWithGroupID : (int) groupID{
+    SystemOperation *operation = [[SystemOperation alloc] initGetAdvInfo:groupID];
+    [[PalmNetWorkService sharedInstance] networkEngine:operation];
 }
 
 @end

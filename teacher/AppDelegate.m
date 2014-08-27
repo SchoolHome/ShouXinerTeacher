@@ -74,6 +74,7 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions{
     CPLogInfo(@"launchOptions %@",launchOptions);
     [[PalmUIManagement sharedInstance] addObserver:self forKeyPath:@"checkVersion" options:0 context:nil];
+    [[PalmUIManagement sharedInstance] addObserver:self forKeyPath:@"advResult" options:0 context:nil];
     [Crashlytics startWithAPIKey:@"fb92e12c5ee94966ce5c9aaaa0376675d7f4ca07"];
     UIImage *image = nil;
     if ([[[UIDevice currentDevice] systemVersion] floatValue] >= 7.0f) {
@@ -179,6 +180,7 @@
 - (void)applicationWillEnterForeground:(UIApplication *)application{
     [self setLatestActiveTime:[CoreUtils getLongFormatWithNowDate]];
     [[CPUIModelManagement sharedInstance] sysActive];
+    [[PalmUIManagement sharedInstance] foreground];
     [[PalmUIManagement sharedInstance] userLoginToken];
 //    [[PalmUIManagement sharedInstance] postCheckVersion];
 }

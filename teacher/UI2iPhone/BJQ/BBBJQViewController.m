@@ -15,8 +15,10 @@
 #import "MJPhoto.h"
 #import "BBPBXViewController.h"
 #import "BBPBXTableViewCell.h"
+#import "ADImageview.h"
+#import "ADDetailViewController.h"
 
-@interface BBBJQViewController ()
+@interface BBBJQViewController ()<ADImageviewDelegate>
 @property (nonatomic,strong) BBTopicModel *tempTopModel;
 @property (nonatomic,strong) BBTopicModel *tempTopModelInput;
 @property (nonatomic,copy) NSString *inputText;
@@ -232,6 +234,23 @@
         }
 
     }
+    
+    if ([@"advWithGroupResult" isEqualToString:keyPath]) {
+        if (![[[PalmUIManagement sharedInstance].advWithGroupResult objectForKey:ASI_REQUEST_HAS_ERROR] boolValue]) {
+            NSDictionary *result = [[[PalmUIManagement sharedInstance].advWithGroupResult objectForKey:ASI_REQUEST_DATA] objectForKey:@"content"];
+            self.webUrl = result[@"url"];
+            self.imageUrl = result[@"image"];
+            ADImageview *adImage = [[ADImageview alloc] initWithUrl:[NSURL URLWithString:self.imageUrl]];
+            adImage.adDelegate = self;
+            [[UIApplication sharedApplication].keyWindow addSubview:adImage];
+        }
+    }
+}
+
+-(void)imageTapped{
+    ADDetailViewController *adDetailVC = [[ADDetailViewController alloc] initWithUrl:[NSURL URLWithString:self.webUrl]andADType:AD_TYPE_SCREEN];
+    adDetailVC.hidesBottomBarWhenPushed = YES;
+    [self.navigationController pushViewController:adDetailVC animated:YES];
 }
 
 -(void)addObservers{
@@ -245,6 +264,9 @@
     
     [[PalmUIManagement sharedInstance] addObserver:self forKeyPath:@"praiseResult" options:0 context:NULL];
     [[PalmUIManagement sharedInstance] addObserver:self forKeyPath:@"commentResult" options:0 context:NULL];
+    
+    // 广告
+    [[PalmUIManagement sharedInstance] addObserver:self forKeyPath:@"advWithGroupResult" options:0 context:NULL];
     
 }
 
@@ -260,6 +282,7 @@
     [[PalmUIManagement sharedInstance] removeObserver:self forKeyPath:@"praiseResult"];
     [[PalmUIManagement sharedInstance] removeObserver:self forKeyPath:@"commentResult"];
 
+    [[PalmUIManagement sharedInstance] removeObserver:self forKeyPath:@"advWithGroupResult"];
 }
 
 -(void)checkNotify{
@@ -453,7 +476,7 @@
     self.isLoading = NO;
     [self addObservers];
     
-    [bjqTableView triggerPullToRefresh];
+//    [bjqTableView triggerPullToRefresh];
 }
 
 -(void)viewWillDisappear:(BOOL)animated{

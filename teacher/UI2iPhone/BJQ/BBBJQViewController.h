@@ -53,4 +53,6 @@ UserMessageImageDelegate>
 @property(nonatomic) TopicLoadStatus loadStatus;
 @property(nonatomic,strong) NSMutableArray *allTopicList;
 @property BOOL isLoading;
+@property (nonatomic,strong) NSString *webUrl;
+@property (nonatomic,strong) NSString *imageUrl;
 @end

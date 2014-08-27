@@ -69,6 +69,12 @@
 @property(nonatomic,strong) NSHTTPCookie *suid;
 @property(nonatomic,strong) NSString *imServerIP;
 
+// 广告
+@property(nonatomic,strong) NSDictionary *advResult;
+
+// 广告
+@property(nonatomic,strong) NSDictionary *advWithGroupResult;
+
 // 激活
 @property(nonatomic,strong) NSDictionary *activateDic;
 
@@ -131,4 +137,10 @@
 // 拍表现
 -(void) postPBX : (int) groupid withTitle : (NSString *) title withContent : (NSString *) content withAttach : (NSString *) attach
       withAward : (NSString *) students withToHomePage : (BOOL) hasHomePage withToUpGroup : (BOOL) hasTopGroup;
+
+// 切换回前台
+-(void) foreground;
+
+//获取班级圈广告
+-(void) getAdvWithGroupID : (int) groupID;
 @end
