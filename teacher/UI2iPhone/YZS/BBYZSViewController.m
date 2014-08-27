@@ -10,6 +10,9 @@
 #import "BBOAModel.h"
 
 @interface BBYZSViewController ()
+{
+ 
+}
 @property (nonatomic,strong) NSMutableArray *oalist;
 @property (nonatomic,strong) BBOASumModel *dataSource;
 @property (nonatomic) int temptime;
@@ -71,6 +74,7 @@
         }
         [self.oalist removeAllObjects];
     }
+
 }
 
 -(void)addObservers{
@@ -78,9 +82,10 @@
 }
 
 -(void)removeObservers{
-
+    
     [[PalmUIManagement sharedInstance] removeObserver:self forKeyPath:@"notiList"];
 }
+
 
 -(void)viewWillAppear:(BOOL)animated{
 
@@ -132,7 +137,7 @@
     
     self.oalist = [[NSMutableArray alloc] init];
     
-    
+
 }
 
 

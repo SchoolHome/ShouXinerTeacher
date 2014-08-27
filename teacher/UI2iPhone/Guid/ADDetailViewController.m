@@ -37,7 +37,7 @@
             [back addTarget:self action:@selector(backAction) forControlEvents:UIControlEventTouchUpInside];
             self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:back];
             
-            navigationBarHeight += 44.f;
+            navigationBarHeight += 64.f;
         }else if (type == AD_TYPE_BANNER)
         {
             UINavigationBar *navigationBar = [[UINavigationBar alloc] initWithFrame:CGRectMake(0.0, -24.0, 320, 44)];

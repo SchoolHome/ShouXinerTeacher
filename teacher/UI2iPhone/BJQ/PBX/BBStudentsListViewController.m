@@ -133,6 +133,9 @@
 {
     self = [self initWithNibName:nil bundle:nil];
     if (self) {
+        if (!models) {
+            return self;
+        }
         self.selectedStudentList = [[NSMutableArray alloc] initWithArray:selectedStu];
         NSMutableArray *tempStudentsArr = [[NSMutableArray alloc] init];
         for (NSString *studentID in models.allKeys) {
