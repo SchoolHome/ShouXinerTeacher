@@ -3570,6 +3570,13 @@
 			path = ZYQAssetPickerController;
 			sourceTree = "<group>";
 		};
+		19FE2B3A19D1EC2800BA3F7C /* Video */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Video;
+			sourceTree = "<group>";
+		};
 		332D724818C33464007A75D5 = {
 			isa = PBXGroup;
 			children = (
@@ -6614,6 +6621,7 @@
 		7AC51B8118CDD92D00AD1A8C /* UI2iPhone */ = {
 			isa = PBXGroup;
 			children = (
+				19FE2B3A19D1EC2800BA3F7C /* Video */,
 				192446DD1941BF860077D5DB /* Guid */,
 				19A88A121917C9DE001AC9B0 /* Crashlytics.framework */,
 				197FCF9D18F41D5000EE751B /* navBarBg44.png */,
