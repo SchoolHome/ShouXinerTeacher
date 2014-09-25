@@ -166,6 +166,7 @@
 		19C08C3F193F1BAA00C548CD /* BJQRongYun@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 19C08C27193F1BAA00C548CD /* BJQRongYun@2x.png */; };
 		19C08C40193F1BAA00C548CD /* BJQTuiJian.png in Resources */ = {isa = PBXBuildFile; fileRef = 19C08C28193F1BAA00C548CD /* BJQTuiJian.png */; };
 		19C08C41193F1BAA00C548CD /* BJQTuiJian@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 19C08C29193F1BAA00C548CD /* BJQTuiJian@2x.png */; };
+		19CC3EDE19D47F36005F90F6 /* CropVideo.m in Sources */ = {isa = PBXBuildFile; fileRef = 19CC3EDD19D47F36005F90F6 /* CropVideo.m */; };
 		19E1A0E2194EB2E6009C06F7 /* 4.png in Resources */ = {isa = PBXBuildFile; fileRef = 19E1A0DC194EB2E6009C06F7 /* 4.png */; };
 		19E1A0E3194EB2E6009C06F7 /* 4@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 19E1A0DD194EB2E6009C06F7 /* 4@2x.png */; };
 		19E1A0E4194EB2E6009C06F7 /* 4s@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 19E1A0DE194EB2E6009C06F7 /* 4s@2x.png */; };
@@ -1488,6 +1489,8 @@
 		19C08C27193F1BAA00C548CD /* BJQRongYun@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "BJQRongYun@2x.png"; path = "BJQ2/BJQRongYun@2x.png"; sourceTree = "<group>"; };
 		19C08C28193F1BAA00C548CD /* BJQTuiJian.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = BJQTuiJian.png; path = BJQ2/BJQTuiJian.png; sourceTree = "<group>"; };
 		19C08C29193F1BAA00C548CD /* BJQTuiJian@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "BJQTuiJian@2x.png"; path = "BJQ2/BJQTuiJian@2x.png"; sourceTree = "<group>"; };
+		19CC3EDC19D47F36005F90F6 /* CropVideo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CropVideo.h; sourceTree = "<group>"; };
+		19CC3EDD19D47F36005F90F6 /* CropVideo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CropVideo.m; sourceTree = "<group>"; };
 		19E1A0DC194EB2E6009C06F7 /* 4.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 4.png; sourceTree = "<group>"; };
 		19E1A0DD194EB2E6009C06F7 /* 4@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "4@2x.png"; sourceTree = "<group>"; };
 		19E1A0DE194EB2E6009C06F7 /* 4s@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "4s@2x.png"; sourceTree = "<group>"; };
@@ -3573,6 +3576,8 @@
 		19FE2B3A19D1EC2800BA3F7C /* Video */ = {
 			isa = PBXGroup;
 			children = (
+				19CC3EDC19D47F36005F90F6 /* CropVideo.h */,
+				19CC3EDD19D47F36005F90F6 /* CropVideo.m */,
 			);
 			path = Video;
 			sourceTree = "<group>";
@@ -7928,6 +7933,7 @@
 				332D833818C33F0B007A75D5 /* GroupSoundExpressionCell.m in Sources */,
 				7AC51B9318CDDA5700AD1A8C /* BBYZSDetailViewController.m in Sources */,
 				19145F5A191CDF3B008CE18C /* SDWebImagePrefetcher.m in Sources */,
+				19CC3EDE19D47F36005F90F6 /* CropVideo.m in Sources */,
 				332D82CC18C33F0A007A75D5 /* HomePageModifyPasswordViewController.m in Sources */,
 				332D829618C33F0A007A75D5 /* AddContactWithProfileViewController.m in Sources */,
 				19145F65191CE0CA008CE18C /* MBProgressHUD+Add.m in Sources */,
