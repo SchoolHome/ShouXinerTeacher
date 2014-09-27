@@ -31,7 +31,8 @@ BBBJDropdownViewDelegate,
 BBFSDropdownViewDelegate,
 BBBaseTableViewCellDelegate,
 BBInputViewDelegate,
-UserMessageImageDelegate>
+UserMessageImageDelegate,
+UIImagePickerControllerDelegate>
 {
     UIButton *titleButton;
     EGOImageView *avatar;

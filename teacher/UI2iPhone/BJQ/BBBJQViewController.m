@@ -18,6 +18,8 @@
 #import "ADImageview.h"
 #import "ADDetailViewController.h"
 
+#import <MobileCoreServices/MobileCoreServices.h>
+
 @interface BBBJQViewController ()<ADImageviewDelegate>
 @property (nonatomic,strong) BBTopicModel *tempTopModel;
 @property (nonatomic,strong) BBTopicModel *tempTopModelInput;
@@ -468,6 +470,12 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(receiveSeletedRangeList:) name:@"SeletedRangeList" object:nil];
     
     [self checkNotify];
+    
+    //Test
+    UIButton *videoBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+    [videoBtn setTitle:@"微视频" forState:UIControlStateNormal];
+    [videoBtn addTarget:self action:@selector(chooseVideo) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:videoBtn];
 }
 
 -(void)viewWillAppear:(BOOL)animated{
@@ -511,6 +519,39 @@
     }else{
         self.recommendUsed = nil;
     }
+}
+#pragma mark - Video
+-(void)chooseVideo
+{
+    UIActionSheet *actionsheet = [[UIActionSheet alloc] initWithTitle:nil delegate:self cancelButtonTitle:@"取消" destructiveButtonTitle:nil otherButtonTitles:@"拍摄",@"选取", nil];
+    [actionsheet showInView:self.view];
+}
+-(void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    if (buttonIndex == 2) return;
+    
+    UIImagePickerController *imagePicker = [[UIImagePickerController alloc] initWithRootViewController:self];
+    [imagePicker setMediaTypes:@[(NSString *)kUTTypeVideo]];
+    switch (buttonIndex) {
+        case 0:
+        {
+            //拍摄视频
+            imagePicker.sourceType = UIImagePickerControllerSourceTypeCamera;
+        }
+            break;
+        case 1:
+        {
+            //选取视频
+            imagePicker.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
+        }
+            break;
+        default:
+            break;
+    }
+}
+-(void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info
+{
+    
 }
 #pragma mark - UITableViewDatasource
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
