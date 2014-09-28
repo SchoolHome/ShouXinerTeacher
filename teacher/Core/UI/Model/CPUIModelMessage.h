@@ -25,7 +25,7 @@ typedef enum
     MSG_CONTENT_TYPE_ACK = 21,//回执消息
 
     MSG_CONTENT_TYPE_SYS = 1<<6,//普通系统消息
-    MSG_CONTENT_TYPE_SYS_SPECIAL = 1<<6+1,//可以点击的系统消息
+    MSG_CONTENT_TYPE_SYS_SPECIAL = 1<<(6+1),//可以点击的系统消息
     MSG_CONTENT_TYPE_SYS_RECOMMEND = 1<<7,//推荐的系统消息
     MSG_CONTENT_TYPE_SYS_ADD_REQ = 1<<8,//添加好友请求的系统消息
     MSG_CONTENT_TYPE_SYS_ADD_RES = 1<<9,//添加好友应答的系统消息
