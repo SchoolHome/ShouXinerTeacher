@@ -48,6 +48,7 @@ typedef enum{
  *
  */
 @property CGFloat screenHeight;
+@property CGFloat screenWidth;
 @property (nonatomic,strong) MBProgressHUD *progressHUD;
 @property (nonatomic,strong) NSString *willShowViewControllerClassName;
 @property (nonatomic,readonly,getter = getScreenTop) float screenTop;

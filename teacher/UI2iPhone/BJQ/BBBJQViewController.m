@@ -19,7 +19,7 @@
 #import "ADDetailViewController.h"
 
 #import <MobileCoreServices/MobileCoreServices.h>
-
+#import "VideoConfirmViewController.h"
 @interface BBBJQViewController ()<ADImageviewDelegate>
 @property (nonatomic,strong) BBTopicModel *tempTopModel;
 @property (nonatomic,strong) BBTopicModel *tempTopModelInput;
@@ -473,8 +473,10 @@
     
     //Test
     UIButton *videoBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+    [videoBtn setBackgroundColor:[UIColor blackColor]];
     [videoBtn setTitle:@"微视频" forState:UIControlStateNormal];
     [videoBtn addTarget:self action:@selector(chooseVideo) forControlEvents:UIControlEventTouchUpInside];
+    [videoBtn setFrame:CGRectMake(150.f, 50.f, 100.f, 100.f)];
     [self.view addSubview:videoBtn];
 }
 
@@ -529,30 +531,58 @@
 -(void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
 {
     if (buttonIndex == 2) return;
-    
-    UIImagePickerController *imagePicker = [[UIImagePickerController alloc] initWithRootViewController:self];
-    [imagePicker setMediaTypes:@[(NSString *)kUTTypeVideo]];
+    UIImagePickerController *imagePicker = [[UIImagePickerController alloc] init];
+    [imagePicker setMediaTypes:@[(NSString *)kUTTypeMovie]];
+
+    imagePicker.delegate = self;
     switch (buttonIndex) {
         case 0:
         {
+            if([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera]){
             //拍摄视频
             imagePicker.sourceType = UIImagePickerControllerSourceTypeCamera;
+            imagePicker.videoMaximumDuration = 30.f;
+            }
         }
             break;
         case 1:
         {
+            if([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeSavedPhotosAlbum]){
             //选取视频
-            imagePicker.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
+            imagePicker.sourceType = UIImagePickerControllerSourceTypeSavedPhotosAlbum;
+            }
         }
             break;
         default:
             break;
     }
+
+    [self presentViewController:imagePicker animated:YES completion:nil];
 }
 -(void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info
 {
+    [self dismissViewControllerAnimated:YES completion:nil];
+    
+    NSString *mediaType = [info objectForKey:UIImagePickerControllerMediaType];
+    if([mediaType isEqualToString:@"public.movie"])
+    {
+        NSURL *videoURL = [info objectForKey:UIImagePickerControllerMediaURL];
+//        NSLog(@"found a video");
+//        NSData *videoData = nil;
+//        videoData = [NSData dataWithContentsOfURL:videoURL];
+//        NSMutableData *webData = [[NSMutableData alloc] init];
+//        [webData appendData:videoData];
+//        if (webData != nil) {
+//            NSLog(@"SUCCESS!");
+//        }
+        VideoConfirmViewController *videoConfirm = [[VideoConfirmViewController alloc] initWithVideoUrl:videoURL andType:VIDEO_TYPE_CARMER];
+        videoConfirm.hidesBottomBarWhenPushed = YES;
+        [self.navigationController pushViewController:videoConfirm animated:YES];
+    }
+    
     
 }
+
 #pragma mark - UITableViewDatasource
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
     return 1;
