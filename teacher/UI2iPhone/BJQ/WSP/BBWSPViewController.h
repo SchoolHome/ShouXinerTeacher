@@ -7,7 +7,19 @@
 //
 
 #import "PalmViewController.h"
+#import "BBGroupModel.h"
+@protocol ReachTouchScrollviewDelegate <NSObject>
 
-@interface BBWSPViewController : PalmViewController
+-(void)scrollviewTouched;
 
+@end
+
+@interface BBWSPViewController : PalmViewController<ReachTouchScrollviewDelegate>
+@property(nonatomic,strong) BBGroupModel *currentGroup;
+@end
+
+
+
+@interface ReachTouchScrollview : UIScrollView
+@property (nonatomic, weak) id<ReachTouchScrollviewDelegate> touchDelegate;
 @end

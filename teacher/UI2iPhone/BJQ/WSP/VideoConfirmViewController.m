@@ -8,7 +8,7 @@
 
 #import "VideoConfirmViewController.h"
 #import "MediaPlayer/MediaPlayer.h"
-
+#import "BBWSPViewController.h"
 @interface VideoConfirmViewController ()
 {
     NSURL *_videoURL;
@@ -110,6 +110,7 @@
 #pragma mark - ViewControllerMethod
 -(void)useVideo
 {
-    
+    BBWSPViewController *wsp = [[BBWSPViewController alloc] init];
+    [self.navigationController pushViewController:wsp animated:YES];
 }
 @end
