@@ -12,9 +12,11 @@
 @interface VideoConfirmViewController ()
 {
     NSURL *_videoURL;
+    
 }
 @property (nonatomic, strong)UILabel *videoTime;
 @property (nonatomic, strong) MPMoviePlayerController *moviePlayer;
+@property (nonatomic, strong)NSDictionary *videoInfo;
 @end
 
 @implementation VideoConfirmViewController
@@ -27,11 +29,12 @@
     }
     return self;
 }
--(id)initWithVideoUrl:(NSURL *)url andType:(VIDEO_CHOOSEN_TYPE)type
+-(id)initWithVideoUrl:(NSDictionary *)info andType:(VIDEO_CHOOSEN_TYPE)type
 {
     self = [super init];
     if (self) {
-        _videoURL = url;
+        _videoURL = info[UIImagePickerControllerMediaURL];
+        self.videoInfo = [[NSDictionary alloc] initWithDictionary:info];
     }
     return self;
 }
@@ -43,11 +46,11 @@
     NSLog(@"width==%f,height==%f",self.screenWidth,self.screenHeight);
 
     
-    _videoTime = [[UILabel alloc] initWithFrame:CGRectMake(0.f, 0.f, 100.f, 20.f)];
-    _videoTime.font = [UIFont systemFontOfSize:16.f];
-    _videoTime.textAlignment = NSTextAlignmentCenter;
-    _videoTime.text = @"00:00";
-    [self.navigationItem setTitleView:_videoTime];
+//    _videoTime = [[UILabel alloc] initWithFrame:CGRectMake(0.f, 0.f, 100.f, 20.f)];
+//    _videoTime.font = [UIFont systemFontOfSize:16.f];
+//    _videoTime.textAlignment = NSTextAlignmentCenter;
+//    _videoTime.text = @"00:00";
+//    [self.navigationItem setTitleView:_videoTime];
     
     
     // 显示视频
