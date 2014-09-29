@@ -7,7 +7,9 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "CropVideoModel.h"
+#import "PalmUIManagement.h"
 
 @interface CropVideo : NSObject
-- (void) loadVideoByPath:(NSString*) v_strVideoPath andSavePath:(NSString*) v_strSavePath;
+- (void) cropVideoByPath:(NSString*) v_strVideoPath andSavePath:(NSString*) v_strSavePath;
 @end

@@ -16,7 +16,7 @@
 
 
 @implementation CropVideo
-- (void) loadVideoByPath:(NSString*) v_strVideoPath andSavePath:(NSString*) v_strSavePath {
+- (void) cropVideoByPath:(NSString*) v_strVideoPath andSavePath:(NSString*) v_strSavePath {
     NSLog(@"\nv_strVideoPath = %@ \nv_strSavePath = %@\n ",v_strVideoPath,v_strSavePath);
     AVAsset *avAsset = [AVAsset assetWithURL:[NSURL fileURLWithPath:v_strVideoPath]];
     CMTime assetTime = [avAsset duration];
@@ -30,7 +30,7 @@
     AVAssetTrack *avAssetTrack = [[avAsset tracksWithMediaType:AVMediaTypeVideo] objectAtIndex:0];
     
     NSError *error = nil;
-    // 这块是裁剪,rangtime .前面的是开始时间,后面是裁剪多长 (我这裁剪的是从第二秒开始裁剪，裁剪2.55秒时长.)
+    // 这块是裁剪,rangtime .前面的是开始时间,后面是裁剪多长
     [avMutableCompositionTrack insertTimeRange:CMTimeRangeMake(CMTimeMakeWithSeconds(0.0f, 30), CMTimeMakeWithSeconds(60.0f, 30))
                                        ofTrack:avAssetTrack
                                         atTime:kCMTimeZero
@@ -40,7 +40,6 @@
     // 这个视频大小可以由你自己设置。比如源视频640*480.而你这320*480.最后出来的是320*480这么大的，640多出来的部分就没有了。并非是把图片压缩成那么大了。
     avMutableVideoComposition.renderSize = CGSizeMake(320.0f, 480.0f);
     avMutableVideoComposition.frameDuration = CMTimeMake(1, 30);
-    // 这句话暂时不用理会，我正在看是否能添加logo而已。
     
     AVMutableVideoCompositionInstruction *avMutableVideoCompositionInstruction = [AVMutableVideoCompositionInstruction videoCompositionInstruction];
     
@@ -71,13 +70,21 @@
     [avAssetExportSession setOutputFileType:AVFileTypeQuickTimeMovie];
     [avAssetExportSession setShouldOptimizeForNetworkUse:YES];
     [avAssetExportSession exportAsynchronouslyWithCompletionHandler:^(void){
+        CropVideoModel *model = [[CropVideoModel alloc] init];
         switch (avAssetExportSession.status) {
             case AVAssetExportSessionStatusFailed:
-                NSLog(@"exporting failed %@",[avAssetExportSession error]);
+                model.state = KCropVideoError;
+                model.error = [[avAssetExportSession error] debugDescription];
+                [[PalmUIManagement sharedInstance] willChangeValueForKey:@""];
+                [PalmUIManagement sharedInstance].videoState = model;
+                [[PalmUIManagement sharedInstance] didChangeValueForKey:@""];
                 break;
             case AVAssetExportSessionStatusCompleted:
-                NSLog(@"exporting completed");
-                // 想做什么事情在这个做
+                model.state = kCropVideoCompleted;
+                model.error = @"";
+                [[PalmUIManagement sharedInstance] willChangeValueForKey:@""];
+                [PalmUIManagement sharedInstance].videoState = model;
+                [[PalmUIManagement sharedInstance] didChangeValueForKey:@""];
                 break;
             case AVAssetExportSessionStatusCancelled:
                 NSLog(@"export cancelled");
@@ -85,6 +92,11 @@
             case AVAssetExportSessionStatusUnknown:
                 break;
             case AVAssetExportSessionStatusWaiting:
+                model.state = kCropingVideo;
+                model.error = @"";
+                [[PalmUIManagement sharedInstance] willChangeValueForKey:@""];
+                [PalmUIManagement sharedInstance].videoState = model;
+                [[PalmUIManagement sharedInstance] didChangeValueForKey:@""];
                 break;
             case AVAssetExportSessionStatusExporting:
                 break;

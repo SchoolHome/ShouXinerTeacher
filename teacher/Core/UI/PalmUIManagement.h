@@ -9,6 +9,7 @@
 #import <Foundation/Foundation.h>
 #import "PalmNetWorkService.h"
 #import "CPPTModelLoginResult.h"
+#import "CropVideo.h"
 
 #define TRANSFERVALUE @"TransferValue"
 #define TRANSFERVCFROMCLASS @"TransferFromVCClass"
@@ -81,6 +82,10 @@
 // 有通知
 @property(nonatomic,strong) NSNumber *noticeArrayTag;
 @property(nonatomic,strong) NSArray *noticeArray;
+
+// 裁剪video状态
+@property(nonatomic,strong) CropVideoModel *videoState;
+
 
 // 获取用户信息
 -(void) getUserProfile;
