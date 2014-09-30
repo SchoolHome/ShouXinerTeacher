@@ -8,6 +8,11 @@
 
 #import "PalmViewController.h"
 #import "BBGroupModel.h"
+typedef enum
+{
+    VIDEO_TYPE_PHOTO = 1,
+    VIDEO_TYPE_CARMER = 2
+}VIDEO_CHOOSEN_TYPE;
 @protocol ReachTouchScrollviewDelegate <NSObject>
 
 -(void)scrollviewTouched;
@@ -17,7 +22,7 @@
 @interface BBWSPViewController : PalmViewController<ReachTouchScrollviewDelegate,UIScrollViewDelegate>
 
 
--(id)initWithVideoUrl:(NSURL *)url andGroupModel:(BBGroupModel *)groupModel;
+-(id)initWithVideoUrl:(NSURL *)url andType:(VIDEO_CHOOSEN_TYPE)type andGroupModel:(BBGroupModel *)groupModel;
 @end
 
 

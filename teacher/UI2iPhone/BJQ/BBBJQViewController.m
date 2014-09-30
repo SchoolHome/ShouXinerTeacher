@@ -20,7 +20,11 @@
 
 #import <MobileCoreServices/MobileCoreServices.h>
 #import "VideoConfirmViewController.h"
+@class BBWSPViewController;
 @interface BBBJQViewController ()<ADImageviewDelegate>
+{
+    VIDEO_CHOOSEN_TYPE chooseType;
+}
 @property (nonatomic,strong) BBTopicModel *tempTopModel;
 @property (nonatomic,strong) BBTopicModel *tempTopModelInput;
 @property (nonatomic,copy) NSString *inputText;
@@ -538,6 +542,7 @@
     switch (buttonIndex) {
         case 0:
         {
+            chooseType = VIDEO_TYPE_CARMER;
             if([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera]){
             //拍摄视频
             imagePicker.sourceType = UIImagePickerControllerSourceTypeCamera;
@@ -547,6 +552,7 @@
             break;
         case 1:
         {
+            chooseType = VIDEO_TYPE_PHOTO;
             if([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeSavedPhotosAlbum]){
             //选取视频
             imagePicker.sourceType = UIImagePickerControllerSourceTypeSavedPhotosAlbum;
@@ -575,7 +581,7 @@
 //        if (webData != nil) {
 //            NSLog(@"SUCCESS!");
 //        }
-        VideoConfirmViewController *videoConfirm = [[VideoConfirmViewController alloc] initWithVideoUrl:videoURL andType:VIDEO_TYPE_CARMER andGroupModel:_currentGroup];
+        VideoConfirmViewController *videoConfirm = [[VideoConfirmViewController alloc] initWithVideoUrl:videoURL andType:chooseType andGroupModel:_currentGroup];
         videoConfirm.hidesBottomBarWhenPushed = YES;
         [self.navigationController pushViewController:videoConfirm animated:YES];
     }

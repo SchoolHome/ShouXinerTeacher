@@ -8,11 +8,12 @@
 
 #import "VideoConfirmViewController.h"
 #import "MediaPlayer/MediaPlayer.h"
-#import "BBWSPViewController.h"
+
 @interface VideoConfirmViewController ()
 {
     NSURL *_videoURL;
     BBGroupModel *model;
+    VIDEO_CHOOSEN_TYPE chooseType;
 }
 @property (nonatomic, strong)UILabel *videoTime;
 @property (nonatomic, strong) MPMoviePlayerController *moviePlayer;
@@ -35,6 +36,7 @@
     if (self) {
         _videoURL = url;
         model = groupModel;
+        chooseType = type;
         //self.videoInfo = [[NSDictionary alloc] initWithDictionary:info];
     }
     return self;
@@ -115,7 +117,7 @@
     [self.moviePlayer stop];
 
 
-    BBWSPViewController *wsp = [[BBWSPViewController alloc] initWithVideoUrl:_videoURL andGroupModel:model];
+    BBWSPViewController *wsp = [[BBWSPViewController alloc] initWithVideoUrl:_videoURL andType:chooseType andGroupModel:model];
     [self.navigationController pushViewController:wsp animated:YES];
 }
 @end
