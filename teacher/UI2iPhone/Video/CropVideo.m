@@ -137,7 +137,7 @@
     AVAssetTrack *sourceVideo = [[videoAsset tracksWithMediaType:AVMediaTypeVideo]lastObject];
     [compositionVideoTrack setPreferredTransform:sourceVideo.preferredTransform];
         AVAssetExportSession* _assetExport = [[AVAssetExportSession alloc] initWithAsset:videoAsset
-                                                                          presetName:AVAssetExportPresetPassthrough];
+                                                                          presetName:AVAssetExportPresetMediumQuality];
     
     NSURL *exportUrl = [NSURL fileURLWithPath:dstFilePath];
     

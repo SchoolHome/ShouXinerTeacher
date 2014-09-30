@@ -94,6 +94,10 @@
     [[PalmUIManagement sharedInstance] removeObserver:self forKeyPath:@"groupStudents"];
     [[PalmUIManagement sharedInstance] removeObserver:self forKeyPath:@"videoState"];
 }
+-(void)viewDidAppear:(BOOL)animated
+{
+    [self.moviePlayer setContentURL:[NSURL fileURLWithPath:[self getTempSaveVideoPath]]];
+}
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -109,6 +113,7 @@
     if (self) {
         videoUrl = url;
         self.currentGroup = groupModel;
+        [CropVideo convertMpeg4WithUrl:videoUrl andDstFilePath:[self getTempSaveVideoPath]];
     }
     return self;
 }
@@ -252,6 +257,8 @@
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(receiveSeletedStudentList:) name:@"SelectedStudentList" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(receiveSeletedRangeList:) name:@"SeletedRangeList" object:nil];
+    
+
 }
 
 - (void)didReceiveMemoryWarning
@@ -410,7 +417,7 @@
 {
     CPLGModelAccount *account = [[CPSystemEngine sharedInstance] accountModel];
     NSString *documentsDirectory = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory,NSUserDomainMask,YES)[0];
-    NSString *savePath = [documentsDirectory stringByAppendingFormat:@"/%@/Video/temp.mp4",account.loginName];
+    NSString *savePath = [documentsDirectory stringByAppendingFormat:@"/%@/temp.mp4",account.loginName];
     return savePath;
 }
 #pragma mark NavAction
@@ -420,8 +427,6 @@
 }
 -(void)send
 {
-    [CropVideo convertMpeg4WithUrl:videoUrl andDstFilePath:[self getTempSaveVideoPath]];
-    
     UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"结果" message:[NSString stringWithFormat:@"压缩前:%@\n压缩后:%@",[CropVideo getFileSizeWithName:videoUrl.path],[CropVideo getFileSizeWithName:[self getTempSaveVideoPath]]] delegate:self cancelButtonTitle:@"OK" otherButtonTitles: nil];
     [alertView show];
 }
