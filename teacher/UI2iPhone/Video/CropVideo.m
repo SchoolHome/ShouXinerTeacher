@@ -75,16 +75,16 @@
             case AVAssetExportSessionStatusFailed:
                 model.state = KCropVideoError;
                 model.error = [[avAssetExportSession error] debugDescription];
-                [[PalmUIManagement sharedInstance] willChangeValueForKey:@""];
+                [[PalmUIManagement sharedInstance] willChangeValueForKey:@"videoState"];
                 [PalmUIManagement sharedInstance].videoState = model;
-                [[PalmUIManagement sharedInstance] didChangeValueForKey:@""];
+                [[PalmUIManagement sharedInstance] didChangeValueForKey:@"videoState"];
                 break;
             case AVAssetExportSessionStatusCompleted:
                 model.state = kCropVideoCompleted;
                 model.error = @"";
-                [[PalmUIManagement sharedInstance] willChangeValueForKey:@""];
+                [[PalmUIManagement sharedInstance] willChangeValueForKey:@"videoState"];
                 [PalmUIManagement sharedInstance].videoState = model;
-                [[PalmUIManagement sharedInstance] didChangeValueForKey:@""];
+                [[PalmUIManagement sharedInstance] didChangeValueForKey:@"videoState"];
                 break;
             case AVAssetExportSessionStatusCancelled:
                 NSLog(@"export cancelled");
@@ -94,9 +94,9 @@
             case AVAssetExportSessionStatusWaiting:
                 model.state = kCropingVideo;
                 model.error = @"";
-                [[PalmUIManagement sharedInstance] willChangeValueForKey:@""];
+                [[PalmUIManagement sharedInstance] willChangeValueForKey:@"videoState"];
                 [PalmUIManagement sharedInstance].videoState = model;
-                [[PalmUIManagement sharedInstance] didChangeValueForKey:@""];
+                [[PalmUIManagement sharedInstance] didChangeValueForKey:@"videoState"];
                 break;
             case AVAssetExportSessionStatusExporting:
                 break;
