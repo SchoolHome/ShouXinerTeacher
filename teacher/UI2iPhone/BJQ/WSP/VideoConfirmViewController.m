@@ -152,14 +152,6 @@
     if([mediaType isEqualToString:@"public.movie"])
     {
         NSURL *videoURL = [info objectForKey:UIImagePickerControllerMediaURL];
-        //        NSLog(@"found a video");
-        //        NSData *videoData = nil;
-        //        videoData = [NSData dataWithContentsOfURL:videoURL];
-        //        NSMutableData *webData = [[NSMutableData alloc] init];
-        //        [webData appendData:videoData];
-        //        if (webData != nil) {
-        //            NSLog(@"SUCCESS!");
-        //        }
         _videoURL = videoURL;
         [self.moviePlayer setContentURL:videoURL];
         [self.moviePlayer play];

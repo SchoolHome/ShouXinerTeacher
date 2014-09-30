@@ -105,6 +105,17 @@
 }
 
 +(NSDictionary *)convertMpeg4WithUrl:(NSURL *)url andDstFilePath:(NSString *)dstFilePath{
+    NSFileManager *fm = [[NSFileManager alloc] init];
+    NSError *error = nil;
+    if ([fm fileExistsAtPath:dstFilePath]) {
+        NSLog(@"video is have. then delete that");
+        if ([fm removeItemAtPath:dstFilePath error:&error]) {
+            NSLog(@"delete is ok");
+        }else {
+            NSLog(@"delete is no error = %@",error.description);
+        }
+    }
+    
     NSMutableDictionary *resDic = [[NSMutableDictionary alloc] init];
     BOOL isSucess = YES;
     AVMutableComposition* mixComposition = [AVMutableComposition composition];
@@ -121,7 +132,7 @@
     AVAssetImageGenerator *generator = [AVAssetImageGenerator assetImageGeneratorWithAsset:videoAsset];
     generator.appliesPreferredTrackTransform = YES;
     generator.maximumSize = CGSizeMake(360,480);
-    NSError *error = nil;
+    //NSError *error = nil;
     CGImageRef img = [generator copyCGImageAtTime:CMTimeMake(1, 60) actualTime:NULL error:&error];
     
     UIImage *uiImg = [UIImage imageWithCGImage:img];
