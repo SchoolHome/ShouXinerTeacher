@@ -15,6 +15,6 @@
 #define convertMpeg4MediaTime @"mediaTime"
 
 @interface CropVideo : NSObject
-- (void) cropVideoByPath:(NSString*) v_strVideoPath andSavePath:(NSString*) v_strSavePath;
+- (void) cropVideoByPath:(NSURL *) videoPath andSavePath:(NSString*) videoSavePath;
 +(NSDictionary *)convertMpeg4WithUrl:(NSURL *)url andDstFilePath:(NSString *)dstFilePath;
 @end

@@ -16,9 +16,9 @@
 #import <AVFoundation/AVAssetImageGenerator.h>
 
 @implementation CropVideo
-- (void) cropVideoByPath:(NSString*) v_strVideoPath andSavePath:(NSString*) v_strSavePath {
-    NSLog(@"\nv_strVideoPath = %@ \nv_strSavePath = %@\n ",v_strVideoPath,v_strSavePath);
-    AVAsset *avAsset = [AVAsset assetWithURL:[NSURL fileURLWithPath:v_strVideoPath]];
+-(void) cropVideoByPath:(NSURL *) videoPath andSavePath:(NSString*) videoSavePath {
+    NSLog(@"\nv_strVideoPath = %@ \nv_strSavePath = %@\n ",[videoPath path],videoSavePath);
+    AVAsset *avAsset = [AVAsset assetWithURL:videoPath];
     CMTime assetTime = [avAsset duration];
     Float64 duration = CMTimeGetSeconds(assetTime);
     NSLog(@"视频时长 %f\n",duration);
@@ -55,9 +55,9 @@
     
     
     NSFileManager *fm = [[NSFileManager alloc] init];
-    if ([fm fileExistsAtPath:v_strSavePath]) {
+    if ([fm fileExistsAtPath:videoSavePath]) {
         NSLog(@"video is have. then delete that");
-        if ([fm removeItemAtPath:v_strSavePath error:&error]) {
+        if ([fm removeItemAtPath:videoSavePath error:&error]) {
             NSLog(@"delete is ok");
         }else {
             NSLog(@"delete is no error = %@",error.description);
@@ -66,7 +66,7 @@
     
     AVAssetExportSession *avAssetExportSession = [[AVAssetExportSession alloc] initWithAsset:avMutableComposition presetName:AVAssetExportPreset640x480];
     [avAssetExportSession setVideoComposition:avMutableVideoComposition];
-    [avAssetExportSession setOutputURL:[NSURL fileURLWithPath:v_strSavePath]];
+    [avAssetExportSession setOutputURL:[NSURL fileURLWithPath:videoSavePath]];
     [avAssetExportSession setOutputFileType:AVFileTypeQuickTimeMovie];
     [avAssetExportSession setShouldOptimizeForNetworkUse:YES];
     [avAssetExportSession exportAsynchronouslyWithCompletionHandler:^(void){
