@@ -76,6 +76,8 @@
             UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"压缩错误" message:[NSString stringWithFormat:@"%@",model.error] delegate:self cancelButtonTitle:@"OK" otherButtonTitles: nil];
             [alertView show];
             NSLog(@"%@",model.error);
+        }else
+        {
             
         }
         
@@ -408,7 +410,7 @@
 {
     CPLGModelAccount *account = [[CPSystemEngine sharedInstance] accountModel];
     NSString *documentsDirectory = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory,NSUserDomainMask,YES)[0];
-    NSString *savePath = [documentsDirectory stringByAppendingFormat:@"/%@/Video/temp.MOV",account.loginName];
+    NSString *savePath = [documentsDirectory stringByAppendingFormat:@"/%@/Video/temp.mp4",account.loginName];
     return savePath;
 }
 #pragma mark NavAction
@@ -418,11 +420,10 @@
 }
 -(void)send
 {
-
-    CropVideo *cropvideo = [[CropVideo alloc] init];
-    [cropvideo cropVideoByPath:videoUrl andSavePath:[self getTempSaveVideoPath]];
+    [CropVideo convertMpeg4WithUrl:videoUrl andDstFilePath:[self getTempSaveVideoPath]];
     
-    [self showProgressWithText:@"正在压缩..."];
+    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"结果" message:[NSString stringWithFormat:@"压缩前:%@\n压缩后:%@",[CropVideo getFileSizeWithName:videoUrl.path],[CropVideo getFileSizeWithName:[self getTempSaveVideoPath]]] delegate:self cancelButtonTitle:@"OK" otherButtonTitles: nil];
+    [alertView show];
 }
 
 -(NSString *)getAward
