@@ -107,19 +107,22 @@
         CMTime assetTime = [avAsset duration];
         Float64 duration = CMTimeGetSeconds(assetTime);
         if (duration > 60) {
+            [self showProgressWithText:@"正在裁剪..."];
             CropVideo *cropVideo = [[CropVideo alloc] init];
             [cropVideo cropVideoByPath:videoUrl andSavePath:[self getTempSaveVideoPath:@"mov"]];
-            [self showProgressWithText:@"正在裁剪..."];
+            
         }else
         {
             [self convertMp4];
             
         }
+        
     }else [self convertMp4];
     
+    [self showProgressWithText:@"正在裁剪..."];
     CropVideo *cropVideo = [[CropVideo alloc] init];
     [cropVideo cropVideoByPath:videoUrl andSavePath:[self getTempSaveVideoPath:@"mov"]];
-    [self showProgressWithText:@"正在裁剪..."];
+
 }
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -313,20 +316,15 @@
 -(void)convertMp4
 {
    NSDictionary *cropResult = [CropVideo convertMpeg4WithUrl:videoUrl andDstFilePath:[self getTempSaveVideoPath:@"mp4"]];
-    if ([cropResult[convertMpeg4IsSucess] boolValue]) {
-        [self.moviePlayer setContentURL:[NSURL fileURLWithPath:[self getTempSaveVideoPath:@"mp4"]]];
-    }else
-    {
-        NSLog(@"convert error");
-        [self.moviePlayer setContentURL:videoUrl];
-    }
-   
+    [self.moviePlayer setContentURL:[cropResult[convertMpeg4IsSucess] boolValue]?[NSURL fileURLWithPath:[self getTempSaveVideoPath:@"mp4"]]:videoUrl];
+
 }
 -(void)playVideo
 {
+    
     [self.navigationController setNavigationBarHidden:YES];
     self.moviePlayer.view.hidden = NO;
-    [self.moviePlayer prepareToPlay];
+    //[self.moviePlayer prepareToPlay];
     [self.moviePlayer play];
 }
 -(void)receiveSeletedRangeList:(NSNotification *)noti
