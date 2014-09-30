@@ -13,7 +13,7 @@
 #import <AVFoundation/AVCompositionTrack.h>
 #import <AVFoundation/AVAssetExportSession.h>
 #import <AVFoundation/AVVideoComposition.h>
-
+#import <AVFoundation/AVAssetImageGenerator.h>
 
 @implementation CropVideo
 - (void) cropVideoByPath:(NSString*) v_strVideoPath andSavePath:(NSString*) v_strSavePath {
@@ -102,5 +102,82 @@
                 break;
         }
     }];
+}
+
++(NSDictionary *)convertMpeg4WithUrl:(NSURL *)url andDstFilePath:(NSString *)dstFilePath{
+    NSMutableDictionary *resDic = [[NSMutableDictionary alloc] init];
+    BOOL isSucess = YES;
+    AVMutableComposition* mixComposition = [AVMutableComposition composition];
+    AVURLAsset* videoAsset = [[AVURLAsset alloc]initWithURL:url options:nil];
+    
+    long long videoValue = videoAsset.duration.value;
+    NSInteger videoTimeScale = videoAsset.duration.timescale;
+    long long videoTime = videoValue/videoTimeScale;
+    if (videoValue%videoTimeScale>0){
+        videoTime ++;
+    }
+    NSNumber *mediaTime = [NSNumber numberWithLongLong:videoTime];
+    
+    AVAssetImageGenerator *generator = [AVAssetImageGenerator assetImageGeneratorWithAsset:videoAsset];
+    generator.appliesPreferredTrackTransform = YES;
+    generator.maximumSize = CGSizeMake(360,480);
+    NSError *error = nil;
+    CGImageRef img = [generator copyCGImageAtTime:CMTimeMake(1, 60) actualTime:NULL error:&error];
+    
+    UIImage *uiImg = [UIImage imageWithCGImage:img];
+    NSData *imgData = UIImageJPEGRepresentation(uiImg, 0.5f);
+    
+    
+    AVMutableCompositionTrack *compositionVideoTrack = [mixComposition addMutableTrackWithMediaType:AVMediaTypeVideo
+                                                                                   preferredTrackID:kCMPersistentTrackID_Invalid];
+    [compositionVideoTrack insertTimeRange:CMTimeRangeMake(kCMTimeZero, videoAsset.duration)
+                                   ofTrack:[[videoAsset tracksWithMediaType:AVMediaTypeVideo] objectAtIndex:0]
+                                    atTime:kCMTimeZero error:nil];
+    
+    AVAssetTrack *sourceVideo = [[videoAsset tracksWithMediaType:AVMediaTypeVideo]lastObject];
+    [compositionVideoTrack setPreferredTransform:sourceVideo.preferredTransform];
+        AVAssetExportSession* _assetExport = [[AVAssetExportSession alloc] initWithAsset:videoAsset
+                                                                          presetName:AVAssetExportPresetPassthrough];
+    
+    NSURL *exportUrl = [NSURL fileURLWithPath:dstFilePath];
+    
+    if ([[NSFileManager defaultManager] fileExistsAtPath:dstFilePath]){
+        [[NSFileManager defaultManager] removeItemAtPath:dstFilePath error:nil];
+    }
+    
+    _assetExport.outputFileType = AVFileTypeMPEG4;
+    _assetExport.outputURL = exportUrl;
+    _assetExport.shouldOptimizeForNetworkUse = YES;
+    __block NSNumber *fileSize = nil;
+    [_assetExport exportAsynchronouslyWithCompletionHandler:
+     ^(void ) {
+         if (_assetExport.status == AVAssetExportSessionStatusCompleted){
+             fileSize = [self getFileSizeWithName:dstFilePath];
+         }else{
+             CPLogInfo(@"convert mpeg-4  error %@ ||  %@ ||%@ ||%@||%d",
+            _assetExport.debugDescription,_assetExport.description,[_assetExport.error localizedDescription],
+            [_assetExport.error localizedFailureReason],[_assetExport.error code]);
+         }
+     }
+     ];
+    if (error){
+        CPLogError(@"convert mpeg-4 error is  %@",[error localizedDescription]);
+    }
+    
+    NSString *thubFilePath = [NSString stringWithFormat:@"%@.jpg",[dstFilePath substringToIndex:[dstFilePath rangeOfString:@"."].location]];
+    [imgData writeToFile:thubFilePath atomically:YES];
+    [resDic setObject:[NSNumber numberWithBool:isSucess] forKey:convertMpeg4IsSucess];
+    if (fileSize){
+        [resDic setObject:fileSize forKey:convertMpeg4FileSize];
+    }
+    [resDic setObject:mediaTime forKey:convertMpeg4MediaTime];
+    return resDic;
+}
+
++(NSNumber *)getFileSizeWithName:(NSString *)fileName{
+    NSFileManager *fm = [NSFileManager defaultManager];
+    NSDictionary *fileAttributes = [fm attributesOfItemAtPath:fileName error:nil];
+    NSNumber * fileSizeBit = (NSNumber *)[fileAttributes objectForKey:NSFileSize];
+    return [NSNumber numberWithLongLong:[fileSizeBit longLongValue]/1024];
 }
 @end
