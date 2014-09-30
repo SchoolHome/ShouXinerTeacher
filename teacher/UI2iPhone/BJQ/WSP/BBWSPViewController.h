@@ -13,13 +13,13 @@ typedef enum
     VIDEO_TYPE_PHOTO = 1,
     VIDEO_TYPE_CARMER = 2
 }VIDEO_CHOOSEN_TYPE;
-@protocol ReachTouchScrollviewDelegate <NSObject>
+@protocol WSPScrollviewDelegate <NSObject>
 
 -(void)scrollviewTouched;
 
 @end
 
-@interface BBWSPViewController : PalmViewController<ReachTouchScrollviewDelegate,UIScrollViewDelegate>
+@interface BBWSPViewController : PalmViewController<WSPScrollviewDelegate,UIScrollViewDelegate>
 
 
 -(id)initWithVideoUrl:(NSURL *)url andType:(VIDEO_CHOOSEN_TYPE)type andGroupModel:(BBGroupModel *)groupModel;
@@ -28,5 +28,5 @@ typedef enum
 
 
 @interface TouchScrollview : UIScrollView
-@property (nonatomic, weak) id<ReachTouchScrollviewDelegate> touchDelegate;
+@property (nonatomic, weak) id<WSPScrollviewDelegate> touchDelegate;
 @end

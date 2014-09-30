@@ -67,17 +67,20 @@
         [self closeProgress];
     }else if ([keyPath isEqualToString:@"videoState"])
     {
+        
         CropVideoModel *model = [PalmUIManagement sharedInstance].videoState;
         if (model.state == kCropVideoCompleted) {
+            //[self showProgressWithText:@"a" withDelayTime:3];
             [self closeProgress];
             [self convertMp4];
             UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"结果" message:[NSString stringWithFormat:@"压缩前:%@\n压缩后:%@",[CropVideo getFileSizeWithName:videoUrl.path],[CropVideo getFileSizeWithName:[self getTempSaveVideoPath:@"mp4"]]] delegate:self cancelButtonTitle:@"OK" otherButtonTitles: nil];
             [alertView show];
         }else if (model.state == KCropVideoError)
         {
+            //[self showProgressWithText:@"a" withDelayTime:3];
             [self closeProgress];
-            //UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"压缩错误" message:[NSString stringWithFormat:@"%@",model.error] delegate:self cancelButtonTitle:@"OK" otherButtonTitles: nil];
-            //[alertView show];
+            UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"压缩错误" message:[NSString stringWithFormat:@"%@",model.error] delegate:self cancelButtonTitle:@"OK" otherButtonTitles: nil];
+            [alertView show];
             NSLog(@"%@",model.error);
         }else
         {
@@ -113,6 +116,10 @@
             
         }
     }else [self convertMp4];
+    
+    CropVideo *cropVideo = [[CropVideo alloc] init];
+    [cropVideo cropVideoByPath:videoUrl andSavePath:[self getTempSaveVideoPath:@"mov"]];
+    [self showProgressWithText:@"正在裁剪..."];
 }
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
