@@ -14,12 +14,12 @@
 
 @end
 
-@interface BBWSPViewController : PalmViewController<ReachTouchScrollviewDelegate>
+@interface BBWSPViewController : PalmViewController<ReachTouchScrollviewDelegate,UIScrollViewDelegate>
 @property(nonatomic,strong) BBGroupModel *currentGroup;
 @end
 
 
 
-@interface ReachTouchScrollview : UIScrollView
+@interface TouchScrollview : UIScrollView
 @property (nonatomic, weak) id<ReachTouchScrollviewDelegate> touchDelegate;
 @end

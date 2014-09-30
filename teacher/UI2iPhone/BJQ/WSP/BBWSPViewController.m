@@ -9,17 +9,21 @@
 #import "BBWSPViewController.h"
 #import "BBStudentsListViewController.h"
 #import "BBRecommendedRangeViewController.h"
-@interface BBWSPViewController ()
+
+#import "EGOImageButton.h"
+
+@interface BBWSPViewController ()<EGOImageButtonDelegate>
 {
     UILabel *studentList;
     UILabel *reCommendedList;
-
+    UITextView *videoDescribe;
+    EGOImageButton *videoPreview;
     
     NSArray *selectedStuArray;
     NSArray *selectedRangeArray;
     
 }
-@property (nonatomic, strong)ReachTouchScrollview *contentScrollview;
+@property (nonatomic, strong)TouchScrollview *contentScrollview;
 @end
 
 @implementation BBWSPViewController
@@ -60,15 +64,31 @@
     [sendButton addTarget:self action:@selector(send) forControlEvents:UIControlEventTouchUpInside];
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:sendButton];
 
-    _contentScrollview = [[ReachTouchScrollview alloc] initWithFrame:CGRectMake(0.f, 0.f, 320.f, self.view.bounds.size.height-40.f)];
+    _contentScrollview = [[TouchScrollview alloc] initWithFrame:CGRectMake(0.f, 0.f, 320.f, self.view.bounds.size.height-40.f)];
     _contentScrollview.touchDelegate = self;
     _contentScrollview.delegate = self;
     _contentScrollview.showsVerticalScrollIndicator = NO;
     _contentScrollview.backgroundColor = [UIColor clearColor];
     [self.view addSubview:_contentScrollview];
     
+    UIView *videoView = [[UIView alloc] initWithFrame:CGRectMake(15.f, 30.f, 320-30.f, 140.f)];
+    videoView.layer.masksToBounds = YES;
+    videoView.layer.borderWidth = 1.f;
+    videoView.layer.borderColor = [[UIColor lightGrayColor] CGColor];
+    [_contentScrollview addSubview:videoView];
+    
+    videoDescribe = [[UITextView alloc] initWithFrame:CGRectMake(20.f, 20.f, CGRectGetWidth(videoView.frame)-150.f, 100.f)];
+    videoDescribe.backgroundColor = [UIColor clearColor];
+    videoDescribe.text = @"描述下你的视频...";
+    [videoView addSubview:videoDescribe];
+    
+    videoPreview = [[EGOImageButton alloc] initWithPlaceholderImage:[UIImage imageNamed:@""] delegate:self];
+    [videoPreview setFrame:CGRectMake(CGRectGetWidth(videoDescribe.frame)+30.f, 20.f, 100.f, 100.f)];
+    [videoPreview addTarget:self action:@selector(playVideo) forControlEvents:UIControlEventTouchUpInside];
+    [videoView addSubview:videoPreview];
+    
     //学生列表
-    UIView *listBack = [[UIView alloc] initWithFrame:CGRectMake(15.f, 165.f, 320-30.f, 40.f)];
+    UIView *listBack = [[UIView alloc] initWithFrame:CGRectMake(15.f, 205.f, CGRectGetHeight(videoView.frame), 40.f)];
     listBack.tag = 1001;
     [_contentScrollview addSubview:listBack];
     
@@ -142,6 +162,10 @@
     // Dispose of any resources that can be recreated.
 }
 #pragma mark ViewControllerMethod
+-(void)playVideo
+{
+    
+}
 -(void)receiveSeletedRangeList:(NSNotification *)noti
 {
     NSArray *selectedRanges = (NSArray *)[noti object];
@@ -310,5 +334,17 @@
     // Pass the selected object to the new view controller.
 }
 */
+
+@end
+
+
+@implementation TouchScrollview
+
+-(void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event{
+    
+    if ([self.touchDelegate respondsToSelector:@selector(scrollviewTouched)]) {
+        [self.touchDelegate scrollviewTouched];
+    }
+}
 
 @end

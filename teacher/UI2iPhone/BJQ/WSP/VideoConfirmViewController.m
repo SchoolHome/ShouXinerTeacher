@@ -110,6 +110,9 @@
 #pragma mark - ViewControllerMethod
 -(void)useVideo
 {
+    [self.moviePlayer stop];
+
+
     BBWSPViewController *wsp = [[BBWSPViewController alloc] init];
     [self.navigationController pushViewController:wsp animated:YES];
 }
