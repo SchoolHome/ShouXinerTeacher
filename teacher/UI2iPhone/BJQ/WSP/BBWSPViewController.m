@@ -11,8 +11,11 @@
 #import "BBRecommendedRangeViewController.h"
 
 #import "MediaPlayer/MediaPlayer.h"
+#import "CropVideo.h"
+#import "CropVideoModel.h"
 
 #import "EGOImageButton.h"
+
 
 @interface BBWSPViewController ()<EGOImageButtonDelegate>
 {
@@ -59,17 +62,35 @@
             
         }
         [self closeProgress];
+    }else if ([keyPath isEqualToString:@"videoState"])
+    {
+        CropVideoModel *model = [PalmUIManagement sharedInstance].videoState;
+        if (model.state == kCropVideoCompleted) {
+            [self closeProgress];
+            UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"结果" message:[NSString stringWithFormat:@"压缩前:%@\n压缩后:%@",[CropVideo getFileSizeWithName:videoUrl.path],[CropVideo getFileSizeWithName:[self getTempSaveVideoPath]]] delegate:self cancelButtonTitle:@"OK" otherButtonTitles: nil];
+            [alertView show];
+            
+        }else if (model.state == KCropVideoError)
+        {
+            [self closeProgress];
+            UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"压缩错误" message:[NSString stringWithFormat:@"%@",model.error] delegate:self cancelButtonTitle:@"OK" otherButtonTitles: nil];
+            [alertView show];
+            NSLog(@"%@",model.error);
+            
+        }
+        
     }
 }
 -(void)viewWillAppear:(BOOL)animated
 {
     [[PalmUIManagement sharedInstance] addObserver:self forKeyPath:@"groupStudents" options:0 context:nil];
-    
+    [[PalmUIManagement sharedInstance] addObserver:self forKeyPath:@"videoState" options:0 context:nil];
 }
 -(void)viewDidDisappear:(BOOL)animated
 {
 
     [[PalmUIManagement sharedInstance] removeObserver:self forKeyPath:@"groupStudents"];
+    [[PalmUIManagement sharedInstance] removeObserver:self forKeyPath:@"videoState"];
 }
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
@@ -383,7 +404,13 @@
     [self.navigationController pushViewController:recommendedRangeVC animated:YES];
 }
 
-
+-(NSString *)getTempSaveVideoPath
+{
+    CPLGModelAccount *account = [[CPSystemEngine sharedInstance] accountModel];
+    NSString *documentsDirectory = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory,NSUserDomainMask,YES)[0];
+    NSString *savePath = [documentsDirectory stringByAppendingFormat:@"/%@/Video/temp.MOV",account.loginName];
+    return savePath;
+}
 #pragma mark NavAction
 -(void)cancel
 {
@@ -391,7 +418,11 @@
 }
 -(void)send
 {
- 
+
+    CropVideo *cropvideo = [[CropVideo alloc] init];
+    [cropvideo cropVideoByPath:videoUrl andSavePath:[self getTempSaveVideoPath]];
+    
+    [self showProgressWithText:@"正在压缩..."];
 }
 
 -(NSString *)getAward
