@@ -12,11 +12,11 @@
 @interface VideoConfirmViewController ()
 {
     NSURL *_videoURL;
-    
+    BBGroupModel *model;
 }
 @property (nonatomic, strong)UILabel *videoTime;
 @property (nonatomic, strong) MPMoviePlayerController *moviePlayer;
-@property (nonatomic, strong)NSDictionary *videoInfo;
+//@property (nonatomic, strong)NSDictionary *videoInfo;
 @end
 
 @implementation VideoConfirmViewController
@@ -29,12 +29,13 @@
     }
     return self;
 }
--(id)initWithVideoUrl:(NSDictionary *)info andType:(VIDEO_CHOOSEN_TYPE)type
+-(id)initWithVideoUrl:(NSURL *)url andType:(VIDEO_CHOOSEN_TYPE)type andGroupModel:(BBGroupModel *)groupModel;
 {
     self = [super init];
     if (self) {
-        _videoURL = info[UIImagePickerControllerMediaURL];
-        self.videoInfo = [[NSDictionary alloc] initWithDictionary:info];
+        _videoURL = url;
+        model = groupModel;
+        //self.videoInfo = [[NSDictionary alloc] initWithDictionary:info];
     }
     return self;
 }
@@ -64,6 +65,7 @@
     self.moviePlayer.shouldAutoplay = YES;
     self.moviePlayer.initialPlaybackTime = 0.01f;
     self.moviePlayer.view.backgroundColor = [UIColor blackColor];
+    
     [self.view addSubview:self.moviePlayer.view];
     [self.moviePlayer play];
 //    // 添加视频播放结束监听
@@ -113,7 +115,7 @@
     [self.moviePlayer stop];
 
 
-    BBWSPViewController *wsp = [[BBWSPViewController alloc] init];
+    BBWSPViewController *wsp = [[BBWSPViewController alloc] initWithVideoUrl:_videoURL andGroupModel:model];
     [self.navigationController pushViewController:wsp animated:YES];
 }
 @end

@@ -15,7 +15,9 @@
 @end
 
 @interface BBWSPViewController : PalmViewController<ReachTouchScrollviewDelegate,UIScrollViewDelegate>
-@property(nonatomic,strong) BBGroupModel *currentGroup;
+
+
+-(id)initWithVideoUrl:(NSURL *)url andGroupModel:(BBGroupModel *)groupModel;
 @end
 
 

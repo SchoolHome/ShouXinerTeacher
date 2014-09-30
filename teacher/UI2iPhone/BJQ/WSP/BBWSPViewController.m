@@ -10,6 +10,8 @@
 #import "BBStudentsListViewController.h"
 #import "BBRecommendedRangeViewController.h"
 
+#import "MediaPlayer/MediaPlayer.h"
+
 #import "EGOImageButton.h"
 
 @interface BBWSPViewController ()<EGOImageButtonDelegate>
@@ -22,11 +24,53 @@
     NSArray *selectedStuArray;
     NSArray *selectedRangeArray;
     
+    NSURL *videoUrl;
+    
 }
 @property (nonatomic, strong)TouchScrollview *contentScrollview;
+@property (nonatomic, strong) MPMoviePlayerController *moviePlayer;
+@property(nonatomic,strong) BBGroupModel *currentGroup;
 @end
 
 @implementation BBWSPViewController
+-(void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
+{
+    /*
+     #define ASI_REQUEST_HAS_ERROR @"hasError"
+     #define ASI_REQUEST_ERROR_MESSAGE @"errorMessage"
+     #define ASI_REQUEST_DATA @"data"
+     #define ASI_REQUEST_CONTEXT @"context"
+     */
+    if ([keyPath isEqualToString:@"groupStudents"]) {
+        NSDictionary *dic = [PalmUIManagement sharedInstance].groupStudents;
+        if (![dic objectForKey:ASI_REQUEST_HAS_ERROR]) {
+            //-(void) showProgressWithText : (NSString *) context withDelayTime : (NSUInteger) sec;
+            [self showProgressWithText:[dic objectForKey:ASI_REQUEST_ERROR_MESSAGE] withDelayTime:3];
+        }else
+        {
+            NSDictionary *students = (NSDictionary *)[[[dic objectForKey:ASI_REQUEST_DATA] objectForKey:@"list"] objectForKey:[self.currentGroup.groupid stringValue]];
+            if (students && [students isKindOfClass:[NSDictionary class]]) {
+                BBStudentsListViewController *studentListVC = [[BBStudentsListViewController alloc] initWithSelectedStudents:selectedStuArray withStudentModel:students];
+                [self.navigationController pushViewController:studentListVC animated:YES];
+            }else
+            {
+                [self showProgressWithText:@"学生列表获取失败" withDelayTime:3];
+            }
+            
+        }
+        [self closeProgress];
+    }
+}
+-(void)viewWillAppear:(BOOL)animated
+{
+    [[PalmUIManagement sharedInstance] addObserver:self forKeyPath:@"groupStudents" options:0 context:nil];
+    
+}
+-(void)viewDidDisappear:(BOOL)animated
+{
+
+    [[PalmUIManagement sharedInstance] removeObserver:self forKeyPath:@"groupStudents"];
+}
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -36,7 +80,15 @@
     }
     return self;
 }
-
+-(id)initWithVideoUrl:(NSURL *)url andGroupModel:(BBGroupModel *)groupModel;
+{
+    self = [super init];
+    if (self) {
+        videoUrl = url;
+        self.currentGroup = groupModel;
+    }
+    return self;
+}
 - (void)viewDidLoad
 {
     [super viewDidLoad];
@@ -88,7 +140,7 @@
     [videoView addSubview:videoPreview];
     
     //学生列表
-    UIView *listBack = [[UIView alloc] initWithFrame:CGRectMake(15.f, 205.f, CGRectGetHeight(videoView.frame), 40.f)];
+    UIView *listBack = [[UIView alloc] initWithFrame:CGRectMake(15.f, 205.f, CGRectGetWidth(videoView.frame), 40.f)];
     listBack.tag = 1001;
     [_contentScrollview addSubview:listBack];
     
@@ -122,7 +174,7 @@
     // Do any additional setup after loading the view.
     
     //推荐到
-    UIView *reCommendedBack = [[UIView alloc] initWithFrame:CGRectMake(15,listBack.frame.origin.y+listBack.frame.size.height+30, 320-30, 40)];
+    UIView *reCommendedBack = [[UIView alloc] initWithFrame:CGRectMake(15,listBack.frame.origin.y+listBack.frame.size.height+30, CGRectGetWidth(videoView.frame), 40)];
     reCommendedBack.tag = 1003;
     [_contentScrollview addSubview:reCommendedBack];
     CALayer *roundedLayer3 = [reCommendedBack layer];
@@ -152,6 +204,29 @@
     reCommendedListTitle.textColor = [UIColor colorWithRed:131/255.f green:131/255.f blue:131/255.f alpha:1.f];
     [reCommendedBack addSubview:reCommendedListTitle];
     
+    //videoPlayer
+    // 显示视频
+    self.moviePlayer = [[MPMoviePlayerController alloc] initWithContentURL:videoUrl];
+    //    self.moviePlayer.view.frame = self.videoRect;
+    self.moviePlayer.view.frame = CGRectMake(0.0f, 0.0f, self.screenWidth, self.screenHeight);
+    
+    
+    self.moviePlayer.useApplicationAudioSession = NO;
+    self.moviePlayer.controlStyle = MPMovieControlStyleFullscreen;
+    self.moviePlayer.shouldAutoplay = NO;
+    self.moviePlayer.initialPlaybackTime = 0.01f;
+    self.moviePlayer.view.backgroundColor = [UIColor blackColor];
+    self.moviePlayer.view.hidden = YES;
+    
+    [self.view addSubview:self.moviePlayer.view];
+    [self.moviePlayer requestThumbnailImagesAtTimes:@[[NSNumber numberWithFloat:0.f]] timeOption:MPMovieTimeOptionExact];
+    [self.moviePlayer setFullscreen:YES animated:NO];
+
+    // 添加视频播放结束监听
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(playerPlaybackDidFinish:)
+                                                 name:MPMoviePlayerPlaybackDidFinishNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(getThumbnailImage:) name:MPMoviePlayerThumbnailImageRequestDidFinishNotification object:nil];
+    
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(receiveSeletedStudentList:) name:@"SelectedStudentList" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(receiveSeletedRangeList:) name:@"SeletedRangeList" object:nil];
 }
@@ -161,10 +236,28 @@
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
-#pragma mark ViewControllerMethod
+#pragma mark - VideoNoti
+-(void) playerPlaybackDidFinish:(NSNotification*)notification
+{
+    [self.navigationController setNavigationBarHidden:NO];
+    [self.moviePlayer stop];
+    self.moviePlayer.view.hidden = YES;
+}
+
+
+-(void)getThumbnailImage:(NSNotification *)notification
+{
+    UIImage *image = [self.moviePlayer thumbnailImageAtTime:0.f timeOption:MPMovieTimeOptionExact];
+    [videoPreview setBackgroundImage:image forState:UIControlStateNormal];
+
+}
+#pragma mark - ViewControllerMethod
 -(void)playVideo
 {
-    
+    [self.navigationController setNavigationBarHidden:YES];
+    self.moviePlayer.view.hidden = NO;
+    [self.moviePlayer prepareToPlay];
+    [self.moviePlayer play];
 }
 -(void)receiveSeletedRangeList:(NSNotification *)noti
 {

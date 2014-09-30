@@ -45,7 +45,8 @@
         }else
         {
             NSDictionary *students = (NSDictionary *)[[[dic objectForKey:ASI_REQUEST_DATA] objectForKey:@"list"] objectForKey:[self.currentGroup.groupid stringValue]];
-            if (students) {
+
+            if (students && [students isKindOfClass:[NSDictionary class]]) {
                 BBStudentsListViewController *studentListVC = [[BBStudentsListViewController alloc] initWithSelectedStudents:selectedStuArray withStudentModel:students];
                 [self.navigationController pushViewController:studentListVC animated:YES];
             }else

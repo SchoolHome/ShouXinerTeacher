@@ -566,7 +566,7 @@
     NSString *mediaType = [info objectForKey:UIImagePickerControllerMediaType];
     if([mediaType isEqualToString:@"public.movie"])
     {
-        //NSURL *videoURL = [info objectForKey:UIImagePickerControllerMediaURL];
+        NSURL *videoURL = [info objectForKey:UIImagePickerControllerMediaURL];
 //        NSLog(@"found a video");
 //        NSData *videoData = nil;
 //        videoData = [NSData dataWithContentsOfURL:videoURL];
@@ -575,7 +575,7 @@
 //        if (webData != nil) {
 //            NSLog(@"SUCCESS!");
 //        }
-        VideoConfirmViewController *videoConfirm = [[VideoConfirmViewController alloc] initWithVideoUrl:info andType:VIDEO_TYPE_CARMER];
+        VideoConfirmViewController *videoConfirm = [[VideoConfirmViewController alloc] initWithVideoUrl:videoURL andType:VIDEO_TYPE_CARMER andGroupModel:_currentGroup];
         videoConfirm.hidesBottomBarWhenPushed = YES;
         [self.navigationController pushViewController:videoConfirm animated:YES];
     }
