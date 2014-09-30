@@ -18,7 +18,7 @@
 #import "ADImageview.h"
 #import "ADDetailViewController.h"
 
-#import <MobileCoreServices/MobileCoreServices.h>
+
 #import "VideoConfirmViewController.h"
 @class BBWSPViewController;
 @interface BBBJQViewController ()<ADImageviewDelegate>

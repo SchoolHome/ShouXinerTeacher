@@ -79,7 +79,8 @@
     
     UIButton *reChoose = [UIButton buttonWithType:UIButtonTypeCustom];
     [reChoose setFrame:CGRectMake(30.f, self.screenHeight-120.f,60.f, 30.f)];
-    [reChoose setTitle:@"重录" forState:UIControlStateNormal];
+    [reChoose setTitle:chooseType== VIDEO_TYPE_PHOTO?@"重选":@"重录" forState:UIControlStateNormal];
+    [reChoose addTarget:self action:@selector(rechoose) forControlEvents:UIControlEventTouchUpInside];
     [reChoose setBackgroundColor:[UIColor redColor]];
     [self.view addSubview:reChoose];
     
@@ -112,6 +113,60 @@
 }
 */
 #pragma mark - ViewControllerMethod
+-(void)rechoose
+{
+    [self.moviePlayer stop];
+    UIImagePickerController *imagePicker = [[UIImagePickerController alloc] init];
+    [imagePicker setMediaTypes:@[(NSString *)kUTTypeMovie]];
+    
+    imagePicker.delegate = self;
+    switch (chooseType) {
+        case VIDEO_TYPE_CARMER:
+        {
+            if([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera]){
+                //拍摄视频
+                imagePicker.sourceType = UIImagePickerControllerSourceTypeCamera;
+                imagePicker.videoMaximumDuration = 30.f;
+            }
+        }
+            break;
+        case VIDEO_TYPE_PHOTO:
+        {
+            if([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeSavedPhotosAlbum]){
+                //选取视频
+                imagePicker.sourceType = UIImagePickerControllerSourceTypeSavedPhotosAlbum;
+            }
+        }
+            break;
+        default:
+            break;
+    }
+    
+    [self presentViewController:imagePicker animated:YES completion:nil];
+}
+-(void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info
+{
+    [self dismissViewControllerAnimated:YES completion:nil];
+    
+    NSString *mediaType = [info objectForKey:UIImagePickerControllerMediaType];
+    if([mediaType isEqualToString:@"public.movie"])
+    {
+        NSURL *videoURL = [info objectForKey:UIImagePickerControllerMediaURL];
+        //        NSLog(@"found a video");
+        //        NSData *videoData = nil;
+        //        videoData = [NSData dataWithContentsOfURL:videoURL];
+        //        NSMutableData *webData = [[NSMutableData alloc] init];
+        //        [webData appendData:videoData];
+        //        if (webData != nil) {
+        //            NSLog(@"SUCCESS!");
+        //        }
+        _videoURL = videoURL;
+        [self.moviePlayer setContentURL:videoURL];
+        [self.moviePlayer play];
+    }
+    
+    
+}
 -(void)useVideo
 {
     [self.moviePlayer stop];

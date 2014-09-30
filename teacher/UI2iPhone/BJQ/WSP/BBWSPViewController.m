@@ -76,8 +76,8 @@
         }else if (model.state == KCropVideoError)
         {
             [self closeProgress];
-            UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"压缩错误" message:[NSString stringWithFormat:@"%@",model.error] delegate:self cancelButtonTitle:@"OK" otherButtonTitles: nil];
-            [alertView show];
+            //UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"压缩错误" message:[NSString stringWithFormat:@"%@",model.error] delegate:self cancelButtonTitle:@"OK" otherButtonTitles: nil];
+            //[alertView show];
             NSLog(@"%@",model.error);
         }else
         {
