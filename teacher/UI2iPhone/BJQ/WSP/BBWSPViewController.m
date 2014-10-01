@@ -105,8 +105,7 @@
         Float64 duration = CMTimeGetSeconds(assetTime);
         if (duration > 60) {
             [self showProgressWithText:@"正在裁剪..."];
-            CropVideo *cropVideo = [[CropVideo alloc] init];
-            [cropVideo cropVideoByPath:videoUrl andSavePath:[self getTempSaveVideoPath:@"mov"]];
+            [CropVideo cropVideoByPath:videoUrl andSavePath:[self getTempSaveVideoPath:@"mov"]];
         }else{
             [self convertMp4];
         }
@@ -114,8 +113,7 @@
     }else [self convertMp4];
     
     [self showProgressWithText:@"正在裁剪..."];
-    CropVideo *cropVideo = [[CropVideo alloc] init];
-    [cropVideo cropVideoByPath:videoUrl andSavePath:[self getTempSaveVideoPath:@"mov"]];
+    [CropVideo cropVideoByPath:videoUrl andSavePath:[self getTempSaveVideoPath:@"mov"]];
 
 }
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil

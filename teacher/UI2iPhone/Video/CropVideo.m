@@ -16,45 +16,10 @@
 #import <AVFoundation/AVAssetImageGenerator.h>
 
 @implementation CropVideo
--(void) cropVideoByPath:(NSURL *) videoPath andSavePath:(NSString*) videoSavePath {
-    NSLog(@"\nv_strVideoPath = %@ \nv_strSavePath = %@\n ",[videoPath path],videoSavePath);
-    AVAsset *avAsset = [AVAsset assetWithURL:videoPath];
-    CMTime assetTime = [avAsset duration];
-    Float64 duration = CMTimeGetSeconds(assetTime);
-    NSLog(@"视频时长 %f\n",duration);
-    
-    AVMutableComposition *avMutableComposition = [AVMutableComposition composition];
-    
-    AVMutableCompositionTrack *avMutableCompositionTrack = [avMutableComposition addMutableTrackWithMediaType:AVMediaTypeVideo preferredTrackID:kCMPersistentTrackID_Invalid];
-    
-    AVAssetTrack *avAssetTrack = [[avAsset tracksWithMediaType:AVMediaTypeVideo] objectAtIndex:0];
-    
-    NSError *error = nil;
-    // 这块是裁剪,rangtime .前面的是开始时间,后面是裁剪多长
-    [avMutableCompositionTrack insertTimeRange:CMTimeRangeMake(CMTimeMakeWithSeconds(0.0f, 30), CMTimeMakeWithSeconds(60.0f, 30))
-                                       ofTrack:avAssetTrack
-                                        atTime:kCMTimeZero
-                                         error:&error];
-    
-    AVMutableVideoComposition *avMutableVideoComposition = [AVMutableVideoComposition videoComposition];
-    // 这个视频大小可以由你自己设置。比如源视频640*480.而你这320*480.最后出来的是320*480这么大的，640多出来的部分就没有了。并非是把图片压缩成那么大了。
-    avMutableVideoComposition.renderSize = CGSizeMake(320.0f, 480.0f);
-    avMutableVideoComposition.frameDuration = CMTimeMake(1, 30);
-    
-    AVMutableVideoCompositionInstruction *avMutableVideoCompositionInstruction = [AVMutableVideoCompositionInstruction videoCompositionInstruction];
-    
-    [avMutableVideoCompositionInstruction setTimeRange:CMTimeRangeMake(kCMTimeZero, [avMutableComposition duration])];
-    
-    AVMutableVideoCompositionLayerInstruction *avMutableVideoCompositionLayerInstruction = [AVMutableVideoCompositionLayerInstruction videoCompositionLayerInstructionWithAssetTrack:avAssetTrack];
-    [avMutableVideoCompositionLayerInstruction setTransform:avAssetTrack.preferredTransform atTime:kCMTimeZero];
-    
-    avMutableVideoCompositionInstruction.layerInstructions = [NSArray arrayWithObject:avMutableVideoCompositionLayerInstruction];
-    
-    
-    avMutableVideoComposition.instructions = [NSArray arrayWithObject:avMutableVideoCompositionInstruction];
-    
++(NSDictionary *) cropVideoByPath:(NSURL *) videoPath andSavePath:(NSString*) videoSavePath {
     
     NSFileManager *fm = [[NSFileManager alloc] init];
+    NSError *error = nil;
     if ([fm fileExistsAtPath:videoSavePath]) {
         NSLog(@"video is have. then delete that");
         if ([fm removeItemAtPath:videoSavePath error:&error]) {
@@ -64,44 +29,148 @@
         }
     }
     
-    AVAssetExportSession *avAssetExportSession = [[AVAssetExportSession alloc] initWithAsset:avMutableComposition presetName:AVAssetExportPreset640x480];
-    [avAssetExportSession setVideoComposition:avMutableVideoComposition];
-    [avAssetExportSession setOutputURL:[NSURL fileURLWithPath:videoSavePath]];
-    [avAssetExportSession setOutputFileType:AVFileTypeQuickTimeMovie];
-    [avAssetExportSession setShouldOptimizeForNetworkUse:YES];
-    [avAssetExportSession exportAsynchronouslyWithCompletionHandler:^(void){
-        CropVideoModel *model = [[CropVideoModel alloc] init];
-        switch (avAssetExportSession.status) {
-            case AVAssetExportSessionStatusFailed:
-                model.state = KCropVideoError;
-                model.error = [[avAssetExportSession error] debugDescription];
-                [[PalmUIManagement sharedInstance] willChangeValueForKey:@"videoState"];
-                [PalmUIManagement sharedInstance].videoState = model;
-                [[PalmUIManagement sharedInstance] didChangeValueForKey:@"videoState"];
-                break;
-            case AVAssetExportSessionStatusCompleted:
-                model.state = kCropVideoCompleted;
-                model.error = @"";
-                [[PalmUIManagement sharedInstance] willChangeValueForKey:@"videoState"];
-                [PalmUIManagement sharedInstance].videoState = model;
-                [[PalmUIManagement sharedInstance] didChangeValueForKey:@"videoState"];
-                break;
-            case AVAssetExportSessionStatusCancelled:
-                NSLog(@"export cancelled");
-                break;
-            case AVAssetExportSessionStatusUnknown:
-                break;
-            case AVAssetExportSessionStatusWaiting:
-                model.state = kCropingVideo;
-                model.error = @"";
-                [[PalmUIManagement sharedInstance] willChangeValueForKey:@"videoState"];
-                [PalmUIManagement sharedInstance].videoState = model;
-                [[PalmUIManagement sharedInstance] didChangeValueForKey:@"videoState"];
-                break;
-            case AVAssetExportSessionStatusExporting:
-                break;
-        }
-    }];
+    NSMutableDictionary *resDic = [[NSMutableDictionary alloc] init];
+    BOOL isSucess = YES;
+    AVMutableComposition* mixComposition = [AVMutableComposition composition];
+    AVURLAsset* videoAsset = [[AVURLAsset alloc]initWithURL:videoPath options:nil];
+    
+    long long videoValue = videoAsset.duration.value;
+    NSInteger videoTimeScale = videoAsset.duration.timescale;
+    long long videoTime = videoValue/videoTimeScale;
+    if (videoValue%videoTimeScale>0){
+        videoTime ++;
+    }
+    
+    AVAssetImageGenerator *generator = [AVAssetImageGenerator assetImageGeneratorWithAsset:videoAsset];
+    generator.appliesPreferredTrackTransform = YES;
+    generator.maximumSize = CGSizeMake(360,480);
+    
+    
+    AVMutableCompositionTrack *compositionVideoTrack = [mixComposition addMutableTrackWithMediaType:AVMediaTypeVideo
+                                                                                   preferredTrackID:kCMPersistentTrackID_Invalid];
+    [compositionVideoTrack insertTimeRange:CMTimeRangeMake(kCMTimeZero, videoAsset.duration)
+                                   ofTrack:[[videoAsset tracksWithMediaType:AVMediaTypeVideo] objectAtIndex:0]
+                                    atTime:kCMTimeZero error:nil];
+    
+    AVAssetTrack *sourceVideo = [[videoAsset tracksWithMediaType:AVMediaTypeVideo]lastObject];
+    [compositionVideoTrack setPreferredTransform:sourceVideo.preferredTransform];
+    AVAssetExportSession* _assetExport = [[AVAssetExportSession alloc] initWithAsset:videoAsset
+                                                                          presetName:AVAssetExportPresetMediumQuality];
+    
+    NSURL *exportUrl = [NSURL fileURLWithPath:videoSavePath];
+    
+    if ([[NSFileManager defaultManager] fileExistsAtPath:videoSavePath]){
+        [[NSFileManager defaultManager] removeItemAtPath:videoSavePath error:nil];
+    }
+    
+    _assetExport.outputFileType = AVFileTypeMPEG4;
+    _assetExport.outputURL = exportUrl;
+    _assetExport.timeRange = CMTimeRangeFromTimeToTime(kCMTimeZero,CMTimeMakeWithSeconds(60.0f, 30));
+    _assetExport.shouldOptimizeForNetworkUse = YES;
+    __block NSNumber *fileSize = nil;
+    [_assetExport exportAsynchronouslyWithCompletionHandler:
+     ^(void ) {
+         if (_assetExport.status == AVAssetExportSessionStatusCompleted){
+             fileSize = [self getFileSizeWithName:videoSavePath];
+         }else{
+             CPLogInfo(@"convert mpeg-4  error %@ ||  %@ ||%@ ||%@||%d",
+                       _assetExport.debugDescription,_assetExport.description,[_assetExport.error localizedDescription],
+                       [_assetExport.error localizedFailureReason],[_assetExport.error code]);
+         }
+     }
+     ];
+    if (error){
+        CPLogError(@"convert mpeg-4 error is  %@",[error localizedDescription]);
+    }
+    [resDic setObject:[NSNumber numberWithBool:isSucess] forKey:convertMpeg4IsSucess];
+    if (fileSize){
+        [resDic setObject:fileSize forKey:convertMpeg4FileSize];
+    }
+    return resDic;
+    
+//    AVAsset *avAsset = [AVAsset assetWithURL:videoPath];
+//    CMTime assetTime = [avAsset duration];
+//    Float64 duration = CMTimeGetSeconds(assetTime);
+//    NSLog(@"视频时长 %f\n",duration);
+//    
+//    AVMutableComposition *avMutableComposition = [AVMutableComposition composition];
+//    
+//    AVMutableCompositionTrack *avMutableCompositionTrack = [avMutableComposition addMutableTrackWithMediaType:AVMediaTypeVideo preferredTrackID:kCMPersistentTrackID_Invalid];
+//    
+//    AVAssetTrack *avAssetTrack = [[avAsset tracksWithMediaType:AVMediaTypeVideo] objectAtIndex:0];
+//    
+//    NSError *error = nil;
+//    [avMutableCompositionTrack insertTimeRange:CMTimeRangeMake(kCMTimeZero, CMTimeMakeWithSeconds(60.0f, 30))
+//                                       ofTrack:avAssetTrack
+//                                        atTime:kCMTimeZero
+//                                         error:&error];
+//    
+//    AVMutableVideoComposition *avMutableVideoComposition = [AVMutableVideoComposition videoComposition];
+//    avMutableVideoComposition.renderSize = CGSizeMake(320.0f, 480.0f);
+//    avMutableVideoComposition.frameDuration = CMTimeMake(1, 30);
+//    
+//    AVMutableVideoCompositionInstruction *avMutableVideoCompositionInstruction = [AVMutableVideoCompositionInstruction videoCompositionInstruction];
+//    
+//    [avMutableVideoCompositionInstruction setTimeRange:CMTimeRangeMake(kCMTimeZero, [avMutableComposition duration])];
+//    
+//    AVMutableVideoCompositionLayerInstruction *avMutableVideoCompositionLayerInstruction = [AVMutableVideoCompositionLayerInstruction videoCompositionLayerInstructionWithAssetTrack:avAssetTrack];
+//    [avMutableVideoCompositionLayerInstruction setTransform:avAssetTrack.preferredTransform atTime:kCMTimeZero];
+//    
+//    avMutableVideoCompositionInstruction.layerInstructions = [NSArray arrayWithObject:avMutableVideoCompositionLayerInstruction];
+//    
+//    
+//    avMutableVideoComposition.instructions = [NSArray arrayWithObject:avMutableVideoCompositionInstruction];
+//    
+//    
+//    NSFileManager *fm = [[NSFileManager alloc] init];
+//    if ([fm fileExistsAtPath:videoSavePath]) {
+//        NSLog(@"video is have. then delete that");
+//        if ([fm removeItemAtPath:videoSavePath error:&error]) {
+//            NSLog(@"delete is ok");
+//        }else {
+//            NSLog(@"delete is no error = %@",error.description);
+//        }
+//    }
+//    
+//    AVAssetExportSession *avAssetExportSession = [[AVAssetExportSession alloc] initWithAsset:avMutableComposition presetName:AVAssetExportPreset640x480];
+//    [avAssetExportSession setVideoComposition:avMutableVideoComposition];
+//    avAssetExportSession.timeRange = CMTimeRangeFromTimeToTime(kCMTimeZero,CMTimeMakeWithSeconds(60.0f, 30));
+//    [avAssetExportSession setOutputURL:[NSURL fileURLWithPath:videoSavePath]];
+//    [avAssetExportSession setOutputFileType:AVFileTypeQuickTimeMovie];
+//    [avAssetExportSession setShouldOptimizeForNetworkUse:YES];
+//    [avAssetExportSession exportAsynchronouslyWithCompletionHandler:^(void){
+//        CropVideoModel *model = [[CropVideoModel alloc] init];
+//        switch (avAssetExportSession.status) {
+//            case AVAssetExportSessionStatusFailed:
+//                model.state = KCropVideoError;
+//                model.error = [[avAssetExportSession error] debugDescription];
+//                [[PalmUIManagement sharedInstance] willChangeValueForKey:@"videoState"];
+//                [PalmUIManagement sharedInstance].videoState = model;
+//                [[PalmUIManagement sharedInstance] didChangeValueForKey:@"videoState"];
+//                break;
+//            case AVAssetExportSessionStatusCompleted:
+//                model.state = kCropVideoCompleted;
+//                model.error = @"";
+//                [[PalmUIManagement sharedInstance] willChangeValueForKey:@"videoState"];
+//                [PalmUIManagement sharedInstance].videoState = model;
+//                [[PalmUIManagement sharedInstance] didChangeValueForKey:@"videoState"];
+//                break;
+//            case AVAssetExportSessionStatusCancelled:
+//                NSLog(@"export cancelled");
+//                break;
+//            case AVAssetExportSessionStatusUnknown:
+//                break;
+//            case AVAssetExportSessionStatusWaiting:
+//                model.state = kCropingVideo;
+//                model.error = @"";
+//                [[PalmUIManagement sharedInstance] willChangeValueForKey:@"videoState"];
+//                [PalmUIManagement sharedInstance].videoState = model;
+//                [[PalmUIManagement sharedInstance] didChangeValueForKey:@"videoState"];
+//                break;
+//            case AVAssetExportSessionStatusExporting:
+//                break;
+//        }
+//    }];
 }
 
 +(NSDictionary *)convertMpeg4WithUrl:(NSURL *)url andDstFilePath:(NSString *)dstFilePath{
