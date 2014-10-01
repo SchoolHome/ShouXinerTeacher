@@ -270,7 +270,6 @@
     self.moviePlayer.useApplicationAudioSession = NO;
     self.moviePlayer.controlStyle = MPMovieControlStyleFullscreen;
     self.moviePlayer.shouldAutoplay = NO;
-    self.moviePlayer.initialPlaybackTime = 0.01f;
     self.moviePlayer.view.backgroundColor = [UIColor blackColor];
     self.moviePlayer.view.hidden = YES;
     
@@ -300,6 +299,7 @@
 #pragma mark - VideoNoti
 -(void) playerPlaybackDidFinish:(NSNotification*)notification
 {
+
     [self.navigationController setNavigationBarHidden:NO];
     [self.moviePlayer stop];
     self.moviePlayer.view.hidden = YES;
@@ -321,6 +321,7 @@
 }
 -(void)playVideo
 {
+
     
     [self.navigationController setNavigationBarHidden:YES];
     self.moviePlayer.view.hidden = NO;
