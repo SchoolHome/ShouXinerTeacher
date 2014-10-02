@@ -120,7 +120,8 @@
         videoUrl = url;
         self.currentGroup = groupModel;
         videoType = type;
-
+        [self showProgressWithText:@"正在压缩"];
+        [self convertMp4];
         
     }
     return self;
@@ -269,7 +270,7 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(receiveSeletedStudentList:) name:@"SelectedStudentList" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(receiveSeletedRangeList:) name:@"SeletedRangeList" object:nil];
     
-    [self showProgressWithText:@"正在压缩"];
+
 }
 
 - (void)didReceiveMemoryWarning
@@ -280,7 +281,6 @@
 #pragma mark - VideoNoti
 -(void) playerPlaybackDidFinish:(NSNotification*)notification
 {
-
     [self.navigationController setNavigationBarHidden:NO];
     [self.moviePlayer stop];
     self.moviePlayer.view.hidden = YES;
@@ -292,7 +292,6 @@
     
     UIImage *image = [self.moviePlayer thumbnailImageAtTime:0.f timeOption:MPMovieTimeOptionExact];
     [videoPreview setBackgroundImage:image forState:UIControlStateNormal];
-    [self convertMp4];
 }
 #pragma mark - ViewControllerMethod
 -(void)convertMp4
@@ -305,17 +304,23 @@
         cropResult = [CropVideo cropVideoByPath:videoUrl andSavePath:[self getTempSaveVideoPath:@"mp4"]];
     }else cropResult = [CropVideo convertMpeg4WithUrl:videoUrl andDstFilePath:[self getTempSaveVideoPath:@"mp4"]];
    
+    NSLog(@"cropResult == %@",cropResult);
     [self.moviePlayer setContentURL:[cropResult[convertMpeg4IsSucess] boolValue]?[NSURL fileURLWithPath:[self getTempSaveVideoPath:@"mp4"]]:videoUrl];
     [self closeProgress];
 }
 -(void)playVideo
 {
-
+    if ([[NSFileManager defaultManager] fileExistsAtPath:[self getTempSaveVideoPath:@"mp4"]]) {
+        [self.navigationController setNavigationBarHidden:YES];
+        self.moviePlayer.view.hidden = NO;
+        //[self.moviePlayer prepareToPlay];
+        [self.moviePlayer play];
+    }else
+    {
+        NSLog(@"not ready");
+    }
     
-    [self.navigationController setNavigationBarHidden:YES];
-    self.moviePlayer.view.hidden = NO;
-    //[self.moviePlayer prepareToPlay];
-    [self.moviePlayer play];
+
 }
 -(void)receiveSeletedRangeList:(NSNotification *)noti
 {
