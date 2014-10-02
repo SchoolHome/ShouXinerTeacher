@@ -65,15 +65,18 @@
             
         }
         [self closeProgress];
-    }else if ([keyPath isEqualToString:@"videoState"]){
+    }
+    /*
+    else if ([keyPath isEqualToString:@"videoState"]){
         
         CropVideoModel *model = [PalmUIManagement sharedInstance].videoState;
         if (model.state == kCropVideoCompleted) {
             //[self showProgressWithText:@"a" withDelayTime:3];
             [self closeProgress];
-            [self convertMp4];
+            //[self convertMp4];
             UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"结果" message:[NSString stringWithFormat:@"压缩前:%@\n压缩后:%@",[CropVideo getFileSizeWithName:videoUrl.path],[CropVideo getFileSizeWithName:[self getTempSaveVideoPath:@"mp4"]]] delegate:self cancelButtonTitle:@"OK" otherButtonTitles: nil];
             [alertView show];
+            [self.moviePlayer setContentURL:[NSURL fileURLWithPath:[self getTempSaveVideoPath:@"mp4"]]];
         }else if (model.state == KCropVideoError){
             //[self showProgressWithText:@"a" withDelayTime:3];
             [self closeProgress];
@@ -85,36 +88,22 @@
         }
         
     }
+     */
 }
 -(void)viewWillAppear:(BOOL)animated
 {
     [[PalmUIManagement sharedInstance] addObserver:self forKeyPath:@"groupStudents" options:0 context:nil];
-    [[PalmUIManagement sharedInstance] addObserver:self forKeyPath:@"videoState" options:0 context:nil];
+    //[[PalmUIManagement sharedInstance] addObserver:self forKeyPath:@"videoState" options:0 context:nil];
 }
 -(void)viewDidDisappear:(BOOL)animated
 {
 
     [[PalmUIManagement sharedInstance] removeObserver:self forKeyPath:@"groupStudents"];
-    [[PalmUIManagement sharedInstance] removeObserver:self forKeyPath:@"videoState"];
+    //[[PalmUIManagement sharedInstance] removeObserver:self forKeyPath:@"videoState"];
 }
 -(void)viewDidAppear:(BOOL)animated
 {
-    if (videoType == VIDEO_TYPE_PHOTO) {
-        AVAsset *avAsset = [AVAsset assetWithURL:videoUrl];
-        CMTime assetTime = [avAsset duration];
-        Float64 duration = CMTimeGetSeconds(assetTime);
-        if (duration > 60) {
-            [self showProgressWithText:@"正在裁剪..."];
-            [CropVideo cropVideoByPath:videoUrl andSavePath:[self getTempSaveVideoPath:@"mov"]];
-        }else{
-            [self convertMp4];
-        }
-        
-    }else [self convertMp4];
     
-    [self showProgressWithText:@"正在裁剪..."];
-    [CropVideo cropVideoByPath:videoUrl andSavePath:[self getTempSaveVideoPath:@"mov"]];
-
 }
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -280,7 +269,7 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(receiveSeletedStudentList:) name:@"SelectedStudentList" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(receiveSeletedRangeList:) name:@"SeletedRangeList" object:nil];
     
-
+    [self showProgressWithText:@"正在压缩"];
 }
 
 - (void)didReceiveMemoryWarning
@@ -300,16 +289,24 @@
 
 -(void)getThumbnailImage:(NSNotification *)notification
 {
+    
     UIImage *image = [self.moviePlayer thumbnailImageAtTime:0.f timeOption:MPMovieTimeOptionExact];
     [videoPreview setBackgroundImage:image forState:UIControlStateNormal];
-
+    [self convertMp4];
 }
 #pragma mark - ViewControllerMethod
 -(void)convertMp4
 {
-   NSDictionary *cropResult = [CropVideo convertMpeg4WithUrl:videoUrl andDstFilePath:[self getTempSaveVideoPath:@"mp4"]];
+    NSDictionary *cropResult;
+    AVAsset *avAsset = [AVAsset assetWithURL:videoUrl];
+    CMTime assetTime = [avAsset duration];
+    Float64 duration = CMTimeGetSeconds(assetTime);
+    if (videoType == VIDEO_TYPE_PHOTO && duration > 60) {
+        cropResult = [CropVideo cropVideoByPath:videoUrl andSavePath:[self getTempSaveVideoPath:@"mp4"]];
+    }else cropResult = [CropVideo convertMpeg4WithUrl:videoUrl andDstFilePath:[self getTempSaveVideoPath:@"mp4"]];
+   
     [self.moviePlayer setContentURL:[cropResult[convertMpeg4IsSucess] boolValue]?[NSURL fileURLWithPath:[self getTempSaveVideoPath:@"mp4"]]:videoUrl];
-
+    [self closeProgress];
 }
 -(void)playVideo
 {
@@ -458,7 +455,7 @@
 }
 -(void)send
 {
-    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"结果" message:[NSString stringWithFormat:@"压缩前:%@\n压缩后:%@",[CropVideo getFileSizeWithName:videoUrl.path],[CropVideo getFileSizeWithName:[self getTempSaveVideoPath:@"mp4"]]] delegate:self cancelButtonTitle:@"OK" otherButtonTitles: nil];
+    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"结果" message:[NSString stringWithFormat:@"压缩前:%@k\n压缩后:%@k",[CropVideo getFileSizeWithName:videoUrl.path],[CropVideo getFileSizeWithName:[self getTempSaveVideoPath:@"mp4"]]] delegate:self cancelButtonTitle:@"OK" otherButtonTitles: nil];
     [alertView show];
 }
 
