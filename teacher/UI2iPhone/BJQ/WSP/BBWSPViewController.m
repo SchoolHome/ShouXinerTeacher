@@ -71,11 +71,8 @@
         CropVideoModel *model = [PalmUIManagement sharedInstance].videoState;
         if (model.state == kCropVideoCompleted) {
             [self closeProgress];
-            
             [self initMoviePlayer];
-            
         }else if (model.state == KCropVideoError){
-            //[self showProgressWithText:@"a" withDelayTime:3];
             [self closeProgress];
             UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"压缩错误" message:[NSString stringWithFormat:@"%@",model.error] delegate:self cancelButtonTitle:@"OK" otherButtonTitles: nil];
             [alertView show];
