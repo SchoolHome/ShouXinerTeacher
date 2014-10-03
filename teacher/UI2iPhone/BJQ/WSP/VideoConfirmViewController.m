@@ -126,7 +126,7 @@
             if([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera]){
                 //拍摄视频
                 imagePicker.sourceType = UIImagePickerControllerSourceTypeCamera;
-                imagePicker.videoMaximumDuration = 30.f;
+                imagePicker.videoMaximumDuration = 60.f;
             }
         }
             break;
