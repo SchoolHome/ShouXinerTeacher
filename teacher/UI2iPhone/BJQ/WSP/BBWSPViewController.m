@@ -90,7 +90,7 @@
             [self.moviePlayer setContentURL:[NSURL fileURLWithPath:[self getTempSaveVideoPath:@"mp4"]]];
         }else if (model.state == KCropVideoError){
             [self closeProgress];
-            UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"压缩错误" message:[NSString stringWithFormat:@"%@",model.error] delegate:self cancelButtonTitle:@"OK" otherButtonTitles: nil];
+            UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"裁剪错误" message:[NSString stringWithFormat:@"%@",model.error] delegate:self cancelButtonTitle:@"OK" otherButtonTitles: nil];
             [alertView show];
             NSLog(@"%@",model.error);
         }else{
@@ -139,9 +139,9 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    self.title = @"拍表现";
+    self.title = @"微视频";
     
-    [self showProgressWithText:@"正在压缩"];
+    
     [self convertMp4];
     
     // left
@@ -314,11 +314,12 @@
     CMTime assetTime = [avAsset duration];
     Float64 duration = CMTimeGetSeconds(assetTime);
     if (videoType == VIDEO_TYPE_PHOTO && duration > 60) {
-         [CropVideo cropVideoByPath:videoUrl andSavePath:[self getTempSaveVideoPath:@"mp4"]];
-    }else  [CropVideo convertMpeg4WithUrl:videoUrl andDstFilePath:[self getTempSaveVideoPath:@"mp4"]];
-   
-
-   // [self.moviePlayer setContentURL:[cropResult[convertMpeg4IsSucess] boolValue]?[NSURL fileURLWithPath:[self getTempSaveVideoPath:@"mp4"]]:videoUrl];
+        [self showProgressWithText:@"正在裁剪"];
+        [CropVideo cropVideoByPath:videoUrl andSavePath:[self getTempSaveVideoPath:@"mp4"]];
+    }else{
+        [self showProgressWithText:@"正在压缩"];
+        [CropVideo convertMpeg4WithUrl:videoUrl andDstFilePath:[self getTempSaveVideoPath:@"mp4"]];
+    }
 }
 
 -(void)playVideo
