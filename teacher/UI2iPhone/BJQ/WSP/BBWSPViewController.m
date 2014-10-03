@@ -74,7 +74,7 @@
             [self initMoviePlayer];
         }else if (model.state == KCropVideoError){
             [self closeProgress];
-            UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"压缩错误" message:[NSString stringWithFormat:@"%@",model.error] delegate:self cancelButtonTitle:@"OK" otherButtonTitles: nil];
+            UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"裁剪错误" message:[NSString stringWithFormat:@"%@",model.error] delegate:self cancelButtonTitle:@"OK" otherButtonTitles: nil];
             [alertView show];
             NSLog(@"%@",model.error);
         }else{
@@ -89,7 +89,7 @@
             [self initMoviePlayer];
         }else if (model.state == KCropVideoError){
             [self closeProgress];
-            UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"裁剪错误" message:[NSString stringWithFormat:@"%@",model.error] delegate:self cancelButtonTitle:@"OK" otherButtonTitles: nil];
+            UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"压缩错误" message:[NSString stringWithFormat:@"%@",model.error] delegate:self cancelButtonTitle:@"OK" otherButtonTitles: nil];
             [alertView show];
             NSLog(@"%@",model.error);
         }else{
@@ -111,10 +111,7 @@
     [[PalmUIManagement sharedInstance] removeObserver:self forKeyPath:@"videoState"];
     [[PalmUIManagement sharedInstance] removeObserver:self forKeyPath:@"videoCompressionState"];
 }
--(void)viewDidAppear:(BOOL)animated
-{
-    
-}
+
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
@@ -139,10 +136,6 @@
 {
     [super viewDidLoad];
     self.title = @"微视频";
-    
-    
-    [self convertMp4];
-    
     // left
     UIButton *backButton = [UIButton buttonWithType:UIButtonTypeCustom];
     [backButton setFrame:CGRectMake(0.f, 15.f, 40.f, 24.f)];
@@ -255,9 +248,21 @@
     
 
     
+    // 显示视频
+    self.moviePlayer = [[MPMoviePlayerController alloc] init];
+    self.moviePlayer.view.frame = CGRectMake(0.0f, 0.0f, self.screenWidth, self.screenHeight);
+    
+    
+    self.moviePlayer.useApplicationAudioSession = NO;
+    self.moviePlayer.controlStyle = MPMovieControlStyleFullscreen;
+    self.moviePlayer.shouldAutoplay = NO;
+    self.moviePlayer.view.backgroundColor = [UIColor blackColor];
+    self.moviePlayer.view.hidden = YES;
+    
+    [self.view addSubview:self.moviePlayer.view];
+    [self.moviePlayer requestThumbnailImagesAtTimes:@[[NSNumber numberWithFloat:0.f]] timeOption:MPMovieTimeOptionExact];
+    [self.moviePlayer setFullscreen:YES animated:NO];
  
-    
-    
 
     
     // 添加视频播放结束监听
@@ -269,6 +274,11 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(receiveSeletedRangeList:) name:@"SeletedRangeList" object:nil];
     
 
+}
+
+-(void) viewDidAppear:(BOOL)animated{
+    [super viewDidAppear:animated];
+    [self convertMp4];
 }
 
 - (void)didReceiveMemoryWarning
