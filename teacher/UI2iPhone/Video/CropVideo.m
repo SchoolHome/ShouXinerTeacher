@@ -72,10 +72,18 @@
      ^(void ) {
          if (_assetExport.status == AVAssetExportSessionStatusCompleted){
              fileSize = [self getFileSizeWithName:videoSavePath];
+             CropVideoModel *crop = [[CropVideoModel alloc] init];
+             crop.state = kCropVideoCompleted;
+             [PalmUIManagement sharedInstance].videoState = crop;
          }else{
              CPLogInfo(@"convert mpeg-4  error %@ ||  %@ ||%@ ||%@||%d",
                        _assetExport.debugDescription,_assetExport.description,[_assetExport.error localizedDescription],
                        [_assetExport.error localizedFailureReason],[_assetExport.error code]);
+             CropVideoModel *crop = [[CropVideoModel alloc] init];
+             crop.state = kCropVideoCompleted;
+             crop.error = _assetExport.description;
+             [PalmUIManagement sharedInstance].videoState = crop;
+             
          }
      }
      ];

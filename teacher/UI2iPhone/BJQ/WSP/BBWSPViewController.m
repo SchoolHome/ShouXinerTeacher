@@ -86,6 +86,9 @@
             NSLog(@"croping");
         }
         
+    }else if ([keyPath isEqualToString:@"videoCompressionState"])
+    {
+        
     }
     
 }
@@ -93,12 +96,14 @@
 {
     [[PalmUIManagement sharedInstance] addObserver:self forKeyPath:@"groupStudents" options:0 context:nil];
     [[PalmUIManagement sharedInstance] addObserver:self forKeyPath:@"videoState" options:0 context:nil];
+    [[PalmUIManagement sharedInstance] addObserver:self forKeyPath:@"videoCompressionState" options:0 context:nil];
 }
 -(void)viewDidDisappear:(BOOL)animated
 {
 
     [[PalmUIManagement sharedInstance] removeObserver:self forKeyPath:@"groupStudents"];
     [[PalmUIManagement sharedInstance] removeObserver:self forKeyPath:@"videoState"];
+    [[PalmUIManagement sharedInstance] removeObserver:self forKeyPath:@"videoCompressionState"];
 }
 -(void)viewDidAppear:(BOOL)animated
 {
