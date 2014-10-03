@@ -71,7 +71,9 @@
         CropVideoModel *model = [PalmUIManagement sharedInstance].videoState;
         if (model.state == kCropVideoCompleted) {
             [self closeProgress];
-            [self.moviePlayer setContentURL:[NSURL fileURLWithPath:[self getTempSaveVideoPath:@"mp4"]]];
+            
+            [self initMoviePlayer];
+            
         }else if (model.state == KCropVideoError){
             //[self showProgressWithText:@"a" withDelayTime:3];
             [self closeProgress];
@@ -87,7 +89,7 @@
         CropVideoModel *model = [PalmUIManagement sharedInstance].videoCompressionState;
         if (model.state == kCropVideoCompleted) {
             [self closeProgress];
-            [self.moviePlayer setContentURL:[NSURL fileURLWithPath:[self getTempSaveVideoPath:@"mp4"]]];
+            [self initMoviePlayer];
         }else if (model.state == KCropVideoError){
             [self closeProgress];
             UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"压缩错误" message:[NSString stringWithFormat:@"%@",model.error] delegate:self cancelButtonTitle:@"OK" otherButtonTitles: nil];
@@ -249,7 +251,6 @@
     
 
     
-    //videoPlayer
     // 显示视频
     self.moviePlayer = [[MPMoviePlayerController alloc] init];
     self.moviePlayer.view.frame = CGRectMake(0.0f, 0.0f, self.screenWidth, self.screenHeight);
@@ -264,8 +265,7 @@
     [self.view addSubview:self.moviePlayer.view];
     [self.moviePlayer requestThumbnailImagesAtTimes:@[[NSNumber numberWithFloat:0.f]] timeOption:MPMovieTimeOptionExact];
     [self.moviePlayer setFullscreen:YES animated:NO];
-    
-    
+ 
 
     
     // 添加视频播放结束监听
@@ -305,27 +305,46 @@
     [videoPreview setBackgroundImage:image forState:UIControlStateNormal];
 }
 #pragma mark - ViewControllerMethod
+-(void)initMoviePlayer
+{
+    //videoPlayer
+    // 显示视频
+    NSLog(@"cropSize==%@",[CropVideo getFileSizeWithName:[self getTempSaveVideoPath]]);
+    self.moviePlayer = [[MPMoviePlayerController alloc] initWithContentURL:[NSURL fileURLWithPath:[self getTempSaveVideoPath]]];
+    NSLog(@"%@",self.moviePlayer.contentURL);
+    self.moviePlayer.view.frame = CGRectMake(0.0f, 0.0f, self.screenWidth, self.screenHeight);
+    
+    
+    self.moviePlayer.useApplicationAudioSession = NO;
+    self.moviePlayer.controlStyle = MPMovieControlStyleFullscreen;
+    self.moviePlayer.shouldAutoplay = NO;
+    self.moviePlayer.view.backgroundColor = [UIColor blackColor];
+    self.moviePlayer.view.hidden = YES;
+    
+    [self.view addSubview:self.moviePlayer.view];
+    [self.moviePlayer requestThumbnailImagesAtTimes:@[[NSNumber numberWithFloat:0.f]] timeOption:MPMovieTimeOptionExact];
+    //[self.moviePlayer setFullscreen:YES animated:NO];
+    
+}
 -(void)convertMp4
 {
-
+    [self showProgressWithText:@"正在压缩"];
     AVAsset *avAsset = [AVAsset assetWithURL:videoUrl];
     CMTime assetTime = [avAsset duration];
     Float64 duration = CMTimeGetSeconds(assetTime);
     if (videoType == VIDEO_TYPE_PHOTO && duration > 60) {
-        [self showProgressWithText:@"正在裁剪"];
-        [CropVideo cropVideoByPath:videoUrl andSavePath:[self getTempSaveVideoPath:@"mp4"]];
-    }else{
-        [self showProgressWithText:@"正在压缩"];
-        [CropVideo convertMpeg4WithUrl:videoUrl andDstFilePath:[self getTempSaveVideoPath:@"mp4"]];
-    }
+        
+         [CropVideo cropVideoByPath:videoUrl andSavePath:[self getTempSaveVideoPath]];
+    }else  [CropVideo convertMpeg4WithUrl:videoUrl andDstFilePath:[self getTempSaveVideoPath]];
+    
 }
 
 -(void)playVideo
 {
-    if ([[NSFileManager defaultManager] fileExistsAtPath:[self getTempSaveVideoPath:@"mp4"]]) {
+    if ([[CropVideo getFileSizeWithName:[self getTempSaveVideoPath]] integerValue] > 0) {
         [self.navigationController setNavigationBarHidden:YES];
         self.moviePlayer.view.hidden = NO;
-        //[self.moviePlayer prepareToPlay];
+        [self.moviePlayer prepareToPlay];
         [self.moviePlayer play];
     }else
     {
@@ -458,11 +477,11 @@
     [self.navigationController pushViewController:recommendedRangeVC animated:YES];
 }
 
--(NSString *)getTempSaveVideoPath :(NSString*)suffix
+-(NSString *)getTempSaveVideoPath
 {
     CPLGModelAccount *account = [[CPSystemEngine sharedInstance] accountModel];
     NSString *documentsDirectory = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory,NSUserDomainMask,YES)[0];
-    NSString *savePath = [documentsDirectory stringByAppendingFormat:@"/%@/temp.%@",account.loginName,suffix];
+    NSString *savePath = [documentsDirectory stringByAppendingFormat:@"/%@/temp.MP4",account.loginName];
     return savePath;
 }
 #pragma mark NavAction
@@ -472,7 +491,7 @@
 }
 -(void)send
 {
-    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"结果" message:[NSString stringWithFormat:@"压缩前:%@k\n压缩后:%@k",[CropVideo getFileSizeWithName:videoUrl.path],[CropVideo getFileSizeWithName:[self getTempSaveVideoPath:@"mp4"]]] delegate:self cancelButtonTitle:@"OK" otherButtonTitles: nil];
+    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"结果" message:[NSString stringWithFormat:@"压缩前:%@k\n压缩后:%@k",[CropVideo getFileSizeWithName:videoUrl.path],[CropVideo getFileSizeWithName:[self getTempSaveVideoPath]]] delegate:self cancelButtonTitle:@"OK" otherButtonTitles: nil];
     [alertView show];
 }
 
