@@ -85,7 +85,8 @@
 
 // 裁剪video状态
 @property(nonatomic,strong) CropVideoModel *videoState;
-
+// 压缩video状态
+@property(nonatomic,strong) CropVideoModel *videoCompressionState;
 
 // 获取用户信息
 -(void) getUserProfile;
