@@ -44,7 +44,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    self.view.backgroundColor = [UIColor blueColor];
+    self.view.backgroundColor = [UIColor blackColor];
     
     NSLog(@"width==%f,height==%f",self.screenWidth,self.screenHeight);
 
@@ -81,14 +81,14 @@
     [reChoose setFrame:CGRectMake(30.f, self.screenHeight-120.f,60.f, 30.f)];
     [reChoose setTitle:chooseType== VIDEO_TYPE_PHOTO?@"重选":@"重录" forState:UIControlStateNormal];
     [reChoose addTarget:self action:@selector(rechoose) forControlEvents:UIControlEventTouchUpInside];
-    [reChoose setBackgroundColor:[UIColor redColor]];
+    [reChoose setBackgroundColor:[UIColor blackColor]];
     [self.view addSubview:reChoose];
     
     UIButton *useVideo = [UIButton buttonWithType:UIButtonTypeCustom];
     [useVideo setFrame:CGRectMake(self.screenWidth-90.f, self.screenHeight-120.f,60.f , 30.f)];
     [useVideo setTitle:@"使用" forState:UIControlStateNormal];
     [useVideo addTarget:self action:@selector(useVideo) forControlEvents:UIControlEventTouchUpInside];
-    [useVideo setBackgroundColor:[UIColor redColor]];
+    [useVideo setBackgroundColor:[UIColor blackColor]];
     [self.view addSubview:useVideo];
     
     NSLog(@"%@",self.view.subviews);

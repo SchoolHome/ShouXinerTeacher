@@ -66,9 +66,8 @@
         }
         [self closeProgress];
     }
-    /*
+    
     else if ([keyPath isEqualToString:@"videoState"]){
-        
         CropVideoModel *model = [PalmUIManagement sharedInstance].videoState;
         if (model.state == kCropVideoCompleted) {
             //[self showProgressWithText:@"a" withDelayTime:3];
@@ -88,18 +87,18 @@
         }
         
     }
-     */
+    
 }
 -(void)viewWillAppear:(BOOL)animated
 {
     [[PalmUIManagement sharedInstance] addObserver:self forKeyPath:@"groupStudents" options:0 context:nil];
-    //[[PalmUIManagement sharedInstance] addObserver:self forKeyPath:@"videoState" options:0 context:nil];
+    [[PalmUIManagement sharedInstance] addObserver:self forKeyPath:@"videoState" options:0 context:nil];
 }
 -(void)viewDidDisappear:(BOOL)animated
 {
 
     [[PalmUIManagement sharedInstance] removeObserver:self forKeyPath:@"groupStudents"];
-    //[[PalmUIManagement sharedInstance] removeObserver:self forKeyPath:@"videoState"];
+    [[PalmUIManagement sharedInstance] removeObserver:self forKeyPath:@"videoState"];
 }
 -(void)viewDidAppear:(BOOL)animated
 {
@@ -120,7 +119,7 @@
         videoUrl = url;
         self.currentGroup = groupModel;
         videoType = type;
-        [self showProgressWithText:@"正在压缩"];
+
         [self convertMp4];
         
     }
@@ -301,12 +300,13 @@
     CMTime assetTime = [avAsset duration];
     Float64 duration = CMTimeGetSeconds(assetTime);
     if (videoType == VIDEO_TYPE_PHOTO && duration > 60) {
+        [self showProgressWithText:@"正在压缩"];
         cropResult = [CropVideo cropVideoByPath:videoUrl andSavePath:[self getTempSaveVideoPath:@"mp4"]];
     }else cropResult = [CropVideo convertMpeg4WithUrl:videoUrl andDstFilePath:[self getTempSaveVideoPath:@"mp4"]];
    
     NSLog(@"cropResult == %@",cropResult);
     [self.moviePlayer setContentURL:[cropResult[convertMpeg4IsSucess] boolValue]?[NSURL fileURLWithPath:[self getTempSaveVideoPath:@"mp4"]]:videoUrl];
-    [self closeProgress];
+
 }
 -(void)playVideo
 {
