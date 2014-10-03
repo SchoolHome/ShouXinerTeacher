@@ -131,8 +131,7 @@
         videoUrl = url;
         self.currentGroup = groupModel;
         videoType = type;
-        [self showProgressWithText:@"正在压缩"];
-        [self convertMp4];
+
         
     }
     return self;
@@ -141,6 +140,9 @@
 {
     [super viewDidLoad];
     self.title = @"拍表现";
+    
+    [self showProgressWithText:@"正在压缩"];
+    [self convertMp4];
     
     // left
     UIButton *backButton = [UIButton buttonWithType:UIButtonTypeCustom];
