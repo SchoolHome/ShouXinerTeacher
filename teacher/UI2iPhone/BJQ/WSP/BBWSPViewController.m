@@ -325,14 +325,17 @@
 }
 -(void)convertMp4
 {
-    [self showProgressWithText:@"正在压缩"];
+    
     AVAsset *avAsset = [AVAsset assetWithURL:videoUrl];
     CMTime assetTime = [avAsset duration];
     Float64 duration = CMTimeGetSeconds(assetTime);
     if (videoType == VIDEO_TYPE_PHOTO && duration > 60) {
-        
-         [CropVideo cropVideoByPath:videoUrl andSavePath:[self getTempSaveVideoPath]];
-    }else  [CropVideo convertMpeg4WithUrl:videoUrl andDstFilePath:[self getTempSaveVideoPath]];
+        [self showProgressWithText:@"正在裁剪"];
+        [CropVideo cropVideoByPath:videoUrl andSavePath:[self getTempSaveVideoPath]];
+    }else{
+        [self showProgressWithText:@"正在压缩"];
+        [CropVideo convertMpeg4WithUrl:videoUrl andDstFilePath:[self getTempSaveVideoPath]];
+    }
     
 }
 
