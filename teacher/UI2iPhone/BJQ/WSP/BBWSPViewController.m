@@ -75,7 +75,7 @@
         }else if (model.state == KCropVideoError){
             //[self showProgressWithText:@"a" withDelayTime:3];
             [self closeProgress];
-            UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"压缩错误" message:[NSString stringWithFormat:@"%@",model.error] delegate:self cancelButtonTitle:@"OK" otherButtonTitles: nil];
+            UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"裁剪错误" message:[NSString stringWithFormat:@"%@",model.error] delegate:self cancelButtonTitle:@"OK" otherButtonTitles: nil];
             [alertView show];
             NSLog(@"%@",model.error);
         }else{
@@ -90,7 +90,7 @@
             [self.moviePlayer setContentURL:[NSURL fileURLWithPath:[self getTempSaveVideoPath:@"mp4"]]];
         }else if (model.state == KCropVideoError){
             [self closeProgress];
-            UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"裁剪错误" message:[NSString stringWithFormat:@"%@",model.error] delegate:self cancelButtonTitle:@"OK" otherButtonTitles: nil];
+            UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"压缩错误" message:[NSString stringWithFormat:@"%@",model.error] delegate:self cancelButtonTitle:@"OK" otherButtonTitles: nil];
             [alertView show];
             NSLog(@"%@",model.error);
         }else{
@@ -112,10 +112,7 @@
     [[PalmUIManagement sharedInstance] removeObserver:self forKeyPath:@"videoState"];
     [[PalmUIManagement sharedInstance] removeObserver:self forKeyPath:@"videoCompressionState"];
 }
--(void)viewDidAppear:(BOOL)animated
-{
-    
-}
+
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
@@ -140,10 +137,6 @@
 {
     [super viewDidLoad];
     self.title = @"微视频";
-    
-    
-    [self convertMp4];
-    
     // left
     UIButton *backButton = [UIButton buttonWithType:UIButtonTypeCustom];
     [backButton setFrame:CGRectMake(0.f, 15.f, 40.f, 24.f)];
@@ -258,7 +251,7 @@
     
     //videoPlayer
     // 显示视频
-    self.moviePlayer = [[MPMoviePlayerController alloc] initWithContentURL:videoUrl];
+    self.moviePlayer = [[MPMoviePlayerController alloc] init];
     self.moviePlayer.view.frame = CGRectMake(0.0f, 0.0f, self.screenWidth, self.screenHeight);
     
     
@@ -284,6 +277,11 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(receiveSeletedRangeList:) name:@"SeletedRangeList" object:nil];
     
 
+}
+
+-(void) viewDidAppear:(BOOL)animated{
+    [super viewDidAppear:animated];
+    [self convertMp4];
 }
 
 - (void)didReceiveMemoryWarning
