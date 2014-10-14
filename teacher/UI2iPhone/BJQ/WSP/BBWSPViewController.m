@@ -112,8 +112,8 @@
                 if (videoInfo.count < 4) {
                     return;
                 }
-                //[self showProgressWithText:@"测试下载"];
-                //[[PalmUIManagement sharedInstance] downLoadUserVideoFile:videoInfo[5] withKey:videoInfo[4]];
+                [self showProgressWithText:@"测试下载"];
+                [[PalmUIManagement sharedInstance] downLoadUserVideoFile:videoInfo[5] withKey:videoInfo[4]];
             }
         }
         
