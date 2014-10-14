@@ -15,6 +15,7 @@
 
 #import "CropVideo.h"
 #import "CropVideoModel.h"
+#import "CoreUtils.h"
 
 #import "EGOImageButton.h"
 
@@ -95,14 +96,45 @@
         }else{
             NSLog(@"croping");
         }
+    }else if ([keyPath isEqualToString:@"uploadVideoResult"]){
+        NSDictionary *dic = [PalmUIManagement sharedInstance].uploadVideoResult;
+        if (![dic objectForKey:ASI_REQUEST_HAS_ERROR]) {
+            [self showProgressWithText:[dic objectForKey:ASI_REQUEST_ERROR_MESSAGE] withDelayTime:3];
+        }else{
+            NSDictionary *resultData = dic[ASI_REQUEST_DATA];
+            if ([resultData[@"ret"] isEqualToString:@"OK"])
+            {
+                NSArray *videoInfo = resultData[@"data"][0];
+                [self cacheVideo:videoInfo[4]];
+                [self closeProgress];
+            
+            /*********Test Video Download*************/
+                if (videoInfo.count < 4) {
+                    return;
+                }
+                //[self showProgressWithText:@"测试下载"];
+                //[[PalmUIManagement sharedInstance] downLoadUserVideoFile:videoInfo[5] withKey:videoInfo[4]];
+            }
+        }
+        
+    }else if ([keyPath isEqualToString:@"downloadVideoResult"]){ //Test
+        NSDictionary *dic = [PalmUIManagement sharedInstance].downloadVideoResult;
+        if (![dic objectForKey:ASI_REQUEST_HAS_ERROR]) {
+            [self showProgressWithText:[dic objectForKey:ASI_REQUEST_ERROR_MESSAGE] withDelayTime:3];
+        }else{
+            
+        }
     }
-    
 }
 -(void)viewWillAppear:(BOOL)animated
 {
     [[PalmUIManagement sharedInstance] addObserver:self forKeyPath:@"groupStudents" options:0 context:nil];
     [[PalmUIManagement sharedInstance] addObserver:self forKeyPath:@"videoState" options:0 context:nil];
     [[PalmUIManagement sharedInstance] addObserver:self forKeyPath:@"videoCompressionState" options:0 context:nil];
+    [[PalmUIManagement sharedInstance] addObserver:self forKeyPath:@"uploadVideoResult" options:0 context:nil];
+    
+    /*********Test Video Download*************/
+    [[PalmUIManagement sharedInstance] addObserver:self forKeyPath:@"downloadVideoResult" options:0 context:nil];
 }
 -(void)viewDidDisappear:(BOOL)animated
 {
@@ -110,6 +142,9 @@
     [[PalmUIManagement sharedInstance] removeObserver:self forKeyPath:@"groupStudents"];
     [[PalmUIManagement sharedInstance] removeObserver:self forKeyPath:@"videoState"];
     [[PalmUIManagement sharedInstance] removeObserver:self forKeyPath:@"videoCompressionState"];
+    [[PalmUIManagement sharedInstance] removeObserver:self forKeyPath:@"uploadVideoResult"];
+    /*********Test Download*************/
+    [[PalmUIManagement sharedInstance] removeObserver:self forKeyPath:@"downloadVideoResult"];
 }
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
@@ -302,6 +337,7 @@
     [videoPreview setBackgroundImage:image forState:UIControlStateNormal];
 }
 #pragma mark - ViewControllerMethod
+
 -(void)initMoviePlayer
 {
     //videoPlayer
@@ -353,6 +389,30 @@
     
 
 }
+
+-(NSString *)getTempSaveVideoPath
+{
+    CPLGModelAccount *account = [[CPSystemEngine sharedInstance] accountModel];
+    NSString *documentsDirectory = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory,NSUserDomainMask,YES)[0];
+    NSString *savePath = [documentsDirectory stringByAppendingFormat:@"/%@/temp.MP4",account.loginName];
+    return savePath;
+}
+-(void)cacheVideo : (NSString *)videoKey
+{
+    CPLGModelAccount *account = [[CPSystemEngine sharedInstance] accountModel];
+    NSString *fileDir = [NSString stringWithFormat:@"%@/Video/",account.loginName];
+    [CoreUtils createPath:fileDir];
+    NSString *writeFileName = [NSString stringWithFormat:@"%@.%@",videoKey,@".mp4"];
+    NSString *filePath = [NSString stringWithFormat:@"%@/%@%@",[CoreUtils getDocumentPath],fileDir,writeFileName];
+    
+    NSFileManager *fileManager = [NSFileManager defaultManager];
+    if ([fileManager fileExistsAtPath:[self getTempSaveVideoPath]]) {
+        if ([fileManager fileExistsAtPath:filePath]) [fileManager removeItemAtPath:filePath error:nil];
+        
+        [fileManager moveItemAtPath:[self getTempSaveVideoPath] toPath:filePath error:nil];
+    }
+}
+
 -(void)receiveSeletedRangeList:(NSNotification *)noti
 {
     NSArray *selectedRanges = (NSArray *)[noti object];
@@ -477,13 +537,7 @@
     [self.navigationController pushViewController:recommendedRangeVC animated:YES];
 }
 
--(NSString *)getTempSaveVideoPath
-{
-    CPLGModelAccount *account = [[CPSystemEngine sharedInstance] accountModel];
-    NSString *documentsDirectory = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory,NSUserDomainMask,YES)[0];
-    NSString *savePath = [documentsDirectory stringByAppendingFormat:@"/%@/temp.MP4",account.loginName];
-    return savePath;
-}
+
 #pragma mark NavAction
 -(void)cancel
 {
@@ -491,8 +545,10 @@
 }
 -(void)send
 {
-    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"结果" message:[NSString stringWithFormat:@"压缩前:%@k\n压缩后:%@k",[CropVideo getFileSizeWithName:videoUrl.path],[CropVideo getFileSizeWithName:[self getTempSaveVideoPath]]] delegate:self cancelButtonTitle:@"OK" otherButtonTitles: nil];
-    [alertView show];
+//    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"结果" message:[NSString stringWithFormat:@"压缩前:%@k\n压缩后:%@k",[CropVideo getFileSizeWithName:videoUrl.path],[CropVideo getFileSizeWithName:[self getTempSaveVideoPath]]] delegate:self cancelButtonTitle:@"OK" otherButtonTitles: nil];
+//    [alertView show];
+    [self showProgressWithText:@"正在上传"];
+    [[PalmUIManagement sharedInstance] updateUserVideoFile:[NSURL fileURLWithPath:[self getTempSaveVideoPath]] withGroupID:[_currentGroup.groupid intValue]];
 }
 
 -(NSString *)getAward
