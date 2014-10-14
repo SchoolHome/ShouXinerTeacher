@@ -12,6 +12,7 @@
 #import "GroupOperation.h"
 #import "ClassOperation.h"
 #import "SystemOperation.h"
+#import "UpAndDownLoadOperation.h"
 
 @implementation PalmUIManagement
 static PalmUIManagement *sharedInstance = nil;
@@ -172,6 +173,18 @@ static PalmUIManagement *sharedInstance = nil;
 //获取班级圈广告
 -(void) getAdvWithGroupID : (int) groupID{
     SystemOperation *operation = [[SystemOperation alloc] initGetAdvInfo:groupID];
+    [[PalmNetWorkService sharedInstance] networkEngine:operation];
+}
+
+// 上传视频
+-(void) updateUserVideoFile : (NSURL *) videoUrl withGroupID : (int) groupID{
+    UpAndDownLoadOperation *operation = [[UpAndDownLoadOperation alloc] initUpdateUserVideoFile:videoUrl withGroupID:groupID];
+    [[PalmNetWorkService sharedInstance] networkEngine:operation];
+}
+
+// 下载视频
+-(void) downLoadUserVideoFile : (NSString *) videoUrl withKey : (NSString *) key{
+    UpAndDownLoadOperation *operation = [[UpAndDownLoadOperation alloc] initDownLoadUserVideoFile:videoUrl withKey:key];
     [[PalmNetWorkService sharedInstance] networkEngine:operation];
 }
 

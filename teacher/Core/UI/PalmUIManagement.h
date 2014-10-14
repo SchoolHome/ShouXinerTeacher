@@ -87,6 +87,10 @@
 @property(nonatomic,strong) CropVideoModel *videoState;
 // 压缩video状态
 @property(nonatomic,strong) CropVideoModel *videoCompressionState;
+// 上传视频结果
+@property(nonatomic,strong) NSDictionary *uploadVideoResult;
+// 下载视频结果
+@property(nonatomic,strong) NSDictionary *downloadVideoResult;
 
 // 获取用户信息
 -(void) getUserProfile;
@@ -149,4 +153,8 @@
 
 //获取班级圈广告
 -(void) getAdvWithGroupID : (int) groupID;
+// 上传视频
+-(void) updateUserVideoFile : (NSURL *) videoUrl withGroupID : (int) groupID;
+// 下载视频
+-(void) downLoadUserVideoFile : (NSString *) videoUrl withKey : (NSString *) key;
 @end
