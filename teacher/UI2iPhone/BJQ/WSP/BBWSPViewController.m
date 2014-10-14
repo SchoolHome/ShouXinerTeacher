@@ -113,7 +113,7 @@
                     return;
                 }
                 [self showProgressWithText:@"测试下载"];
-                [[PalmUIManagement sharedInstance] downLoadUserVideoFile:videoInfo[5] withKey:videoInfo[4]];
+                [[PalmUIManagement sharedInstance] downLoadUserVideoFile:[NSString stringWithFormat:@"%@/mp4",videoInfo[5]] withKey:videoInfo[4]];
             }
         }
         
@@ -122,7 +122,7 @@
         if (![dic objectForKey:ASI_REQUEST_HAS_ERROR]) {
             [self showProgressWithText:[dic objectForKey:ASI_REQUEST_ERROR_MESSAGE] withDelayTime:3];
         }else{
-            
+            [self closeProgress];
         }
     }
 }
