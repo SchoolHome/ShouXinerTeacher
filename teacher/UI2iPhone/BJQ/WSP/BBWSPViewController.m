@@ -105,7 +105,7 @@
             if ([resultData[@"ret"] isEqualToString:@"OK"])
             {
                 NSArray *videoInfo = resultData[@"data"][0];
-                [self cacheVideo:videoInfo[4]];
+                //[self cacheVideo:videoInfo[4]];
                 [self closeProgress];
             
             /*********Test Video Download*************/
