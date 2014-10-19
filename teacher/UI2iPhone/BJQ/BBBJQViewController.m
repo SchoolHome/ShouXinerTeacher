@@ -139,7 +139,12 @@
     {
         NSDictionary *dict = [PalmUIManagement sharedInstance].userCredits;
         NSNumber *credits = dict[@"data"][@"credits"];
-        point.text = [NSString stringWithFormat:@"           你已有%d积分可以兑换",[credits intValue]];
+        NSString *txt = [NSString stringWithFormat:@"您有 %d 积分",[credits intValue]];
+        NSMutableAttributedString* attrStr = [NSMutableAttributedString attributedStringWithString:txt];
+        [attrStr setTextColor:[UIColor grayColor]];
+        [attrStr setTextColor:[UIColor orangeColor] range:[txt rangeOfString:[NSString stringWithFormat:@"%d",[credits intValue]]]];
+        [attrStr setTextAlignment:kCTTextAlignmentCenter lineBreakMode:kCTLineBreakByWordWrapping range:NSMakeRange(0, txt.length)];
+        point.attributedText = attrStr;
     }
     
     if ([@"praiseResult" isEqualToString:keyPath])  // 赞
@@ -351,10 +356,8 @@
     
     self.view.backgroundColor = [UIColor brownColor];
 
-    bjqTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, -64, 320, self.view.bounds.size.height-20) style:UITableViewStylePlain];
+    bjqTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0.0f, 320, self.screenHeight-64.0f-48.0f) style:UITableViewStylePlain];
     bjqTableView.backgroundColor = [UIColor colorWithRed:242/255.f green:236/255.f blue:230/255.f alpha:1.f];
-    //bjqTableView.separatorColor = [UIColor clearColor];
-    //bjqTableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     bjqTableView.dataSource = self;
     bjqTableView.delegate = self;
     [self.view addSubview:bjqTableView];
@@ -390,30 +393,36 @@
     }];
     
     
-    UIImageView *head = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 320, 210+20)];
+    UIImageView *head = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 320, 120)];
     //head.backgroundColor = [UIColor whiteColor];
     head.backgroundColor = [UIColor colorWithRed:242/255.f green:236/255.f blue:230/255.f alpha:1.f];
     head.userInteractionEnabled = YES;
     
-    UIImageView *headImage = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 320, 214)];
+    UIImageView *headImage = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 320, 120)];
     //headImage.backgroundColor = [UIColor orangeColor];
     headImage.image = [UIImage imageNamed:@"BBTopBGNew"];
     [head addSubview:headImage];
     
-    point = [[UILabel alloc] initWithFrame:CGRectMake(0, 190, 320, 23)];
-    point.backgroundColor = [UIColor colorWithRed:0.5 green:0.5 blue:0.5 alpha:0.5];
-    [head addSubview:point];
-    point.text = @"           你已有0积分可以兑换";
+    UIImageView *scoreImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"BBScoreBG"]];
+    scoreImageView.frame = CGRectMake(320.0f - 108.0f, 24.0f, 108.0f, 35.0f);
+    scoreImageView.userInteractionEnabled = YES;
+    [head addSubview:scoreImageView];
+    
+    
+    point = [[OHAttributedLabel alloc] initWithFrame:CGRectMake(0, 9, 108, 35)];
+    point.backgroundColor = [UIColor clearColor];
+    [scoreImageView addSubview:point];
+    point.text = @"您有 0 积分";
     point.textAlignment = NSTextAlignmentCenter;
-    point.font = [UIFont boldSystemFontOfSize:12];
-    point.textColor = [UIColor whiteColor];
+    point.font = [UIFont boldSystemFontOfSize:11];
+    point.textColor = [UIColor grayColor];
     point.userInteractionEnabled = YES;
     
     UITapGestureRecognizer *gesture = [[UITapGestureRecognizer  alloc] initWithTarget:self action:@selector(pointTaped:)];
     [point addGestureRecognizer:gesture];
     
     
-    avatar = [[EGOImageView alloc] initWithFrame:CGRectMake(22, 145, 80, 80)];
+    avatar = [[EGOImageView alloc] initWithFrame:CGRectMake(18, 80, 80, 80)];
     avatar.backgroundColor = [UIColor grayColor];
     //avatar.image = [UIImage imageNamed:@"girl"];
     

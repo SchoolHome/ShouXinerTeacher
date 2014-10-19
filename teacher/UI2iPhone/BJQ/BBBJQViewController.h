@@ -37,7 +37,7 @@ UINavigationControllerDelegate>
 {
     UIButton *titleButton;
     EGOImageView *avatar;
-    UILabel *point;
+    OHAttributedLabel *point;
     UITableView *bjqTableView;
     
     BBBJDropdownView *bjDropdownView;
