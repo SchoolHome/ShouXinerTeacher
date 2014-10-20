@@ -17,7 +17,7 @@
 #import "BBPBXTableViewCell.h"
 #import "ADImageview.h"
 #import "ADDetailViewController.h"
-
+#import "ColorUtil.h"
 
 #import "VideoConfirmViewController.h"
 @class BBWSPViewController;
@@ -120,6 +120,7 @@
         }
         
         [bjqTableView reloadData];
+        [bjqTableView bringSubviewToFront:avatar];
     }
     
     if ([@"notifyCount" isEqualToString:keyPath])  // 新消息
@@ -127,11 +128,12 @@
         NSDictionary *dict = [PalmUIManagement sharedInstance].notifyCount;
         int count = [dict[@"data"][@"count"] intValue];
         
-        //int count = 3;
+        count = 3;
         
         if (notifyCount != count) {
             notifyCount = count;
             [bjqTableView reloadData];
+            [bjqTableView bringSubviewToFront:avatar];
         }
     }
     
@@ -171,6 +173,7 @@
             }
             
             [bjqTableView reloadData];
+            [bjqTableView bringSubviewToFront:avatar];
         }
     }
     
@@ -234,6 +237,7 @@
             [str appendAttributedString:attributedText];
             self.tempTopModelInput.commentsStr = str;
             [bjqTableView reloadData];
+            [bjqTableView bringSubviewToFront:avatar];
         }
     }
     
@@ -347,7 +351,6 @@
     // 不要移除，用户其他页面更新头像后，此页面同步更新
     [[CPUIModelManagement sharedInstance] addObserver:self forKeyPath:@"uiPersonalInfoTag" options:0 context:NULL];
     
-
     notifyCount = 0;
     
     hasNew = YES;
@@ -356,10 +359,12 @@
     
     self.view.backgroundColor = [UIColor brownColor];
 
-    bjqTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0.0f, 320, self.screenHeight-64.0f-48.0f) style:UITableViewStylePlain];
-    bjqTableView.backgroundColor = [UIColor colorWithRed:242/255.f green:236/255.f blue:230/255.f alpha:1.f];
+    bjqTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0.0f, 320, self.screenHeight-64.0f-48.0f) style:UITableViewStyleGrouped];
+    bjqTableView.backgroundColor = [UIColor colorWithHexString:@"f2f2f2"];
+    [bjqTableView setSeparatorStyle:UITableViewCellSeparatorStyleNone];
     bjqTableView.dataSource = self;
     bjqTableView.delegate = self;
+
     [self.view addSubview:bjqTableView];
     [bjqTableView reloadData];
     
@@ -420,24 +425,6 @@
     
     UITapGestureRecognizer *gesture = [[UITapGestureRecognizer  alloc] initWithTarget:self action:@selector(pointTaped:)];
     [point addGestureRecognizer:gesture];
-    
-    
-    avatar = [[EGOImageView alloc] initWithFrame:CGRectMake(18, 80, 80, 80)];
-    avatar.backgroundColor = [UIColor grayColor];
-    //avatar.image = [UIImage imageNamed:@"girl"];
-    
-    NSString *path = [[CPUIModelManagement sharedInstance].uiPersonalInfo selfHeaderImgPath];
-    if (path) {
-        avatar.image = [UIImage imageWithContentsOfFile:path];
-    }
-    
-    [head addSubview:avatar];
-    CALayer *roundedLayer = [avatar layer];
-    [roundedLayer setMasksToBounds:YES];
-    roundedLayer.cornerRadius = 40.0;
-    roundedLayer.borderWidth = 2;
-    roundedLayer.borderColor = [[UIColor whiteColor] CGColor];
-    
     bjqTableView.tableHeaderView = head;
     
 #ifdef IS_TEACHER
@@ -491,6 +478,20 @@
     [videoBtn addTarget:self action:@selector(chooseVideo) forControlEvents:UIControlEventTouchUpInside];
     [videoBtn setFrame:CGRectMake(150.f, 50.f, 100.f, 100.f)];
     [self.view addSubview:videoBtn];
+    
+    avatar = [[EGOImageView alloc] initWithFrame:CGRectMake(18, 65, 80, 80)];
+    avatar.backgroundColor = [UIColor grayColor];
+    NSString *path = [[CPUIModelManagement sharedInstance].uiPersonalInfo selfHeaderImgPath];
+    if (path) {
+        avatar.image = [UIImage imageWithContentsOfFile:path];
+    }
+    [bjqTableView addSubview:avatar];
+    [bjqTableView bringSubviewToFront:avatar];
+    CALayer *roundedLayer = [avatar layer];
+    [roundedLayer setMasksToBounds:YES];
+    roundedLayer.cornerRadius = 40.0;
+    roundedLayer.borderWidth = 2;
+    roundedLayer.borderColor = [[UIColor whiteColor] CGColor];
 }
 
 -(void)viewWillAppear:(BOOL)animated{
@@ -530,6 +531,7 @@
             self.recommendUsed.recommendToHomepage = hasHomePage;
             self.recommendUsed.recommendToGroups = hasTopGroup;
             [bjqTableView reloadData];
+            [bjqTableView bringSubviewToFront:avatar];
         }
     }else{
         self.recommendUsed = nil;
@@ -611,43 +613,44 @@
     
     if (notifyCount>0) {
         
-        UIView *backView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 320, 46)];
+        UIView *backView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 320, 76)];
         //backView.backgroundColor = [UIColor whiteColor];
-        backView.backgroundColor = [UIColor colorWithRed:242/255.f green:236/255.f blue:230/255.f alpha:1.f];
+        backView.backgroundColor = [UIColor colorWithHexString:@"f2f2f2"];
         
-        UIImageView *line = [[UIImageView alloc] initWithFrame:CGRectMake(60, 0, 8, backView.bounds.size.height)];
-        //line.backgroundColor = [UIColor lightGrayColor];
-        line.image = [UIImage imageNamed:@"BBLine"];
-        //line.alpha = 0.5;
-        [backView addSubview:line];
+        //        UIImageView *line = [[UIImageView alloc] initWithFrame:CGRectMake(60, 0, 8, backView.bounds.size.height)];
+        //        //line.backgroundColor = [UIColor lightGrayColor];
+        //        line.image = [UIImage imageNamed:@"BBLine"];
+        //        //line.alpha = 0.5;
+        //        [backView addSubview:line];
         
         UIButton *newNotify = [UIButton buttonWithType:UIButtonTypeCustom];
-        newNotify.frame = CGRectMake(K_LEFT_PADDING, 3, 172, 38);
+        newNotify.frame = CGRectMake(75, 36, 172, 38);
         [newNotify setBackgroundImage:[UIImage imageNamed:@"BBNewMessage"] forState:UIControlStateNormal];
         newNotify.backgroundColor = [UIColor clearColor];
         [backView addSubview:newNotify];
         [newNotify addTarget:self action:@selector(newNotifyTaped:) forControlEvents:UIControlEventTouchUpInside];
         
-        UIImageView *icon = [[UIImageView alloc] initWithFrame:CGRectMake(6, 4, 30, 30)];
-        [newNotify addSubview:icon];
-        CALayer *roundedLayer = [icon layer];
-        [roundedLayer setMasksToBounds:YES];
-        roundedLayer.cornerRadius = 15.0;
-        roundedLayer.borderWidth = 1;
-        roundedLayer.borderColor = [[UIColor whiteColor] CGColor];
-        icon.image = [UIImage imageNamed:@"girl"];
+        //        UIImageView *icon = [[UIImageView alloc] initWithFrame:CGRectMake(6, 4, 30, 30)];
+        //        [newNotify addSubview:icon];
+        //        CALayer *roundedLayer = [icon layer];
+        //        [roundedLayer setMasksToBounds:YES];
+        //        roundedLayer.cornerRadius = 15.0;
+        //        roundedLayer.borderWidth = 1;
+        //        roundedLayer.borderColor = [[UIColor whiteColor] CGColor];
+        //        icon.image = [UIImage imageNamed:@"girl"];
+        //
+        //        NSString *path = [[CPUIModelManagement sharedInstance].uiPersonalInfo selfHeaderImgPath];
+        //        if (path) {
+        //            icon.image = [UIImage imageWithContentsOfFile:path];
+        //        }
         
-        NSString *path = [[CPUIModelManagement sharedInstance].uiPersonalInfo selfHeaderImgPath];
-        if (path) {
-            icon.image = [UIImage imageWithContentsOfFile:path];
-        }
-        
-        UILabel *msg = [[UILabel alloc] initWithFrame:CGRectMake(50, 9, 100, 20)];
+        UILabel *msg = [[UILabel alloc] initWithFrame:CGRectMake(0, 9, 170, 20)];
         [newNotify addSubview:msg];
         msg.textColor = [UIColor whiteColor];
         msg.backgroundColor = [UIColor clearColor];
-        msg.font = [UIFont boldSystemFontOfSize:13];
-        msg.text = [NSString stringWithFormat:@"你有%d条新消息",notifyCount];
+        msg.font = [UIFont boldSystemFontOfSize:14];
+        msg.textAlignment = NSTextAlignmentCenter;
+        msg.text = [NSString stringWithFormat:@"您有%d条新消息",notifyCount];
         
         return backView;
     }
@@ -767,7 +770,6 @@
             
             break;
     }
-
     return nil;
 }
 
@@ -782,7 +784,7 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
     if (notifyCount>0) { // hasNew
-        return 46;
+        return 76;
     }
     return 0;
 }
@@ -790,6 +792,10 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     
     [inputBar endEdit];
+}
+
+- (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath{
+    [tableView bringSubviewToFront:avatar];
 }
 
 #pragma mark - BBFSDropdownViewDelegate

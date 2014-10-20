@@ -87,7 +87,7 @@
         // Initialization code
         
         
-        self.contentView.backgroundColor = [UIColor colorWithRed:242/255.f green:236/255.f blue:230/255.f alpha:1.f];
+        self.contentView.backgroundColor = [UIColor colorWithHexString:@"f2f2f2"];
         
         _icon = [[EGOImageView alloc] initWithFrame:CGRectMake(5, 10, 50, 50)];
         [self addSubview:_icon];
