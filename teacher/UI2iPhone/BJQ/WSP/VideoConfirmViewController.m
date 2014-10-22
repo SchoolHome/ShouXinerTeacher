@@ -5,19 +5,34 @@
 //  Created by ZhangQing on 14-9-27.
 //  Copyright (c) 2014年 ws. All rights reserved.
 //
+#define MIN_VIDEO_DUR 2.0f
+#define MAX_VIDEO_DUR 15.0f
+#define VIDEO_FOLDER @"Video"
+#define COUNT_DUR_TIMER_INTERVAL 0.05
 
 #import "VideoConfirmViewController.h"
-#import "MediaPlayer/MediaPlayer.h"
 
-@interface VideoConfirmViewController ()
+@interface VideoConfirmViewController ()<AVCaptureFileOutputRecordingDelegate>
 {
-    NSURL *_videoURL;
     BBGroupModel *model;
-    VIDEO_CHOOSEN_TYPE chooseType;
+    
+    UIButton *recordBtn;
+    UIView *localView;
+
 }
-@property (nonatomic, strong)UILabel *videoTime;
-@property (nonatomic, strong) MPMoviePlayerController *moviePlayer;
-//@property (nonatomic, strong)NSDictionary *videoInfo;
+@property (strong, nonatomic) NSTimer *countDurTimer;
+@property (assign, nonatomic) CGFloat currentVideoDur;
+@property (assign, nonatomic) NSURL *currentFileURL;
+@property (assign ,nonatomic) CGFloat totalVideoDur;
+
+
+@property (assign, nonatomic) BOOL isFrontCameraSupported;
+@property (assign, nonatomic) BOOL isCameraSupported;
+@property (assign, nonatomic) BOOL isTorchSupported;
+@property (assign, nonatomic) BOOL isTorchOn;
+@property (assign, nonatomic) BOOL isUsingFrontCamera;
+
+@property (strong, nonatomic) AVCaptureDeviceInput *videoDeviceInput;
 @end
 
 @implementation VideoConfirmViewController
@@ -30,13 +45,12 @@
     }
     return self;
 }
--(id)initWithVideoUrl:(NSURL *)url andType:(VIDEO_CHOOSEN_TYPE)type andGroupModel:(BBGroupModel *)groupModel;
+-(id)initWithGroupModel:(BBGroupModel *)groupModel
 {
     self = [super init];
     if (self) {
-        _videoURL = url;
         model = groupModel;
-        chooseType = type;
+        [self initalize];
         //self.videoInfo = [[NSDictionary alloc] initWithDictionary:info];
     }
     return self;
@@ -56,43 +70,25 @@
 //    [self.navigationItem setTitleView:_videoTime];
     
     
-    // 显示视频
-    self.moviePlayer = [[MPMoviePlayerController alloc] initWithContentURL:_videoURL];
-    //    self.moviePlayer.view.frame = self.videoRect;
-    self.moviePlayer.view.frame = CGRectMake(0.0f, 0.0f, self.screenWidth, self.screenHeight-140.f);
-
-    
-    self.moviePlayer.useApplicationAudioSession = NO;
-    self.moviePlayer.controlStyle = MPMovieControlStyleDefault;
-    self.moviePlayer.shouldAutoplay = YES;
-    self.moviePlayer.initialPlaybackTime = 0.01f;
-    self.moviePlayer.view.backgroundColor = [UIColor blackColor];
-    
-    [self.view addSubview:self.moviePlayer.view];
-    [self.moviePlayer play];
-//    // 添加视频播放结束监听
-//    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(playerPlaybackDidFinish:)
-//                                                 name:MPMoviePlayerPlaybackDidFinishNotification object:nil];
-//    // 添加视频加载完成的监听
-//    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(moviePlayerLoadStateChanged:)
-//                                                 name:MPMoviePlayerLoadStateDidChangeNotification object:nil];
     
     UIButton *reChoose = [UIButton buttonWithType:UIButtonTypeCustom];
     [reChoose setFrame:CGRectMake(30.f, self.screenHeight-120.f,60.f, 30.f)];
-    [reChoose setTitle:chooseType== VIDEO_TYPE_PHOTO?@"重选":@"重录" forState:UIControlStateNormal];
-    [reChoose addTarget:self action:@selector(rechoose) forControlEvents:UIControlEventTouchUpInside];
+    [reChoose setTitle:@"取消" forState:UIControlStateNormal];
+    [reChoose addTarget:self action:@selector(stopVideoCapture:) forControlEvents:UIControlEventTouchUpInside];
     [reChoose setBackgroundColor:[UIColor blackColor]];
-    [self.view addSubview:reChoose];
+    //[self.view addSubview:reChoose];
     
-    UIButton *useVideo = [UIButton buttonWithType:UIButtonTypeCustom];
-    [useVideo setFrame:CGRectMake(self.screenWidth-90.f, self.screenHeight-120.f,60.f , 30.f)];
-    [useVideo setTitle:@"使用" forState:UIControlStateNormal];
-    [useVideo addTarget:self action:@selector(useVideo) forControlEvents:UIControlEventTouchUpInside];
-    [useVideo setBackgroundColor:[UIColor blackColor]];
-    [self.view addSubview:useVideo];
+    recordBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+    [recordBtn setFrame:CGRectMake(self.screenWidth-90.f, self.screenHeight-120.f,60.f , 30.f)];
+    [recordBtn setTitle:@"开始" forState:UIControlStateNormal];
+    [recordBtn addTarget:self action:@selector(startVideoCapture:) forControlEvents:UIControlEventTouchUpInside];
+    [recordBtn setBackgroundColor:[UIColor blackColor]];
+    [self.view addSubview:recordBtn];
     
-    NSLog(@"%@",self.view.subviews);
-    
+    localView= [[UIView alloc] initWithFrame:CGRectMake(40, 50, 200, 300)];
+    [self.view addSubview:localView];
+    self.preViewLayer.frame = CGRectMake(0.f, 0.f, 200.f, 300.f);
+    [localView.layer addSublayer:self.preViewLayer];
     // Do any additional setup after loading the view.
 }
 
@@ -112,59 +108,366 @@
     // Pass the selected object to the new view controller.
 }
 */
-#pragma mark - ViewControllerMethod
--(void)rechoose
+
+- (void)initalize
 {
-    [self.moviePlayer stop];
-    UIImagePickerController *imagePicker = [[UIImagePickerController alloc] init];
-    [imagePicker setMediaTypes:@[(NSString *)kUTTypeMovie]];
+    [self initCapture];
     
-    imagePicker.delegate = self;
-    switch (chooseType) {
-        case VIDEO_TYPE_CARMER:
-        {
-            if([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera]){
-                //拍摄视频
-                imagePicker.sourceType = UIImagePickerControllerSourceTypeCamera;
-                imagePicker.videoMaximumDuration = 60.f;
-            }
+    self.totalVideoDur = 0.0f;
+}
+
+- (void)initCapture
+{
+    //session---------------------------------
+    self.captureSession = [[AVCaptureSession alloc] init];
+    
+    //input
+    AVCaptureDevice *frontCamera = nil;
+    AVCaptureDevice *backCamera = nil;
+    
+    NSArray *cameras = [AVCaptureDevice devicesWithMediaType:AVMediaTypeVideo];
+    for (AVCaptureDevice *camera in cameras) {
+        if (camera.position == AVCaptureDevicePositionFront) {
+            frontCamera = camera;
+        } else {
+            backCamera = camera;
         }
-            break;
-        case VIDEO_TYPE_PHOTO:
-        {
-            if([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeSavedPhotosAlbum]){
-                //选取视频
-                imagePicker.sourceType = UIImagePickerControllerSourceTypeSavedPhotosAlbum;
-            }
-        }
-            break;
-        default:
-            break;
     }
     
-    [self presentViewController:imagePicker animated:YES completion:nil];
-}
--(void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info
-{
-    [self dismissViewControllerAnimated:YES completion:nil];
-    
-    NSString *mediaType = [info objectForKey:UIImagePickerControllerMediaType];
-    if([mediaType isEqualToString:@"public.movie"])
-    {
-        NSURL *videoURL = [info objectForKey:UIImagePickerControllerMediaURL];
-        _videoURL = videoURL;
-        [self.moviePlayer setContentURL:videoURL];
-        [self.moviePlayer play];
+    if (!backCamera) {
+        self.isCameraSupported = NO;
+        return;
+    } else {
+        self.isCameraSupported = YES;
+        
+        if ([backCamera hasTorch]) {
+            self.isTorchSupported = YES;
+        } else {
+            self.isTorchSupported = NO;
+        }
     }
     
+    if (!frontCamera) {
+        self.isFrontCameraSupported = NO;
+    } else {
+        self.isFrontCameraSupported = YES;
+    }
     
+    [backCamera lockForConfiguration:nil];
+    if ([backCamera isExposureModeSupported:AVCaptureExposureModeContinuousAutoExposure]) {
+        [backCamera setExposureMode:AVCaptureExposureModeContinuousAutoExposure];
+    }
+    
+    [backCamera unlockForConfiguration];
+    
+    self.videoDeviceInput = [AVCaptureDeviceInput deviceInputWithDevice:backCamera error:nil];
+    AVCaptureDeviceInput *audioDeviceInput = [AVCaptureDeviceInput deviceInputWithDevice:[AVCaptureDevice defaultDeviceWithMediaType:AVMediaTypeAudio] error:nil];
+    [_captureSession addInput:_videoDeviceInput];
+    [_captureSession addInput:audioDeviceInput];
+    
+    //output
+    self.movieFileOutput = [[AVCaptureMovieFileOutput alloc] init];
+    [_captureSession addOutput:_movieFileOutput];
+    
+    //preset
+    _captureSession.sessionPreset = AVCaptureSessionPresetHigh;
+    
+    //preview layer------------------
+    self.preViewLayer = [AVCaptureVideoPreviewLayer layerWithSession:_captureSession];
+    
+    _preViewLayer.videoGravity = AVLayerVideoGravityResizeAspectFill;
+    
+    [_captureSession startRunning];
 }
--(void)useVideo
+
+- (void)startCountDurTimer
 {
-    [self.moviePlayer stop];
+    self.countDurTimer = [NSTimer scheduledTimerWithTimeInterval:COUNT_DUR_TIMER_INTERVAL target:self selector:@selector(onTimer:) userInfo:nil repeats:YES];
+}
+
+- (void)onTimer:(NSTimer *)timer
+{
+    self.currentVideoDur += COUNT_DUR_TIMER_INTERVAL;
+    
+    if (_totalVideoDur + _currentVideoDur >= MAX_VIDEO_DUR) {
+        [self stopCurrentVideoRecording];
+    }
+    
+    if (self.currentVideoDur > 2.f) {
+        recordBtn.enabled = YES;
+    }
+}
+
+- (void)stopCountDurTimer
+{
+    [_countDurTimer invalidate];
+    self.countDurTimer = nil;
+}
+
+- (AVCaptureDevice *)getCameraDevice:(BOOL)isFront
+{
+    NSArray *cameras = [AVCaptureDevice devicesWithMediaType:AVMediaTypeVideo];
+    
+    AVCaptureDevice *frontCamera;
+    AVCaptureDevice *backCamera;
+    
+    for (AVCaptureDevice *camera in cameras) {
+        if (camera.position == AVCaptureDevicePositionBack) {
+            backCamera = camera;
+        } else {
+            frontCamera = camera;
+        }
+    }
+    
+    if (isFront) {
+        return frontCamera;
+    }
+    
+    return backCamera;
+}
+
+- (CGPoint)convertToPointOfInterestFromViewCoordinates:(CGPoint)viewCoordinates {
+    CGPoint pointOfInterest = CGPointMake(.5f, .5f);
+    CGSize frameSize = _preViewLayer.bounds.size;
+    
+    AVCaptureVideoPreviewLayer *videoPreviewLayer = self.preViewLayer;
+    
+    if([[videoPreviewLayer videoGravity]isEqualToString:AVLayerVideoGravityResize]) {
+        pointOfInterest = CGPointMake(viewCoordinates.y / frameSize.height, 1.f - (viewCoordinates.x / frameSize.width));
+    } else {
+        CGRect cleanAperture;
+        
+        for(AVCaptureInputPort *port in [self.videoDeviceInput ports]) {
+            if([port mediaType] == AVMediaTypeVideo) {
+                cleanAperture = CMVideoFormatDescriptionGetCleanAperture([port formatDescription], YES);
+                CGSize apertureSize = cleanAperture.size;
+                CGPoint point = viewCoordinates;
+                
+                CGFloat apertureRatio = apertureSize.height / apertureSize.width;
+                CGFloat viewRatio = frameSize.width / frameSize.height;
+                CGFloat xc = .5f;
+                CGFloat yc = .5f;
+                
+                if([[videoPreviewLayer videoGravity]isEqualToString:AVLayerVideoGravityResizeAspect]) {
+                    if(viewRatio > apertureRatio) {
+                        CGFloat y2 = frameSize.height;
+                        CGFloat x2 = frameSize.height * apertureRatio;
+                        CGFloat x1 = frameSize.width;
+                        CGFloat blackBar = (x1 - x2) / 2;
+                        if(point.x >= blackBar && point.x <= blackBar + x2) {
+                            xc = point.y / y2;
+                            yc = 1.f - ((point.x - blackBar) / x2);
+                        }
+                    } else {
+                        CGFloat y2 = frameSize.width / apertureRatio;
+                        CGFloat y1 = frameSize.height;
+                        CGFloat x2 = frameSize.width;
+                        CGFloat blackBar = (y1 - y2) / 2;
+                        if(point.y >= blackBar && point.y <= blackBar + y2) {
+                            xc = ((point.y - blackBar) / y2);
+                            yc = 1.f - (point.x / x2);
+                        }
+                    }
+                } else if([[videoPreviewLayer videoGravity]isEqualToString:AVLayerVideoGravityResizeAspectFill]) {
+                    if(viewRatio > apertureRatio) {
+                        CGFloat y2 = apertureSize.width * (frameSize.width / apertureSize.height);
+                        xc = (point.y + ((y2 - frameSize.height) / 2.f)) / y2;
+                        yc = (frameSize.width - point.x) / frameSize.width;
+                    } else {
+                        CGFloat x2 = apertureSize.height * (frameSize.height / apertureSize.width);
+                        yc = 1.f - ((point.x + ((x2 - frameSize.width) / 2)) / x2);
+                        xc = point.y / frameSize.height;
+                    }
+                    
+                }
+                
+                pointOfInterest = CGPointMake(xc, yc);
+                break;
+            }
+        }
+    }
+    
+    return pointOfInterest;
+}
+
+- (void)focusWithMode:(AVCaptureFocusMode)focusMode exposeWithMode:(AVCaptureExposureMode)exposureMode atDevicePoint:(CGPoint)point monitorSubjectAreaChange:(BOOL)monitorSubjectAreaChange {
+    //    NSLog(@"focus point: %f %f", point.x, point.y);
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        AVCaptureDevice *device = [_videoDeviceInput device];
+        NSError *error = nil;
+        if ([device lockForConfiguration:&error]) {
+            if ([device isFocusPointOfInterestSupported]) {
+                [device setFocusPointOfInterest:point];
+            }
+            
+            if ([device isFocusModeSupported:focusMode]) {
+                [device setFocusMode:focusMode];
+            }
+            
+            if ([device isExposurePointOfInterestSupported]) {
+                [device setExposurePointOfInterest:point];
+            }
+            
+            if ([device isExposureModeSupported:exposureMode]) {
+                [device setExposureMode:exposureMode];
+            }
+            
+            [device setSubjectAreaChangeMonitoringEnabled:monitorSubjectAreaChange];
+            [device unlockForConfiguration];
+        } else {
+            NSLog(@"对焦错误:%@", error);
+        }
+    });
+}
 
 
-    BBWSPViewController *wsp = [[BBWSPViewController alloc] initWithVideoUrl:_videoURL andType:chooseType andGroupModel:model];
+#pragma mark - Method
+- (void)focusInPoint:(CGPoint)touchPoint
+{
+    CGPoint devicePoint = [self convertToPointOfInterestFromViewCoordinates:touchPoint];
+    [self focusWithMode:AVCaptureFocusModeAutoFocus exposeWithMode:AVCaptureExposureModeContinuousAutoExposure atDevicePoint:devicePoint monitorSubjectAreaChange:YES];
+}
+
+
+
+- (void)openTorch:(BOOL)open
+{
+    self.isTorchOn = open;
+    if (!_isTorchSupported) {
+        return;
+    }
+    
+    AVCaptureTorchMode torchMode;
+    if (open) {
+        torchMode = AVCaptureTorchModeOn;
+    } else {
+        torchMode = AVCaptureTorchModeOff;
+    }
+    
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        AVCaptureDevice *device = [AVCaptureDevice defaultDeviceWithMediaType:AVMediaTypeVideo];
+        [device lockForConfiguration:nil];
+        [device setTorchMode:torchMode];
+        [device unlockForConfiguration];
+    });
+}
+
+- (void)switchCamera
+{
+    if (!_isFrontCameraSupported || !_isCameraSupported || !_videoDeviceInput) {
+        return;
+    }
+    
+    if (_isTorchOn) {
+        [self openTorch:NO];
+    }
+    
+    [_captureSession beginConfiguration];
+    
+    [_captureSession removeInput:_videoDeviceInput];
+    
+    self.isUsingFrontCamera = !_isUsingFrontCamera;
+    AVCaptureDevice *device = [self getCameraDevice:_isUsingFrontCamera];
+    
+    [device lockForConfiguration:nil];
+    if ([device isExposureModeSupported:AVCaptureExposureModeContinuousAutoExposure]) {
+        [device setExposureMode:AVCaptureExposureModeContinuousAutoExposure];
+    }
+    [device unlockForConfiguration];
+    
+    self.videoDeviceInput = [AVCaptureDeviceInput deviceInputWithDevice:device error:nil];
+    [_captureSession addInput:_videoDeviceInput];
+    [_captureSession commitConfiguration];
+}
+
+- (BOOL)isTorchSupported
+{
+    return _isTorchSupported;
+}
+
+- (BOOL)isFrontCameraSupported
+{
+    return _isFrontCameraSupported;
+}
+
+- (BOOL)isCameraSupported
+{
+    return _isFrontCameraSupported;
+}
+
+
+
+//总时长
+- (CGFloat)getTotalVideoDuration
+{
+    return _totalVideoDur;
+}
+
+
+- (void)startRecordingToOutputFileURL:(NSURL *)fileURL
+{
+    if (_totalVideoDur >= MAX_VIDEO_DUR) {
+        NSLog(@"视频总长达到最大");
+        return;
+    }
+    
+    [_movieFileOutput startRecordingToOutputFileURL:fileURL recordingDelegate:self];
+}
+
+- (void)stopCurrentVideoRecording
+{
+    [self stopCountDurTimer];
+    [_movieFileOutput stopRecording];
+}
+
+
+#pragma mark - AVCaptureFileOutputRecordignDelegate
+- (void)captureOutput:(AVCaptureFileOutput *)captureOutput didStartRecordingToOutputFileAtURL:(NSURL *)fileURL fromConnections:(NSArray *)connections
+{
+    self.currentFileURL = fileURL;
+    
+    self.currentVideoDur = 0.0f;
+    [self startCountDurTimer];
+    
+
+}
+
+- (void)captureOutput:(AVCaptureFileOutput *)captureOutput didFinishRecordingToOutputFileAtURL:(NSURL *)outputFileURL fromConnections:(NSArray *)connections error:(NSError *)error
+{
+    self.totalVideoDur += _currentVideoDur;
+    NSLog(@"本段视频长度: %f", _currentVideoDur);
+    NSLog(@"现在的视频总长度: %f", _totalVideoDur);
+    
+    BBWSPViewController *wsp = [[BBWSPViewController alloc] initWithVideoUrl:outputFileURL andType:VIDEO_TYPE_CARMER andGroupModel:model];
     [self.navigationController pushViewController:wsp animated:YES];
+    
+
+}
+
+-(NSString *)getTempSaveVideoPath
+{
+    CPLGModelAccount *account = [[CPSystemEngine sharedInstance] accountModel];
+    NSString *documentsDirectory = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory,NSUserDomainMask,YES)[0];
+    NSString *savePath = [documentsDirectory stringByAppendingFormat:@"/%@/temp.mp4",account.loginName];
+    
+    NSFileManager *filemanager = [NSFileManager defaultManager];
+    if ([filemanager fileExistsAtPath:savePath]) {
+        [filemanager removeItemAtPath:savePath error:nil];
+    }
+    return savePath;
+}
+
+-(void)startVideoCapture:(UIButton *)sender
+{
+    if ([sender.titleLabel.text isEqualToString:@"结束"]) {
+        [self stopCurrentVideoRecording];
+    }else
+    {
+        [sender setTitle:@"结束" forState:UIControlStateNormal];
+        sender.enabled = NO;
+        [self startRecordingToOutputFileURL:[NSURL fileURLWithPath:[self getTempSaveVideoPath]]];
+        [self.view bringSubviewToFront:localView];
+        
+    }
 }
 @end

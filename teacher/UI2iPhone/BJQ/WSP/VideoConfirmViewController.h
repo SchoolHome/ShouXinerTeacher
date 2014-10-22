@@ -9,8 +9,14 @@
 #import "PalmViewController.h"
 #import "BBGroupModel.h"
 #import "BBWSPViewController.h"
-#import <MobileCoreServices/MobileCoreServices.h>
-
+//#import <MobileCoreServices/MobileCoreServices.h>
+#import <AVFoundation/AVFoundation.h>
 @interface VideoConfirmViewController : PalmViewController<UIImagePickerControllerDelegate,UINavigationControllerDelegate>
--(id)initWithVideoUrl:(NSURL *)url andType:(VIDEO_CHOOSEN_TYPE)type andGroupModel:(BBGroupModel *)groupModel;
+
+@property (nonatomic, strong) AVCaptureVideoPreviewLayer *preViewLayer;
+@property (strong, nonatomic) AVCaptureSession *captureSession;
+@property (strong, nonatomic) AVCaptureMovieFileOutput *movieFileOutput;
+
+-(id)initWithGroupModel:(BBGroupModel *)groupModel;
+
 @end
