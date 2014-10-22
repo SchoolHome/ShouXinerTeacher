@@ -60,6 +60,7 @@
 @property(nonatomic,strong) UIImageView *relpyContentBackBottom;
 
 @property(nonatomic,strong) UIImageView *heart;
+@property(nonatomic,strong) UIImageView *line;
 
 @property(nonatomic,strong) BBTopicModel *data;
 -(void) recommendTaped:(id)sender;

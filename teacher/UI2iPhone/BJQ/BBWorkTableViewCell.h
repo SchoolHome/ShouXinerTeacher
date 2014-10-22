@@ -15,7 +15,6 @@
 {
 
     UILabel *title;
-    UIImageView *mark;
     UIImageView *contentBack;
     UILabel *content;
 

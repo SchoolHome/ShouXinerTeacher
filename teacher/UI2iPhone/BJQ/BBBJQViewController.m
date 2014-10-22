@@ -660,11 +660,11 @@
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    static NSString *cellIdentifier = @"defCell";
     static NSString *cellIdentifier1 = @"linkCell";
     static NSString *cellIdentifier2 = @"replyCell";
     static NSString *cellIdentifier3 = @"imageCell";
     static NSString *cellIdentifier4 = @"pbxCell";
+    static NSString *cellIdentifier5 = @"noticeCell";
     BBTopicModel *model = self.allTopicList[indexPath.row];
     /*
     1 班级通知
@@ -682,9 +682,9 @@
             //
         {
         
-            BBBaseTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier2];
+            BBBaseTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier5];
             if (!cell) {
-                cell = [[BBWorkTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier2];
+                cell = [[BBNoticeTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier5];
                 cell.delegate = self;
                 cell.selectionStyle = UITableViewCellSelectionStyleNone;
             }

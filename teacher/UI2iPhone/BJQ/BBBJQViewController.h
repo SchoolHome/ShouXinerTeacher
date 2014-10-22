@@ -4,6 +4,7 @@
 #import "BBWorkTableViewCell.h"
 #import "BBImageTableViewCell.h"
 #import "BBFZYViewController.h"
+#import "BBNoticeTableViewCell.h"
 
 #import "BBBJDropdownView.h"
 #import "BBFSDropdownView.h"

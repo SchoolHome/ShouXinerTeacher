@@ -204,6 +204,7 @@
 		193FA7A919F0A27A00874F1E /* close@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 193FA73D19F0A27A00874F1E /* close@2x.png */; };
 		193FA7AA19F0A27A00874F1E /* enter.png in Resources */ = {isa = PBXBuildFile; fileRef = 193FA73E19F0A27A00874F1E /* enter.png */; };
 		193FA7AB19F0A27A00874F1E /* enter@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 193FA73F19F0A27A00874F1E /* enter@2x.png */; };
+		19451C7B19F77E8400E4D92B /* BBNoticeTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 19451C7A19F77E8400E4D92B /* BBNoticeTableViewCell.m */; };
 		1950ADAF18D2B293002120C4 /* Login568.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 1950ADAC18D2B293002120C4 /* Login568.jpg */; };
 		1950ADB318D2B72A002120C4 /* Login.png in Resources */ = {isa = PBXBuildFile; fileRef = 1950ADB118D2B72A002120C4 /* Login.png */; };
 		1950ADB418D2B72A002120C4 /* Login@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1950ADB218D2B72A002120C4 /* Login@2x.png */; };
@@ -1624,6 +1625,8 @@
 		193FA73D19F0A27A00874F1E /* close@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "close@2x.png"; sourceTree = "<group>"; };
 		193FA73E19F0A27A00874F1E /* enter.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = enter.png; sourceTree = "<group>"; };
 		193FA73F19F0A27A00874F1E /* enter@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "enter@2x.png"; sourceTree = "<group>"; };
+		19451C7919F77E8400E4D92B /* BBNoticeTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BBNoticeTableViewCell.h; sourceTree = "<group>"; };
+		19451C7A19F77E8400E4D92B /* BBNoticeTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BBNoticeTableViewCell.m; sourceTree = "<group>"; };
 		1950ADAC18D2B293002120C4 /* Login568.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = Login568.jpg; sourceTree = "<group>"; };
 		1950ADB118D2B72A002120C4 /* Login.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Login.png; sourceTree = "<group>"; };
 		1950ADB218D2B72A002120C4 /* Login@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Login@2x.png"; sourceTree = "<group>"; };
@@ -7102,6 +7105,8 @@
 				7AC51B9518CDDA6900AD1A8C /* BBCellHeight.m */,
 				7AC51B9618CDDA6900AD1A8C /* BBBaseTableViewCell.h */,
 				7AC51B9718CDDA6900AD1A8C /* BBBaseTableViewCell.m */,
+				19451C7919F77E8400E4D92B /* BBNoticeTableViewCell.h */,
+				19451C7A19F77E8400E4D92B /* BBNoticeTableViewCell.m */,
 				7AC51B9818CDDA6900AD1A8C /* BBLinkTableViewCell.h */,
 				7AC51B9918CDDA6900AD1A8C /* BBLinkTableViewCell.m */,
 				7AC51B9A18CDDA6900AD1A8C /* BBWorkTableViewCell.h */,
@@ -8259,6 +8264,7 @@
 				332D755018C33552007A75D5 /* NSDate+XMPPDateTimeProfiles.m in Sources */,
 				745CD94619D6A9400096094F /* BBWSPViewController.m in Sources */,
 				332D835B18C33F0B007A75D5 /* TimeParser.m in Sources */,
+				19451C7B19F77E8400E4D92B /* BBNoticeTableViewCell.m in Sources */,
 				332D832118C33F0B007A75D5 /* StatusPanelItem.m in Sources */,
 				332D829518C33F0A007A75D5 /* AddContactViewController.m in Sources */,
 				332D755718C33552007A75D5 /* XMPPPing.m in Sources */,

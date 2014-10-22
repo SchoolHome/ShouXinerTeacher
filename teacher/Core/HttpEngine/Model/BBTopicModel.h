@@ -33,6 +33,8 @@
 @property(nonatomic,strong) NSArray *praises;
 @property(nonatomic,strong) NSArray *comments;
 @property(nonatomic,strong) NSMutableArray *commentStr;
+@property(nonatomic,strong) NSMutableString *commentText;
+@property(nonatomic,strong) NSMutableArray *commentTextArray;
 @property(nonatomic) BOOL award;
 @property(nonatomic) BOOL recommended;
 @property(nonatomic) BOOL recommendToGroups;

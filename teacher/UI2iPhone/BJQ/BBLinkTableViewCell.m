@@ -25,7 +25,7 @@
     if (self) {
         // Initialization code
         
-        title = [[UILabel alloc] initWithFrame:CGRectMake(K_LEFT_PADDING, 0, 200, 20)];
+        title = [[UILabel alloc] initWithFrame:CGRectMake(K_LEFT_PADDING, 15, 200, 20)];
         [self addSubview:title];
         title.textColor = [UIColor colorWithHexString:@"#4a7f9d"];
         title.backgroundColor = [UIColor clearColor];
@@ -46,21 +46,15 @@
         
         link = [UIButton buttonWithType:UIButtonTypeRoundedRect];
         [self addSubview:link];
-        [link setBackgroundImage:[UIImage imageNamed:@"BBNotification"] forState:UIControlStateNormal];
-        link.backgroundColor = [UIColor clearColor];
+        link.backgroundColor = [UIColor colorWithHexString:@"e6e6e6"];
         [link addTarget:self action:@selector(linkButtonTaped:) forControlEvents:UIControlEventTouchUpInside];
         
-        linkIcon = [[EGOImageView alloc] initWithFrame:CGRectMake(10, 10, 45, 45)];
+        linkIcon = [[EGOImageView alloc] initWithFrame:CGRectMake(10, 5, 45, 45)];
         [link addSubview:linkIcon];
         
-        linkTitle = [[UILabel alloc] initWithFrame:CGRectMake(65, 5, 160, 20)];
+        linkTitle = [[UILabel alloc] initWithFrame:CGRectMake(65, 5, 185, 50)];
         [link addSubview:linkTitle];
         linkTitle.backgroundColor = [UIColor clearColor];
-        
-        linkContent = [[UILabel alloc] initWithFrame:CGRectMake(65, 25, 155, 30)];
-        [link addSubview:linkContent];
-        linkContent.textColor = [UIColor colorWithHexString:@"#4a7f9d"];
-        linkContent.backgroundColor = [UIColor clearColor];
     }
     return self;
 }
@@ -69,22 +63,12 @@
 -(void)setData:(BBTopicModel *)data{
     [super setData:data];
     
-    content.frame = CGRectMake(K_LEFT_PADDING, 20, 225, 30);//
-    
-    //
-//    link.backgroundColor = [UIColor whiteColor];
-//    CALayer *roundedLayer = [link layer];
-//    [roundedLayer setMasksToBounds:YES];
-//    roundedLayer.cornerRadius = 8.0;
-//    roundedLayer.borderWidth = 1;
-//    roundedLayer.borderColor = [[UIColor lightGrayColor] CGColor];
-    
-    linkIcon.backgroundColor = [UIColor grayColor];
-    
     title.text = self.data.author_username;
     title.font = [UIFont systemFontOfSize:14];
     title.lineBreakMode = NSLineBreakByTruncatingTail;
     [title sizeToFit];
+    
+    content.frame = CGRectMake(K_LEFT_PADDING, title.frame.origin.y + title.frame.size.height + 10.0f, 225, 0);
     
     if (data.recommended) {
         self.TuiJianImage.frame = CGRectMake(title.frame.origin.x + title.frame.size.width + 5.0f, 2.0f, 15.0f, 15.0f);
@@ -97,48 +81,49 @@
     content.text = self.data.content;
     content.font = [UIFont systemFontOfSize:14];
     content.numberOfLines = 0;
-    [content sizeToFit];
     UILongPressGestureRecognizer *longPress = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(longPress:)];
     [content addGestureRecognizer:longPress];
     content.userInteractionEnabled = YES;
+    [content sizeToFit];
     
     linkTitle.text = self.data.forward.title;
     linkTitle.font = [UIFont systemFontOfSize:14];
+    linkTitle.numberOfLines = 3;
+    [linkTitle sizeToFit];
     
-    linkContent.text = self.data.forward.summary;
-    linkContent.font = [UIFont systemFontOfSize:12];
-    linkContent.numberOfLines = 2;
+//    linkContent.text = self.data.forward.summary;
+//    linkContent.font = [UIFont systemFontOfSize:12];
+//    linkContent.numberOfLines = 2;
     
     if (self.data.forward.author_avatar) {
-        
         NSString *url = [NSString stringWithFormat:@"%@/mlogo",self.data.forward.author_avatar];
         linkIcon.imageURL = [NSURL URLWithString:url];
     }
+    link.frame = CGRectMake(K_LEFT_PADDING, kViewFoot(content)+5, 250, 55);
     
-    link.frame = CGRectMake(K_LEFT_PADDING, kViewFoot(content)+5, 222, 63);
-    
-    self.recommendButton.frame = CGRectMake(232.0f, kViewFoot(link)+10, 36.0, 16.0f);
+    CGFloat timeBegin = kViewFoot(link);
     if (self.data.recommendToGroups || self.data.recommendToHomepage || self.data.recommendToUpGroup) {
+        self.recommendButton.frame = CGRectMake(232.0f, timeBegin, 29.0, 26.0f);
         [self.recommendButton setBackgroundImage:[UIImage imageNamed:@"BJQHasTuiJian"] forState:UIControlStateNormal];
         [self.recommendButton setBackgroundImage:[UIImage imageNamed:@"BJQHasTuiJian"] forState:UIControlStateHighlighted];
         [self.recommendButton removeTarget:self action:@selector(recommendTaped:) forControlEvents:UIControlEventTouchUpInside];
     }else{
+        self.recommendButton.frame = CGRectMake(232.0f, timeBegin, 29.0, 26.0f);
         [self.recommendButton setBackgroundImage:[UIImage imageNamed:@"BJQHaveNotTuiJian"] forState:UIControlStateNormal];
         [self.recommendButton setBackgroundImage:[UIImage imageNamed:@"BJQHaveNotTuiJian"] forState:UIControlStateHighlighted];
         [self.recommendButton addTarget:self action:@selector(recommendTaped:) forControlEvents:UIControlEventTouchUpInside];
     }
-    self.moreButton.frame = CGRectMake(280.0f, kViewFoot(link)+12, 22.0f, 15.0f);
-//    self.reply.frame = CGRectMake(165+70, kViewFoot(link)+5, 62, 27);
     
-    self.time.frame = CGRectMake(K_LEFT_PADDING, kViewFoot(link)+5, 60, 27);
+    self.moreButton.frame = CGRectMake(280.0f, timeBegin, 26.0f, 26.0f);
+    self.time.frame = CGRectMake(K_LEFT_PADDING, timeBegin, 60, 30);
     self.time.text = [self timeStringFromNumber:self.data.ts];
     
-    if ([self.data.praisesStr length]>0||[self.data.commentsStr length]>0) {
-        //
-//        self.relpyContent.hidden = NO;
-        self.likeContent.hidden = NO;
-        self.relpyContentBack.hidden = NO;
-        self.relpyContentLine.hidden = NO;
+    if ([self.data.praisesStr length] > 0 || [self.data.commentsStr length] > 0) {
+        self.likeContent.hidden = YES;
+        self.relpyContentBack.hidden = YES;
+        self.relpyContentLine.hidden = YES;
+        self.heart.hidden = YES;
+        self.line.hidden = YES;
         for (int i = 0 ; i<[self.labelArray count]; i++) {
             OHAttributedLabel *tempLabel = [self.labelArray objectAtIndex:i];
             UIButton *tempButton = [self.buttonArray objectAtIndex:i];
@@ -147,79 +132,115 @@
         }
         [self.labelArray removeAllObjects];
         [self.buttonArray removeAllObjects];
+        [self.heart removeFromSuperview];
+        [self.line removeFromSuperview];
         
-        UIFont *font = [UIFont fontWithName:[self.likeContent.font fontName] size:12];
-        CGSize size = [self.data.praisesStr sizeWithFont:font constrainedToSize:CGSizeMake(180.f, CGFLOAT_MAX) lineBreakMode:0];
-        if (size.height < 25) {
-            size.height = 25;
+        if ([self.data.praisesStr length]>0 && [self.data.commentsStr length] == 0) {
+            UIFont *font = [UIFont fontWithName:[self.likeContent.font fontName] size:12];
+            CGSize size = [self.data.praisesStr sizeWithFont:font constrainedToSize:CGSizeMake(180.f, CGFLOAT_MAX) lineBreakMode:0];
+            if (size.height < 17.0f) {
+                size.height = 17.0f;
+            }
+            self.likeContent.frame = CGRectMake(31.0f,15.0f, 180.f, size.height);
+            self.likeContent.text = self.data.praisesStr;
+            [self.relpyContentBack addSubview:self.likeContent];
+            
+            self.heart = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"BJQPraise"]];
+            self.heart.frame = CGRectMake(7.0f, 15.0f, 18.0f, 16.0f);
+            [self.relpyContentBack addSubview:self.heart];
+            
+            UIImage *contentImage = [[UIImage imageNamed:@"BJQCommentBG"] stretchableImageWithLeftCapWidth:125.0f topCapHeight:19.0f];
+            self.relpyContentBack.frame = CGRectMake(K_LEFT_PADDING, kViewFoot(self.time), 250.0f, 23.0f+size.height);
+            self.relpyContentBack.image = contentImage;
+            self.likeContent.hidden = NO;
+            self.relpyContentBack.hidden = NO;
+        }else if ([self.data.praisesStr length] == 0 && [self.data.commentsStr length] > 0){
+            CGSize per = CGSizeMake(9.0f, 15.0f);
+            CGFloat commentHeight = 0.0f;
+            int i = 1;
+            self.labelArray = [[NSMutableArray alloc] init];
+            self.buttonArray = [[NSMutableArray alloc] init];
+            for (NSMutableAttributedString *str in self.data.commentStr) {
+                NSString *text = [self.data.commentTextArray objectAtIndex:(i-1)];
+                CGSize temp = [text sizeWithFont:[UIFont systemFontOfSize:11.0f] constrainedToSize:CGSizeMake(210, CGFLOAT_MAX) lineBreakMode:0];
+                commentHeight += temp.height;
+                OHAttributedLabel *replay = [[OHAttributedLabel alloc] init];
+                replay.frame = CGRectMake(per.width, per.height, 210, temp.height);
+                replay.attributedText = str;
+                replay.font = [UIFont systemFontOfSize:11.0f];
+                [replay setBackgroundColor:[UIColor clearColor]];
+                UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
+                button.backgroundColor = [UIColor clearColor];
+                button.frame = replay.frame;
+                [button addTarget:self action:@selector(hEvent:) forControlEvents:UIControlEventTouchUpInside];
+                button.tag = i;
+                [self.relpyContentBack addSubview:replay];
+                [self.relpyContentBack addSubview:button];
+                [self.labelArray addObject:replay];
+                [self.buttonArray addObject:button];
+                i++;
+                per.height = replay.frame.origin.y + replay.frame.size.height;
+            }
+            UIImage *contentImage = [[UIImage imageNamed:@"BJQCommentBG"] stretchableImageWithLeftCapWidth:125.0f topCapHeight:19.0f];
+            self.relpyContentBack.frame = CGRectMake(K_LEFT_PADDING, kViewFoot(self.time), 250.0f, 23.0f+commentHeight);
+            self.relpyContentBack.image = contentImage;
+            self.relpyContentBack.hidden = NO;
+        }else{
+            UIFont *font = [UIFont fontWithName:[self.likeContent.font fontName] size:12];
+            CGSize size = [self.data.praisesStr sizeWithFont:font constrainedToSize:CGSizeMake(180.f, CGFLOAT_MAX) lineBreakMode:0];
+            if (size.height < 17.0f) {
+                size.height = 17.0f;
+            }
+            self.likeContent.frame = CGRectMake(31.0f,15.0f, 180.f, size.height);
+            self.likeContent.text = self.data.praisesStr;
+            [self.relpyContentBack addSubview:self.likeContent];
+            
+            self.heart = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"BJQPraise"]];
+            self.heart.frame = CGRectMake(7.0f, 15.0f, 18.0f, 16.0f);
+            [self.relpyContentBack addSubview:self.heart];
+            
+            UIImage *lineImage = [UIImage imageNamed:@"BJQCommentLine"];
+            self.line = [[UIImageView alloc] initWithImage:lineImage];
+            self.line.frame = CGRectMake(5.0f, self.likeContent.frame.origin.y + self.likeContent.frame.size.height + 5.0f, 240.0f, 2.0f);
+            [self.relpyContentBack addSubview:self.line];
+            
+            CGFloat commentHeight = 0.0f;
+            CGSize per = CGSizeMake(9.0f, self.line.frame.origin.y + self.line.frame.size.height + 5.0f);
+            int i = 1;
+            self.labelArray = [[NSMutableArray alloc] init];
+            self.buttonArray = [[NSMutableArray alloc] init];
+            for (NSMutableAttributedString *str in self.data.commentStr) {
+                NSString *text = [self.data.commentTextArray objectAtIndex:(i-1)];
+                CGSize temp = [text sizeWithFont:[UIFont systemFontOfSize:11.0f] constrainedToSize:CGSizeMake(210, CGFLOAT_MAX) lineBreakMode:0];
+                commentHeight += temp.height;
+                OHAttributedLabel *replay = [[OHAttributedLabel alloc] init];
+                replay.frame = CGRectMake(per.width, per.height, 210, temp.height);
+                replay.attributedText = str;
+                replay.font = [UIFont systemFontOfSize:11.0f];
+                [replay setBackgroundColor:[UIColor clearColor]];
+                UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
+                button.backgroundColor = [UIColor clearColor];
+                button.frame = replay.frame;
+                [button addTarget:self action:@selector(hEvent:) forControlEvents:UIControlEventTouchUpInside];
+                button.tag = i;
+                [self.relpyContentBack addSubview:replay];
+                [self.relpyContentBack addSubview:button];
+                [self.labelArray addObject:replay];
+                [self.buttonArray addObject:button];
+                i++;
+                per.height = replay.frame.origin.y + replay.frame.size.height;
+            }
+            UIImage *contentImage = [[UIImage imageNamed:@"BJQCommentBG"] stretchableImageWithLeftCapWidth:125.0f topCapHeight:19.0f];
+            self.relpyContentBack.frame = CGRectMake(K_LEFT_PADDING, kViewFoot(self.time), 250.0f, 35.0f + commentHeight + size.height);
+            self.relpyContentBack.image = contentImage;
+            self.likeContent.hidden = NO;
+            self.relpyContentBack.hidden = NO;
+            self.line.hidden = NO;
         }
-        self.likeContent.frame = CGRectMake(K_LEFT_PADDING+35, kViewFoot(self.time)+10+16, 180.f, size.height);
-        self.likeContent.text = self.data.praisesStr;
-        
-        self.relpyContentLine.frame = CGRectMake(K_LEFT_PADDING, kViewFoot(self.time)+10+18+size.height, 220, 2);
-        UIImage *image1 = [UIImage imageNamed:@"BBComentX"];
-        self.relpyContentLine.image = image1;
-        
-        CGSize s = [self.data.commentsStr sizeConstrainedToSize:CGSizeMake(210, CGFLOAT_MAX)];
-
-        CGSize per = CGSizeMake(K_LEFT_PADDING+5, kViewFoot(self.time)+10+22+size.height);
-        int i = 1;
-        self.labelArray = [[NSMutableArray alloc] init];
-        self.buttonArray = [[NSMutableArray alloc] init];
-        for (NSMutableAttributedString *str in self.data.commentStr) {
-            CGSize temp = [str sizeConstrainedToSize:CGSizeMake(210, CGFLOAT_MAX)];
-            OHAttributedLabel *replay = [[OHAttributedLabel alloc] init];
-            replay.frame = CGRectMake(per.width, per.height, 210, temp.height);
-            replay.attributedText = str;
-            [replay setBackgroundColor:[UIColor clearColor]];
-            UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
-            button.backgroundColor = [UIColor clearColor];
-            button.frame = replay.frame;
-            [button addTarget:self action:@selector(hEvent:) forControlEvents:UIControlEventTouchUpInside];
-            button.tag = i;
-            [self addSubview:replay];
-            [self addSubview:button];
-            [self.labelArray addObject:replay];
-            [self.buttonArray addObject:button];
-            i++;
-            per.height = replay.frame.origin.y + replay.frame.size.height;
-        }
-
-        
-//        self.relpyContent.frame = CGRectMake(K_LEFT_PADDING+5, kViewFoot(self.time)+10+22+size.height, 210, s.height);
-//        self.relpyContent.attributedText = self.data.commentsStr;
-        
-        
-        UIImage *image2 = [UIImage imageNamed:@"BBComentBG"];
-        //image2 = [image2 resizableImageWithCapInsets:UIEdgeInsetsMake(45,35,14,100) resizingMode:UIImageResizingModeStretch];
-        if ([[[UIDevice currentDevice] systemVersion] floatValue] >= 6.0 ? YES : NO) {
-            image2 = [image2 resizableImageWithCapInsets:UIEdgeInsetsMake(45,35,14,100) resizingMode:UIImageResizingModeStretch];
-        }else
-        {
-            image2 = [image2 resizableImageWithCapInsets:UIEdgeInsetsMake(45,35,14,100)];
-        }
-        CGFloat imageHeight = s.height+10+22+size.height;
-        if (imageHeight < 60) {
-            imageHeight = 60;
-        }
-        
-        self.relpyContentBack.frame = CGRectMake(K_LEFT_PADDING, kViewFoot(self.time)+10, 210+10, imageHeight+ [self.data.commentStr count] *1.3f);
-        self.relpyContentBack.image = image2;
     }else{
-//        self.relpyContent.hidden = YES;
         self.likeContent.hidden = YES;
         self.relpyContentBack.hidden = YES;
         self.relpyContentLine.hidden = YES;
-//        for (UIView *view in self.subviews) {
-//            if ([view isMemberOfClass:[OHAttributedLabel class]]) {
-//                [view removeFromSuperview];
-//            }
-//            if ([view isMemberOfClass:[UIButton class]]) {
-//                if (view.tag != 0) {
-//                    [view removeFromSuperview];
-//                }
-//            }
-//        }
         for (int i = 0 ; i<[self.labelArray count]; i++) {
             OHAttributedLabel *tempLabel = [self.labelArray objectAtIndex:i];
             UIButton *tempButton = [self.buttonArray objectAtIndex:i];
