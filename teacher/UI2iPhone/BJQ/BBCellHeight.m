@@ -96,8 +96,13 @@
         case 4:  // 拍表现4，随便说4
             //
         {
-            //title + content + image +comment
-            CGFloat titleHeight = K_TITLE_HEIGHT;
+            // 留白高度
+            CGFloat spaceHeight = 20.0f;
+            
+            // title高度 + 下方留白
+            CGFloat titleHeight = 30.0f;
+            
+            // 内容高度 + 下方留白
             CGFloat contentHeight = 0;
             if (data.subject.integerValue == 1) {//拍表现
                 contentHeight = [data.content sizeWithFont:[UIFont systemFontOfSize:14]
@@ -106,7 +111,9 @@
                 contentHeight = [data.content sizeWithFont:[UIFont systemFontOfSize:14]
                                          constrainedToSize:CGSizeMake(225, CGFLOAT_MAX)].height;
             }
+            contentHeight += 10.0f;
             
+            // image高度 + 下方留白
             CGFloat imageHeight = 0;
             if ([data.imageList count]>0) {
                 switch ([data.imageList count]) {
@@ -138,39 +145,42 @@
                 imageHeight = imageHeight +10; // 上下空隙
             }
             
+            // 按钮高度 + 下方留白
+            CGFloat buttonHeight = 30.0f;
+            
 //            data.praisesStr = @"第三空间覅无收到了风科技为啥收到覅欧文理";
 //            data.praisesStr = @"第三空间覅无收到了风科技为啥收到覅欧文理科第三空间覅无收到了风科技为啥收到覅欧文理科第三空间覅无收到了";
 //            data.praisesStr = @"第三空间覅无收到了风科技为啥收到覅欧文理科第三空间覅无收到了风科技为啥收到覅欧文理科第三空间覅无收到了第三空间覅无收到了风科技为啥收到覅欧文理科第三空间覅无收到了风科技为啥收到覅欧文理科第三空间覅无收到了";
 //            data.praisesStr = @"第三空间";
+            
             CGFloat commentHeight = 0;
-            if ([data.praisesStr length]>0) {
+            if ([data.praisesStr length]>0 && [data.commentsStr length]==0) {
+                // 只有点赞 不留白
                 commentHeight = [data.praisesStr sizeWithFont:[UIFont systemFontOfSize:12.f]
                                             constrainedToSize:CGSizeMake(180.f, CGFLOAT_MAX) lineBreakMode:0].height; // 固定高度
-            }
-            if (commentHeight > 14.0f && commentHeight < 60.0f){
-                commentHeight += commentHeight - 10.0f;
-            }else if(commentHeight > 60.0f) {
-                commentHeight += 44.0f;
-            }
-            
-            if([data.commentsStr length]>0){
-                if (commentHeight < 60.0f) {
-                    commentHeight = 60;
+                if (commentHeight < 17.0f) {
+                    commentHeight = 17.0f;
                 }
-                commentHeight = commentHeight + [data.commentsStr sizeConstrainedToSize:CGSizeMake(210, CGFLOAT_MAX)].height+10+ [data.commentStr count] *1.3f;
+                commentHeight += 23.0f;
+            }else if ([data.praisesStr length]==0 && [data.commentsStr length]>0){
+                // 只有评论 不留白
+                commentHeight = [data.commentsStr sizeConstrainedToSize:CGSizeMake(210, CGFLOAT_MAX)].height + 23.0f;
+            }else if ([data.praisesStr length]>0 && [data.commentsStr length]>0){
+                // 点赞 + 评论 不留白
+                commentHeight = [data.praisesStr sizeWithFont:[UIFont systemFontOfSize:12.f]
+                                            constrainedToSize:CGSizeMake(180.f, CGFLOAT_MAX) lineBreakMode:0].height; // 固定高度
+                if (commentHeight < 17.0f) {
+                    commentHeight = 17.0f;
+                }
+                // 分割线
+                commentHeight += 12.0f;
+                
+                // 只有评论 不留白
+                commentHeight += [data.commentsStr sizeConstrainedToSize:CGSizeMake(210, CGFLOAT_MAX)].height + 23.0f;
             }
             
-            if (commentHeight > 0 && commentHeight < 75) {
-                commentHeight = 75;
-            }
-            
-            CGFloat totalHeight = titleHeight+contentHeight+imageHeight+commentHeight+K_TIME_HEIGHT+5+10; // 按钮上下空隙
-            
-            if ([data.subject integerValue]== 1) {
-                return totalHeight +40.0f;
-            }else{
-                return totalHeight;
-            }
+            CGFloat totalHeight = spaceHeight + titleHeight + contentHeight + imageHeight + buttonHeight + commentHeight;
+            return totalHeight;
         }
             break;
             

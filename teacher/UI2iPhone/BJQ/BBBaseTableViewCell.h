@@ -14,7 +14,7 @@
 
 #import "BBTopicModel.h"
 
-#define K_LEFT_PADDING 75
+#define K_LEFT_PADDING 60.0f
 
 // view frame
 #define kViewLeft(__view) (__view.frame.origin.x)
@@ -37,7 +37,7 @@
 
 @property(nonatomic,strong) EGOImageView *icon;
 
-@property(nonatomic,strong) UIImageView *line;
+//@property(nonatomic,strong) UIImageView *line;
 
 @property(nonatomic,strong) UILabel *time;
 //@property(nonatomic,strong) UIButton *like;
@@ -59,6 +59,7 @@
 @property(nonatomic,strong) UIImageView *relpyContentBackTop;
 @property(nonatomic,strong) UIImageView *relpyContentBackBottom;
 
+@property(nonatomic,strong) UIImageView *heart;
 
 @property(nonatomic,strong) BBTopicModel *data;
 -(void) recommendTaped:(id)sender;
