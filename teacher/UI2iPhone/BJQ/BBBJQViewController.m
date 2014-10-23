@@ -540,9 +540,13 @@
 #pragma mark - Video
 -(void)chooseVideo
 {
-    UIActionSheet *actionsheet = [[UIActionSheet alloc] initWithTitle:nil delegate:self cancelButtonTitle:@"取消" destructiveButtonTitle:nil otherButtonTitles:@"拍摄",@"选取", nil];
-    [actionsheet showInView:self.view];
+//    UIActionSheet *actionsheet = [[UIActionSheet alloc] initWithTitle:nil delegate:self cancelButtonTitle:@"取消" destructiveButtonTitle:nil otherButtonTitles:@"拍摄",@"选取", nil];
+//    [actionsheet showInView:self.view];
+    VideoConfirmViewController *videoConfirm = [[VideoConfirmViewController alloc] initWithGroupModel:_currentGroup];
+    videoConfirm.hidesBottomBarWhenPushed = YES;
+    [self.navigationController pushViewController:videoConfirm animated:YES];
 }
+/*
 -(void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
 {
     if (buttonIndex == 2) return;
@@ -576,6 +580,7 @@
 
     [self presentViewController:imagePicker animated:YES completion:nil];
 }
+ */
 -(void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info
 {
     [self dismissViewControllerAnimated:YES completion:nil];
@@ -592,9 +597,9 @@
 //        if (webData != nil) {
 //            NSLog(@"SUCCESS!");
 //        }
-        VideoConfirmViewController *videoConfirm = [[VideoConfirmViewController alloc] initWithVideoUrl:videoURL andType:chooseType andGroupModel:_currentGroup];
-        videoConfirm.hidesBottomBarWhenPushed = YES;
-        [self.navigationController pushViewController:videoConfirm animated:YES];
+//        VideoConfirmViewController *videoConfirm = [[VideoConfirmViewController alloc] initWithVideoUrl:videoURL andType:chooseType andGroupModel:_currentGroup];
+//        videoConfirm.hidesBottomBarWhenPushed = YES;
+//        [self.navigationController pushViewController:videoConfirm animated:YES];
     }
     
     
