@@ -896,7 +896,7 @@
     
     CGRect superViewRect = [cell convertRect:sender.frame toView:self.view];
     self.tempCell = cell;
-    UIImageView *bgImageView = [[UIImageView alloc] initWithFrame:CGRectMake(superViewRect.origin.x - 104.0f, superViewRect.origin.y - 7.5f, 101.0f, 30.0f)];
+    UIImageView *bgImageView = [[UIImageView alloc] initWithFrame:CGRectMake(superViewRect.origin.x - 128.0f, superViewRect.origin.y-2.0f, 125.0f, 30.0f)];
     bgImageView.image = [UIImage imageNamed:@"BJQMoreBg"];
     bgImageView.userInteractionEnabled = YES;
     bgImageView.hidden = YES;
@@ -904,7 +904,7 @@
     [self.view addSubview:bgImageView];
     self.tempMoreImage = bgImageView;
     
-    UIButton *like = [[UIButton alloc] initWithFrame:CGRectMake(3.5f, 2.5f, 45.0f, 25.0f)];
+    UIButton *like = [[UIButton alloc] initWithFrame:CGRectMake(0.0f, 0.0f, 62.0f, 30.0f)];
     if ([cell.data.am_i_like boolValue]) {
         [like setBackgroundImage:[UIImage imageNamed:@"BJQHasZanButton"] forState:UIControlStateNormal];
     }else{
@@ -913,7 +913,7 @@
     }
     [bgImageView addSubview:like];
     
-    UIButton *reply = [[UIButton alloc] initWithFrame:CGRectMake(53.5f, 2.5f, 45.0f, 25.0f)];
+    UIButton *reply = [[UIButton alloc] initWithFrame:CGRectMake(63.0f, 0.0f, 62.0f, 30.0f)];
     [reply setBackgroundImage:[UIImage imageNamed:@"BJQPingLunButton"] forState:UIControlStateNormal];
     [reply setBackgroundImage:[UIImage imageNamed:@"BJQPingLunButtonPressed"] forState:UIControlStateHighlighted];
     
