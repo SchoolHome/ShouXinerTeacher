@@ -35,6 +35,7 @@
 @property (nonatomic,strong) UIImageView *tempMoreImage;
 @property (nonatomic,strong) NSString *contentText;
 @property (nonatomic,strong) BBTopicModel *recommendUsed;
+@property (nonatomic,strong) UIButton *notifyButton;
 @end
 
 @implementation BBBJQViewController
@@ -42,16 +43,12 @@
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context{
     if ([@"groupListResult" isEqualToString:keyPath])  // 班级列表
     {
-        
         self.isLoading = NO;
-        
         NSDictionary *result = [PalmUIManagement sharedInstance].groupListResult;
         
         if (![result[@"hasError"] boolValue]) { // 没错
             bjDropdownView.listData = [NSArray arrayWithArray:result[@"data"]];
-            
             if ([bjDropdownView.listData count]>0) {
-                
                 NSUserDefaults *def = [NSUserDefaults standardUserDefaults];
                 int index = [def integerForKey:@"saved_topic_group_index"];  // 上次选中的班级
                 
@@ -62,25 +59,16 @@
                     _currentGroup = bjDropdownView.listData[0];
                     [titleButton setTitle:_currentGroup.alias forState:UIControlStateNormal];
                 }
-                
-                //            if ([_currentGroup.avatar length]>0) {
-                //                avatar.imageURL = [NSURL URLWithString:_currentGroup.avatar];
-                //            }
                 [bjqTableView triggerPullToRefresh];
-                
             }
         }else{
             [self showProgressWithText:@"班级列表加载失败" withDelayTime:0.1];
         }
     }
-    
     if ([@"groupTopicListResult" isEqualToString:keyPath])  // 圈信息列表
     {
-        
         self.isLoading = NO;
-        
         NSDictionary *result = [PalmUIManagement sharedInstance].groupTopicListResult;
-        
         switch (self.loadStatus) {
             case TopicLoadStatusRefresh:
                 //
@@ -127,13 +115,33 @@
     {
         NSDictionary *dict = [PalmUIManagement sharedInstance].notifyCount;
         int count = [dict[@"data"][@"count"] intValue];
-        
-        count = 3;
-        
-        if (notifyCount != count) {
-            notifyCount = count;
-            [bjqTableView reloadData];
-            [bjqTableView bringSubviewToFront:avatar];
+        notifyCount = count;
+        if (count > 0) {
+            if (self.notifyButton != nil) {
+                self.notifyButton.titleLabel.text = [NSString stringWithFormat:@"您有%d条新消息",notifyCount];
+                [bjqTableView reloadData];
+            }else{
+                self.notifyButton = [UIButton buttonWithType:UIButtonTypeCustom];
+                self.notifyButton.frame = CGRectMake(75, 156, 172, 38);
+                [self.notifyButton setBackgroundImage:[UIImage imageNamed:@"BBNewMessage"] forState:UIControlStateNormal];
+                self.notifyButton.backgroundColor = [UIColor clearColor];
+                self.notifyButton.titleLabel.font = [UIFont boldSystemFontOfSize:14];
+                self.notifyButton.titleLabel.textAlignment = NSTextAlignmentCenter;
+                [self.notifyButton setTitle:[NSString stringWithFormat:@"您有%d条新消息",notifyCount] forState:UIControlStateNormal];
+                [self.notifyButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+                bjqTableView.tableHeaderView.frame = CGRectMake(0, 0, 320, 188);
+                [bjqTableView.tableHeaderView addSubview:self.notifyButton];
+                [self.notifyButton addTarget:self action:@selector(newNotifyTaped:) forControlEvents:UIControlEventTouchUpInside];
+                [bjqTableView reloadData];
+            }
+        }else{
+            if (self.notifyButton != nil) {
+                [self.notifyButton removeTarget:self action:@selector(newNotifyTaped:) forControlEvents:UIControlEventTouchUpInside];
+                [self.notifyButton removeFromSuperview];
+                self.notifyButton = nil;
+                bjqTableView.tableHeaderView.frame = CGRectMake(0, 0, 320, 147);
+                [bjqTableView reloadData];
+            }
         }
     }
     
@@ -389,22 +397,20 @@
         
         int offset = [weakSelf.allTopicList count];
         
-        BBTopicModel *model = [weakSelf.allTopicList lastObject];
+//        BBTopicModel *model = [weakSelf.allTopicList lastObject];
         
-        int st = [model.ts intValue];
+//        int st = [model.ts intValue];
         
         [[PalmUIManagement sharedInstance] getGroupTopic:[weakSelf.currentGroup.groupid intValue] withTimeStamp:1 withOffset:offset withLimit:30];
         
     }];
     
     
-    UIImageView *head = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 320, 120)];
-    //head.backgroundColor = [UIColor whiteColor];
-    head.backgroundColor = [UIColor colorWithRed:242/255.f green:236/255.f blue:230/255.f alpha:1.f];
+    UIImageView *head = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 320, 147)];
+    head.backgroundColor = [UIColor colorWithHexString:@"f2f2f2"];//[UIColor colorWithRed:242/255.f green:236/255.f blue:230/255.f alpha:1.f];
     head.userInteractionEnabled = YES;
     
     UIImageView *headImage = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 320, 120)];
-    //headImage.backgroundColor = [UIColor orangeColor];
     headImage.image = [UIImage imageNamed:@"BBTopBGNew"];
     [head addSubview:headImage];
     
@@ -601,8 +607,6 @@
 //        videoConfirm.hidesBottomBarWhenPushed = YES;
 //        [self.navigationController pushViewController:videoConfirm animated:YES];
     }
-    
-    
 }
 
 #pragma mark - UITableViewDatasource
@@ -616,50 +620,33 @@
 
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
     
-    if (notifyCount>0) {
-        
-        UIView *backView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 320, 76)];
-        //backView.backgroundColor = [UIColor whiteColor];
-        backView.backgroundColor = [UIColor colorWithHexString:@"f2f2f2"];
-        
-        //        UIImageView *line = [[UIImageView alloc] initWithFrame:CGRectMake(60, 0, 8, backView.bounds.size.height)];
-        //        //line.backgroundColor = [UIColor lightGrayColor];
-        //        line.image = [UIImage imageNamed:@"BBLine"];
-        //        //line.alpha = 0.5;
-        //        [backView addSubview:line];
-        
-        UIButton *newNotify = [UIButton buttonWithType:UIButtonTypeCustom];
-        newNotify.frame = CGRectMake(75, 36, 172, 38);
-        [newNotify setBackgroundImage:[UIImage imageNamed:@"BBNewMessage"] forState:UIControlStateNormal];
-        newNotify.backgroundColor = [UIColor clearColor];
-        [backView addSubview:newNotify];
-        [newNotify addTarget:self action:@selector(newNotifyTaped:) forControlEvents:UIControlEventTouchUpInside];
-        
-        //        UIImageView *icon = [[UIImageView alloc] initWithFrame:CGRectMake(6, 4, 30, 30)];
-        //        [newNotify addSubview:icon];
-        //        CALayer *roundedLayer = [icon layer];
-        //        [roundedLayer setMasksToBounds:YES];
-        //        roundedLayer.cornerRadius = 15.0;
-        //        roundedLayer.borderWidth = 1;
-        //        roundedLayer.borderColor = [[UIColor whiteColor] CGColor];
-        //        icon.image = [UIImage imageNamed:@"girl"];
-        //
-        //        NSString *path = [[CPUIModelManagement sharedInstance].uiPersonalInfo selfHeaderImgPath];
-        //        if (path) {
-        //            icon.image = [UIImage imageWithContentsOfFile:path];
-        //        }
-        
-        UILabel *msg = [[UILabel alloc] initWithFrame:CGRectMake(0, 9, 170, 20)];
-        [newNotify addSubview:msg];
-        msg.textColor = [UIColor whiteColor];
-        msg.backgroundColor = [UIColor clearColor];
-        msg.font = [UIFont boldSystemFontOfSize:14];
-        msg.textAlignment = NSTextAlignmentCenter;
-        msg.text = [NSString stringWithFormat:@"您有%d条新消息",notifyCount];
-        
-        return backView;
-    }
-    
+//    if (notifyCount>0) {
+//        
+//        UIView *backView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 320, 76)];
+//        backView.backgroundColor = [UIColor colorWithHexString:@"f2f2f2"];
+//        
+//        UIButton *newNotify = [UIButton buttonWithType:UIButtonTypeCustom];
+//        newNotify.frame = CGRectMake(75, 36, 172, 38);
+//        [newNotify setBackgroundImage:[UIImage imageNamed:@"BBNewMessage"] forState:UIControlStateNormal];
+//        newNotify.backgroundColor = [UIColor clearColor];
+//        newNotify.titleLabel.font = [UIFont boldSystemFontOfSize:14];
+//        newNotify.titleLabel.textColor = [UIColor whiteColor];
+//        newNotify.titleLabel.textAlignment = NSTextAlignmentCenter;
+//        newNotify.titleLabel.text = [NSString stringWithFormat:@"您有%d条新消息",notifyCount];
+//        [backView addSubview:newNotify];
+//        [newNotify addTarget:self action:@selector(newNotifyTaped:) forControlEvents:UIControlEventTouchUpInside];
+//        
+////        UILabel *msg = [[UILabel alloc] initWithFrame:CGRectMake(0, 9, 170, 20)];
+////        [newNotify addSubview:msg];
+////        msg.textColor = [UIColor whiteColor];
+////        msg.backgroundColor = [UIColor clearColor];
+////        msg.font = [UIFont boldSystemFontOfSize:14];
+////        msg.textAlignment = NSTextAlignmentCenter;
+////        msg.text = [NSString stringWithFormat:@"您有%d条新消息",notifyCount];
+//        
+//        return backView;
+//    }
+//    
     return nil;
     
 }
@@ -781,8 +768,6 @@
 #pragma mark - UITableViewDelegate
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    
-    
     //return 340;
     return [BBCellHeight heightOfData:self.allTopicList[indexPath.row]];
 }
@@ -795,7 +780,6 @@
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    
     [inputBar endEdit];
 }
 
@@ -806,11 +790,6 @@
 #pragma mark - BBFSDropdownViewDelegate
 
 -(void)bbFSDropdownView:(BBFSDropdownView *) dropdownView_ didSelectedAtIndex:(NSInteger) index_{
-//    BBFZYViewController *fzy = [[BBFZYViewController alloc] init];
-//    fzy.hidesBottomBarWhenPushed = YES;
-//    fzy.style = index_;
-//    fzy.currentGroup = _currentGroup;
-//    [self.navigationController pushViewController:fzy animated:YES];
     if (index_ == 0) {
         BBPBXViewController *pbx = [[BBPBXViewController alloc] init];
         pbx.hidesBottomBarWhenPushed = YES;
@@ -841,17 +820,7 @@
     _currentGroup = dropdownView_.listData[index_];
     [titleButton setTitle:_currentGroup.alias forState:UIControlStateNormal];
     
-//    avatar.image = nil;
-//    if ([_currentGroup.avatar length]>0) {
-//        avatar.imageURL = [NSURL URLWithString:_currentGroup.avatar];
-//    }
-    
-    
-//    self.loadStatus = TopicLoadStatusRefresh;
-//    [[PalmUIManagement sharedInstance] getGroupTopic:[_currentGroup.groupid intValue] withTimeStamp:1 withOffset:0 withLimit:30];
-    
     [bjqTableView triggerPullToRefresh];
-    
     NSUserDefaults *def = [NSUserDefaults standardUserDefaults];
     [def setInteger:index_ forKey:@"saved_topic_group_index"];
     [def synchronize];
@@ -863,13 +832,11 @@
 }
 
 -(void)shareTaped:(id)sender{
-    
     BBFZYViewController *fzy = [[BBFZYViewController alloc] init];
     fzy.hidesBottomBarWhenPushed = YES;
     fzy.style = 3;
     fzy.currentGroup = _currentGroup;
     [self.navigationController pushViewController:fzy animated:YES];
-    
 }
 
 
@@ -877,7 +844,6 @@
 
 // 赞
 -(void)bbBaseTableViewCell:(BBBaseTableViewCell *)cell likeButtonTaped:(UIButton *)sender{
-
     self.tempTopModel = cell.data;
     if ([self.tempTopModel.am_i_like boolValue]) {
         return;
@@ -888,7 +854,6 @@
 
 // 更多
 -(void)bbBaseTableViewCell:(BBBaseTableViewCell *)cell moreButtonTaped:(UIButton *)sender{
-    
     if (self.tempMoreImage != nil) {
         [self.tempMoreImage removeFromSuperview];
         self.tempMoreImage = nil;
@@ -1025,7 +990,6 @@
 -(void)bbBaseTableViewCell:(BBBaseTableViewCell *)cell imageButtonTaped:(EGOImageButton *)sender{
 
     [inputBar endEdit];
-    
     BBTopicModel *model = cell.data;
     
     int count = model.imageList.count;
@@ -1052,29 +1016,9 @@
     browser.currentPhotoIndex = sender.tag; // 弹出相册时显示的第一张图片是？
     browser.photos = photos; // 设置所有的图片
     [browser show];
-
-    
-//    float height = 0.0f;
-//    if (isIPhone5) {
-//        height = 568.0f;
-//    }else{
-//        height = 480.0f;
-//    }
-//    
-//    CGRect imageRect = sender.frame;
-//    CGRect superViewRect = [cell convertRect:imageRect toView:nil];
-//    
-//    NSString *url = model.imageList[sender.tag];
-//    
-//    self.messagePictrueController = [[MessagePictrueViewController alloc] initWithPictrueURL:url withRect:superViewRect];
-//    self.messagePictrueController.delegate = self;
-//    self.messagePictrueController.view.frame = CGRectMake(0.0f, 0.0f, 320.0f, height);
-//    [[UIApplication sharedApplication] setStatusBarHidden:YES withAnimation:UIStatusBarAnimationFade];
-//    [[UIApplication sharedApplication].keyWindow addSubview:self.messagePictrueController.view];
 }
 
 -(void)bbBaseTableViewCell:(BBBaseTableViewCell *)cell linkButtonTaped:(UIButton *)sender{
-
     if (cell.data.forward.url) {
         BBJFViewController *jf = [[BBJFViewController alloc] init];
         jf.hidesBottomBarWhenPushed = YES;
@@ -1108,7 +1052,6 @@
     [[PalmUIManagement sharedInstance] postComment:text
                                     withReplyToUid:replyUid
                                        withTopicID:[self.tempTopModelInput.topicid longLongValue]];
-    
 }
 
 #pragma 展示图片的委托实现开始
@@ -1116,8 +1059,7 @@
     
     [[UIApplication sharedApplication] setStatusBarHidden:NO withAnimation:UIStatusBarAnimationFade];
 }
--(void)endCloseImageAnimation
-{
+-(void)endCloseImageAnimation{
     
 }
 
