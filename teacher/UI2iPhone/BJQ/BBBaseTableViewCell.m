@@ -88,7 +88,7 @@
         
         self.contentView.backgroundColor = [UIColor colorWithHexString:@"f2f2f2"];
         
-        _icon = [[EGOImageView alloc] initWithFrame:CGRectMake(5, 10, 50, 50)];
+        _icon = [[EGOImageView alloc] initWithFrame:CGRectMake(5, 5, 50, 50)];
         [self addSubview:_icon];
         _icon.backgroundColor = [UIColor grayColor];
         
@@ -97,14 +97,6 @@
         roundedLayer.cornerRadius = 25.0;
         roundedLayer.borderWidth = 0;
         roundedLayer.borderColor = [[UIColor grayColor] CGColor];
-        
-//        _line = [[UIImageView alloc] initWithFrame:CGRectMake(60, 0, 8, self.bounds.size.height)];
-//        _line.image = [UIImage imageNamed:@"BBLine"];
-//        [self addSubview:_line];
-//        
-//        UIImageView *point = [[UIImageView alloc] initWithFrame:CGRectMake(60-3.5, 35, 15, 13)];
-//        point.image = [UIImage imageNamed:@"BBPoint"];
-//        [self addSubview:point];
         
         _time = [[UILabel alloc] init];
         _time.textColor = [UIColor lightGrayColor];
