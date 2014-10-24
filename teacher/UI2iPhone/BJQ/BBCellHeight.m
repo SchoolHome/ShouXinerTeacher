@@ -10,7 +10,7 @@
 #import "NSAttributedString+Attributes.h"
 
 // title 固定高度
-#define K_TITLE_HEIGHT 20
+#define K_TITLE_HEIGHT 5
 #define K_TIME_HEIGHT  27
 
 @implementation BBCellHeight
@@ -22,7 +22,7 @@
         case 1:{
             // 通知
             // 留白高度
-            CGFloat spaceHeight = 20.0f;
+            CGFloat spaceHeight = K_TITLE_HEIGHT;
             
             // title高度 + 下方留白
             CGFloat titleHeight = 30.0f;
@@ -84,7 +84,11 @@
                 commentHeight += 23.0f;
             }else if ([data.praisesStr length]==0 && [data.commentsStr length]>0){
                 // 只有评论 不留白
-                commentHeight = [data.commentsStr sizeConstrainedToSize:CGSizeMake(210, CGFLOAT_MAX)].height + 23.0f;
+                for (NSString *str in data.commentTextArray) {
+                    CGSize temp = [str sizeWithFont:[UIFont systemFontOfSize:11.0f] constrainedToSize:CGSizeMake(210, CGFLOAT_MAX) lineBreakMode:0];
+                    commentHeight += temp.height;
+                }
+                commentHeight += 23.0f;
             }else if ([data.praisesStr length]>0 && [data.commentsStr length]>0){
                 // 点赞 + 评论 不留白
                 commentHeight = [data.praisesStr sizeWithFont:[UIFont systemFontOfSize:12.f]
@@ -92,11 +96,16 @@
                 if (commentHeight < 17.0f) {
                     commentHeight = 17.0f;
                 }
+                
                 // 分割线
                 commentHeight += 12.0f;
                 
                 // 只有评论 不留白
-                commentHeight += [data.commentsStr sizeConstrainedToSize:CGSizeMake(210, CGFLOAT_MAX)].height + 23.0f;
+                for (NSString *str in data.commentTextArray) {
+                    CGSize temp = [str sizeWithFont:[UIFont systemFontOfSize:11.0f] constrainedToSize:CGSizeMake(210, CGFLOAT_MAX) lineBreakMode:0];
+                    commentHeight += temp.height;
+                }
+                commentHeight += 23.0f;
             }
             
             CGFloat totalHeight = spaceHeight + titleHeight + contentHeight + imageHeight + buttonHeight + commentHeight;
@@ -107,7 +116,7 @@
         {
             // 作业
             // 留白高度
-            CGFloat spaceHeight = 20.0f;
+            CGFloat spaceHeight = K_TITLE_HEIGHT;
             
             // title高度 + 下方留白
             CGFloat titleHeight = 30.0f;
@@ -169,7 +178,11 @@
                 commentHeight += 23.0f;
             }else if ([data.praisesStr length]==0 && [data.commentsStr length]>0){
                 // 只有评论 不留白
-                commentHeight = [data.commentsStr sizeConstrainedToSize:CGSizeMake(210, CGFLOAT_MAX)].height + 23.0f;
+                for (NSString *str in data.commentTextArray) {
+                    CGSize temp = [str sizeWithFont:[UIFont systemFontOfSize:11.0f] constrainedToSize:CGSizeMake(210, CGFLOAT_MAX) lineBreakMode:0];
+                    commentHeight += temp.height;
+                }
+                commentHeight += 23.0f;
             }else if ([data.praisesStr length]>0 && [data.commentsStr length]>0){
                 // 点赞 + 评论 不留白
                 commentHeight = [data.praisesStr sizeWithFont:[UIFont systemFontOfSize:12.f]
@@ -177,11 +190,16 @@
                 if (commentHeight < 17.0f) {
                     commentHeight = 17.0f;
                 }
+                
                 // 分割线
                 commentHeight += 12.0f;
                 
                 // 只有评论 不留白
-                commentHeight += [data.commentsStr sizeConstrainedToSize:CGSizeMake(210, CGFLOAT_MAX)].height + 23.0f;
+                for (NSString *str in data.commentTextArray) {
+                    CGSize temp = [str sizeWithFont:[UIFont systemFontOfSize:11.0f] constrainedToSize:CGSizeMake(210, CGFLOAT_MAX) lineBreakMode:0];
+                    commentHeight += temp.height;
+                }
+                commentHeight += 23.0f;
             }
             
             CGFloat totalHeight = spaceHeight + titleHeight + contentHeight + imageHeight + buttonHeight + commentHeight;
@@ -193,7 +211,7 @@
             //
         {
             // 留白高度
-            CGFloat spaceHeight = 20.0f;
+            CGFloat spaceHeight = K_TITLE_HEIGHT;
             
             // title高度 + 下方留白
             CGFloat titleHeight = 30.0f;
@@ -202,7 +220,7 @@
             CGFloat contentHeight = 0;
             if (data.subject.integerValue == 1) {//拍表现
                 contentHeight = [data.content sizeWithFont:[UIFont systemFontOfSize:14]
-                                         constrainedToSize:CGSizeMake(175, CGFLOAT_MAX)].height;
+                                         constrainedToSize:CGSizeMake(225, CGFLOAT_MAX)].height;
             }else{//随便说
                 contentHeight = [data.content sizeWithFont:[UIFont systemFontOfSize:14]
                                          constrainedToSize:CGSizeMake(225, CGFLOAT_MAX)].height;
@@ -255,7 +273,11 @@
                 commentHeight += 23.0f;
             }else if ([data.praisesStr length]==0 && [data.commentsStr length]>0){
                 // 只有评论 不留白
-                commentHeight = [data.commentsStr sizeConstrainedToSize:CGSizeMake(210, CGFLOAT_MAX)].height + 23.0f;
+                for (NSString *str in data.commentTextArray) {
+                    CGSize temp = [str sizeWithFont:[UIFont systemFontOfSize:11.0f] constrainedToSize:CGSizeMake(210, CGFLOAT_MAX) lineBreakMode:0];
+                    commentHeight += temp.height;
+                }
+                commentHeight += 23.0f;
             }else if ([data.praisesStr length]>0 && [data.commentsStr length]>0){
                 // 点赞 + 评论 不留白
                 commentHeight = [data.praisesStr sizeWithFont:[UIFont systemFontOfSize:12.f]
@@ -263,11 +285,16 @@
                 if (commentHeight < 17.0f) {
                     commentHeight = 17.0f;
                 }
+                
                 // 分割线
                 commentHeight += 12.0f;
                 
                 // 只有评论 不留白
-                commentHeight += [data.commentsStr sizeConstrainedToSize:CGSizeMake(210, CGFLOAT_MAX)].height + 23.0f;
+                for (NSString *str in data.commentTextArray) {
+                    CGSize temp = [str sizeWithFont:[UIFont systemFontOfSize:11.0f] constrainedToSize:CGSizeMake(210, CGFLOAT_MAX) lineBreakMode:0];
+                    commentHeight += temp.height;
+                }
+                commentHeight += 23.0f;
             }
             
             CGFloat totalHeight = spaceHeight + titleHeight + contentHeight + imageHeight + buttonHeight + commentHeight;
@@ -279,13 +306,19 @@
             //
         {
             // 留白高度
-            CGFloat spaceHeight = 20.0f;
+            CGFloat spaceHeight = K_TITLE_HEIGHT;
             
             // title高度 + 下方留白
             CGFloat titleHeight = 30.0f;
             
+            // 内容高度 + 下方留白
+            CGFloat contentHeight = 0;
+            contentHeight = [data.content sizeWithFont:[UIFont systemFontOfSize:14]
+                                     constrainedToSize:CGSizeMake(225, CGFLOAT_MAX)].height;
+            contentHeight += 10.0f;
+            
             // 转发高度 + 下方留白
-            CGFloat contentHeight = 55.0f;
+            CGFloat linkHeight = 55.0f;
             
             // 按钮高度 + 下方留白
             CGFloat buttonHeight = 30.0f;
@@ -301,7 +334,11 @@
                 commentHeight += 23.0f;
             }else if ([data.praisesStr length]==0 && [data.commentsStr length]>0){
                 // 只有评论 不留白
-                commentHeight = [data.commentsStr sizeConstrainedToSize:CGSizeMake(210, CGFLOAT_MAX)].height + 23.0f;
+                for (NSString *str in data.commentTextArray) {
+                    CGSize temp = [str sizeWithFont:[UIFont systemFontOfSize:11.0f] constrainedToSize:CGSizeMake(210, CGFLOAT_MAX) lineBreakMode:0];
+                    commentHeight += temp.height;
+                }
+                commentHeight += 23.0f;
             }else if ([data.praisesStr length]>0 && [data.commentsStr length]>0){
                 // 点赞 + 评论 不留白
                 commentHeight = [data.praisesStr sizeWithFont:[UIFont systemFontOfSize:12.f]
@@ -309,14 +346,19 @@
                 if (commentHeight < 17.0f) {
                     commentHeight = 17.0f;
                 }
+                
                 // 分割线
                 commentHeight += 12.0f;
                 
                 // 只有评论 不留白
-                commentHeight += [data.commentsStr sizeConstrainedToSize:CGSizeMake(210, CGFLOAT_MAX)].height + 23.0f;
+                for (NSString *str in data.commentTextArray) {
+                    CGSize temp = [str sizeWithFont:[UIFont systemFontOfSize:11.0f] constrainedToSize:CGSizeMake(210, CGFLOAT_MAX) lineBreakMode:0];
+                    commentHeight += temp.height;
+                }
+                commentHeight += 23.0f;
             }
             
-            CGFloat totalHeight = spaceHeight + titleHeight + contentHeight + buttonHeight + commentHeight;
+            CGFloat totalHeight = spaceHeight + titleHeight + linkHeight + contentHeight + buttonHeight + commentHeight;
             return totalHeight;
 
         }
@@ -326,15 +368,15 @@
             //
         {
             // 留白高度
-            CGFloat spaceHeight = 20.0f;
+            CGFloat spaceHeight = K_TITLE_HEIGHT;
             
             // title高度 + 下方留白
             CGFloat titleHeight = 30.0f;
             
             // 内容高度 + 下方留白
             CGFloat contentHeight = 0;
-                contentHeight = [data.content sizeWithFont:[UIFont systemFontOfSize:14]
-                                         constrainedToSize:CGSizeMake(225, CGFLOAT_MAX)].height;
+            contentHeight = [data.content sizeWithFont:[UIFont systemFontOfSize:14]
+                                        constrainedToSize:CGSizeMake(225, CGFLOAT_MAX)].height;
             contentHeight += 10.0f;
             
             // image高度 + 下方留白
@@ -383,7 +425,11 @@
                 commentHeight += 23.0f;
             }else if ([data.praisesStr length]==0 && [data.commentsStr length]>0){
                 // 只有评论 不留白
-                commentHeight = [data.commentsStr sizeConstrainedToSize:CGSizeMake(210, CGFLOAT_MAX)].height + 23.0f;
+                for (NSString *str in data.commentTextArray) {
+                    CGSize temp = [str sizeWithFont:[UIFont systemFontOfSize:11.0f] constrainedToSize:CGSizeMake(210, CGFLOAT_MAX) lineBreakMode:0];
+                    commentHeight += temp.height;
+                }
+                commentHeight += 23.0f;
             }else if ([data.praisesStr length]>0 && [data.commentsStr length]>0){
                 // 点赞 + 评论 不留白
                 commentHeight = [data.praisesStr sizeWithFont:[UIFont systemFontOfSize:12.f]
@@ -391,11 +437,16 @@
                 if (commentHeight < 17.0f) {
                     commentHeight = 17.0f;
                 }
+                
                 // 分割线
                 commentHeight += 12.0f;
                 
                 // 只有评论 不留白
-                commentHeight += [data.commentsStr sizeConstrainedToSize:CGSizeMake(210, CGFLOAT_MAX)].height + 23.0f;
+                for (NSString *str in data.commentTextArray) {
+                    CGSize temp = [str sizeWithFont:[UIFont systemFontOfSize:11.0f] constrainedToSize:CGSizeMake(210, CGFLOAT_MAX) lineBreakMode:0];
+                    commentHeight += temp.height;
+                }
+                commentHeight += 23.0f;
             }
             
             CGFloat totalHeight = spaceHeight + titleHeight + contentHeight + imageHeight + buttonHeight + commentHeight;

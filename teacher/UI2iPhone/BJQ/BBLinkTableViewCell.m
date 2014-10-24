@@ -25,17 +25,17 @@
     if (self) {
         // Initialization code
         
-        title = [[UILabel alloc] initWithFrame:CGRectMake(K_LEFT_PADDING, 15, 200, 20)];
+        title = [[UILabel alloc] initWithFrame:CGRectMake(K_LEFT_PADDING, 10, 200, 20)];
         [self addSubview:title];
         title.textColor = [UIColor colorWithHexString:@"#4a7f9d"];
         title.backgroundColor = [UIColor clearColor];
         
-        self.TuiJianImage = [[UIImageView alloc] initWithFrame:CGRectMake(title.frame.origin.x + title.frame.size.width, 2.0f, 15.0f, 15.0f)];
+        self.TuiJianImage = [[UIImageView alloc] initWithFrame:CGRectMake(title.frame.origin.x + title.frame.size.width, 2.0f, 10, 15.0f)];
         self.TuiJianImage.image = [UIImage imageNamed:@"BJQTuiJian"];
         self.TuiJianImage.hidden = YES;
         [self addSubview:self.TuiJianImage];
         
-        self.RongYuImage = [[UIImageView alloc] initWithFrame:CGRectMake(self.TuiJianImage.frame.origin.x + 20.0f, 2.0f, 15.0f, 15.0f)];
+        self.RongYuImage = [[UIImageView alloc] initWithFrame:CGRectMake(self.TuiJianImage.frame.origin.x + 20.0f, 2.0f, 10, 15.0f)];
         self.RongYuImage.image = [UIImage imageNamed:@"BJQRongYun"];
         self.RongYuImage.hidden = YES;
         [self addSubview:self.RongYuImage];
@@ -62,7 +62,6 @@
 
 -(void)setData:(BBTopicModel *)data{
     [super setData:data];
-    
     title.text = self.data.author_username;
     title.font = [UIFont systemFontOfSize:14];
     title.lineBreakMode = NSLineBreakByTruncatingTail;
@@ -90,10 +89,6 @@
     linkTitle.font = [UIFont systemFontOfSize:14];
     linkTitle.numberOfLines = 3;
     [linkTitle sizeToFit];
-    
-//    linkContent.text = self.data.forward.summary;
-//    linkContent.font = [UIFont systemFontOfSize:12];
-//    linkContent.numberOfLines = 2;
     
     if (self.data.forward.author_avatar) {
         NSString *url = [NSString stringWithFormat:@"%@/mlogo",self.data.forward.author_avatar];

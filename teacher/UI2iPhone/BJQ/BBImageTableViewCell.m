@@ -22,17 +22,17 @@
     if (self) {
         // Initialization code
         
-        title = [[UILabel alloc] initWithFrame:CGRectMake(K_LEFT_PADDING, 15, 200, 20)];
+        title = [[UILabel alloc] initWithFrame:CGRectMake(K_LEFT_PADDING, 10, 200, 20)];
         [self addSubview:title];
         title.textColor = [UIColor colorWithHexString:@"#4a7f9d"];
         title.backgroundColor = [UIColor clearColor];
         
-        self.TuiJianImage = [[UIImageView alloc] initWithFrame:CGRectMake(title.frame.origin.x + title.frame.size.width, 2.0f, 15.0f, 15.0f)];
+        self.TuiJianImage = [[UIImageView alloc] initWithFrame:CGRectMake(title.frame.origin.x + title.frame.size.width, 2.0f, 10, 15.0f)];
         self.TuiJianImage.image = [UIImage imageNamed:@"BJQTuiJian"];
         self.TuiJianImage.hidden = YES;
         [self addSubview:self.TuiJianImage];
         
-        self.RongYuImage = [[UIImageView alloc] initWithFrame:CGRectMake(self.TuiJianImage.frame.origin.x + 20.0f, 2.0f, 15.0f, 15.0f)];
+        self.RongYuImage = [[UIImageView alloc] initWithFrame:CGRectMake(self.TuiJianImage.frame.origin.x + 20.0f, 2.0f, 10, 15.0f)];
         self.RongYuImage.image = [UIImage imageNamed:@"BJQRongYun"];
         self.RongYuImage.hidden = YES;
         [self addSubview:self.RongYuImage];
@@ -62,8 +62,6 @@
     title.font = [UIFont systemFontOfSize:14];
     title.lineBreakMode = NSLineBreakByTruncatingTail;
     [title sizeToFit];
-
-    content.frame = CGRectMake(K_LEFT_PADDING, title.frame.origin.y + title.frame.size.height + 10.0f, 225, 0);
     
     if (data.recommended) {
         self.TuiJianImage.frame = CGRectMake(title.frame.origin.x + title.frame.size.width + 5.0f, 2.0f, 15.0f, 15.0f);
@@ -73,6 +71,9 @@
         self.TuiJianImage.hidden = YES;
     }
     
+    int contentHeight = [self.data.content sizeWithFont:[UIFont systemFontOfSize:14]
+                             constrainedToSize:CGSizeMake(225, CGFLOAT_MAX)].height;
+    content.frame = CGRectMake(K_LEFT_PADDING, title.frame.origin.y + title.frame.size.height + 10.0f, 225, contentHeight);
     content.text = self.data.content;
     content.font = [UIFont systemFontOfSize:14];
     content.numberOfLines = 0;
@@ -80,7 +81,6 @@
     [content addGestureRecognizer:longPress];
     content.userInteractionEnabled = YES;
     [content sizeToFit];
-
     
     for (int i = 0; i<8; i++) {
         imageContent[i].hidden = YES;

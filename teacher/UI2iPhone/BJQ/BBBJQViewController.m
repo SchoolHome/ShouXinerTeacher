@@ -214,13 +214,15 @@
             NSUInteger len = [comment.username length]+1;
             NSMutableAttributedString *attributedText;
             if ([comment.username isEqualToString:comment.replyto_username] || comment.replyto_username == nil) {
-                NSString *text = [NSString stringWithFormat:@"%@: %@\n",comment.username,comment.comment];
+                NSString *text = [NSString stringWithFormat:@"%@: %@",comment.username,comment.comment];
                 attributedText = [[NSMutableAttributedString alloc] initWithString:text];
                 if ([[[UIDevice currentDevice] systemVersion] floatValue] > 6) {
                     [attributedText addAttribute:NSForegroundColorAttributeName value:[UIColor colorWithHexString:@"#4a7f9d"] range:NSMakeRange(0,len)];
                 }
+                [self.tempTopModelInput.commentText appendString:text];
+                [self.tempTopModelInput.commentTextArray addObject:text];
             }else{
-                NSString *text = [NSString stringWithFormat:@"%@ 回复 %@: %@\n",comment.username,comment.replyto_username,comment.comment];
+                NSString *text = [NSString stringWithFormat:@"%@ 回复 %@: %@",comment.username,comment.replyto_username,comment.comment];
                 attributedText = [[NSMutableAttributedString alloc] initWithString:text];
                 NSUInteger len1 = [comment.replyto_username length];
                 NSUInteger temp = [[NSString stringWithFormat:@"%@ 回复 ",comment.username] length];
@@ -228,18 +230,10 @@
                     [attributedText addAttribute:NSForegroundColorAttributeName value:[UIColor colorWithHexString:@"#4a7f9d"] range:NSMakeRange(0,len)];
                     [attributedText addAttribute:NSForegroundColorAttributeName value:[UIColor colorWithHexString:@"#4a7f9d"] range:NSMakeRange(temp,len1)];
                 }
+                [self.tempTopModelInput.commentText appendString:text];
+                [self.tempTopModelInput.commentTextArray addObject:text];
             }
             [self.tempTopModelInput.commentStr addObject:attributedText];
-//            NSMutableArray *p = [[NSMutableArray alloc] initWithArray:self.tempTopModel.comments];
-//            [p addObject:comment];
-//            self.tempTopModel.comments = [NSArray arrayWithArray:p];
-//            NSUInteger len = [comment.username length]+2;
-//            NSString *text = [NSString stringWithFormat:@"%@: %@\n",comment.username,comment.comment];
-//            NSMutableAttributedString *attributedText = [[NSMutableAttributedString alloc] initWithString:text];
-//            if ([self currentVersion] > kIOS6) {
-//                [attributedText addAttribute:NSForegroundColorAttributeName value:[UIColor colorWithHexString:@"#4a7f9d"] range:NSMakeRange(0,len)];
-//            }
-//            
             NSMutableAttributedString *str = [[NSMutableAttributedString alloc] initWithAttributedString:self.tempTopModelInput.commentsStr];
             [str appendAttributedString:attributedText];
             self.tempTopModelInput.commentsStr = str;
