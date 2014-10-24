@@ -18,12 +18,11 @@
 #import "ADImageview.h"
 #import "ADDetailViewController.h"
 #import "ColorUtil.h"
-
 #import "VideoConfirmViewController.h"
+
 @class BBWSPViewController;
 @interface BBBJQViewController ()<ADImageviewDelegate>
 {
-    VIDEO_CHOOSEN_TYPE chooseType;
 }
 @property (nonatomic,strong) BBTopicModel *tempTopModel;
 @property (nonatomic,strong) BBTopicModel *tempTopModelInput;
@@ -477,13 +476,7 @@
     
     [self checkNotify];
     
-    //Test
-    UIButton *videoBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    [videoBtn setBackgroundColor:[UIColor blackColor]];
-    [videoBtn setTitle:@"微视频" forState:UIControlStateNormal];
-    [videoBtn addTarget:self action:@selector(chooseVideo) forControlEvents:UIControlEventTouchUpInside];
-    [videoBtn setFrame:CGRectMake(150.f, 50.f, 100.f, 100.f)];
-    [self.view addSubview:videoBtn];
+  
     
     avatar = [[EGOImageView alloc] initWithFrame:CGRectMake(18, 65, 80, 80)];
     avatar.backgroundColor = [UIColor grayColor];
@@ -608,6 +601,7 @@
 //        [self.navigationController pushViewController:videoConfirm animated:YES];
     }
 }
+
 
 #pragma mark - UITableViewDatasource
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{

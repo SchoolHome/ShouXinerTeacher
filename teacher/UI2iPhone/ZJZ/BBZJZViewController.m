@@ -22,6 +22,8 @@
 #import "CPDBModelNotifyMessage.h"
 #import "CPDBManagement.h"
 //
+
+#import "VideoConfirmViewController.h"
 @interface BBZJZViewController ()
 @property (nonatomic , strong)NSArray *tableviewDisplayDataArray;
 @property (nonatomic , strong)BBMessageGroupBaseTableView *messageListTableview;
@@ -85,6 +87,13 @@
             }   
         }
         
+        //Test
+        UIButton *videoBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+        [videoBtn setBackgroundColor:[UIColor blackColor]];
+        [videoBtn setTitle:@"微视频" forState:UIControlStateNormal];
+        [videoBtn addTarget:self action:@selector(chooseVideo) forControlEvents:UIControlEventTouchUpInside];
+        [videoBtn setFrame:CGRectMake(150.f, 50.f, 100.f, 100.f)];
+        [self.view addSubview:videoBtn];
         //[_messageListTableSearchBar setScopeBarBackgroundImage:[UIImage imageNamed:@"ZJZSearch"]];
     }
 }
@@ -116,7 +125,13 @@
 -(void) dealloc{
     [[CPUIModelManagement sharedInstance] removeObserver:self forKeyPath:@"userMsgGroupListTag"];
 }
-
+#pragma mark - Video
+-(void)chooseVideo
+{
+    VideoConfirmViewController *videoConfirm = [[VideoConfirmViewController alloc] initWithGroupModel:nil];
+    videoConfirm.hidesBottomBarWhenPushed = YES;
+    [self.navigationController pushViewController:videoConfirm animated:YES];
+}
 #pragma mark Setter && Getter
 -(NSArray *) tableviewDisplayDataArray
 {
