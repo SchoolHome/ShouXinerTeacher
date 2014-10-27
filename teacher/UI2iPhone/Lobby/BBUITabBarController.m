@@ -56,7 +56,7 @@
             }else{
                 width = width + 8;
             }
-            markMessage.frame = CGRectMake(136, -5, width, 20);
+            markMessage.frame = CGRectMake(320/5*2-12.f, -5, width, 20);
             [markMessage setNeedsDisplay];
         }
     }
@@ -102,16 +102,20 @@
     BBZJZViewController *c2 = [[BBZJZViewController alloc] init];
     CustomNavigationController *n2 = [[CustomNavigationController alloc] initWithRootViewController:c2];
     n2.tabBarItem.title = @"ZJZ";
-    
+
     BBYZSViewController *c3 = [[BBYZSViewController alloc] init];
     CustomNavigationController *n3 = [[CustomNavigationController alloc] initWithRootViewController:c3];
-    n3.tabBarItem.title = @"YZS";
+    n3.tabBarItem.title = @"YZSS";
     
-    BBMeViewController *c4 = [[BBMeViewController alloc] init];
+    BBYZSViewController *c4 = [[BBYZSViewController alloc] init];
     CustomNavigationController *n4 = [[CustomNavigationController alloc] initWithRootViewController:c4];
-    n4.tabBarItem.title = @"ME";
+    n4.tabBarItem.title = @"YZS";
     
-    NSArray *ctrls = [NSArray arrayWithObjects:n1,n2,n3,n4,nil];
+    BBMeViewController *c5 = [[BBMeViewController alloc] init];
+    CustomNavigationController *n5 = [[CustomNavigationController alloc] initWithRootViewController:c5];
+    n5.tabBarItem.title = @"ME";
+    
+    NSArray *ctrls = [NSArray arrayWithObjects:n1,n2,n3,n4,n5,nil];
     self.viewControllers = ctrls;
     self.tabBar.tintColor = [UIColor blackColor];
     self.selectedIndex = 0;
@@ -127,24 +131,26 @@
     _tapImages = [[NSArray alloc] initWithObjects:
                   [UIImage imageNamed:@"BBBottomIndexPress1"],
                   [UIImage imageNamed:@"BBBottomIndexPress2"],
+                  [UIImage imageNamed:@"BBBottomIndexPress2"],
                   [UIImage imageNamed:@"BBBottomIndexPress3"],
                   [UIImage imageNamed:@"BBBottomIndexPress4"],
                   nil];
     NSArray *backImages = [[NSArray alloc] initWithObjects:
                   [UIImage imageNamed:@"BBBottomIndex1"],
                   [UIImage imageNamed:@"BBBottomIndex2"],
+                  [UIImage imageNamed:@"BBBottomIndex2"],
                   [UIImage imageNamed:@"BBBottomIndex3"],
                   [UIImage imageNamed:@"BBBottomIndex4"],
                   nil];
     
-    
-    for (int i = 0 ; i<[_tapImages count]; i++) {
+    NSInteger itemCount = [_tapImages count];
+    for (int i = 0 ; i<itemCount; i++) {
         
-        UIImageView *backItem = [[UIImageView alloc] initWithFrame:CGRectMake(320/4.0f*i, 0, 320/4.0f, 49)];
+        UIImageView *backItem = [[UIImageView alloc] initWithFrame:CGRectMake(320/itemCount*i, 0, 320/itemCount, 49)];
         [_imageTabBar addSubview:backItem];
         backItem.image = [backImages objectAtIndex:i];
         
-        _subTabItem[i] = [[UIImageView alloc] initWithFrame:CGRectMake(320/4.0f*i, 0, 320/4.0f, 49)];
+        _subTabItem[i] = [[UIImageView alloc] initWithFrame:CGRectMake(320/itemCount*i, 0, 320/itemCount, 49)];
         _subTabItem[i].backgroundColor = [UIColor clearColor];
         [_imageTabBar addSubview:_subTabItem[i]];
         
@@ -155,7 +161,7 @@
         }
     }
     
-    markYZS = [[UILabel alloc] initWithFrame:CGRectMake(215, -5, 20, 20)];
+    markYZS = [[UILabel alloc] initWithFrame:CGRectMake(320/itemCount*4-12.f, -5, 20, 20)];
     markYZS.font = [UIFont systemFontOfSize:14];
     [_imageTabBar addSubview:markYZS];
     markYZS.backgroundColor = [UIColor colorWithRed:252/255.0 green:79/255.0 blue:6/255.0 alpha:1.0];
@@ -167,11 +173,11 @@
     roundedLayer1.borderWidth = 0.5;
     roundedLayer1.borderColor = [[UIColor grayColor] CGColor];
     markYZS.text = @"";
-    markYZS.hidden = YES;
+    //markYZS.hidden = YES;
     
-    [self checkUnreadCount];
+    //[self checkUnreadCount];
     
-    markMessage = [[UILabel alloc] initWithFrame:CGRectMake(136, -5, 20, 20)];
+    markMessage = [[UILabel alloc] initWithFrame:CGRectMake(320/itemCount*2-12.f, -5, 20, 20)];
     markMessage.font = [UIFont systemFontOfSize:14];
     [_imageTabBar addSubview:markMessage];
     markMessage.backgroundColor = [UIColor colorWithRed:252/255.0 green:79/255.0 blue:6/255.0 alpha:1.0];
@@ -185,9 +191,16 @@
     markMessage.text = @"";
     markMessage.hidden = YES;
 }
-
+- (BOOL)tabBarController:(UITabBarController *)tabBarController shouldSelectViewController:(UIViewController *)viewController
+{
+    if ([viewController.tabBarItem.title isEqualToString:@"YZSS"]) {
+        //展开view
+        return NO;
+    }
+    return YES;
+}
 - (void)tabBarController:(UITabBarController *)tabBarController didSelectViewController:(UIViewController *)viewController{
-
+    
     for (int i = 0 ; i<[_tapImages count]; i++) {
         if (tabBarController.selectedIndex == i) {
             _subTabItem[i].image = [_tapImages objectAtIndex:i];
@@ -196,7 +209,7 @@
         }
     }
     
-    if (tabBarController.selectedIndex == 2) { // 点击消失
+    if (tabBarController.selectedIndex == 3) { // 点击消失
         markYZS.hidden = YES;
     }
 }
