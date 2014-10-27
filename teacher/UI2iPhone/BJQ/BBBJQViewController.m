@@ -261,6 +261,21 @@
             [[UIApplication sharedApplication].keyWindow addSubview:adImage];
         }
     }
+    
+    if ([@"deleteTopicResult" isEqualToString:keyPath]) {
+        if ([[[PalmUIManagement sharedInstance].deleteTopicResult objectForKey:ASI_REQUEST_HAS_ERROR] boolValue]) {
+            return;
+        }
+        NSDictionary *result = [[[PalmUIManagement sharedInstance].deleteTopicResult objectForKey:ASI_REQUEST_DATA] objectForKey:@"content"];
+        long long topicID = [[result objectForKey:@"topicid"] longLongValue];
+        for (BBTopicModel *model in self.allTopicList) {
+            if ([model.author_uid longLongValue] == topicID) {
+                [self.allTopicList removeObject:model];
+                break;
+            }
+        }
+        [bjqTableView reloadData];
+    }
 }
 
 -(void)imageTapped{
@@ -283,7 +298,7 @@
     
     // 广告
     [[PalmUIManagement sharedInstance] addObserver:self forKeyPath:@"advWithGroupResult" options:0 context:NULL];
-    
+    [[PalmUIManagement sharedInstance] addObserver:self forKeyPath:@"deleteTopicResult" options:0 context:NULL];
 }
 
 -(void)removeObservers{
@@ -299,6 +314,7 @@
     [[PalmUIManagement sharedInstance] removeObserver:self forKeyPath:@"commentResult"];
 
     [[PalmUIManagement sharedInstance] removeObserver:self forKeyPath:@"advWithGroupResult"];
+    [[PalmUIManagement sharedInstance] removeObserver:self forKeyPath:@"deleteTopicResult"];
 }
 
 -(void)checkNotify{
@@ -1013,6 +1029,10 @@
         jf.url = [NSURL URLWithString:cell.data.forward.url];
         [self.navigationController pushViewController:jf animated:YES];
     }
+}
+
+-(void) bbBaseTableViewCell:(BBBaseTableViewCell *)cell deleteButtonTaped:(UIButton *)sender{
+    [[PalmUIManagement sharedInstance] deleteTopic:[cell.data.author_uid longLongValue]];
 }
 
 #pragma mark - UIScrollViewDelegate
