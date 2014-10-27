@@ -17,6 +17,8 @@
     BBGroupModel *model;
     
     UIButton *recordBtn;
+    UIButton *flashBtn;
+    UIButton *camerControl;
     UIView *localView;
 
 }
@@ -71,12 +73,24 @@
     
     
     
-    UIButton *reChoose = [UIButton buttonWithType:UIButtonTypeCustom];
-    [reChoose setFrame:CGRectMake(30.f, self.screenHeight-120.f,60.f, 30.f)];
-    [reChoose setTitle:@"取消" forState:UIControlStateNormal];
-    [reChoose addTarget:self action:@selector(stopVideoCapture:) forControlEvents:UIControlEventTouchUpInside];
-    [reChoose setBackgroundColor:[UIColor blackColor]];
-    //[self.view addSubview:reChoose];
+    UIButton *close = [UIButton buttonWithType:UIButtonTypeCustom];
+    [close setFrame:CGRectMake(10.f, 10,30.f, 30.f)];
+    [close setTitle:@"关闭" forState:UIControlStateNormal];
+    [close addTarget:self action:@selector(close) forControlEvents:UIControlEventTouchUpInside];
+    [close setBackgroundColor:[UIColor blackColor]];
+    [self.view addSubview:close];
+    
+    flashBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+    [flashBtn setFrame:CGRectMake(self.screenWidth-100.f, 10.f, 30.f, 30.f)];
+    [flashBtn setTitle:@"闪光灯" forState:UIControlStateNormal];
+    [flashBtn addTarget:self action:@selector(controlFlash:) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:flashBtn];
+    
+    camerControl = [UIButton buttonWithType:UIButtonTypeCustom];
+    [camerControl setFrame:CGRectMake(self.screenWidth-40.f, 10.f, 30.f, 30.f)];
+    [camerControl setTitle:@"方向" forState:UIControlStateNormal];
+    [camerControl addTarget:self action:@selector(controlCarmerDirection:) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:camerControl];
     
     recordBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     [recordBtn setFrame:CGRectMake(self.screenWidth-90.f, self.screenHeight-120.f,60.f , 30.f)];
@@ -320,6 +334,49 @@
     });
 }
 
+#pragma mark - ButtonMethod
+-(void)controlFlash:(UIButton *)sender
+{
+    sender.selected = !sender.selected;
+    [self openTorch:sender.selected];
+}
+
+-(void)controlCarmerDirection:(UIButton *)sender
+{
+    sender.selected = !sender.selected;
+    if (sender.selected) {//换成前摄像头
+        if (flashBtn.selected) {
+            [self openTorch:NO];
+            flashBtn.selected = NO;
+            flashBtn.enabled = NO;
+        } else {
+            flashBtn.enabled = NO;
+        }
+    } else {
+        flashBtn.enabled = [self isFrontCameraSupported];
+    }
+    
+    [self switchCamera];
+}
+
+-(void)close
+{
+    
+}
+
+-(void)startVideoCapture:(UIButton *)sender
+{
+    if ([sender.titleLabel.text isEqualToString:@"结束"]) {
+        [self stopCurrentVideoRecording];
+    }else
+    {
+        [sender setTitle:@"结束" forState:UIControlStateNormal];
+        sender.enabled = NO;
+        [self startRecordingToOutputFileURL:[NSURL fileURLWithPath:[self getTempSaveVideoPath]]];
+        [self.view bringSubviewToFront:localView];
+        
+    }
+}
 
 #pragma mark - Method
 - (void)focusInPoint:(CGPoint)touchPoint
@@ -457,17 +514,5 @@
     return savePath;
 }
 
--(void)startVideoCapture:(UIButton *)sender
-{
-    if ([sender.titleLabel.text isEqualToString:@"结束"]) {
-        [self stopCurrentVideoRecording];
-    }else
-    {
-        [sender setTitle:@"结束" forState:UIControlStateNormal];
-        sender.enabled = NO;
-        [self startRecordingToOutputFileURL:[NSURL fileURLWithPath:[self getTempSaveVideoPath]]];
-        [self.view bringSubviewToFront:localView];
-        
-    }
-}
+
 @end
