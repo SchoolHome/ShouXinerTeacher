@@ -53,6 +53,11 @@
     }
 }
 
+-(void) deleteButtonTaped:(UIButton *)sender{
+    if (_delegate && [_delegate respondsToSelector:@selector(bbBaseTableViewCell:deleteButtonTaped:)]) {
+        [_delegate bbBaseTableViewCell:self deleteButtonTaped:sender];
+    }
+}
 
 -(NSString *)timeStringFromNumber:(NSNumber *) number{
     
@@ -115,6 +120,13 @@
         [self.recommendButton setBackgroundImage:[UIImage imageNamed:@"BJQHaveNotTuiJian"] forState:UIControlStateNormal];
         [self.recommendButton setBackgroundImage:[UIImage imageNamed:@"BJQHaveNotTuiJian"] forState:UIControlStateHighlighted];
         [self.recommendButton addTarget:self action:@selector(recommendTaped:) forControlEvents:UIControlEventTouchUpInside];
+        
+        self.deleteTopic = [UIButton buttonWithType:UIButtonTypeCustom];
+        [self addSubview:self.deleteTopic];
+        [self.deleteTopic addTarget:self action:@selector(deleteButtonTaped:) forControlEvents:UIControlEventTouchUpInside];
+        [self.deleteTopic setTitle:@"删除" forState:UIControlStateNormal];
+        self.deleteTopic.titleLabel.font = [UIFont systemFontOfSize:12.0f];
+        [self.deleteTopic setTitleColor:[UIColor colorWithHexString:@"7596cc"] forState:UIControlStateNormal];
         
         _relpyContentBack = [[UIImageView alloc] init];
         [self addSubview:_relpyContentBack];

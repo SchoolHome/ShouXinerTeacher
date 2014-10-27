@@ -27,15 +27,20 @@
         title.textColor = [UIColor colorWithHexString:@"#4a7f9d"];
         title.backgroundColor = [UIColor clearColor];
         
-        self.TuiJianImage = [[UIImageView alloc] initWithFrame:CGRectMake(title.frame.origin.x + title.frame.size.width, 2.0f, 10, 15.0f)];
+        typeImage = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"state"]];
+        typeImage.frame = CGRectMake(280.0f, 10.0f, 28.0f, 15.0f);
+        [self addSubview:typeImage];
+        
+        self.RongYuImage = [[UIImageView alloc] initWithFrame:CGRectMake(typeImage.frame.origin.x - 25.0f, 7.0f, 15, 24.0f)];
+        self.RongYuImage.image = [UIImage imageNamed:@"BJQRongYun"];
+        self.RongYuImage.hidden = YES;
+        [self addSubview:self.RongYuImage];
+        
+        self.TuiJianImage = [[UIImageView alloc] initWithFrame:CGRectMake(typeImage.frame.origin.x - 50.0f, 2.0f, 15, 24.0f)];
         self.TuiJianImage.image = [UIImage imageNamed:@"BJQTuiJian"];
         self.TuiJianImage.hidden = YES;
         [self addSubview:self.TuiJianImage];
         
-        self.RongYuImage = [[UIImageView alloc] initWithFrame:CGRectMake(self.TuiJianImage.frame.origin.x + 20.0f, 2.0f, 10, 15.0f)];
-        self.RongYuImage.image = [UIImage imageNamed:@"BJQRongYun"];
-        self.RongYuImage.hidden = YES;
-        [self addSubview:self.RongYuImage];
         
         content = [[UILabel alloc] init];
         [self addSubview:content];
@@ -65,11 +70,15 @@
     content.frame = CGRectMake(K_LEFT_PADDING, title.frame.origin.y + title.frame.size.height + 10.0f, 225, 0);
     
     if (data.recommended) {
-        self.TuiJianImage.frame = CGRectMake(title.frame.origin.x + title.frame.size.width + 5.0f, 2.0f, 15.0f, 15.0f);
         self.TuiJianImage.hidden = NO;
     }else{
-        self.TuiJianImage.frame = CGRectMake(title.frame.origin.x + title.frame.size.width + 5.0f, 2.0f, 15.0f, 15.0f);
         self.TuiJianImage.hidden = YES;
+    }
+    
+    if (data.award) {
+        self.RongYuImage.hidden = NO;
+    }else{
+        self.RongYuImage.hidden = YES;
     }
     
     content.text = self.data.content;
@@ -115,20 +124,28 @@
     }
     
     if (self.data.recommendToGroups || self.data.recommendToHomepage || self.data.recommendToUpGroup) {
-        self.recommendButton.frame = CGRectMake(232.0f, timeBegin, 29.0, 26.0f);
+        self.recommendButton.frame = CGRectMake(232.0f, timeBegin + 2.0f, 29.0, 26.0f);
         [self.recommendButton setBackgroundImage:[UIImage imageNamed:@"BJQHasTuiJian"] forState:UIControlStateNormal];
         [self.recommendButton setBackgroundImage:[UIImage imageNamed:@"BJQHasTuiJian"] forState:UIControlStateHighlighted];
         [self.recommendButton removeTarget:self action:@selector(recommendTaped:) forControlEvents:UIControlEventTouchUpInside];
     }else{
-        self.recommendButton.frame = CGRectMake(232.0f, timeBegin, 29.0, 26.0f);
+        self.recommendButton.frame = CGRectMake(232.0f, timeBegin + 2.0f, 29.0, 26.0f);
         [self.recommendButton setBackgroundImage:[UIImage imageNamed:@"BJQHaveNotTuiJian"] forState:UIControlStateNormal];
         [self.recommendButton setBackgroundImage:[UIImage imageNamed:@"BJQHaveNotTuiJian"] forState:UIControlStateHighlighted];
         [self.recommendButton addTarget:self action:@selector(recommendTaped:) forControlEvents:UIControlEventTouchUpInside];
     }
     
-    self.moreButton.frame = CGRectMake(280.0f, timeBegin, 26.0f, 26.0f);
+    self.moreButton.frame = CGRectMake(280.0f, timeBegin + 2.0f, 26.0f, 26.0f);
     self.time.frame = CGRectMake(K_LEFT_PADDING, timeBegin, 60, 30);
     self.time.text = [self timeStringFromNumber:self.data.ts];
+    
+    self.deleteTopic.frame = CGRectMake(K_LEFT_PADDING + 62.0f, self.time.frame.origin.y + 6.0f, 40.0f, 20.0f);
+    CPLGModelAccount *account = [[CPSystemEngine sharedInstance] accountModel];
+    if ([account.uid integerValue] == [data.author_uid integerValue]) {
+        self.deleteTopic.hidden = NO;
+    }else{
+        self.deleteTopic.hidden = YES;
+    }
     
     if ([self.data.praisesStr length] > 0 || [self.data.commentsStr length] > 0) {
         self.likeContent.hidden = YES;

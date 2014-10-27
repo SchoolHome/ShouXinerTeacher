@@ -13,6 +13,8 @@
 #import "EGOImageButton.h"
 
 #import "BBTopicModel.h"
+#import "CPLGModelAccount.h"
+#import "CPSystemEngine.h"
 
 #define K_LEFT_PADDING 60.0f
 
@@ -44,6 +46,7 @@
 //@property(nonatomic,strong) UIButton *reply;
 @property(nonatomic,strong) UIButton *moreButton;
 @property(nonatomic,strong) UIButton *recommendButton;
+@property(nonatomic,strong) UIButton *deleteTopic;
 
 @property(nonatomic,strong) UIImageView *TuiJianImage;
 @property(nonatomic,strong) UIImageView *RongYuImage;
@@ -83,6 +86,7 @@
 -(void)bbBaseTableViewCell:(BBBaseTableViewCell *)cell recommendButtonTaped:(UIButton *)sender;
 
 -(void) bbBaseTableViewCell:(BBBaseTableViewCell *)cell touchPoint:(CGPoint)touchPoint longPressText : (NSString *) text;
+-(void) bbBaseTableViewCell:(BBBaseTableViewCell *)cell deleteButtonTaped:(UIButton *)sender;
 @end
 
 

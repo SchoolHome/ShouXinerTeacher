@@ -31,6 +31,9 @@
         title.textColor = [UIColor colorWithHexString:@"#4a7f9d"];
         title.backgroundColor = [UIColor clearColor];
         
+        typeImage = [[UIImageView alloc] initWithFrame:CGRectMake(280.0f, 10.0f, 28.0f, 15.0f)];
+        [self addSubview:typeImage];
+        
         self.TuiJianImage = [[UIImageView alloc] initWithFrame:CGRectMake(title.frame.origin.x + title.frame.size.width, 2.0f, 10, 15.0f)];
         self.TuiJianImage.image = [UIImage imageNamed:@"BJQTuiJian"];
         self.TuiJianImage.hidden = YES;
@@ -62,6 +65,16 @@
     title.font = [UIFont systemFontOfSize:14];
     title.lineBreakMode = NSLineBreakByTruncatingTail;
     [title sizeToFit];
+    
+    if ([data.subject integerValue] == 1) {
+        typeImage.image = [UIImage imageNamed:@"BJQMath"];
+    }else if ([data.subject integerValue] == 2){
+        typeImage.image = [UIImage imageNamed:@"BJQChinese"];
+    }else if ([data.subject integerValue] == 3){
+        typeImage.image = [UIImage imageNamed:@"BJQEnglish"];
+    }else{
+        typeImage.image = nil;
+    }
     
     content.frame = CGRectMake(K_LEFT_PADDING, title.frame.origin.y + title.frame.size.height + 10.0f, 225, 0);
     
@@ -116,20 +129,28 @@
     }
     
     if (self.data.recommendToGroups || self.data.recommendToHomepage || self.data.recommendToUpGroup) {
-        self.recommendButton.frame = CGRectMake(232.0f, timeBegin, 29.0, 26.0f);
+        self.recommendButton.frame = CGRectMake(232.0f, timeBegin+2.0f, 29.0, 26.0f);
         [self.recommendButton setBackgroundImage:[UIImage imageNamed:@"BJQHasTuiJian"] forState:UIControlStateNormal];
         [self.recommendButton setBackgroundImage:[UIImage imageNamed:@"BJQHasTuiJian"] forState:UIControlStateHighlighted];
         [self.recommendButton removeTarget:self action:@selector(recommendTaped:) forControlEvents:UIControlEventTouchUpInside];
     }else{
-        self.recommendButton.frame = CGRectMake(232.0f, timeBegin, 29.0, 26.0f);
+        self.recommendButton.frame = CGRectMake(232.0f, timeBegin+2.0f, 29.0, 26.0f);
         [self.recommendButton setBackgroundImage:[UIImage imageNamed:@"BJQHaveNotTuiJian"] forState:UIControlStateNormal];
         [self.recommendButton setBackgroundImage:[UIImage imageNamed:@"BJQHaveNotTuiJian"] forState:UIControlStateHighlighted];
         [self.recommendButton addTarget:self action:@selector(recommendTaped:) forControlEvents:UIControlEventTouchUpInside];
     }
     
-    self.moreButton.frame = CGRectMake(280.0f, timeBegin, 26.0f, 26.0f);
+    self.moreButton.frame = CGRectMake(280.0f, timeBegin+2.0f, 26.0f, 26.0f);
     self.time.frame = CGRectMake(K_LEFT_PADDING, timeBegin, 60, 30);
     self.time.text = [self timeStringFromNumber:self.data.ts];
+    
+    self.deleteTopic.frame = CGRectMake(K_LEFT_PADDING + 62.0f, self.time.frame.origin.y + 6.0f, 40.0f, 20.0f);
+    CPLGModelAccount *account = [[CPSystemEngine sharedInstance] accountModel];
+    if ([account.uid integerValue] == [data.author_uid integerValue]) {
+        self.deleteTopic.hidden = NO;
+    }else{
+        self.deleteTopic.hidden = YES;
+    }
     
     if ([self.data.praisesStr length] > 0 || [self.data.commentsStr length] > 0) {
         self.likeContent.hidden = YES;

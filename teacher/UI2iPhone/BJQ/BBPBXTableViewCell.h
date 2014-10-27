@@ -12,7 +12,7 @@
 @interface BBPBXTableViewCell : BBBaseTableViewCell{
     UILabel *title;
     UILabel *content;
-    
+    UIImageView *typeImage;
     EGOImageButton *imageContent[8];
 }
 

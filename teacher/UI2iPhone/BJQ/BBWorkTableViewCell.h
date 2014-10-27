@@ -17,7 +17,7 @@
     UILabel *title;
     UIImageView *contentBack;
     UILabel *content;
-
+    UIImageView *typeImage;
     EGOImageButton *imageContent[8];
 }
 
