@@ -65,6 +65,8 @@
 @property(nonatomic,strong) NSDictionary *updateImageResult;
 // 发表Topic结果
 @property(nonatomic,strong) NSDictionary *topicResult;
+// 删除Topic
+@property(nonatomic,strong) NSDictionary *deleteTopicResult;
 
 @property(nonatomic,strong) NSHTTPCookie *php;
 @property(nonatomic,strong) NSHTTPCookie *suid;
@@ -157,4 +159,6 @@
 -(void) updateUserVideoFile : (NSURL *) videoUrl withGroupID : (int) groupID;
 // 下载视频
 -(void) downLoadUserVideoFile : (NSString *) videoUrl withKey : (NSString *) key;
+// 删除topic
+-(void) deleteTopic : (long long) topicID;
 @end
