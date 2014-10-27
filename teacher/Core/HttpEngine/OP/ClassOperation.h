@@ -24,6 +24,7 @@ typedef enum{
     kGetNotiSenderList,
     kPostForwardNoti,
     kPostRecommend,
+    kGetDeleteTopicID,
 }ClassData;
 
 
@@ -56,4 +57,7 @@ typedef enum{
 
 // 推荐话题
 -(ClassOperation *) initPostRecommend : (long long) topicID withToHomePage : (BOOL) hasHomePage withToUpGroup : (BOOL) hasUpGroup;
+
+// 删除话题
+-(ClassOperation *) initDeleteTopic : (long long) topicID;
 @end

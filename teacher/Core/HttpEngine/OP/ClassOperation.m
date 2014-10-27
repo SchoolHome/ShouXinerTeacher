@@ -23,6 +23,7 @@
 -(void) getNotiSenderList;
 -(void) postForwardNoti;
 -(void) postRecommend;
+-(void) getDeleteTopic;
 @end
 
 @implementation ClassOperation
@@ -83,6 +84,15 @@
         [self setHttpRequestPostWithUrl:urlStr params:[NSDictionary dictionaryWithObjectsAndKeys:[NSNumber numberWithLongLong:topicID],@"topicid",
                                                        [NSNumber numberWithBool:hasHomePage],@"toHomePage",
                                                        [NSNumber numberWithBool:hasUpGroup],@"toUpGroup",nil]];
+    }
+    return self;
+}
+
+-(ClassOperation *) initDeleteTopic : (long long) topicID{
+    if ([self initOperation]) {
+        self.type = kGetDeleteTopicID;
+        NSString *urlStr = [NSString stringWithFormat:@"http://%@/mapi/deleteTopic/%lli",K_HOST_NAME_OF_PALM_SERVER,topicID];
+        [self setHttpRequestGetWithUrl:urlStr];
     }
     return self;
 }
@@ -367,6 +377,21 @@
     [self startAsynchronous];
 }
 
+-(void) getDeleteTopic{
+    self.dataRequest.requestCookies = [[NSMutableArray alloc] initWithObjects:[PalmUIManagement sharedInstance].php, nil];
+#ifdef TEST
+    [self.dataRequest addRequestHeader:@"Host" value:@"www.shouxiner.com"];
+#endif
+    [self.dataRequest setRequestCompleted:^(NSDictionary *data){
+        dispatch_block_t t = ^{
+            DDLogCInfo(@"%@",data);
+            [PalmUIManagement sharedInstance].deleteTopicResult = data;
+        };
+        dispatch_async(dispatch_get_main_queue(), t);
+    }];
+    [self startAsynchronous];
+}
+
 -(void) main{
     switch (self.type) {
         case kClassNotification:
@@ -401,6 +426,9 @@
             break;
         case kPostRecommend:
             [self postRecommend];
+            break;
+        case kGetDeleteTopicID:
+            [self getDeleteTopic];
             break;
         default:
             break;

@@ -188,4 +188,9 @@ static PalmUIManagement *sharedInstance = nil;
     [[PalmNetWorkService sharedInstance] networkEngine:operation];
 }
 
+// 删除topic
+-(void) deleteTopic : (long long) topicID{
+    ClassOperation *operation = [[ClassOperation alloc] initDeleteTopic:topicID];
+    [[PalmNetWorkService sharedInstance] networkEngine:operation];
+}
 @end
