@@ -103,7 +103,7 @@
     CustomNavigationController *n2 = [[CustomNavigationController alloc] initWithRootViewController:c2];
     n2.tabBarItem.title = @"ZJZ";
 
-    BBYZSViewController *c3 = [[BBYZSViewController alloc] init];
+    UIViewController *c3 = [[UIViewController  alloc] init];
     CustomNavigationController *n3 = [[CustomNavigationController alloc] initWithRootViewController:c3];
     n3.tabBarItem.title = @"YZSS";
     
@@ -173,9 +173,9 @@
     roundedLayer1.borderWidth = 0.5;
     roundedLayer1.borderColor = [[UIColor grayColor] CGColor];
     markYZS.text = @"";
-    //markYZS.hidden = YES;
+    markYZS.hidden = YES;
     
-    //[self checkUnreadCount];
+    [self checkUnreadCount];
     
     markMessage = [[UILabel alloc] initWithFrame:CGRectMake(320/itemCount*2-12.f, -5, 20, 20)];
     markMessage.font = [UIFont systemFontOfSize:14];
