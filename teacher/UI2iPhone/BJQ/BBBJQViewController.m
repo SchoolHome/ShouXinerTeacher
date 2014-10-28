@@ -448,7 +448,7 @@
     
 #ifdef IS_TEACHER
     UIButton *addButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    [addButton setFrame:CGRectMake(0.f, 7.f, 30.f, 30.f)];
+    [addButton setFrame:CGRectMake(0.f, 14.f, 23.f, 23.f)];
     [addButton setBackgroundImage:[UIImage imageNamed:@"BBAdd"] forState:UIControlStateNormal];
     [addButton addTarget:self action:@selector(addNewTaped:) forControlEvents:UIControlEventTouchUpInside];
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:addButton];
@@ -465,7 +465,7 @@
     self.navigationItem.titleView = titleButton;
     titleButton.titleLabel.lineBreakMode = NSLineBreakByTruncatingMiddle;
     [titleButton addTarget:self action:@selector(bjButtonTaped:) forControlEvents:UIControlEventTouchUpInside];
-    
+    [titleButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
     UIImageView *arrow = [[UIImageView alloc] initWithFrame:CGRectMake(124, 9, 22, 22)];
     [titleButton addSubview:arrow];
     arrow.image = [UIImage imageNamed:@"BBDown"];
