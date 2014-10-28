@@ -342,6 +342,10 @@
         return;
     }
     
+    if ([bjDropdownView.listData count] == 1) {
+        return;
+    }
+    
     [[UIApplication sharedApplication].keyWindow addSubview:bjDropdownView];
     if (bjDropdownView.unfolded) {
         [bjDropdownView dismiss];
