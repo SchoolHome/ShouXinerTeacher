@@ -10,13 +10,15 @@
 #import "BBGroupModel.h"
 
 @protocol BBBJDropdownViewDelegate;
-@interface BBBJDropdownView : UIControl<UITableViewDataSource,UITableViewDelegate>
+@interface BBBJDropdownView : UIControl
 {
     UITableView *_list;
 }
 
 @property (nonatomic,weak) id<BBBJDropdownViewDelegate> delegate;
 @property (nonatomic,strong) NSArray *listData;
+@property (nonatomic,strong) UIImageView *bgView;
+@property (nonatomic,strong) NSMutableArray *buttonArray;
 @property BOOL unfolded;
 
 -(void)show;

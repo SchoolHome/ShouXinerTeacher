@@ -7,43 +7,57 @@
 //
 
 #import "BBFSDropdownView.h"
-#define kDropdownWidth      83
-#define kDropdownCellHeight 44
+#define kDropdownWidth      116
+#define kDropdownCellHeight 129
+
+@interface BBFSDropdownView ()
+-(void) bbTouchButton : (UIButton *) sender;
+@end
 
 @implementation BBFSDropdownView
 
-- (id)initWithFrame:(CGRect)frame
-{
+- (id)initWithFrame:(CGRect)frame{
     self = [super initWithFrame:frame];
     if (self) {
-        
         self.unfolded = NO;
         self.backgroundColor = [UIColor clearColor];
         
-        _listData = [[NSArray alloc] initWithObjects:
-                     @"BBPBX",@"BBFZY",@"BBFTZ",@"BBSBS", nil];
+        self.bgView = [[UIImageView alloc] initWithFrame:CGRectMake((self.frame.size.width-kDropdownWidth) - 10.0f, 44+20, kDropdownWidth, kDropdownCellHeight)];
+        self.bgView.image = [UIImage imageNamed:@"options"];
+        self.bgView.userInteractionEnabled = YES;
+        self.bgView.clipsToBounds = YES;
+        [self addSubview:self.bgView];
         
-        _list = [[UITableView alloc] initWithFrame:CGRectMake((self.frame.size.width-kDropdownWidth), 44+20, kDropdownWidth, 0) style:UITableViewStylePlain];
-        _list.rowHeight = kDropdownCellHeight;
-        _list.dataSource = self;
-        _list.delegate = self;
-        _list.scrollEnabled = NO;
-        _list.backgroundColor = [UIColor clearColor];//[UIColor colorWithRed:0 green:0 blue:0 alpha:0.55];
-        _list.separatorColor = [UIColor darkGrayColor];//[UIColor colorWithHexString:@"515151"];
+        self.showAllButton = [UIButton buttonWithType:UIButtonTypeCustom];
+        self.showAllButton.frame = CGRectMake(0.0f, 9.0f, 116.0f, 40.0f);
+        [self.showAllButton setImage:[UIImage imageNamed:@"all"] forState:UIControlStateNormal];
+        [self.showAllButton setImage:[UIImage imageNamed:@"all_press"] forState:UIControlStateHighlighted];
+        [self.showAllButton addTarget:self action:@selector(bbTouchButton:) forControlEvents:UIControlEventTouchUpInside];
+        self.showAllButton.tag = 0;
+        [self.bgView addSubview:self.showAllButton];
         
-        [self addSubview:_list];
+        self.showHomeworkButton = [UIButton buttonWithType:UIButtonTypeCustom];
+        self.showHomeworkButton.frame = CGRectMake(0.0f, 49.0f, 116.0f, 40.0f);
+        [self.showHomeworkButton setImage:[UIImage imageNamed:@"hwork"] forState:UIControlStateNormal];
+        [self.showHomeworkButton setImage:[UIImage imageNamed:@"hwork_press"] forState:UIControlStateHighlighted];
+        [self.showHomeworkButton addTarget:self action:@selector(bbTouchButton:) forControlEvents:UIControlEventTouchUpInside];
+        self.showHomeworkButton.tag = 1;
+        [self.bgView addSubview:self.showHomeworkButton];
         
-        _list.layer.borderWidth = 1;
-        _list.layer.borderColor = [UIColor darkGrayColor].CGColor;
+        self.refreshButton = [UIButton buttonWithType:UIButtonTypeCustom];
+        self.refreshButton.frame = CGRectMake(0.0f, 89.0f, 116.0f, 40.0f);
+        [self.refreshButton setImage:[UIImage imageNamed:@"f5"] forState:UIControlStateNormal];
+        [self.refreshButton setImage:[UIImage imageNamed:@"f5_press"] forState:UIControlStateHighlighted];
+        [self.refreshButton addTarget:self action:@selector(bbTouchButton:) forControlEvents:UIControlEventTouchUpInside];
+        self.refreshButton.tag = 2;
+        [self.bgView addSubview:self.refreshButton];
         
         [self addTarget:self action:@selector(close) forControlEvents:UIControlEventTouchUpInside];
-        
     }
     return self;
 }
 
 -(void)close{
-    
     [self dismiss];
     if (self.delegate&&[self.delegate respondsToSelector:@selector(bbFSDropdownViewTaped:)]) {
         [self.delegate bbFSDropdownViewTaped:self];
@@ -51,9 +65,9 @@
 }
 
 -(void)dismiss{
-    [UIView animateWithDuration:0.3
+    [UIView animateWithDuration:0.1
                      animations:^{
-                         _list.frame = CGRectMake((self.frame.size.width-kDropdownWidth), 44+20, kDropdownWidth, 0);
+                         self.bgView.alpha = 0.0f;
                      }
                      completion:^(BOOL finished) {
                          self.unfolded = NO;
@@ -62,65 +76,22 @@
 }
 
 -(void)show{
-    
-    _list.frame = CGRectMake((self.frame.size.width-kDropdownWidth), 44+20, kDropdownWidth, 0);
+    self.bgView.alpha = 0.0f;
     [UIView animateWithDuration:0.3
                      animations:^{
-                         _list.frame = CGRectMake((self.frame.size.width-kDropdownWidth), 44+20, kDropdownWidth, kDropdownCellHeight*[_listData count]);
+                         self.bgView.alpha = 100.0f;
                      }
                      completion:^(BOOL finished) {
                          self.unfolded = YES;
                      }];
-    
 }
 
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
-{
-    return 1;
-}
 
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
-{
-    return [_listData count];
-}
-
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    static NSString *CellIdentifier = @"Cell";
-    
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
-    if (cell == nil) {
-        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
-        cell.backgroundColor = [UIColor clearColor];
-        
-        cell.backgroundView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 83, 44)];
-        cell.selectedBackgroundView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 83, 44)];
-
-    }
-//    cell.textLabel.text = [_listData objectAtIndex:indexPath.row];
-//    cell.textLabel.font = [UIFont boldSystemFontOfSize:12];
-//    cell.textLabel.textAlignment = UITextAlignmentCenter;
-//    cell.textLabel.textColor = [UIColor whiteColor];
-    
-    UIImageView *bk = (UIImageView *)cell.backgroundView;
-    UIImageView *sbk = (UIImageView *)cell.selectedBackgroundView;
-    bk.image = [UIImage imageNamed:_listData[indexPath.row]];
-    sbk.image = [UIImage imageNamed:[NSString stringWithFormat:@"%@Press",_listData[indexPath.row]]];
-    
-    return cell;
-}
-
-#pragma mark - Table view delegate
-
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
-{
+-(void) bbTouchButton : (UIButton *) sender{
     [self dismiss];
-    
     if (self.delegate&&[self.delegate respondsToSelector:@selector(bbFSDropdownView:didSelectedAtIndex:)]) {
-        [self.delegate bbFSDropdownView:self didSelectedAtIndex:indexPath.row];
+        [self.delegate bbFSDropdownView:self didSelectedAtIndex:sender.tag];
     }
-    
-    [tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
 
 @end

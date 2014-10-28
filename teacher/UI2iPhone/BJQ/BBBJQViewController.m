@@ -455,8 +455,6 @@
     [shareButton addTarget:self action:@selector(shareTaped:) forControlEvents:UIControlEventTouchUpInside];
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:shareButton];
 #endif
-//    
-//    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"BBAdd"] style:UIBarButtonItemStylePlain  target:self action:@selector(addNewTaped:)];
     
     titleButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 125, 44)];
     [titleButton setTitle:@"班级" forState:UIControlStateNormal];

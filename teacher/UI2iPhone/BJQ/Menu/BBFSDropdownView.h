@@ -10,13 +10,17 @@
 
 
 @protocol BBFSDropdownViewDelegate;
-@interface BBFSDropdownView : UIControl<UITableViewDataSource,UITableViewDelegate>
+@interface BBFSDropdownView : UIControl
 {
     UITableView *_list;
 }
 
 @property (nonatomic,weak) id<BBFSDropdownViewDelegate> delegate;
 @property (nonatomic,strong) NSArray *listData;
+@property (nonatomic,strong) UIImageView *bgView;
+@property (nonatomic,strong) UIButton *showAllButton;
+@property (nonatomic,strong) UIButton *showHomeworkButton;
+@property (nonatomic,strong) UIButton *refreshButton;
 @property BOOL unfolded;
 
 -(void)show;
