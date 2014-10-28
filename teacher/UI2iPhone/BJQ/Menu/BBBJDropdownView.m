@@ -22,28 +22,32 @@
     
     self.height = 48.0f + 40 * ([listData count] - 1);
     
-    self.bgView = [[UIImageView alloc] initWithFrame:CGRectMake((self.frame.size.width-kDropdownWidth) - 10.0f, 44+20, kDropdownWidth, self.height)];
+    self.bgView = [[UIImageView alloc] initWithFrame:CGRectMake((320 - kDropdownWidth)/2.0f, 44+20, kDropdownWidth, self.height)];
     self.bgView.userInteractionEnabled = YES;
     self.bgView.clipsToBounds = YES;
     [self addSubview:self.bgView];
     
-    for (int i = 0; i<[listData count]; i++) {
+    for (int i = 0; i<[_listData count]; i++) {
         UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
-        if (i == 0) {
-            [button setBackgroundImage:[UIImage imageNamed:@"BJQClassTap"] forState:UIControlStateNormal];
-            [button setBackgroundImage:[UIImage imageNamed:@"BJQClassTapPressed"] forState:UIControlStateNormal];
-            button.frame = CGRectMake(0.0, 0.0f, kDropdownWidth, 48.0f);
-        }
         UIButton *lastButton = [self.buttonArray lastObject];
-        if (i == [listData count] - 1) {
-            [button setBackgroundImage:[UIImage imageNamed:@"BJQClassBottom"] forState:UIControlStateNormal];
-            [button setBackgroundImage:[UIImage imageNamed:@"BJQClassBottomPressed"] forState:UIControlStateNormal];
+        if (i == 0) {
+            [button setImage:[UIImage imageNamed:@"BJQClassTap"] forState:UIControlStateNormal];
+            [button setImage:[UIImage imageNamed:@"BJQClassTapPressed"] forState:UIControlStateHighlighted];
+            button.frame = CGRectMake(0.0, 0.0f, kDropdownWidth, 48.0f);
+        }else if (i == [_listData count] - 1) {
+            [button setImage:[UIImage imageNamed:@"BJQClassBottom"] forState:UIControlStateNormal];
+            [button setImage:[UIImage imageNamed:@"BJQClassBottomPressed"] forState:UIControlStateHighlighted];
+            button.frame = CGRectMake(0.0, lastButton.frame.origin.y + lastButton.frame.size.height, kDropdownWidth, 40.0f);
+        }else{
+            [button setImage:[UIImage imageNamed:@"BJQClassMiddle"] forState:UIControlStateNormal];
+            [button setImage:[UIImage imageNamed:@"BJQClassMiddlePressed"] forState:UIControlStateHighlighted];
             button.frame = CGRectMake(0.0, lastButton.frame.origin.y + lastButton.frame.size.height, kDropdownWidth, 40.0f);
         }
-        [button setBackgroundImage:[UIImage imageNamed:@"BJQClassMiddle"] forState:UIControlStateNormal];
-        [button setBackgroundImage:[UIImage imageNamed:@"BJQClassMiddlePressed"] forState:UIControlStateNormal];
-        button.frame = CGRectMake(0.0, lastButton.frame.origin.y + lastButton.frame.size.height, kDropdownWidth, 40.0f);
-        [button setTitle:listData[i] forState:UIControlStateNormal];
+        BBGroupModel *model = _listData[i];
+        [button setTitle:model.alias forState:UIControlStateNormal];
+        [button setTitle:model.alias forState:UIControlStateHighlighted];
+        [button setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+        [button setTitleColor:[UIColor blackColor] forState:UIControlStateHighlighted];
         [button addTarget:self action:@selector(bbTouchButton:) forControlEvents:UIControlEventTouchUpInside];
         [self.buttonArray addObject:button];
         [self.bgView addSubview:button];
@@ -81,13 +85,13 @@
 }
 
 -(void)show{
-//    self.bgView.alpha = 0.0f;
-//    [UIView animateWithDuration:0.3
-//                     animations:^{
-//                         self.bgView.alpha = 100.0f;
-//                     }completion:^(BOOL finished) {
-//                         self.unfolded = YES;
-//                     }];
+    self.bgView.alpha = 0.0f;
+    [UIView animateWithDuration:0.3
+                     animations:^{
+                         self.bgView.alpha = 100.0f;
+                     }completion:^(BOOL finished) {
+                         self.unfolded = YES;
+                     }];
 }
 
 -(void) bbTouchButton : (UIButton *) sender{
