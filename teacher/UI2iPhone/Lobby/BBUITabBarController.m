@@ -129,18 +129,18 @@
     [self.tabBar bringSubviewToFront:_imageTabBar];
     
     _tapImages = [[NSArray alloc] initWithObjects:
-                  [UIImage imageNamed:@"BBBottomIndexPress1"],
-                  [UIImage imageNamed:@"BBBottomIndexPress2"],
-                  [UIImage imageNamed:@"BBBottomIndexPress2"],
-                  [UIImage imageNamed:@"BBBottomIndexPress3"],
-                  [UIImage imageNamed:@"BBBottomIndexPress4"],
+                  [UIImage imageNamed:@"class"],
+                  [UIImage imageNamed:@"mes"],
+                  [UIImage imageNamed:@"plus_bg"],
+                  [UIImage imageNamed:@"find"],
+                  [UIImage imageNamed:@"me"],
                   nil];
     NSArray *backImages = [[NSArray alloc] initWithObjects:
-                  [UIImage imageNamed:@"BBBottomIndex1"],
-                  [UIImage imageNamed:@"BBBottomIndex2"],
-                  [UIImage imageNamed:@"BBBottomIndex2"],
-                  [UIImage imageNamed:@"BBBottomIndex3"],
-                  [UIImage imageNamed:@"BBBottomIndex4"],
+                  [UIImage imageNamed:@"class_gray"],
+                  [UIImage imageNamed:@"mes_gray"],
+                  [UIImage imageNamed:@"plus_bg"],
+                  [UIImage imageNamed:@"find_gray"],
+                  [UIImage imageNamed:@"me_gray"],
                   nil];
     
     NSInteger itemCount = [_tapImages count];
@@ -161,7 +161,7 @@
         }
     }
     
-    markYZS = [[UILabel alloc] initWithFrame:CGRectMake(320/itemCount*4-12.f, -5, 20, 20)];
+    markYZS = [[UILabel alloc] initWithFrame:CGRectMake(320/itemCount*4-16.f, -5, 20, 20)];
     markYZS.font = [UIFont systemFontOfSize:14];
     [_imageTabBar addSubview:markYZS];
     markYZS.backgroundColor = [UIColor colorWithRed:252/255.0 green:79/255.0 blue:6/255.0 alpha:1.0];
@@ -177,7 +177,7 @@
     
     [self checkUnreadCount];
     
-    markMessage = [[UILabel alloc] initWithFrame:CGRectMake(320/itemCount*2-12.f, -5, 20, 20)];
+    markMessage = [[UILabel alloc] initWithFrame:CGRectMake(320/itemCount*2-16.f, -5, 20, 20)];
     markMessage.font = [UIFont systemFontOfSize:14];
     [_imageTabBar addSubview:markMessage];
     markMessage.backgroundColor = [UIColor colorWithRed:252/255.0 green:79/255.0 blue:6/255.0 alpha:1.0];
