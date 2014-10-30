@@ -7,6 +7,12 @@
 //
 
 #import "BBUITabBarController.h"
+
+#import "BBBasePostViewController.h"
+#import "BBPostHomeworkViewController.h"
+#import "BBPostPBXViewController.h"
+
+
 #import "CPUIModelManagement.h"
 #import "CustomNavigationController.h"
 #import "CPDBManagement.h"
@@ -37,7 +43,7 @@
             }else{
                 width = width + 8;
             }
-            markYZS.frame = CGRectMake(215, -5, width, 20);
+            markYZS.frame = CGRectMake(320/5*4-16.f, -5, width, 20);
             [markYZS setNeedsDisplay];
         }
     }
@@ -57,7 +63,7 @@
             }else{
                 width = width + 8;
             }
-            markMessage.frame = CGRectMake(320/5*2-12.f, -5, width, 20);
+            markMessage.frame = CGRectMake(320/5*4-16.f, -5, width, 20);
             [markMessage setNeedsDisplay];
         }
     }
@@ -206,6 +212,23 @@
 
 -(void) clickItemIndex : (ClickMenuItem) item{
     NSLog(@"%d",item);
+    if (item == kPBXItem) {
+        BBPostPBXViewController *postPBX = [[BBPostPBXViewController alloc] initWithPostType:POST_TYPE_PBX];
+        postPBX.hidesBottomBarWhenPushed = YES;
+        //pbx.currentGroup = _currentGroup;
+        [(UINavigationController *)self.selectedViewController pushViewController:postPBX animated:YES];
+    }else
+    {
+        if (item == kHomeWorkItem) {
+            BBPostHomeworkViewController *postHomeWork = [[BBPostHomeworkViewController alloc] initWithPostType:POST_TYPE_FZY];
+            postHomeWork.hidesBottomBarWhenPushed = YES;
+            [(UINavigationController *)self.selectedViewController pushViewController:postHomeWork animated:YES];
+        }else{
+            BBBasePostViewController *post = [[BBBasePostViewController alloc] initWithPostType:item == kNoticeItem ? POST_TYPE_FTZ : POST_TYPE_SBS];
+            post.hidesBottomBarWhenPushed = YES;
+            [(UINavigationController *)self.selectedViewController pushViewController:post animated:YES];
+        }
+    }
 }
 
 - (void)tabBarController:(UITabBarController *)tabBarController didSelectViewController:(UIViewController *)viewController{

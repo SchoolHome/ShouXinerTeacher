@@ -4,8 +4,11 @@
 #import "ZYQAssetPickerController.h"
 
 @interface BBFZYViewController ()<ZYQAssetPickerControllerDelegate,viewImageDeletedDelegate>
-
-@property (nonatomic,strong) NSString *placeholder;
+{
+    UIView *textBack;
+}
+@property (nonatomic, strong) NSString *placeholder;
+@property (nonatomic, strong) BBChooseImgViewInPostPage *chooseImageView;
 
 @property BOOL hasClazz;
 
@@ -38,7 +41,7 @@
                         break;
                     case 2:
                         //
-                        title = @"拍表现";
+                        title = @"拍状态";
 
                         break;
                     case 3:
@@ -105,7 +108,7 @@
         case 2:
             //
             _placeholder = @"说点赞美话...";
-            self.title = @"拍表现";
+            self.title = @"拍状态";
             
             _topicType = 4;
             break;
@@ -120,6 +123,11 @@
         default:
             break;
     }
+}
+
+-(void)classButtonTapped:(UIButton *)sender
+{
+    
 }
 
 -(void)kemuButtonTaped:(id)sender{
@@ -317,43 +325,72 @@
     
     // left
     UIButton *backButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    [backButton setFrame:CGRectMake(0.f, 7.f, 30.f, 30.f)];
-    [backButton setBackgroundImage:[UIImage imageNamed:@"BBCancelSendButton"] forState:UIControlStateNormal];
+    [backButton setFrame:CGRectMake(0.f, 7.f, 24.f, 24.f)];
+    [backButton setBackgroundImage:[UIImage imageNamed:@"back"] forState:UIControlStateNormal];
     [backButton addTarget:self action:@selector(backButtonTaped:) forControlEvents:UIControlEventTouchUpInside];
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:backButton];
     
     // right
     UIButton *sendButton = [UIButton buttonWithType:UIButtonTypeCustom];
     [sendButton setFrame:CGRectMake(0.f, 7.f, 30.f, 30.f)];
-    [sendButton setBackgroundImage:[UIImage imageNamed:@"BBSendButton"] forState:UIControlStateNormal];
+    //[sendButton setBackgroundImage:[UIImage imageNamed:@"BBSendButton"] forState:UIControlStateNormal];
+    [sendButton setTitle:@"发送" forState:UIControlStateNormal];
+    [sendButton setTintColor:[UIColor colorWithRed:251/255.f green:76/255.f blue:7/255.f alpha:1.f]];
     [sendButton addTarget:self action:@selector(sendButtonTaped:) forControlEvents:UIControlEventTouchUpInside];
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:sendButton];
     
     
     kmList = @[@"不指定科目",@"数学",@"语文",@"英语",@"体育",@"自然科学",@"其它"];
     
-    UIView *textBack = [[UIView alloc] initWithFrame:CGRectMake(15, 15, 320-30, 70)];
-    [self.view addSubview:textBack];
-    CALayer *roundedLayer0 = [textBack layer];
-    [roundedLayer0 setMasksToBounds:YES];
-    roundedLayer0.cornerRadius = 8.0;
-    roundedLayer0.borderWidth = 1;
-    roundedLayer0.borderColor = [[UIColor lightGrayColor] CGColor];
+    classButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    classButton.frame = CGRectMake(0, 0, 320, 40);
+    [classButton setBackgroundColor:[UIColor whiteColor]];
+    [classButton addTarget:self action:@selector(classButtonTapped:) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:classButton];
     
-    thingsTextView = [[UIPlaceHolderTextView alloc] initWithFrame:CGRectMake(20, 20, 320-40, 60)];
-    [self.view addSubview:thingsTextView];
+    CALayer *roundedClassButtonLayer = [classButton layer];
+    [roundedClassButtonLayer setMasksToBounds:YES];
+    //roundedLayer.cornerRadius = 8.0;
+    roundedClassButtonLayer.borderWidth = 1;
+    roundedClassButtonLayer.borderColor = [[UIColor whiteColor] CGColor];
+    
+    UILabel *labelClassTitle = [[UILabel alloc] initWithFrame:CGRectMake(10, 0, 80, 50)];
+    [classButton addSubview:labelClassTitle];
+    labelClassTitle.text = @"当前班级";
+    labelClassTitle.font = [UIFont boldSystemFontOfSize:18];
+    labelClassTitle.backgroundColor = [UIColor clearColor];
+    
+    classLabel = [[UILabel alloc] initWithFrame:CGRectMake(320-30-160-30, 0, 160, 50)];
+    classLabel.textColor = [UIColor colorWithHexString:@"#4a7f9d"];
+    classLabel.textAlignment = NSTextAlignmentRight;
+    [kemuButton addSubview:classLabel];
+    classLabel.text = @"未选择";
+    classLabel.backgroundColor = [UIColor clearColor];
+    
+    thingsTextView = [[UIPlaceHolderTextView alloc] initWithFrame:CGRectMake(4, 65+IMAGE_INTERVAL, 320-8, 60)];
     thingsTextView.placeholder = _placeholder;
     thingsTextView.backgroundColor = [UIColor clearColor];
     
-    UIView *imageBack = [[UIView alloc] initWithFrame:CGRectMake(15, 95, 320-30, 140)];
-    [self.view addSubview:imageBack];
-    CALayer *roundedLayer2 = [imageBack layer];
-    [roundedLayer2 setMasksToBounds:YES];
-    roundedLayer2.cornerRadius = 8.0;
-    roundedLayer2.borderWidth = 1;
-    roundedLayer2.borderColor = [[UIColor lightGrayColor] CGColor];
+//    UIView *imageBack = [[UIView alloc] initWithFrame:CGRectMake(0, 95, 320, 140)];
+//    [imageBack setBackgroundColor:[UIColor whiteColor]];
+//    [self.view addSubview:imageBack];
+//    CALayer *roundedLayer2 = [imageBack layer];
+//    [roundedLayer2 setMasksToBounds:YES];
+//    //roundedLayer2.cornerRadius = 8.0;
+//    roundedLayer2.borderWidth = 1;
+//    roundedLayer2.borderColor = [[UIColor whiteColor] CGColor];
+    
+    _chooseImageView = [[BBChooseImgViewInPostPage alloc] initWithFrame:CGRectMake(0.f, CGRectGetMaxY(thingsTextView.frame)+IMAGE_INTERVAL, 320.f,IMAGE_HEIGHT+IMAGE_INTERVAL*2)];
+    _chooseImageView.delegate = self;
     
     
+    if (_style == 1) {
+        _chooseImageView.maxImages = 3;
+    }else
+    {
+        _chooseImageView.maxImages = 7;
+    }
+    /*
     if (_style == 1) { // 发通知只有3张图
         
         for (int i = 0; i<4; i++) {
@@ -367,7 +404,7 @@
                 [imageButton[i] addTarget:self action:@selector(imageButtonTaped:) forControlEvents:UIControlEventTouchUpInside];
                 imageButton[i].tag = i;
             }else{
-                [imageButton[i] setBackgroundImage:[UIImage imageNamed:@"BBSendAddImage"] forState:UIControlStateNormal];
+                [imageButton[i] setBackgroundImage:[UIImage imageNamed:@"add"] forState:UIControlStateNormal];
                 [imageButton[i] addTarget:self action:@selector(imagePickerButtonTaped:) forControlEvents:UIControlEventTouchUpInside];
             }
         }
@@ -392,23 +429,37 @@
                 imageButton[i].tag = i;
             }else{
                 
-                [imageButton[i] setBackgroundImage:[UIImage imageNamed:@"BBSendAddImage"] forState:UIControlStateNormal];
+                [imageButton[i] setBackgroundImage:[UIImage imageNamed:@"add"] forState:UIControlStateNormal];
                 [imageButton[i] addTarget:self action:@selector(imagePickerButtonTaped:) forControlEvents:UIControlEventTouchUpInside];
             }
         }
     }
+    */
+    
+    textBack = [[UIView alloc] initWithFrame:CGRectMake(0, 65, 320, CGRectGetHeight(thingsTextView.frame)+CGRectGetHeight(_chooseImageView.frame)+IMAGE_INTERVAL*3)];
+    textBack.backgroundColor = [UIColor whiteColor];
+    [self.view addSubview:textBack];
+    CALayer *roundedLayer0 = [textBack layer];
+    [roundedLayer0 setMasksToBounds:YES];
+    //roundedLayer0.cornerRadius = 8.0;
+    roundedLayer0.borderWidth = 1;
+    roundedLayer0.borderColor = [[UIColor whiteColor] CGColor];
+    
+    [self.view addSubview:thingsTextView];
+    [self.view addSubview:_chooseImageView];
     
     kemuButton = [UIButton buttonWithType:UIButtonTypeCustom];
     //kemuButton.backgroundColor = [UIColor brownColor];
-    kemuButton.frame = CGRectMake(15, 245, 320-30, 50);
+    kemuButton.frame = CGRectMake(0, CGRectGetMaxY(textBack.frame)+30.f, 320, 50);
+    [kemuButton setBackgroundColor:[UIColor whiteColor]];
     [kemuButton addTarget:self action:@selector(kemuButtonTaped:) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:kemuButton];
     
     CALayer *roundedLayer = [kemuButton layer];
     [roundedLayer setMasksToBounds:YES];
-    roundedLayer.cornerRadius = 8.0;
+    //roundedLayer.cornerRadius = 8.0;
     roundedLayer.borderWidth = 1;
-    roundedLayer.borderColor = [[UIColor lightGrayColor] CGColor];
+    roundedLayer.borderColor = [[UIColor whiteColor] CGColor];
     
     UILabel *label1 = [[UILabel alloc] initWithFrame:CGRectMake(10, 0, 80, 50)];
     [kemuButton addSubview:label1];
@@ -584,7 +635,8 @@
 -(void)assetPickerController:(ZYQAssetPickerController *)picker didFinishPickingAssets:(NSArray *)assets{
     for (int i = 0; i<[assets count]; i++) {
         ALAsset *asset = [assets objectAtIndex:i];
-        [imageButton[selectCount] setBackgroundImage:[UIImage imageWithCGImage:[[asset defaultRepresentation] fullScreenImage]] forState:UIControlStateNormal];
+//        [imageButton[selectCount] setBackgroundImage:[UIImage imageWithCGImage:[[asset defaultRepresentation] fullScreenImage]] forState:UIControlStateNormal];
+        [_chooseImageView addImage:[UIImage imageWithCGImage:[[asset defaultRepresentation] fullScreenImage]]];
         selectCount++;
     }
 }
@@ -596,7 +648,7 @@
     if ([mediaType isEqualToString:@"public.image"]){
         image = [info objectForKey:UIImagePickerControllerOriginalImage];
     }
-
+    /*
     NSData *data = UIImageJPEGRepresentation(image, 0.6f);
     image = [[UIImage alloc] initWithData:data];
     
@@ -613,7 +665,8 @@
             selectCount++;
         }
     }
-    
+    */
+    [_chooseImageView addImage:image];
     [self dismissModalViewControllerAnimated:YES];
 }
 
@@ -633,5 +686,30 @@
     UIGraphicsEndImageContext();
     return newImage;
 }
-
+#pragma mark - BBChooseImageDelegate
+- (void)shouldAddImage:(NSInteger)imagesCount
+{
+    selectCount = imagesCount;
+    UIActionSheet *sheet = [[UIActionSheet alloc] initWithTitle:@"选择"
+                                                       delegate:self
+                                              cancelButtonTitle:@"取消"
+                                         destructiveButtonTitle:nil
+                                              otherButtonTitles:imagesCount>0?@"再拍一张":@"拍照",@"相册", nil];
+    [sheet showInView:self.view];
+}
+- (void)viewBoundsChanged:(CGRect)viewframe
+{
+    CGRect tempViewBack = textBack.frame;
+    tempViewBack.size.height = CGRectGetHeight(thingsTextView.frame)+CGRectGetHeight(viewframe)+IMAGE_INTERVAL*3;
+    textBack.frame = tempViewBack;
+    
+    CGRect kemuFrame = kemuButton.frame;
+    kemuFrame.origin.y = CGRectGetMaxY(textBack.frame) + 30.f;
+    kemuButton.frame = kemuFrame;
+}
+- (void)cannotAddImage
+{
+    [self showProgressWithText:@"已达到最大图片" withDelayTime:2.f];
+    
+}
 @end
