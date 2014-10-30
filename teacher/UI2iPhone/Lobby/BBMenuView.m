@@ -37,14 +37,14 @@
         self.noticeButton.frame = CGRectMake(55.0f, 303.0f, 70.0f, 102.0f);
         [self.noticeButton setImage:[UIImage imageNamed:@"f_notice"] forState:UIControlStateNormal];
         [self.noticeButton addTarget:self action:@selector(clickItem:) forControlEvents:UIControlEventTouchUpInside];
-        self.noticeButton.tag = 3;
+        self.noticeButton.tag = 2;
         [self addSubview:self.noticeButton];
         
         self.SBSButton = [UIButton buttonWithType:UIButtonTypeCustom];
         self.SBSButton.frame = CGRectMake(195.0f, 303.0f, 70.0f, 102.0f);
         [self.SBSButton setImage:[UIImage imageNamed:@"talk"] forState:UIControlStateNormal];
         [self.SBSButton addTarget:self action:@selector(clickItem:) forControlEvents:UIControlEventTouchUpInside];
-        self.SBSButton.tag = 4;
+        self.SBSButton.tag = 3;
         [self addSubview:self.SBSButton];
         
         self.closeViewButton = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -65,7 +65,7 @@
         self.SBSButton.frame = CGRectMake(195.0f, 303.0f, 70.0f, 102.0f);
         [self.SBSButton setImage:[UIImage imageNamed:@"talk"] forState:UIControlStateNormal];
         [self.SBSButton addTarget:self action:@selector(clickItem:) forControlEvents:UIControlEventTouchUpInside];
-        self.SBSButton.tag = 4;
+        self.SBSButton.tag = 3;
         [self addSubview:self.SBSButton];
         
         self.closeViewButton = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -84,6 +84,7 @@
 -(void) clickItem : (UIButton *) sender{
     if (self.delegate != nil && [self.delegate respondsToSelector:@selector(clickItemIndex:)]) {
         [self.delegate clickItemIndex:sender.tag];
+        [self clickCloseView];
     }
 }
 

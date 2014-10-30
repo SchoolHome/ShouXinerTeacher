@@ -203,6 +203,11 @@
     }
     return YES;
 }
+
+-(void) clickItemIndex : (ClickMenuItem) item{
+    NSLog(@"%d",item);
+}
+
 - (void)tabBarController:(UITabBarController *)tabBarController didSelectViewController:(UIViewController *)viewController{
     
     for (int i = 0 ; i<[_tapImages count]; i++) {

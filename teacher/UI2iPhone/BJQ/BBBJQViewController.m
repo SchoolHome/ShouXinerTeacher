@@ -385,7 +385,6 @@
     [bjqTableView setSeparatorStyle:UITableViewCellSeparatorStyleNone];
     bjqTableView.dataSource = self;
     bjqTableView.delegate = self;
-
     [self.view addSubview:bjqTableView];
     [bjqTableView reloadData];
     
@@ -431,7 +430,6 @@
     scoreImageView.frame = CGRectMake(320.0f - 108.0f, 24.0f, 108.0f, 35.0f);
     scoreImageView.userInteractionEnabled = YES;
     [head addSubview:scoreImageView];
-    
     
     point = [[OHAttributedLabel alloc] initWithFrame:CGRectMake(0, 9, 108, 35)];
     point.backgroundColor = [UIColor clearColor];
