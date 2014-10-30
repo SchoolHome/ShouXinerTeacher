@@ -296,6 +296,7 @@
 		19E1A0E7194EB2E6009C06F7 /* 5s@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 19E1A0E1194EB2E6009C06F7 /* 5s@2x.png */; };
 		19E1A0F8194ED5D1009C06F7 /* ZYQAssetPicker.Bundle in Resources */ = {isa = PBXBuildFile; fileRef = 19E1A0F5194ED5D1009C06F7 /* ZYQAssetPicker.Bundle */; };
 		19E1A0F9194ED5D1009C06F7 /* ZYQAssetPickerController.m in Sources */ = {isa = PBXBuildFile; fileRef = 19E1A0F7194ED5D1009C06F7 /* ZYQAssetPickerController.m */; };
+		19E64B441A00AEBF0053BAF2 /* BBMenuView.m in Sources */ = {isa = PBXBuildFile; fileRef = 19E64B431A00AEBF0053BAF2 /* BBMenuView.m */; };
 		19EF58461917CF0D00371505 /* Crashlytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 19EF58451917CF0D00371505 /* Crashlytics.framework */; };
 		331447AB18C48621008B5B21 /* Login.m in Sources */ = {isa = PBXBuildFile; fileRef = 331447AA18C48621008B5B21 /* Login.m */; };
 		332D725518C33464007A75D5 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 332D725418C33464007A75D5 /* Foundation.framework */; };
@@ -1738,6 +1739,8 @@
 		19E1A0F5194ED5D1009C06F7 /* ZYQAssetPicker.Bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = ZYQAssetPicker.Bundle; sourceTree = "<group>"; };
 		19E1A0F6194ED5D1009C06F7 /* ZYQAssetPickerController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZYQAssetPickerController.h; sourceTree = "<group>"; };
 		19E1A0F7194ED5D1009C06F7 /* ZYQAssetPickerController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZYQAssetPickerController.m; sourceTree = "<group>"; };
+		19E64B421A00AEBF0053BAF2 /* BBMenuView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BBMenuView.h; sourceTree = "<group>"; };
+		19E64B431A00AEBF0053BAF2 /* BBMenuView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BBMenuView.m; sourceTree = "<group>"; };
 		19EF58451917CF0D00371505 /* Crashlytics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Crashlytics.framework; sourceTree = "<group>"; };
 		331447A918C48621008B5B21 /* Login.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Login.h; sourceTree = "<group>"; };
 		331447AA18C48621008B5B21 /* Login.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Login.m; sourceTree = "<group>"; };
@@ -7073,6 +7076,8 @@
 			children = (
 				7AC51B8318CDD9C200AD1A8C /* BBUITabBarController.h */,
 				7AC51B8418CDD9C200AD1A8C /* BBUITabBarController.m */,
+				19E64B421A00AEBF0053BAF2 /* BBMenuView.h */,
+				19E64B431A00AEBF0053BAF2 /* BBMenuView.m */,
 			);
 			path = Lobby;
 			sourceTree = "<group>";
@@ -7972,6 +7977,7 @@
 				332D837E18C33F0B007A75D5 /* sse_optimized.cpp in Sources */,
 				332D82FE18C33F0B007A75D5 /* RegistInfo.m in Sources */,
 				332D82AE18C33F0A007A75D5 /* AllFriendsViewController+Data.m in Sources */,
+				19E64B441A00AEBF0053BAF2 /* BBMenuView.m in Sources */,
 				332D75B418C33552007A75D5 /* unzip.c in Sources */,
 				332D759118C33552007A75D5 /* CPPTModelUserInfos.m in Sources */,
 				332D830718C33F0B007A75D5 /* NavigationDefaultStyle.m in Sources */,

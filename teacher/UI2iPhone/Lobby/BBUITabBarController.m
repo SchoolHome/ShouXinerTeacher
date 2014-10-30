@@ -10,8 +10,9 @@
 #import "CPUIModelManagement.h"
 #import "CustomNavigationController.h"
 #import "CPDBManagement.h"
+#import "BBMenuView.h"
 
-@interface BBUITabBarController ()
+@interface BBUITabBarController ()<MenuDelegate>
 
 @end
 
@@ -195,6 +196,9 @@
 {
     if ([viewController.tabBarItem.title isEqualToString:@"YZSS"]) {
         //展开view
+        BBMenuView *menu = [[BBMenuView alloc] initWithFrame:CGRectMake(0.0f, 0.0f, 320.0f, [UIScreen mainScreen].bounds.size.height)];
+        menu.delegate = self;
+        [[UIApplication sharedApplication].keyWindow addSubview:menu];
         return NO;
     }
     return YES;
