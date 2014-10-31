@@ -19,6 +19,7 @@
 #import "ADDetailViewController.h"
 #import "ColorUtil.h"
 #import "VideoConfirmViewController.h"
+#import "BBVideoTableViewCell.h"
 
 @class BBWSPViewController;
 @interface BBBJQViewController ()<ADImageviewDelegate>
@@ -661,6 +662,7 @@
     static NSString *cellIdentifier3 = @"imageCell";
     static NSString *cellIdentifier4 = @"pbxCell";
     static NSString *cellIdentifier5 = @"noticeCell";
+    static NSString *cellIdentifier6 = @"videoCell";
     BBTopicModel *model = self.allTopicList[indexPath.row];
     /*
     1 班级通知
@@ -710,15 +712,27 @@
             //
         {
             if ([model.subject integerValue] == 1) {
-                BBBaseTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier4];
-                if (!cell) {
-                    cell = [[BBPBXTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier4];
+                if (model.imageList != nil) {
+                    BBBaseTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier4];
+                    if (!cell) {
+                        cell = [[BBPBXTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier4];
+                        cell.delegate = self;
+                        cell.selectionStyle = UITableViewCellSelectionStyleNone;
+                    }
+                    [cell setData:model];
                     cell.delegate = self;
-                    cell.selectionStyle = UITableViewCellSelectionStyleNone;
+                    return cell;
+                }else if(model.videoList != nil){
+                    BBBaseTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier6];
+                    if (!cell) {
+                        cell = [[BBVideoTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier6];
+                        cell.delegate = self;
+                        cell.selectionStyle = UITableViewCellSelectionStyleNone;
+                    }
+                    [cell setData:model];
+                    cell.delegate = self;
+                    return cell;
                 }
-                [cell setData:model];
-                cell.delegate = self;
-                return cell;
             }else{
                 BBBaseTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier3];
                 if (!cell) {

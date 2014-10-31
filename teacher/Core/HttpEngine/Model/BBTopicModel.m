@@ -131,6 +131,7 @@
                     tp.forward = [BBForwardModel fromJson:forwards[0]];
                 }
             }
+            tp.videoList = attach[@"video"];
         }
         
         return tp;

@@ -47,7 +47,7 @@
 @property(nonatomic,strong) NSArray *fileList;
 @property(nonatomic,strong) NSArray *audioList;
 @property(nonatomic,strong) BBForwardModel *forward;
-
+@property(nonatomic,strong) NSArray *videoList;
 
 // shortcut
 @property(nonatomic,strong) NSString *praisesStr;

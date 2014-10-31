@@ -223,6 +223,7 @@
 		1975B76E18E9427100587B80 /* UIImage+Resize.m in Sources */ = {isa = PBXBuildFile; fileRef = 1975B76D18E9427100587B80 /* UIImage+Resize.m */; };
 		197FCF9F18F41D5000EE751B /* navBarBg44.png in Resources */ = {isa = PBXBuildFile; fileRef = 197FCF9D18F41D5000EE751B /* navBarBg44.png */; };
 		197FCFA018F41D5000EE751B /* navBarBg44@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 197FCF9E18F41D5000EE751B /* navBarBg44@2x.png */; };
+		19954AC21A01FEE40087D872 /* BBVideoTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 19954AC11A01FEE40087D872 /* BBVideoTableViewCell.m */; };
 		1997CF6318D6A87800A839F7 /* GroupOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 1997CF6218D6A87800A839F7 /* GroupOperation.m */; };
 		19A3E54819F3924600AFD251 /* BBTopBGNew.png in Resources */ = {isa = PBXBuildFile; fileRef = 19A3E54619F3924600AFD251 /* BBTopBGNew.png */; };
 		19A3E54919F3924600AFD251 /* BBTopBGNew@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 19A3E54719F3924600AFD251 /* BBTopBGNew@2x.png */; };
@@ -1658,6 +1659,8 @@
 		197FCF9E18F41D5000EE751B /* navBarBg44@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "navBarBg44@2x.png"; sourceTree = "<group>"; };
 		198F307718FE551E0091D550 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/InfoPlist.strings"; sourceTree = "<group>"; };
 		198F307818FE551E0091D550 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/InfoPlist.strings"; sourceTree = "<group>"; };
+		19954AC01A01FEE40087D872 /* BBVideoTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BBVideoTableViewCell.h; sourceTree = "<group>"; };
+		19954AC11A01FEE40087D872 /* BBVideoTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BBVideoTableViewCell.m; sourceTree = "<group>"; };
 		1997CF6118D6A87800A839F7 /* GroupOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GroupOperation.h; sourceTree = "<group>"; };
 		1997CF6218D6A87800A839F7 /* GroupOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GroupOperation.m; sourceTree = "<group>"; };
 		19A3E54619F3924600AFD251 /* BBTopBGNew.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = BBTopBGNew.png; path = Content/BBTopBGNew.png; sourceTree = "<group>"; };
@@ -7107,6 +7110,8 @@
 				7AC51B9518CDDA6900AD1A8C /* BBCellHeight.m */,
 				7AC51B9618CDDA6900AD1A8C /* BBBaseTableViewCell.h */,
 				7AC51B9718CDDA6900AD1A8C /* BBBaseTableViewCell.m */,
+				19954AC01A01FEE40087D872 /* BBVideoTableViewCell.h */,
+				19954AC11A01FEE40087D872 /* BBVideoTableViewCell.m */,
 				19451C7919F77E8400E4D92B /* BBNoticeTableViewCell.h */,
 				19451C7A19F77E8400E4D92B /* BBNoticeTableViewCell.m */,
 				7AC51B9818CDDA6900AD1A8C /* BBLinkTableViewCell.h */,
@@ -8316,6 +8321,7 @@
 				332D754B18C33552007A75D5 /* XMPPvCardTempLabel.m in Sources */,
 				332D831B18C33F0B007A75D5 /* FXPictureIcon.m in Sources */,
 				332D758A18C33552007A75D5 /* CPPTModelPersonalInfoData.m in Sources */,
+				19954AC21A01FEE40087D872 /* BBVideoTableViewCell.m in Sources */,
 				19145F58191CDF3B008CE18C /* SDWebImageManager+MJ.m in Sources */,
 				332D754318C33552007A75D5 /* XMPPMUC.m in Sources */,
 				332D838518C33F0B007A75D5 /* BezierCurve.m in Sources */,
