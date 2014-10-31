@@ -4,10 +4,11 @@
 #import "UIPlaceHolderTextView.h"
 #import "BBGroupModel.h"
 
+#import "BBChooseImgViewInPostPage.h"
 /*
  发作业
  */
-@interface BBFZYViewController : PalmViewController<BBXKMViewControllerDelegate,UIActionSheetDelegate,UIImagePickerControllerDelegate,UINavigationControllerDelegate>
+@interface BBFZYViewController : PalmViewController<BBXKMViewControllerDelegate,UIActionSheetDelegate,UIImagePickerControllerDelegate,UINavigationControllerDelegate,BBChooseImgViewInPostPageDelegate>
 {
 
     UIPlaceHolderTextView *thingsTextView;
@@ -17,6 +18,9 @@
 
     UILabel *kemuLabel;
     UIButton *kemuButton;
+    
+    UILabel *classLabel;
+    UIButton *classButton;
     
     UILabel *kejianLabel;
     UIButton *kejianButton;

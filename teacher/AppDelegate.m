@@ -85,7 +85,7 @@
     [[UINavigationBar appearance] setBackgroundImage:image forBarMetrics:UIBarMetricsDefault];
     [[UINavigationBar appearanceWhenContainedIn:[CustomNavigationController class], nil] setBackgroundImage:image forBarMetrics:UIBarMetricsDefault];
     
-    NSDictionary *attributes=[NSDictionary dictionaryWithObjectsAndKeys:[UIColor whiteColor],UITextAttributeTextColor,[UIFont boldSystemFontOfSize:18],UITextAttributeFont, nil];
+    NSDictionary *attributes=[NSDictionary dictionaryWithObjectsAndKeys:[UIColor colorWithRed:251/255.f green:76/255.f blue:7/255.f alpha:1.f],UITextAttributeTextColor,[UIFont boldSystemFontOfSize:18],UITextAttributeFont, nil];
     //[[UINavigationBar appearance] setTitleTextAttributes:attributes];
     [[UINavigationBar appearanceWhenContainedIn:[CustomNavigationController class], nil] setTitleTextAttributes:attributes];
     

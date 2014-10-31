@@ -109,10 +109,6 @@
                 [self.navigationController popViewControllerAnimated:YES];
             }
         }
-
-
-    
-    
 }
 -(NSMutableArray *)attachList
 {
@@ -139,11 +135,9 @@
     // left
     UIButton *backButton = [UIButton buttonWithType:UIButtonTypeCustom];
     [backButton setFrame:CGRectMake(0.f, 15.f, 40.f, 24.f)];
-    [backButton setTitle:@"取消" forState:UIControlStateNormal];
-    [backButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-    [backButton setTitleColor:[UIColor orangeColor] forState:UIControlStateHighlighted];
+    [backButton setImage:[UIImage imageNamed:@"back"] forState:UIControlStateNormal];
+    [backButton setImageEdgeInsets:UIEdgeInsetsMake(1.f, 9.f, 1.f, 9.f)];
     [backButton.titleLabel setFont:[UIFont systemFontOfSize:16]];
-    [backButton setTitleEdgeInsets:UIEdgeInsetsMake(8, 0, 0, 0)];
     [backButton addTarget:self action:@selector(cancel) forControlEvents:UIControlEventTouchUpInside];
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:backButton];
     
@@ -220,7 +214,7 @@
 
 
     //选择图片
-    UIView *imageBack = [[UIView alloc] initWithFrame:CGRectMake(15,textBack.frame.origin.y+textBack.frame.size.height+10, 320-30, 140)];
+    UIView *imageBack = [[UIView alloc] initWithFrame:CGRectMake(15,textBack.frame.origin.y+textBack.frame.size.height+10, 320-30, 160)];
     [_contentScrollview addSubview:imageBack];
     CALayer *roundedLayer2 = [imageBack layer];
     [roundedLayer2 setMasksToBounds:YES];
@@ -233,10 +227,10 @@
         
         for (int i = 0; i<8; i++) {
             imageButton[i] = [UIButton buttonWithType:UIButtonTypeCustom];
-            imageButton[i].frame = CGRectMake(20+i*65, 10, 55, 55);
+            imageButton[i].frame = CGRectMake(10+i*68, 10, 65, 65);
             
             if (i>3) {
-                imageButton[i].frame = CGRectMake(20+(i-4)*65, 10+65, 55, 55);
+                imageButton[i].frame = CGRectMake(10+(i-4)*68, 10+75, 65, 65);
             }
             
             imageButton[i].backgroundColor = [UIColor colorWithRed:0.5 green:0.5 blue:0.5 alpha:0.5];
@@ -247,7 +241,7 @@
                 imageButton[i].tag = i;
             }else{
                 
-                [imageButton[i] setBackgroundImage:[UIImage imageNamed:@"BBSendAddImage"] forState:UIControlStateNormal];
+                [imageButton[i] setBackgroundImage:[UIImage imageNamed:@"add"] forState:UIControlStateNormal];
                 [imageButton[i] addTarget:self action:@selector(imagePickerButtonTaped:) forControlEvents:UIControlEventTouchUpInside];
             }
         }
