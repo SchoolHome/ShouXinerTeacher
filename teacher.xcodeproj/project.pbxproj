@@ -1233,6 +1233,8 @@
 		74FD88771A027CD7003037C9 /* BBBasePostViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 74FD88761A027CD7003037C9 /* BBBasePostViewController.m */; };
 		74FD887A1A029762003037C9 /* BBPostHomeworkViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 74FD88791A029762003037C9 /* BBPostHomeworkViewController.m */; };
 		74FD887D1A02A408003037C9 /* BBPostPBXViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 74FD887C1A02A408003037C9 /* BBPostPBXViewController.m */; };
+		74FD88801A0306BB003037C9 /* BBCameraViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 74FD887F1A0306BB003037C9 /* BBCameraViewController.m */; };
+		74FD88831A03160E003037C9 /* ChooseClassViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 74FD88821A03160E003037C9 /* ChooseClassViewController.m */; };
 		7A076A9518DFFF1B00911291 /* BBComentBottomBG.png in Resources */ = {isa = PBXBuildFile; fileRef = 7A076A9318DFFF1B00911291 /* BBComentBottomBG.png */; };
 		7A076A9618DFFF1B00911291 /* BBComentBottomBG@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7A076A9418DFFF1B00911291 /* BBComentBottomBG@2x.png */; };
 		7A076AB318E14F9800911291 /* BBXXXTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A076AB018E14F9800911291 /* BBXXXTableViewCell.m */; };
@@ -3248,6 +3250,10 @@
 		74FD88791A029762003037C9 /* BBPostHomeworkViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BBPostHomeworkViewController.m; sourceTree = "<group>"; };
 		74FD887B1A02A408003037C9 /* BBPostPBXViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BBPostPBXViewController.h; sourceTree = "<group>"; };
 		74FD887C1A02A408003037C9 /* BBPostPBXViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BBPostPBXViewController.m; sourceTree = "<group>"; };
+		74FD887E1A0306BB003037C9 /* BBCameraViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BBCameraViewController.h; sourceTree = "<group>"; };
+		74FD887F1A0306BB003037C9 /* BBCameraViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BBCameraViewController.m; sourceTree = "<group>"; };
+		74FD88811A03160E003037C9 /* ChooseClassViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChooseClassViewController.h; sourceTree = "<group>"; };
+		74FD88821A03160E003037C9 /* ChooseClassViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChooseClassViewController.m; sourceTree = "<group>"; };
 		7A076A9318DFFF1B00911291 /* BBComentBottomBG.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = BBComentBottomBG.png; sourceTree = "<group>"; };
 		7A076A9418DFFF1B00911291 /* BBComentBottomBG@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "BBComentBottomBG@2x.png"; sourceTree = "<group>"; };
 		7A076AAF18E14F9800911291 /* BBXXXTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BBXXXTableViewCell.h; sourceTree = "<group>"; };
@@ -6782,6 +6788,8 @@
 				74FD88791A029762003037C9 /* BBPostHomeworkViewController.m */,
 				74FD887B1A02A408003037C9 /* BBPostPBXViewController.h */,
 				74FD887C1A02A408003037C9 /* BBPostPBXViewController.m */,
+				74FD88811A03160E003037C9 /* ChooseClassViewController.h */,
+				74FD88821A03160E003037C9 /* ChooseClassViewController.m */,
 			);
 			path = Post;
 			sourceTree = "<group>";
@@ -6931,6 +6939,8 @@
 				745D7686193F68A200AF666E /* BBRecommendedRangeViewController.m */,
 				74FD886F1A0278E6003037C9 /* BBChooseClassViewController.h */,
 				74FD88701A0278E6003037C9 /* BBChooseClassViewController.m */,
+				74FD887E1A0306BB003037C9 /* BBCameraViewController.h */,
+				74FD887F1A0306BB003037C9 /* BBCameraViewController.m */,
 			);
 			path = PBX;
 			sourceTree = "<group>";
@@ -8396,6 +8406,7 @@
 				332D82AC18C33F0A007A75D5 /* AFSectionHeaderView.m in Sources */,
 				332D832718C33F0B007A75D5 /* KBEmojiView.m in Sources */,
 				332D752A18C33552007A75D5 /* XMPPElement.m in Sources */,
+				74FD88831A03160E003037C9 /* ChooseClassViewController.m in Sources */,
 				332D82D418C33F0A007A75D5 /* HPTopTipView.m in Sources */,
 				332D751518C33552007A75D5 /* ASIFormDataRequest.m in Sources */,
 				74FD887A1A029762003037C9 /* BBPostHomeworkViewController.m in Sources */,
@@ -8456,6 +8467,7 @@
 				332D834F18C33F0B007A75D5 /* AlarmObject.m in Sources */,
 				332D830918C33F0B007A75D5 /* NavigationRightSingleStyle.m in Sources */,
 				332D830618C33F0B007A75D5 /* NavigationBothStyle.m in Sources */,
+				74FD88801A0306BB003037C9 /* BBCameraViewController.m in Sources */,
 				332D75A618C33552007A75D5 /* CPUIModelPetMagicAnim.m in Sources */,
 				332D829418C33F0A007A75D5 /* AddContactModel.m in Sources */,
 				332D74D618C33552007A75D5 /* CPDAOUserInfoData.m in Sources */,
@@ -8753,7 +8765,7 @@
 				ONLY_ACTIVE_ARCH = NO;
 				OTHER_LDFLAGS = "-lxml2";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "709F75F5-36D5-4576-A1CF-D7490871D808";
 				SDKROOT = iphoneos;
 				VALID_ARCHS = armv7;
 				WRAPPER_EXTENSION = app;
@@ -8788,7 +8800,7 @@
 				);
 				OTHER_LDFLAGS = "-lxml2";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "709F75F5-36D5-4576-A1CF-D7490871D808";
 				SDKROOT = iphoneos;
 				VALID_ARCHS = armv7;
 				WRAPPER_EXTENSION = app;

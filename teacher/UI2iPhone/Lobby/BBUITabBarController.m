@@ -11,7 +11,7 @@
 #import "BBBasePostViewController.h"
 #import "BBPostHomeworkViewController.h"
 #import "BBPostPBXViewController.h"
-
+#import "BBCameraViewController.h"
 
 #import "CPUIModelManagement.h"
 #import "CustomNavigationController.h"
@@ -214,8 +214,8 @@
     NSLog(@"%d",item);
     if (item == kPBXItem) {
         BBPostPBXViewController *postPBX = [[BBPostPBXViewController alloc] initWithPostType:POST_TYPE_PBX];
+//        BBCameraViewController *camera = [[BBCameraViewController alloc] init];
         postPBX.hidesBottomBarWhenPushed = YES;
-        //pbx.currentGroup = _currentGroup;
         [(UINavigationController *)self.selectedViewController pushViewController:postPBX animated:YES];
     }else
     {
