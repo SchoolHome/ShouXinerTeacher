@@ -49,6 +49,9 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    
+    if ([self.delegate respondsToSelector:@selector(classChoose:)]) {
+        [self.delegate classChoose:indexPath.row];
+        [self.navigationController popViewControllerAnimated:YES];
+    }
 }
 @end

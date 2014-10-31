@@ -7,11 +7,16 @@
 //
 
 #import "PalmViewController.h"
+@protocol ChooseClassDelegate <NSObject>
+- (void)classChoose : (NSInteger)index;
+@end
 
 @interface ChooseClassViewController : PalmViewController <UITableViewDataSource, UITableViewDelegate>
 {
     NSArray *classModels;
 }
+@property (nonatomic, weak) id<ChooseClassDelegate> delegate;
 - (id)initWithClasses : (NSArray *)classes;
+
 
 @end

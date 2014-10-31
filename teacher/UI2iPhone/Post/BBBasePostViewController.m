@@ -10,11 +10,12 @@
 
 #import "BBBasePostViewController.h"
 #import "ZYQAssetPickerController.h"
-
+#import "ChooseClassViewController.h"
 @interface BBBasePostViewController()<
 UIActionSheetDelegate,
 UIImagePickerControllerDelegate,
 UINavigationControllerDelegate,
+ChooseClassDelegate,
 BBBasePostTableviewTouchDelegate,
 ZYQAssetPickerControllerDelegate>
 {
@@ -305,7 +306,15 @@ ZYQAssetPickerControllerDelegate>
         return;
     }else
     {
-        
+        if (self.classModels.count > 0) {
+            ChooseClassViewController *chooseClass = [[ChooseClassViewController alloc] initWithClasses:self.classModels];
+            chooseClass.delegate = self;
+            [self.navigationController pushViewController:chooseClass animated:YES];
+        }else
+        {
+            [self showProgressWithText:@"没有可选择的班级" withDelayTime:2.f];
+        }
+
     }
 }
 
@@ -411,7 +420,12 @@ ZYQAssetPickerControllerDelegate>
             break;
     }
 }
-
+#pragma mark - ChooseClassViewControllerDelegate
+- (void)classChoose:(NSInteger)index
+{
+    self.currentGroup = self.classModels[index];
+    [self.postTableview reloadRowsAtIndexPaths:[NSArray arrayWithObject:[NSIndexPath indexPathForRow:0 inSection:0]] withRowAnimation:UITableViewRowAnimationAutomatic];
+}
 #pragma mark - ActionSheet
 - (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex{
     

@@ -1235,6 +1235,7 @@
 		74FD887D1A02A408003037C9 /* BBPostPBXViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 74FD887C1A02A408003037C9 /* BBPostPBXViewController.m */; };
 		74FD88801A0306BB003037C9 /* BBCameraViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 74FD887F1A0306BB003037C9 /* BBCameraViewController.m */; };
 		74FD88831A03160E003037C9 /* ChooseClassViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 74FD88821A03160E003037C9 /* ChooseClassViewController.m */; };
+		74FD88851A031CB2003037C9 /* choice@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 74FD88841A031CB2003037C9 /* choice@2x.png */; };
 		7A076A9518DFFF1B00911291 /* BBComentBottomBG.png in Resources */ = {isa = PBXBuildFile; fileRef = 7A076A9318DFFF1B00911291 /* BBComentBottomBG.png */; };
 		7A076A9618DFFF1B00911291 /* BBComentBottomBG@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7A076A9418DFFF1B00911291 /* BBComentBottomBG@2x.png */; };
 		7A076AB318E14F9800911291 /* BBXXXTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A076AB018E14F9800911291 /* BBXXXTableViewCell.m */; };
@@ -3254,6 +3255,7 @@
 		74FD887F1A0306BB003037C9 /* BBCameraViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BBCameraViewController.m; sourceTree = "<group>"; };
 		74FD88811A03160E003037C9 /* ChooseClassViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChooseClassViewController.h; sourceTree = "<group>"; };
 		74FD88821A03160E003037C9 /* ChooseClassViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChooseClassViewController.m; sourceTree = "<group>"; };
+		74FD88841A031CB2003037C9 /* choice@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "choice@2x.png"; sourceTree = "<group>"; };
 		7A076A9318DFFF1B00911291 /* BBComentBottomBG.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = BBComentBottomBG.png; sourceTree = "<group>"; };
 		7A076A9418DFFF1B00911291 /* BBComentBottomBG@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "BBComentBottomBG@2x.png"; sourceTree = "<group>"; };
 		7A076AAF18E14F9800911291 /* BBXXXTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BBXXXTableViewCell.h; sourceTree = "<group>"; };
@@ -3840,6 +3842,7 @@
 		193FA73719F0A27A00874F1E /* Post */ = {
 			isa = PBXGroup;
 			children = (
+				74FD88841A031CB2003037C9 /* choice@2x.png */,
 				193FA73819F0A27A00874F1E /* add.png */,
 				193FA73919F0A27A00874F1E /* add@2x.png */,
 				193FA73A19F0A27A00874F1E /* back.png */,
@@ -7561,6 +7564,7 @@
 				193FA77619F0A27A00874F1E /* class_gray.png in Resources */,
 				19E1A0E7194EB2E6009C06F7 /* 5s@2x.png in Resources */,
 				74AF37231963A502008EA251 /* ZJZCallPhone.png in Resources */,
+				74FD88851A031CB2003037C9 /* choice@2x.png in Resources */,
 				332D7F9618C33F0A007A75D5 /* float_im_state_text@2x.png in Resources */,
 				332D7F5218C33F0A007A75D5 /* icon_im_point_whtie@2x.png in Resources */,
 				332D7FD118C33F0A007A75D5 /* item_im_bar_input_mask@2x.png in Resources */,
