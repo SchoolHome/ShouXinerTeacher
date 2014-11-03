@@ -1,8 +1,8 @@
 //
-//  VideoConfirmViewController.m
+//  BBRecordViewController.m
 //  teacher
 //
-//  Created by ZhangQing on 14-9-27.
+//  Created by ZhangQing on 14-11-3.
 //  Copyright (c) 2014年 ws. All rights reserved.
 //
 #define MIN_VIDEO_DUR 2.0f
@@ -10,17 +10,14 @@
 #define VIDEO_FOLDER @"Video"
 #define COUNT_DUR_TIMER_INTERVAL 0.05
 
-#import "VideoConfirmViewController.h"
+#import "BBRecordViewController.h"
 #import "BBPostPBXViewController.h"
-@interface VideoConfirmViewController ()<AVCaptureFileOutputRecordingDelegate>
+@interface BBRecordViewController ()<AVCaptureFileOutputRecordingDelegate>
 {
-    BBGroupModel *model;
-    
     UIButton *recordBtn;
     UIButton *flashBtn;
     UIButton *camerControl;
     UIView *localView;
-
 }
 @property (strong, nonatomic) NSTimer *countDurTimer;
 @property (assign, nonatomic) CGFloat currentVideoDur;
@@ -36,28 +33,7 @@
 
 @property (strong, nonatomic) AVCaptureDeviceInput *videoDeviceInput;
 @end
-
-@implementation VideoConfirmViewController
-
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
-{
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-    if (self) {
-        // Custom initialization
-    }
-    return self;
-}
--(id)initWithGroupModel:(BBGroupModel *)groupModel
-{
-    self = [super init];
-    if (self) {
-        model = groupModel;
-        [self initalize];
-        //self.videoInfo = [[NSDictionary alloc] initWithDictionary:info];
-    }
-    return self;
-}
-
+@implementation BBRecordViewController
 - (id)init
 {
     self = [super init];
@@ -73,13 +49,13 @@
     self.view.backgroundColor = [UIColor blackColor];
     
     NSLog(@"width==%f,height==%f",self.screenWidth,self.screenHeight);
-
     
-//    _videoTime = [[UILabel alloc] initWithFrame:CGRectMake(0.f, 0.f, 100.f, 20.f)];
-//    _videoTime.font = [UIFont systemFontOfSize:16.f];
-//    _videoTime.textAlignment = NSTextAlignmentCenter;
-//    _videoTime.text = @"00:00";
-//    [self.navigationItem setTitleView:_videoTime];
+    
+    //    _videoTime = [[UILabel alloc] initWithFrame:CGRectMake(0.f, 0.f, 100.f, 20.f)];
+    //    _videoTime.font = [UIFont systemFontOfSize:16.f];
+    //    _videoTime.textAlignment = NSTextAlignmentCenter;
+    //    _videoTime.text = @"00:00";
+    //    [self.navigationItem setTitleView:_videoTime];
     
     
     
@@ -132,15 +108,15 @@
     [self.navigationController setNavigationBarHidden:NO];
 }
 /*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
-{
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
+ #pragma mark - Navigation
+ 
+ // In a storyboard-based application, you will often want to do a little preparation before navigation
+ - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+ {
+ // Get the new view controller using [segue destinationViewController].
+ // Pass the selected object to the new view controller.
+ }
+ */
 
 - (void)initalize
 {
@@ -505,7 +481,7 @@
     self.currentVideoDur = 0.0f;
     [self startCountDurTimer];
     
-
+    
 }
 
 - (void)captureOutput:(AVCaptureFileOutput *)captureOutput didFinishRecordingToOutputFileAtURL:(NSURL *)outputFileURL fromConnections:(NSArray *)connections error:(NSError *)error
@@ -514,12 +490,12 @@
     NSLog(@"本段视频长度: %f", _currentVideoDur);
     NSLog(@"现在的视频总长度: %f", _totalVideoDur);
     
-//    BBWSPViewController *wsp = [[BBWSPViewController alloc] initWithVideoUrl:outputFileURL andType:VIDEO_TYPE_CARMER andGroupModel:model];
-//    [self.navigationController pushViewController:wsp animated:YES];
+    //    BBWSPViewController *wsp = [[BBWSPViewController alloc] initWithVideoUrl:outputFileURL andType:VIDEO_TYPE_CARMER andGroupModel:model];
+    //    [self.navigationController pushViewController:wsp animated:YES];
     BBPostPBXViewController *postVideoPBX = [[BBPostPBXViewController alloc] initWithPostType:POST_TYPE_PBX];
     postVideoPBX.videoUrl = outputFileURL;
     [self.navigationController pushViewController:postVideoPBX animated:YES];
-
+    
 }
 
 -(NSString *)getTempSaveVideoPath
@@ -534,6 +510,5 @@
     }
     return savePath;
 }
-
 
 @end

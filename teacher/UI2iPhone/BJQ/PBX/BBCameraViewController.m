@@ -10,7 +10,7 @@
 
 #import <AssetsLibrary/AssetsLibrary.h>
 
-#import "VideoConfirmViewController.h"
+#import "BBRecordViewController.h"
 #import "ViewImageViewController.h"
 @interface BBCameraViewController ()
 {
@@ -40,42 +40,52 @@
     
     UIView *overlayView = [[UIView alloc] initWithFrame:self.view.frame];
     
+    UIView *toolBarBG = [[UIView alloc] initWithFrame:CGRectMake(0.f, 0.f, self.screenWidth, 52.f)];
+    toolBarBG.backgroundColor = [UIColor blackColor];
+    toolBarBG.alpha = 0.5f;
+    [self.view addSubview:toolBarBG];
     
     UIButton *close = [UIButton buttonWithType:UIButtonTypeCustom];
-    [close setFrame:CGRectMake(10.f, 10,50.f, 30.f)];
-    [close setTitle:@"关闭" forState:UIControlStateNormal];
+    [close setFrame:CGRectMake(20.f, 10.f, 44.f, 32.f)];
+    [close setImage:[UIImage imageNamed:@"close"] forState:UIControlStateNormal];
+    [close setImageEdgeInsets:UIEdgeInsetsMake(5.f, 10.f, 5.f, 10.f)];
     [close addTarget:self action:@selector(close) forControlEvents:UIControlEventTouchUpInside];
-    [close setBackgroundColor:[UIColor blackColor]];
     [overlayView addSubview:close];
     
     flashBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    [flashBtn setFrame:CGRectMake(self.screenWidth-100.f, 10.f, 60.f, 30.f)];
-    [flashBtn setTitle:@"闪光灯" forState:UIControlStateNormal];
+    [flashBtn setFrame:CGRectMake(self.screenWidth-100.f, 10.f, 44.f, 32.f)];
+    [flashBtn setImage:[UIImage imageNamed:@"lamp_auto"] forState:UIControlStateNormal];
+    [flashBtn setImageEdgeInsets:UIEdgeInsetsMake(5, 10, 5, 10)];
     [flashBtn addTarget:self action:@selector(cameraTorchOn:) forControlEvents:UIControlEventTouchUpInside];
     [overlayView addSubview:flashBtn];
     
     camerControl = [UIButton buttonWithType:UIButtonTypeCustom];
-    [camerControl setFrame:CGRectMake(self.screenWidth-40.f, 10.f, 40.f, 30.f)];
-    [camerControl setTitle:@"方向" forState:UIControlStateNormal];
+    [camerControl setFrame:CGRectMake(self.screenWidth-50.f, 10.f, 44.f, 32.f)];
+    [camerControl setImage:[UIImage imageNamed:@"switch"] forState:UIControlStateNormal];
+    [camerControl setImageEdgeInsets:UIEdgeInsetsMake(5.f, 10.f, 5.f, 10.f)];
     [camerControl addTarget:self action:@selector(swapFrontAndBackCameras:) forControlEvents:UIControlEventTouchUpInside];
     [overlayView addSubview:camerControl];
     
+    UIView *bottomBarBG = [[UIView alloc] initWithFrame:CGRectMake(0.f, self.screenHeight-94.f, self.screenWidth, 94.f)];
+    bottomBarBG.backgroundColor = [UIColor blackColor];
+    [self.view addSubview:bottomBarBG];
+    
     takePictureButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    [takePictureButton setFrame:CGRectMake(self.screenWidth/2-30, self.screenHeight-120.f,60.f , 30.f)];
-    [takePictureButton setTitle:@"拍照" forState:UIControlStateNormal];
+    [takePictureButton setFrame:CGRectMake(self.screenWidth/2-33, self.screenHeight-80.f,66.f , 66.f)];
+    [takePictureButton setBackgroundImage:[UIImage imageNamed:@"camera"] forState:UIControlStateNormal];
     [takePictureButton addTarget:self action:@selector(takePhoto:) forControlEvents:UIControlEventTouchUpInside];
     [takePictureButton setBackgroundColor:[UIColor blackColor]];
     [overlayView addSubview:takePictureButton];
 
     recordButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    [recordButton setFrame:CGRectMake(20.f, self.screenHeight-120.f,60.f , 30.f)];
-    [recordButton setTitle:@"录像" forState:UIControlStateNormal];
+    [recordButton setFrame:CGRectMake(30.f, CGRectGetMinY(takePictureButton.frame)+(CGRectGetHeight(takePictureButton.frame)-29)/2,40.f , 29.f)];
+    [recordButton setBackgroundImage:[UIImage imageNamed:@"small_record"] forState:UIControlStateNormal];
     [recordButton addTarget:self action:@selector(record) forControlEvents:UIControlEventTouchUpInside];
     [recordButton setBackgroundColor:[UIColor blackColor]];
     [overlayView addSubview:recordButton];
     
     albumBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    [albumBtn setFrame:CGRectMake(self.screenWidth-90.f, self.screenHeight-120.f,60.f , 30.f)];
+    [albumBtn setFrame:CGRectMake(self.screenWidth-60.f, CGRectGetMinY(recordButton.frame),40.f , 29.f)];
     [albumBtn setTitle:@"相册" forState:UIControlStateNormal];
     [albumBtn addTarget:self action:@selector(enterPhotoAlbum:) forControlEvents:UIControlEventTouchUpInside];
     [albumBtn setBackgroundColor:[UIColor blackColor]];
@@ -115,16 +125,19 @@
 #pragma mark Camera Actions
 - (void)record
 {
-    VideoConfirmViewController *videoConfirm = [[VideoConfirmViewController alloc] init];
-    [self.navigationController pushViewController:videoConfirm animated:NO];
+    BBRecordViewController *record = [[BBRecordViewController alloc] init];
+    [self.navigationController pushViewController:record animated:NO];
 }
 
 //闪光灯
 -(IBAction)cameraTorchOn:(id)sender{
-    if (self.imagePickerController.cameraFlashMode ==UIImagePickerControllerCameraFlashModeAuto) {
+    if (self.imagePickerController.cameraFlashMode ==UIImagePickerControllerCameraFlashModeAuto)
+    {
         self.imagePickerController.cameraFlashMode = UIImagePickerControllerCameraFlashModeOn;
+        [flashBtn setImage:[UIImage imageNamed:@"lamp"] forState:UIControlStateNormal];
     }else {
         self.imagePickerController.cameraFlashMode = UIImagePickerControllerCameraFlashModeOff;
+        [flashBtn setImage:[UIImage imageNamed:@"lamp_off"] forState:UIControlStateNormal];
     }
 }
 
