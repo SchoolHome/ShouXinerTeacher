@@ -17,7 +17,8 @@
 #import "CPSystemEngine.h"
 
 #define K_LEFT_PADDING 60.0f
-
+#define K_REPLY_SIZE 12.0f
+#define k_REPLY_WIDTH 235.0f
 // view frame
 #define kViewLeft(__view) (__view.frame.origin.x)
 #define kViewWidth(__view) (__view.frame.size.width)
