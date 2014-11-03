@@ -269,10 +269,10 @@
         if ([[[PalmUIManagement sharedInstance].deleteTopicResult objectForKey:ASI_REQUEST_HAS_ERROR] boolValue]) {
             return;
         }
-        NSDictionary *result = [[[PalmUIManagement sharedInstance].deleteTopicResult objectForKey:ASI_REQUEST_DATA] objectForKey:@"content"];
+        NSDictionary *result = [[PalmUIManagement sharedInstance].deleteTopicResult objectForKey:ASI_REQUEST_DATA];
         long long topicID = [[result objectForKey:@"topicid"] longLongValue];
         for (BBTopicModel *model in self.allTopicList) {
-            if ([model.author_uid longLongValue] == topicID) {
+            if ([model.topicid longLongValue] == topicID) {
                 [self.allTopicList removeObject:model];
                 break;
             }
@@ -1052,7 +1052,7 @@
 }
 
 -(void) bbBaseTableViewCell:(BBBaseTableViewCell *)cell deleteButtonTaped:(UIButton *)sender{
-    [[PalmUIManagement sharedInstance] deleteTopic:[cell.data.author_uid longLongValue]];
+    [[PalmUIManagement sharedInstance] deleteTopic:[cell.data.topicid longLongValue]];
 }
 
 #pragma mark - UIScrollViewDelegate

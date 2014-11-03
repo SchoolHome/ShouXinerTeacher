@@ -383,11 +383,11 @@
 }
 
 -(void) getDeleteTopic{
-    self.dataRequest.requestCookies = [[NSMutableArray alloc] initWithObjects:[PalmUIManagement sharedInstance].php, nil];
+    self.request.requestCookies = [[NSMutableArray alloc] initWithObjects:[PalmUIManagement sharedInstance].php, nil];
 #ifdef TEST
-    [self.dataRequest addRequestHeader:@"Host" value:@"www.shouxiner.com"];
+    [self.request addRequestHeader:@"Host" value:@"www.shouxiner.com"];
 #endif
-    [self.dataRequest setRequestCompleted:^(NSDictionary *data){
+    [self.request setRequestCompleted:^(NSDictionary *data){
         dispatch_block_t t = ^{
             DDLogCInfo(@"%@",data);
             [PalmUIManagement sharedInstance].deleteTopicResult = data;
