@@ -8,11 +8,13 @@
 
 #import "BBCameraViewController.h"
 
+#import "ZYQAssetPickerController.h"
 #import <AssetsLibrary/AssetsLibrary.h>
 
 #import "BBRecordViewController.h"
 #import "ViewImageViewController.h"
-@interface BBCameraViewController ()
+
+@interface BBCameraViewController ()<ZYQAssetPickerControllerDelegate>
 {
      UIButton *takePictureButton;
      UIButton *cancelButton;
@@ -21,14 +23,6 @@
     UIButton *camerControl;
     UIButton *albumBtn;
 }
-
-@property (nonatomic, retain) NSTimer *tickTimer;
-@property (nonatomic, retain) NSTimer *cameraTimer;
-
-- (void)done:(id)sender;
-- (void)takePhoto:(id)sender;
-- (void)startStop:(id)sender;
-- (void)timedTakePhoto:(id)sender;
 @end
 
 @implementation BBCameraViewController
@@ -85,8 +79,8 @@
     [overlayView addSubview:recordButton];
     
     albumBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    [albumBtn setFrame:CGRectMake(self.screenWidth-60.f, CGRectGetMinY(recordButton.frame),40.f , 29.f)];
-    [albumBtn setTitle:@"相册" forState:UIControlStateNormal];
+    [albumBtn setFrame:CGRectMake(self.screenWidth-60.f, CGRectGetMinY(bottomBarBG.frame)+(CGRectGetHeight(bottomBarBG.frame)-40)/2,40.f , 40.f)];
+    [albumBtn setBackgroundImage:[self getFirstImageInAlbum] forState:UIControlStateNormal];
     [albumBtn addTarget:self action:@selector(enterPhotoAlbum:) forControlEvents:UIControlEventTouchUpInside];
     [albumBtn setBackgroundColor:[UIColor blackColor]];
     [overlayView addSubview:albumBtn];
@@ -119,6 +113,37 @@
 - (void)viewWillDisappear:(BOOL)animated
 {
     [self.navigationController setNavigationBarHidden:NO];
+}
+
+- (UIImage *)getFirstImageInAlbum
+{
+    UIImage *image = nil;
+    
+    NSMutableArray *imageBox = [[NSMutableArray alloc] init];
+    ALAssetsLibraryAssetForURLResultBlock resultblock = ^(ALAsset *myasset)
+    {
+        
+        
+        //NSLog(@"asset");
+        CGImageRef iref;
+        iref = [myasset thumbnail];
+
+        //图片尺寸不能为0
+        if(iref && CGImageGetWidth(iref) && CGImageGetHeight(iref))
+        {
+            [imageBox addObject:[UIImage imageWithCGImage:iref]];
+            return ;
+        }
+    };
+    
+    ALAssetsLibraryAccessFailureBlock failureblock = ^(NSError *myerror)
+    {
+        NSLog(@"failed");
+        NSLog(@"cant get image -- %@",[myerror localizedDescription]);
+    };
+    
+    image = [imageBox lastObject];
+    return image;
 }
 
 #pragma mark -
@@ -156,21 +181,46 @@
     [self.imagePickerController takePicture];
 }
 - (void)enterPhotoAlbum:(id)sender {
-
+    ZYQAssetPickerController *picker = [[ZYQAssetPickerController alloc] init];
+    picker.maximumNumberOfSelection = 7;
+    picker.assetsFilter = [ALAssetsFilter allPhotos];
+    picker.showEmptyGroups=NO;
+    picker.delegate=self;
+    picker.selectionFilter = [NSPredicate predicateWithBlock:^BOOL(id evaluatedObject, NSDictionary *bindings) {
+        if ([[(ALAsset*)evaluatedObject valueForProperty:ALAssetPropertyType] isEqual:ALAssetTypeVideo]) {
+            NSTimeInterval duration = [[(ALAsset*)evaluatedObject valueForProperty:ALAssetPropertyDuration] doubleValue];
+            return duration >= 5;
+        } else {
+            return YES;
+        }
+    }];
+    
+    [self presentViewController:picker animated:YES completion:NULL];
     
 }
 
 #pragma mark -
-#pragma mark UIImagePickerControllerDelegate
-
-- (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info {
-    UIImage *image = [info valueForKey:UIImagePickerControllerOriginalImage];
-    
-
-
+#pragma mark - ZYQAssetPickerController Delegate
+-(void)assetPickerController:(ZYQAssetPickerController *)picker didFinishPickingAssets:(NSArray *)assets{
+    for (int i = 0; i<[assets count]; i++) {
+        ALAsset *asset = [assets objectAtIndex:i];
+        UIImage *image = [UIImage imageWithCGImage:[[asset defaultRepresentation] fullScreenImage]];
+    }
 }
 
-- (void)imagePickerControllerDidCancel:(UIImagePickerController *)picker {
+
+- (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info{
+    NSString *mediaType = [info objectForKey:UIImagePickerControllerMediaType];
+    UIImage *image = nil;
+    if ([mediaType isEqualToString:@"public.image"]){
+        image = [info objectForKey:UIImagePickerControllerOriginalImage];
+    }
+    
+    [self dismissModalViewControllerAnimated:YES];
+}
+
+- (void)imagePickerControllerDidCancel:(UIImagePickerController *)picker{
+    [self dismissModalViewControllerAnimated:YES];
     
 }
 

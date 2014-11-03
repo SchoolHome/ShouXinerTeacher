@@ -15,9 +15,12 @@
 @interface BBRecordViewController ()<AVCaptureFileOutputRecordingDelegate>
 {
     UIButton *recordBtn;
+    UIButton *closeBtn;
     UIButton *flashBtn;
     UIButton *camerControl;
+    UIButton *takePictureBtn;
     UIView *localView;
+    
 }
 @property (strong, nonatomic) NSTimer *countDurTimer;
 @property (assign, nonatomic) CGFloat currentVideoDur;
@@ -48,46 +51,48 @@
     [super viewDidLoad];
     self.view.backgroundColor = [UIColor blackColor];
     
-    NSLog(@"width==%f,height==%f",self.screenWidth,self.screenHeight);
-    
-    
-    //    _videoTime = [[UILabel alloc] initWithFrame:CGRectMake(0.f, 0.f, 100.f, 20.f)];
-    //    _videoTime.font = [UIFont systemFontOfSize:16.f];
-    //    _videoTime.textAlignment = NSTextAlignmentCenter;
-    //    _videoTime.text = @"00:00";
-    //    [self.navigationItem setTitleView:_videoTime];
-    
-    
-    
-    UIButton *close = [UIButton buttonWithType:UIButtonTypeCustom];
-    [close setFrame:CGRectMake(10.f, 10,30.f, 30.f)];
-    [close setTitle:@"关闭" forState:UIControlStateNormal];
-    [close addTarget:self action:@selector(close) forControlEvents:UIControlEventTouchUpInside];
-    [close setBackgroundColor:[UIColor blackColor]];
-    [self.view addSubview:close];
+    closeBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+    [closeBtn setFrame:CGRectMake(20.f, 10.f, 44.f, 32.f)];
+    [closeBtn setImage:[UIImage imageNamed:@"close"] forState:UIControlStateNormal];
+    [closeBtn setImageEdgeInsets:UIEdgeInsetsMake(5.f, 10.f, 5.f, 10.f)];
+    [closeBtn addTarget:self action:@selector(close) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:closeBtn];
     
     flashBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    [flashBtn setFrame:CGRectMake(self.screenWidth-100.f, 10.f, 30.f, 30.f)];
-    [flashBtn setTitle:@"闪光灯" forState:UIControlStateNormal];
+    [flashBtn setFrame:CGRectMake(self.screenWidth-100.f, 10.f, 44.f, 32.f)];
+    [flashBtn setImage:[UIImage imageNamed:@"lamp_auto"] forState:UIControlStateNormal];
+    [flashBtn setImageEdgeInsets:UIEdgeInsetsMake(5, 10, 5, 10)];
     [flashBtn addTarget:self action:@selector(controlFlash:) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:flashBtn];
     
     camerControl = [UIButton buttonWithType:UIButtonTypeCustom];
-    [camerControl setFrame:CGRectMake(self.screenWidth-40.f, 10.f, 30.f, 30.f)];
-    [camerControl setTitle:@"方向" forState:UIControlStateNormal];
+    [camerControl setFrame:CGRectMake(self.screenWidth-50.f, 10.f, 44.f, 32.f)];
+    [camerControl setImage:[UIImage imageNamed:@"switch"] forState:UIControlStateNormal];
+    [camerControl setImageEdgeInsets:UIEdgeInsetsMake(5.f, 10.f, 5.f, 10.f)];
     [camerControl addTarget:self action:@selector(controlCarmerDirection:) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:camerControl];
     
+
+
+    
     recordBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    [recordBtn setFrame:CGRectMake(self.screenWidth-90.f, self.screenHeight-120.f,60.f , 30.f)];
-    [recordBtn setTitle:@"开始" forState:UIControlStateNormal];
+    [recordBtn setFrame:CGRectMake(self.screenWidth/2-66/2, self.screenHeight-80.f,66.f , 66.f)];
     [recordBtn addTarget:self action:@selector(startVideoCapture:) forControlEvents:UIControlEventTouchUpInside];
+    [recordBtn setBackgroundImage:[UIImage imageNamed:@"record"] forState:UIControlStateNormal];
+    [recordBtn setBackgroundImage:[UIImage imageNamed:@"record_on"] forState:UIControlStateSelected];
     [recordBtn setBackgroundColor:[UIColor blackColor]];
     [self.view addSubview:recordBtn];
     
-    localView= [[UIView alloc] initWithFrame:CGRectMake(40, 50, 200, 300)];
+    takePictureBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+    [takePictureBtn setFrame:CGRectMake(30.f, CGRectGetMinY(recordBtn.frame)+(CGRectGetHeight(recordBtn.frame)-29)/2,40.f , 29.f)];
+    [takePictureBtn setBackgroundImage:[UIImage imageNamed:@"small_camera"] forState:UIControlStateNormal];
+    [takePictureBtn addTarget:self action:@selector(takePicture) forControlEvents:UIControlEventTouchUpInside];
+    [takePictureBtn setBackgroundColor:[UIColor blackColor]];
+    [self.view addSubview:takePictureBtn];
+    
+    localView= [[UIView alloc] initWithFrame:CGRectMake(0.f, self.screenHeight/2.f-120.f, 320.f, 240.f)];
     [self.view addSubview:localView];
-    self.preViewLayer.frame = CGRectMake(0.f, 0.f, 200.f, 300.f);
+    self.preViewLayer.frame = CGRectMake(0.f, 0.f, 320.f, 240.f);
     [localView.layer addSublayer:self.preViewLayer];
     // Do any additional setup after loading the view.
 }
@@ -329,6 +334,24 @@
     });
 }
 
+- (void)hideToolsWhenRecording
+{
+//    flashBtn.hidden = YES;
+//    camerControl.hidden = YES;
+//    takePictureBtn.hidden = YES;
+//    closeBtn.hidden = YES;
+    camerControl.alpha = takePictureBtn.alpha = closeBtn.alpha = flashBtn.alpha = 0.f;
+}
+
+- (void)recoverToolWhenEndRecording
+{
+//    flashBtn.hidden = NO;
+//    camerControl.hidden = NO;
+//    takePictureBtn.hidden = NO;
+//    closeBtn.hidden = NO;
+    camerControl.alpha = takePictureBtn.alpha = closeBtn.alpha = flashBtn.alpha = 1.f;
+}
+
 #pragma mark - ButtonMethod
 -(void)controlFlash:(UIButton *)sender
 {
@@ -361,16 +384,15 @@
 
 -(void)startVideoCapture:(UIButton *)sender
 {
-    if ([sender.titleLabel.text isEqualToString:@"结束"]) {
+    if (sender.selected) {
         [self stopCurrentVideoRecording];
     }else
     {
-        [sender setTitle:@"结束" forState:UIControlStateNormal];
         sender.enabled = NO;
         [self startRecordingToOutputFileURL:[NSURL fileURLWithPath:[self getTempSaveVideoPath]]];
         [self.view bringSubviewToFront:localView];
-        
     }
+    sender.selected = !sender.selected;
 }
 
 #pragma mark - Method
@@ -462,6 +484,10 @@
         NSLog(@"视频总长达到最大");
         return;
     }
+    //隐藏多余控制
+    [UIView animateWithDuration:0.3f animations:^{
+        [self hideToolsWhenRecording];
+    }];
     
     [_movieFileOutput startRecordingToOutputFileURL:fileURL recordingDelegate:self];
 }

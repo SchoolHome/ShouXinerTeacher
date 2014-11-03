@@ -23,7 +23,7 @@
 #import "CPDBManagement.h"
 //
 
-#import "VideoConfirmViewController.h"
+
 @interface BBZJZViewController ()
 @property (nonatomic , strong)NSArray *tableviewDisplayDataArray;
 @property (nonatomic , strong)BBMessageGroupBaseTableView *messageListTableview;
@@ -124,13 +124,6 @@
 
 -(void) dealloc{
     [[CPUIModelManagement sharedInstance] removeObserver:self forKeyPath:@"userMsgGroupListTag"];
-}
-#pragma mark - Video
--(void)chooseVideo
-{
-    VideoConfirmViewController *videoConfirm = [[VideoConfirmViewController alloc] initWithGroupModel:nil];
-    videoConfirm.hidesBottomBarWhenPushed = YES;
-    [self.navigationController pushViewController:videoConfirm animated:YES];
 }
 #pragma mark Setter && Getter
 -(NSArray *) tableviewDisplayDataArray
