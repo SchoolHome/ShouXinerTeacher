@@ -186,12 +186,12 @@
             self.buttonArray = [[NSMutableArray alloc] init];
             for (NSMutableAttributedString *str in self.data.commentStr) {
                 NSString *text = [self.data.commentTextArray objectAtIndex:(i-1)];
-                CGSize temp = [text sizeWithFont:[UIFont systemFontOfSize:11.0f] constrainedToSize:CGSizeMake(210, CGFLOAT_MAX) lineBreakMode:0];
+                CGSize temp = [text sizeWithFont:[UIFont systemFontOfSize:K_REPLY_SIZE] constrainedToSize:CGSizeMake(k_REPLY_WIDTH, CGFLOAT_MAX) lineBreakMode:0];
                 commentHeight += temp.height;
                 OHAttributedLabel *replay = [[OHAttributedLabel alloc] init];
-                replay.frame = CGRectMake(per.width, per.height, 210, temp.height);
+                replay.frame = CGRectMake(per.width, per.height, k_REPLY_WIDTH, temp.height);
                 replay.attributedText = str;
-                replay.font = [UIFont systemFontOfSize:11.0f];
+                replay.font = [UIFont systemFontOfSize:K_REPLY_SIZE];
                 [replay setBackgroundColor:[UIColor clearColor]];
                 UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
                 button.backgroundColor = [UIColor clearColor];
@@ -235,12 +235,12 @@
             self.buttonArray = [[NSMutableArray alloc] init];
             for (NSMutableAttributedString *str in self.data.commentStr) {
                 NSString *text = [self.data.commentTextArray objectAtIndex:(i-1)];
-                CGSize temp = [text sizeWithFont:[UIFont systemFontOfSize:11.0f] constrainedToSize:CGSizeMake(210, CGFLOAT_MAX) lineBreakMode:0];
+                CGSize temp = [text sizeWithFont:[UIFont systemFontOfSize:K_REPLY_SIZE] constrainedToSize:CGSizeMake(k_REPLY_WIDTH, CGFLOAT_MAX) lineBreakMode:0];
                 commentHeight += temp.height;
                 OHAttributedLabel *replay = [[OHAttributedLabel alloc] init];
-                replay.frame = CGRectMake(per.width, per.height, 210, temp.height);
+                replay.frame = CGRectMake(per.width, per.height, k_REPLY_WIDTH, temp.height);
                 replay.attributedText = str;
-                replay.font = [UIFont systemFontOfSize:11.0f];
+                replay.font = [UIFont systemFontOfSize:K_REPLY_SIZE];
                 [replay setBackgroundColor:[UIColor clearColor]];
                 UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
                 button.backgroundColor = [UIColor clearColor];

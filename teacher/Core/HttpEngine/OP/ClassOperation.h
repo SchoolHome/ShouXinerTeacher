@@ -33,7 +33,7 @@ typedef enum{
 -(ClassOperation *) initGroupList;
 // 有指示
 -(ClassOperation *) initNotiList : (int) timeStamp;
--(ClassOperation *) initGroupTopic : (int) groupID withTimeStamp : (int) timeStamp withOffset : (int) offset withLimit : (int) limit;
+-(ClassOperation *) initGroupTopic : (int) groupID withTimeStamp : (int) timeStamp withOffset : (int) offset withLimit : (int) limit withType : (int) type;
 
 // 有指示未读
 -(ClassOperation *) initUnReadNotiCount : (long long) timeStamp;

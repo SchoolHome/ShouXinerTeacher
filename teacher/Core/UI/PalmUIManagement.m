@@ -68,8 +68,8 @@ static PalmUIManagement *sharedInstance = nil;
     [[PalmNetWorkService sharedInstance] networkEngine:operation];
 }
 
--(void) getGroupTopic:(int)groupID withTimeStamp:(int)timeStamp withOffset:(int)offset withLimit:(int)limit{
-    ClassOperation *operation = [[ClassOperation alloc] initGroupTopic:groupID withTimeStamp:timeStamp withOffset:offset withLimit:limit];
+-(void) getGroupTopic : (int) groupID withTimeStamp : (int) timeStamp withOffset : (int) offset withLimit : (int) limit withType : (int) type{
+    ClassOperation *operation = [[ClassOperation alloc] initGroupTopic:groupID withTimeStamp:timeStamp withOffset:offset withLimit:limit withType:type];
     [[PalmNetWorkService sharedInstance] networkEngine:operation];
 }
 

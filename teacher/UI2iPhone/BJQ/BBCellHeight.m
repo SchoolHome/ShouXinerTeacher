@@ -12,6 +12,8 @@
 // title 固定高度
 #define K_TITLE_HEIGHT 5
 #define K_TIME_HEIGHT  27
+#define K_REPLY_FONT_SIZE 12.0f
+#define K_REPLY_WIDTH 235.0f
 
 @implementation BBCellHeight
 
@@ -85,7 +87,7 @@
             }else if ([data.praisesStr length]==0 && [data.commentsStr length]>0){
                 // 只有评论 不留白
                 for (NSString *str in data.commentTextArray) {
-                    CGSize temp = [str sizeWithFont:[UIFont systemFontOfSize:11.0f] constrainedToSize:CGSizeMake(210, CGFLOAT_MAX) lineBreakMode:0];
+                    CGSize temp = [str sizeWithFont:[UIFont systemFontOfSize:K_REPLY_FONT_SIZE] constrainedToSize:CGSizeMake(K_REPLY_WIDTH, CGFLOAT_MAX) lineBreakMode:0];
                     commentHeight += temp.height;
                 }
                 commentHeight += 23.0f;
@@ -102,7 +104,7 @@
                 
                 // 只有评论 不留白
                 for (NSString *str in data.commentTextArray) {
-                    CGSize temp = [str sizeWithFont:[UIFont systemFontOfSize:11.0f] constrainedToSize:CGSizeMake(210, CGFLOAT_MAX) lineBreakMode:0];
+                    CGSize temp = [str sizeWithFont:[UIFont systemFontOfSize:K_REPLY_FONT_SIZE] constrainedToSize:CGSizeMake(K_REPLY_WIDTH, CGFLOAT_MAX) lineBreakMode:0];
                     commentHeight += temp.height;
                 }
                 commentHeight += 23.0f;
@@ -179,7 +181,7 @@
             }else if ([data.praisesStr length]==0 && [data.commentsStr length]>0){
                 // 只有评论 不留白
                 for (NSString *str in data.commentTextArray) {
-                    CGSize temp = [str sizeWithFont:[UIFont systemFontOfSize:11.0f] constrainedToSize:CGSizeMake(210, CGFLOAT_MAX) lineBreakMode:0];
+                    CGSize temp = [str sizeWithFont:[UIFont systemFontOfSize:K_REPLY_FONT_SIZE] constrainedToSize:CGSizeMake(K_REPLY_WIDTH, CGFLOAT_MAX) lineBreakMode:0];
                     commentHeight += temp.height;
                 }
                 commentHeight += 23.0f;
@@ -196,7 +198,7 @@
                 
                 // 只有评论 不留白
                 for (NSString *str in data.commentTextArray) {
-                    CGSize temp = [str sizeWithFont:[UIFont systemFontOfSize:11.0f] constrainedToSize:CGSizeMake(210, CGFLOAT_MAX) lineBreakMode:0];
+                    CGSize temp = [str sizeWithFont:[UIFont systemFontOfSize:K_REPLY_FONT_SIZE] constrainedToSize:CGSizeMake(K_REPLY_WIDTH, CGFLOAT_MAX) lineBreakMode:0];
                     commentHeight += temp.height;
                 }
                 commentHeight += 23.0f;
@@ -274,7 +276,7 @@
             }else if ([data.praisesStr length]==0 && [data.commentsStr length]>0){
                 // 只有评论 不留白
                 for (NSString *str in data.commentTextArray) {
-                    CGSize temp = [str sizeWithFont:[UIFont systemFontOfSize:11.0f] constrainedToSize:CGSizeMake(210, CGFLOAT_MAX) lineBreakMode:0];
+                    CGSize temp = [str sizeWithFont:[UIFont systemFontOfSize:K_REPLY_FONT_SIZE] constrainedToSize:CGSizeMake(K_REPLY_WIDTH, CGFLOAT_MAX) lineBreakMode:0];
                     commentHeight += temp.height;
                 }
                 commentHeight += 23.0f;
@@ -291,7 +293,7 @@
                 
                 // 只有评论 不留白
                 for (NSString *str in data.commentTextArray) {
-                    CGSize temp = [str sizeWithFont:[UIFont systemFontOfSize:11.0f] constrainedToSize:CGSizeMake(210, CGFLOAT_MAX) lineBreakMode:0];
+                    CGSize temp = [str sizeWithFont:[UIFont systemFontOfSize:K_REPLY_FONT_SIZE] constrainedToSize:CGSizeMake(K_REPLY_WIDTH, CGFLOAT_MAX) lineBreakMode:0];
                     commentHeight += temp.height;
                 }
                 commentHeight += 23.0f;
@@ -335,7 +337,7 @@
             }else if ([data.praisesStr length]==0 && [data.commentsStr length]>0){
                 // 只有评论 不留白
                 for (NSString *str in data.commentTextArray) {
-                    CGSize temp = [str sizeWithFont:[UIFont systemFontOfSize:11.0f] constrainedToSize:CGSizeMake(210, CGFLOAT_MAX) lineBreakMode:0];
+                    CGSize temp = [str sizeWithFont:[UIFont systemFontOfSize:K_REPLY_FONT_SIZE] constrainedToSize:CGSizeMake(K_REPLY_WIDTH, CGFLOAT_MAX) lineBreakMode:0];
                     commentHeight += temp.height;
                 }
                 commentHeight += 23.0f;
@@ -352,7 +354,7 @@
                 
                 // 只有评论 不留白
                 for (NSString *str in data.commentTextArray) {
-                    CGSize temp = [str sizeWithFont:[UIFont systemFontOfSize:11.0f] constrainedToSize:CGSizeMake(210, CGFLOAT_MAX) lineBreakMode:0];
+                    CGSize temp = [str sizeWithFont:[UIFont systemFontOfSize:K_REPLY_FONT_SIZE] constrainedToSize:CGSizeMake(K_REPLY_WIDTH, CGFLOAT_MAX) lineBreakMode:0];
                     commentHeight += temp.height;
                 }
                 commentHeight += 23.0f;
@@ -426,7 +428,7 @@
             }else if ([data.praisesStr length]==0 && [data.commentsStr length]>0){
                 // 只有评论 不留白
                 for (NSString *str in data.commentTextArray) {
-                    CGSize temp = [str sizeWithFont:[UIFont systemFontOfSize:11.0f] constrainedToSize:CGSizeMake(210, CGFLOAT_MAX) lineBreakMode:0];
+                    CGSize temp = [str sizeWithFont:[UIFont systemFontOfSize:K_REPLY_FONT_SIZE] constrainedToSize:CGSizeMake(K_REPLY_WIDTH, CGFLOAT_MAX) lineBreakMode:0];
                     commentHeight += temp.height;
                 }
                 commentHeight += 23.0f;
@@ -443,7 +445,7 @@
                 
                 // 只有评论 不留白
                 for (NSString *str in data.commentTextArray) {
-                    CGSize temp = [str sizeWithFont:[UIFont systemFontOfSize:11.0f] constrainedToSize:CGSizeMake(210, CGFLOAT_MAX) lineBreakMode:0];
+                    CGSize temp = [str sizeWithFont:[UIFont systemFontOfSize:K_REPLY_FONT_SIZE] constrainedToSize:CGSizeMake(K_REPLY_WIDTH, CGFLOAT_MAX) lineBreakMode:0];
                     commentHeight += temp.height;
                 }
                 commentHeight += 23.0f;

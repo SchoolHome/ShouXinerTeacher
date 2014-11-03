@@ -46,10 +46,15 @@
     return self;
 }
 
--(ClassOperation *) initGroupTopic : (int) groupID withTimeStamp : (int) timeStamp withOffset : (int) offset withLimit : (int) limit{
+-(ClassOperation *) initGroupTopic : (int) groupID withTimeStamp : (int) timeStamp withOffset : (int) offset withLimit : (int) limit withType : (int) type;{
     if ([self initOperation]) {
+        NSString *urlStr = @"";
         self.type = kGetGroupTopic;
-        NSString *urlStr = [NSString stringWithFormat:@"http://%@/mapi/getTopicInfoList?groupid=%d&ts=%d&offset=%d&size=%d",K_HOST_NAME_OF_PALM_SERVER,groupID,timeStamp,offset,limit];
+        if (type == 2) {
+            urlStr = [NSString stringWithFormat:@"http://%@/mapi/getTopicInfoList?groupid=%d&ts=%d&offset=%d&size=%dtype=2",K_HOST_NAME_OF_PALM_SERVER,groupID,timeStamp,offset,limit];
+        }else{
+            urlStr = [NSString stringWithFormat:@"http://%@/mapi/getTopicInfoList?groupid=%d&ts=%d&offset=%d&size=%d",K_HOST_NAME_OF_PALM_SERVER,groupID,timeStamp,offset,limit];
+        }
         [self setHttpRequestGetWithUrl:urlStr];
     }
     return self;
