@@ -213,10 +213,10 @@
 -(void) clickItemIndex : (ClickMenuItem) item{
     NSLog(@"%d",item);
     if (item == kPBXItem) {
-        BBPostPBXViewController *postPBX = [[BBPostPBXViewController alloc] initWithPostType:POST_TYPE_PBX];
-//        BBCameraViewController *camera = [[BBCameraViewController alloc] init];
-        postPBX.hidesBottomBarWhenPushed = YES;
-        [(UINavigationController *)self.selectedViewController pushViewController:postPBX animated:YES];
+//        BBPostPBXViewController *postPBX = [[BBPostPBXViewController alloc] initWithPostType:POST_TYPE_PBX];
+        BBCameraViewController *camera = [[BBCameraViewController alloc] init];
+        camera.hidesBottomBarWhenPushed = YES;
+        [(UINavigationController *)self.selectedViewController pushViewController:camera animated:YES];
     }else
     {
         if (item == kHomeWorkItem) {

@@ -57,6 +57,16 @@
     }
     return self;
 }
+
+- (id)init
+{
+    self = [super init];
+    if (self) {
+        [self initalize];
+    }
+    return self;
+}
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
@@ -112,6 +122,15 @@
     // Dispose of any resources that can be recreated.
 }
 
+- (void)viewWillAppear:(BOOL)animated
+{
+    [self.navigationController setNavigationBarHidden:YES];
+}
+
+- (void)viewWillDisappear:(BOOL)animated
+{
+    [self.navigationController setNavigationBarHidden:NO];
+}
 /*
 #pragma mark - Navigation
 

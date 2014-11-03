@@ -1188,7 +1188,6 @@
 		745C5C67197E3DCC00BD07D4 /* CPDAONotifyMessage.m in Sources */ = {isa = PBXBuildFile; fileRef = 745C5C66197E3DCC00BD07D4 /* CPDAONotifyMessage.m */; };
 		745C5C6A197E457900BD07D4 /* CPDBModelNotifyMessage.m in Sources */ = {isa = PBXBuildFile; fileRef = 745C5C69197E457900BD07D4 /* CPDBModelNotifyMessage.m */; };
 		745CD94619D6A9400096094F /* BBWSPViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 745CD94519D6A9400096094F /* BBWSPViewController.m */; };
-		745CD94919D6ACA50096094F /* VideoConfirmViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 745CD94819D6ACA50096094F /* VideoConfirmViewController.m */; };
 		745D7684193F685600AF666E /* BBStudentsListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 745D7683193F685600AF666E /* BBStudentsListViewController.m */; };
 		745D7687193F68A200AF666E /* BBRecommendedRangeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 745D7686193F68A200AF666E /* BBRecommendedRangeViewController.m */; };
 		745D768A193F6A6000AF666E /* BBStudentListTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 745D7689193F6A6000AF666E /* BBStudentListTableViewCell.m */; };
@@ -1227,6 +1226,8 @@
 		74AF37241963A502008EA251 /* ZJZCallPhone@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 74AF37201963A502008EA251 /* ZJZCallPhone@2x.png */; };
 		74AF37251963A502008EA251 /* ZJZCellChat.png in Resources */ = {isa = PBXBuildFile; fileRef = 74AF37211963A502008EA251 /* ZJZCellChat.png */; };
 		74AF37261963A502008EA251 /* ZJZCellChat@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 74AF37221963A502008EA251 /* ZJZCellChat@2x.png */; };
+		74B1D2CA1A06E04E00B08419 /* BBCameraViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 74B1D2C91A06E04E00B08419 /* BBCameraViewController.m */; };
+		74B1D2CD1A06E06300B08419 /* VideoConfirmViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 74B1D2CC1A06E06300B08419 /* VideoConfirmViewController.m */; };
 		74E85D8D18D0445A00F1F1D5 /* BBZJZViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 74E85D8C18D0445A00F1F1D5 /* BBZJZViewController.m */; };
 		74EF7DFF1962BE4600DCD5A3 /* ZJZ_Seg_Parent@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 74EF7DFD1962BE4600DCD5A3 /* ZJZ_Seg_Parent@2x.png */; };
 		74EF7E001962BE4600DCD5A3 /* ZJZ_Seg_Teacher@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 74EF7DFE1962BE4600DCD5A3 /* ZJZ_Seg_Teacher@2x.png */; };
@@ -1234,7 +1235,6 @@
 		74FD88771A027CD7003037C9 /* BBBasePostViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 74FD88761A027CD7003037C9 /* BBBasePostViewController.m */; };
 		74FD887A1A029762003037C9 /* BBPostHomeworkViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 74FD88791A029762003037C9 /* BBPostHomeworkViewController.m */; };
 		74FD887D1A02A408003037C9 /* BBPostPBXViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 74FD887C1A02A408003037C9 /* BBPostPBXViewController.m */; };
-		74FD88801A0306BB003037C9 /* BBCameraViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 74FD887F1A0306BB003037C9 /* BBCameraViewController.m */; };
 		74FD88831A03160E003037C9 /* ChooseClassViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 74FD88821A03160E003037C9 /* ChooseClassViewController.m */; };
 		74FD88851A031CB2003037C9 /* choice@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 74FD88841A031CB2003037C9 /* choice@2x.png */; };
 		7A076A9518DFFF1B00911291 /* BBComentBottomBG.png in Resources */ = {isa = PBXBuildFile; fileRef = 7A076A9318DFFF1B00911291 /* BBComentBottomBG.png */; };
@@ -3191,8 +3191,6 @@
 		745C5C69197E457900BD07D4 /* CPDBModelNotifyMessage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CPDBModelNotifyMessage.m; sourceTree = "<group>"; };
 		745CD94419D6A9400096094F /* BBWSPViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BBWSPViewController.h; sourceTree = "<group>"; };
 		745CD94519D6A9400096094F /* BBWSPViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BBWSPViewController.m; sourceTree = "<group>"; };
-		745CD94719D6ACA50096094F /* VideoConfirmViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VideoConfirmViewController.h; sourceTree = "<group>"; };
-		745CD94819D6ACA50096094F /* VideoConfirmViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VideoConfirmViewController.m; sourceTree = "<group>"; };
 		745D7682193F685600AF666E /* BBStudentsListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BBStudentsListViewController.h; sourceTree = "<group>"; };
 		745D7683193F685600AF666E /* BBStudentsListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BBStudentsListViewController.m; sourceTree = "<group>"; };
 		745D7685193F68A200AF666E /* BBRecommendedRangeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BBRecommendedRangeViewController.h; sourceTree = "<group>"; };
@@ -3242,6 +3240,10 @@
 		74AF37201963A502008EA251 /* ZJZCallPhone@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ZJZCallPhone@2x.png"; sourceTree = "<group>"; };
 		74AF37211963A502008EA251 /* ZJZCellChat.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ZJZCellChat.png; sourceTree = "<group>"; };
 		74AF37221963A502008EA251 /* ZJZCellChat@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ZJZCellChat@2x.png"; sourceTree = "<group>"; };
+		74B1D2C81A06E04E00B08419 /* BBCameraViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BBCameraViewController.h; sourceTree = "<group>"; };
+		74B1D2C91A06E04E00B08419 /* BBCameraViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BBCameraViewController.m; sourceTree = "<group>"; };
+		74B1D2CB1A06E06300B08419 /* VideoConfirmViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VideoConfirmViewController.h; sourceTree = "<group>"; };
+		74B1D2CC1A06E06300B08419 /* VideoConfirmViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VideoConfirmViewController.m; sourceTree = "<group>"; };
 		74E85D8B18D0445A00F1F1D5 /* BBZJZViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BBZJZViewController.h; sourceTree = "<group>"; };
 		74E85D8C18D0445A00F1F1D5 /* BBZJZViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BBZJZViewController.m; sourceTree = "<group>"; };
 		74EF7DFD1962BE4600DCD5A3 /* ZJZ_Seg_Parent@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ZJZ_Seg_Parent@2x.png"; sourceTree = "<group>"; };
@@ -3254,8 +3256,6 @@
 		74FD88791A029762003037C9 /* BBPostHomeworkViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BBPostHomeworkViewController.m; sourceTree = "<group>"; };
 		74FD887B1A02A408003037C9 /* BBPostPBXViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BBPostPBXViewController.h; sourceTree = "<group>"; };
 		74FD887C1A02A408003037C9 /* BBPostPBXViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BBPostPBXViewController.m; sourceTree = "<group>"; };
-		74FD887E1A0306BB003037C9 /* BBCameraViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BBCameraViewController.h; sourceTree = "<group>"; };
-		74FD887F1A0306BB003037C9 /* BBCameraViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BBCameraViewController.m; sourceTree = "<group>"; };
 		74FD88811A03160E003037C9 /* ChooseClassViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChooseClassViewController.h; sourceTree = "<group>"; };
 		74FD88821A03160E003037C9 /* ChooseClassViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChooseClassViewController.m; sourceTree = "<group>"; };
 		74FD88841A031CB2003037C9 /* choice@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "choice@2x.png"; sourceTree = "<group>"; };
@@ -6708,8 +6708,8 @@
 			children = (
 				745CD94419D6A9400096094F /* BBWSPViewController.h */,
 				745CD94519D6A9400096094F /* BBWSPViewController.m */,
-				745CD94719D6ACA50096094F /* VideoConfirmViewController.h */,
-				745CD94819D6ACA50096094F /* VideoConfirmViewController.m */,
+				74B1D2CB1A06E06300B08419 /* VideoConfirmViewController.h */,
+				74B1D2CC1A06E06300B08419 /* VideoConfirmViewController.m */,
 			);
 			path = WSP;
 			sourceTree = "<group>";
@@ -6945,8 +6945,8 @@
 				745D7686193F68A200AF666E /* BBRecommendedRangeViewController.m */,
 				74FD886F1A0278E6003037C9 /* BBChooseClassViewController.h */,
 				74FD88701A0278E6003037C9 /* BBChooseClassViewController.m */,
-				74FD887E1A0306BB003037C9 /* BBCameraViewController.h */,
-				74FD887F1A0306BB003037C9 /* BBCameraViewController.m */,
+				74B1D2C81A06E04E00B08419 /* BBCameraViewController.h */,
+				74B1D2C91A06E04E00B08419 /* BBCameraViewController.m */,
 			);
 			path = PBX;
 			sourceTree = "<group>";
@@ -8033,6 +8033,7 @@
 				332D74F218C33552007A75D5 /* CPResManager.m in Sources */,
 				745350B11A021AC50068E185 /* BBChooseImgViewInPostPage.m in Sources */,
 				332D830218C33F0B007A75D5 /* CustomAlertView.m in Sources */,
+				74B1D2CD1A06E06300B08419 /* VideoConfirmViewController.m in Sources */,
 				332D82AB18C33F0A007A75D5 /* AFSectionData.m in Sources */,
 				332D726118C33464007A75D5 /* main.m in Sources */,
 				332D830E18C33F0B007A75D5 /* FXBlockViewSubmit.m in Sources */,
@@ -8288,7 +8289,6 @@
 				7A922F7C18E2CEFC00026C4A /* BBInputView.m in Sources */,
 				332D758D18C33552007A75D5 /* CPPTModelSearchResultUserInfo.m in Sources */,
 				332D839018C33F0B007A75D5 /* TSortOperator.m in Sources */,
-				745CD94919D6ACA50096094F /* VideoConfirmViewController.m in Sources */,
 				332D82EE18C33F0A007A75D5 /* MessageCellFactory.m in Sources */,
 				19145F5F191CDF3B008CE18C /* UIImageView+MJWebCache.m in Sources */,
 				332D74E918C33552007A75D5 /* CPDBModelResource.m in Sources */,
@@ -8373,6 +8373,7 @@
 				19954AC21A01FEE40087D872 /* BBVideoTableViewCell.m in Sources */,
 				19145F58191CDF3B008CE18C /* SDWebImageManager+MJ.m in Sources */,
 				332D754318C33552007A75D5 /* XMPPMUC.m in Sources */,
+				74B1D2CA1A06E04E00B08419 /* BBCameraViewController.m in Sources */,
 				332D838518C33F0B007A75D5 /* BezierCurve.m in Sources */,
 				332D752018C33552007A75D5 /* NSDictionary+RequestEncoding.m in Sources */,
 				332D74C818C33552007A75D5 /* CPDBManagement.m in Sources */,
@@ -8477,7 +8478,6 @@
 				332D834F18C33F0B007A75D5 /* AlarmObject.m in Sources */,
 				332D830918C33F0B007A75D5 /* NavigationRightSingleStyle.m in Sources */,
 				332D830618C33F0B007A75D5 /* NavigationBothStyle.m in Sources */,
-				74FD88801A0306BB003037C9 /* BBCameraViewController.m in Sources */,
 				332D75A618C33552007A75D5 /* CPUIModelPetMagicAnim.m in Sources */,
 				332D829418C33F0A007A75D5 /* AddContactModel.m in Sources */,
 				332D74D618C33552007A75D5 /* CPDAOUserInfoData.m in Sources */,
