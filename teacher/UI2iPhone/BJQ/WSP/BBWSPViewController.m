@@ -386,8 +386,6 @@
     {
         NSLog(@"not ready");
     }
-    
-
 }
 
 -(NSString *)getTempSaveVideoPath

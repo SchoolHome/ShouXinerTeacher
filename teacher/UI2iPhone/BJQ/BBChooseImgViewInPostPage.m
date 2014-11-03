@@ -55,7 +55,13 @@
     }
 }
 
-
+- (void)addVideoImage:(UIImage *)image
+{
+    if (image) {
+        [self.images addObject:image];
+        [self setNeedsDisplay];
+    }
+}
 
 - (void)drawRect:(CGRect)rect
 {
@@ -163,6 +169,10 @@
     [self.images removeObjectAtIndex:deleteViewTag];
     [self closeImageBtn];
     [self setNeedsDisplay];
+    
+    if ([self.delegate respondsToSelector:@selector(imageDidDelete)]) {
+        [self.delegate imageDidDelete];
+    }
 }
 
 - (void)tap

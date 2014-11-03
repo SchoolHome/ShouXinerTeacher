@@ -39,6 +39,8 @@ typedef enum
 
 @property (nonatomic, readonly) BBGroupModel *currentGroup;
 
+@property (nonatomic, readonly) BBChooseImgViewInPostPage *chooseImageView;
+
 @property (nonatomic, strong) NSMutableArray *attachList;
 //发作业科目index
 @property int selectedIndex;
@@ -46,9 +48,15 @@ typedef enum
 - (id)initWithPostType:(POST_TYPE)postPageType;
 
 - (void) sendButtonTaped;
+- (void) backToBJQRoot;
+
+- (void)setChoosenImages:(NSArray *)images andISVideo:(BOOL)isVideo;
 
 - (NSString *)getThingsText;
+- (void)closeThingsText;
+
 - (NSInteger)getImagesCount;
+-(UIImage*)imageWithImage:(UIImage*)image;
 @end
 
 @interface BBBasePostTableview : UITableView <UIGestureRecognizerDelegate>

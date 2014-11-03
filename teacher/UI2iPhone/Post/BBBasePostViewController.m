@@ -33,7 +33,7 @@ ZYQAssetPickerControllerDelegate>
 @property (nonatomic)POST_TYPE postType;
 @property (nonatomic, strong) NSString *placeholder;
 
-@property (nonatomic, strong) BBChooseImgViewInPostPage *chooseImageView;
+@property (nonatomic, readwrite) BBChooseImgViewInPostPage *chooseImageView;
 
 @end
 
@@ -111,7 +111,7 @@ ZYQAssetPickerControllerDelegate>
         }else{
             
             [self showProgressWithText:@"发送成功" withDelayTime:0.5];
-            [self.navigationController popViewControllerAnimated:YES];
+            [self backToBJQRoot];
         }
     }
     
@@ -130,6 +130,7 @@ ZYQAssetPickerControllerDelegate>
         }
     }
 
+    
 }
 
 
@@ -210,6 +211,11 @@ ZYQAssetPickerControllerDelegate>
 - (NSInteger)getImagesCount
 {
     return self.chooseImageView.images.count;
+}
+
+- (void) backToBJQRoot
+{
+    [self.navigationController popToRootViewControllerAnimated:YES];
 }
 #pragma mark - UITableview
 
@@ -319,7 +325,12 @@ ZYQAssetPickerControllerDelegate>
 }
 
 #pragma mark - ViewControllerMethod
--(void)backButtonTaped:(id)sender{
+- (void)closeThingsText
+{
+    [thingsTextView resignFirstResponder];
+}
+
+- (void)backButtonTaped:(id)sender{
     [self.navigationController popViewControllerAnimated:YES];
 }
 
@@ -384,7 +395,14 @@ ZYQAssetPickerControllerDelegate>
 
 }
 
--(void)setStyle{
+- (void)setChoosenImages:(NSArray *)images andISVideo:(BOOL)isVideo;
+{
+    if (images.count == 0) return;
+    else
+        isVideo ? [self.chooseImageView addVideoImage:images[0]] : [self.chooseImageView addImages:images];
+}
+
+- (void)setStyle{
     
     switch (_postType) {
         case POST_TYPE_FZY:

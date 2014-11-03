@@ -10,10 +10,8 @@
 
 @interface BBPostPBXViewController : BBBasePostViewController
 {
-    NSArray *selectedStuArray;
-    NSArray *selectedRangeArray;
-    
-    NSString *selectedStuStr;
-    NSString *selectedRangeStr;
+
 }
+@property (nonatomic, strong) NSURL *videoUrl;
+
 @end

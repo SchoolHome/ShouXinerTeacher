@@ -11,7 +11,7 @@
 #define COUNT_DUR_TIMER_INTERVAL 0.05
 
 #import "VideoConfirmViewController.h"
-
+#import "BBPostPBXViewController.h"
 @interface VideoConfirmViewController ()<AVCaptureFileOutputRecordingDelegate>
 {
     BBGroupModel *model;
@@ -514,9 +514,11 @@
     NSLog(@"本段视频长度: %f", _currentVideoDur);
     NSLog(@"现在的视频总长度: %f", _totalVideoDur);
     
-    BBWSPViewController *wsp = [[BBWSPViewController alloc] initWithVideoUrl:outputFileURL andType:VIDEO_TYPE_CARMER andGroupModel:model];
-    [self.navigationController pushViewController:wsp animated:YES];
-    
+//    BBWSPViewController *wsp = [[BBWSPViewController alloc] initWithVideoUrl:outputFileURL andType:VIDEO_TYPE_CARMER andGroupModel:model];
+//    [self.navigationController pushViewController:wsp animated:YES];
+    BBPostPBXViewController *postVideoPBX = [[BBPostPBXViewController alloc] initWithPostType:POST_TYPE_PBX];
+    postVideoPBX.videoUrl = outputFileURL;
+    [self.navigationController pushViewController:postVideoPBX animated:YES];
 
 }
 

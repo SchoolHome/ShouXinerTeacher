@@ -15,12 +15,14 @@
 
 - (void)shouldAddImage:(NSInteger)imagesCount;
 
+@optional
 //boundsChanged
 - (void)viewBoundsChanged:(CGRect )viewframe;
 
 //已超过最大照片数
--(void)cannotAddImage;
+- (void)cannotAddImage;
 
+- (void)imageDidDelete;
 @end
 @interface BBChooseImgViewInPostPage : UIView <UIActionSheetDelegate>
 {
@@ -35,6 +37,8 @@
 - (void)addImage:(UIImage *)image;
 //添加多张图片
 - (void)addImages:(NSArray *)images;
+
+- (void)addVideoImage:(UIImage *)image;
 
 - (void)closeImageBtn;
 @end
