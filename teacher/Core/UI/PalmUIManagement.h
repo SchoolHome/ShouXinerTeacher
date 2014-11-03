@@ -111,7 +111,7 @@
 // 获取班级列表
 -(void) getGroupList;
 // 获取班级Topic
--(void) getGroupTopic : (int) groupID withTimeStamp : (int) timeStamp withOffset : (int) offset withLimit : (int) limit;
+-(void) getGroupTopic : (int) groupID withTimeStamp : (int) timeStamp withOffset : (int) offset withLimit : (int) limit withType : (int) type;
 // 点赞
 -(void) postPraise : (long long) topicID;
 // 发表评论

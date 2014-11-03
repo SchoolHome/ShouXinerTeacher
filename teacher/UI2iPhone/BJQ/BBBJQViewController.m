@@ -36,6 +36,8 @@
 @property (nonatomic,strong) NSString *contentText;
 @property (nonatomic,strong) BBTopicModel *recommendUsed;
 @property (nonatomic,strong) UIButton *notifyButton;
+//如果为2则获取作业类型，否则取全部类型数据
+@property (nonatomic) int type;
 @end
 
 @implementation BBBJQViewController
@@ -376,9 +378,8 @@
     notifyCount = 0;
     
     hasNew = YES;
-    
+    self.type = 0;
     self.navigationController.navigationBar.tintColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.5];
-    
     self.view.backgroundColor = [UIColor brownColor];
 
     bjqTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0.0f, 320, self.screenHeight-64.0f-48.0f) style:UITableViewStyleGrouped];
@@ -393,31 +394,20 @@
     __weak BBBJQViewController *weakSelf = self;
     // 刷新
     [bjqTableView addPullToRefreshWithActionHandler:^{
-        
         weakSelf.isLoading = YES;
-        
         weakSelf.loadStatus = TopicLoadStatusRefresh;
-        
-        [[PalmUIManagement sharedInstance] getGroupTopic:[weakSelf.currentGroup.groupid intValue] withTimeStamp:1 withOffset:0 withLimit:30];
+        [[PalmUIManagement sharedInstance] getGroupTopic:[weakSelf.currentGroup.groupid intValue] withTimeStamp:1 withOffset:0 withLimit:30 withType:weakSelf.type];
     }];
     
     // 追加
     [bjqTableView addInfiniteScrollingWithActionHandler:^{
-        
         weakSelf.isLoading = YES;
-        
         weakSelf.loadStatus = TopicLoadStatusAppend;
-        
         int offset = [weakSelf.allTopicList count];
-        
-//        BBTopicModel *model = [weakSelf.allTopicList lastObject];
-        
-//        int st = [model.ts intValue];
-        
-        [[PalmUIManagement sharedInstance] getGroupTopic:[weakSelf.currentGroup.groupid intValue] withTimeStamp:1 withOffset:offset withLimit:30];
-        
+        BBTopicModel *model = [weakSelf.allTopicList lastObject];
+        int st = [model.ts intValue];
+        [[PalmUIManagement sharedInstance] getGroupTopic:[weakSelf.currentGroup.groupid intValue] withTimeStamp:st withOffset:offset withLimit:30 withType:weakSelf.type];
     }];
-    
     
     UIImageView *head = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 320, 147)];
     head.backgroundColor = [UIColor colorWithHexString:@"f2f2f2"];//[UIColor colorWithRed:242/255.f green:236/255.f blue:230/255.f alpha:1.f];
@@ -808,25 +798,41 @@
 #pragma mark - BBFSDropdownViewDelegate
 
 -(void)bbFSDropdownView:(BBFSDropdownView *) dropdownView_ didSelectedAtIndex:(NSInteger) index_{
+    
+    /*
+     显示全部
+     显示作业
+     刷新
+     */
     if (index_ == 0) {
-        BBPBXViewController *pbx = [[BBPBXViewController alloc] init];
-        pbx.hidesBottomBarWhenPushed = YES;
-        pbx.currentGroup = _currentGroup;
-        [self.navigationController pushViewController:pbx animated:YES];
-    }else
-    {
-        BBFZYViewController *fzy = [[BBFZYViewController alloc] init];
-        fzy.hidesBottomBarWhenPushed = YES;
-        if (index_ == 1) {
-            fzy.style = 0;
-        }else if (index_ == 2){
-            fzy.style = 1;
-        }else{
-            fzy.style = 3;
-        }
-        fzy.currentGroup = _currentGroup;
-        [self.navigationController pushViewController:fzy animated:YES];
+        self.type = 0;
+        [bjqTableView triggerPullToRefresh];
+    }else if(index_ == 1){
+        self.type = 2;
+        [bjqTableView triggerPullToRefresh];
+    }else{
+        [bjqTableView triggerPullToRefresh];
     }
+    
+//    if (index_ == 0) {
+//        BBPBXViewController *pbx = [[BBPBXViewController alloc] init];
+//        pbx.hidesBottomBarWhenPushed = YES;
+//        pbx.currentGroup = _currentGroup;
+//        [self.navigationController pushViewController:pbx animated:YES];
+//    }else
+//    {
+//        BBFZYViewController *fzy = [[BBFZYViewController alloc] init];
+//        fzy.hidesBottomBarWhenPushed = YES;
+//        if (index_ == 1) {
+//            fzy.style = 0;
+//        }else if (index_ == 2){
+//            fzy.style = 1;
+//        }else{
+//            fzy.style = 3;
+//        }
+//        fzy.currentGroup = _currentGroup;
+//        [self.navigationController pushViewController:fzy animated:YES];
+//    }
 }
 
 -(void)bbFSDropdownViewTaped:(BBFSDropdownView *) dropdownView_{
