@@ -12,7 +12,6 @@
 #import "ZYQAssetPickerController.h"
 #import "ChooseClassViewController.h"
 @interface BBBasePostViewController()<
-UIActionSheetDelegate,
 UIImagePickerControllerDelegate,
 UINavigationControllerDelegate,
 ChooseClassDelegate,

@@ -13,11 +13,14 @@
 
 #import "BBRecommendedRangeViewController.h"
 #import "BBStudentsListViewController.h"
+#import "BBCameraViewController.h"
 
 #import "BBStudentModel.h"
 #import "CropVideo.h"
 #import "CropVideoModel.h"
 #import "CoreUtils.h"
+
+
 
 @interface BBPostPBXViewController ()
 {
@@ -472,12 +475,41 @@
         [super tableView:tableView didSelectRowAtIndexPath:indexPath];
     }
 }
-
+#pragma mark - ActionSheet
+- (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    if ([[actionSheet buttonTitleAtIndex:0] isEqualToString:@"拍摄"] && buttonIndex == 0) {
+        //进自定义拍照界面
+        for (id viewController in self.navigationController.viewControllers) {
+            if ([viewController isKindOfClass:[BBCameraViewController class]]) {
+                [self.navigationController popToViewController:(BBCameraViewController *)viewController animated:YES];
+                return;
+            }
+        }
+        
+        BBCameraViewController *camera = [[BBCameraViewController alloc] init];
+        [self.navigationController pushViewController:camera animated:YES];
+    }else
+    {
+        [super actionSheet:actionSheet clickedButtonAtIndex:buttonIndex];
+    }
+}
 #pragma mark - BBChooseImageDelegate
 - (void)shouldAddImage:(NSInteger)imagesCount
 {
     if ([self videoIsExist]) {
         [self showProgressWithText:@"只能添加一个视频" withDelayTime:2.f];
+    }else if (imagesCount > 0)
+    {
+        [super shouldAddImage:imagesCount];
+    }else
+    {
+        UIActionSheet *sheet = [[UIActionSheet alloc] initWithTitle:@"选择"
+                                                           delegate:self
+                                                  cancelButtonTitle:@"取消"
+                                             destructiveButtonTitle:nil
+                                                  otherButtonTitles:@"拍摄",@"相册", nil];
+        [sheet showInView:self.view];
     }
 }
 

@@ -30,7 +30,10 @@ typedef enum
 @end
 
 @interface BBBasePostViewController : PalmViewController
-<UITableViewDataSource,UITableViewDelegate,BBChooseImgViewInPostPageDelegate>
+<UITableViewDataSource,
+UITableViewDelegate,
+UIActionSheetDelegate,
+BBChooseImgViewInPostPageDelegate>
 {
     
     
