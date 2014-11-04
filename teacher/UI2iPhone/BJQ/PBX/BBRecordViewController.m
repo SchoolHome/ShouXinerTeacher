@@ -395,6 +395,11 @@
     sender.selected = !sender.selected;
 }
 
+- (void)takePicture
+{
+    
+}
+
 #pragma mark - Method
 - (void)focusInPoint:(CGPoint)touchPoint
 {

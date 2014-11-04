@@ -29,6 +29,8 @@
     
     NSString *selectedStuStr;
     NSString *selectedRangeStr;
+    
+    NSArray *tempImages;
 }
 @property (nonatomic, strong) MPMoviePlayerController *moviePlayer;
 @end
@@ -159,6 +161,14 @@
     }
 }
 
+- (id) initWithImages:(NSArray *)images
+{
+    self = [super initWithPostType:POST_TYPE_PBX];
+    if (self) {
+        tempImages = [NSArray arrayWithArray:images];
+    }
+    return self;
+}
 
 - (void)viewWillAppear:(BOOL)animated
 {
@@ -268,7 +278,7 @@
     if ([self videoIsExist]) {
         [self sendVideo];
     }else{
-        
+        [self sendImages];
     }
 
 }
@@ -337,6 +347,11 @@
         return YES;
     }
     return NO;
+}
+
+- (void)chooseImageViewLoaded
+{
+    [self.chooseImageView addImages:tempImages];
 }
 #pragma mark - Video
 - (void)initMoviePlayer

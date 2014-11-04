@@ -49,7 +49,7 @@
 //添加多张图片
 - (void)addImages:(NSArray *)images
 {
-    if (images && images.count && images.count < _maxImages) {
+    if (images && images.count && images.count <= _maxImages) {
         [self.images addObjectsFromArray:images];
         [self setNeedsDisplay];
     }

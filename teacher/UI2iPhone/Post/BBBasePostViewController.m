@@ -288,6 +288,8 @@ ZYQAssetPickerControllerDelegate>
                     _chooseImageView.maxImages = 7;
                 }
                 [cell.contentView addSubview:_chooseImageView];
+                
+                [self chooseImageViewLoaded];
             }
                 break;
             default:

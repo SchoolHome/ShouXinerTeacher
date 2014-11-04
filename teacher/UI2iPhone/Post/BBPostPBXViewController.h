@@ -16,4 +16,6 @@
 }
 @property (nonatomic, strong) NSURL *videoUrl;
 
+- (id) initWithImages:(NSArray *)images;
+
 @end

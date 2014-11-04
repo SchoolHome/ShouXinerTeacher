@@ -92,9 +92,8 @@
 
 - (void)confirm
 {
-    BBPostPBXViewController *postPBX = [[BBPostPBXViewController alloc] initWithPostType:POST_TYPE_PBX];
+    BBPostPBXViewController *postPBX = [[BBPostPBXViewController alloc] initWithImages:[NSArray arrayWithObject:self.image]];
     [self.navigationController pushViewController:postPBX animated:YES];
-    [postPBX.chooseImageView addImage:self.image];
 }
 
 @end
