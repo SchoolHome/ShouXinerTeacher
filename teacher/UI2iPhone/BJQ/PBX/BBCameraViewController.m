@@ -12,7 +12,9 @@
 #import <AssetsLibrary/AssetsLibrary.h>
 
 #import "BBRecordViewController.h"
+#import "BBPostPBXViewController.h"
 #import "ViewImageViewController.h"
+#import "BBImagePreviewVIewController.h"
 
 @interface BBCameraViewController ()<ZYQAssetPickerControllerDelegate>
 {
@@ -202,9 +204,17 @@
 #pragma mark -
 #pragma mark - ZYQAssetPickerController Delegate
 -(void)assetPickerController:(ZYQAssetPickerController *)picker didFinishPickingAssets:(NSArray *)assets{
+    NSMutableArray *tempImages = [[NSMutableArray alloc] initWithCapacity:7];
     for (int i = 0; i<[assets count]; i++) {
         ALAsset *asset = [assets objectAtIndex:i];
         UIImage *image = [UIImage imageWithCGImage:[[asset defaultRepresentation] fullScreenImage]];
+        [tempImages addObject:image];
+    }
+    
+    if (tempImages.count > 0) {
+        BBPostPBXViewController  *postPBX = [[BBPostPBXViewController alloc] initWithPostType:POST_TYPE_PBX];
+        [postPBX.chooseImageView addImages:tempImages];
+        [self.navigationController pushViewController:postPBX animated:YES];
     }
 }
 
@@ -215,8 +225,10 @@
     if ([mediaType isEqualToString:@"public.image"]){
         image = [info objectForKey:UIImagePickerControllerOriginalImage];
     }
-    
     [self dismissModalViewControllerAnimated:YES];
+    
+    BBImagePreviewVIewController *imagePreview = [[BBImagePreviewVIewController  alloc] initWithPreviewImage:image];
+    [self.navigationController pushViewController:imagePreview animated:YES];
 }
 
 - (void)imagePickerControllerDidCancel:(UIImagePickerController *)picker{

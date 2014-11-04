@@ -1196,6 +1196,7 @@
 		746456F71A00D7CD008CF0BD /* plus_bg@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 746456F61A00D7CD008CF0BD /* plus_bg@2x.png */; };
 		7478550518DB545C0070DF87 /* ContactsStartGroupChatViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7478550418DB545C0070DF87 /* ContactsStartGroupChatViewController.m */; };
 		7478550818DB548C0070DF87 /* StartGroupChatTableviewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7478550718DB548C0070DF87 /* StartGroupChatTableviewCell.m */; };
+		747D6F481A09278700809D17 /* BBImagePreviewVIewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 747D6F471A09278700809D17 /* BBImagePreviewVIewController.m */; };
 		748EBE161980BAA30060AE71 /* BBNotifyMessageGroupCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 748EBE151980BAA30060AE71 /* BBNotifyMessageGroupCell.m */; };
 		749D72AE18D6147200936D5E /* BBMessageGroupBaseTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 749D72AD18D6147200936D5E /* BBMessageGroupBaseTableView.m */; };
 		74A4E5C418DFD9BD000F79E6 /* BBMembersInMsgGroupViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 74A4E5C318DFD9BD000F79E6 /* BBMembersInMsgGroupViewController.m */; };
@@ -3216,6 +3217,8 @@
 		7478550418DB545C0070DF87 /* ContactsStartGroupChatViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ContactsStartGroupChatViewController.m; sourceTree = "<group>"; };
 		7478550618DB548C0070DF87 /* StartGroupChatTableviewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StartGroupChatTableviewCell.h; sourceTree = "<group>"; };
 		7478550718DB548C0070DF87 /* StartGroupChatTableviewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StartGroupChatTableviewCell.m; sourceTree = "<group>"; };
+		747D6F461A09278700809D17 /* BBImagePreviewVIewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BBImagePreviewVIewController.h; sourceTree = "<group>"; };
+		747D6F471A09278700809D17 /* BBImagePreviewVIewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BBImagePreviewVIewController.m; sourceTree = "<group>"; };
 		748EBE141980BAA30060AE71 /* BBNotifyMessageGroupCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BBNotifyMessageGroupCell.h; sourceTree = "<group>"; };
 		748EBE151980BAA30060AE71 /* BBNotifyMessageGroupCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BBNotifyMessageGroupCell.m; sourceTree = "<group>"; };
 		749D72AC18D6147200936D5E /* BBMessageGroupBaseTableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BBMessageGroupBaseTableView.h; sourceTree = "<group>"; };
@@ -6977,6 +6980,8 @@
 				74B1D2C91A06E04E00B08419 /* BBCameraViewController.m */,
 				74FE932F1A07D9B100F2004D /* BBRecordViewController.h */,
 				74FE93301A07D9B100F2004D /* BBRecordViewController.m */,
+				747D6F461A09278700809D17 /* BBImagePreviewVIewController.h */,
+				747D6F471A09278700809D17 /* BBImagePreviewVIewController.m */,
 			);
 			path = PBX;
 			sourceTree = "<group>";
@@ -8240,6 +8245,7 @@
 				19145F56191CDF3B008CE18C /* SDWebImageDownloader.m in Sources */,
 				332D838F18C33F0B007A75D5 /* TSearchOperator.m in Sources */,
 				332D837218C33F0B007A75D5 /* sp_dec.c in Sources */,
+				747D6F481A09278700809D17 /* BBImagePreviewVIewController.m in Sources */,
 				332D834818C33F0B007A75D5 /* SingleSystemUnknowCell.m in Sources */,
 				332D82C318C33F0A007A75D5 /* BKLocationManager.m in Sources */,
 				332D835418C33F0B007A75D5 /* TaggingHoliday.m in Sources */,

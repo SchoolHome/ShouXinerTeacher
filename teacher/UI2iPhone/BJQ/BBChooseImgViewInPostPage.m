@@ -59,6 +59,8 @@
 {
     if (image) {
         [self.images addObject:image];
+        //加入播放图片
+        
         [self setNeedsDisplay];
     }
 }
