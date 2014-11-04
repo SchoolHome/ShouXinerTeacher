@@ -88,6 +88,7 @@
 
 -(void) bbBaseTableViewCell:(BBBaseTableViewCell *)cell touchPoint:(CGPoint)touchPoint longPressText : (NSString *) text;
 -(void) bbBaseTableViewCell:(BBBaseTableViewCell *)cell deleteButtonTaped:(UIButton *)sender;
+-(void) bbBaseTableViewCell:(BBBaseTableViewCell *)cell playVideoTaped:(EGOImageButton *)sender;
 @end
 
 

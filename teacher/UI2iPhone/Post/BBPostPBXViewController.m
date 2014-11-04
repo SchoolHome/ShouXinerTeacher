@@ -139,7 +139,7 @@
             if ([resultData[@"ret"] isEqualToString:@"OK"])
             {
                 [self closeProgress];
-                NSString *attach = [self.attachList componentsJoinedByString:@"***"];
+                NSString *attach = [resultData JSONString];//[data JSONString]
                 BOOL hasHomePage = NO;
                 BOOL hasTopGroup = NO;
                 for (NSString *tempRange in selectedRangeArray) {

@@ -11,8 +11,8 @@
 @implementation BBVideoTableViewCell
 
 -(void)imageButtonTaped:(EGOImageButton *)sender{
-    if (self.delegate&&[self.delegate respondsToSelector:@selector(bbBaseTableViewCell:imageButtonTaped:)]) {
-        [self.delegate bbBaseTableViewCell:self imageButtonTaped:sender];
+    if (self.delegate&&[self.delegate respondsToSelector:@selector(bbBaseTableViewCell:playVideoTaped:)]) {
+        [self.delegate bbBaseTableViewCell:self playVideoTaped:sender];
     }
 }
 
@@ -27,7 +27,7 @@
         title.textColor = [UIColor colorWithHexString:@"#4a7f9d"];
         title.backgroundColor = [UIColor clearColor];
         
-        typeImage = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"notice"]];
+        typeImage = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"state"]];
         typeImage.frame = CGRectMake(280.0f, 10.0f, 28.0f, 15.0f);
         [self addSubview:typeImage];
         
@@ -44,6 +44,17 @@
         content = [[UILabel alloc] init];
         [self addSubview:content];
         content.backgroundColor = [UIColor clearColor];
+        
+        imageContent = [[EGOImageButton alloc] init];
+        [self addSubview:imageContent];
+//        [imageContent addTarget:self action:@selector(imageButtonTaped:) forControlEvents:UIControlEventTouchUpInside];
+        
+        playImage = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"play"]];
+        playImage.userInteractionEnabled = YES;
+        playImage.frame = CGRectMake(0.0f, 0.0f, 35.0f, 35.0f);
+        UITapGestureRecognizer *gestrue = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(imageButtonTaped:)];
+        [playImage addGestureRecognizer:gestrue];
+        [self addSubview:playImage];
     }
     return self;
 }
@@ -77,10 +88,15 @@
     
     // 视频图片
     CGFloat timeBegin = 0;
-    imageContent.frame = CGRectMake(K_LEFT_PADDING*80, kViewFoot(content)+10, 75, 75);
+    imageContent.frame = CGRectMake(60, kViewFoot(content)+10, 85, 64);
     imageContent.backgroundColor = [UIColor grayColor];
-    NSString *url = [NSString stringWithFormat:@"%@/mlogo",self.data.imageList[0]];
+    NSArray *array = [self.data.videoList[0] componentsSeparatedByString:@","];
+    NSString *url = [NSString stringWithFormat:@"%@preview",array[0]];
     imageContent.imageURL = [NSURL URLWithString:url];
+    
+    [imageContent addSubview:playImage];
+    playImage.center = CGPointMake(imageContent.frame.size.width/2.0f, imageContent.frame.size.height/2.0f);
+    
     timeBegin = kViewFoot(imageContent);
     
     if (self.data.recommendToGroups || self.data.recommendToHomepage || self.data.recommendToUpGroup) {

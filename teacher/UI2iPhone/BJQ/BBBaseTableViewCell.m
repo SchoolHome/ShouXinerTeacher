@@ -59,6 +59,12 @@
     }
 }
 
+-(void) bbBaseTableViewCell:(BBBaseTableViewCell *)cell playVideoTaped:(EGOImageButton *)sender{
+    if (_delegate && [_delegate respondsToSelector:@selector(bbBaseTableViewCell:playVideoTaped:)]) {
+        [_delegate bbBaseTableViewCell:self playVideoTaped:sender];
+    }
+}
+
 -(NSString *)timeStringFromNumber:(NSNumber *) number{
     
     NSTimeInterval  t1 = [number longLongValue];

@@ -14,6 +14,7 @@
     UILabel *content;
     UIImageView *typeImage;
     EGOImageButton *imageContent;
+    UIImageView *playImage;
 }
 
 @end
