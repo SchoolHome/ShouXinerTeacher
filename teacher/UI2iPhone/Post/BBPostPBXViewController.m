@@ -407,6 +407,7 @@
 {
     
     UIImage *image = [self.moviePlayer thumbnailImageAtTime:0.f timeOption:MPMovieTimeOptionExact];
+    NSLog(@"getThumbnailImage==%@",image);
     [self setChoosenImages:@[image] andISVideo:YES];
 }
 
