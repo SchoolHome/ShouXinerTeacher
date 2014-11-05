@@ -289,7 +289,9 @@ ZYQAssetPickerControllerDelegate>
                 }
                 [cell.contentView addSubview:_chooseImageView];
                 
-                [self chooseImageViewLoaded];
+                if (_postType == POST_TYPE_PBX) {
+                    [self chooseImageViewLoaded];
+                }
             }
                 break;
             default:
