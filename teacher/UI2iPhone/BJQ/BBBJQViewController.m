@@ -39,6 +39,7 @@
 //如果为2则获取作业类型，否则取全部类型数据
 @property (nonatomic) int type;
 
+@property (nonatomic,strong) NSString *videoFilePath;
 -(void) playVideo : (NSString *) videoPath;
 @end
 
@@ -288,7 +289,7 @@
             [self showProgressWithText:[dic objectForKey:ASI_REQUEST_ERROR_MESSAGE] withDelayTime:3];
         }else{
             [self closeProgress];
-            [self playVideo:[PalmUIManagement sharedInstance].downloadVideoPath];
+            [self playVideo:self.videoFilePath];
         }
     }
 }
@@ -1024,10 +1025,10 @@
     CPLGModelAccount *account = [[CPSystemEngine sharedInstance] accountModel];
     NSString *writeFileName = [NSString stringWithFormat:@"%@.%@",key,@".mp4"];
     NSString *fileDir = [NSString stringWithFormat:@"%@/Video/",account.loginName];
-    NSString *filePath = [NSString stringWithFormat:@"%@/%@%@",[CoreUtils getDocumentPath],fileDir,writeFileName];
+    self.videoFilePath = [NSString stringWithFormat:@"%@/%@%@",[CoreUtils getDocumentPath],fileDir,writeFileName];
     NSFileManager *fileManager = [NSFileManager defaultManager];
-    if ([fileManager fileExistsAtPath:filePath]) {
-        [self playVideo:filePath];
+    if ([fileManager fileExistsAtPath:self.videoFilePath]) {
+        [self playVideo:self.videoFilePath];
     }else{
         [self showProgressWithText:@"正在下载"];
         [[PalmUIManagement sharedInstance] downLoadUserVideoFile:url withKey:key];
@@ -1035,6 +1036,9 @@
 }
 
 -(void) playVideo:(NSString *)videoPath{
+    if (videoPath == nil || [videoPath isEqualToString:@""]) {
+        return;
+    }
     NSURL*videoPathURL=[[NSURL alloc] initFileURLWithPath:videoPath];
     MPMoviePlayerViewController *playViewController = [[MPMoviePlayerViewController alloc] initWithContentURL:videoPathURL];
     MPMoviePlayerController *player = [playViewController moviePlayer];
