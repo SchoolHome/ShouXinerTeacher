@@ -65,8 +65,10 @@
 -(void) downloadVideo{
     [self.request setDownloadDestinationPath:self.filePath];
     self.request.requestCookies = [[NSMutableArray alloc] initWithObjects:[PalmUIManagement sharedInstance].suid,[PalmUIManagement sharedInstance].php, nil];
+    __weak UpAndDownLoadOperation *weakSelf = self;
     [self.request setRequestCompleted:^(NSDictionary *data){
         dispatch_block_t updateTagBlock = ^{
+            [PalmUIManagement sharedInstance].downloadVideoPath = weakSelf.filePath;
             [PalmUIManagement sharedInstance].downloadVideoResult = data;
         };
         dispatch_async(dispatch_get_main_queue(), updateTagBlock);

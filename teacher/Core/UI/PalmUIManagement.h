@@ -93,6 +93,7 @@
 @property(nonatomic,strong) NSDictionary *uploadVideoResult;
 // 下载视频结果
 @property(nonatomic,strong) NSDictionary *downloadVideoResult;
+@property(nonatomic,strong) NSString *downloadVideoPath;
 
 // 获取用户信息
 -(void) getUserProfile;
