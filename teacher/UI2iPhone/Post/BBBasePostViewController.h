@@ -59,7 +59,9 @@ BBChooseImgViewInPostPageDelegate>
 - (void)closeThingsText;
 
 - (NSInteger)getImagesCount;
--(UIImage*)imageWithImage:(UIImage*)image;
+- (UIImage*)imageWithImage:(UIImage*)image;
+
+- (void)chooseImageViewLoaded;
 @end
 
 @interface BBBasePostTableview : UITableView <UIGestureRecognizerDelegate>

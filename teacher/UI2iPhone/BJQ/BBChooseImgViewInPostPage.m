@@ -49,7 +49,7 @@
 //添加多张图片
 - (void)addImages:(NSArray *)images
 {
-    if (images && images.count && images.count < _maxImages) {
+    if (images && images.count && images.count <= _maxImages) {
         [self.images addObjectsFromArray:images];
         [self setNeedsDisplay];
     }
@@ -59,6 +59,8 @@
 {
     if (image) {
         [self.images addObject:image];
+        //加入播放图片
+        
         [self setNeedsDisplay];
     }
 }

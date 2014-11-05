@@ -12,7 +12,9 @@
 #import <AssetsLibrary/AssetsLibrary.h>
 
 #import "BBRecordViewController.h"
+#import "BBPostPBXViewController.h"
 #import "ViewImageViewController.h"
+#import "BBImagePreviewVIewController.h"
 
 @interface BBCameraViewController ()<ZYQAssetPickerControllerDelegate>
 {
@@ -37,7 +39,7 @@
     UIView *toolBarBG = [[UIView alloc] initWithFrame:CGRectMake(0.f, 0.f, self.screenWidth, 52.f)];
     toolBarBG.backgroundColor = [UIColor blackColor];
     toolBarBG.alpha = 0.5f;
-    [self.view addSubview:toolBarBG];
+    [overlayView addSubview:toolBarBG];
     
     UIButton *close = [UIButton buttonWithType:UIButtonTypeCustom];
     [close setFrame:CGRectMake(20.f, 10.f, 44.f, 32.f)];
@@ -62,13 +64,12 @@
     
     UIView *bottomBarBG = [[UIView alloc] initWithFrame:CGRectMake(0.f, self.screenHeight-94.f, self.screenWidth, 94.f)];
     bottomBarBG.backgroundColor = [UIColor blackColor];
-    [self.view addSubview:bottomBarBG];
+    [overlayView addSubview:bottomBarBG];
     
     takePictureButton = [UIButton buttonWithType:UIButtonTypeCustom];
     [takePictureButton setFrame:CGRectMake(self.screenWidth/2-33, self.screenHeight-80.f,66.f , 66.f)];
     [takePictureButton setBackgroundImage:[UIImage imageNamed:@"camera"] forState:UIControlStateNormal];
     [takePictureButton addTarget:self action:@selector(takePhoto:) forControlEvents:UIControlEventTouchUpInside];
-    [takePictureButton setBackgroundColor:[UIColor blackColor]];
     [overlayView addSubview:takePictureButton];
 
     recordButton = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -132,7 +133,6 @@
         if(iref && CGImageGetWidth(iref) && CGImageGetHeight(iref))
         {
             [imageBox addObject:[UIImage imageWithCGImage:iref]];
-            return ;
         }
     };
     
@@ -161,8 +161,15 @@
         self.imagePickerController.cameraFlashMode = UIImagePickerControllerCameraFlashModeOn;
         [flashBtn setImage:[UIImage imageNamed:@"lamp"] forState:UIControlStateNormal];
     }else {
-        self.imagePickerController.cameraFlashMode = UIImagePickerControllerCameraFlashModeOff;
-        [flashBtn setImage:[UIImage imageNamed:@"lamp_off"] forState:UIControlStateNormal];
+        if (self.imagePickerController.cameraFlashMode ==UIImagePickerControllerCameraFlashModeOff) {
+            self.imagePickerController.cameraFlashMode = UIImagePickerControllerCameraFlashModeOn;
+            [flashBtn setImage:[UIImage imageNamed:@"lamp"] forState:UIControlStateNormal];
+        }else
+        {
+            self.imagePickerController.cameraFlashMode = UIImagePickerControllerCameraFlashModeOff;
+            [flashBtn setImage:[UIImage imageNamed:@"lamp_off"] forState:UIControlStateNormal];
+        }
+        
     }
 }
 
@@ -180,6 +187,7 @@
 {
     [self.imagePickerController takePicture];
 }
+
 - (void)enterPhotoAlbum:(id)sender {
     ZYQAssetPickerController *picker = [[ZYQAssetPickerController alloc] init];
     picker.maximumNumberOfSelection = 7;
@@ -199,12 +207,24 @@
     
 }
 
+-(void)close
+{
+    [self.navigationController popToRootViewControllerAnimated:YES];
+}
+
 #pragma mark -
 #pragma mark - ZYQAssetPickerController Delegate
 -(void)assetPickerController:(ZYQAssetPickerController *)picker didFinishPickingAssets:(NSArray *)assets{
+    NSMutableArray *tempImages = [[NSMutableArray alloc] initWithCapacity:7];
     for (int i = 0; i<[assets count]; i++) {
         ALAsset *asset = [assets objectAtIndex:i];
         UIImage *image = [UIImage imageWithCGImage:[[asset defaultRepresentation] fullScreenImage]];
+        [tempImages addObject:image];
+    }
+    
+    if (tempImages.count > 0) {
+        BBPostPBXViewController  *postPBX = [[BBPostPBXViewController alloc] initWithImages:tempImages];
+        [self.navigationController pushViewController:postPBX animated:YES];
     }
 }
 
@@ -215,8 +235,10 @@
     if ([mediaType isEqualToString:@"public.image"]){
         image = [info objectForKey:UIImagePickerControllerOriginalImage];
     }
-    
     [self dismissModalViewControllerAnimated:YES];
+    
+    BBImagePreviewVIewController *imagePreview = [[BBImagePreviewVIewController  alloc] initWithPreviewImage:image];
+    [self.navigationController pushViewController:imagePreview animated:YES];
 }
 
 - (void)imagePickerControllerDidCancel:(UIImagePickerController *)picker{
