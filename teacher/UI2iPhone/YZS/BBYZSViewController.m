@@ -103,7 +103,7 @@
 }
 
 -(void)viewWillDisappear:(BOOL)animated{
-     
+    
     [super viewWillDisappear:animated];
     [self removeObservers];
 }
@@ -112,7 +112,6 @@
 {
     [super viewDidLoad];
 	// Do any additional setup after loading the view.
-    
     
     if (self.dataSource == nil) {
         self.dataSource = [[BBOASumModel alloc] init];
