@@ -13,6 +13,7 @@
 #import "ClassOperation.h"
 #import "SystemOperation.h"
 #import "UpAndDownLoadOperation.h"
+#import "DiscoverOperation.h"
 
 @implementation PalmUIManagement
 static PalmUIManagement *sharedInstance = nil;
@@ -191,6 +192,12 @@ static PalmUIManagement *sharedInstance = nil;
 // 删除topic
 -(void) deleteTopic : (long long) topicID{
     ClassOperation *operation = [[ClassOperation alloc] initDeleteTopic:topicID];
+    [[PalmNetWorkService sharedInstance] networkEngine:operation];
+}
+
+// 获取发现数据
+-(void) getDiscoverData{
+    DiscoverOperation *operation = [[DiscoverOperation alloc] initGetDiscoverInfo];
     [[PalmNetWorkService sharedInstance] networkEngine:operation];
 }
 @end

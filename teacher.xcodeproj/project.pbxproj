@@ -229,6 +229,7 @@
 		19A3E54919F3924600AFD251 /* BBTopBGNew@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 19A3E54719F3924600AFD251 /* BBTopBGNew@2x.png */; };
 		19A3E54C19F39ECD00AFD251 /* BBScoreBG.png in Resources */ = {isa = PBXBuildFile; fileRef = 19A3E54A19F39ECD00AFD251 /* BBScoreBG.png */; };
 		19A3E54D19F39ECD00AFD251 /* BBScoreBG@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 19A3E54B19F39ECD00AFD251 /* BBScoreBG@2x.png */; };
+		19A5E29F1A0B194C000C3A7A /* DiscoverOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 19A5E29E1A0B194C000C3A7A /* DiscoverOperation.m */; };
 		19A83D4618D34C8900441FDE /* LoginButton.png in Resources */ = {isa = PBXBuildFile; fileRef = 19A83D4218D34C8900441FDE /* LoginButton.png */; };
 		19A83D4718D34C8900441FDE /* LoginButton@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 19A83D4318D34C8900441FDE /* LoginButton@2x.png */; };
 		19A83D4818D34C8900441FDE /* LoginButtonPress.png in Resources */ = {isa = PBXBuildFile; fileRef = 19A83D4418D34C8900441FDE /* LoginButtonPress.png */; };
@@ -1686,6 +1687,8 @@
 		19A3E54719F3924600AFD251 /* BBTopBGNew@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "BBTopBGNew@2x.png"; path = "Content/BBTopBGNew@2x.png"; sourceTree = "<group>"; };
 		19A3E54A19F39ECD00AFD251 /* BBScoreBG.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = BBScoreBG.png; path = Content/BBScoreBG.png; sourceTree = "<group>"; };
 		19A3E54B19F39ECD00AFD251 /* BBScoreBG@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "BBScoreBG@2x.png"; path = "Content/BBScoreBG@2x.png"; sourceTree = "<group>"; };
+		19A5E29D1A0B194C000C3A7A /* DiscoverOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DiscoverOperation.h; sourceTree = "<group>"; };
+		19A5E29E1A0B194C000C3A7A /* DiscoverOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DiscoverOperation.m; sourceTree = "<group>"; };
 		19A83D4218D34C8900441FDE /* LoginButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = LoginButton.png; sourceTree = "<group>"; };
 		19A83D4318D34C8900441FDE /* LoginButton@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "LoginButton@2x.png"; sourceTree = "<group>"; };
 		19A83D4418D34C8900441FDE /* LoginButtonPress.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = LoginButtonPress.png; sourceTree = "<group>"; };
@@ -6670,6 +6673,8 @@
 				1914449718D7085C004886A5 /* MyOperation.m */,
 				19B3766019EC4EFF0069EDE1 /* UpAndDownLoadOperation.h */,
 				19B3766119EC4EFF0069EDE1 /* UpAndDownLoadOperation.m */,
+				19A5E29D1A0B194C000C3A7A /* DiscoverOperation.h */,
+				19A5E29E1A0B194C000C3A7A /* DiscoverOperation.m */,
 			);
 			path = OP;
 			sourceTree = "<group>";
@@ -8441,6 +8446,7 @@
 				332D74C918C33552007A75D5 /* BaseDAO.m in Sources */,
 				196421A51928A8D200944016 /* ViewImageViewController.m in Sources */,
 				19145F4C191CDF3B008CE18C /* MJPhotoBrowser.m in Sources */,
+				19A5E29F1A0B194C000C3A7A /* DiscoverOperation.m in Sources */,
 				332D831218C33F0B007A75D5 /* FXCheckBox.m in Sources */,
 				332D74DD18C33552007A75D5 /* FMResultSet.m in Sources */,
 				33771E3B18C9CD0400FB5002 /* PalmOperation.m in Sources */,
