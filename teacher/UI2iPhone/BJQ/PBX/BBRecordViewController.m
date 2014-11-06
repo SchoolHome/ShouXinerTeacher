@@ -12,6 +12,7 @@
 
 #import "BBRecordViewController.h"
 #import "BBPostPBXViewController.h"
+#import "BBCameraViewController.h"
 @interface BBRecordViewController ()<AVCaptureFileOutputRecordingDelegate>
 {
     UIButton *recordBtn;
@@ -20,6 +21,8 @@
     UIButton *camerControl;
     UIButton *takePictureBtn;
     UIView *localView;
+    
+    UILabel *timeCountDisplay;
     
 }
 @property (strong, nonatomic) NSTimer *countDurTimer;
@@ -60,7 +63,8 @@
     
     flashBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     [flashBtn setFrame:CGRectMake(self.screenWidth-100.f, 10.f, 44.f, 32.f)];
-    [flashBtn setImage:[UIImage imageNamed:@"lamp_auto"] forState:UIControlStateNormal];
+    [flashBtn setImage:[UIImage imageNamed:@"lamp_off"] forState:UIControlStateNormal];
+    [flashBtn setImage:[UIImage imageNamed:@"lamp"] forState:UIControlStateSelected];
     [flashBtn setImageEdgeInsets:UIEdgeInsetsMake(5, 10, 5, 10)];
     [flashBtn addTarget:self action:@selector(controlFlash:) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:flashBtn];
@@ -79,7 +83,6 @@
     [recordBtn setFrame:CGRectMake(self.screenWidth/2-66/2, self.screenHeight-80.f,66.f , 66.f)];
     [recordBtn addTarget:self action:@selector(startVideoCapture:) forControlEvents:UIControlEventTouchUpInside];
     [recordBtn setBackgroundImage:[UIImage imageNamed:@"record"] forState:UIControlStateNormal];
-    [recordBtn setBackgroundImage:[UIImage imageNamed:@"record_on"] forState:UIControlStateSelected];
     [recordBtn setBackgroundColor:[UIColor blackColor]];
     [self.view addSubview:recordBtn];
     
@@ -89,6 +92,13 @@
     [takePictureBtn addTarget:self action:@selector(takePicture) forControlEvents:UIControlEventTouchUpInside];
     [takePictureBtn setBackgroundColor:[UIColor blackColor]];
     [self.view addSubview:takePictureBtn];
+    
+    timeCountDisplay = [[UILabel alloc] initWithFrame:CGRectMake(self.screenWidth/2-50, 42.f, 100.f, 22.f)];
+    timeCountDisplay.textAlignment = NSTextAlignmentCenter;
+    timeCountDisplay.textColor = [UIColor whiteColor];
+    timeCountDisplay.font = [UIFont boldSystemFontOfSize:20.f];
+    [self.view addSubview:timeCountDisplay];
+    timeCountDisplay.hidden = YES;
     
     localView= [[UIView alloc] initWithFrame:CGRectMake(0.f, self.screenHeight/2.f-120.f, 320.f, 240.f)];
     [self.view addSubview:localView];
@@ -197,13 +207,17 @@
 - (void)startCountDurTimer
 {
     self.countDurTimer = [NSTimer scheduledTimerWithTimeInterval:COUNT_DUR_TIMER_INTERVAL target:self selector:@selector(onTimer:) userInfo:nil repeats:YES];
+    timeCountDisplay.hidden = NO;
+    recordBtn.enabled = NO;
 }
 
 - (void)onTimer:(NSTimer *)timer
 {
     self.currentVideoDur += COUNT_DUR_TIMER_INTERVAL;
     
+    timeCountDisplay.text = [NSString stringWithFormat:@"%2.f",15.00-_currentVideoDur];
     if (_totalVideoDur + _currentVideoDur >= MAX_VIDEO_DUR) {
+        timeCountDisplay.text = @"0";
         [self stopCurrentVideoRecording];
     }
     
@@ -379,16 +393,18 @@
 
 -(void)close
 {
-    
+    [self.navigationController popToRootViewControllerAnimated:YES];
 }
 
 -(void)startVideoCapture:(UIButton *)sender
 {
+
     if (sender.selected) {
+        [recordBtn setBackgroundImage:[UIImage imageNamed:@"record"] forState:UIControlStateNormal];
         [self stopCurrentVideoRecording];
     }else
     {
-        sender.enabled = NO;
+        [recordBtn setBackgroundImage:[UIImage imageNamed:@"record_on"] forState:UIControlStateNormal];
         [self startRecordingToOutputFileURL:[NSURL fileURLWithPath:[self getTempSaveVideoPath]]];
         [self.view bringSubviewToFront:localView];
     }
@@ -397,7 +413,16 @@
 
 - (void)takePicture
 {
+    NSLog(@"%@",self.navigationController.viewControllers);
+    for (id viewController in self.navigationController.viewControllers) {
+        if ([viewController isKindOfClass:[BBCameraViewController class]]) {
+            [self.navigationController popToViewController:(BBCameraViewController *)viewController animated:NO];
+            return;
+        }
+    }
     
+    BBCameraViewController *camera = [[BBCameraViewController alloc] init];
+    [self.navigationController pushViewController:camera animated:NO];
 }
 
 #pragma mark - Method
@@ -526,7 +551,7 @@
     BBPostPBXViewController *postVideoPBX = [[BBPostPBXViewController alloc] initWithPostType:POST_TYPE_PBX];
     postVideoPBX.videoUrl = outputFileURL;
     [self.navigationController pushViewController:postVideoPBX animated:YES];
-    
+    [postVideoPBX showProgressWithText:@"正在压缩"];
 }
 
 -(NSString *)getTempSaveVideoPath

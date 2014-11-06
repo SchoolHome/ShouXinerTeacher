@@ -334,7 +334,7 @@ ZYQAssetPickerControllerDelegate>
 }
 
 - (void)backButtonTaped:(id)sender{
-    [self.navigationController popViewControllerAnimated:YES];
+    [self.navigationController popToRootViewControllerAnimated:YES];
 }
 
 - (void)sendButtonTaped

@@ -67,6 +67,16 @@
     [previewImageView addGestureRecognizer:tapGes];
 }
 
+- (void)viewWillAppear:(BOOL)animated
+{
+    [self.navigationController setNavigationBarHidden:YES];
+}
+
+- (void)viewWillDisappear:(BOOL)animated
+{
+    [self.navigationController setNavigationBarHidden:NO];
+}
+
 #pragma mark - Actions
 - (void)tap
 {

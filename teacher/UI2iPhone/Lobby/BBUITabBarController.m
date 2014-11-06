@@ -129,7 +129,7 @@
     self.delegate = (id<UITabBarControllerDelegate>)self;
     
     _imageTabBar = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 320, 49)];
-    _imageTabBar.image = [UIImage imageNamed:@"BBBottomBG"];
+    _imageTabBar.image = [UIImage imageNamed:@"label_bg"];
     _imageTabBar.backgroundColor = [UIColor clearColor];
     
     [self.tabBar addSubview:_imageTabBar];

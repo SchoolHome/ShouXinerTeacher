@@ -198,9 +198,13 @@
     
     selectedStuArray = [[NSArray alloc] init];
     selectedRangeArray = [[NSArray alloc] init];
-    selectedStuStr = @"@点名表扬";
+    selectedStuStr = @"";
 
     
+    // 添加视频播放结束监听
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(playerPlaybackDidFinish:)
+                                                 name:MPMoviePlayerPlaybackDidFinishNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(getThumbnailImage:) name:MPMoviePlayerThumbnailImageRequestDidFinishNotification object:nil];
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(receiveSeletedStudentList:) name:@"SelectedStudentList" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(receiveSeletedRangeList:) name:@"SeletedRangeList" object:nil];
@@ -239,11 +243,12 @@
     }
 
     if (selectedStudents.count == 0) {
-        selectedStuStr = @"@点名表扬";
+        selectedStuStr = @"";
     }else
     {
         selectedStuStr = [selectedStuStr stringByAppendingString:studentListText];
     }
+    [self.postTableview reloadRowsAtIndexPaths:[NSArray arrayWithObject:[NSIndexPath indexPathForRow:0 inSection:2]] withRowAnimation:UITableViewRowAnimationAutomatic];
 }
 
 -(NSString *)getAward
@@ -337,7 +342,7 @@
 {
     CPLGModelAccount *account = [[CPSystemEngine sharedInstance] accountModel];
     NSString *documentsDirectory = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory,NSUserDomainMask,YES)[0];
-    NSString *savePath = [documentsDirectory stringByAppendingFormat:@"/%@/temp.MP4",account.loginName];
+    NSString *savePath = [documentsDirectory stringByAppendingFormat:@"/%@/tempVideo.mp4",account.loginName];
     return savePath;
 }
 
@@ -371,13 +376,12 @@
     self.moviePlayer.view.hidden = YES;
     
     [self.view addSubview:self.moviePlayer.view];
-    [self.moviePlayer requestThumbnailImagesAtTimes:@[[NSNumber numberWithFloat:0.f]] timeOption:MPMovieTimeOptionExact];
+    [self.moviePlayer requestThumbnailImagesAtTimes:@[[NSNumber numberWithFloat:1.f]] timeOption:MPMovieTimeOptionExact];
     //[self.moviePlayer setFullscreen:YES animated:NO];
     
 }
 - (void)convertMp4
 {
-    [self showProgressWithText:@"正在压缩"];
     [CropVideo convertMpeg4WithUrl:_videoUrl andDstFilePath:[self getTempSaveVideoPath]];
 }
 
@@ -405,8 +409,8 @@
 
 - (void)getThumbnailImage:(NSNotification *)notification
 {
-    
-    UIImage *image = [self.moviePlayer thumbnailImageAtTime:0.f timeOption:MPMovieTimeOptionExact];
+    [self closeProgress];
+    UIImage *image = [self.moviePlayer thumbnailImageAtTime:1.f timeOption:MPMovieTimeOptionExact];
     NSLog(@"getThumbnailImage==%@",image);
     [self setChoosenImages:@[image] andISVideo:YES];
 }
@@ -420,7 +424,7 @@
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if (indexPath.section == 2 && indexPath.row == 0) {
-        CGSize strSize = [selectedStuStr sizeWithFont:[UIFont boldSystemFontOfSize:14.f] constrainedToSize:CGSizeMake(220.f, 800.f)];
+        CGSize strSize = [selectedStuStr sizeWithFont:[UIFont boldSystemFontOfSize:14.f] constrainedToSize:CGSizeMake(180.f, 800.f)];
         if (strSize.height < 40) return 40;
         else return strSize.height;
     }else
@@ -449,12 +453,14 @@
         if (indexPath.row == 0) {
             UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:studentIden];
             if (!cell) {
-                cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:studentIden];
-                cell.textLabel.numberOfLines = 100;
+                cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:studentIden];
+                cell.detailTextLabel.numberOfLines = 100;
+                cell.detailTextLabel.font = [UIFont systemFontOfSize:14.f];
                 cell.textLabel.backgroundColor = [UIColor blackColor];
                 cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+                cell.textLabel.text = @"@点名表扬:";
             }
-            cell.textLabel.text = selectedStuStr;
+            cell.detailTextLabel.text = selectedStuStr;
             return cell;
         }else
         {

@@ -24,6 +24,8 @@
     UIButton *flashBtn;
     UIButton *camerControl;
     UIButton *albumBtn;
+    
+    NSInteger flashStatus;
 }
 @end
 
@@ -32,7 +34,9 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    self.view.backgroundColor = [UIColor clearColor];
+    flashStatus = 0;
+    
+    //self.view.backgroundColor = [UIColor clearColor];
     
     UIView *overlayView = [[UIView alloc] initWithFrame:self.view.frame];
     
@@ -81,11 +85,11 @@
     
     albumBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     [albumBtn setFrame:CGRectMake(self.screenWidth-60.f, CGRectGetMinY(bottomBarBG.frame)+(CGRectGetHeight(bottomBarBG.frame)-40)/2,40.f , 40.f)];
-    [albumBtn setBackgroundImage:[self getFirstImageInAlbum] forState:UIControlStateNormal];
     [albumBtn addTarget:self action:@selector(enterPhotoAlbum:) forControlEvents:UIControlEventTouchUpInside];
     [albumBtn setBackgroundColor:[UIColor blackColor]];
     [overlayView addSubview:albumBtn];
 
+    [self getFirstImageInAlbum];
     
     self.imagePickerController = [[UIImagePickerController alloc] init];
     self.imagePickerController.delegate = self;
@@ -96,9 +100,9 @@
     CGRect overlayViewFrame = self.imagePickerController.cameraOverlayView.frame;
     CGRect newFrame = CGRectMake(0.0,
                                  CGRectGetHeight(overlayViewFrame) -
-                                 self.view.frame.size.height - 10.0,
+                                 self.view.frame.size.height ,
                                  CGRectGetWidth(overlayViewFrame),
-                                 self.view.frame.size.height + 10.0);
+                                 self.view.frame.size.height);
     self.view.frame = newFrame;
     self.imagePickerController.cameraOverlayView = overlayView;
 
@@ -116,34 +120,30 @@
     [self.navigationController setNavigationBarHidden:NO];
 }
 
-- (UIImage *)getFirstImageInAlbum
+- (void )getFirstImageInAlbum
 {
-    UIImage *image = nil;
-    
-    NSMutableArray *imageBox = [[NSMutableArray alloc] init];
-    ALAssetsLibraryAssetForURLResultBlock resultblock = ^(ALAsset *myasset)
-    {
-        
-        
-        //NSLog(@"asset");
-        CGImageRef iref;
-        iref = [myasset thumbnail];
-
-        //图片尺寸不能为0
-        if(iref && CGImageGetWidth(iref) && CGImageGetHeight(iref))
-        {
-            [imageBox addObject:[UIImage imageWithCGImage:iref]];
+    ALAssetsLibrary *assetsLibrary;
+    NSMutableArray *imageArray = [[NSMutableArray alloc] initWithCapacity:1];
+    assetsLibrary = [[ALAssetsLibrary alloc] init];
+    [assetsLibrary enumerateGroupsWithTypes:ALAssetsGroupSavedPhotos usingBlock:^(ALAssetsGroup *group, BOOL *stop) {
+        if (group) {
+            [group enumerateAssetsUsingBlock:^(ALAsset *result, NSUInteger index, BOOL *stop) {
+                if (result && index == group.numberOfAssets-1) {
+                    NSLog(@"%@",result);
+                    [imageArray addObject:[UIImage imageWithCGImage: result.thumbnail]];
+                    *stop = YES;
+                }
+            }];
+            if (imageArray.count) {
+                *stop = YES;
+                [albumBtn setBackgroundImage:imageArray[0] forState:UIControlStateNormal];
+            }
+            
         }
-    };
+    } failureBlock:^(NSError *error) {
+        NSLog(@"Group not found!\n");
+    }];
     
-    ALAssetsLibraryAccessFailureBlock failureblock = ^(NSError *myerror)
-    {
-        NSLog(@"failed");
-        NSLog(@"cant get image -- %@",[myerror localizedDescription]);
-    };
-    
-    image = [imageBox lastObject];
-    return image;
 }
 
 #pragma mark -
@@ -156,20 +156,24 @@
 
 //闪光灯
 -(IBAction)cameraTorchOn:(id)sender{
-    if (self.imagePickerController.cameraFlashMode ==UIImagePickerControllerCameraFlashModeAuto)
-    {
-        self.imagePickerController.cameraFlashMode = UIImagePickerControllerCameraFlashModeOn;
-        [flashBtn setImage:[UIImage imageNamed:@"lamp"] forState:UIControlStateNormal];
-    }else {
-        if (self.imagePickerController.cameraFlashMode ==UIImagePickerControllerCameraFlashModeOff) {
-            self.imagePickerController.cameraFlashMode = UIImagePickerControllerCameraFlashModeOn;
-            [flashBtn setImage:[UIImage imageNamed:@"lamp"] forState:UIControlStateNormal];
-        }else
-        {
-            self.imagePickerController.cameraFlashMode = UIImagePickerControllerCameraFlashModeOff;
+    if (flashStatus != 1) {
+        flashStatus++;
+    }else flashStatus = -1;
+
+    self.imagePickerController.cameraFlashMode = flashStatus;
+    
+    switch (flashStatus) {
+        case -1:
             [flashBtn setImage:[UIImage imageNamed:@"lamp_off"] forState:UIControlStateNormal];
-        }
-        
+            break;
+        case 0:
+            [flashBtn setImage:[UIImage imageNamed:@"lamp_auto"] forState:UIControlStateNormal];
+            break;
+        case 1:
+            [flashBtn setImage:[UIImage imageNamed:@"lamp"] forState:UIControlStateNormal];
+            break;
+        default:
+            break;
     }
 }
 
