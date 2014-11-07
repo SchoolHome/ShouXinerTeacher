@@ -9,5 +9,7 @@
 #import "PalmViewController.h"
 
 @interface BBFXViewController : PalmViewController
-
+{
+    UITableView *fxTableView;
+}
 @end
