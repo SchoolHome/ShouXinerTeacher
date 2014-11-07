@@ -33,6 +33,7 @@
 		0490992D1A0C5ECF00EDD91B /* BBFXViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0490992C1A0C5ECF00EDD91B /* BBFXViewController.m */; };
 		049099301A0C6CA100EDD91B /* BBFXTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0490992F1A0C6CA100EDD91B /* BBFXTableViewCell.m */; };
 		049099331A0C6CC600EDD91B /* BBFXGridView.m in Sources */ = {isa = PBXBuildFile; fileRef = 049099321A0C6CC600EDD91B /* BBFXGridView.m */; };
+		049099361A0CADDE00EDD91B /* BBFXModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 049099351A0CADDE00EDD91B /* BBFXModel.m */; };
 		04B262141947EC7500B6D036 /* BBHonorViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 04B262131947EC7500B6D036 /* BBHonorViewController.m */; };
 		04D431C6190F89F9004B2806 /* BBComentBG.png in Resources */ = {isa = PBXBuildFile; fileRef = 04D431C2190F89F9004B2806 /* BBComentBG.png */; };
 		04D431C7190F89F9004B2806 /* BBComentBG@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 04D431C3190F89F9004B2806 /* BBComentBG@2x.png */; };
@@ -1436,6 +1437,8 @@
 		0490992F1A0C6CA100EDD91B /* BBFXTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BBFXTableViewCell.m; path = FX/BBFXTableViewCell.m; sourceTree = "<group>"; };
 		049099311A0C6CC600EDD91B /* BBFXGridView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BBFXGridView.h; path = FX/BBFXGridView.h; sourceTree = "<group>"; };
 		049099321A0C6CC600EDD91B /* BBFXGridView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BBFXGridView.m; path = FX/BBFXGridView.m; sourceTree = "<group>"; };
+		049099341A0CADDE00EDD91B /* BBFXModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BBFXModel.h; sourceTree = "<group>"; };
+		049099351A0CADDE00EDD91B /* BBFXModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BBFXModel.m; sourceTree = "<group>"; };
 		04B262121947EC7500B6D036 /* BBHonorViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BBHonorViewController.h; sourceTree = "<group>"; };
 		04B262131947EC7500B6D036 /* BBHonorViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BBHonorViewController.m; sourceTree = "<group>"; };
 		04D431C2190F89F9004B2806 /* BBComentBG.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = BBComentBG.png; sourceTree = "<group>"; };
@@ -6715,6 +6718,8 @@
 				7A863C6E18EA9BC70090C430 /* BBTopicModel.m */,
 				7A863C6A18EA894E0090C430 /* BBGroupModel.h */,
 				7A863C6B18EA894E0090C430 /* BBGroupModel.m */,
+				049099341A0CADDE00EDD91B /* BBFXModel.h */,
+				049099351A0CADDE00EDD91B /* BBFXModel.m */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -8476,6 +8481,7 @@
 				049099331A0C6CC600EDD91B /* BBFXGridView.m in Sources */,
 				332D751018C33552007A75D5 /* CPOperationUserListInit.m in Sources */,
 				332D833D18C33F0B007A75D5 /* SingleAskExpressionCell.m in Sources */,
+				049099361A0CADDE00EDD91B /* BBFXModel.m in Sources */,
 				332D833118C33F0B007A75D5 /* ExpressionsParser.m in Sources */,
 				332D752418C33552007A75D5 /* MKNetworkOperation.m in Sources */,
 				7A4D2A1B18DAEE2400C128B4 /* BBYZSShareViewController.m in Sources */,

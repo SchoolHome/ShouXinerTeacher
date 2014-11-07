@@ -114,7 +114,8 @@
     CustomNavigationController *n3 = [[CustomNavigationController alloc] initWithRootViewController:c3];
     n3.tabBarItem.title = @"YZSS";
     
-    BBYZSViewController *c4 = [[BBYZSViewController alloc] init];
+   // BBYZSViewController *c4 = [[BBYZSViewController alloc] init];
+    BBFXViewController *c4 = [[BBFXViewController alloc] init];
     CustomNavigationController *n4 = [[CustomNavigationController alloc] initWithRootViewController:c4];
     n4.tabBarItem.title = @"YZS";
     

@@ -11,6 +11,7 @@
 #import "BBYZSViewController.h"
 #import "BBMeViewController.h"
 #import "BBZJZViewController.h"
+#import "BBFXViewController.h"
 @interface BBUITabBarController : UITabBarController
 {
 

@@ -7,7 +7,14 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "EGOImageView.h"
 
-@interface BBFXGridView : UIView
+@interface BBFXGridView : UIButton
+@property (nonatomic) NSInteger colIndex;
+@property (nonatomic) NSInteger rowIndex;
+@property (nonatomic, strong) UILabel *txtName;
+@property (nonatomic, strong) EGOImageView *egoLogo;
+@property (nonatomic, strong) UIImageView *imageFlag;
 
+-(void)setViewData:(id)model;
 @end
