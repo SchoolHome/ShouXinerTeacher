@@ -225,6 +225,7 @@
 		1975B76E18E9427100587B80 /* UIImage+Resize.m in Sources */ = {isa = PBXBuildFile; fileRef = 1975B76D18E9427100587B80 /* UIImage+Resize.m */; };
 		197FCF9F18F41D5000EE751B /* navBarBg44.png in Resources */ = {isa = PBXBuildFile; fileRef = 197FCF9D18F41D5000EE751B /* navBarBg44.png */; };
 		197FCFA018F41D5000EE751B /* navBarBg44@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 197FCF9E18F41D5000EE751B /* navBarBg44@2x.png */; };
+		1982F6F21A0C71830075F35F /* ZJZSenderSound.png in Resources */ = {isa = PBXBuildFile; fileRef = 1982F6F11A0C71830075F35F /* ZJZSenderSound.png */; };
 		19954AC21A01FEE40087D872 /* BBVideoTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 19954AC11A01FEE40087D872 /* BBVideoTableViewCell.m */; };
 		1997CF6318D6A87800A839F7 /* GroupOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 1997CF6218D6A87800A839F7 /* GroupOperation.m */; };
 		19A3E54819F3924600AFD251 /* BBTopBGNew.png in Resources */ = {isa = PBXBuildFile; fileRef = 19A3E54619F3924600AFD251 /* BBTopBGNew.png */; };
@@ -1684,6 +1685,7 @@
 		1975B76D18E9427100587B80 /* UIImage+Resize.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+Resize.m"; sourceTree = "<group>"; };
 		197FCF9D18F41D5000EE751B /* navBarBg44.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = navBarBg44.png; sourceTree = "<group>"; };
 		197FCF9E18F41D5000EE751B /* navBarBg44@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "navBarBg44@2x.png"; sourceTree = "<group>"; };
+		1982F6F11A0C71830075F35F /* ZJZSenderSound.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ZJZSenderSound.png; sourceTree = "<group>"; };
 		198F307718FE551E0091D550 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/InfoPlist.strings"; sourceTree = "<group>"; };
 		198F307818FE551E0091D550 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/InfoPlist.strings"; sourceTree = "<group>"; };
 		19954AC01A01FEE40087D872 /* BBVideoTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BBVideoTableViewCell.h; sourceTree = "<group>"; };
@@ -3693,6 +3695,7 @@
 		1927E4B218E5544E0079EA53 /* IMAndKeyboard */ = {
 			isa = PBXGroup;
 			children = (
+				1982F6F11A0C71830075F35F /* ZJZSenderSound.png */,
 				1914B13B18E7181700D68027 /* ZJZUnReadSound.png */,
 				1914B13C18E7181700D68027 /* ZJZUnReadSound@2x.png */,
 				1927E4B318E5544E0079EA53 /* ZJZReceiverSound.png */,
@@ -7703,6 +7706,7 @@
 				1970BC5A191BB7E400F63454 /* ActivateButton@2x.png in Resources */,
 				193FA7A319F0A27A00874F1E /* up@2x.png in Resources */,
 				332D7E6518C33F0A007A75D5 /* alarm_im_item_float@2x.png in Resources */,
+				1982F6F21A0C71830075F35F /* ZJZSenderSound.png in Resources */,
 				19A83D4718D34C8900441FDE /* LoginButton@2x.png in Resources */,
 				19B1B56A19FA5E430062A05C /* BJQRongYun@2x.png in Resources */,
 				332D7F6C18C33F0A007A75D5 /* btn_im_chuansheng_white@2x.png in Resources */,
