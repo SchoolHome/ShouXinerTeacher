@@ -10,10 +10,12 @@
 #import "BBFXTableViewCell.h"
 #import "BBFXGridView.h"
 #import "BBFXModel.h"
+#import "BBFXAdScrollView.h"
 
 @interface BBFXViewController ()
 {
     BBFXGridView *tempGrid;
+    BBFXAdScrollView *adScrollView;
 }
 @property (nonatomic, strong) NSMutableArray *discoverArray;
 @property (nonatomic, strong) NSMutableArray *serviceArray;
@@ -26,6 +28,7 @@
     if ([@"discoverResult" isEqualToString:keyPath]){
         NSDictionary *discoverResult = [PalmUIManagement sharedInstance].discoverResult;
         if ([discoverResult[@"errno"] integerValue]==0) {
+            [self.discoverArray removeAllObjects];
             if (![discoverResult[@"discover"] isKindOfClass:[NSNull class]]) {
                 NSDictionary *discoverDic = discoverResult[@"discover"];
                 for (NSString *key in [discoverDic allKeys]) {
@@ -35,6 +38,7 @@
                 }
             }
             if (![discoverResult[@"service"] isKindOfClass:[NSNull class]]) {
+                [self.serviceArray removeAllObjects];
                 NSDictionary *serviceDic = discoverResult[@"service"];
                 for (NSString *key in [serviceDic allKeys]) {
                     NSDictionary *oneService = serviceDic[key];
@@ -44,7 +48,45 @@
                 
             }
         }
+        /*ceshi:::*/
+        if ([self.discoverArray count]==0) {
+            for (int i=0; i<3; i++) {
+                BBFXModel *model = [[BBFXModel alloc] init];
+                model.title = [NSString stringWithFormat:@"%d-----%d", i, i];
+                model.url = @"http://www.baidu.com";
+                model.isNew = (i%2?YES:NO);
+                model.image = (i%2?@"http://img.sccnn.com/bimg/322/599.jpg":@"http://pic23.nipic.com/20120817/5236266_171208039361_2.jpg");
+                [self.discoverArray addObject:model];
+                model = nil;
+            }
+        }
+        if ([self.serviceArray count] == 0) {
+            for (int i=0; i<3; i++) {
+                BBFXModel *model = [[BBFXModel alloc] init];
+                model.title = [NSString stringWithFormat:@"%d-----%d", i, i];
+                model.url = @"http://www.baidu.com";
+                model.isNew = (i%2?YES:NO);
+                model.image = (i%2?@"http://img.sccnn.com/bimg/322/599.jpg":@"http://pic23.nipic.com/20120817/5236266_171208039361_2.jpg");
+                [self.serviceArray addObject:model];
+                model = nil;
+            }
+        }
+        /*end*/
         [fxTableView reloadData];
+        
+        if ([self.discoverArray count]>0) {
+            if (!adScrollView) {
+                adScrollView = [[BBFXAdScrollView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 130)];
+                [adScrollView setDelegate:(id<BBFXAdScrollViewDelegate>)self];
+                [self.view addSubview:adScrollView];
+            }
+            [adScrollView setAdsArray:self.discoverArray];
+            [self addDiscoverHeader];
+        }else{
+            if (adScrollView) {
+                [self removeDiscoverHeader];
+            }
+        }
     }
 }
 
@@ -68,7 +110,6 @@
     }else{
         heightFix = 0;
     }
-    [self.discoverArray addObjectsFromArray:[NSArray arrayWithObjects:@"", @"", @"", @"", @"", @"", @"", @"", @"", @"",@"", @"", @"", @"", @"", @"", @"", @"", @"",nil]];
     fxTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self.screenHeight-44-49-heightFix) style:UITableViewStylePlain];
     [fxTableView setRowHeight:108];
     [fxTableView setDelegate:(id<UITableViewDelegate>)self];
@@ -81,7 +122,7 @@
 -(void)addDiscoverHeader
 {
     [UIView animateWithDuration:0.5f animations:^{
-        fxTableView.tableHeaderView = nil;
+        fxTableView.tableHeaderView = adScrollView;
     } completion:^(BOOL finished){
         
     }];
@@ -113,9 +154,9 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    int residue = [self.discoverArray count] % 3;
+    int residue = [self.serviceArray count] % 3;
     if (residue > 0) residue = 1;
-    return [self.discoverArray count]/3 + residue;
+    return [self.serviceArray count]/3 + residue;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -125,10 +166,11 @@
     if (nil == cell) {
         cell = [[BBFXTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:FXCellIdentifier];
     }
-    NSInteger count = [self.discoverArray count];
+    NSInteger count = [self.serviceArray count];
     CGFloat x = 0.0f;
     for (int i=0; i<3; i++) {
         NSInteger index = i + indexPath.row * 3;
+        BBFXModel *model = [self.serviceArray objectAtIndex:index];
         if (index < count) {
             if ([cell.contentView.subviews count] > i) {
                 tempGrid = [cell.contentView.subviews objectAtIndex:i];
@@ -143,9 +185,8 @@
                 [cell.contentView addSubview:gridView];
                 [gridView addTarget:self action:@selector(tapOneGrid:) forControlEvents:UIControlEventTouchUpInside];
             }
-            [gridView setBackgroundColor:[UIColor blueColor]];
             gridView.hidden = NO;
-            [gridView setViewData:nil];
+            [gridView setViewData:model];
             gridView.rowIndex = indexPath.row;
             gridView.colIndex = i;
             [gridView setFrame:CGRectMake(x, 0, 107, 107)];
@@ -161,6 +202,10 @@
 -(void)tapOneGrid:(BBFXGridView *)gridView
 {
     NSLog(@"tao:::%d, %d", gridView.colIndex, gridView.rowIndex);
+    NSInteger index = gridView.rowIndex*3 + gridView.colIndex;
+    BBFXModel *model = [self.serviceArray objectAtIndex:index];
+    model.isNew = NO;
+    [gridView.imageFlag setHidden:YES];
 }
 
 -(BBFXGridView *)dequeueReusableGridView{
@@ -170,6 +215,12 @@
         temp = [[BBFXGridView alloc] init];
     }
     return temp;
+}
+
+#pragma adscrollview
+-(void)adViewTapped:(BBFXModel *)model
+{
+    NSLog(@"%@", model.url);
 }
 
 /*

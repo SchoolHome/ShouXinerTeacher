@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "BBFXModel.h"
 #import "EGOImageView.h"
 
 @interface BBFXGridView : UIButton
@@ -16,5 +17,5 @@
 @property (nonatomic, strong) EGOImageView *egoLogo;
 @property (nonatomic, strong) UIImageView *imageFlag;
 
--(void)setViewData:(id)model;
+-(void)setViewData:(BBFXModel *)model;
 @end

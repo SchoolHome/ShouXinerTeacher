@@ -27,6 +27,8 @@
 		0433AD1A18E53A8800BDF9D5 /* keyboard_sound@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0433AD0818E53A8800BDF9D5 /* keyboard_sound@2x.png */; };
 		0433AD1B18E53A8800BDF9D5 /* keyboard_text_back.png in Resources */ = {isa = PBXBuildFile; fileRef = 0433AD0918E53A8800BDF9D5 /* keyboard_text_back.png */; };
 		0433AD1C18E53A8800BDF9D5 /* keyboard_text_back@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0433AD0A18E53A8800BDF9D5 /* keyboard_text_back@2x.png */; };
+		045082E11A104F700004F8DD /* BBFXAdScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = 045082E01A104F700004F8DD /* BBFXAdScrollView.m */; };
+		045082E41A1061DC0004F8DD /* BBFXDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 045082E31A1061DC0004F8DD /* BBFXDetailViewController.m */; };
 		047823DA18D2A9F60012D87D /* BBMeTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 047823D918D2A9F60012D87D /* BBMeTableViewCell.m */; };
 		047823DD18D2C8660012D87D /* BBMeProfileController.m in Sources */ = {isa = PBXBuildFile; fileRef = 047823DC18D2C8660012D87D /* BBMeProfileController.m */; };
 		047823E018D2CABE0012D87D /* BBMeProfileTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 047823DF18D2CABE0012D87D /* BBMeProfileTableViewCell.m */; };
@@ -1488,6 +1490,10 @@
 		0433AD0818E53A8800BDF9D5 /* keyboard_sound@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "keyboard_sound@2x.png"; path = "keyboard/keyboard_sound@2x.png"; sourceTree = "<group>"; };
 		0433AD0918E53A8800BDF9D5 /* keyboard_text_back.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = keyboard_text_back.png; path = keyboard/keyboard_text_back.png; sourceTree = "<group>"; };
 		0433AD0A18E53A8800BDF9D5 /* keyboard_text_back@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "keyboard_text_back@2x.png"; path = "keyboard/keyboard_text_back@2x.png"; sourceTree = "<group>"; };
+		045082DF1A104F700004F8DD /* BBFXAdScrollView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BBFXAdScrollView.h; path = FX/BBFXAdScrollView.h; sourceTree = "<group>"; };
+		045082E01A104F700004F8DD /* BBFXAdScrollView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BBFXAdScrollView.m; path = FX/BBFXAdScrollView.m; sourceTree = "<group>"; };
+		045082E21A1061DC0004F8DD /* BBFXDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BBFXDetailViewController.h; path = FX/BBFXDetailViewController.h; sourceTree = "<group>"; };
+		045082E31A1061DC0004F8DD /* BBFXDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BBFXDetailViewController.m; path = FX/BBFXDetailViewController.m; sourceTree = "<group>"; };
 		047823D818D2A9F60012D87D /* BBMeTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BBMeTableViewCell.h; path = ME/BBMeTableViewCell.h; sourceTree = "<group>"; };
 		047823D918D2A9F60012D87D /* BBMeTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BBMeTableViewCell.m; path = ME/BBMeTableViewCell.m; sourceTree = "<group>"; };
 		047823DB18D2C8660012D87D /* BBMeProfileController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BBMeProfileController.h; sourceTree = "<group>"; };
@@ -3686,6 +3692,10 @@
 				0490992F1A0C6CA100EDD91B /* BBFXTableViewCell.m */,
 				049099311A0C6CC600EDD91B /* BBFXGridView.h */,
 				049099321A0C6CC600EDD91B /* BBFXGridView.m */,
+				045082DF1A104F700004F8DD /* BBFXAdScrollView.h */,
+				045082E01A104F700004F8DD /* BBFXAdScrollView.m */,
+				045082E21A1061DC0004F8DD /* BBFXDetailViewController.h */,
+				045082E31A1061DC0004F8DD /* BBFXDetailViewController.m */,
 			);
 			name = FX;
 			sourceTree = "<group>";
@@ -8565,6 +8575,7 @@
 				192446E01941BFA10077D5DB /* GuidViewController.m in Sources */,
 				332D82A218C33F0A007A75D5 /* StrangerHeaderImage.m in Sources */,
 				332D75A018C33552007A75D5 /* CPUIModelPersonalInfoData.m in Sources */,
+				045082E41A1061DC0004F8DD /* BBFXDetailViewController.m in Sources */,
 				191692B2197D430000D6C634 /* XMPPNoticeMessage.m in Sources */,
 				332D74EE18C33552007A75D5 /* CPConnManager.m in Sources */,
 				332D839218C33F0B007A75D5 /* UIImage+Utility.m in Sources */,
@@ -8841,6 +8852,7 @@
 				332D838A18C33F0B007A75D5 /* NSArray_PointArray.m in Sources */,
 				332D833418C33F0B007A75D5 /* GroupLoveExpressionCell.m in Sources */,
 				04B262141947EC7500B6D036 /* BBHonorViewController.m in Sources */,
+				045082E11A104F700004F8DD /* BBFXAdScrollView.m in Sources */,
 				745D7684193F685600AF666E /* BBStudentsListViewController.m in Sources */,
 				74FD88711A0278E6003037C9 /* BBChooseClassViewController.m in Sources */,
 				332D830C18C33F0B007A75D5 /* FXBlockViewCheckBox.m in Sources */,

@@ -13,16 +13,19 @@
 -(id)init{
     self = [super init];
     if (self) {
-        _egoLogo = [[EGOImageView alloc] init];
-        [_egoLogo setContentMode:UIViewContentModeScaleAspectFill];
+        _egoLogo = [[EGOImageView alloc] initWithPlaceholderImage:[UIImage imageNamed:@""]];
+        [_egoLogo setContentMode:UIViewContentModeScaleAspectFit];
         [self addSubview:_egoLogo];
         
         _txtName = [[UILabel alloc] init];
+        [_txtName setTextAlignment:NSTextAlignmentCenter];
         [_txtName setFont:[UIFont boldSystemFontOfSize:12]];
         [self addSubview:_txtName];
         
         _imageFlag = [[UIImageView alloc] init];
         [_imageFlag setImage:[UIImage imageNamed:@"fx_grid_flag.png"]];
+        [_imageFlag setBackgroundColor:[UIColor redColor]];
+        [_imageFlag setHidden:YES];
         [self addSubview:_imageFlag];
     }
     return self;
@@ -50,8 +53,12 @@
 }
 */
 
--(void)setViewData:(id)model
+-(void)setViewData:(BBFXModel *)model
 {
-    
+    [self.egoLogo setImageURL:[NSURL URLWithString:model.image]];
+    [self.txtName setText:model.title];
+    if (model.isNew) {
+        [self.imageFlag setHidden:NO];
+    }
 }
 @end
