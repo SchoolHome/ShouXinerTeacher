@@ -29,6 +29,7 @@
 		0433AD1C18E53A8800BDF9D5 /* keyboard_text_back@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0433AD0A18E53A8800BDF9D5 /* keyboard_text_back@2x.png */; };
 		045082E11A104F700004F8DD /* BBFXAdScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = 045082E01A104F700004F8DD /* BBFXAdScrollView.m */; };
 		045082E41A1061DC0004F8DD /* BBFXDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 045082E31A1061DC0004F8DD /* BBFXDetailViewController.m */; };
+		046EB5B51A11D2AD008AE07A /* BBMeSettingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 046EB5B41A11D2AD008AE07A /* BBMeSettingViewController.m */; };
 		047823DA18D2A9F60012D87D /* BBMeTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 047823D918D2A9F60012D87D /* BBMeTableViewCell.m */; };
 		047823DD18D2C8660012D87D /* BBMeProfileController.m in Sources */ = {isa = PBXBuildFile; fileRef = 047823DC18D2C8660012D87D /* BBMeProfileController.m */; };
 		047823E018D2CABE0012D87D /* BBMeProfileTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 047823DF18D2CABE0012D87D /* BBMeProfileTableViewCell.m */; };
@@ -1494,6 +1495,8 @@
 		045082E01A104F700004F8DD /* BBFXAdScrollView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BBFXAdScrollView.m; path = FX/BBFXAdScrollView.m; sourceTree = "<group>"; };
 		045082E21A1061DC0004F8DD /* BBFXDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BBFXDetailViewController.h; path = FX/BBFXDetailViewController.h; sourceTree = "<group>"; };
 		045082E31A1061DC0004F8DD /* BBFXDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BBFXDetailViewController.m; path = FX/BBFXDetailViewController.m; sourceTree = "<group>"; };
+		046EB5B31A11D2AD008AE07A /* BBMeSettingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BBMeSettingViewController.h; path = ME/BBMeSettingViewController.h; sourceTree = "<group>"; };
+		046EB5B41A11D2AD008AE07A /* BBMeSettingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BBMeSettingViewController.m; path = ME/BBMeSettingViewController.m; sourceTree = "<group>"; };
 		047823D818D2A9F60012D87D /* BBMeTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BBMeTableViewCell.h; path = ME/BBMeTableViewCell.h; sourceTree = "<group>"; };
 		047823D918D2A9F60012D87D /* BBMeTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BBMeTableViewCell.m; path = ME/BBMeTableViewCell.m; sourceTree = "<group>"; };
 		047823DB18D2C8660012D87D /* BBMeProfileController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BBMeProfileController.h; sourceTree = "<group>"; };
@@ -3719,6 +3722,8 @@
 				0420E12418E13FEB003997ED /* BBFeedbackViewController.m */,
 				04B262121947EC7500B6D036 /* BBHonorViewController.h */,
 				04B262131947EC7500B6D036 /* BBHonorViewController.m */,
+				046EB5B31A11D2AD008AE07A /* BBMeSettingViewController.h */,
+				046EB5B41A11D2AD008AE07A /* BBMeSettingViewController.m */,
 			);
 			name = ME;
 			sourceTree = "<group>";
@@ -8712,6 +8717,7 @@
 				332D74E718C33552007A75D5 /* CPDBModelPetData.m in Sources */,
 				332D753118C33552007A75D5 /* XMPPStream.m in Sources */,
 				332D757B18C33552007A75D5 /* CPPTModelContact.m in Sources */,
+				046EB5B51A11D2AD008AE07A /* BBMeSettingViewController.m in Sources */,
 				332D750618C33552007A75D5 /* CPOperationPetResDownloadResult.m in Sources */,
 				332D837418C33F0B007A75D5 /* convertPcmToAmr.cpp in Sources */,
 				19145F53191CDF3B008CE18C /* SDImageCache.m in Sources */,
