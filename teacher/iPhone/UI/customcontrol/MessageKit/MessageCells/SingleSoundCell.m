@@ -48,25 +48,25 @@
     
     if (exModel.isPlaySound) {
         if (self.isBelongMe) {
-            [playButton setBackgroundImage:[UIImage imageNamed:@"ZJZSenderSound"] forState:UIControlStateNormal];
-            [playButton setBackgroundImage:[UIImage imageNamed:@"ZJZSenderSound"] forState:UIControlStateHighlighted];
+            [playButton setBackgroundImage:[[UIImage imageNamed:@"i_voice_talk"] stretchableImageWithLeftCapWidth:38.0f topCapHeight:0] forState:UIControlStateNormal];
+            [playButton setBackgroundImage:[[UIImage imageNamed:@"i_voice_talk"] stretchableImageWithLeftCapWidth:38.0f topCapHeight:0] forState:UIControlStateHighlighted];
         }else {
-            [playButton setBackgroundImage:[UIImage imageNamed:@"ZJZReceiverSound"] forState:UIControlStateNormal];
-            [playButton setBackgroundImage:[UIImage imageNamed:@"ZJZReceiverSound"] forState:UIControlStateHighlighted];
+            [playButton setBackgroundImage:[[UIImage imageNamed:@"other_voice_talk"] stretchableImageWithLeftCapWidth:10.0f topCapHeight:0] forState:UIControlStateNormal];
+            [playButton setBackgroundImage:[[UIImage imageNamed:@"other_voice_talk"] stretchableImageWithLeftCapWidth:10.0f topCapHeight:0] forState:UIControlStateHighlighted];
         }
     }else {
         if (self.isBelongMe) {
-            [playButton setBackgroundImage:[UIImage imageNamed:@"ZJZSenderSound"] forState:UIControlStateNormal];
-            [playButton setBackgroundImage:[UIImage imageNamed:@"ZJZSenderSound"] forState:UIControlStateHighlighted];
+            [playButton setBackgroundImage:[[UIImage imageNamed:@"i_voice_talk"] stretchableImageWithLeftCapWidth:38.0f topCapHeight:0] forState:UIControlStateNormal];
+            [playButton setBackgroundImage:[[UIImage imageNamed:@"i_voice_talk"] stretchableImageWithLeftCapWidth:38.0f topCapHeight:0] forState:UIControlStateHighlighted];
         }else {
             if ([exModel.messageModel.sendState intValue] == MSG_SEND_STATE_AUDIO_READED) {
-                [playButton setBackgroundImage:[UIImage imageNamed:@"ZJZReceiverSound"] forState:UIControlStateNormal];
-                [playButton setBackgroundImage:[UIImage imageNamed:@"ZJZReceiverSound"] forState:UIControlStateHighlighted];
+                [playButton setBackgroundImage:[[UIImage imageNamed:@"other_voice_talk"] stretchableImageWithLeftCapWidth:10.0f topCapHeight:0] forState:UIControlStateNormal];
+                [playButton setBackgroundImage:[[UIImage imageNamed:@"other_voice_talk"] stretchableImageWithLeftCapWidth:10.0f topCapHeight:0] forState:UIControlStateHighlighted];
             }else {
-                [playButton setBackgroundImage:[UIImage imageNamed:@"ZJZReceiverSound"] forState:UIControlStateNormal];
-                [playButton setBackgroundImage:[UIImage imageNamed:@"ZJZReceiverSound"] forState:UIControlStateHighlighted];
-                self.unReadImage = [[UIImageView alloc] initWithFrame:CGRectMake(-8.0f, 0.0f, 10.0f, 10.0f)];
-                self.unReadImage.image = [UIImage imageNamed:@"ZJZUnReadSound"];
+                [playButton setBackgroundImage:[[UIImage imageNamed:@"other_voice_talk"] stretchableImageWithLeftCapWidth:10.0f topCapHeight:0] forState:UIControlStateNormal];
+                [playButton setBackgroundImage:[[UIImage imageNamed:@"other_voice_talk"] stretchableImageWithLeftCapWidth:10.0f topCapHeight:0] forState:UIControlStateHighlighted];
+                self.unReadImage = [[UIImageView alloc] initWithFrame:CGRectMake(-12.0f, 24.0f, 10.0f, 10.0f)];
+                self.unReadImage.image = [UIImage imageNamed:@"new_mes"];
                 [playButton addSubview:self.unReadImage];
             }
         }
@@ -119,19 +119,21 @@
     ExMessageModel *model = (ExMessageModel*)self.data;
     CPLogInfo(@"model.messageModel.filePath :  %@",model.messageModel.filePath);
     
-    
+    int maxWidth = kWidthOfSound + 6.0f * [model.messageModel.mediaTime integerValue];
+    if (maxWidth > 220.0f) {
+        maxWidth = 220.0f;
+    }
     if (self.isBelongMe) {
-        playButton.frame = CGRectMake(kAvatarWidth + 7.5f, kCellTopPadding, kWidthOfSound, kHeightOfSound);
-        playTimeLabel.frame = CGRectMake(playButton.frame.origin.x + 10.0f, 10, 35, kHeightOfSound -20);
+        playButton.frame = CGRectMake(kAvatarWidth + 7.5f, kCellTopPadding, maxWidth, kHeightOfSound);
+        playTimeLabel.frame = CGRectMake(playButton.frame.size.width + 4.0f, 2, 35, kHeightOfSound -20);
     }else{
-        playButton.frame = CGRectMake(320.0f - kWidthOfSound -kAvatarWidth- 7.5f, kCellTopPadding, kWidthOfSound, kHeightOfSound);
-        playTimeLabel.frame = CGRectMake(-15.0f, 10.0f, 35.0f, kHeightOfSound -20);
+        playButton.frame = CGRectMake(320.0f - maxWidth -kAvatarWidth- 7.5f, kCellTopPadding, maxWidth, kHeightOfSound);
+        playTimeLabel.frame = CGRectMake(-15.0f, 2.0f, 35.0f, kHeightOfSound - 20);
     }
     
     playTimeLabel.text = [NSString stringWithFormat:@"%d\"",[model.messageModel.mediaTime intValue]];
 
     [self addSubview:playButton];
-    //[playButton addSubview:stateImageView];
     [playButton addSubview:playTimeLabel];
     
     
@@ -145,9 +147,9 @@
                                          kResendButtonWidth, kResendButtonWidth);
     
     if (self.isBelongMe) {
-        avatar.frame = CGRectMake(7.5f, kCellTopPadding, kAvatarWidth, kAvatarHeight);
+        avatar.frame = CGRectMake(7.5f, kCellTopPadding - 6.0f, kAvatarWidth, kAvatarHeight);
     }else{
-        avatar.frame = CGRectMake(320.0f-7.5f-kAvatarWidth, kCellTopPadding, kAvatarWidth, kAvatarHeight);
+        avatar.frame = CGRectMake(320.0f-7.5f-kAvatarWidth, kCellTopPadding - 6.0f, kAvatarWidth, kAvatarHeight);
     }
     
     if (!self.userHeadImage) {

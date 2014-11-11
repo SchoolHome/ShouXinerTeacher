@@ -29,12 +29,12 @@
 #define kBackgroundtopCapHeight  18
 
 /*头像的宽高*/
-#define kAvatarWidth    35
-#define kAvatarHeight   35
+#define kAvatarWidth    50
+#define kAvatarHeight   50
 
 /*声音按钮固定宽高*/
 #define kWidthOfSound  48
-#define kHeightOfSound 33
+#define kHeightOfSound 36
 
 /*图片上下左右与外框的距离*/
 #define kTopAndButtomPadding (8+3)  //上下距离 ＋ 阴影宽度

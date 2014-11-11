@@ -86,7 +86,7 @@
     
     //设置字体颜色
     if (isBelongMe) {
-        [[UIColor blackColor] set];
+        [[UIColor whiteColor] set];
     }else {
         [[UIColor blackColor] set];
     }
@@ -294,7 +294,6 @@
     textDisplayView.frame = CGRectMake(0, 0, size.width, size.height);
     textDisplayView.backgroundColor = [UIColor clearColor];
     
-
     // 文字宽度偏小的时候
     CGFloat backWidth = size.width;
     if (size.width<21) {
@@ -302,15 +301,13 @@
     }
     
     if (self.isBelongMe) {
-        self.ellipticalBackground.frame = CGRectMake(47.0f, kCellTopPadding, backWidth+2*kLeftAndRightPadding, textDisplayView.frame.size.height+2*(kTopAndButtomPadding-2));
+        self.ellipticalBackground.frame = CGRectMake(56.0f, kCellTopPadding + 2.0f, backWidth+2*kLeftAndRightPadding, textDisplayView.frame.size.height+2*(kTopAndButtomPadding-2));
     }else{
-        self.ellipticalBackground.frame = CGRectMake(320.0f - 47.0f - (backWidth+2*kLeftAndRightPadding), kCellTopPadding, backWidth+2*kLeftAndRightPadding, textDisplayView.frame.size.height+2*(kTopAndButtomPadding-2));
+        self.ellipticalBackground.frame = CGRectMake(320.0f - 56.0f - (backWidth+2*kLeftAndRightPadding), kCellTopPadding + 2.0f, backWidth+2*kLeftAndRightPadding, textDisplayView.frame.size.height+2*(kTopAndButtomPadding-2));
     }
-//    textDisplayView.frame = CGRectMake(ellipticalBackground.frame.origin.x+kLeftAndRightPadding, kCellTopPadding + kTopAndButtomPadding, textDisplayView.frame.size.width, textDisplayView.frame.size.height);
     textDisplayView.frame = CGRectMake(ellipticalBackground.frame.origin.x+(ellipticalBackground.frame.size.width - backWidth)/2, kCellTopPadding + (kTopAndButtomPadding-2), textDisplayView.frame.size.width, textDisplayView.frame.size.height);
     textDisplayView.center = self.ellipticalBackground.center; //中间对齐
     
-    //[textDisplayView setNeedsDisplay];
     textDisplayView.isBelongMe = self.isBelongMe;
     
     
@@ -332,9 +329,9 @@
     [self bringSubviewToFront:self.alarmTip];
     
     if (self.isBelongMe) {
-        avatar.frame = CGRectMake(7.5f, ellipticalBackground.frame.origin.y + ellipticalBackground.frame.size.height -  kAvatarHeight, kAvatarWidth, kAvatarHeight);
+        avatar.frame = CGRectMake(7.5f, ellipticalBackground.frame.origin.y + ellipticalBackground.frame.size.height -  kAvatarHeight + 4.0f, kAvatarWidth, kAvatarHeight);
     }else{
-        avatar.frame = CGRectMake(320.0f-7.5f-kAvatarWidth, ellipticalBackground.frame.origin.y+ ellipticalBackground.frame.size.height -  kAvatarHeight, kAvatarWidth, kAvatarHeight);
+        avatar.frame = CGRectMake(320.0f-7.5f-kAvatarWidth, ellipticalBackground.frame.origin.y+ ellipticalBackground.frame.size.height -  kAvatarHeight + 4.0f, kAvatarWidth, kAvatarHeight);
     }
     
     if (!self.userHeadImage) {

@@ -29,11 +29,6 @@
     if (self) {
         
         displayImageView = [[UIImageView alloc] initWithFrame:CGRectZero];
-//        displayImageView.userInteractionEnabled = YES;
-//        displayImageView.exclusiveTouch = YES;
-//        displayImageView addGestureRecognizer:[UITapGestureRecognizer
-//        [displayImageView addTarget:self action:@selector(backgroundTaped:) forControlEvents:UIControlEventTouchUpInside];
-        
         ellipticalBackground.exclusiveTouch = YES;
         [ellipticalBackground addTarget:self action:@selector(backgroundTaped:) forControlEvents:UIControlEventTouchUpInside];
     }
@@ -76,21 +71,17 @@
     }
     
     if (self.isBelongMe) {
-        ellipticalBackground.frame = CGRectMake(47.0f, imageRect.origin.y, imageRect.size.width, imageRect.size.height);
+        ellipticalBackground.frame = CGRectMake(56.0f, imageRect.origin.y, imageRect.size.width, imageRect.size.height);
     }else{
         ellipticalBackground.frame = CGRectMake(320.0f - 47.0f - imageRect.size.width, imageRect.origin.y, imageRect.size.width, imageRect.size.height);
     }
     
-//    [self adaptEllipticalBackgroundImage];
-    
-    
     if (self.isBelongMe) {
-        displayImageView.frame = CGRectMake(47.0f, imageRect.origin.y, imageRect.size.width, imageRect.size.height);
+        displayImageView.frame = CGRectMake(56.0f, imageRect.origin.y, imageRect.size.width, imageRect.size.height);
     }else{
-        displayImageView.frame = CGRectMake(320.0f - 47.0f - imageRect.size.width, imageRect.origin.y, imageRect.size.width, imageRect.size.height);
+        displayImageView.frame = CGRectMake(320.0f - 56.0f - imageRect.size.width, imageRect.origin.y, imageRect.size.width, imageRect.size.height);
     }
     
-//    displayImageView.frame = imageRect;
     [displayImageView removeFromSuperview];
     displayImageView.layer.masksToBounds =YES;
     displayImageView.layer.cornerRadius = 15.0f;
@@ -109,7 +100,6 @@
     }else{
         avatar.frame = CGRectMake(320.0f-7.5f-kAvatarWidth, ellipticalBackground.frame.origin.y+ ellipticalBackground.frame.size.height -  kAvatarHeight, kAvatarWidth, kAvatarHeight);
     }
-//    avatar.frame = CGRectMake(ellipticalBackground.frame.origin.x - kAvatarWidth+ 8, ellipticalBackground.frame.origin.y, kAvatarWidth, kAvatarHeight);
     if (!self.userHeadImage) {
         avatar.backImage = [UIImage imageNamed:@"headpic_index_normal_120x120"];
     }else {
