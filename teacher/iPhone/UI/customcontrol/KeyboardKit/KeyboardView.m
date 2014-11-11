@@ -104,7 +104,6 @@
         [self.delegate keyboardViewDidDisappear];
     }
     
-    //convertButton.isUp = YES;
     emotionButton.isUp = YES;
     //captureButton.isUp = YES;
     
@@ -369,77 +368,9 @@
     keyboardTopBar.userInteractionEnabled = YES;
     
     topBarBack = [[UIImageView alloc] initWithFrame:CGRectMake(0, 20, 320, 100)];
-    topBarBack.backgroundColor = [UIColor colorWithHexString:@"D8D6CE"];//@"#f5f0e9"
+    topBarBack.backgroundColor = [UIColor colorWithHexString:@"fafafa"];//@"#f5f0e9"
     
-    //topBarBack.image= [UIImage imageNamed:@"line02_im"];
-    
-    //    CGRect rect1 = [self convertRect:CGRectMake(0, self.frame.size.height - kMidAndBottomHeight-kTopHeight, 320, kTopHeight) toView:[UIApplication sharedApplication].keyWindow];
-//    CGRect rect1 = [self convertRect:CGRectMake(0, self.frame.size.height - kMidAndBottomHeight-kTopHeight, 320, kTopHeight) toView:self.superview];
-//    NSLog(@"convertRect     ======================= %f",rect1.origin.y);
-//    keyboardTopBar.frame = rect1;
-    /*
-    textView = [[KBGrowingTextView alloc] initWithFrame:CGRectMake(50, keyboardTopBar.frame.size.height-34-6, 160, 34)];  //一行的高度 34
-    textView.contentInset = UIEdgeInsetsMake(0, 5, 0, 5);
-    
-    textView.minNumberOfLines = 1;
-    textView.maxNumberOfLines = 4;
-    textView.returnKeyType = UIReturnKeySend; //just as an example
-    textView.font = [UIFont systemFontOfSize:14.0f];
-    textView.delegate = self;
-    textView.internalTextView.scrollIndicatorInsets = UIEdgeInsetsMake(5, 0, 5, 0);
-    textView.backgroundColor = [UIColor clearColor];
-    textView.enablesReturnKeyAutomatically = YES;
-    
-    textViewBack = [[UIImageView alloc] initWithFrame:CGRectMake(textView.frame.origin.x, textView.frame.origin.y, textView.frame.size.width+60, textView.frame.size.height)];
-    UIImage *image = [[UIImage imageNamed:@"item_im_bar_input"] stretchableImageWithLeftCapWidth:0 topCapHeight:33/2];
-    textViewBack.image = image;
-    
-    
-    textViewMask = [[UIImageView alloc] initWithFrame:CGRectMake(textView.frame.origin.x+5, textView.frame.origin.y+textView.frame.size.height, textView.frame.size.width+5+3, 5.5)];
-    UIImage *image1 = [[UIImage imageNamed:@"item_im_bar_input_mask"] stretchableImageWithLeftCapWidth:0 topCapHeight:0];
-    textViewMask.image = image1;
-    //textViewMask.backgroundColor =[UIColor colorWithHexString:@"#f5f0e9"];
-    
-    [keyboardTopBar addSubview:topBarBack];
-    [keyboardTopBar addSubview:textViewBack];
-    [keyboardTopBar addSubview:textView];
-    [keyboardTopBar addSubview:textViewMask];
-    
-    UIImageView *topBarTop = [[UIImageView alloc] initWithFrame:CGRectMake(-50, -24, 320, 24)];
-    [textView addSubview:topBarTop];
-    topBarTop.image = [UIImage imageNamed:@"bg_im_bar_above"];
-    
-    petButton = [[KBPetButton alloc] initWithFrame:CGRectMake(6, keyboardTopBar.frame.size.height - 112/2, 87/2, 112/2)];
-    [keyboardTopBar addSubview:petButton];
-    [petButton addTarget:self action:@selector(petButtonTaped:) forControlEvents:UIControlEventTouchUpInside];
-    
-    recordButton = [[KBRecordButton alloc] initWithFrame:CGRectMake(50, keyboardTopBar.frame.size.height- 106/2, 365/2, 106/2)];
-    [keyboardTopBar addSubview:recordButton];
-    [recordButton addTarget:self action:@selector(recordBegin) forControlEvents:UIControlEventTouchDown];
-    [recordButton addTarget:self action:@selector(recordEnd) forControlEvents:UIControlEventTouchUpInside];
-    [recordButton addTarget:self action:@selector(recordEnd) forControlEvents:UIControlEventTouchUpOutside];
-    [recordButton addTarget:self action:@selector(recordEnd) forControlEvents:UIControlEventTouchCancel];
-    recordButton.hidden = YES;
-    
-    captureButton = [[KBCaptureButton alloc] initWithFrame:CGRectMake(320 - 71/2 - 5, keyboardTopBar.frame.size.height - 71/2-5, 78/2, 71/2)];
-    [keyboardTopBar addSubview:captureButton];
-    [captureButton addTarget:self action:@selector(captureButtonTaped:) forControlEvents:UIControlEventTouchUpInside];
-    
-    convertButton = [[KBConvertButton alloc] initWithFrame:CGRectMake(320 - 71*2/2 - 106/2 - 5, keyboardTopBar.frame.size.height- 106/2, 92/2, 106/2)];
-    [keyboardTopBar addSubview:convertButton];
-    [convertButton addTarget:self action:@selector(convertButtonTaped:) forControlEvents:UIControlEventTouchUpInside];
-    
-    emotionButton = [[KBEmotionButton alloc] initWithFrame:CGRectMake(320 - 71*2/2 - 5-5, keyboardTopBar.frame.size.height - 71/2-5, 78/2, 71/2)];
-    [keyboardTopBar addSubview:emotionButton];
-    [emotionButton addTarget:self action:@selector(emotionButtonTaped:) forControlEvents:UIControlEventTouchUpInside];
-    
-//    photoSwitch = [[KBPhotoSwitch alloc] initWithFrame:CGRectMake(320 - 100 - 5, kSuperViewHeight - kTopHeight-50+10, 100, 50)];
-    photoSwitch.hidden = YES;
-    photoSwitch.delegate = self;
-    //[[UIApplication sharedApplication].keyWindow addSubview:photoSwitch];
-*/
-    
-    textView = [[KBGrowingTextView alloc] initWithFrame:CGRectMake(45, keyboardTopBar.frame.size.height-61/2-6, 461/2, 63/2)]; //一行高度32
+    textView = [[KBGrowingTextView alloc] initWithFrame:CGRectMake(42, keyboardTopBar.frame.size.height-61/2-6, 230.5f, 32.0f)]; //一行高度32
     textView.contentInset = UIEdgeInsetsMake(0, 5, 0, 5);
     
     textView.minNumberOfLines = 1;
@@ -453,7 +384,7 @@
     
     
     textViewBack = [[UIImageView alloc] initWithFrame:CGRectMake(textView.frame.origin.x, textView.frame.origin.y, textView.frame.size.width, textView.frame.size.height)];
-    UIImage *image = [[UIImage imageNamed:@"keyboard_text_back"] stretchableImageWithLeftCapWidth:0 topCapHeight:33/2];
+    UIImage *image = [[UIImage imageNamed:@"text_blank"] stretchableImageWithLeftCapWidth:0 topCapHeight:33/2];
     textViewBack.image = image;
     
     [keyboardTopBar addSubview:topBarBack];
@@ -472,7 +403,7 @@
     [keyboardTopBar addSubview:captureButton];
     [captureButton addTarget:self action:@selector(captureButtonTaped:) forControlEvents:UIControlEventTouchUpInside];
     
-    convertButton = [[KBConvertButton alloc] initWithFrame:CGRectMake(7, keyboardTopBar.frame.size.height- 54/2-10, 54/2, 54/2)];
+    convertButton = [[KBConvertButton alloc] initWithFrame:CGRectMake(7, keyboardTopBar.frame.size.height - 36.0f, 28.0f, 28.0f)];
     [keyboardTopBar addSubview:convertButton];
     [convertButton addTarget:self action:@selector(convertButtonTaped:) forControlEvents:UIControlEventTouchUpInside];
     /*
@@ -488,139 +419,40 @@
 }
 
 -(void)layoutKeyboardTopBar:(CGFloat) height{
-    //keyboardTopBar.frame =  CGRectMake(0, self.frame.size.height - kMidAndBottomHeight - (height+22), keyboardTopBar.frame.size.width, height+22);  // 22 = kTopHeight - 34 
-//    CGRect rect1 = [self convertRect:CGRectMake(0, self.frame.size.height - kMidAndBottomHeight - (height+22), 320, height+22) toView:[UIApplication sharedApplication].keyWindow];
-    /*
     CGRect rect1 = CGRectMake(0, self.superview.frame.size.height - (height+22), 320, height+22);
     keyboardTopBar.frame = rect1;
     
-    textView.frame = CGRectMake(50, keyboardTopBar.frame.size.height-height-6+2, textView.frame.size.width, height);
-    textViewBack.frame = CGRectMake(textView.frame.origin.x, textView.frame.origin.y, textView.frame.size.width+22, textView.frame.size.height);
-    textViewMask.frame = CGRectMake(textView.frame.origin.x, textView.frame.origin.y+textView.frame.size.height-2, textView.frame.size.width+5+3, 5.5);
-                        
-    topBarBack.frame = CGRectMake(0, 15, keyboardTopBar.frame.size.width, keyboardTopBar.frame.size.height-15); // 背景
-    petButton.frame = CGRectMake(6, keyboardTopBar.frame.size.height - 112/2, 87/2, 112/2);
-    recordButton.frame = CGRectMake(50, keyboardTopBar.frame.size.height- 106/2-1+2, 365/2, 106/2);
-    captureButton.frame = CGRectMake(320 - 71/2 - 5-1, keyboardTopBar.frame.size.height - 71/2-5-1+2, 78/2, 71/2);
-    convertButton.frame = CGRectMake(320 - 71*2/2 - 106/2 - 5, keyboardTopBar.frame.size.height- 106/2-1+2, 92/2, 106/2);
-    emotionButton.frame = CGRectMake(320 - 71*2/2 - 5-5-2, keyboardTopBar.frame.size.height - 71/2-5-1+2, 78/2, 71/2);
-     */
-    CGRect rect1 = CGRectMake(0, self.superview.frame.size.height - (height+22), 320, height+22);
-    keyboardTopBar.frame = rect1;
-    
-    textView.frame = CGRectMake(45, keyboardTopBar.frame.size.height-height-6+2, textView.frame.size.width, height);
+    textView.frame = CGRectMake(42, keyboardTopBar.frame.size.height-height-6+2, textView.frame.size.width, height);
     textViewBack.frame = CGRectMake(textView.frame.origin.x, textView.frame.origin.y, textView.frame.size.width, textView.frame.size.height);
     
     topBarBack.frame = CGRectMake(0, 10, keyboardTopBar.frame.size.width, keyboardTopBar.frame.size.height-10); // 背景
-  //  petButton.frame = CGRectMake(6, keyboardTopBar.frame.size.height - 112/2, 87/2, 112/2);keyboardTopBar.frame.size.height- 63/2-5-1+2
     recordButton.frame = CGRectMake(textView.frame.origin.x, textView.frame.origin.y, textView.frame.size.width, textView.frame.size.height);
-    captureButton.frame = CGRectMake(570/2, keyboardTopBar.frame.size.height - 54/2-5-1+2, 54/2, 54/2);
-    convertButton.frame = CGRectMake(7, keyboardTopBar.frame.size.height- 54/2-5-1+2, 54/2, 54/2);
-  //  emotionButton.frame = CGRectMake(494/2, keyboardTopBar.frame.size.height - 62/2-5-1+2, 62/2, 62/2);
+    captureButton.frame = CGRectMake(570/2, keyboardTopBar.frame.size.height - 35.0f, 28.0f, 28.0f);
+    convertButton.frame = CGRectMake(7, keyboardTopBar.frame.size.height - 35.0f, 28.0f, 28.0f);
 }
 
 -(void)initSmallView{
     if (!smallPageView) {
-//        smallPageView = [[KBScrollView alloc] initWithFrame:CGRectMake(0, self.frame.size.height - kBottomButtonHeight - kEmotionViewHeight, 320, kEmotionViewHeight)];
-//        smallPageView.backgroundColor = [UIColor clearColor];
-//        smallPageView.delegate = self;
-//        [self addSubview:smallPageView];
-//        smallPageView.currentPage = 0;
-//        smallPageView.tag = KB_SCROLL_VIEW_TAG_SAMLL;
-//        
-//        smallPageView.hidden = YES;
+
     }
 }
 -(void)initMagicView{
     if (!magicPageView) {
-//        magicPageView = [[KBScrollView alloc] initWithFrame:CGRectMake(0, self.frame.size.height - kBottomButtonHeight - kEmotionViewHeight, 320, kEmotionViewHeight)];
-//        magicPageView.backgroundColor = [UIColor clearColor];
-//        magicPageView.delegate = self;
-//        [self addSubview:magicPageView];
-//        magicPageView.currentPage = 0;
-//        magicPageView.tag = KB_SCROLL_VIEW_TAG_MAGIC;
-//        
-//        magicPageView.hidden = NO;
+
     }
 }
 -(void)initEmojiView{
     if (!emojiPageView) {
-//        emojiPageView = [[KBScrollView alloc] initWithFrame:CGRectMake(0, self.frame.size.height - kBottomButtonHeight - kEmotionViewHeight, 320, kEmotionViewHeight)];
-//        emojiPageView.backgroundColor = [UIColor clearColor];
-//        emojiPageView.delegate = self;
-//        [self addSubview:emojiPageView];
-//        emojiPageView.currentPage = 2;   // 预加载
-//        emojiPageView.currentPage = 0;
-//        emojiPageView.tag = KB_SCROLL_VIEW_TAG_EMOJI;
-//        
-//        emojiPageView.hidden = YES;
+
     }
 }
 
 -(void)initMiddle{
-//    [self performSelector:@selector(initSmallView) withObject:nil afterDelay:0.1];
-//    [self performSelector:@selector(initMagicView) withObject:nil afterDelay:0.1];
-//    [self performSelector:@selector(initEmojiView) withObject:nil afterDelay:0.2];
+
 }
 
 -(void)initBottom{
-    
-//    UIImageView *background = [[UIImageView alloc] initWithFrame:CGRectMake(0, self.frame.size.height - kMidAndBottomHeight, 320, kMidAndBottomHeight)];
-//    [self addSubview:background];
-//    background.image = [UIImage imageNamed:@"bg_im_emotion"];
-//    [self sendSubviewToBack:background];
-//    
-//    UIImageView *line = [[UIImageView alloc] initWithFrame:CGRectMake(0, self.frame.size.height -kBottomButtonHeight-5 , 320, 1)];
-//    [self addSubview:line];
-//    line.image = [UIImage imageNamed:@"line02_im"];
-//    [self sendSubviewToBack:line];
-//
-//    smallPageControl= [[KBPageControl alloc] initWithFrame:CGRectMake(0, self.frame.size.height -kBottomButtonHeight - 17, 320, 17)];
-//    smallPageControl.backgroundColor = [UIColor clearColor];
-//    smallPageControl.numberOfPages = 1;
-//    smallPageControl.currentPage = 1;
-//    [self addSubview:smallPageControl];
-//    
-//    magicPageControl= [[KBPageControl alloc] initWithFrame:CGRectMake(0, self.frame.size.height -kBottomButtonHeight - 17, 320, 17)];
-//    magicPageControl.backgroundColor = [UIColor clearColor];
-//    magicPageControl.numberOfPages = 1;
-//    magicPageControl.currentPage = 1;
-//    [self addSubview:magicPageControl];
-//    
-//    emojiPageControl= [[KBPageControl alloc] initWithFrame:CGRectMake(0, self.frame.size.height -kBottomButtonHeight - 17, 320, 17)];
-//    emojiPageControl.backgroundColor = [UIColor clearColor];
-//    emojiPageControl.numberOfPages = 3;
-//    emojiPageControl.currentPage = 1;
-//    [self addSubview:emojiPageControl];
-//    
-//    smallPageControl.hidden = YES;
-//    magicPageControl.hidden = NO;
-//    emojiPageControl.hidden = YES;
-//    
-//    
-//    
-//    magicButton = [[KBMagicButton alloc] initWithFrame:CGRectMake(0, self.frame.size.height-kBottomButtonHeight, kBottomButtonWidth, kBottomButtonHeight)];
-//    [self addSubview:magicButton];
-//    [magicButton addTarget:self action:@selector(magicButtonTaped:) forControlEvents:UIControlEventTouchUpInside];
-//    magicButton.isUp = NO;
-//    
-//    smallButton = [[KBSmallButton alloc] initWithFrame:CGRectMake(kBottomButtonWidth, self.frame.size.height-kBottomButtonHeight, kBottomButtonWidth, kBottomButtonHeight)];
-//    [self addSubview:smallButton];
-//    [smallButton addTarget:self action:@selector(smallButtonTaped:) forControlEvents:UIControlEventTouchUpInside];
-//    
-//    
-//    emojiButton = [[KBEmojiButton alloc] initWithFrame:CGRectMake(kBottomButtonWidth*2 , self.frame.size.height-kBottomButtonHeight, kBottomButtonWidth, kBottomButtonHeight)];
-//    [self addSubview:emojiButton];
-//    [emojiButton addTarget:self action:@selector(emojiButtonTaped:) forControlEvents:UIControlEventTouchUpInside];
-//    
-//    
-//    UIImageView *sendBack = [[UIImageView alloc] initWithFrame:CGRectMake(kBottomButtonWidth*3, self.frame.size.height-kBottomButtonHeight, kBottomButtonWidth, kBottomButtonHeight)];
-//    sendBack.image = [UIImage imageNamed:@"btn_im_emotion_tab02"];
-//    [self addSubview:sendBack];
-//    sendButton  = [[KBSendButton alloc] initWithFrame:CGRectMake(kBottomButtonWidth*3, self.frame.size.height-kBottomButtonHeight+7, kBottomButtonWidth, kBottomButtonHeight-10)];
-//    [self addSubview:sendButton];
-//    [sendButton addTarget:self action:@selector(sendButtonTaped:) forControlEvents:UIControlEventTouchUpInside];
-    
+  
 }
 
 - (id)initWithFrame:(CGRect)frame
@@ -762,7 +594,6 @@
 - (void)growingTextViewDidBeginEditing:(KBGrowingTextView *)growingTextView{
     photoSwitch.hidden = YES;
     
-    //convertButton.isUp = YES;
     emotionButton.isUp = YES;
     captureButton.isUp = YES;
     
@@ -799,27 +630,6 @@
 
 - (void)growingTextView:(KBGrowingTextView *)growingTextView willChangeHeight:(float)height
 {
-/*
-    NSLog(@"%f",height);
-    CGRect rect1;
-    if (growingTextView.frame.size.height < height) {
-        rect1 = CGRectMake(0, self.keyboardTopBar.frame.origin.y - (height - growingTextView.frame.size.height), 320, height+22);
-    }else{
-        rect1 = CGRectMake(0, self.keyboardTopBar.frame.origin.y + (growingTextView.frame.size.height - height), 320, height+22);
-    }
-    
-    keyboardTopBar.frame = rect1;
-    textView.frame = CGRectMake(50, keyboardTopBar.frame.size.height-height-6+2, textView.frame.size.width, height);
-    textViewBack.frame = CGRectMake(textView.frame.origin.x, textView.frame.origin.y, textView.frame.size.width+22, textView.frame.size.height);
-    textViewMask.frame = CGRectMake(textView.frame.origin.x, textView.frame.origin.y+textView.frame.size.height-2, textView.frame.size.width+5+3, 5.5);
-    
-    topBarBack.frame = CGRectMake(0, 15, keyboardTopBar.frame.size.width, keyboardTopBar.frame.size.height-15); // 背景
-    petButton.frame = CGRectMake(6, keyboardTopBar.frame.size.height - 112/2, 87/2, 112/2);
-    recordButton.frame = CGRectMake(50, keyboardTopBar.frame.size.height- 106/2-1+2, 365/2, 106/2);
-    captureButton.frame = CGRectMake(320 - 71/2 - 5-1, keyboardTopBar.frame.size.height - 71/2-5-1+2, 78/2, 71/2);
-    convertButton.frame = CGRectMake(320 - 71*2/2 - 106/2 - 5, keyboardTopBar.frame.size.height- 106/2-1+2, 92/2, 106/2);
-    emotionButton.frame = CGRectMake(320 - 71*2/2 - 5-5-2, keyboardTopBar.frame.size.height - 71/2-5-1+2, 78/2, 71/2);
- */
     CGRect rect1;
     if (growingTextView.frame.size.height < height) {
         rect1 = CGRectMake(0, self.keyboardTopBar.frame.origin.y - (height - growingTextView.frame.size.height), 320, height+22);
@@ -827,15 +637,13 @@
         rect1 = CGRectMake(0, self.keyboardTopBar.frame.origin.y + (growingTextView.frame.size.height - height), 320, height+22);
     }
     keyboardTopBar.frame = rect1;
-    textView.frame = CGRectMake(45, keyboardTopBar.frame.size.height-height-6+2, textView.frame.size.width, height);
+    textView.frame = CGRectMake(42, keyboardTopBar.frame.size.height-height-6+2, textView.frame.size.width, height);
     textViewBack.frame = CGRectMake(textView.frame.origin.x, textView.frame.origin.y, textView.frame.size.width, textView.frame.size.height);
     
     topBarBack.frame = CGRectMake(0, 10, keyboardTopBar.frame.size.width, keyboardTopBar.frame.size.height-10); // 背景
-    //  petButton.frame = CGRectMake(6, keyboardTopBar.frame.size.height - 112/2, 87/2, 112/2);
     recordButton.frame = CGRectMake(textView.frame.origin.x, textView.frame.origin.y, textView.frame.size.width, textView.frame.size.height);
-    captureButton.frame = CGRectMake(570/2, keyboardTopBar.frame.size.height - 54/2-5-1+2, 54/2, 54/2);
-    convertButton.frame = CGRectMake(7, keyboardTopBar.frame.size.height- 54/2-5-1+2, 54/2, 54/2);
-  //  emotionButton.frame = CGRectMake(494/2, keyboardTopBar.frame.size.height - 62/2-5-1+2, 62/2, 62/2);
+    captureButton.frame = CGRectMake(570/2, keyboardTopBar.frame.size.height - 35.0f, 28.0f, 28.0f);
+    convertButton.frame = CGRectMake(7, keyboardTopBar.frame.size.height - 35.0f, 28.0f, 28.0f);
 }
 
 
@@ -907,78 +715,6 @@
                 }
             }
             
-            /*
-            int smallIndex_ = 0;
-            for(smallIndex_ = 0;smallIndex_ < 20;smallIndex_ ++ ){
-                [smallModelArray addObject:@" "];
-            }
-            
-            
-            
-            for(CPUIModelPetSmallAnim * smallAnim in [[CPUIModelManagement sharedInstance] allSmallAnimObjects]){
-                if([smallAnim.resourceID isEqualToString:@"xiaohaha"]){
-                    [smallModelArray replaceObjectAtIndex:0 withObject:smallAnim];
-                }                
-                else if([smallAnim.resourceID isEqualToString:@"huaixiao"]){
-                    [smallModelArray replaceObjectAtIndex:1 withObject:smallAnim];
-                }
-                else if([smallAnim.resourceID isEqualToString:@"baibai"]){  
-                    [smallModelArray replaceObjectAtIndex:2 withObject:smallAnim];
-                }                
-                else if([smallAnim.resourceID isEqualToString:@"bishi"]){ 
-                    [smallModelArray replaceObjectAtIndex:3 withObject:smallAnim];
-                }
-                else if([smallAnim.resourceID isEqualToString:@"bizui"]){
-                    [smallModelArray replaceObjectAtIndex:4 withObject:smallAnim];
-                }
-                else if([smallAnim.resourceID isEqualToString:@"daku"]){
-                    [smallModelArray replaceObjectAtIndex:5 withObject:smallAnim];
-                }
-                else if([smallAnim.resourceID isEqualToString:@"fennu"]){
-                    [smallModelArray replaceObjectAtIndex:6 withObject:smallAnim];
-                }
-                else if([smallAnim.resourceID isEqualToString:@"haixiu"]){
-                    [smallModelArray replaceObjectAtIndex:7 withObject:smallAnim];
-                }
-                else if([smallAnim.resourceID isEqualToString:@"han"]){
-                    [smallModelArray replaceObjectAtIndex:8 withObject:smallAnim];
-                }
-                else if([smallAnim.resourceID isEqualToString:@"heng"]){
-                    [smallModelArray replaceObjectAtIndex:9 withObject:smallAnim];
-                }
-                else if([smallAnim.resourceID isEqualToString:@"jingya"]){
-                    [smallModelArray replaceObjectAtIndex:10 withObject:smallAnim];
-                }
-                else if([smallAnim.resourceID isEqualToString:@"kunle"]){
-                    [smallModelArray replaceObjectAtIndex:11 withObject:smallAnim];
-                }
-                else if([smallAnim.resourceID isEqualToString:@"beida"]){
-                    [smallModelArray replaceObjectAtIndex:12 withObject:smallAnim];
-                }
-                else if([smallAnim.resourceID isEqualToString:@"se"]){
-                    [smallModelArray replaceObjectAtIndex:13 withObject:smallAnim];
-                }
-                else if([smallAnim.resourceID isEqualToString:@"taiweiqu"]){
-                    [smallModelArray replaceObjectAtIndex:14 withObject:smallAnim];
-                }
-                else if([smallAnim.resourceID isEqualToString:@"touxiao"]){
-                    [smallModelArray replaceObjectAtIndex:15 withObject:smallAnim];
-                }
-                else if([smallAnim.resourceID isEqualToString:@"tu"]){
-                    [smallModelArray replaceObjectAtIndex:16 withObject:smallAnim];
-                }
-                else if([smallAnim.resourceID isEqualToString:@"zhuakuang"]){
-                    [smallModelArray replaceObjectAtIndex:17 withObject:smallAnim];
-                }
-                else if([smallAnim.resourceID isEqualToString:@"zhuangku"]){
-                    [smallModelArray replaceObjectAtIndex:18 withObject:smallAnim];
-                }
-                else if([smallAnim.resourceID isEqualToString:@"zuoguilian"]){
-                    [smallModelArray replaceObjectAtIndex:19 withObject:smallAnim];
-                }
-            }
-            */
-            
             [_smallView setSmallData:smallModelArray];
             
             return _smallView;
@@ -1018,44 +754,7 @@
                     [magicModelArray addObject:anim];
                 }
             }
-            
-            
-            /*
-            int tempIndex_ = 0;
-            for(tempIndex_ = 0;tempIndex_<7;tempIndex_++){
-                [magicModelArray addObject:@" "];
-            }
-            */
-            
-            /*
-            for(CPUIModelPetMagicAnim * magicAnim in [[CPUIModelManagement sharedInstance] allMagicObjects]){
-                // CPLogInfo(@"maigcname:%@",magicAnim.resourceID);
-                
-                if([magicAnim.resourceID isEqualToString:@"psdh"]){ 
-                    [magicModelArray replaceObjectAtIndex:0 withObject:magicAnim];
-                }
-                else if([magicAnim.resourceID isEqualToString:@"qiaoqiaoni"]){ 
-                    [magicModelArray replaceObjectAtIndex:1 withObject:magicAnim];
-                }
-                else if([magicAnim.resourceID isEqualToString:@"baobao"]){ 
-                    [magicModelArray replaceObjectAtIndex:2 withObject:magicAnim];
-                }
-                else if([magicAnim.resourceID isEqualToString:@"xianyinqin"]){ 
-                    [magicModelArray replaceObjectAtIndex:3 withObject:magicAnim];
-                }
-                else if([magicAnim.resourceID isEqualToString:@"anweini"]){ 
-                    [magicModelArray replaceObjectAtIndex:4 withObject:magicAnim];
-                }
-                else if([magicAnim.resourceID isEqualToString:@"tiaodou"]){ 
-                    [magicModelArray replaceObjectAtIndex:5 withObject:magicAnim];
-                }
-                else if([magicAnim.resourceID isEqualToString:@"jiaban"]){ 
-                    [magicModelArray replaceObjectAtIndex:6 withObject:magicAnim];
-                } 
-                
-            }
-            */
-            //[_magicView setMagicData:anim];
+
             [_magicView setMagicData:magicModelArray];
             
             return _magicView;

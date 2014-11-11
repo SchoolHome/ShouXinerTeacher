@@ -121,7 +121,7 @@ currentStatus = _currentStatus,   isMoved = _isMoved ,buttonBack = _buttonBack ,
 //    self.mainBGView.backgroundColor = [UIColor colorWithRed:102/255.f green:102/255.f blue:102/255.f alpha:1.0];;
 //    [self.view addSubview:self.mainBGView];
     
-    self.view.backgroundColor = [UIColor colorWithHexString:@"dce6d3"];
+    self.view.backgroundColor = [UIColor colorWithHexString:@"f2f2f2"];
     
     self.imageviewHeadImg = [[MSHeadView alloc] init];
     [self.imageviewHeadImg setBorderWidth:5.f];

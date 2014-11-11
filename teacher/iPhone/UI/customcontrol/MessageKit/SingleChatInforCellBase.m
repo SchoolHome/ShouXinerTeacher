@@ -165,14 +165,14 @@
     UIImage *ellipticalImagePress = nil;
     
     if (self.isBelongMe) {
-        ellipticalImage = [UIImage imageNamed:@"ZJZSenderText"];  // bg_im_talk_gray_press
+        ellipticalImage = [UIImage imageNamed:@"i_talk"];  // bg_im_talk_gray_press
         
-        ellipticalImagePress = [UIImage imageNamed:@"ZJZSenderText"];
+        ellipticalImagePress = [UIImage imageNamed:@"i_talk"];
         
     }else {
-        ellipticalImage = [UIImage imageNamed:@"ZJZReceiverText"];  // bg_im_talk_white_press
+        ellipticalImage = [UIImage imageNamed:@"other_talk"];  // bg_im_talk_white_press
         
-        ellipticalImagePress = [UIImage imageNamed:@"ZJZReceiverText"];
+        ellipticalImagePress = [UIImage imageNamed:@"other_talk"];
     }
     ellipticalImage = [ellipticalImage stretchableImageWithLeftCapWidth:kBackgroundLeftCapWidth topCapHeight:kBackgroundtopCapHeight];
     

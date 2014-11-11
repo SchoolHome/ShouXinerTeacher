@@ -84,12 +84,12 @@
     */
     if (_isUp) {
         //
-        [self setBackgroundImage:[UIImage imageNamed:@"keyboard_sound"] forState:UIControlStateNormal];
-        [self setBackgroundImage:[UIImage imageNamed:@"keyboard_sound_hover"] forState:UIControlStateHighlighted];
+        [self setBackgroundImage:[UIImage imageNamed:@"t_voice"] forState:UIControlStateNormal];
+        [self setBackgroundImage:[UIImage imageNamed:@"t_voice_press"] forState:UIControlStateHighlighted];
     }else {
         //
-        [self setBackgroundImage:[UIImage imageNamed:@"keyboard_keyboard"] forState:UIControlStateNormal];
-        [self setBackgroundImage:[UIImage imageNamed:@"keyboard_keyboard_hover"] forState:UIControlStateHighlighted];
+        [self setBackgroundImage:[UIImage imageNamed:@"t_voice"] forState:UIControlStateNormal];
+        [self setBackgroundImage:[UIImage imageNamed:@"t_voice_press"] forState:UIControlStateHighlighted];
     }
 }
 
@@ -150,10 +150,10 @@
     */
     if (_isUp) {
         //
-        [self setBackgroundImage:[UIImage imageNamed:@"keyboard_camera"] forState:UIControlStateNormal];
+        [self setBackgroundImage:[UIImage imageNamed:@"t_pic"] forState:UIControlStateNormal];
     }else {
         //
-        [self setBackgroundImage:[UIImage imageNamed:@"keyboard_camera_hover"] forState:UIControlStateNormal];
+        [self setBackgroundImage:[UIImage imageNamed:@"t_pic_press"] forState:UIControlStateNormal];
     }
 }
 
@@ -173,8 +173,8 @@
         [self setBackgroundImage:[UIImage imageNamed:@"item_im_speak"] forState:UIControlStateNormal];
         [self setBackgroundImage:[UIImage imageNamed:@"item_im_speak_hover"] forState:UIControlStateHighlighted];
          */
-        [self setBackgroundImage:[UIImage imageNamed:@"keyboard_record"] forState:UIControlStateNormal];
-        [self setBackgroundImage:[UIImage imageNamed:@"keyboard_record_hover"] forState:UIControlStateHighlighted];
+        [self setBackgroundImage:[UIImage imageNamed:@"button_talk"] forState:UIControlStateNormal];
+        [self setBackgroundImage:[UIImage imageNamed:@"button_talk_press"] forState:UIControlStateHighlighted];
     }
     return self;
 }

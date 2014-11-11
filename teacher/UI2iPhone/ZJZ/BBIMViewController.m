@@ -268,7 +268,7 @@ messagePictrueController = _messagePictrueController;
     [self.imageviewHeadImg addSubview:self.unReadedAlert];
     //IM内容区
     self.detailViewController = [[MessageDetailViewController alloc] init];
-    self.detailViewController.view.backgroundColor = [UIColor colorWithHexString:@"dce6d3"];
+    self.detailViewController.view.backgroundColor = [UIColor colorWithHexString:@"f2f2f2"];
     self.detailViewController.delegate = self;
     self.detailViewController.view.autoresizingMask = UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleHeight;
     [self.detailViewController.view setFrame:CGRectMake(0, 0, self.IMView.frame.size.width, self.IMView.frame.size.height)];
