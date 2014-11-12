@@ -24,6 +24,7 @@
 // 客户端页面间传值KVO
 @property(nonatomic,strong) NSDictionary *transferDic;
 @property(nonatomic,strong) NSDictionary *userProfile;
+@property(nonatomic,strong) NSDictionary *otherUserProfile;
 @property(nonatomic,strong) NSDictionary *userContacts;
 @property(nonatomic,strong) NSDictionary *userCredits;
 @property(nonatomic,strong) NSDictionary *userGroupList;
@@ -100,6 +101,7 @@
 
 // 获取用户信息
 -(void) getUserProfile;
+-(void) getUserProfileWithUID : (NSString *) UID;
 // 获取用户通讯录
 -(void) getuserContacts;
 // 获取教师得分
