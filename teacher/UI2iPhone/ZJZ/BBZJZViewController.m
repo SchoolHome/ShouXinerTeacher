@@ -16,6 +16,8 @@
 #import "XiaoShuangIMViewController.h"
 #import "SystemIMViewController.h"
 #import "ShuangShuangTeamViewController.h"
+//shouxin version 4
+#import "BBGroupModel.h"
 
 //notifyMessage change
 #import "BBNotifyMessageGroupCell.h"
@@ -25,7 +27,11 @@
 
 
 @interface BBZJZViewController ()
+{
+    NSInteger listType;
+}
 @property (nonatomic , strong)NSArray *tableviewDisplayDataArray;
+@property (nonatomic, strong) NSArray *classModels; //班级
 @property (nonatomic , strong)BBMessageGroupBaseTableView *messageListTableview;
 @property (nonatomic , strong)UISearchBar *messageListTableSearchBar;
 @end
@@ -57,7 +63,16 @@
         self.edgesForExtendedLayout = UIRectEdgeNone;
     }
     
-    self.navigationItem.title = @"找家长";
+    //self.navigationItem.title = @"找家长";
+    
+    UIButton *segementBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+    [segementBtn setFrame:CGRectMake(0.f, 0.f, 128.f, 27.f)];
+    [segementBtn setBackgroundImage:[UIImage imageNamed:@"tab_mes"] forState:UIControlStateNormal];
+    [segementBtn setBackgroundImage:[UIImage imageNamed:@"tab_contact"] forState:UIControlStateSelected];
+    [segementBtn addTarget:self action:@selector(segeValueChanged:) forControlEvents:UIControlEventTouchUpInside];
+    self.navigationItem.titleView = segementBtn;
+    
+    
     _messageListTableview = [[BBMessageGroupBaseTableView alloc] initWithFrame:CGRectMake(0.f, 40.f, 320.f, self.screenHeight-150.f) style:UITableViewStylePlain];
     _messageListTableview.backgroundColor = [UIColor clearColor];
     _messageListTableview.messageGroupBaseTableViewdelegate = self;
@@ -66,6 +81,7 @@
     _messageListTableview.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
     [self.view addSubview:_messageListTableview];
     
+    /* //close searchbar
     _messageListTableSearchBar = [[UISearchBar alloc] initWithFrame:CGRectMake(0, 0, 320, 32)];
     _messageListTableSearchBar.backgroundColor = [UIColor clearColor];
     //[_messageListTableSearchBar setBackgroundImage:[UIImage imageNamed:@"ZJZSearch"]];
@@ -75,7 +91,7 @@
     
 
     
-    self.view.backgroundColor = [UIColor colorWithRed:242/255.f green:236/255.f blue:230/255.f alpha:1.f];
+    
 	// Do any additional setup after loading the view.
     if (!IOS7) {
         for (UIView *subview in _messageListTableSearchBar.subviews)
@@ -86,16 +102,11 @@
                 break;  
             }   
         }
-        
-        //Test
-        UIButton *videoBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-        [videoBtn setBackgroundColor:[UIColor blackColor]];
-        [videoBtn setTitle:@"微视频" forState:UIControlStateNormal];
-        [videoBtn addTarget:self action:@selector(chooseVideo) forControlEvents:UIControlEventTouchUpInside];
-        [videoBtn setFrame:CGRectMake(150.f, 50.f, 100.f, 100.f)];
-        [self.view addSubview:videoBtn];
         //[_messageListTableSearchBar setScopeBarBackgroundImage:[UIImage imageNamed:@"ZJZSearch"]];
     }
+    */
+    self.view.backgroundColor = [UIColor colorWithRed:242/255.f green:236/255.f blue:230/255.f alpha:1.f];
+    [[PalmUIManagement sharedInstance] getGroupList];
 }
 
 -(void) viewWillAppear:(BOOL)animated{
@@ -114,6 +125,13 @@
         [[CPUIModelManagement sharedInstance] setFriendMsgUnReadedCount:count];
     };
     dispatch_async(dispatch_get_main_queue(), updateTagBlock);
+    
+    [[PalmUIManagement sharedInstance] addObserver:self forKeyPath:@"groupListResult" options:0 context:NULL];
+}
+
+- (void)viewWillDisappear:(BOOL)animated
+{
+    [[PalmUIManagement sharedInstance] removeObserver:self forKeyPath:@"groupListResult"];
 }
 
 - (void)didReceiveMemoryWarning
@@ -126,7 +144,14 @@
     [[CPUIModelManagement sharedInstance] removeObserver:self forKeyPath:@"userMsgGroupListTag"];
 }
 #pragma mark Setter && Getter
--(NSArray *) tableviewDisplayDataArray
+- (NSArray *)classModels
+{
+    if (!_classModels) _classModels = [[NSArray alloc] init];
+    
+    return _classModels;
+}
+
+- (NSArray *) tableviewDisplayDataArray
 {
     
     if (!_tableviewDisplayDataArray) {
@@ -167,10 +192,27 @@
         [arrayM addObjectsFromArray:[PalmUIManagement sharedInstance].noticeArray];
         
         self.tableviewDisplayDataArray = [NSArray arrayWithArray:arrayM];
-
     }
+    
+    if ([@"groupListResult" isEqualToString:keyPath])  // 班级列表
+    {
+        NSDictionary *result = [PalmUIManagement sharedInstance].groupListResult;
+        
+        if (![result[@"hasError"] boolValue]) {
+            self.classModels = [NSArray arrayWithArray:result[@"data"]];
+        }else{
+            [self showProgressWithText:@"班级列表加载失败" withDelayTime:0.1];
+        }
+    }
+
 }
 #pragma mark BBZJZViewControllerMethod
+- (void)segeValueChanged:(UIButton *)sender
+{
+    sender.selected = !sender.selected;
+    listType = sender.selected ? LIST_TYPE_CONTACTS : LIST_TYPE_MSG_GROUP;
+    [self.messageListTableview reloadData];
+}
 -(void)turnToContactsViewController
 {
     ContactsViewController *contacts = [[ContactsViewController alloc] init];
@@ -215,6 +257,8 @@
     return tempSearchResult;
 }
 #pragma mark UITableviewDelegate
+//close searchbar
+/*
 -(void)scrollViewWillBeginDragging:(UIScrollView *)scrollView
 {
     if ([_messageListTableSearchBar isFirstResponder]) {
@@ -230,6 +274,7 @@
     }
     
 }
+ */
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     //notifyMessage change
@@ -271,54 +316,92 @@
 #pragma mark UItableviewDatasouce
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    if (self.tableviewDisplayDataArray.count != 0) {
-        return self.tableviewDisplayDataArray.count;
+    if (listType == LIST_TYPE_MSG_GROUP) {
+        return self.tableviewDisplayDataArray.count != 0 ? self.tableviewDisplayDataArray.count : 0;
+    }else
+    {
+        return section == 0 ? self.classModels.count : 1;
     }
-    return 0;
 }
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    static NSString *messageGroupCellIdentifier = @"messageGroupCellIdentifier";
-    static NSString *messageSingleCellIdentifier = @"messageSingleCellIdentifier";
-    static NSString *messageNotifyCellIdentifier = @"messageNotifyCellIdentifier";
-    
-    id tempMsgGroup = [self.tableviewDisplayDataArray objectAtIndex:indexPath.row];
-    
-    BBMessageGroupBaseCell *cell;
-    if ([tempMsgGroup isKindOfClass:[CPUIModelMessageGroup class]]) {
-        if ([tempMsgGroup isMsgSingleGroup]) {
-            cell = [tableView dequeueReusableCellWithIdentifier:messageSingleCellIdentifier];
-            if (nil == cell) {
-                cell = [[BBSingleMessageGroupCell  alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:messageSingleCellIdentifier];
-                cell.backgroundColor = [UIColor clearColor];
+    if (listType == LIST_TYPE_MSG_GROUP) {
+        static NSString *messageGroupCellIdentifier = @"messageGroupCellIdentifier";
+        static NSString *messageSingleCellIdentifier = @"messageSingleCellIdentifier";
+        static NSString *messageNotifyCellIdentifier = @"messageNotifyCellIdentifier";
+        
+        id tempMsgGroup = [self.tableviewDisplayDataArray objectAtIndex:indexPath.row];
+        
+        BBMessageGroupBaseCell *cell;
+        if ([tempMsgGroup isKindOfClass:[CPUIModelMessageGroup class]]) {
+            if ([tempMsgGroup isMsgSingleGroup]) {
+                cell = [tableView dequeueReusableCellWithIdentifier:messageSingleCellIdentifier];
+                if (nil == cell) {
+                    cell = [[BBSingleMessageGroupCell  alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:messageSingleCellIdentifier];
+                    //cell.backgroundColor = [UIColor clearColor];
+                }
+            }else{
+                cell = [tableView dequeueReusableCellWithIdentifier:messageGroupCellIdentifier];
+                if (nil ==cell) {
+                    cell = [[BBGroupMessageGroupCell  alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:messageGroupCellIdentifier];
+                    //cell.backgroundColor = [UIColor clearColor];
+                }
             }
-        }else{
-            cell = [tableView dequeueReusableCellWithIdentifier:messageGroupCellIdentifier];
-            if (nil ==cell) {
-                cell = [[BBGroupMessageGroupCell  alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:messageGroupCellIdentifier];
-                cell.backgroundColor = [UIColor clearColor];
-            }
-        }
-        [cell setUIModelMsgGroup:tempMsgGroup];
-        //cell.msgGroup = tempMsgGroup;
+            [cell setUIModelMsgGroup:tempMsgGroup];
+            //cell.msgGroup = tempMsgGroup;
         }else if ([tempMsgGroup isKindOfClass:[CPDBModelNotifyMessage class]])
         {
             cell = [tableView dequeueReusableCellWithIdentifier:messageNotifyCellIdentifier];
             if (nil == cell) {
                 cell = [[BBNotifyMessageGroupCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:messageNotifyCellIdentifier];
-                cell.backgroundColor = [UIColor clearColor];
+                //cell.backgroundColor = [UIColor clearColor];
             }
             [cell setDBModelNotifyMsgGroup:tempMsgGroup];
         }
-    return cell;
+        return cell;
+    }else
+    {
+        static NSString *contactsDefaultCellIdentifier = @"contactsDefaultCellIdentifier";
+        UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:contactsDefaultCellIdentifier];
+        if (!cell) {
+            cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:contactsDefaultCellIdentifier];
+            cell.contentView.backgroundColor = [UIColor whiteColor];
+            cell.accessoryType = UITableViewCellAccessoryDetailDisclosureButton;
+        }
+        
+        switch (indexPath.section) {
+            case 0:
+            {
+                BBGroupModel *tempModel = self.classModels[indexPath.row];
+                cell.textLabel.text = tempModel.alias;
+            }
+                break;
+            case 1:
+                cell.textLabel.text = @"同事";
+                break;
+                
+            case 2:
+                cell.textLabel.text = @"讨论组";
+                break;
+                
+            case 3:
+                cell.textLabel.text = @"服务号";
+                break;
+            default:
+                break;
+        }
+        return cell;
+    }
+    
 }
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return 70.f;
+    return listType == LIST_TYPE_MSG_GROUP ?70.f : 40.f;
+    
 }
 -(BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return YES;
+    return listType == LIST_TYPE_MSG_GROUP ?YES : NO;
 }
 -(UITableViewCellEditingStyle)tableView:(UITableView *)tableView editingStyleForRowAtIndexPath:(NSIndexPath *)indexPath
 {
@@ -358,11 +441,12 @@
         });
     }
 }
+/*//close searchbar
 - (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar
 {
     if ([_messageListTableSearchBar isFirstResponder]) {
         [_messageListTableSearchBar resignFirstResponder];
     }
 }
-
+*/
 @end

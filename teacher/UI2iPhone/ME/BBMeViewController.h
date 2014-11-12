@@ -12,8 +12,5 @@
 {
     UITableView *meTableView;
     NSArray *listData;
-    
-    __weak NSDictionary *userProfile;
-    __weak NSDictionary *userCredits;
 }
 @end

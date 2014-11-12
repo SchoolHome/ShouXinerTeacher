@@ -212,8 +212,7 @@
 }
 #pragma mark ContactsViewController
 -(void)segeValueChanged :(UIButton *)sender
-{
-    sender.selected = !sender.selected;
+{    sender.selected = !sender.selected;
     
     if (sender.selected) {
         type = CONTACT_TYPE_PARENT;
