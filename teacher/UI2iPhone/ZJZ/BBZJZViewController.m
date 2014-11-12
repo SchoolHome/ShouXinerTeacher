@@ -44,11 +44,13 @@
     if (self) {
         // Custom initialization
 //        self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"通讯录" style:UIBarButtonItemStyleDone target:self action:@selector(turnToContactsViewController)];
+        /*
         UIButton *btnContacts = [UIButton buttonWithType:UIButtonTypeCustom];
-        [btnContacts setFrame:CGRectMake(0.f, 7.f, 30.f, 30.f)];
+        [btnContacts setFrame:CGRectMake(0.f, 7.f, 125.f, 30.f)];
         [btnContacts setBackgroundImage:[UIImage imageNamed:@"ZJZAdress"] forState:UIControlStateNormal];
         [btnContacts addTarget:self action:@selector(turnToContactsViewController) forControlEvents:UIControlEventTouchUpInside];
         self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:btnContacts];
+         */
         [[CPUIModelManagement sharedInstance] addObserver:self forKeyPath:@"userMsgGroupListTag" options:0 context:@""];
         //noticeArrayTag
         [[PalmUIManagement sharedInstance] addObserver:self forKeyPath:@"noticeArrayTag" options:0 context:@""];
@@ -63,22 +65,25 @@
         self.edgesForExtendedLayout = UIRectEdgeNone;
     }
     
+    listType = LIST_TYPE_MSG_GROUP;
     //self.navigationItem.title = @"找家长";
     
     UIButton *segementBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    [segementBtn setFrame:CGRectMake(0.f, 0.f, 128.f, 27.f)];
+    [segementBtn setFrame:CGRectMake(0.f, 0.f, 125.f, 30.f)];
     [segementBtn setBackgroundImage:[UIImage imageNamed:@"tab_mes"] forState:UIControlStateNormal];
     [segementBtn setBackgroundImage:[UIImage imageNamed:@"tab_contact"] forState:UIControlStateSelected];
     [segementBtn addTarget:self action:@selector(segeValueChanged:) forControlEvents:UIControlEventTouchUpInside];
     self.navigationItem.titleView = segementBtn;
     
     
-    _messageListTableview = [[BBMessageGroupBaseTableView alloc] initWithFrame:CGRectMake(0.f, 40.f, 320.f, self.screenHeight-150.f) style:UITableViewStylePlain];
+    _messageListTableview = [[BBMessageGroupBaseTableView alloc] initWithFrame:CGRectMake(0.f, 0.f, 320.f, self.screenHeight-89.f) style:UITableViewStyleGrouped];
     _messageListTableview.backgroundColor = [UIColor clearColor];
     _messageListTableview.messageGroupBaseTableViewdelegate = self;
     _messageListTableview.delegate = self;
     _messageListTableview.dataSource = self;
+    _messageListTableview.tableHeaderView = [[UIView alloc] initWithFrame:CGRectMake(0.f, 0.f, 320.f, 1.f)];
     _messageListTableview.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
+    _messageListTableview.showsVerticalScrollIndicator = NO;
     [self.view addSubview:_messageListTableview];
     
     /* //close searchbar
@@ -314,7 +319,7 @@
     
 }
 #pragma mark UItableviewDatasouce
--(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     if (listType == LIST_TYPE_MSG_GROUP) {
         return self.tableviewDisplayDataArray.count != 0 ? self.tableviewDisplayDataArray.count : 0;
@@ -323,7 +328,13 @@
         return section == 0 ? self.classModels.count : 1;
     }
 }
--(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
+{
+    return listType == LIST_TYPE_MSG_GROUP ? 1 : 4;
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if (listType == LIST_TYPE_MSG_GROUP) {
         static NSString *messageGroupCellIdentifier = @"messageGroupCellIdentifier";
@@ -358,6 +369,8 @@
             }
             [cell setDBModelNotifyMsgGroup:tempMsgGroup];
         }
+        cell.contentView.backgroundColor = [UIColor whiteColor];
+        cell.backgroundColor = [UIColor whiteColor];
         return cell;
     }else
     {
@@ -366,7 +379,7 @@
         if (!cell) {
             cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:contactsDefaultCellIdentifier];
             cell.contentView.backgroundColor = [UIColor whiteColor];
-            cell.accessoryType = UITableViewCellAccessoryDetailDisclosureButton;
+            cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
         }
         
         switch (indexPath.section) {
@@ -394,16 +407,21 @@
     }
     
 }
--(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
+{
+    return 10.f;
+}
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     return listType == LIST_TYPE_MSG_GROUP ?70.f : 40.f;
     
 }
--(BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
+- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
 {
     return listType == LIST_TYPE_MSG_GROUP ?YES : NO;
 }
--(UITableViewCellEditingStyle)tableView:(UITableView *)tableView editingStyleForRowAtIndexPath:(NSIndexPath *)indexPath
+- (UITableViewCellEditingStyle)tableView:(UITableView *)tableView editingStyleForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     return UITableViewCellEditingStyleDelete;
 }
