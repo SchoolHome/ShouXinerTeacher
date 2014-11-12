@@ -13,8 +13,12 @@
 #import "CPUIModelManagement.h"
 #import "CPUIModelPersonalInfo.h"
 
+#define ActionSheetSex 100
+#define ActionSheetPhoto 101
+
 @interface BBMeProfileController ()<UIImagePickerControllerDelegate, UINavigationControllerDelegate>
 {
+    UIButton *headerImgBtn;
     UIImage *pickImage;
     NSData *imageData;
 }
@@ -50,28 +54,43 @@
     self.navigationItem.title = @"个人信息";
     
     UIButton *back = [UIButton buttonWithType:UIButtonTypeCustom];
-    [back setFrame:CGRectMake(0.f, 7.f, 30.f, 30.f)];
-    [back setBackgroundImage:[UIImage imageNamed:@"ZJZBack"] forState:UIControlStateNormal];
+    [back setFrame:CGRectMake(0.f, 7.f, 22.f, 22.f)];
+    [back setBackgroundImage:[UIImage imageNamed:@"back.png"] forState:UIControlStateNormal];
     [back addTarget:self action:@selector(backViewController) forControlEvents:UIControlEventTouchUpInside];
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:back];
     
-    listData = [[NSArray alloc] initWithObjects:[NSArray arrayWithObjects:@"头像", @"名字", nil],
-                [NSArray arrayWithObjects:@"性别", @"地区", @"个性签名", nil], nil];
+    listData = [[NSArray alloc] initWithObjects:[NSArray arrayWithObjects:@"名字", @"地区", nil],
+                [NSArray arrayWithObjects:@"性别", @"手机号", nil], [NSArray arrayWithObjects:@"个性签名", nil], nil];
     
     profileTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height-44)
                                                     style:UITableViewStyleGrouped];
+    [profileTableView setBackgroundColor:[UIColor colorWithRed:242.f/255.f green:242.f/255.f blue:242.f/255.f alpha:1.0f]];
     [profileTableView setDataSource:(id<UITableViewDataSource>)self];
     [profileTableView setDelegate:(id<UITableViewDelegate>)self];
     
-    UIView *tableBackView = [[UIView alloc] initWithFrame:profileTableView.bounds];
-    [tableBackView setBackgroundColor:[UIColor colorWithRed:0.961f green:0.941f blue:0.921f alpha:1.0f]];
-    [profileTableView setBackgroundView:tableBackView];
+    UIView *headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 170)];
+    UIImageView *bgImage = [[UIImageView alloc] initWithFrame:headerView.bounds];
+    [bgImage setImage:[UIImage imageNamed:@"BBTopBGNew.png"]];
+    [headerView addSubview:bgImage];
+    bgImage = nil;
+    headerImgBtn = [[UIButton alloc] initWithFrame:CGRectMake((headerView.frame.size.width-80)/2, (headerView.frame.size.height-80)/2, 80, 80)];
+    [headerImgBtn setContentMode:UIViewContentModeScaleAspectFit];
+    [headerImgBtn addTarget:self action:@selector(clickHeaderImg:) forControlEvents:UIControlEventTouchUpInside];
+    [headerView addSubview:headerImgBtn];
+    [profileTableView setTableHeaderView:headerView];
+    
+    NSString *path = [[CPUIModelManagement sharedInstance].uiPersonalInfo selfHeaderImgPath];
+    if (path) {
+        [headerImgBtn setImage:[UIImage imageWithContentsOfFile:path] forState:UIControlStateNormal];
+    }else{
+        [headerImgBtn setImage:[UIImage imageNamed:@"girl.png"]forState:UIControlStateNormal];
+    }
+    [headerImgBtn.layer setCornerRadius:40];
+    [headerImgBtn.layer setBorderWidth:2];
+    [headerImgBtn.layer setMasksToBounds:YES];
+    [headerImgBtn.layer setBorderColor:[UIColor whiteColor].CGColor];
     
     [self.view addSubview:profileTableView];
-    if (!self.userProfile) {
-        [[PalmUIManagement sharedInstance] addObserver:self forKeyPath:@"userProfile" options:0 context:nil];
-        [[PalmUIManagement sharedInstance] getUserProfile];
-    }
 }
 
 -(void) viewWillAppear:(BOOL)animated{
@@ -85,7 +104,6 @@
     [[PalmUIManagement sharedInstance] removeObserver:self forKeyPath:@"updateUserHeader"];
     [[PalmUIManagement sharedInstance] removeObserver:self forKeyPath:@"updateUserHeaderResult"];
 }
-
 
 -(void) observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context{
     if ([keyPath isEqual:@"updateUserHeader"]) {
@@ -109,8 +127,6 @@
         }
         NSDictionary *data = [[PalmUIManagement sharedInstance].updateUserHeaderResult objectForKey:ASI_REQUEST_DATA];
         if ([[data objectForKey:@"errno"] integerValue] == 0) {
-            BBMeProfileTableViewCell *cell = (BBMeProfileTableViewCell *)[profileTableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0]];
-            [cell.headerImageView setImage:pickImage];
             
             CPLGModelAccount *account = [[CPSystemEngine sharedInstance] accountModel];
             NSString *filePath = [NSString stringWithFormat:@"/%@/",account.loginName];
@@ -124,6 +140,7 @@
                 };
                 dispatch_async(dispatch_get_main_queue(), updateTagBlock);
             }
+            [headerImgBtn setImage:[UIImage imageWithData:imageData] forState:UIControlStateNormal];
             [self showProgressWithText:@"头像上传成功" withDelayTime:1.0f];
         }else{
             [self showProgressWithText:@"头像上传失败" withDelayTime:1.0f];
@@ -138,30 +155,23 @@
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    return 2;
+    return 3;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    if (section == 0) {
-        return 2;
-    }else{
-        return 3;
-    }
+    return [[listData objectAtIndex:section] count];
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
 {
-    return 20;
+    if (section == 0) return 0;
+    return 10;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    CGFloat cellHeight = 44;
-    if (indexPath.section == 0 && indexPath.row == 0) {
-        cellHeight = 90;
-    }
-    return cellHeight;
+    return 44;
 }
 
 - (BBMeProfileTableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -170,50 +180,48 @@
     BBMeProfileTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:ProfileCell];
     if (cell == nil) {
         cell = [[BBMeProfileTableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:ProfileCell];
-        if ([self currentVersion] == kIOS7) {
-#ifdef __IPHONE_7_0
-            [cell setSeparatorInset:UIEdgeInsetsMake(0, 0, 0, 0)];
-#endif
-        }
     }
-    if (indexPath.section == 0) {
-        if (indexPath.row == 0) {
+    switch (indexPath.section) {
+        case 0:
+        {
+            [cell setAccessoryType:UITableViewCellAccessoryNone];
+            [cell setSelectionStyle:UITableViewCellSelectionStyleNone];
+            switch (indexPath.row) {
+                case 0:
+                    [cell.detailTextLabel setText:self.profileModel.username];
+                    break;
+                default:
+                    [cell.detailTextLabel setText:self.profileModel.cityname];
+                    break;
+            }
+        }
+            break;
+        case 1:
+        {
             [cell setAccessoryType:UITableViewCellAccessoryDisclosureIndicator];
-            [cell.headerImageView.layer setCornerRadius:35];
-            [cell.headerImageView.layer setMasksToBounds:YES];
-            [cell.detailTextLabel setText:nil];
-            if (userProfile) {
-                if (![userProfile[@"avatar"] isKindOfClass:[NSNull class]]) {
-                    NSMutableString *userAvatar = [[NSMutableString alloc] initWithString:[userProfile objectForKey:@"avatar"]];
-#ifdef TEST
-                    NSRange range = [userAvatar rangeOfString:@"att0.shouxiner.com"];
-                    if (range.length>0) {
-                        [userAvatar replaceCharactersInRange:range withString:@"115.29.224.151"];
+            [cell setSelectionStyle:UITableViewCellSelectionStyleGray];
+            switch (indexPath.row) {
+                case 0:
+                    if([self.profileModel.sex isEqualToString:@"1"]){
+                        [cell.detailTextLabel setText:@"男"];
                     }
-#endif
-                    [cell.headerImageView setImageURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@", userAvatar]]];
-                }else{
-                    [cell.headerImageView setImage:[UIImage imageNamed:@"girl.png"]];
-                }
-            }else{
-                [cell.headerImageView setImage:[UIImage imageNamed:@"girl.png"]];
+                    else{
+                        [cell.detailTextLabel setText:@"女"];
+                    }
+                    break;
+                default:
+                    [cell.detailTextLabel setText:@""];
+                    break;
             }
-        }else{
-            [cell.detailTextLabel setText:[self.userProfile objectForKey:@"username"]];
         }
-    }else{
-        if (indexPath.row == 0) {
-            if ([[self.userProfile objectForKey:@"sex"] integerValue]) {
-                [cell.detailTextLabel setText:@"男"];
-            }else{
-                [cell.detailTextLabel setText:@"女"];
-            }
-            
-        }else if(indexPath.row == 1){
-            
-        }else{
-            
+            break;
+        default:
+        {
+            [cell setAccessoryType:UITableViewCellAccessoryDisclosureIndicator];
+            [cell setSelectionStyle:UITableViewCellSelectionStyleGray];
+            [cell.detailTextLabel setText:self.profileModel.sign];
         }
+            break;
     }
     [cell.textLabel setText:[[listData objectAtIndex:indexPath.section] objectAtIndex:indexPath.row]];
     return cell;
@@ -221,25 +229,60 @@
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    if (self.userProfile) {
-        if (indexPath.section == 0 && indexPath.row == 0) {
-            UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:nil
-                                                                     delegate:(id<UIActionSheetDelegate>)self
-                                                            cancelButtonTitle:@"取消"
-                                                       destructiveButtonTitle:@"拍摄照片"
-                                                            otherButtonTitles:@"选择照片", nil];
-            [actionSheet showInView:self.view];
+    switch (indexPath.section) {
+        case 1:
+        {
+            switch (indexPath.row) {
+                case 0:
+                {
+                    UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:nil
+                                                                             delegate:(id<UIActionSheetDelegate>)self
+                                                                    cancelButtonTitle:@"取消"
+                                                               destructiveButtonTitle:nil
+                                                                    otherButtonTitles:@"女", @"男", nil];
+                    [actionSheet setTag:ActionSheetSex];
+                    [actionSheet showInView:self.view];
+                }
+                    break;
+                default:
+                    break;
+            }
         }
+            break;
+        case 2:
+            break;
+        default:
+            break;
     }
+}
+
+-(void)clickHeaderImg:(UIButton *)btn
+{
+    UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:nil
+                                                             delegate:(id<UIActionSheetDelegate>)self
+                                                    cancelButtonTitle:@"取消"
+                                               destructiveButtonTitle:@"拍摄照片"
+                                                    otherButtonTitles:@"选择照片", nil];
+    [actionSheet setTag:ActionSheetPhoto];
+    [actionSheet showInView:self.view];
 }
 
 - (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
 {
     [actionSheet dismissWithClickedButtonIndex:buttonIndex animated:YES];
-    if (buttonIndex == 0) {//拍照
-        [self takePhotoFromCamera];
-    }else if(buttonIndex == 1){//选照片
-        [self takePhotoFromAssets];
+    if (ActionSheetPhoto == actionSheet.tag) {
+        if (buttonIndex == 0) {//拍照
+            [self takePhotoFromCamera];
+        }else if(buttonIndex == 1){//选照片
+            [self takePhotoFromAssets];
+        }
+    }
+    if (ActionSheetSex == actionSheet.tag) {
+        if(buttonIndex == 0){
+            NSLog(@"女");
+        }else if(buttonIndex == 1){
+            NSLog(@"男");
+        }
     }
 }
 

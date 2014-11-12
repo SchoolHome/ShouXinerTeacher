@@ -7,11 +7,6 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "EGOImageView.h"
-#import <QuartzCore/QuartzCore.h>
 @interface BBMeProfileTableViewCell : UITableViewCell
-{
-    EGOImageView *headerImageView;
-}
-@property (nonatomic, strong) EGOImageView *headerImageView;
+
 @end

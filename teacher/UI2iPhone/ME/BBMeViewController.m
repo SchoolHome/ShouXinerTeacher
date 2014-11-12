@@ -21,10 +21,12 @@
 #import "AppDelegate.h"
 #import "CPUIModelManagement.h"
 #import "CPUIModelPersonalInfo.h"
+#import "BBProfileModel.h"
 
 @interface BBMeViewController ()<UIAlertViewDelegate>
 {
-    UIImageView *headerImgBtn;
+    UIButton *headerImgBtn;
+    BBProfileModel *profileModel;
 }
 @end
 
@@ -42,8 +44,6 @@
 {
     [super viewWillAppear:animated];
     [[PalmUIManagement sharedInstance] getUserProfile];
-    userProfile = nil;
-    userCredits = nil;
 }
 
 - (void)viewDidLoad
@@ -57,11 +57,11 @@
     self.navigationItem.title = @"我";
     
     listData = [[NSArray alloc] initWithObjects:
-                [NSArray arrayWithObjects:[NSDictionary dictionaryWithObjectsAndKeys:@"手心商城", @"title", @"http://www.shouxiner.com/teacher_jfen/mobile_web_shop", @"url", @"", @"icon", nil],
-                 [NSDictionary dictionaryWithObjectsAndKeys:@"班级荣誉", @"title", @"http://www.shouxiner.com/webview/group_awards", @"url", @"", @"icon", nil],
-                 [NSDictionary dictionaryWithObjectsAndKeys:@"成长档案", @"title", @"http://www.shouxiner.com", @"url", @"", @"icon", nil],
+                [NSArray arrayWithObjects:[NSDictionary dictionaryWithObjectsAndKeys:@"手心商城", @"title", @"http://www.shouxiner.com/teacher_jfen/mobile_web_shop", @"url", @"shop.png", @"icon", nil],
+                 [NSDictionary dictionaryWithObjectsAndKeys:@"荣誉档案", @"title", @"http://www.shouxiner.com/webview/group_awards", @"url", @"star.png", @"icon", nil],
+                 [NSDictionary dictionaryWithObjectsAndKeys:@"成长中心", @"title", @"http://www.shouxiner.com", @"url", @"", @"icon", nil],
                  nil],
-                [NSArray arrayWithObjects:[NSDictionary dictionaryWithObjectsAndKeys:@"设置", @"title", @"", @"url", @"", @"icon", nil], nil],
+                [NSArray arrayWithObjects:[NSDictionary dictionaryWithObjectsAndKeys:@"设置", @"title", @"", @"url", @"set_up.png", @"icon", nil], nil],
                 nil];
     
    
@@ -69,38 +69,35 @@
                                                style:UITableViewStyleGrouped];
     [meTableView setDelegate:(id<UITableViewDelegate>)self];
     [meTableView setDataSource:(id<UITableViewDataSource>)self];
-    [meTableView setSeparatorColor:[UIColor clearColor]];
+  //  [meTableView setSeparatorColor:[UIColor clearColor]];
     
     UIView *headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 170)];
     UIImageView *bgImage = [[UIImageView alloc] initWithFrame:headerView.bounds];
     [bgImage setImage:[UIImage imageNamed:@"BBTopBGNew.png"]];
     [headerView addSubview:bgImage];
     bgImage = nil;
-    headerImgBtn = [[UIImageView alloc] initWithFrame:CGRectMake((headerView.frame.size.width-80)/2, (headerView.frame.size.height-80)/2, 80, 80)];
+    headerImgBtn = [[UIButton alloc] initWithFrame:CGRectMake((headerView.frame.size.width-80)/2, (headerView.frame.size.height-80)/2, 80, 80)];
     [headerImgBtn setContentMode:UIViewContentModeScaleAspectFit];
-    [headerImgBtn setUserInteractionEnabled:YES];
+    [headerImgBtn setUserInteractionEnabled:NO];
+    [headerImgBtn addTarget:self action:@selector(clickInfoBtn:) forControlEvents:UIControlEventTouchUpInside];
     [headerView addSubview:headerImgBtn];
     [meTableView setTableHeaderView:headerView];
     
     NSString *path = [[CPUIModelManagement sharedInstance].uiPersonalInfo selfHeaderImgPath];
     if (path) {
-        headerImgBtn.image = [UIImage imageWithContentsOfFile:path];
+        [headerImgBtn setImage:[UIImage imageWithContentsOfFile:path] forState:UIControlStateNormal];
     }else{
-        headerImgBtn.image = [UIImage imageNamed:@"girl.png"];
+        [headerImgBtn setImage:[UIImage imageNamed:@"girl.png"]forState:UIControlStateNormal];
     }
     [headerImgBtn.layer setCornerRadius:40];
     [headerImgBtn.layer setBorderWidth:2];
     [headerImgBtn.layer setMasksToBounds:YES];
     [headerImgBtn.layer setBorderColor:[UIColor whiteColor].CGColor];
     
-    UITapGestureRecognizer *tapHeader = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(clickInfoBtn:)];
-    [headerImgBtn addGestureRecognizer:tapHeader];
-    
     UIView *footerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, meTableView.frame.size.width, 60)];
     UIButton *logoutBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     [logoutBtn setFrame:CGRectMake((meTableView.frame.size.width-280)/2, 8, 280, 44)];
-    [logoutBtn setTitle:@"退出登录" forState:UIControlStateNormal];
-    [logoutBtn setImage:[UIImage imageNamed:@"user_logout.png"] forState:UIControlStateNormal];
+    [logoutBtn setImage:[UIImage imageNamed:@"sign_out.png"] forState:UIControlStateNormal];
     [logoutBtn addTarget:self action:@selector(logoutApp:) forControlEvents:UIControlEventTouchUpInside];
     [footerView addSubview:logoutBtn];
     [meTableView setTableFooterView:footerView];
@@ -111,6 +108,7 @@
 -(void)clickInfoBtn:(UITapGestureRecognizer *)tap
 {
     BBMeProfileController *viewController = [[BBMeProfileController alloc] init];
+    viewController.profileModel = profileModel;
     [viewController setHidesBottomBarWhenPushed:YES];
     [self.navigationController pushViewController:viewController animated:YES];
 }
@@ -143,10 +141,10 @@
     if (cell == nil) {
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:MeCell];
         [cell setAccessoryType:UITableViewCellAccessoryDisclosureIndicator];
-        UIImageView *separatorLine = [[UIImageView alloc] initWithFrame:CGRectMake(self.view.frame.size.width-247, 43, 247, 1)];
+        /*UIImageView *separatorLine = [[UIImageView alloc] initWithFrame:CGRectMake(self.view.frame.size.width-247, 43, 247, 1)];
         //[separatorLine setImage:[UIImage imageNamed:@""]];
         [separatorLine setBackgroundColor:[UIColor grayColor]];
-        [cell addSubview:separatorLine];
+        [cell addSubview:separatorLine];*/
         [cell.textLabel setTextColor:[UIColor colorWithRed:39.f/255.f green:39.f/255.f blue:39.f/255.f alpha:1.0f]];
         [cell.textLabel setFont:[UIFont systemFontOfSize:16]];
     }
@@ -249,12 +247,18 @@
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
 {
     if ([@"userProfile" isEqualToString:keyPath]){
-        userProfile = [[PalmUIManagement sharedInstance].userProfile objectForKey:ASI_REQUEST_DATA];
+        [headerImgBtn setUserInteractionEnabled:YES];
+        NSDictionary *userProfile = [[PalmUIManagement sharedInstance].userProfile objectForKey:ASI_REQUEST_DATA];
+        if (!profileModel) {
+            profileModel = [[BBProfileModel alloc] init];
+        }
+        [profileModel coverWithJson:userProfile];
         //查询用户商城积分
+        self.navigationItem.title = profileModel.username;
         [[PalmUIManagement sharedInstance] getUserCredits];
     }
     if ([@"userCredits" isEqualToString:keyPath]) {
-        userCredits = [[PalmUIManagement sharedInstance].userCredits objectForKey:ASI_REQUEST_DATA];
+        NSDictionary *userCredits = [[PalmUIManagement sharedInstance].userCredits objectForKey:ASI_REQUEST_DATA];
         if (![[userCredits objectForKey:@"error"] integerValue]) {
             if (meTableView) {
                 [meTableView reloadData];
