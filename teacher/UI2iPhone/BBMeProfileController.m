@@ -12,6 +12,7 @@
 #import "CoreUtils.h"
 #import "CPUIModelManagement.h"
 #import "CPUIModelPersonalInfo.h"
+#import "CPLGModelAccount.h"
 
 #define ActionSheetSex 100
 #define ActionSheetPhoto 101
@@ -210,7 +211,10 @@
                     }
                     break;
                 default:
-                    [cell.detailTextLabel setText:@""];
+                {
+                    CPLGModelAccount *account = [[CPSystemEngine sharedInstance] accountModel];
+                    [cell.detailTextLabel setText:account.loginName];
+                }
                     break;
             }
         }
