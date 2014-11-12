@@ -22,6 +22,7 @@
 -(void) updateUserImageFile;
 -(void) postTopic;
 -(void) userLogin;
+-(void) getUserProfileWithUID;
 @end
 
 @implementation UserProfileOperation
@@ -32,6 +33,15 @@
         self.type = kGetUserProfile;
         CPLGModelAccount *account = [[CPSystemEngine sharedInstance] accountModel];
         NSString *urlStr = [NSString stringWithFormat:@"http://%@/mapi/getUserInfo?uid=%@",K_HOST_NAME_OF_PALM_SERVER,account.uid];
+        [self setHttpRequestGetWithUrl:urlStr];
+    }
+    return self;
+}
+
+-(UserProfileOperation *) initGetUserInfoWithUID : (NSString *) UID{
+    if ([self initOperation]) {
+        self.type = kGetUserProfileWithUID;
+        NSString *urlStr = [NSString stringWithFormat:@"http://%@/mapi/getUserInfo?uid=%@",K_HOST_NAME_OF_PALM_SERVER,UID];
         [self setHttpRequestGetWithUrl:urlStr];
     }
     return self;
@@ -182,6 +192,16 @@
     [self startAsynchronous];
 }
 
+-(void) getUserProfileWithUID{
+    [self.request setRequestCompleted:^(NSDictionary *data){
+        dispatch_block_t updateTagBlock = ^{
+            [PalmUIManagement sharedInstance].otherUserProfile = data;
+        };
+        dispatch_async(dispatch_get_main_queue(), updateTagBlock);
+    }];
+    [self startAsynchronous];
+}
+
 -(void) getUserContacts{
 #ifdef TEST
     [self.request addRequestHeader:@"Host" value:@"www.shouxiner.com"];
@@ -276,6 +296,9 @@
             break;
         case kUserLogin:
             [self userLogin];
+            break;
+        case kGetUserProfileWithUID:
+            [self getUserProfileWithUID];
             break;
         default:
             break;

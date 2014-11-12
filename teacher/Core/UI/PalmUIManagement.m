@@ -32,6 +32,11 @@ static PalmUIManagement *sharedInstance = nil;
     [[PalmNetWorkService sharedInstance] networkEngine:operation];
 }
 
+-(void) getUserProfileWithUID:(NSString *)UID{
+    UserProfileOperation *operation = [[UserProfileOperation alloc] initGetUserInfoWithUID:UID];
+    [[PalmNetWorkService sharedInstance] networkEngine:operation];
+}
+
 -(void) getuserContacts{
     UserProfileOperation *operation = [[UserProfileOperation alloc] initGetContacts];
     [[PalmNetWorkService sharedInstance] networkEngine:operation];

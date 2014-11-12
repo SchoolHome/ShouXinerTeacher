@@ -15,6 +15,7 @@ typedef enum{
     kPostTopic,
     kUserLogin,
     kPostPBX,
+    kGetUserProfileWithUID,
 }UserProfile;
 
 #import "PalmOperation.h"
@@ -23,6 +24,8 @@ typedef enum{
 -(UserProfileOperation *) initUserLogin;
 
 -(UserProfileOperation *) initGetUser;
+
+-(UserProfileOperation *) initGetUserInfoWithUID : (NSString *) UID;
 
 -(UserProfileOperation *) initGetContacts;
 
