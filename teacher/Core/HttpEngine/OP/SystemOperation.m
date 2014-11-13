@@ -14,6 +14,7 @@
 @property (nonatomic) SystemType type;
 -(void) getAdvInfo;
 -(void) getAdvInfoWithGroupID;
+-(void) getSmsVerifyCode;
 @end
 
 @implementation SystemOperation
@@ -33,6 +34,16 @@
         self.type = kGetAdvInfoWithGroup;
         NSString *urlStr = [NSString stringWithFormat:@"http://%@/mapi/adv/login?groupid=%d",K_HOST_NAME_OF_PALM_SERVER,groupID];
         [self setHttpRequestGetWithUrl:urlStr];
+    }
+    return self;
+}
+
+-(SystemOperation *) initGetSMSVerifyCode : (NSString *)mobile{
+    self = [self initOperation];
+    if (nil != self) {
+        self.type = kGetSmsVerifyCode;
+        NSString *urlStr = [NSString stringWithFormat:@"http://%@/mapi/getSMSVerifyCode",K_HOST_NAME_OF_PALM_SERVER];
+        [self setHttpRequestPostWithUrl:urlStr params:[NSDictionary dictionaryWithObjectsAndKeys:mobile,@"mobile", nil]];
     }
     return self;
 }
@@ -65,6 +76,16 @@
     [self startAsynchronous];
 }
 
+-(void) getSmsVerifyCode{
+    [self.dataRequest setRequestCompleted:^(NSDictionary *data){
+        dispatch_block_t updateTagBlock = ^{
+            [PalmUIManagement sharedInstance].smsVerifyCode = data;
+        };
+        dispatch_async(dispatch_get_main_queue(), updateTagBlock);
+    }];
+    [self startAsynchronous];
+}
+
 -(void) main{
     @autoreleasepool {
         switch (self.type) {
@@ -73,6 +94,9 @@
                 break;
             case kGetAdvInfoWithGroup:
                 [self getAdvInfoWithGroupID];
+                break;
+            case kGetSmsVerifyCode:
+                [self getSmsVerifyCode];
                 break;
             default:
                 break;
