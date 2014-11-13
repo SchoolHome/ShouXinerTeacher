@@ -16,6 +16,7 @@ typedef enum{
     kUserLogin,
     kPostPBX,
     kGetUserProfileWithUID,
+    kPostUserInfo,
 }UserProfile;
 
 #import "PalmOperation.h"
@@ -32,6 +33,9 @@ typedef enum{
 -(UserProfileOperation *) initUpdateUserHeaderImage : (NSData*)imageData;
 
 -(UserProfileOperation *) initUpdateUserHeader:(NSString *)imageUrlPath;
+
+-(UserProfileOperation *) initSetUserInfo : (NSString *) avatar withMobile : (NSString *) mobile withVerifyCode : (NSString *) verifyCode
+                          withPasswordOld : (NSString *) passwordOld withPasswordNew : (NSString *) passwordNew withSex : (int) sex withSign : (NSString *) sign;
 
 -(UserProfileOperation *) initUpdateUserImageFile : (NSData *) imageData withGroupID : (int) groupID;
 

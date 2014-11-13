@@ -98,6 +98,8 @@
 // 发现
 @property(nonatomic,strong) NSDictionary *discoverResult;
 
+// postUserInfo
+@property (nonatomic,strong) NSDictionary *postUserInfoResult;
 
 // 获取用户信息
 -(void) getUserProfile;
@@ -169,4 +171,7 @@
 -(void) deleteTopic : (long long) topicID;
 // 获取发现数据
 -(void) getDiscoverData;
+
+// postUserInfo
+-(void) postUserInfo : (NSString *) avatar withMobile : (NSString *) mobile withVerifyCode : (NSString *) verifyCode withPasswordOld : (NSString *) passwordOld withPasswordNew : (NSString *) passwordNew withSex : (int) sex withSign : (NSString *) sign;
 @end
