@@ -268,7 +268,7 @@
     return tempSearchResult;
 }
 
-- (NSArray *)classifyDataByType:(NSString *)className
+- (NSArray *)classifyDataByType:(NSInteger )classNum
 {
     NSMutableArray *tempTeachersArray = [[NSMutableArray alloc] init];
     NSMutableArray *tempParentsArray = [[NSMutableArray alloc] init];
@@ -288,17 +288,27 @@
         if ([model.coupleAccount isEqualToString:@"Teacher"]) {
             tempModel.isTeacher = YES;
             tempModel.isParent  = NO;
-            [tempTeachersArray addObject:model];
+            [tempTeachersArray addObject:tempModel];
         }else if ([model.coupleAccount isEqualToString:@"Parent"])
         {
             tempModel.isTeacher = NO;
             tempModel.isParent  = YES;
-            
+            NSLog(@"%@",model.birthday);
+            if (model.birthday && model.birthday.allKeys > 0) {
+                if ([model.birthday.allKeys[0] integerValue] == classNum) {
+                    [tempParentsArray addObject:tempModel];
+                }
+            }
         }else if ([model.coupleAccount isEqualToString:@"TeacherAndParent"])
         {
             tempModel.isTeacher = YES;
             tempModel.isParent  = YES;
-            [tempTeachersArray addObject:model];
+            [tempTeachersArray addObject:tempModel];
+            if (model.birthday && model.birthday.allKeys > 0) {
+                if ([model.birthday.allKeys[0] integerValue] == classNum) {
+                    [tempParentsArray addObject:tempModel];
+                }
+            }
         }else
         {
             tempModel.isTeacher = NO;
@@ -306,7 +316,7 @@
         }
         
     }
-    if ([className isEqualToString:@""]) {
+    if (classNum == -1) {
         return [NSArray arrayWithArray:tempTeachersArray];
     }else
     {
@@ -375,7 +385,7 @@
             {
                 BBGroupModel *tempModel = self.classModels[indexPath.row];
             
-                NSArray *contacts = [self classifyDataByType:tempModel.alias];
+                NSArray *contacts = [self classifyDataByType:[tempModel.groupid integerValue]];
                 if (contacts.count) {
                     ContactsViewController *contact = [[ContactsViewController alloc] initWithContactsArray:contacts];
                     [self.navigationController pushViewController:contact animated:YES];
@@ -384,7 +394,7 @@
                 break;
             case 1:
             {
-                NSArray *contacts = [self classifyDataByType:@""];
+                NSArray *contacts = [self classifyDataByType:-1];
                 if (contacts.count) {
                     ContactsViewController *contact = [[ContactsViewController alloc] initWithContactsArray:contacts];
                     [self.navigationController pushViewController:contact animated:YES];
