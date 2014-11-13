@@ -100,6 +100,8 @@
 
 // postUserInfo
 @property (nonatomic,strong) NSDictionary *postUserInfoResult;
+// 短信验证码
+@property (nonatomic,strong) NSDictionary *smsVerifyCode;
 
 // 获取用户信息
 -(void) getUserProfile;
@@ -174,4 +176,7 @@
 
 // postUserInfo
 -(void) postUserInfo : (NSString *) avatar withMobile : (NSString *) mobile withVerifyCode : (NSString *) verifyCode withPasswordOld : (NSString *) passwordOld withPasswordNew : (NSString *) passwordNew withSex : (int) sex withSign : (NSString *) sign;
+
+// 获取短信验证码
+-(void) getSMSVerifyCode : (NSString *)mobile;
 @end

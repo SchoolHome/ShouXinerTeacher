@@ -211,4 +211,10 @@ static PalmUIManagement *sharedInstance = nil;
     UserProfileOperation *operation = [[UserProfileOperation alloc] initSetUserInfo:avatar withMobile:mobile withVerifyCode:verifyCode withPasswordOld:passwordOld withPasswordNew:passwordNew withSex:sex withSign:sign];
     [[PalmNetWorkService sharedInstance] networkEngine:operation];
 }
+
+// 获取短信验证码
+-(void) getSMSVerifyCode : (NSString *)mobile{
+    SystemOperation *operation = [[SystemOperation alloc] initGetSMSVerifyCode:mobile];
+    [[PalmNetWorkService sharedInstance] networkEngine:operation];
+}
 @end
