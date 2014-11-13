@@ -9,16 +9,14 @@
 #import "PalmViewController.h"
 #import "ContactsTableviewCell.h"
 #import "BBMessageGroupBaseTableView.h"
-typedef enum
-{
-  CONTACT_TYPE_TEACHER = 1,
-  CONTACT_TYPE_PARENT = 2,
-}CONTACT_TYPE;
+
 
 @interface ContactsViewController : PalmViewController <UITableViewDelegate,UITableViewDataSource,
     ContactsTableviewCellDelegate,
     UISearchBarDelegate,
     BBMessageGroupBaseTableViewDelegate,
     UISearchDisplayDelegate>
+
+- (id)initWithContactsArray:(NSArray *)contact;
 
 @end

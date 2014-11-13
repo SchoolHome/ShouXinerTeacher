@@ -23,12 +23,15 @@
 #import "BBNotifyMessageGroupCell.h"
 #import "CPDBModelNotifyMessage.h"
 #import "CPDBManagement.h"
+
+
 //
 
 
 @interface BBZJZViewController ()
 {
     NSInteger listType;
+
 }
 @property (nonatomic , strong)NSArray *tableviewDisplayDataArray;
 @property (nonatomic, strong) NSArray *classModels; //班级
@@ -54,6 +57,7 @@
         [[CPUIModelManagement sharedInstance] addObserver:self forKeyPath:@"userMsgGroupListTag" options:0 context:@""];
         //noticeArrayTag
         [[PalmUIManagement sharedInstance] addObserver:self forKeyPath:@"noticeArrayTag" options:0 context:@""];
+        
     }
     return self;
 }
@@ -64,6 +68,8 @@
     if (IOS7) {
         self.edgesForExtendedLayout = UIRectEdgeNone;
     }
+    
+    
     
     listType = LIST_TYPE_MSG_GROUP;
     //self.navigationItem.title = @"找家长";
@@ -261,6 +267,53 @@
     }
     return tempSearchResult;
 }
+
+- (NSArray *)classifyDataByType:(NSString *)className
+{
+    NSMutableArray *tempTeachersArray = [[NSMutableArray alloc] init];
+    NSMutableArray *tempParentsArray = [[NSMutableArray alloc] init];
+    for (CPUIModelUserInfo *model in [CPUIModelManagement sharedInstance].friendArray) {
+        ContactsModel *tempModel = [[ContactsModel alloc] init];
+        tempModel.modelID = [model.userInfoID integerValue];
+        tempModel.avatarPath = model.headerPath;
+        //tempModel.jid = model.
+        tempModel.mobile = model.mobileNumber;
+        //tempModel.uid = [infoDic objectForKey:@"uid"];
+        tempModel.userName = model.nickName;
+        //是否激活
+        NSLog(@"%d",[model.sex integerValue]);
+        tempModel.isActive = [model.sex integerValue] == 0 ? NO : YES;
+    
+        //是否是家长   //是否是老师
+        if ([model.coupleAccount isEqualToString:@"Teacher"]) {
+            tempModel.isTeacher = YES;
+            tempModel.isParent  = NO;
+            [tempTeachersArray addObject:model];
+        }else if ([model.coupleAccount isEqualToString:@"Parent"])
+        {
+            tempModel.isTeacher = NO;
+            tempModel.isParent  = YES;
+            
+        }else if ([model.coupleAccount isEqualToString:@"TeacherAndParent"])
+        {
+            tempModel.isTeacher = YES;
+            tempModel.isParent  = YES;
+            [tempTeachersArray addObject:model];
+        }else
+        {
+            tempModel.isTeacher = NO;
+            tempModel.isParent  = NO;
+        }
+        
+    }
+    if ([className isEqualToString:@""]) {
+        return [NSArray arrayWithArray:tempTeachersArray];
+    }else
+    {
+        return [NSArray arrayWithArray:tempParentsArray];
+    }
+}
+
 #pragma mark UITableviewDelegate
 //close searchbar
 /*
@@ -283,37 +336,76 @@
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     //notifyMessage change
-    
-    BBMessageGroupBaseCell *cell =(BBMessageGroupBaseCell *) [tableView cellForRowAtIndexPath:indexPath];
-    if ([cell.msgGroup isKindOfClass:[CPUIModelMessageGroup class]]) {
-        CPUIModelMessageGroup *messageGroup = cell.msgGroup;
-        
-        if ([messageGroup isMsgSingleGroup]) {
-            BBSingleIMViewController *singleIM = [[BBSingleIMViewController alloc] init:messageGroup];
-            singleIM.hidesBottomBarWhenPushed = YES;
-            [self.navigationController pushViewController:singleIM animated:YES];
-        }else{
-            BBMutilIMViewController *mutilIM = [[BBMutilIMViewController alloc] init:messageGroup];
-            mutilIM.hidesBottomBarWhenPushed = YES;
-            [self.navigationController pushViewController:mutilIM animated:YES];
+    if (listType == LIST_TYPE_MSG_GROUP)
+    {
+        BBMessageGroupBaseCell *cell =(BBMessageGroupBaseCell *) [tableView cellForRowAtIndexPath:indexPath];
+        if ([cell.msgGroup isKindOfClass:[CPUIModelMessageGroup class]]) {
+            CPUIModelMessageGroup *messageGroup = cell.msgGroup;
+            
+            if ([messageGroup isMsgSingleGroup]) {
+                BBSingleIMViewController *singleIM = [[BBSingleIMViewController alloc] init:messageGroup];
+                singleIM.hidesBottomBarWhenPushed = YES;
+                [self.navigationController pushViewController:singleIM animated:YES];
+            }else{
+                BBMutilIMViewController *mutilIM = [[BBMutilIMViewController alloc] init:messageGroup];
+                mutilIM.hidesBottomBarWhenPushed = YES;
+                [self.navigationController pushViewController:mutilIM animated:YES];
+            }
+            
+            __block NSInteger count = [CPUIModelManagement sharedInstance].friendMsgUnReadedCount;
+            count -= [messageGroup.unReadedCount intValue];
+            dispatch_block_t updateTagBlock = ^{
+                [[CPUIModelManagement sharedInstance] setFriendMsgUnReadedCount:count];
+            };
+            dispatch_async(dispatch_get_main_queue(), updateTagBlock);
+        }else if ([cell.msgGroup isKindOfClass:[CPDBModelNotifyMessage class]]){
+            CPDBModelNotifyMessage *msgGroup = cell.msgGroup;
+            //设置未读数
+            
+            [[CPSystemEngine sharedInstance] updateUnreadedMessageStatusChanged:msgGroup];
+            
+            
+            NSArray *msgGroupOfCurrentFrom = [[[CPSystemEngine sharedInstance] dbManagement] findNotifyMessagesOfCurrentFromJID:msgGroup.from];
+            NSLog(@"msgGroupOfCurrentFrom%@",msgGroupOfCurrentFrom);
         }
-        
-        __block NSInteger count = [CPUIModelManagement sharedInstance].friendMsgUnReadedCount;
-        count -= [messageGroup.unReadedCount intValue];
-        dispatch_block_t updateTagBlock = ^{
-            [[CPUIModelManagement sharedInstance] setFriendMsgUnReadedCount:count];
-        };
-        dispatch_async(dispatch_get_main_queue(), updateTagBlock);
-    }else if ([cell.msgGroup isKindOfClass:[CPDBModelNotifyMessage class]]){
-        CPDBModelNotifyMessage *msgGroup = cell.msgGroup;
-        //设置未读数
-        
-        [[CPSystemEngine sharedInstance] updateUnreadedMessageStatusChanged:msgGroup];
-
-        
-        NSArray *msgGroupOfCurrentFrom = [[[CPSystemEngine sharedInstance] dbManagement] findNotifyMessagesOfCurrentFromJID:msgGroup.from];
-        NSLog(@"msgGroupOfCurrentFrom%@",msgGroupOfCurrentFrom);
+    }else
+    {
+        switch (indexPath.section) {
+            case 0:
+            {
+                BBGroupModel *tempModel = self.classModels[indexPath.row];
+            
+                NSArray *contacts = [self classifyDataByType:tempModel.alias];
+                if (contacts.count) {
+                    ContactsViewController *contact = [[ContactsViewController alloc] initWithContactsArray:contacts];
+                    [self.navigationController pushViewController:contact animated:YES];
+                }
+            }
+                break;
+            case 1:
+            {
+                NSArray *contacts = [self classifyDataByType:@""];
+                if (contacts.count) {
+                    ContactsViewController *contact = [[ContactsViewController alloc] initWithContactsArray:contacts];
+                    [self.navigationController pushViewController:contact animated:YES];
+                }
+            }
+                break;
+            case 2:
+            {
+                
+            }
+                break;
+            case 3:
+            {
+                
+            }
+                break;
+            default:
+                break;
+        }
     }
+    
 
     
     
