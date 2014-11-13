@@ -69,7 +69,7 @@
             userInfo.icon = [jsonDict objectForKey:@"avatar"];
             userInfo.gender = [jsonDict objectForKey:@"activated"];
             userInfo.lifeStatus = [jsonDict objectForKey:@"uid"];
-            userInfo.regionNumber = [jsonDict objectForKey:@"groups"];
+            userInfo.regionNumber = [[jsonDict objectForKey:@"groups"] JSONString];
             userInfo.mobileNumber = [jsonDict objectForKey:@"mobile"];
             userInfo.relationType = [NSNumber numberWithInt:1];
             
