@@ -69,6 +69,7 @@
     [dbUserInfo setType:ptUserInfo.relationType];
     [dbUserInfo setCoupleAccount:ptUserInfo.coupleAccount];
     [dbUserInfo setMobileNumber:ptUserInfo.mobileNumber];
+    [dbUserInfo setBirthday:ptUserInfo.regionNumber];
     
 #if 0
     [dbUserInfo setServerID:ptUserInfo.serverID];
