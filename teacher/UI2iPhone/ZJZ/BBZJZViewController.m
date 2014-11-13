@@ -294,6 +294,8 @@
             tempModel.isTeacher = NO;
             tempModel.isParent  = YES;
             
+            
+            
             NSDictionary *dic = (NSDictionary *)[model.birthday objectFromJSONString];
             NSLog(@"%@",dic);
             if (dic && dic.allKeys > 0) {
