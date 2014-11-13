@@ -293,9 +293,11 @@
         {
             tempModel.isTeacher = NO;
             tempModel.isParent  = YES;
-            NSLog(@"%@",model.birthday);
-            if (model.birthday && model.birthday.allKeys > 0) {
-                if ([model.birthday.allKeys[0] integerValue] == classNum) {
+            
+            NSDictionary *dic = (NSDictionary *)[model.birthday objectFromJSONString];
+            NSLog(@"%@",dic);
+            if (dic && dic.allKeys > 0) {
+                if ([dic.allKeys[0] integerValue] == classNum) {
                     [tempParentsArray addObject:tempModel];
                 }
             }
@@ -304,8 +306,10 @@
             tempModel.isTeacher = YES;
             tempModel.isParent  = YES;
             [tempTeachersArray addObject:tempModel];
-            if (model.birthday && model.birthday.allKeys > 0) {
-                if ([model.birthday.allKeys[0] integerValue] == classNum) {
+            NSDictionary *dic = (NSDictionary *)[model.birthday objectFromJSONString];
+            NSLog(@"%@",dic);
+            if (dic && dic.allKeys > 0) {
+                if ([dic.allKeys[0] integerValue] == classNum) {
                     [tempParentsArray addObject:tempModel];
                 }
             }
