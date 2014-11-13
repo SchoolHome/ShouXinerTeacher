@@ -243,8 +243,8 @@
 		197FCF9F18F41D5000EE751B /* navBarBg44.png in Resources */ = {isa = PBXBuildFile; fileRef = 197FCF9D18F41D5000EE751B /* navBarBg44.png */; };
 		197FCFA018F41D5000EE751B /* navBarBg44@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 197FCF9E18F41D5000EE751B /* navBarBg44@2x.png */; };
 		1982F6F21A0C71830075F35F /* ZJZSenderSound.png in Resources */ = {isa = PBXBuildFile; fileRef = 1982F6F11A0C71830075F35F /* ZJZSenderSound.png */; };
-		1982F7341A0C72820075F35F /* add.png in Resources */ = {isa = PBXBuildFile; fileRef = 1982F6F51A0C72820075F35F /* add.png */; };
-		1982F7351A0C72820075F35F /* add@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1982F6F61A0C72820075F35F /* add@2x.png */; };
+		1982F7341A0C72820075F35F /* addGroup.png in Resources */ = {isa = PBXBuildFile; fileRef = 1982F6F51A0C72820075F35F /* addGroup.png */; };
+		1982F7351A0C72820075F35F /* addGroup@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1982F6F61A0C72820075F35F /* addGroup@2x.png */; };
 		1982F7361A0C72820075F35F /* blank_area.png in Resources */ = {isa = PBXBuildFile; fileRef = 1982F6F71A0C72820075F35F /* blank_area.png */; };
 		1982F7371A0C72820075F35F /* blank_area@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1982F6F81A0C72820075F35F /* blank_area@2x.png */; };
 		1982F7381A0C72820075F35F /* button_chat.png in Resources */ = {isa = PBXBuildFile; fileRef = 1982F6F91A0C72820075F35F /* button_chat.png */; };
@@ -1262,6 +1262,7 @@
 		741EBBC518D4CC7B00F21085 /* BBSingleMessageGroupCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 741EBBC418D4CC7B00F21085 /* BBSingleMessageGroupCell.m */; };
 		741EBBC818D4CCA900F21085 /* BBGroupMessageGroupCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 741EBBC718D4CCA900F21085 /* BBGroupMessageGroupCell.m */; };
 		74233BB118D6C3DE0086C1BD /* ContactsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 74233BB018D6C3DE0086C1BD /* ContactsViewController.m */; };
+		742E2B561A14EF8900158319 /* MutilMsgGroupViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 742E2B551A14EF8900158319 /* MutilMsgGroupViewController.m */; };
 		743E85F618D74B850024D371 /* ContactsTableviewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 743E85F518D74B850024D371 /* ContactsTableviewCell.m */; };
 		743E85F918D74CEF0024D371 /* ContactsModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 743E85F818D74CEF0024D371 /* ContactsModel.m */; };
 		7441DF3B1969813900D9928A /* CustomNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7441DF3A1969813900D9928A /* CustomNavigationController.m */; };
@@ -1787,8 +1788,8 @@
 		197FCF9D18F41D5000EE751B /* navBarBg44.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = navBarBg44.png; sourceTree = "<group>"; };
 		197FCF9E18F41D5000EE751B /* navBarBg44@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "navBarBg44@2x.png"; sourceTree = "<group>"; };
 		1982F6F11A0C71830075F35F /* ZJZSenderSound.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ZJZSenderSound.png; sourceTree = "<group>"; };
-		1982F6F51A0C72820075F35F /* add.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = add.png; sourceTree = "<group>"; };
-		1982F6F61A0C72820075F35F /* add@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "add@2x.png"; sourceTree = "<group>"; };
+		1982F6F51A0C72820075F35F /* addGroup.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = addGroup.png; sourceTree = "<group>"; };
+		1982F6F61A0C72820075F35F /* addGroup@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "addGroup@2x.png"; sourceTree = "<group>"; };
 		1982F6F71A0C72820075F35F /* blank_area.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = blank_area.png; sourceTree = "<group>"; };
 		1982F6F81A0C72820075F35F /* blank_area@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "blank_area@2x.png"; sourceTree = "<group>"; };
 		1982F6F91A0C72820075F35F /* button_chat.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = button_chat.png; sourceTree = "<group>"; };
@@ -3359,6 +3360,8 @@
 		741EBBC718D4CCA900F21085 /* BBGroupMessageGroupCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BBGroupMessageGroupCell.m; sourceTree = "<group>"; };
 		74233BAF18D6C3DE0086C1BD /* ContactsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ContactsViewController.h; sourceTree = "<group>"; };
 		74233BB018D6C3DE0086C1BD /* ContactsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ContactsViewController.m; sourceTree = "<group>"; };
+		742E2B541A14EF8900158319 /* MutilMsgGroupViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MutilMsgGroupViewController.h; sourceTree = "<group>"; };
+		742E2B551A14EF8900158319 /* MutilMsgGroupViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MutilMsgGroupViewController.m; sourceTree = "<group>"; };
 		743E85F418D74B850024D371 /* ContactsTableviewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ContactsTableviewCell.h; sourceTree = "<group>"; };
 		743E85F518D74B850024D371 /* ContactsTableviewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ContactsTableviewCell.m; sourceTree = "<group>"; };
 		743E85F718D74CEF0024D371 /* ContactsModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ContactsModel.h; sourceTree = "<group>"; };
@@ -4253,8 +4256,8 @@
 		1982F6F41A0C72820075F35F /* Contact */ = {
 			isa = PBXGroup;
 			children = (
-				1982F6F51A0C72820075F35F /* add.png */,
-				1982F6F61A0C72820075F35F /* add@2x.png */,
+				1982F6F51A0C72820075F35F /* addGroup.png */,
+				1982F6F61A0C72820075F35F /* addGroup@2x.png */,
 				1982F6F71A0C72820075F35F /* blank_area.png */,
 				1982F6F81A0C72820075F35F /* blank_area@2x.png */,
 				1982F6F91A0C72820075F35F /* button_chat.png */,
@@ -7028,6 +7031,8 @@
 			children = (
 				74233BAF18D6C3DE0086C1BD /* ContactsViewController.h */,
 				74233BB018D6C3DE0086C1BD /* ContactsViewController.m */,
+				742E2B541A14EF8900158319 /* MutilMsgGroupViewController.h */,
+				742E2B551A14EF8900158319 /* MutilMsgGroupViewController.m */,
 				743E85F418D74B850024D371 /* ContactsTableviewCell.h */,
 				743E85F518D74B850024D371 /* ContactsTableviewCell.m */,
 				743E85F718D74CEF0024D371 /* ContactsModel.h */,
@@ -8009,7 +8014,7 @@
 				7AA5003818DF1DE400FC59C4 /* BBYuWenContent.png in Resources */,
 				332D7EE718C33F0A007A75D5 /* list_top_bg@2x.png in Resources */,
 				1927E4C018E5544E0079EA53 /* ZJZSenderSound@2x.png in Resources */,
-				1982F7351A0C72820075F35F /* add@2x.png in Resources */,
+				1982F7351A0C72820075F35F /* addGroup@2x.png in Resources */,
 				1927E4BD18E5544E0079EA53 /* ZJZReceiverText.png in Resources */,
 				332D7FC418C33F0A007A75D5 /* xiaoshuang_profile@2x.jpg in Resources */,
 				1982F7411A0C72820075F35F /* list_chat_bubble@2x.png in Resources */,
@@ -8287,7 +8292,7 @@
 				193FA76219F0A27A00874F1E /* state.png in Resources */,
 				7A334B2518F2DE60001F57C4 /* BBPBXPress.png in Resources */,
 				7A334B2818F2DE60001F57C4 /* BBSBS@2x.png in Resources */,
-				1982F7341A0C72820075F35F /* add.png in Resources */,
+				1982F7341A0C72820075F35F /* addGroup.png in Resources */,
 				7A6B775F18ED2B330000DBFE /* BBShuXueContent@2x.png in Resources */,
 				332D7F9418C33F0A007A75D5 /* float_im_magicdownload（no-wifi）@2x.png in Resources */,
 				19CBA1CF19FDF11000548396 /* BJQClassMiddlePressed@2x.png in Resources */,
@@ -8737,6 +8742,7 @@
 				332D74E218C33552007A75D5 /* CPDBModelMessageGroup.m in Sources */,
 				332D75A718C33552007A75D5 /* CPUIModelPetSmallAnim.m in Sources */,
 				1935742F19AD69C90085DC5F /* SystemOperation.m in Sources */,
+				742E2B561A14EF8900158319 /* MutilMsgGroupViewController.m in Sources */,
 				332D754218C33552007A75D5 /* XMPPMessage+XEP0045.m in Sources */,
 				332D755518C33552007A75D5 /* XMPPvCardAvatarModule.m in Sources */,
 				332D832018C33F0B007A75D5 /* FXStatusPanel.m in Sources */,

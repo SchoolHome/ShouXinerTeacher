@@ -99,13 +99,15 @@
     if (IOS7) {
         self.edgesForExtendedLayout = UIRectEdgeNone;
     }
-    UIButton *back = [UIButton buttonWithType:UIButtonTypeCustom];
-    [back setFrame:CGRectMake(0.f, 7.f, 30.f, 30.f)];
-    [back setBackgroundImage:[UIImage imageNamed:@"ZJZBack"] forState:UIControlStateNormal];
-    [back addTarget:self action:@selector(backAction) forControlEvents:UIControlEventTouchUpInside];
-    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:back];
+
     
-    //self.title = @"通讯录";
+    UIButton *backButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    [backButton setFrame:CGRectMake(0.f, 7.f, 24.f, 24.f)];
+    [backButton setBackgroundImage:[UIImage imageNamed:@"back"] forState:UIControlStateNormal];
+    [backButton addTarget:self action:@selector(backAction) forControlEvents:UIControlEventTouchUpInside];
+    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:backButton];
+    
+    
     _contactsListTableview = [[BBMessageGroupBaseTableView alloc] initWithFrame:CGRectMake(0.f, 40.f, 320.f, [UIScreen mainScreen].bounds.size.height-102.f ) style:UITableViewStylePlain];
     _contactsListTableview.backgroundColor = [UIColor clearColor];
     _contactsListTableview.delegate = self;
@@ -332,13 +334,13 @@
         
         
         UIView *sectionView = [[UIView alloc] initWithFrame:CGRectZero];
-        //sectionView.backgroundColor = [UIColor blackColor];
-        sectionView.backgroundColor = [UIColor colorWithRed:128/255.f green:143/255.f blue:155/255.f alpha:1.f];
+        sectionView.backgroundColor = [UIColor clearColor];
+        //sectionView.backgroundColor = [UIColor colorWithRed:128/255.f green:143/255.f blue:155/255.f alpha:1.f];
         
         UILabel *title = [[UILabel alloc] initWithFrame:CGRectMake(10.f, 6.f, 200.f, 20.f)];
         title.backgroundColor = [UIColor clearColor];
         title.font = [UIFont boldSystemFontOfSize:14.f];
-        title.textColor = [UIColor whiteColor];
+        title.textColor = [UIColor lightGrayColor];
         title.text = [[self.contactsListSection objectAtIndex:section] count] ? [[[UILocalizedIndexedCollation currentCollation] sectionTitles] objectAtIndex:section] : nil;
         [sectionView addSubview:title];
         return sectionView;
