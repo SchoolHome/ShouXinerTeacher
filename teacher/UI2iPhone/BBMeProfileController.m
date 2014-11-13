@@ -181,6 +181,7 @@
     BBMeProfileTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:ProfileCell];
     if (cell == nil) {
         cell = [[BBMeProfileTableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:ProfileCell];
+        [cell.textLabel setFont:[UIFont systemFontOfSize:14]];
     }
     switch (indexPath.section) {
         case 0:
