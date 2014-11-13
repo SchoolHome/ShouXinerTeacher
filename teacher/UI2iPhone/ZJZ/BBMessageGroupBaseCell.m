@@ -17,6 +17,8 @@
     if (self) {
         // Initialization code
         self.selectionStyle = UITableViewCellSelectionStyleNone;
+        [self.imageView setImage:[UIImage imageNamed:@"BJQPraise"]];
+        
         //姓名
         _userNameLabel = [[UILabel alloc] initWithFrame:CGRectMake(65.f, 10.f, 160.f, 18.f)];
         _userNameLabel.backgroundColor = [UIColor clearColor];
@@ -25,7 +27,7 @@
         _userNameLabel.font = [UIFont systemFontOfSize:14.f];
         [self.contentView addSubview:_userNameLabel];
         //内容
-        _contentLabel = [[UILabel alloc] initWithFrame:CGRectMake(65.f, 40.f, 240.f, 18.f)];
+        _contentLabel = [[UILabel alloc] initWithFrame:CGRectMake(65.f, 40.f, 200.f, 18.f)];
         _contentLabel.backgroundColor = [UIColor clearColor];
         _contentLabel.textColor = [UIColor colorWithRed:110/255.f green:110/255.f blue:110/255.f alpha:1.f];
         _contentLabel.font = [UIFont systemFontOfSize:14.f];
@@ -34,10 +36,11 @@
         _userHeadImageView = [[EGOImageView alloc] initWithFrame:CGRectMake(5.f, 10.f, 50.f, 50.f)];
         [self.contentView addSubview:_userHeadImageView];
         //时间
-        _dateLabel = [[UILabel alloc] initWithFrame:CGRectMake(235.f, 10.f, 70.f, 18.f)];
+        _dateLabel = [[UILabel alloc] initWithFrame:CGRectMake(255.f, 8.f, 70.f, 14.f)];
         _dateLabel.textColor = [UIColor colorWithRed:110/255.f green:110/255.f blue:110/255.f alpha:1.f];
         _dateLabel.backgroundColor = [UIColor clearColor];
         _dateLabel.font = [UIFont systemFontOfSize:12.f];
+        _dateLabel.textAlignment = NSTextAlignmentCenter;
         [self.contentView addSubview:_dateLabel];
         
         _imageviewMessageAlert = [[UIImageView alloc] initWithFrame:CGRectZero];
@@ -45,6 +48,8 @@
         UIImage *image = [tempImage stretchableImageWithLeftCapWidth:tempImage.size.width/2.f topCapHeight:0];
         [self.imageviewMessageAlert setImage:image];
         [self.contentView addSubview:_imageviewMessageAlert];
+        
+
         //未读数
 //        _unreadedCountLabel = [[UILabel alloc] initWithFrame:CGRectMake(40, 10.f, 20.f, 20.f)];
 //        _unreadedCountLabel.textAlignment = NSTextAlignmentCenter;
@@ -69,7 +74,8 @@
         self.contentView.backgroundColor = [UIColor colorWithRed:212/255.f green:212/255.f blue:212/255.f alpha:1.f];
     }else
     {
-        self.contentView.backgroundColor = [UIColor colorWithRed:242/255.f green:236/255.f blue:230/255.f alpha:1.f];
+        //self.contentView.backgroundColor = [UIColor colorWithRed:242/255.f green:236/255.f blue:230/255.f alpha:1.f];
+        self.contentView.backgroundColor = [UIColor whiteColor];
     }
     // Configure the view for the selected state
 }
@@ -94,12 +100,20 @@
             //        _unreadedCountLabel.layer.borderWidth = 0.5;
             //        _unreadedCountLabel.layer.borderColor = [[UIColor grayColor] CGColor];
             
+//            if ([msgGroup.unReadedCount integerValue] < 100) {
+//                CGSize unReaderTextSize = [[NSString stringWithFormat:@"%d",[msgGroup.unReadedCount integerValue]] sizeWithFont:[UIFont systemFontOfSize:12]];
+//                [self.imageviewMessageAlert setFrame:CGRectMake(55/4*3.f-unReaderTextSize.width/2.f, -55/4.f+15.f, unReaderTextSize.width + 13.f, 20.f)];
+//            }else {
+//                CGSize unReaderTextSize = [[NSString stringWithFormat:@"%d+",99] sizeWithFont:[UIFont systemFontOfSize:12]];
+//                [self.imageviewMessageAlert setFrame:CGRectMake(55/4*3.f-unReaderTextSize.width/2.f, -55/4.f+15.f, unReaderTextSize.width + 10.f, 20.f)];
+//            }
+            
             if ([msgGroup.unReadedCount integerValue] < 100) {
                 CGSize unReaderTextSize = [[NSString stringWithFormat:@"%d",[msgGroup.unReadedCount integerValue]] sizeWithFont:[UIFont systemFontOfSize:12]];
-                [self.imageviewMessageAlert setFrame:CGRectMake(55/4*3.f-unReaderTextSize.width/2.f, -55/4.f+15.f, unReaderTextSize.width + 13.f, 20.f)];
+                [self.imageviewMessageAlert setFrame:CGRectMake(320-unReaderTextSize.width-30.f, CGRectGetMaxY(_dateLabel.frame)+10.f, unReaderTextSize.width + 13.f, 20.f)];
             }else {
                 CGSize unReaderTextSize = [[NSString stringWithFormat:@"%d+",99] sizeWithFont:[UIFont systemFontOfSize:12]];
-                [self.imageviewMessageAlert setFrame:CGRectMake(55/4*3.f-unReaderTextSize.width/2.f, -55/4.f+15.f, unReaderTextSize.width + 10.f, 20.f)];
+                [self.imageviewMessageAlert setFrame:CGRectMake(320-unReaderTextSize.width-30.f, CGRectGetMaxY(_dateLabel.frame)+10.f, unReaderTextSize.width + 10.f, 20.f)];
             }
             
             //未读数
@@ -229,10 +243,10 @@
         
         if ([msgGroup.unReadedCount integerValue] < 100) {
             CGSize unReaderTextSize = [[NSString stringWithFormat:@"%d",[msgGroup.unReadedCount integerValue]] sizeWithFont:[UIFont systemFontOfSize:12]];
-            [self.imageviewMessageAlert setFrame:CGRectMake(55/4*3.f-unReaderTextSize.width/2.f, -55/4.f+15.f, unReaderTextSize.width + 13.f, 20.f)];
+            [self.imageviewMessageAlert setFrame:CGRectMake(320-unReaderTextSize.width-30.f, CGRectGetMaxY(_dateLabel.frame)+10.f, unReaderTextSize.width + 13.f, 20.f)];
         }else {
             CGSize unReaderTextSize = [[NSString stringWithFormat:@"%d+",99] sizeWithFont:[UIFont systemFontOfSize:12]];
-            [self.imageviewMessageAlert setFrame:CGRectMake(55/4*3.f-unReaderTextSize.width/2.f, -55/4.f+15.f, unReaderTextSize.width + 10.f, 20.f)];
+            [self.imageviewMessageAlert setFrame:CGRectMake(320-unReaderTextSize.width-30.f, CGRectGetMaxY(_dateLabel.frame)+10.f, unReaderTextSize.width + 10.f, 20.f)];
         }
         
         //未读数
