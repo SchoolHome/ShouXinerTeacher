@@ -196,24 +196,14 @@
 }
 
 -(void) clickActivate{
-//    NSString *userNameText = [self.userName.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
+
     NSString *telPhoneText = nil;
     if (nil != self.telPhone) {
         telPhoneText = [self.telPhone.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
     }
-//    NSString *emailText = [self.email.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
+    
     NSString *passwordText = [self.password.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
     NSString *confrimPassWordText = [self.confrimPassWord.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
-    
-//    if (nil == userNameText || [userNameText isEqualToString:@""]) {
-//        [self showProgressWithText:@"用户名不能为空" withDelayTime:1.0f];
-//        return;
-//    }
-//    
-//    if ([userNameText length] > 25 || [userNameText length] < 4) {
-//        [self showProgressWithText:@"用户名长度为4-25个字符" withDelayTime:1.0f];
-//        return;
-//    }
     
     if (nil != self.telPhone) {
         if (nil == telPhoneText) {
@@ -222,22 +212,14 @@
         }
     }
     
-//    if (nil != emailText && ![emailText isEqualToString:@""]) {
-//        NSString *emailRegex = @"[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,4}";
-//        NSPredicate *emailTest = [NSPredicate predicateWithFormat:@"SELF MATCHES %@", emailRegex];
-//        if (![emailTest evaluateWithObject:emailText]) {
-//            [self showProgressWithText:@"邮箱地址不正确" withDelayTime:1.0f];
-//            return;
-//        }
-//    }
-    
     if ((nil != passwordText && ![passwordText isEqualToString:@""]) || (nil != confrimPassWordText && ![confrimPassWordText isEqualToString:@""])) {
         if (![passwordText isEqualToString:confrimPassWordText]) {
             [self showProgressWithText:@"两次密码填写不一致" withDelayTime:1.0f];
             return;
         }
     }
-    [[PalmUIManagement sharedInstance] activate:@"" withTelPhone:telPhoneText withEmail:@"" withPassWord:passwordText];
+//    [[PalmUIManagement sharedInstance] activate:@"" withTelPhone:telPhoneText withEmail:@"" withPassWord:passwordText];
+    [[PalmUIManagement sharedInstance] postUserInfo:@"" withMobile:telPhoneText withVerifyCode:@"" withPasswordOld:@"" withPasswordNew:@"" withSex:0 withSign:@""];
 }
 
 -(void) observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context{
