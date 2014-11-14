@@ -7,7 +7,7 @@
 //
 
 #import "BBMeSettingViewController.h"
-
+#import "BBMeWebViewController.h"
 @interface BBMeSettingViewController ()
 {
     NSArray *settingList;
@@ -68,34 +68,59 @@
     if (nil ==cell) {
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:SettingCell];
     }
+    if (indexPath.section == 0) {
+        [cell setAccessoryType:UITableViewCellAccessoryNone];
+        [cell setSelectionStyle:UITableViewCellSelectionStyleNone];
+    }else{
+        [cell setAccessoryType:UITableViewCellAccessoryDisclosureIndicator];
+        [cell setSelectionStyle:UITableViewCellSelectionStyleGray];
+    }
     NSDictionary *infoDic = [[settingList objectAtIndex:indexPath.section] objectAtIndex:indexPath.row];
     [cell.textLabel setText:[infoDic objectForKey:@"title"]];
     [cell.imageView setImage:[UIImage imageNamed:[infoDic objectForKey:@"icon"]]];
     if (indexPath.section == 0) {
         CPLGModelAccount *account = [[CPSystemEngine sharedInstance] accountModel];
         NSUserDefaults *userDefault = [NSUserDefaults standardUserDefaults];
-        NSMutableDictionary *setDic = (NSMutableDictionary *)[userDefault objectForKey:account.loginName];
+        BOOL isVibrantion = [[userDefault objectForKey:[NSString stringWithFormat:@"%@_Vibration", account.loginName]] boolValue];
+        BOOL isRingalert = [[userDefault objectForKey:[NSString stringWithFormat:@"%@_Ringalert", account.loginName]] boolValue];
         if (indexPath.row == 0) {
             UISwitch *vibSwith = [[UISwitch alloc] initWithFrame:CGRectMake(cell.contentView.frame.size.width-100, 10, 80, 40)];
             [vibSwith addTarget:self action:@selector(vibrationSwitch:) forControlEvents:UIControlEventValueChanged];
             [cell addSubview:vibSwith];
-            if ([[setDic objectForKey:@"Vibration"] boolValue] || [[setDic objectForKey:@"Vibration"] isKindOfClass:[NSNull class]]) {
+            if (isVibrantion) {
                 [vibSwith setOn:YES];
             }else{
                 [vibSwith setOn:NO];
             }
         }else{
-            UISwitch *vibSwith = [[UISwitch alloc] initWithFrame:CGRectMake(cell.contentView.frame.size.width-100, 10, 80, 40)];
-            [vibSwith addTarget:self action:@selector(alertSwitch:) forControlEvents:UIControlEventValueChanged];
-            [cell addSubview:vibSwith];
-            if ([[setDic objectForKey:@"Alert"] boolValue] || [[setDic objectForKey:@"Alert"] isKindOfClass:[NSNull class]]) {
-                [vibSwith setOn:YES];
+            UISwitch *ringSwith = [[UISwitch alloc] initWithFrame:CGRectMake(cell.contentView.frame.size.width-100, 10, 80, 40)];
+            [ringSwith addTarget:self action:@selector(alertSwitch:) forControlEvents:UIControlEventValueChanged];
+            [cell addSubview:ringSwith];
+            if (isRingalert) {
+                [ringSwith setOn:YES];
             }else{
-                [vibSwith setOn:NO];
+                [ringSwith setOn:NO];
             }
         }
     }
     return cell;
+}
+
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    if (indexPath.section == 1) {
+        NSArray *infoArr = [settingList objectAtIndex:indexPath.section];
+        NSDictionary *dic = [infoArr objectAtIndex:indexPath.row];
+        if (indexPath.row == 0) {
+            //更新
+        }else{
+            BBMeWebViewController *viewController = [[BBMeWebViewController alloc] init];
+            viewController.url = [NSURL URLWithString:[dic objectForKey:@"url"]];
+            viewController.isHiddenHeader = NO;
+            [viewController.navigationItem setTitle:[dic objectForKey:@"title"]];
+            [self.navigationController pushViewController:viewController animated:YES];
+        }
+    }
 }
 
 -(void)vibrationSwitch:(UISwitch *)_switch
@@ -108,12 +133,8 @@
     }
     CPLGModelAccount *account = [[CPSystemEngine sharedInstance] accountModel];
     NSUserDefaults *userDefault = [NSUserDefaults standardUserDefaults];
-    NSMutableDictionary *setDic = [NSMutableDictionary dictionaryWithDictionary:[userDefault objectForKey:account.loginName]];
-    if (!setDic) {
-        setDic = [NSMutableDictionary dictionary];
-    }
-    [setDic setValue:[NSNumber numberWithBool:isOn] forKey:@"Vibration"];
-    [userDefault setObject:setDic forKey:account.loginName];
+    NSString *key = [NSString stringWithFormat:@"%@_Vibration", account.loginName];
+    [userDefault setObject:[NSNumber numberWithBool:isOn] forKey:key];
     [userDefault synchronize];
 }
 
@@ -125,15 +146,10 @@
     }else{
         isOn = NO;
     }
-    
     CPLGModelAccount *account = [[CPSystemEngine sharedInstance] accountModel];
     NSUserDefaults *userDefault = [NSUserDefaults standardUserDefaults];
-    NSMutableDictionary *setDic = [NSMutableDictionary dictionaryWithDictionary:[userDefault objectForKey:account.loginName]];
-    if (!setDic) {
-        setDic = [NSMutableDictionary dictionary];
-    }
-    [setDic setValue:[NSNumber numberWithBool:isOn] forKey:@"Alert"];
-    [userDefault setObject:setDic forKey:account.loginName];
+    NSString *key = [NSString stringWithFormat:@"%@_Ringalert", account.loginName];
+    [userDefault setObject:[NSNumber numberWithBool:isOn] forKey:key];
     [userDefault synchronize];
 }
 

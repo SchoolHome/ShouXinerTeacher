@@ -24,6 +24,7 @@
     UIButton *headerImgBtn;
     UIImage *pickImage;
     NSData *imageData;
+    NSInteger sexTag;
     BBProfileModel *userProfile;
 }
 @end
@@ -102,6 +103,7 @@
     [super viewWillAppear:animated];
     [[PalmUIManagement sharedInstance] addObserver:self forKeyPath:@"updateUserHeader" options:0 context:nil];
     [[PalmUIManagement sharedInstance] addObserver:self forKeyPath:@"updateUserHeaderResult" options:0 context:nil];
+    [[PalmUIManagement sharedInstance] addObserver:self forKeyPath:@"postUserInfoResult" options:0 context:nil];
     if (profileTableView) {
         [profileTableView reloadData];
     }
@@ -111,6 +113,7 @@
     [super viewWillDisappear:animated];
     [[PalmUIManagement sharedInstance] removeObserver:self forKeyPath:@"updateUserHeader"];
     [[PalmUIManagement sharedInstance] removeObserver:self forKeyPath:@"updateUserHeaderResult"];
+    [[PalmUIManagement sharedInstance] removeObserver:self forKeyPath:@"postUserInfoResult"];
 }
 
 -(void) observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context{
@@ -152,6 +155,16 @@
             [self showProgressWithText:@"头像上传成功" withDelayTime:1.0f];
         }else{
             [self showProgressWithText:@"头像上传失败" withDelayTime:1.0f];
+        }
+    }else if([@"postUserInfoResult" isEqualToString:keyPath]){
+        NSDictionary *resultDic = [[PalmUIManagement sharedInstance] postUserInfoResult];
+        NSDictionary *errDic = resultDic[@"data"];
+        if ([errDic[@"errno"] integerValue] == 0) {
+            userProfile.sex = sexTag;
+            [self showProgressWithText:@"更新成功" withDelayTime:2];
+            [self.navigationController popViewControllerAnimated:YES];
+        }else{
+            [self showProgressWithText:resultDic[@"errorMessage"] withDelayTime:2];
         }
     }/*else if([@"userProfile" isEqualToString:keyPath]){
         self.userProfile = [[PalmUIManagement sharedInstance].userProfile objectForKey:ASI_REQUEST_DATA];
@@ -306,9 +319,14 @@
     if (ActionSheetSex == actionSheet.tag) {
         if(buttonIndex == 0){
             NSLog(@"女");
+            sexTag = 0;
         }else if(buttonIndex == 1){
             NSLog(@"男");
+            sexTag = 1;
+        }else{
+            return;
         }
+        [[PalmUIManagement sharedInstance] postUserInfo:nil withMobile:nil withVerifyCode:nil withPasswordOld:nil withPasswordNew:nil withSex:sexTag withSign:nil];
     }
 }
 

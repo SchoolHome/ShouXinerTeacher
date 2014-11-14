@@ -32,6 +32,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    [self.navigationItem setTitle:@"编辑签名"];
     UIButton *back = [UIButton buttonWithType:UIButtonTypeCustom];
     [back setFrame:CGRectMake(0.f, 7.f, 22.f, 22.f)];
     [back setBackgroundImage:[UIImage imageNamed:@"back.png"] forState:UIControlStateNormal];
