@@ -15,7 +15,8 @@
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     if (self) {
         // Initialization code
-        self.backgroundColor = [UIColor colorWithRed:242/255.f green:236/255.f blue:230/255.f alpha:1.f];
+        //self.backgroundColor = [UIColor colorWithRed:242/255.f green:236/255.f blue:230/255.f alpha:1.f];
+        self.backgroundColor = [UIColor whiteColor];
         //selectedBtn
         _selectedBtn = [UIButton buttonWithType:UIButtonTypeCustom];
         [_selectedBtn setFrame:CGRectMake(5.f, 19.f, 22.f, 22.f)];

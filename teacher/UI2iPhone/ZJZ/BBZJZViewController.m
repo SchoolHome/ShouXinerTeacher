@@ -210,6 +210,9 @@
         
         if (![result[@"hasError"] boolValue]) {
             self.classModels = [NSArray arrayWithArray:result[@"data"]];
+            if (listType == LIST_TYPE_CONTACTS) {
+                [self.messageListTableview  reloadData];
+            }
         }else{
             [self showProgressWithText:@"班级列表加载失败" withDelayTime:0.1];
         }

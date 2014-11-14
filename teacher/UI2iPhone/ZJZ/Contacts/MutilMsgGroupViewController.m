@@ -9,7 +9,11 @@
 #import "MutilMsgGroupViewController.h"
 #import "ContactsStartGroupChatViewController.h"
 
-#import "BBGroupMessageGroupCell.h"
+#import "CPUIModelMessageGroup.h"
+#import "CPUIModelManagement.h"
+#import "CPUIModelPersonalInfo.h"
+
+#import "ImageUtil.h"
 @interface MutilMsgGroupViewController ()
 {
     NSArray *mutilMsgGroups;
@@ -89,14 +93,40 @@
     
     CPUIModelMessageGroup *tempMsgGroup = [mutilMsgGroups objectAtIndex:indexPath.row];
     
-    BBMessageGroupBaseCell *cell = [tableView dequeueReusableCellWithIdentifier:messageGroupCellIdentifier];
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:messageGroupCellIdentifier];
     if (!cell) {
-        cell = [[BBGroupMessageGroupCell  alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:messageGroupCellIdentifier];
+        cell = [[UITableViewCell  alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:messageGroupCellIdentifier];
+        cell.contentView.backgroundColor = [UIColor whiteColor];
+        cell.backgroundColor = [UIColor whiteColor];
+        cell.textLabel.numberOfLines = 2;
+        cell.textLabel.font = [UIFont systemFontOfSize:14.f];
+    }
+    if (tempMsgGroup) {
+        if (tempMsgGroup.memberList.count > 1) {
+            NSArray *array = [NSArray arrayWithArray:tempMsgGroup.memberList];;
+            NSString *title = @"";
+            int i = 0;
+            for (CPUIModelUserInfo *user in array) {
+                if (![user.nickName isEqualToString:[CPUIModelManagement sharedInstance].uiPersonalInfo.nickName]) {
+                    if (user.nickName == nil || [user.nickName isEqualToString:@""]) {
+                        continue;
+                    }
+                    if (i == 2) {
+                        break;
+                    }
+                    i++;
+                    title = [NSString stringWithFormat:@"%@ %@",title,user.nickName];
+                }
+            }
+            title = [title stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
+            cell.textLabel.text = [NSString stringWithFormat:@"%@等%d人",title,tempMsgGroup.memberList.count];
+            
+            
+        }else cell.textLabel.text = @"群聊";
+        
+        cell.imageView.image = [UIImage groupHeader:tempMsgGroup];
     }
 
-    [cell setUIModelMsgGroup:tempMsgGroup];
-    cell.contentView.backgroundColor = [UIColor whiteColor];
-    cell.backgroundColor = [UIColor whiteColor];
     return cell;
 }
 

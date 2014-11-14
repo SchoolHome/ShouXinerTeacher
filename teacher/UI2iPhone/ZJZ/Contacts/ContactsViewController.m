@@ -334,7 +334,7 @@
         
         
         UIView *sectionView = [[UIView alloc] initWithFrame:CGRectZero];
-        sectionView.backgroundColor = [UIColor clearColor];
+        sectionView.backgroundColor = [UIColor colorWithHexString:@"#f2f2f2"];
         //sectionView.backgroundColor = [UIColor colorWithRed:128/255.f green:143/255.f blue:155/255.f alpha:1.f];
         
         UILabel *title = [[UILabel alloc] initWithFrame:CGRectMake(10.f, 6.f, 200.f, 20.f)];
