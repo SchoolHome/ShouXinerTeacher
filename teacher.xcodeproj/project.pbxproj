@@ -225,6 +225,8 @@
 		1970BC5C191BB7E400F63454 /* ActivateButtonPress@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1970BC54191BB7E400F63454 /* ActivateButtonPress@2x.png */; };
 		1970BC5D191BB7E400F63454 /* ActivateSmallFrom.png in Resources */ = {isa = PBXBuildFile; fileRef = 1970BC55191BB7E400F63454 /* ActivateSmallFrom.png */; };
 		1970BC5E191BB7E400F63454 /* ActivateSmallFrom@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1970BC56191BB7E400F63454 /* ActivateSmallFrom@2x.png */; };
+		19735B441A14CFFB000DA633 /* GetSmsCode.png in Resources */ = {isa = PBXBuildFile; fileRef = 19735B421A14CFFB000DA633 /* GetSmsCode.png */; };
+		19735B451A14CFFB000DA633 /* GetSmsCode@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 19735B431A14CFFB000DA633 /* GetSmsCode@2x.png */; };
 		19757BD519F8F732009F9E17 /* BJQHaveNotZanButton.png in Resources */ = {isa = PBXBuildFile; fileRef = 19757BCD19F8F732009F9E17 /* BJQHaveNotZanButton.png */; };
 		19757BD619F8F732009F9E17 /* BJQHaveNotZanButton@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 19757BCE19F8F732009F9E17 /* BJQHaveNotZanButton@2x.png */; };
 		19757BD719F8F732009F9E17 /* BJQMoreBg.png in Resources */ = {isa = PBXBuildFile; fileRef = 19757BCF19F8F732009F9E17 /* BJQMoreBg.png */; };
@@ -1762,6 +1764,8 @@
 		1970BC54191BB7E400F63454 /* ActivateButtonPress@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ActivateButtonPress@2x.png"; sourceTree = "<group>"; };
 		1970BC55191BB7E400F63454 /* ActivateSmallFrom.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ActivateSmallFrom.png; sourceTree = "<group>"; };
 		1970BC56191BB7E400F63454 /* ActivateSmallFrom@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ActivateSmallFrom@2x.png"; sourceTree = "<group>"; };
+		19735B421A14CFFB000DA633 /* GetSmsCode.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = GetSmsCode.png; sourceTree = "<group>"; };
+		19735B431A14CFFB000DA633 /* GetSmsCode@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "GetSmsCode@2x.png"; sourceTree = "<group>"; };
 		19757BCD19F8F732009F9E17 /* BJQHaveNotZanButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = BJQHaveNotZanButton.png; sourceTree = "<group>"; };
 		19757BCE19F8F732009F9E17 /* BJQHaveNotZanButton@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "BJQHaveNotZanButton@2x.png"; sourceTree = "<group>"; };
 		19757BCF19F8F732009F9E17 /* BJQMoreBg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = BJQMoreBg.png; sourceTree = "<group>"; };
@@ -4142,6 +4146,8 @@
 		1970BC4E191BB7E400F63454 /* Activate */ = {
 			isa = PBXGroup;
 			children = (
+				19735B421A14CFFB000DA633 /* GetSmsCode.png */,
+				19735B431A14CFFB000DA633 /* GetSmsCode@2x.png */,
 				193617FA1926764000548F7E /* ActivateSmallFrom2.png */,
 				193617FB1926764000548F7E /* ActivateSmallFrom2@2x.png */,
 				1970BC4F191BB7E400F63454 /* ActivateBigFrom.png */,
@@ -8028,6 +8034,7 @@
 				193FA7A319F0A27A00874F1E /* up@2x.png in Resources */,
 				332D7E6518C33F0A007A75D5 /* alarm_im_item_float@2x.png in Resources */,
 				1982F6F21A0C71830075F35F /* ZJZSenderSound.png in Resources */,
+				19735B441A14CFFB000DA633 /* GetSmsCode.png in Resources */,
 				1982F7521A0C72820075F35F /* button_talk_press.png in Resources */,
 				19A83D4718D34C8900441FDE /* LoginButton@2x.png in Resources */,
 				19B1B56A19FA5E430062A05C /* BJQRongYun@2x.png in Resources */,
@@ -8205,6 +8212,7 @@
 				332D823C18C33F0A007A75D5 /* btn_Female-symbol_im@2x.png in Resources */,
 				332D7F1118C33F0A007A75D5 /* pic_firend@2x.jpg in Resources */,
 				7A46B21418F44CC4006AEA00 /* BBheart@2x.png in Resources */,
+				19735B451A14CFFB000DA633 /* GetSmsCode@2x.png in Resources */,
 				19E1A0E5194EB2E6009C06F7 /* 5.png in Resources */,
 				1950ADB418D2B72A002120C4 /* Login@2x.png in Resources */,
 				332D757118C33552007A75D5 /* libidn-1.15.tar.gz in Resources */,

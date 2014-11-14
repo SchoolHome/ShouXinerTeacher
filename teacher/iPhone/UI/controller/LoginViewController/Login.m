@@ -198,9 +198,10 @@
         
         if(login_code_int == 0){
             if (![PalmUIManagement sharedInstance].loginResult.recommend && ![PalmUIManagement sharedInstance].loginResult.force) {
-                if (![PalmUIManagement sharedInstance].loginResult.activated) {
+                if ([PalmUIManagement sharedInstance].loginResult.activated) {
                     [self closeProgress];
-                    activateViewController *activate = [[activateViewController alloc] initActivateViewController:[PalmUIManagement sharedInstance].loginResult.needSetUserName];
+//                    activateViewController *activate = [[activateViewController alloc] initActivateViewController:[PalmUIManagement sharedInstance].loginResult.needSetUserName];
+                    activateViewController *activate = [[activateViewController alloc] initActivateViewController:YES];
                     [self.navigationController pushViewController:activate animated:YES];
                 }else{
                     [self closeProgress];
@@ -231,7 +232,8 @@
         }
     }else{
         if (![PalmUIManagement sharedInstance].loginResult.activated) {
-            activateViewController *activate = [[activateViewController alloc] initActivateViewController:[PalmUIManagement sharedInstance].loginResult.needSetUserName];
+//            activateViewController *activate = [[activateViewController alloc] initActivateViewController:[PalmUIManagement sharedInstance].loginResult.needSetUserName];
+            activateViewController *activate = [[activateViewController alloc] initActivateViewController:YES];
             [self.navigationController pushViewController:activate animated:YES];
         }else{
             [self closeProgress];

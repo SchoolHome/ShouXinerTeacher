@@ -11,11 +11,13 @@
 
 @interface activateViewController ()<UITextFieldDelegate>
 @property (nonatomic) BOOL needSetUserName;
-@property (nonatomic,strong) UITextField *userName;
+@property (nonatomic,strong) UITextField *smsCode;
 @property (nonatomic,strong) UITextField *telPhone;
-@property (nonatomic,strong) UITextField *email;
+@property (nonatomic,strong) UITextField *passwordOld;
 @property (nonatomic,strong) UITextField *password;
 @property (nonatomic,strong) UITextField *confrimPassWord;
+@property (nonatomic,strong) UIButton *smsButton;
+-(void) getsmsCode;
 @end
 
 @implementation activateViewController
@@ -29,23 +31,14 @@
 
 -(void) viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
-//    [[NSNotificationCenter defaultCenter] addObserver:self
-//                                             selector:@selector(keyboardWillShow:)
-//                                                 name:UIKeyboardWillShowNotification
-//                                               object:nil];
-//    
-//    [[NSNotificationCenter defaultCenter] addObserver:self
-//                                             selector:@selector(keyboardWillHide:)
-//                                                 name:UIKeyboardWillHideNotification
-//                                               object:nil];
-    [[PalmUIManagement sharedInstance] addObserver:self forKeyPath:@"activateDic" options:0 context:nil];
+    [[PalmUIManagement sharedInstance] addObserver:self forKeyPath:@"postUserInfoResult" options:0 context:nil];
+    [[PalmUIManagement sharedInstance] addObserver:self forKeyPath:@"smsVerifyCode" options:0 context:nil];
 }
 
 -(void) viewDidDisappear:(BOOL)animated{
-    [super viewDidDisappear:animated];
-//    [[NSNotificationCenter defaultCenter] removeObserver:self name:UIKeyboardWillShowNotification object:nil];
-//    [[NSNotificationCenter defaultCenter] removeObserver:self name:UIKeyboardWillHideNotification object:nil];
-    [[PalmUIManagement sharedInstance] removeObserver:self forKeyPath:@"activateDic"];
+    [super viewDidDisappear:animated];;
+    [[PalmUIManagement sharedInstance] removeObserver:self forKeyPath:@"postUserInfoResult"];
+    [[PalmUIManagement sharedInstance] removeObserver:self forKeyPath:@"smsVerifyCode"];
 }
 
 -(void) keyboardWillShow : (NSNotification *)not{
@@ -99,46 +92,54 @@
     
     if (self.needSetUserName) {
         UIImageView *fromImage = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"ActivateBigFrom"]];
-        fromImage.frame = CGRectMake((320.0f-283.0f)/2.0f, 110.0f, 283.0f, 211.0f);
+        fromImage.frame = CGRectMake(0.0f, 29.0f, 320.0f, 224.0f);
         fromImage.userInteractionEnabled = YES;
         [self.view addSubview:fromImage];
         
-        self.userName = [[UITextField alloc] initWithFrame:CGRectMake(85.0f, 12.0f, 180.0f, 24.0f)];
-        self.userName.backgroundColor = [UIColor clearColor];
-        self.userName.textAlignment = NSTextAlignmentRight;
-        self.userName.returnKeyType = UIReturnKeyDone;
-        self.userName.delegate = self;
-        [fromImage addSubview:self.userName];
-        
-        self.telPhone = [[UITextField alloc] initWithFrame:CGRectMake(85.0f, 52.0f, 180.0f, 24.0f)];
+        self.telPhone = [[UITextField alloc] initWithFrame:CGRectMake(95.0f, 12.0f, 180.0f, 24.0f)];
         self.telPhone.backgroundColor = [UIColor clearColor];
-        self.telPhone.textAlignment = NSTextAlignmentRight;
+        self.telPhone.textAlignment = NSTextAlignmentLeft;
         self.telPhone.returnKeyType = UIReturnKeyDone;
         self.telPhone.keyboardType = UIKeyboardTypeNumberPad;
         self.telPhone.delegate = self;
         [fromImage addSubview:self.telPhone];
         
-        self.email = [[UITextField alloc] initWithFrame:CGRectMake(85.0f, 92.0f, 180.0f, 24.0f)];
-        self.email.backgroundColor = [UIColor clearColor];
-        self.email.textAlignment = NSTextAlignmentRight;
-        self.email.returnKeyType = UIReturnKeyDone;
-        self.email.keyboardType = UIKeyboardTypeEmailAddress;
-        self.email.delegate = self;
-        [fromImage addSubview:self.email];
+        self.smsCode = [[UITextField alloc] initWithFrame:CGRectMake(95.0f, 55.0f, 90.0f, 24.0f)];
+        self.smsCode.backgroundColor = [UIColor clearColor];
+        self.smsCode.textAlignment = NSTextAlignmentLeft;
+        self.smsCode.returnKeyType = UIReturnKeyDone;
+        self.smsCode.keyboardType = UIKeyboardTypeNumberPad;
+        self.smsCode.delegate = self;
+        [fromImage addSubview:self.smsCode];
         
-        self.password = [[UITextField alloc] initWithFrame:CGRectMake(85.0f, 132.0f, 180.0f, 24.0f)];
+        self.smsButton = [UIButton buttonWithType:UIButtonTypeCustom];
+        [self.smsButton setBackgroundImage:[UIImage imageNamed:@"GetSmsCode"] forState:UIControlStateNormal];
+        [self.smsButton setBackgroundImage:[UIImage imageNamed:@"GetSmsCode"] forState:UIControlStateHighlighted];
+        self.smsButton.frame = CGRectMake(210.0f, 52.0f, 80.0f, 30.0f);
+        [self.smsButton addTarget:self action:@selector(getsmsCode) forControlEvents:UIControlEventTouchUpInside];
+        [fromImage addSubview:self.smsButton];
+        
+        self.passwordOld = [[UITextField alloc] initWithFrame:CGRectMake(95.0f, 98.0f, 180.0f, 24.0f)];
+        self.passwordOld.backgroundColor = [UIColor clearColor];
+        self.passwordOld.textAlignment = NSTextAlignmentLeft;
+        self.passwordOld.returnKeyType = UIReturnKeyDone;
+        self.passwordOld.secureTextEntry = YES;
+        self.passwordOld.delegate = self;
+        [fromImage addSubview:self.passwordOld];
+        
+        self.password = [[UITextField alloc] initWithFrame:CGRectMake(95.0f, 144.0f, 180.0f, 24.0f)];
         self.password.backgroundColor = [UIColor clearColor];
-        self.password.textAlignment = NSTextAlignmentRight;
+        self.password.textAlignment = NSTextAlignmentLeft;
         self.password.returnKeyType = UIReturnKeyDone;
         self.password.secureTextEntry = YES;
         self.password.delegate = self;
         [fromImage addSubview:self.password];
         
-        self.confrimPassWord = [[UITextField alloc] initWithFrame:CGRectMake(85.0f, 172.0f, 180.0f, 24.0f)];
+        self.confrimPassWord = [[UITextField alloc] initWithFrame:CGRectMake(95.0f, 190.0f, 180.0f, 24.0f)];
         self.confrimPassWord.backgroundColor = [UIColor clearColor];
         self.confrimPassWord.returnKeyType = UIReturnKeyDone;
         self.confrimPassWord.secureTextEntry = YES;
-        self.confrimPassWord.textAlignment = NSTextAlignmentRight;
+        self.confrimPassWord.textAlignment = NSTextAlignmentLeft;
         self.confrimPassWord.delegate = self;
         [fromImage addSubview:self.confrimPassWord];
     }else{
@@ -183,9 +184,9 @@
 }
 
 -(void) clickBG : (UIGestureRecognizer *) recognizer{
-    [self.userName resignFirstResponder];
+    [self.smsCode resignFirstResponder];
     [self.telPhone resignFirstResponder];
-    [self.email resignFirstResponder];
+    [self.passwordOld resignFirstResponder];
     [self.password resignFirstResponder];
     [self.confrimPassWord resignFirstResponder];
 }
@@ -202,15 +203,33 @@
         telPhoneText = [self.telPhone.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
     }
     
-    NSString *passwordText = [self.password.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
-    NSString *confrimPassWordText = [self.confrimPassWord.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
-    
     if (nil != self.telPhone) {
-        if (nil == telPhoneText) {
+        if (nil == telPhoneText || [telPhoneText isEqualToString:@""]) {
             [self showProgressWithText:@"手机号不能为空" withDelayTime:1.0f];
             return;
         }
     }
+    
+    NSString *smsCode = nil;
+    if (nil != self.smsCode) {
+        smsCode = [self.smsCode.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
+    }
+    if (nil == smsCode || [smsCode isEqualToString:@""]) {
+        [self showProgressWithText:@"验证码不能为空" withDelayTime:1.0f];
+        return;
+    }
+    
+    NSString *passwordOld = nil;
+    if (nil != self.passwordOld) {
+        passwordOld = [self.passwordOld.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
+    }
+    if (nil == passwordOld || [passwordOld isEqualToString:@""]) {
+        [self showProgressWithText:@"旧密码不能为空" withDelayTime:1.0f];
+        return;
+    }
+    
+    NSString *passwordText = [self.password.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
+    NSString *confrimPassWordText = [self.confrimPassWord.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
     
     if ((nil != passwordText && ![passwordText isEqualToString:@""]) || (nil != confrimPassWordText && ![confrimPassWordText isEqualToString:@""])) {
         if (![passwordText isEqualToString:confrimPassWordText]) {
@@ -218,18 +237,37 @@
             return;
         }
     }
-//    [[PalmUIManagement sharedInstance] activate:@"" withTelPhone:telPhoneText withEmail:@"" withPassWord:passwordText];
-    [[PalmUIManagement sharedInstance] postUserInfo:@"" withMobile:telPhoneText withVerifyCode:@"" withPasswordOld:@"" withPasswordNew:@"" withSex:0 withSign:@""];
+
+    [[PalmUIManagement sharedInstance] postUserInfo:@"" withMobile:telPhoneText withVerifyCode:smsCode withPasswordOld:passwordOld withPasswordNew:passwordText withSex:0 withSign:@""];
+}
+
+-(void) getsmsCode{
+    NSString *telPhoneText = nil;
+    if (nil != self.telPhone) {
+        telPhoneText = [self.telPhone.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
+    }
+    if (nil != self.telPhone) {
+        if (nil == telPhoneText || [telPhoneText isEqualToString:@""]) {
+            [self showProgressWithText:@"手机号不能为空" withDelayTime:1.0f];
+            return;
+        }
+    }
+    [[PalmUIManagement sharedInstance] getSMSVerifyCode:telPhoneText];
 }
 
 -(void) observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context{
-    if ([keyPath isEqualToString:@"activateDic"]) {
-        if ([[PalmUIManagement sharedInstance].activateDic[ASI_REQUEST_HAS_ERROR] boolValue]) {
-            [self showProgressWithText:[PalmUIManagement sharedInstance].activateDic[ASI_REQUEST_ERROR_MESSAGE] withDelayTime:1.0f];
+    if ([keyPath isEqualToString:@"postUserInfoResult"]) {
+        if ([[PalmUIManagement sharedInstance].postUserInfoResult[ASI_REQUEST_HAS_ERROR] boolValue]) {
+            [self showProgressWithText:[PalmUIManagement sharedInstance].postUserInfoResult[ASI_REQUEST_ERROR_MESSAGE] withDelayTime:1.0f];
             return;
         }
         AppDelegate *appDelegate = (AppDelegate *)[UIApplication sharedApplication].delegate;
         [appDelegate launchApp];
+    }else if ([keyPath isEqualToString:@"smsVerifyCode"]){
+        if ([[PalmUIManagement sharedInstance].smsVerifyCode[ASI_REQUEST_HAS_ERROR] boolValue]) {
+            [self showProgressWithText:[PalmUIManagement sharedInstance].smsVerifyCode[ASI_REQUEST_ERROR_MESSAGE] withDelayTime:1.0f];
+            return;
+        }
     }
 }
 
