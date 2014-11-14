@@ -31,7 +31,8 @@
 @interface BBZJZViewController ()
 {
     NSInteger listType;
-
+    //是否请求过班级列表
+    BOOL isRequestClassList;
 }
 @property (nonatomic, strong)NSArray *tableviewDisplayDataArray;
 @property (nonatomic, strong) NSArray *classModels; //班级
@@ -117,11 +118,15 @@
     }
     */
     self.view.backgroundColor = [UIColor colorWithRed:242/255.f green:236/255.f blue:230/255.f alpha:1.f];
-    [[PalmUIManagement sharedInstance] getGroupList];
 }
 
 -(void) viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
+    
+    if (!self.classModels.count) {
+        isRequestClassList = NO;
+        [self requestClasList];
+    }
     
     int unReadCount = 0;
     for (id messageGroup in _tableviewDisplayDataArray) {
@@ -220,6 +225,15 @@
 
 }
 #pragma mark BBZJZViewControllerMethod
+
+- (void)requestClasList
+{
+    if (!isRequestClassList) {
+        [[PalmUIManagement sharedInstance] getGroupList];
+        isRequestClassList = YES;
+    }
+}
+
 - (void)segeValueChanged:(UIButton *)sender
 {
     sender.selected = !sender.selected;
@@ -291,7 +305,7 @@
             tempModel.isParent  = YES;
             
             
-            
+            //所属班级
             NSDictionary *dic = (NSDictionary *)[model.birthday objectFromJSONString];
             NSLog(@"%@",dic);
             if (dic && dic.allKeys > 0) {
