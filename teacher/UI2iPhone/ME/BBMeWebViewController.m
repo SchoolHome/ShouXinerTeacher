@@ -87,6 +87,13 @@
     return YES;
 }
 
+- (void)webView:(UIWebView *)webView didFailLoadWithError:(NSError *)error
+{
+    if (error.code < 0) {
+        [self.navigationController popViewControllerAnimated:YES];
+    }
+}
+
 /*
 #pragma mark - Navigation
 
