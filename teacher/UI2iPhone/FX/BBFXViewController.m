@@ -211,7 +211,7 @@
     NSInteger index = gridView.rowIndex*3 + gridView.colIndex;
     BBFXModel *model = [self.serviceArray objectAtIndex:index];
     model.isNew = NO;
-    [gridView.imageFlag setHidden:YES];
+    [gridView.flagNew setHidden:YES];
     BBFXDetailViewController *detailViewController = [[BBFXDetailViewController alloc] init];
     detailViewController.url = [NSURL URLWithString:model.url];
     [detailViewController setHidesBottomBarWhenPushed:YES];
