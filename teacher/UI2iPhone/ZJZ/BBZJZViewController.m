@@ -7,20 +7,20 @@
 //
 
 #import "BBZJZViewController.h"
-#import "CPUIModelManagement.h"
 #import "ContactsViewController.h"
-
-//test
+#import "MutilMsgGroupViewController.h"
 #import "BBSingleIMViewController.h"
 #import "BBMutilIMViewController.h"
 #import "XiaoShuangIMViewController.h"
 #import "SystemIMViewController.h"
 #import "ShuangShuangTeamViewController.h"
+
+#import "BBNotifyMessageGroupCell.h"
 //shouxin version 4
 #import "BBGroupModel.h"
 
 //notifyMessage change
-#import "BBNotifyMessageGroupCell.h"
+#import "CPUIModelManagement.h"
 #import "CPDBModelNotifyMessage.h"
 #import "CPDBManagement.h"
 
@@ -33,7 +33,7 @@
     NSInteger listType;
 
 }
-@property (nonatomic , strong)NSArray *tableviewDisplayDataArray;
+@property (nonatomic, strong)NSArray *tableviewDisplayDataArray;
 @property (nonatomic, strong) NSArray *classModels; //班级
 @property (nonatomic , strong)BBMessageGroupBaseTableView *messageListTableview;
 @property (nonatomic , strong)UISearchBar *messageListTableSearchBar;
@@ -164,11 +164,10 @@
 
 - (NSArray *) tableviewDisplayDataArray
 {
-    
     if (!_tableviewDisplayDataArray) {
 //        _tableviewDisplayDataArray = [[NSArray alloc] initWithArray:[CPUIModelManagement sharedInstance].userMessageGroupList];
         NSArray *array = [NSArray arrayWithArray:[CPUIModelManagement sharedInstance].userMessageGroupList];
-        NSMutableArray *arrayM = [[NSMutableArray alloc] initWithCapacity:10];
+        NSMutableArray *arrayM = [[NSMutableArray alloc] initWithCapacity:20];
         for (CPUIModelMessageGroup *g in array) {
             if ([g.msgList count] != 0) {
                 [arrayM addObject:g];
@@ -224,14 +223,8 @@
     listType = sender.selected ? LIST_TYPE_CONTACTS : LIST_TYPE_MSG_GROUP;
     [self.messageListTableview reloadData];
 }
--(void)turnToContactsViewController
-{
-    ContactsViewController *contacts = [[ContactsViewController alloc] init];
-//    [self presentModalViewController:contacts animated:YES];
-    contacts.hidesBottomBarWhenPushed = YES;
-    [self.navigationController pushViewController:contacts animated:YES];
-}
--(NSMutableArray *)searchResultListByKeyWord:(NSString *)keyword
+
+- (NSMutableArray *)searchResultListByKeyWord:(NSString *)keyword
 {
     NSMutableArray *tempSearchResult = [[NSMutableArray alloc] init];
     for (CPUIModelMessageGroup *msgGroup in [CPUIModelManagement sharedInstance].userMessageGroupList) {
@@ -294,6 +287,8 @@
             tempModel.isTeacher = NO;
             tempModel.isParent  = YES;
             
+            
+            
             NSDictionary *dic = (NSDictionary *)[model.birthday objectFromJSONString];
             NSLog(@"%@",dic);
             if (dic && dic.allKeys > 0) {
@@ -307,7 +302,6 @@
             tempModel.isParent  = YES;
             [tempTeachersArray addObject:tempModel];
             NSDictionary *dic = (NSDictionary *)[model.birthday objectFromJSONString];
-            NSLog(@"%@",dic);
             if (dic && dic.allKeys > 0) {
                 if ([dic.allKeys[0] integerValue] == classNum) {
                     [tempParentsArray addObject:tempModel];
@@ -349,6 +343,7 @@
  */
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    
     //notifyMessage change
     if (listType == LIST_TYPE_MSG_GROUP)
     {
@@ -384,6 +379,7 @@
         }
     }else
     {
+        
         switch (indexPath.section) {
             case 0:
             {
@@ -392,8 +388,11 @@
                 NSArray *contacts = [self classifyDataByType:[tempModel.groupid integerValue]];
                 if (contacts.count) {
                     ContactsViewController *contact = [[ContactsViewController alloc] initWithContactsArray:contacts];
+                    contact.hidesBottomBarWhenPushed = YES;
+                    contact.title = tempModel.alias;
                     [self.navigationController pushViewController:contact animated:YES];
-                }
+                }else [self showProgressWithText:@"当前班级无任何联系人" withDelayTime:2.f];
+                
             }
                 break;
             case 1:
@@ -401,13 +400,25 @@
                 NSArray *contacts = [self classifyDataByType:-1];
                 if (contacts.count) {
                     ContactsViewController *contact = [[ContactsViewController alloc] initWithContactsArray:contacts];
+                    contact.hidesBottomBarWhenPushed = YES;
+                    contact.title = @"同事";
                     [self.navigationController pushViewController:contact animated:YES];
-                }
+                }else [self showProgressWithText:@"当前无任何联系人" withDelayTime:2.f];
             }
                 break;
             case 2:
             {
-                
+                NSMutableArray *tempMutilMsgGroups = [[NSMutableArray alloc] init];
+                for (CPUIModelMessageGroup *group in self.tableviewDisplayDataArray) {
+                    if ([group isKindOfClass:[CPUIModelMessageGroup class]]) {
+                        if (![group isMsgSingleGroup] && [group.msgList count] != 0) {
+                            [tempMutilMsgGroups addObject:group];
+                        }
+                    }
+                }
+                MutilMsgGroupViewController *mutilMsgGroup = [[MutilMsgGroupViewController alloc] initWithMutilMsgGroups:tempMutilMsgGroups];
+                mutilMsgGroup.hidesBottomBarWhenPushed = YES;
+                [self.navigationController pushViewController:mutilMsgGroup animated:YES];
             }
                 break;
             case 3:
@@ -418,6 +429,7 @@
             default:
                 break;
         }
+        [tableView deselectRowAtIndexPath:indexPath animated:NO];
     }
     
 
@@ -541,9 +553,7 @@
         [[CPSystemEngine sharedInstance] deleteNotifyMessageGroupByOperationWithObj:tempMsgGroup];
 //        CPDBModelNotifyMessage *msgGroup = tempMsgGroup;
 //        [[[CPSystemEngine sharedInstance] dbManagement] deleteMsgGroupByFrom:msgGroup.from];
-        
     }
-    
 }
 #pragma mark SearchBarDelegate
 -(void)searchBar:(UISearchBar *)searchBar textDidChange:(NSString *)searchText

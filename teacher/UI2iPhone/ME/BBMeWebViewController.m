@@ -1,55 +1,67 @@
 //
-//  BBFXDetailViewController.m
+//  BBMeWebViewController.m
 //  teacher
 //
-//  Created by mac on 14/11/10.
+//  Created by mac on 14/11/14.
 //  Copyright (c) 2014年 ws. All rights reserved.
 //
 
-#import "BBFXDetailViewController.h"
+#import "BBMeWebViewController.h"
 
-@interface BBFXDetailViewController ()
+@interface BBMeWebViewController ()
 {
-    UIWebView  *adWebview;
+    UIWebView *setWebview;
 }
 @end
 
-@implementation BBFXDetailViewController
-
--(id)init{
-    self = [super init];
-    if (self) {
-        
-    }
-    return self;
-}
+@implementation BBMeWebViewController
 
 -(void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    [self.navigationController setNavigationBarHidden:YES];
+    if (self.isHiddenHeader) {
+        [self.navigationController setNavigationBarHidden:YES];
+    }
 }
 
 -(void)viewWillDisappear:(BOOL)animated
 {
     [super viewWillDisappear:animated];
-    [self.navigationController setNavigationBarHidden:NO];
+    if (self.isHiddenHeader) {
+        [self.navigationController setNavigationBarHidden:NO];
+    }
 }
 
 -(void)loadView
 {
     [super loadView];
-    CGFloat height = 0;
+    CGFloat height = 0, fixHeight = 0;
     if (IOS7) {
         height = 20;
+        fixHeight = 0;
     }
-    adWebview = [[UIWebView alloc] initWithFrame:CGRectMake(0.f, height, self.view.frame.size.width, self.screenHeight-height)];
-    adWebview.scalesPageToFit = YES;
-    adWebview.delegate = (id<UIWebViewDelegate>)self;
-    [adWebview.scrollView setMaximumZoomScale:4.f];
+    if (!self.isHiddenHeader) {
+        UIButton *back = [UIButton buttonWithType:UIButtonTypeCustom];
+        [back setFrame:CGRectMake(0.f, 7.f, 22.f, 22.f)];
+        [back setBackgroundImage:[UIImage imageNamed:@"back.png"] forState:UIControlStateNormal];
+        [back addTarget:self action:@selector(backViewController) forControlEvents:UIControlEventTouchUpInside];
+        self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:back];
+        height = 0;
+        fixHeight = IOS7?64:44;
+    }
+    
+    setWebview = [[UIWebView alloc] initWithFrame:CGRectMake(0.f, height, self.view.frame.size.width, self.screenHeight-height-fixHeight)];
+    setWebview.scalesPageToFit = YES;
+    setWebview.delegate = (id<UIWebViewDelegate>)self;
+    [setWebview.scrollView setMaximumZoomScale:4.f];
     NSURLRequest *request =[NSURLRequest requestWithURL:self.url];
-    [adWebview loadRequest:request];
-    [self.view addSubview:adWebview];
+    [setWebview loadRequest:request];
+    [self.view addSubview:setWebview];
+}
+
+-(void)backViewController
+{
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 - (void)viewDidLoad {
@@ -91,10 +103,5 @@
     // Pass the selected object to the new view controller.
 }
 */
-
--(void)dealloc
-{
-    [adWebview setDelegate:nil];
-}
 
 @end

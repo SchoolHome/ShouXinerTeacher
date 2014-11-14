@@ -10,6 +10,7 @@
 #import "BBMeTableViewCell.h"
 #import "BBMeProfileController.h"
 #import "BBMeSettingViewController.h"
+#import "BBMeWebViewController.h"
 #import "BBShopViewController.h"
 #import "BBHelpViewController.h"
 #import "BBFeedbackViewController.h"
@@ -108,7 +109,6 @@
 -(void)clickInfoBtn:(UITapGestureRecognizer *)tap
 {
     BBMeProfileController *viewController = [[BBMeProfileController alloc] init];
-    viewController.profileModel = profileModel;
     [viewController setHidesBottomBarWhenPushed:YES];
     [self.navigationController pushViewController:viewController animated:YES];
 }
@@ -230,7 +230,12 @@
     NSArray *dataList = [listData objectAtIndex:indexPath.section];
     NSDictionary *dataDic = [dataList objectAtIndex:indexPath.row];
     if ([[dataDic objectForKey:@"url"] length]>0) {
-        
+        BBMeWebViewController *viewController = [[BBMeWebViewController alloc] init];
+        [viewController setHidesBottomBarWhenPushed:YES];
+        [viewController.navigationItem setTitle:[dataDic objectForKey:@"title"]];
+        viewController.url = [NSURL URLWithString:[dataDic objectForKey:@"url"]];
+        viewController.isHiddenHeader = NO;
+        [self.navigationController pushViewController:viewController animated:YES];
     }else{
         BBMeSettingViewController *viewController = [[BBMeSettingViewController alloc] init];
         [viewController setHidesBottomBarWhenPushed:YES];
@@ -250,7 +255,7 @@
         [headerImgBtn setUserInteractionEnabled:YES];
         NSDictionary *userProfile = [[PalmUIManagement sharedInstance].userProfile objectForKey:ASI_REQUEST_DATA];
         if (!profileModel) {
-            profileModel = [[BBProfileModel alloc] init];
+            profileModel = [BBProfileModel shareProfileModel];
         }
         [profileModel coverWithJson:userProfile];
         //查询用户商城积分

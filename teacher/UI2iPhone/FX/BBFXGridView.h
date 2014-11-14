@@ -15,7 +15,7 @@
 @property (nonatomic) NSInteger rowIndex;
 @property (nonatomic, strong) UILabel *txtName;
 @property (nonatomic, strong) EGOImageView *egoLogo;
-@property (nonatomic, strong) UIImageView *imageFlag;
+@property (nonatomic, strong) UIView *flagNew;
 
 -(void)setViewData:(BBFXModel *)model;
 @end

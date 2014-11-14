@@ -9,7 +9,7 @@
 #import "BBFXGridView.h"
 
 @implementation BBFXGridView
-@synthesize txtName = _txtName, egoLogo = _egoLogo, imageFlag = _imageFlag;
+@synthesize txtName = _txtName, egoLogo = _egoLogo, flagNew = _flagNew;
 -(id)init{
     self = [super init];
     if (self) {
@@ -22,11 +22,11 @@
         [_txtName setFont:[UIFont boldSystemFontOfSize:12]];
         [self addSubview:_txtName];
         
-        _imageFlag = [[UIImageView alloc] init];
-        [_imageFlag setImage:[UIImage imageNamed:@"fx_grid_flag.png"]];
-        [_imageFlag setBackgroundColor:[UIColor redColor]];
-        [_imageFlag setHidden:YES];
-        [self addSubview:_imageFlag];
+        _flagNew = [[UIView alloc] init];
+        [_flagNew setBackgroundColor:[UIColor redColor]];
+        [_flagNew.layer setCornerRadius:5];
+        [_flagNew setHidden:YES];
+        [self addSubview:_flagNew];
     }
     return self;
 }
@@ -42,7 +42,7 @@
     
     [self.egoLogo setFrame:CGRectMake(0, 0, frame.size.width-1, frame.size.height-20)];
     [self.txtName setFrame:CGRectMake(0, frame.size.height-20, frame.size.width-1, 20)];
-    [self.imageFlag setFrame:CGRectMake(frame.size.width-20, 10, 10, 10)];
+    [self.flagNew setFrame:CGRectMake(frame.size.width-20, 10, 10, 10)];
 }
 
 /*
@@ -58,7 +58,7 @@
     [self.egoLogo setImageURL:[NSURL URLWithString:model.image]];
     [self.txtName setText:model.title];
     if (model.isNew) {
-        [self.imageFlag setHidden:NO];
+        [self.flagNew setHidden:NO];
     }
 }
 @end

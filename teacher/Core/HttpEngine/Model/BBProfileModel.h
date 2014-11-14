@@ -13,10 +13,11 @@
 @property (nonatomic, strong) NSString *jid;
 @property (nonatomic, strong) NSString *username;
 @property (nonatomic, strong) NSString *avatar;
-@property (nonatomic, strong) NSString *sex;
+@property (nonatomic) NSInteger sex;
 @property (nonatomic, strong) NSString *brithday;
 @property (nonatomic, strong) NSString *sign;
 @property (nonatomic, strong) NSString *cityname;
 @property (nonatomic, strong) NSString *city;
++(id)shareProfileModel;
 -(void)coverWithJson:(NSDictionary *)jsonDic;
 @end

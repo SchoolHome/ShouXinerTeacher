@@ -5,8 +5,8 @@
 //  Created by ZhangQing on 14-3-17.
 //  Copyright (c) 2014年 ws. All rights reserved.
 //
-#define SmallIconWidth 31.f
-#define SmallIconHeight 22.f
+#define SmallIconWidth 23.f
+#define SmallIconHeight 23.f
 #define AllButtonsWidth 320.f-self.userNameLabel.frame.origin.x-self.userNameLabel.frame.size.width
 #import "ContactsTableviewCell.h"
 @implementation ContactsTableviewCell
@@ -16,8 +16,11 @@
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     if (self) {
         // Initialization code
+        [self.imageView setImage:[UIImage imageNamed:@"BJQPraise"]];
+        
         
         backgroundVIew = [[UIImageView alloc] initWithFrame:CGRectMake(0.f, 0.f, self.frame.size.width, 60.f)];
+        backgroundVIew.backgroundColor = [UIColor whiteColor];
         [self addSubview:backgroundVIew];
         
         //姓名
@@ -37,21 +40,21 @@
         [chat setFrame:CGRectMake(230, (60-SmallIconHeight)/2, SmallIconWidth, SmallIconHeight)];
         chat.tag = 1001;
         //chat.backgroundColor = [UIColor redColor];
-        [chat setBackgroundImage:[UIImage imageNamed:@"ZJZCellChat"] forState:UIControlStateNormal];
+        [chat setBackgroundImage:[UIImage imageNamed:@"list_chat_bubble"] forState:UIControlStateNormal];
         [chat addTarget:self action:@selector(chat) forControlEvents:UIControlEventTouchUpInside];
         [self.contentView addSubview:chat];
         //打电话
         UIButton *call = [UIButton buttonWithType:UIButtonTypeCustom];
-        [call setFrame:CGRectMake(230+SmallIconWidth, (60-SmallIconHeight)/2, SmallIconWidth, SmallIconHeight)];
+        [call setFrame:CGRectMake(CGRectGetMaxX(chat.frame)+16, (60-SmallIconHeight)/2, SmallIconWidth, SmallIconHeight)];
         //call.backgroundColor = [UIColor yellowColor];
-        [call setBackgroundImage:[UIImage imageNamed:@"ZJZCallPhone"] forState:UIControlStateNormal];
+        [call setBackgroundImage:[UIImage imageNamed:@"list_phone"] forState:UIControlStateNormal];
         [call addTarget:self action:@selector(call) forControlEvents:UIControlEventTouchUpInside];
         [self.contentView addSubview:call];
         //发短信
         UIButton *message= [UIButton buttonWithType:UIButtonTypeCustom];
         message.tag = 1002;
-        [message setFrame:CGRectMake(230, (60-SmallIconHeight)/2, SmallIconWidth, SmallIconHeight)];
-        [message setBackgroundImage:[UIImage imageNamed:@"BBAddContacts"] forState:UIControlStateNormal];
+        [message setFrame:CGRectMake(CGRectGetMinX(chat.frame), (60-SmallIconHeight)/2, SmallIconWidth, SmallIconHeight)];
+        [message setBackgroundImage:[UIImage imageNamed:@"list_add"] forState:UIControlStateNormal];
         [message addTarget:self action:@selector(message) forControlEvents:UIControlEventTouchUpInside];
         [self.contentView addSubview:message];
     }
@@ -82,7 +85,8 @@
     
     [self sendSubviewToBack:backgroundVIew];
     if (model.isActive) {
-        backgroundVIew.backgroundColor = [UIColor colorWithRed:242/255.f green:236/255.f blue:230/255.f alpha:1.f];
+        //backgroundVIew.backgroundColor = [UIColor colorWithRed:242/255.f green:236/255.f blue:230/255.f alpha:1.f];
+        backgroundVIew.backgroundColor = [UIColor whiteColor];
         [self viewWithTag:1001].hidden = NO;
         [self viewWithTag:1002].hidden = YES;
     }else

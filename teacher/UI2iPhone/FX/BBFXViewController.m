@@ -10,6 +10,7 @@
 #import "BBFXTableViewCell.h"
 #import "BBFXGridView.h"
 #import "BBFXModel.h"
+#import "BBFXDetailViewController.h"
 #import "BBFXAdScrollView.h"
 
 @interface BBFXViewController ()
@@ -61,7 +62,7 @@
             }
         }
         if ([self.serviceArray count] == 0) {
-            for (int i=0; i<3; i++) {
+            for (int i=0; i<5; i++) {
                 BBFXModel *model = [[BBFXModel alloc] init];
                 model.title = [NSString stringWithFormat:@"%d-----%d", i, i];
                 model.url = @"http://www.baidu.com";
@@ -112,6 +113,7 @@
     }
     fxTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self.screenHeight-44-49-heightFix) style:UITableViewStylePlain];
     [fxTableView setRowHeight:108];
+    [fxTableView setSeparatorColor:[UIColor clearColor]];
     [fxTableView setDelegate:(id<UITableViewDelegate>)self];
     [fxTableView setDataSource:(id<UITableViewDataSource>)self];
     [self.view addSubview:fxTableView];
@@ -170,8 +172,14 @@
     CGFloat x = 0.0f;
     for (int i=0; i<3; i++) {
         NSInteger index = i + indexPath.row * 3;
-        BBFXModel *model = [self.serviceArray objectAtIndex:index];
+        if (index >= count){
+            if ([cell.contentView.subviews count] > i) {
+                ((BBFXGridView *)[cell.contentView.subviews objectAtIndex:i]).hidden = YES;
+            }
+            continue;
+        }
         if (index < count) {
+            BBFXModel *model = [self.serviceArray objectAtIndex:index];
             if ([cell.contentView.subviews count] > i) {
                 tempGrid = [cell.contentView.subviews objectAtIndex:i];
             } else {
@@ -179,7 +187,6 @@
             }
             
             BBFXGridView *gridView = [self dequeueReusableGridView];
-            
             if (gridView.superview != cell.contentView) {
                 [gridView removeFromSuperview];
                 [cell.contentView addSubview:gridView];
@@ -201,11 +208,14 @@
 
 -(void)tapOneGrid:(BBFXGridView *)gridView
 {
-    NSLog(@"tao:::%d, %d", gridView.colIndex, gridView.rowIndex);
     NSInteger index = gridView.rowIndex*3 + gridView.colIndex;
     BBFXModel *model = [self.serviceArray objectAtIndex:index];
     model.isNew = NO;
-    [gridView.imageFlag setHidden:YES];
+    [gridView.flagNew setHidden:YES];
+    BBFXDetailViewController *detailViewController = [[BBFXDetailViewController alloc] init];
+    detailViewController.url = [NSURL URLWithString:model.url];
+    [detailViewController setHidesBottomBarWhenPushed:YES];
+    [self.navigationController pushViewController:detailViewController animated:YES];
 }
 
 -(BBFXGridView *)dequeueReusableGridView{
@@ -220,7 +230,10 @@
 #pragma adscrollview
 -(void)adViewTapped:(BBFXModel *)model
 {
-    NSLog(@"%@", model.url);
+    BBFXDetailViewController *detailViewController = [[BBFXDetailViewController alloc] init];
+    detailViewController.url = [NSURL URLWithString:model.url];
+    [detailViewController setHidesBottomBarWhenPushed:YES];
+    [self.navigationController pushViewController:detailViewController animated:YES];
 }
 
 /*
