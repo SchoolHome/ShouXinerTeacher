@@ -15,7 +15,4 @@
     UITableView *profileTableView;
     NSArray *listData;
 }
-
-@property (nonatomic, strong) NSDictionary *userProfile;
-@property (nonatomic, strong) BBProfileModel *profileModel;
 @end

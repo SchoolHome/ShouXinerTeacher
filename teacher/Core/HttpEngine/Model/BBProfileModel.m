@@ -9,13 +9,25 @@
 #import "BBProfileModel.h"
 
 @implementation BBProfileModel
+
++(id)shareProfileModel
+{
+    static BBProfileModel *model;
+    @synchronized(model){
+        if (nil == model) {
+            model = [[BBProfileModel alloc] init];
+        }
+    }
+    return model;
+}
+
 -(void)coverWithJson:(NSDictionary *)jsonDic
 {
     self.uid = jsonDic[@"uid"];
     self.jid = jsonDic[@"jid"];
     self.username = jsonDic[@"username"];
     self.avatar = jsonDic[@"avatar"];
-    self.sex = jsonDic[@"sex"];
+    self.sex = [jsonDic[@"sex"] integerValue];
     self.brithday = jsonDic[@"brithday"];
     self.sign = jsonDic[@"sign"];
     self.cityname = jsonDic[@"cityname"];

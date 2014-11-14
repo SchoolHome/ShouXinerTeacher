@@ -8,6 +8,8 @@
 
 #import "BBMeProfileController.h"
 #import "BBMeProfileTableViewCell.h"
+#import "BBPhoneModifyViewController.h"
+#import "BBSignModifyViewController.h"
 #import "CPUIModelManagement.h"
 #import "CoreUtils.h"
 #import "CPUIModelManagement.h"
@@ -22,11 +24,11 @@
     UIButton *headerImgBtn;
     UIImage *pickImage;
     NSData *imageData;
+    BBProfileModel *userProfile;
 }
 @end
 
 @implementation BBMeProfileController
-@synthesize userProfile;
 - (id)init
 {
     self = [super init];
@@ -59,6 +61,8 @@
     [back setBackgroundImage:[UIImage imageNamed:@"back.png"] forState:UIControlStateNormal];
     [back addTarget:self action:@selector(backViewController) forControlEvents:UIControlEventTouchUpInside];
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:back];
+    
+    userProfile = [BBProfileModel shareProfileModel];
     
     listData = [[NSArray alloc] initWithObjects:[NSArray arrayWithObjects:@"名字", @"地区", nil],
                 [NSArray arrayWithObjects:@"性别", @"手机号", nil], [NSArray arrayWithObjects:@"个性签名", nil], nil];
@@ -98,6 +102,9 @@
     [super viewWillAppear:animated];
     [[PalmUIManagement sharedInstance] addObserver:self forKeyPath:@"updateUserHeader" options:0 context:nil];
     [[PalmUIManagement sharedInstance] addObserver:self forKeyPath:@"updateUserHeaderResult" options:0 context:nil];
+    if (profileTableView) {
+        [profileTableView reloadData];
+    }
 }
 
 -(void) viewWillDisappear:(BOOL)animated{
@@ -146,12 +153,12 @@
         }else{
             [self showProgressWithText:@"头像上传失败" withDelayTime:1.0f];
         }
-    }else if([@"userProfile" isEqualToString:keyPath]){
+    }/*else if([@"userProfile" isEqualToString:keyPath]){
         self.userProfile = [[PalmUIManagement sharedInstance].userProfile objectForKey:ASI_REQUEST_DATA];
         if (profileTableView) {
             [profileTableView reloadData];
         }
-    }
+    }*/
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
@@ -190,10 +197,10 @@
             [cell setSelectionStyle:UITableViewCellSelectionStyleNone];
             switch (indexPath.row) {
                 case 0:
-                    [cell.detailTextLabel setText:self.profileModel.username];
+                    [cell.detailTextLabel setText:userProfile.username];
                     break;
                 default:
-                    [cell.detailTextLabel setText:self.profileModel.cityname];
+                    [cell.detailTextLabel setText:userProfile.cityname];
                     break;
             }
         }
@@ -204,7 +211,7 @@
             [cell setSelectionStyle:UITableViewCellSelectionStyleGray];
             switch (indexPath.row) {
                 case 0:
-                    if([self.profileModel.sex isEqualToString:@"1"]){
+                    if(userProfile.sex == 1){
                         [cell.detailTextLabel setText:@"男"];
                     }
                     else{
@@ -224,7 +231,12 @@
         {
             [cell setAccessoryType:UITableViewCellAccessoryDisclosureIndicator];
             [cell setSelectionStyle:UITableViewCellSelectionStyleGray];
-            [cell.detailTextLabel setText:self.profileModel.sign];
+            if (userProfile.sign.length > 0) {
+                
+                [cell.detailTextLabel setText:userProfile.sign];
+            }else{
+                [cell.detailTextLabel setText:@"说点什么吧。"];
+            }
         }
             break;
     }
@@ -250,11 +262,20 @@
                 }
                     break;
                 default:
+                {
+                    //更新电话
+                    BBPhoneModifyViewController *viewController = [[BBPhoneModifyViewController alloc] init];
+                    [self.navigationController pushViewController:viewController animated:YES];
+                }
                     break;
             }
         }
             break;
         case 2:
+        {
+            BBSignModifyViewController *viewController = [[BBSignModifyViewController alloc] init];
+            [self.navigationController pushViewController:viewController animated:YES];
+        }
             break;
         default:
             break;

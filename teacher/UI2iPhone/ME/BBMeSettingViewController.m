@@ -38,11 +38,13 @@
     [back addTarget:self action:@selector(backViewController) forControlEvents:UIControlEventTouchUpInside];
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:back];
     
-    settingList = [[NSArray alloc] initWithObjects:[NSArray arrayWithObjects:@"响铃提示", @"震动提示", nil],
-                   [NSArray arrayWithObjects: [NSDictionary dictionaryWithObjectsAndKeys:@"软件更新", @"title", @"", @"url", @"", @"icon", nil], [NSDictionary dictionaryWithObjectsAndKeys:@"帮助中心", @"title", @"http://www.shouxiner.com/res/mobilemall/helpl.html", @"url", @"", @"icon", nil], [NSDictionary dictionaryWithObjectsAndKeys:@"反馈建议", @"title", @"http://www.shouxiner.com/advicebox/mobile_web_advice", @"url", @"", @"icon", nil], [NSDictionary dictionaryWithObjectsAndKeys:@"关于手心", @"title", @"", @"ulr", nil],nil],
+    settingList = [[NSArray alloc] initWithObjects:[NSArray arrayWithObjects:[NSDictionary dictionaryWithObjectsAndKeys:@"响铃提示", @"title", @"ring.png", @"icon", nil],
+                                                    [NSDictionary dictionaryWithObjectsAndKeys:@"震动提示", @"title", @"activity-stream.png", @"icon", nil], nil],
+                   [NSArray arrayWithObjects: [NSDictionary dictionaryWithObjectsAndKeys:@"软件更新", @"title", @"", @"url", @"checkversion.png", @"icon", nil], [NSDictionary dictionaryWithObjectsAndKeys:@"帮助中心", @"title", @"http://www.shouxiner.com/res/mobilemall/helpl.html", @"url", @"help.png", @"icon", nil], [NSDictionary dictionaryWithObjectsAndKeys:@"反馈建议", @"title", @"http://www.shouxiner.com/advicebox/mobile_web_advice", @"url", @"file.png", @"icon", nil], [NSDictionary dictionaryWithObjectsAndKeys:@"关于手心", @"title", @"", @"ulr", @"about.png", @"icon",nil] ,nil],
                    nil];
     
     tbvSetting = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self.screenHeight-44) style:UITableViewStyleGrouped];
+    [tbvSetting setRowHeight:44];
     [tbvSetting setScrollEnabled:NO];
     [tbvSetting setDelegate:(id<UITableViewDelegate>)self];
     [tbvSetting setDataSource:(id<UITableViewDataSource>)self];
@@ -66,12 +68,14 @@
     if (nil ==cell) {
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:SettingCell];
     }
+    NSDictionary *infoDic = [[settingList objectAtIndex:indexPath.section] objectAtIndex:indexPath.row];
+    [cell.textLabel setText:[infoDic objectForKey:@"title"]];
+    [cell.imageView setImage:[UIImage imageNamed:[infoDic objectForKey:@"icon"]]];
     if (indexPath.section == 0) {
         CPLGModelAccount *account = [[CPSystemEngine sharedInstance] accountModel];
         NSUserDefaults *userDefault = [NSUserDefaults standardUserDefaults];
         NSMutableDictionary *setDic = (NSMutableDictionary *)[userDefault objectForKey:account.loginName];
         if (indexPath.row == 0) {
-            [cell.textLabel setText:@"震动提示"];
             UISwitch *vibSwith = [[UISwitch alloc] initWithFrame:CGRectMake(cell.contentView.frame.size.width-100, 10, 80, 40)];
             [vibSwith addTarget:self action:@selector(vibrationSwitch:) forControlEvents:UIControlEventValueChanged];
             [cell addSubview:vibSwith];
@@ -81,7 +85,6 @@
                 [vibSwith setOn:NO];
             }
         }else{
-            [cell.textLabel setText:@"响铃提示"];
             UISwitch *vibSwith = [[UISwitch alloc] initWithFrame:CGRectMake(cell.contentView.frame.size.width-100, 10, 80, 40)];
             [vibSwith addTarget:self action:@selector(alertSwitch:) forControlEvents:UIControlEventValueChanged];
             [cell addSubview:vibSwith];
@@ -91,12 +94,7 @@
                 [vibSwith setOn:NO];
             }
         }
-    }else{
-        NSDictionary *infoDic = [[settingList objectAtIndex:indexPath.section] objectAtIndex:indexPath.row];
-        [cell.textLabel setText:[infoDic objectForKey:@"title"]];
-        [cell.imageView setImage:[UIImage imageNamed:[infoDic objectForKey:@"icon"]]];
     }
-    
     return cell;
 }
 

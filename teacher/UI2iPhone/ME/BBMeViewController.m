@@ -108,7 +108,6 @@
 -(void)clickInfoBtn:(UITapGestureRecognizer *)tap
 {
     BBMeProfileController *viewController = [[BBMeProfileController alloc] init];
-    viewController.profileModel = profileModel;
     [viewController setHidesBottomBarWhenPushed:YES];
     [self.navigationController pushViewController:viewController animated:YES];
 }
@@ -250,7 +249,7 @@
         [headerImgBtn setUserInteractionEnabled:YES];
         NSDictionary *userProfile = [[PalmUIManagement sharedInstance].userProfile objectForKey:ASI_REQUEST_DATA];
         if (!profileModel) {
-            profileModel = [[BBProfileModel alloc] init];
+            profileModel = [BBProfileModel shareProfileModel];
         }
         [profileModel coverWithJson:userProfile];
         //查询用户商城积分
