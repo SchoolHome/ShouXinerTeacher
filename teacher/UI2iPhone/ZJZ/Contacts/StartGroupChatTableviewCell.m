@@ -19,10 +19,10 @@
         self.backgroundColor = [UIColor whiteColor];
         //selectedBtn
         _selectedBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-        [_selectedBtn setFrame:CGRectMake(5.f, 19.f, 22.f, 22.f)];
+        [_selectedBtn setFrame:CGRectMake(5.f, 16.f, 25.f, 25.f)];
         [_selectedBtn addTarget:self action:@selector(selectUser:) forControlEvents:UIControlEventTouchUpInside];
-        [_selectedBtn setBackgroundImage:[UIImage imageNamed:@"ZJZUnCheck"] forState:UIControlStateNormal];
-        [_selectedBtn setBackgroundImage:[UIImage imageNamed:@"ZJZChecked"] forState:UIControlStateSelected];
+        [_selectedBtn setBackgroundImage:[UIImage imageNamed:@"no_selected"] forState:UIControlStateNormal];
+        [_selectedBtn setBackgroundImage:[UIImage imageNamed:@"selected"] forState:UIControlStateSelected];
         [self.contentView addSubview:_selectedBtn];
         //姓名
         _userNameLabel = [[UILabel alloc] initWithFrame:CGRectMake(120.f, 21.f, 120.f, 18.f)];
