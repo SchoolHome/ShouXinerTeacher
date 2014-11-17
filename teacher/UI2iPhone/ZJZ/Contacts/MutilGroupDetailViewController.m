@@ -8,11 +8,23 @@
 
 #import "MutilGroupDetailViewController.h"
 
-@interface MutilGroupDetailViewController ()
+@interface MutilGroupDetailViewController ()<UITableViewDataSource,UITableViewDelegate>
 
+@property (nonatomic, strong) UITableView *detailTableview;
+@property (nonatomic, strong) CPUIModelMessageGroup *msgGroup;
 @end
 
 @implementation MutilGroupDetailViewController
+
+- (id)initWithMsgGroup: (CPUIModelMessageGroup *)tempMsgGroup
+{
+    self = [super init];
+    if (self) {
+        self.msgGroup = tempMsgGroup;
+    }
+    
+    return self;
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -33,6 +45,7 @@
     // Pass the selected object to the new view controller.
 }
 */
+#pragma mark UItableview
 
 @end
 

@@ -10,6 +10,8 @@
 
 @interface MutilGroupDetailViewController : PalmViewController
 
+- (id)initWithMsgGroup: (CPUIModelMessageGroup *)tempMsgGroup;
+
 @end
 
 
