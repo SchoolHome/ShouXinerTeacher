@@ -9,8 +9,10 @@
 
 
 #import "UIImage+ProportionalFill.h"
+#import "CPUIModelManagement.h"
 #import "CPUIModelMessageGroupMember.h"
 #import "CPUIModelUserInfo.h"
+#import "CPUIModelPersonalInfo.h"
 #import "CPUIModelMessageGroup.h"
 #import <QuartzCore/QuartzCore.h>
 #import "ColorUtil.h"
@@ -116,14 +118,25 @@
         if (![member isHiddenMember]) {
             
             CPUIModelUserInfo *userInfo = member.userInfo;
-            UIImage *image = [UIImage imageWithContentsOfFile:userInfo.headerPath];
+            
+            UIImage *image;
+            NSLog(@"nickName=%@,selfNickName=%@",userInfo.nickName,[CPUIModelManagement sharedInstance].uiPersonalInfo.nickName);
+            if ((userInfo.nickName.length == 0 || [userInfo.nickName isEqualToString:[CPUIModelManagement sharedInstance].uiPersonalInfo.nickName]) && groupModel.memberList.count < 5) {
+                image = [UIImage imageWithContentsOfFile:[CPUIModelManagement sharedInstance].uiPersonalInfo.selfHeaderImgPath];
+            }else
+            {
+                image = [UIImage imageWithContentsOfFile:userInfo.headerPath];
+            }
             
             
-            
+
             if (!image) {
                 image = [UIImage imageWithContentsOfFile:member.headerPath];
             }
             
+            if (!image) {
+                image = [UIImage imageNamed:@"girl"];
+            }
             
             if (image) {
                 if (0 == count) {
@@ -132,25 +145,25 @@
                     [[UIColor colorWithHexString:@"#DDDDDD"] set];  // 底图颜色
                     //[[UIColor redColor] set];
                     UIBezierPath* roundedRectanglePath = [UIBezierPath bezierPathWithRoundedRect: 
-                                                          CGRectMake(5-radius/2, 5-radius/2, 20+radius, 20+radius) cornerRadius: radius];
+                                                          CGRectMake(5-radius/2, 5-radius/2, 20+radius, 20+radius) cornerRadius: radius+4];
                     [roundedRectanglePath setLineWidth:radius];
                     [roundedRectanglePath stroke];
                 }else if (1 == count) {
                     [image drawInRect:CGRectMake(30, 5, 20, 20)];
                     UIBezierPath* roundedRectanglePath = [UIBezierPath bezierPathWithRoundedRect: 
-                                                          CGRectMake(30-radius/2, 5-radius/2, 20+radius, 20+radius) cornerRadius: radius];
+                                                          CGRectMake(30-radius/2, 5-radius/2, 20+radius, 20+radius) cornerRadius: radius+4];
                     [roundedRectanglePath setLineWidth:radius];
                     [roundedRectanglePath stroke];
                 }else if (2 == count) {
                     [image drawInRect:CGRectMake(5, 30, 20, 20)];
                     UIBezierPath* roundedRectanglePath = [UIBezierPath bezierPathWithRoundedRect: 
-                                                          CGRectMake(5-radius/2, 30-radius/2, 20+radius, 20+radius) cornerRadius: radius];
+                                                          CGRectMake(5-radius/2, 30-radius/2, 20+radius, 20+radius) cornerRadius: radius+4];
                     [roundedRectanglePath setLineWidth:radius];
                     [roundedRectanglePath stroke];
                 }else if (3 == count) {
                     [image drawInRect:CGRectMake(30, 30, 20, 20)];
                     UIBezierPath* roundedRectanglePath = [UIBezierPath bezierPathWithRoundedRect: 
-                                                          CGRectMake(30-radius/2, 30-radius/2, 20+radius, 20+radius) cornerRadius: radius];
+                                                          CGRectMake(30-radius/2, 30-radius/2, 20+radius, 20+radius) cornerRadius: radius+4];
                     [roundedRectanglePath setLineWidth:radius];
                     [roundedRectanglePath stroke];
                      count ++;
@@ -163,6 +176,7 @@
     
     
     //如果没满的话就用色块填充够4个
+    /*
     for (int i = count; i<4; i++) {
         UIImage *image = [UIImage imageNamed:@"wall_bg_noone.png"];
         if (0 == count) {
@@ -182,6 +196,7 @@
             break;
         }
     }
+     */
     UIImage *resultingImage = UIGraphicsGetImageFromCurrentImageContext();  
     UIGraphicsEndImageContext();  
     

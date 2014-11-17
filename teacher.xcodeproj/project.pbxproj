@@ -1299,6 +1299,7 @@
 		745D768D193F6E9D00AF666E /* BBDisplaySelectedStudentsView.m in Sources */ = {isa = PBXBuildFile; fileRef = 745D768C193F6E9D00AF666E /* BBDisplaySelectedStudentsView.m */; };
 		745D7690193F821700AF666E /* BBStudentModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 745D768F193F821700AF666E /* BBStudentModel.m */; };
 		746456F71A00D7CD008CF0BD /* plus_bg@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 746456F61A00D7CD008CF0BD /* plus_bg@2x.png */; };
+		746C549B1A1623C6002482F1 /* BBContactPersonDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 746C549A1A1623C6002482F1 /* BBContactPersonDetailViewController.m */; };
 		7478550518DB545C0070DF87 /* ContactsStartGroupChatViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7478550418DB545C0070DF87 /* ContactsStartGroupChatViewController.m */; };
 		7478550818DB548C0070DF87 /* StartGroupChatTableviewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7478550718DB548C0070DF87 /* StartGroupChatTableviewCell.m */; };
 		748EBE161980BAA30060AE71 /* BBNotifyMessageGroupCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 748EBE151980BAA30060AE71 /* BBNotifyMessageGroupCell.m */; };
@@ -3436,6 +3437,8 @@
 		745D768E193F821700AF666E /* BBStudentModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BBStudentModel.h; sourceTree = "<group>"; };
 		745D768F193F821700AF666E /* BBStudentModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BBStudentModel.m; sourceTree = "<group>"; };
 		746456F61A00D7CD008CF0BD /* plus_bg@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "plus_bg@2x.png"; sourceTree = "<group>"; };
+		746C54991A1623C6002482F1 /* BBContactPersonDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BBContactPersonDetailViewController.h; sourceTree = "<group>"; };
+		746C549A1A1623C6002482F1 /* BBContactPersonDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BBContactPersonDetailViewController.m; sourceTree = "<group>"; };
 		7478550318DB545C0070DF87 /* ContactsStartGroupChatViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ContactsStartGroupChatViewController.h; sourceTree = "<group>"; };
 		7478550418DB545C0070DF87 /* ContactsStartGroupChatViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ContactsStartGroupChatViewController.m; sourceTree = "<group>"; };
 		7478550618DB548C0070DF87 /* StartGroupChatTableviewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StartGroupChatTableviewCell.h; sourceTree = "<group>"; };
@@ -7108,6 +7111,8 @@
 			children = (
 				74233BAF18D6C3DE0086C1BD /* ContactsViewController.h */,
 				74233BB018D6C3DE0086C1BD /* ContactsViewController.m */,
+				746C54991A1623C6002482F1 /* BBContactPersonDetailViewController.h */,
+				746C549A1A1623C6002482F1 /* BBContactPersonDetailViewController.m */,
 				742E2B541A14EF8900158319 /* MutilMsgGroupViewController.h */,
 				742E2B551A14EF8900158319 /* MutilMsgGroupViewController.m */,
 				743E85F418D74B850024D371 /* ContactsTableviewCell.h */,
@@ -8963,6 +8968,7 @@
 				332D837A18C33F0B007A75D5 /* mmx_optimized.cpp in Sources */,
 				332D74FF18C33552007A75D5 /* CPOperationMsgReceive.m in Sources */,
 				332D832818C33F0B007A75D5 /* KBGrowingTextView.m in Sources */,
+				746C549B1A1623C6002482F1 /* BBContactPersonDetailViewController.m in Sources */,
 				332D82AF18C33F0A007A75D5 /* AllFriendsViewController.m in Sources */,
 				332D74CD18C33552007A75D5 /* CPDAOMessage.m in Sources */,
 				332D837018C33F0B007A75D5 /* interf_dec.c in Sources */,

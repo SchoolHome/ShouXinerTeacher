@@ -7,8 +7,11 @@
 //
 
 #import "BBGroupMessageGroupCell.h"
+
 #import "CPUIModelManagement.h"
 #import "CPUIModelPersonalInfo.h"
+
+#import "ImageUtil.h"
 
 @implementation BBGroupMessageGroupCell
 
@@ -52,13 +55,14 @@
             title = [title stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
             self.userNameLabel.text = [NSString stringWithFormat:@"%@等",title];
         }
+        self.userHeadImageView.image = [UIImage groupHeader:msgGroup];
     }
     
-    self.userHeadImageView.image = [UIImage imageNamed:@"girl.png"];
-    [self.userHeadImageView.layer setMasksToBounds:YES];
-    self.userHeadImageView.layer.borderWidth = 0;
-    self.userHeadImageView.layer.cornerRadius = 25.0;
-    self.userHeadImageView.layer.borderColor = [[UIColor whiteColor] CGColor];
+//    self.userHeadImageView.image = [UIImage imageNamed:@"girl.png"];
+//    [self.userHeadImageView.layer setMasksToBounds:YES];
+//    self.userHeadImageView.layer.borderWidth = 0;
+//    self.userHeadImageView.layer.cornerRadius = 25.0;
+//    self.userHeadImageView.layer.borderColor = [[UIColor whiteColor] CGColor];
     
     
 }

@@ -13,6 +13,7 @@
 #import "CPUIModelManagement.h"
 #import "BBSingleIMViewController.h"
 #import "ContactsStartGroupChatViewController.h"
+#import "BBContactPersonDetailViewController.h"
 //test
 #import "BBMembersInMsgGroupViewController.h"
 #import <MessageUI/MessageUI.h>
@@ -132,7 +133,7 @@
     
 
     
-    self.view.backgroundColor = [UIColor colorWithRed:242/255.f green:236/255.f blue:230/255.f alpha:1.f];
+    //self.view.backgroundColor = [UIColor colorWithRed:242/255.f green:236/255.f blue:230/255.f alpha:1.f];
     //[[PalmUIManagement sharedInstance] getuserContacts];
 	// Do any additional setup after loading the view.
     if (!IOS7) {
@@ -168,6 +169,7 @@
      }
      */
     if ([keyPath isEqualToString:@"createMsgGroupTag"]) {
+        [self closeProgress];
         NSInteger resultCodeInt = [CPUIModelManagement sharedInstance].createMsgGroupTag;
         // 成功
         if(resultCodeInt == RESPONSE_CODE_SUCESS){
@@ -239,7 +241,7 @@
     
     
 }
--(CPUIModelUserInfo *)getUserInfoByModelID:(NSInteger)modelID
+- (CPUIModelUserInfo *)getUserInfoByModelID:(NSInteger)modelID
 {
     for (CPUIModelUserInfo *userInfo in [CPUIModelManagement sharedInstance].friendArray) {
         if ([userInfo.userInfoID integerValue] == modelID) {
@@ -248,6 +250,8 @@
     }
     return nil;
 }
+
+
 #pragma mark Data
 -(NSMutableArray *)searchResultListByKeyWord:(NSString *)keyword
 {
@@ -314,7 +318,21 @@
 }
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    ContactsModel *model = self.contactsListSection[indexPath.section][indexPath.row];
+    CPUIModelUserInfo *userInfo = [self getUserInfoByModelID:model.modelID];
+    if (!userInfo) {
+        [self showProgressWithText:@"未获取到信息" withDelayTime:3];
+        return;
+    }
+    
+    if ([userInfo.sex integerValue] == 0) {
+        [self showProgressWithText:@"当前用户没有激活,请先邀请他加入手心" withDelayTime:3];
+        return;
+    }
+    
+    BBContactPersonDetailViewController *personDetail = [[BBContactPersonDetailViewController alloc] initWithUserInfo:userInfo];
+    [self.navigationController pushViewController:personDetail animated:YES];
 }
 #pragma mark UItableviewDatasouce
 -(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
@@ -334,7 +352,7 @@
         
         
         UIView *sectionView = [[UIView alloc] initWithFrame:CGRectZero];
-        sectionView.backgroundColor = [UIColor clearColor];
+        sectionView.backgroundColor = [UIColor colorWithHexString:@"#f2f2f2"];
         //sectionView.backgroundColor = [UIColor colorWithRed:128/255.f green:143/255.f blue:155/255.f alpha:1.f];
         
         UILabel *title = [[UILabel alloc] initWithFrame:CGRectMake(10.f, 6.f, 200.f, 20.f)];
@@ -421,6 +439,8 @@
         [self showProgressWithText:@"未获取到信息" withDelayTime:3];
         return;
     }
+    
+    [self showProgressWithText:@"正在发起聊天..."];
     [[CPUIModelManagement sharedInstance] createConversationWithUsers:[NSArray arrayWithObject:userInfo] andMsgGroups:nil andType:CREATE_CONVER_TYPE_COMMON];
 }
 -(void)sendMessage:(NSString *)mobileNumber

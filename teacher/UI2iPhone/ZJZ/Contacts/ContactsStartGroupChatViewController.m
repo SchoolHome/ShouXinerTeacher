@@ -33,8 +33,8 @@
     if (self) {
         // Custom initialization
         UIButton *back = [UIButton buttonWithType:UIButtonTypeCustom];
-        [back setFrame:CGRectMake(0.f, 7.f, 30.f, 30.f)];
-        [back setBackgroundImage:[UIImage imageNamed:@"ZJZBack"] forState:UIControlStateNormal];
+        [back setFrame:CGRectMake(0.f, 7.f, 24.f, 24.f)];
+        [back setBackgroundImage:[UIImage imageNamed:@"back"] forState:UIControlStateNormal];
         [back addTarget:self action:@selector(backAction) forControlEvents:UIControlEventTouchUpInside];
         self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:back];
     }
@@ -74,8 +74,6 @@
     if (self.hidedUserInfosArray.count > 0) {
         [self.displaySelectedMembersVIew setSelectedMembersArray:self.hidedUserInfosArray];
     }
-    
-    self.view.backgroundColor = [UIColor colorWithRed:242/255.f green:236/255.f blue:230/255.f alpha:1.f];
     
     if (!IOS7) {
         for (UIView *subview in _contactsForGroupTableSearchBar.subviews)
@@ -346,12 +344,12 @@
 -(UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
 {
     UIView *sectionView = [[UIView alloc] initWithFrame:CGRectZero];
-    sectionView.backgroundColor = [UIColor blackColor];
+    sectionView.backgroundColor = [UIColor colorWithHexString:@"#f2f2f2"];
     
     UILabel *title = [[UILabel alloc] initWithFrame:CGRectMake(10.f, 6.f, 200.f, 20.f)];
     title.backgroundColor = [UIColor clearColor];
     title.font = [UIFont boldSystemFontOfSize:14.f];
-    title.textColor = [UIColor whiteColor];
+    title.textColor = [UIColor lightGrayColor];
     title.text = @"手心网家长用户";
     [sectionView addSubview:title];
     return sectionView;
