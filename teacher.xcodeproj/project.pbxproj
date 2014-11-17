@@ -1303,6 +1303,7 @@
 		7478550518DB545C0070DF87 /* ContactsStartGroupChatViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7478550418DB545C0070DF87 /* ContactsStartGroupChatViewController.m */; };
 		7478550818DB548C0070DF87 /* StartGroupChatTableviewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7478550718DB548C0070DF87 /* StartGroupChatTableviewCell.m */; };
 		748EBE161980BAA30060AE71 /* BBNotifyMessageGroupCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 748EBE151980BAA30060AE71 /* BBNotifyMessageGroupCell.m */; };
+		749132E61A19C56200CFCE7E /* MutilGroupDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 749132E51A19C56200CFCE7E /* MutilGroupDetailViewController.m */; };
 		749D72AE18D6147200936D5E /* BBMessageGroupBaseTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 749D72AD18D6147200936D5E /* BBMessageGroupBaseTableView.m */; };
 		74A4E5C418DFD9BD000F79E6 /* BBMembersInMsgGroupViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 74A4E5C318DFD9BD000F79E6 /* BBMembersInMsgGroupViewController.m */; };
 		74A4E5C718DFE4B6000F79E6 /* BBMemberInMsgGroupTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 74A4E5C618DFE4B6000F79E6 /* BBMemberInMsgGroupTableViewCell.m */; };
@@ -3448,6 +3449,8 @@
 		747D6F4E1A0949A000809D17 /* BBPostPBXViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BBPostPBXViewController.h; sourceTree = "<group>"; };
 		748EBE141980BAA30060AE71 /* BBNotifyMessageGroupCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BBNotifyMessageGroupCell.h; sourceTree = "<group>"; };
 		748EBE151980BAA30060AE71 /* BBNotifyMessageGroupCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BBNotifyMessageGroupCell.m; sourceTree = "<group>"; };
+		749132E41A19C56200CFCE7E /* MutilGroupDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MutilGroupDetailViewController.h; sourceTree = "<group>"; };
+		749132E51A19C56200CFCE7E /* MutilGroupDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MutilGroupDetailViewController.m; sourceTree = "<group>"; };
 		749D72AC18D6147200936D5E /* BBMessageGroupBaseTableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BBMessageGroupBaseTableView.h; sourceTree = "<group>"; };
 		749D72AD18D6147200936D5E /* BBMessageGroupBaseTableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BBMessageGroupBaseTableView.m; sourceTree = "<group>"; };
 		74A4E5C218DFD9BD000F79E6 /* BBMembersInMsgGroupViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BBMembersInMsgGroupViewController.h; sourceTree = "<group>"; };
@@ -7115,6 +7118,8 @@
 				746C549A1A1623C6002482F1 /* BBContactPersonDetailViewController.m */,
 				742E2B541A14EF8900158319 /* MutilMsgGroupViewController.h */,
 				742E2B551A14EF8900158319 /* MutilMsgGroupViewController.m */,
+				749132E41A19C56200CFCE7E /* MutilGroupDetailViewController.h */,
+				749132E51A19C56200CFCE7E /* MutilGroupDetailViewController.m */,
 				743E85F418D74B850024D371 /* ContactsTableviewCell.h */,
 				743E85F518D74B850024D371 /* ContactsTableviewCell.m */,
 				743E85F718D74CEF0024D371 /* ContactsModel.h */,
@@ -8739,6 +8744,7 @@
 				332D755E18C33552007A75D5 /* LibIDN.m in Sources */,
 				332D753B18C33552007A75D5 /* XMPPRoster.xcdatamodel in Sources */,
 				332D755D18C33552007A75D5 /* GCDMulticastDelegate.m in Sources */,
+				749132E61A19C56200CFCE7E /* MutilGroupDetailViewController.m in Sources */,
 				748EBE161980BAA30060AE71 /* BBNotifyMessageGroupCell.m in Sources */,
 				332D82B718C33F0A007A75D5 /* GeneralViewController.m in Sources */,
 				745470CB197D43A500200E4E /* CPOperationReceiveYTZMessage.m in Sources */,
