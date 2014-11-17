@@ -128,10 +128,9 @@
     self.tabBar.tintColor = [UIColor blackColor];
     self.selectedIndex = 0;
     self.delegate = (id<UITabBarControllerDelegate>)self;
-    
     _imageTabBar = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 320, 49)];
-    _imageTabBar.image = [UIImage imageNamed:@"label_bg"];
-    _imageTabBar.backgroundColor = [UIColor clearColor];
+    _imageTabBar.image = [UIImage imageNamed:@"Bottomlabel_bg"];
+    _imageTabBar.backgroundColor = [UIColor whiteColor];
     
     [self.tabBar addSubview:_imageTabBar];
     [self.tabBar bringSubviewToFront:_imageTabBar];
@@ -198,6 +197,7 @@
     roundedLayer2.borderColor = [[UIColor grayColor] CGColor];
     markMessage.text = @"";
     markMessage.hidden = YES;
+    
 }
 - (BOOL)tabBarController:(UITabBarController *)tabBarController shouldSelectViewController:(UIViewController *)viewController
 {
