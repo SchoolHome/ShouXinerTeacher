@@ -35,3 +35,10 @@
 */
 
 @end
+
+
+@implementation MutilGroupMemberDisplayView
+
+
+
+@end

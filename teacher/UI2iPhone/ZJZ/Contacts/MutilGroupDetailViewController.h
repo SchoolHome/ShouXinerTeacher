@@ -11,3 +11,8 @@
 @interface MutilGroupDetailViewController : PalmViewController
 
 @end
+
+
+@interface MutilGroupMemberDisplayView : UIView
+
+@end
