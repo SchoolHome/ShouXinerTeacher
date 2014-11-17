@@ -25,12 +25,6 @@
         self.type = kUploadVideo;
         CPLGModelAccount *account = [[CPSystemEngine sharedInstance] accountModel];
         self.filePath = [videoUrl path];
-//        NSString *writeFileName = [NSString stringWithFormat:@"%@.%@",[CoreUtils getUUID],@".mp4"];
-//        BOOL isSave = NO;
-//        NSString *filePath = [NSString stringWithFormat:@"%@/msg/",account.loginName];
-//        [CoreUtils createPath:filePath];
-//        isSave = [CoreUtils writeToFileWithData:imageData file_name:writeFileName andPath:filePath];
-//        self.fileName = [NSString stringWithFormat:@"%@/%@%@",[CoreUtils getDocumentPath],filePath,writeFileName];
         NSString *urlStr = [NSString stringWithFormat:@"http://%@/attachment/put/open/2/%@/%d",K_HOST_NAME_OF_PALM_UPLOAD,account.uid,groupID];
         [self setHttpRequestPostWithUrl:urlStr params:nil];
     }
