@@ -147,7 +147,7 @@ typedef enum
 -(void)updateAccountModelWithName:(NSString *)account pwd:(NSString *)password;
 -(void)setAccountModelWithAutoLogin:(BOOL)isAutoLogin;
 
-
+-(void)saveKeyChainWithUserName:(NSString *)userName andPassword:(NSString *)password;
 -(void)clearAccountTagData;
 
 -(void)updatePersonalInfoByOperation:(CPDBModelPersonalInfo *)dbPersonalInfo;

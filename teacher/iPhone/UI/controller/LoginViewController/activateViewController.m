@@ -8,6 +8,7 @@
 
 #import "activateViewController.h"
 #import "AppDelegate.h"
+#import "CPSystemEngine.h"
 
 @interface activateViewController ()<UITextFieldDelegate>
 @property (nonatomic) BOOL needSetUserName;
@@ -261,6 +262,12 @@
             [self showProgressWithText:[PalmUIManagement sharedInstance].postUserInfoResult[ASI_REQUEST_ERROR_MESSAGE] withDelayTime:1.0f];
             return;
         }
+        NSString *telPhoneText = [self.telPhone.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
+        NSString *passwordText = [self.password.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
+        CPLGModelAccount *account = [[CPSystemEngine sharedInstance] accountModel];
+        account.loginName = telPhoneText;
+        account.pwdMD5 = passwordText;
+        [[CPSystemEngine sharedInstance] backupSystemInfoWithAccount:account];
         AppDelegate *appDelegate = (AppDelegate *)[UIApplication sharedApplication].delegate;
         [appDelegate launchApp];
     }else if ([keyPath isEqualToString:@"smsVerifyCode"]){
