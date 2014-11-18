@@ -8,6 +8,7 @@
 
 #import "MutilMsgGroupViewController.h"
 #import "ContactsStartGroupChatViewController.h"
+#import "MutilGroupDetailViewController.h"
 
 #import "CPUIModelMessageGroup.h"
 #import "CPUIModelManagement.h"
@@ -78,7 +79,13 @@
 #pragma mark - UITableview
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    CPUIModelMessageGroup *msgGroup = mutilMsgGroups[indexPath.row];
+    if (msgGroup) {
+        UITableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
+        MutilGroupDetailViewController *msgGroupDetail = [[MutilGroupDetailViewController alloc] initWithMsgGroup:msgGroup andGroupName:cell.textLabel.text andFromType:GROUP_MEMBER_FROM_TYPE_NORMAL];
+        [self.navigationController pushViewController:msgGroupDetail animated:YES];
+    }else [self showProgressWithText:@"当前会话不存在" withDelayTime:3.f];
 
 }
 #pragma mark UItableviewDatasouce
