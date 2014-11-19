@@ -120,7 +120,6 @@
             CPUIModelUserInfo *userInfo = member.userInfo;
             
             UIImage *image;
-            NSLog(@"nickName=%@,selfNickName=%@",userInfo.nickName,[CPUIModelManagement sharedInstance].uiPersonalInfo.nickName);
             if ((userInfo.nickName.length == 0 || [userInfo.nickName isEqualToString:[CPUIModelManagement sharedInstance].uiPersonalInfo.nickName]) && groupModel.memberList.count < 5) {
                 image = [UIImage imageWithContentsOfFile:[CPUIModelManagement sharedInstance].uiPersonalInfo.selfHeaderImgPath];
             }else

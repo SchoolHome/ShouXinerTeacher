@@ -8,8 +8,8 @@
 
 #import "BBMutilIMViewController.h"
 #import "GroupIndependentProfileViewController.h"
-#import "BBMembersInMsgGroupViewController.h"
-
+//#import "BBMembersInMsgGroupViewController.h"
+#import "MutilGroupDetailViewController.h"
 @interface BBMutilIMViewController ()
 
 @end
@@ -111,9 +111,11 @@
 }
 
 -(void) add{
-    UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:nil delegate:self cancelButtonTitle:@"取消" destructiveButtonTitle:nil otherButtonTitles:@"群成员",@"退出该群", nil];
-    [actionSheet showInView:self.view];
-
+//    UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:nil delegate:self cancelButtonTitle:@"取消" destructiveButtonTitle:nil otherButtonTitles:@"群成员",@"退出该群", nil];
+//    [actionSheet showInView:self.view];
+    
+    MutilGroupDetailViewController *msgGroupDetail = [[MutilGroupDetailViewController alloc] initWithMsgGroup:self.modelMessageGroup andGroupName:self.title andFromType:GROUP_MEMBER_FROM_TYPE_IM];
+    [self.navigationController pushViewController:msgGroupDetail animated:YES];
 }
 
 - (void)viewDidUnload
@@ -126,6 +128,7 @@
 {
     return (interfaceOrientation == UIInterfaceOrientationPortrait);
 }
+/*
 #pragma mark ActionSheet
 -(void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
 {
@@ -149,6 +152,7 @@
             break;
     }
 }
+ */
 #pragma mark Observer
 -(void)refreshMsgGroup
 {
