@@ -109,12 +109,12 @@
 -(void)viewWillAppear:(BOOL)animated
 {
     [[CPUIModelManagement sharedInstance] addObserver:self forKeyPath:@"createMsgGroupTag" options:0 context:nil];
-    [[CPUIModelManagement sharedInstance] addObserver:self forKeyPath:@"userMsgGroupTag" options:0 context:nil];
+    [[CPUIModelManagement sharedInstance] addObserver:self forKeyPath:@"addGroupMemDic" options:0 context:nil];
 }
 -(void)viewWillDisappear:(BOOL)animated
 {
     [[CPUIModelManagement sharedInstance] removeObserver:self forKeyPath:@"createMsgGroupTag"];
-    [[CPUIModelManagement sharedInstance] removeObserver:self forKeyPath:@"userMsgGroupTag"];
+    [[CPUIModelManagement sharedInstance] removeObserver:self forKeyPath:@"addGroupMemDic"];
 }
 -(NSMutableArray *)searchResultListByKeyWord:(NSString *)keyword
 {
@@ -236,14 +236,14 @@
             NSString *errorStr = (NSString *)[[CPUIModelManagement sharedInstance].responseActionDic objectForKey:response_action_res_desc];
             CPLogInfo(@"%@",errorStr);
         }
-    }else if ([keyPath isEqualToString:@"userMsgGroupTag"]) {
-        if ([CPUIModelManagement sharedInstance].userMsgGroupTag == UPDATE_USER_GROUP_TAG_MEM_LIST) {
-            for (id viewController in self.navigationController.viewControllers) {
-                if ([viewController isKindOfClass:[MutilGroupDetailViewController class]]) {
-                    [(MutilGroupDetailViewController *)viewController refreshMsgGroup];
-                    [self.navigationController popToViewController:viewController animated:YES];
-                }
-                
+    }else if ([keyPath isEqualToString:@"addGroupMemDic"])
+    {
+        for (id viewController in self.navigationController.viewControllers) {
+            if ([viewController isKindOfClass:[MutilGroupDetailViewController class]]) {
+                CPUIModelMessageGroup *currentMsgGroup = [CPUIModelManagement sharedInstance].userMsgGroup;
+                NSLog(@"currentMsgGroupMemberCount==%d",currentMsgGroup.memberList.count);
+                [(MutilGroupDetailViewController *)viewController refreshMsgGroup];
+                [self.navigationController popToViewController:viewController animated:YES];
             }
             
         }

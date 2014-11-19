@@ -109,7 +109,7 @@
 #pragma mark - ViewControllerMethod
 - (void)refreshMsgGroup
 {
-    self.msgGroup = [CPUIModelManagement sharedInstance].userMsgGroup;
+    //self.msgGroup = [CPUIModelManagement sharedInstance].userMsgGroup;
     [_memberDisplayView setMembers:[self getUserInfos]];
     [self.detailTableview reloadData];
 }
