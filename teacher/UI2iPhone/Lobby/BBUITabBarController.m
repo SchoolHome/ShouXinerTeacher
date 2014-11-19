@@ -197,7 +197,6 @@
     roundedLayer2.borderColor = [[UIColor grayColor] CGColor];
     markMessage.text = @"";
     markMessage.hidden = YES;
-    
 }
 - (BOOL)tabBarController:(UITabBarController *)tabBarController shouldSelectViewController:(UIViewController *)viewController
 {
