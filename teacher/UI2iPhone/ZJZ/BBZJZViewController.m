@@ -14,6 +14,7 @@
 #import "XiaoShuangIMViewController.h"
 #import "SystemIMViewController.h"
 #import "ShuangShuangTeamViewController.h"
+#import "BBServiceAccountViewController.h"
 
 #import "BBNotifyMessageGroupCell.h"
 //shouxin version 4
@@ -440,7 +441,9 @@
                 break;
             case 3:
             {
-                
+                //[PalmUIManagement sharedInstance].noticeArray
+                BBServiceAccountViewController *serviceAccount = [[BBServiceAccountViewController alloc] initWithServiceItems:[PalmUIManagement sharedInstance].noticeArray];
+                [self.navigationController pushViewController:serviceAccount animated:YES];
             }
                 break;
             default:

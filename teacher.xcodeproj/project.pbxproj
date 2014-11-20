@@ -1279,6 +1279,7 @@
 		33771E4818C9D28600FB5002 /* PalmUIModelCoding.m in Sources */ = {isa = PBXBuildFile; fileRef = 33771E4718C9D28600FB5002 /* PalmUIModelCoding.m */; };
 		339ECB0318CAF76F0062C5ED /* PalmViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 339ECB0218CAF76F0062C5ED /* PalmViewController.m */; };
 		339ECB0918CAF93C0062C5ED /* MBProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = 339ECB0818CAF93C0062C5ED /* MBProgressHUD.m */; };
+		740530AD1A1CD3260048C0B0 /* BBServiceAccountViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 740530AC1A1CD3260048C0B0 /* BBServiceAccountViewController.m */; };
 		741EBBC218D4C05A00F21085 /* BBMessageGroupBaseCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 741EBBC118D4C05A00F21085 /* BBMessageGroupBaseCell.m */; };
 		741EBBC518D4CC7B00F21085 /* BBSingleMessageGroupCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 741EBBC418D4CC7B00F21085 /* BBSingleMessageGroupCell.m */; };
 		741EBBC818D4CCA900F21085 /* BBGroupMessageGroupCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 741EBBC718D4CCA900F21085 /* BBGroupMessageGroupCell.m */; };
@@ -3399,6 +3400,8 @@
 		339ECB0518CAF8450062C5ED /* PalmVCBaseProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PalmVCBaseProtocol.h; sourceTree = "<group>"; };
 		339ECB0718CAF93C0062C5ED /* MBProgressHUD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBProgressHUD.h; sourceTree = "<group>"; };
 		339ECB0818CAF93C0062C5ED /* MBProgressHUD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MBProgressHUD.m; sourceTree = "<group>"; };
+		740530AB1A1CD3260048C0B0 /* BBServiceAccountViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BBServiceAccountViewController.h; sourceTree = "<group>"; };
+		740530AC1A1CD3260048C0B0 /* BBServiceAccountViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BBServiceAccountViewController.m; sourceTree = "<group>"; };
 		741EBBC018D4C05A00F21085 /* BBMessageGroupBaseCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BBMessageGroupBaseCell.h; sourceTree = "<group>"; };
 		741EBBC118D4C05A00F21085 /* BBMessageGroupBaseCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BBMessageGroupBaseCell.m; sourceTree = "<group>"; };
 		741EBBC318D4CC7B00F21085 /* BBSingleMessageGroupCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BBSingleMessageGroupCell.h; sourceTree = "<group>"; };
@@ -7130,6 +7133,8 @@
 				7478550718DB548C0070DF87 /* StartGroupChatTableviewCell.m */,
 				74421CD618DF467A000D2F1B /* DisplaySelectedMemberView.h */,
 				74421CD718DF467A000D2F1B /* DisplaySelectedMemberView.m */,
+				740530AB1A1CD3260048C0B0 /* BBServiceAccountViewController.h */,
+				740530AC1A1CD3260048C0B0 /* BBServiceAccountViewController.m */,
 			);
 			path = Contacts;
 			sourceTree = "<group>";
@@ -9070,6 +9075,7 @@
 				332D831918C33F0B007A75D5 /* FXInputWithWarning.m in Sources */,
 				1975B76418E940F300587B80 /* EGOImageView.m in Sources */,
 				332D830118C33F0B007A75D5 /* CheckMessageView.m in Sources */,
+				740530AD1A1CD3260048C0B0 /* BBServiceAccountViewController.m in Sources */,
 				332D82D118C33F0A007A75D5 /* HPSexPicker.m in Sources */,
 				332D833818C33F0B007A75D5 /* GroupSoundExpressionCell.m in Sources */,
 				7AC51B9318CDDA5700AD1A8C /* BBYZSDetailViewController.m in Sources */,
