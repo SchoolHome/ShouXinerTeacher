@@ -314,7 +314,7 @@
     {
         for (id viewController in self.navigationController.viewControllers) {
             if ([viewController isKindOfClass:[BBMutilIMViewController class]]) {
-                [self.navigationController popToViewController:viewController animated:YES];
+//                [self.navigationController popToViewController:viewController animated:YES];
                 [[CPUIModelManagement sharedInstance] addGroupMemWithUserNames:self.selectedItemsArray andGroup:self.msgGroup];
                 /*
                  NSMutableArray *tempUserInfos = [[NSMutableArray alloc] initWithArray:userinfos];

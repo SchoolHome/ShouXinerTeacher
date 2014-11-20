@@ -57,12 +57,12 @@
     [UIView setAnimationCurve:[curve intValue]];
     if (!self.needSetUserName) {
         if (self.currentVersion == kIOS6) {
-            self.view.frame = CGRectMake(0, -80.0f, self.view.frame.size.width, self.view.frame.size.height);
+            self.view.frame = CGRectMake(0, 20.0f, self.view.frame.size.width, self.view.frame.size.height);
         }else{
-            self.view.frame = CGRectMake(0, -40.0f, self.view.frame.size.width, self.view.frame.size.height);
+            self.view.frame = CGRectMake(0, 20.0f, self.view.frame.size.width, self.view.frame.size.height);
         }
     }else{
-        self.view.frame = CGRectMake(0, -60.0f, self.view.frame.size.width, self.view.frame.size.height);
+        self.view.frame = CGRectMake(0, 20.0f, self.view.frame.size.width, self.view.frame.size.height);
     }
     [UIView commitAnimations];
 }
@@ -182,6 +182,16 @@
     
     UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(clickBG:)];
     [self.view addGestureRecognizer:tap];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(keyboardWillShow:)
+                                                 name:UIKeyboardWillShowNotification
+                                               object:nil];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(keyboardWillHide:)
+                                                 name:UIKeyboardWillHideNotification
+                                               object:nil];
 }
 
 -(void) clickBG : (UIGestureRecognizer *) recognizer{
