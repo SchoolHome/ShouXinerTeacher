@@ -102,6 +102,10 @@
 @property (nonatomic,strong) NSDictionary *postUserInfoResult;
 // 短信验证码
 @property (nonatomic,strong) NSDictionary *smsVerifyCode;
+// 公共账号消息
+@property (nonatomic,strong) NSDictionary *publicMessageResult;
+// 公共账号消息转发
+@property (nonatomic,strong) NSDictionary *publicMessageForwardResult;
 
 // 获取用户信息
 -(void) getUserProfile;
@@ -179,4 +183,8 @@
 
 // 获取短信验证码
 -(void) getSMSVerifyCode : (NSString *)mobile;
+// 获取公共账号消息
+-(void) getPublicMessage : (NSString *) mid;
+// 转发公共账号消息
+-(void) postPublicMessageForward : (NSString *) mid withGroupID : (int) groupID withMessage : (NSString *) message;
 @end
