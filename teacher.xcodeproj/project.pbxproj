@@ -1291,6 +1291,7 @@
 		74421CD818DF467A000D2F1B /* DisplaySelectedMemberView.m in Sources */ = {isa = PBXBuildFile; fileRef = 74421CD718DF467A000D2F1B /* DisplaySelectedMemberView.m */; };
 		745350B11A021AC50068E185 /* BBChooseImgViewInPostPage.m in Sources */ = {isa = PBXBuildFile; fileRef = 745350B01A021AC50068E185 /* BBChooseImgViewInPostPage.m */; };
 		745470CB197D43A500200E4E /* CPOperationReceiveYTZMessage.m in Sources */ = {isa = PBXBuildFile; fileRef = 745470CA197D43A500200E4E /* CPOperationReceiveYTZMessage.m */; };
+		745BB5AA1A1DD46000307F00 /* BBServiceAccountDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 745BB5A91A1DD46000307F00 /* BBServiceAccountDetailViewController.m */; };
 		745C5C67197E3DCC00BD07D4 /* CPDAONotifyMessage.m in Sources */ = {isa = PBXBuildFile; fileRef = 745C5C66197E3DCC00BD07D4 /* CPDAONotifyMessage.m */; };
 		745C5C6A197E457900BD07D4 /* CPDBModelNotifyMessage.m in Sources */ = {isa = PBXBuildFile; fileRef = 745C5C69197E457900BD07D4 /* CPDBModelNotifyMessage.m */; };
 		745CD94619D6A9400096094F /* BBWSPViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 745CD94519D6A9400096094F /* BBWSPViewController.m */; };
@@ -3424,6 +3425,8 @@
 		745350B01A021AC50068E185 /* BBChooseImgViewInPostPage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BBChooseImgViewInPostPage.m; sourceTree = "<group>"; };
 		745470C9197D43A500200E4E /* CPOperationReceiveYTZMessage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPOperationReceiveYTZMessage.h; sourceTree = "<group>"; };
 		745470CA197D43A500200E4E /* CPOperationReceiveYTZMessage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CPOperationReceiveYTZMessage.m; sourceTree = "<group>"; };
+		745BB5A81A1DD46000307F00 /* BBServiceAccountDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BBServiceAccountDetailViewController.h; sourceTree = "<group>"; };
+		745BB5A91A1DD46000307F00 /* BBServiceAccountDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BBServiceAccountDetailViewController.m; sourceTree = "<group>"; };
 		745C5C65197E3DCC00BD07D4 /* CPDAONotifyMessage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPDAONotifyMessage.h; sourceTree = "<group>"; };
 		745C5C66197E3DCC00BD07D4 /* CPDAONotifyMessage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CPDAONotifyMessage.m; sourceTree = "<group>"; };
 		745C5C68197E457900BD07D4 /* CPDBModelNotifyMessage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPDBModelNotifyMessage.h; sourceTree = "<group>"; };
@@ -7135,6 +7138,8 @@
 				74421CD718DF467A000D2F1B /* DisplaySelectedMemberView.m */,
 				740530AB1A1CD3260048C0B0 /* BBServiceAccountViewController.h */,
 				740530AC1A1CD3260048C0B0 /* BBServiceAccountViewController.m */,
+				745BB5A81A1DD46000307F00 /* BBServiceAccountDetailViewController.h */,
+				745BB5A91A1DD46000307F00 /* BBServiceAccountDetailViewController.m */,
 			);
 			path = Contacts;
 			sourceTree = "<group>";
@@ -9168,6 +9173,7 @@
 				332D75A118C33552007A75D5 /* CPUIModelPersonalInfoDataAddition.m in Sources */,
 				19601EA81940446E001776F1 /* BBPBXTableViewCell.m in Sources */,
 				745D7690193F821700AF666E /* BBStudentModel.m in Sources */,
+				745BB5AA1A1DD46000307F00 /* BBServiceAccountDetailViewController.m in Sources */,
 				332D835018C33F0B007A75D5 /* Holiday.m in Sources */,
 				332D75B118C33552007A75D5 /* CPKeyChain.m in Sources */,
 				332D82F118C33F0B007A75D5 /* MessageLoveExpressionViewController.m in Sources */,
