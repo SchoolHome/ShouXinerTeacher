@@ -7,7 +7,7 @@
 //
 
 #import "BBServiceAccountViewController.h"
-
+#import "BBServiceAccountDetailViewController.h"
 @interface BBServiceAccountViewController ()<UITableViewDataSource,UITableViewDelegate>
 @property (nonatomic, strong)NSArray *serviceItems;
 @end
@@ -101,6 +101,11 @@
 - (void)itemTappedWithRow:(NSInteger)row andIndex:(NSInteger)index
 {
     NSLog(@"row == %d,index==%d",row,index);
+    CPDBModelNotifyMessage *model = self.serviceItems[row*ItemCount + index];
+    if (model) {
+        BBServiceAccountDetailViewController *detail = [[BBServiceAccountDetailViewController alloc] initWithModel:model];
+        [self.navigationController pushViewController:detail animated:YES];
+    }
 }
 /*
 #pragma mark - Navigation
