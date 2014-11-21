@@ -240,12 +240,9 @@
     {
         for (id viewController in self.navigationController.viewControllers) {
             if ([viewController isKindOfClass:[MutilGroupDetailViewController class]]) {
-                CPUIModelMessageGroup *currentMsgGroup = [CPUIModelManagement sharedInstance].userMsgGroup;
-                NSLog(@"currentMsgGroupMemberCount==%d",currentMsgGroup.memberList.count);
                 [(MutilGroupDetailViewController *)viewController refreshMsgGroup];
                 [self.navigationController popToViewController:viewController animated:YES];
             }
-            
         }
     }
 }

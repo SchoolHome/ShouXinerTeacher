@@ -37,7 +37,6 @@
     [super viewWillAppear:animated];
     [[CPUIModelManagement sharedInstance] addObserver:self forKeyPath:@"modifyGroupNameDic" options:0 context:@""];
     [[CPUIModelManagement sharedInstance] addObserver:self forKeyPath:@"addFavoriteGroupDic" options:0 context:@""];
-    [[CPUIModelManagement sharedInstance] addObserver:self forKeyPath:@"quitGroupDic" options:0 context:@""];
     [[CPUIModelManagement sharedInstance] addObserver:self forKeyPath:@"removeGroupMemDic" options:0 context:@""];
 }
 -(void)viewWillDisappear:(BOOL)animated
@@ -45,7 +44,6 @@
     [super viewWillDisappear:animated];
     [[CPUIModelManagement sharedInstance] removeObserver:self forKeyPath:@"modifyGroupNameDic"];
     [[CPUIModelManagement sharedInstance] removeObserver:self forKeyPath:@"addFavoriteGroupDic"];
-    [[CPUIModelManagement sharedInstance] removeObserver:self forKeyPath:@"quitGroupDic"];
     [[CPUIModelManagement sharedInstance] removeObserver:self forKeyPath:@"removeGroupMemDic"];
 }
 -(void)viewDidDisappear:(BOOL)animated
