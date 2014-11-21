@@ -76,6 +76,7 @@
 		04D431C9190F89F9004B2806 /* BBComentX@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 04D431C5190F89F9004B2806 /* BBComentX@2x.png */; };
 		04F6E98818E00085007D24DF /* BBShopViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 04F6E98718E00085007D24DF /* BBShopViewController.m */; };
 		04F7FEB718CEF38A0086D09D /* BBMeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 04F7FEB618CEF38A0086D09D /* BBMeViewController.m */; };
+		19019D361A1DD9F200ED0F8C /* PublicOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 19019D351A1DD9F200ED0F8C /* PublicOperation.m */; };
 		1914449818D7085C004886A5 /* MyOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 1914449718D7085C004886A5 /* MyOperation.m */; };
 		19145F4A191CDF3B008CE18C /* MJPhoto.m in Sources */ = {isa = PBXBuildFile; fileRef = 19145F1C191CDF3B008CE18C /* MJPhoto.m */; };
 		19145F4B191CDF3B008CE18C /* MJPhotoBrowser.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 19145F1D191CDF3B008CE18C /* MJPhotoBrowser.bundle */; };
@@ -1596,6 +1597,8 @@
 		04F6E98718E00085007D24DF /* BBShopViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BBShopViewController.m; sourceTree = "<group>"; };
 		04F7FEB518CEF38A0086D09D /* BBMeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BBMeViewController.h; path = ME/BBMeViewController.h; sourceTree = "<group>"; };
 		04F7FEB618CEF38A0086D09D /* BBMeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BBMeViewController.m; path = ME/BBMeViewController.m; sourceTree = "<group>"; };
+		19019D341A1DD9F200ED0F8C /* PublicOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PublicOperation.h; sourceTree = "<group>"; };
+		19019D351A1DD9F200ED0F8C /* PublicOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PublicOperation.m; sourceTree = "<group>"; };
 		1914449618D7085C004886A5 /* MyOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyOperation.h; sourceTree = "<group>"; };
 		1914449718D7085C004886A5 /* MyOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyOperation.m; sourceTree = "<group>"; };
 		19145F1B191CDF3B008CE18C /* MJPhoto.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MJPhoto.h; sourceTree = "<group>"; };
@@ -7044,6 +7047,8 @@
 		33771E2F18C9CC9D00FB5002 /* OP */ = {
 			isa = PBXGroup;
 			children = (
+				19019D341A1DD9F200ED0F8C /* PublicOperation.h */,
+				19019D351A1DD9F200ED0F8C /* PublicOperation.m */,
 				1935742D19AD69C90085DC5F /* SystemOperation.h */,
 				1935742E19AD69C90085DC5F /* SystemOperation.m */,
 				1915BAEF18D5C04A00098CBF /* UserProfileOperation.h */,
@@ -7675,6 +7680,7 @@
 						DevelopmentTeam = A998A43TW3;
 					};
 					332D726B18C33464007A75D5 = {
+						DevelopmentTeam = A998A43TW3;
 						TestTargetID = 332D725018C33464007A75D5;
 					};
 				};
@@ -8950,6 +8956,7 @@
 				74E159F61A0BE91500A0E95F /* BBPostPBXViewController.m in Sources */,
 				19145F4C191CDF3B008CE18C /* MJPhotoBrowser.m in Sources */,
 				19A5E29F1A0B194C000C3A7A /* DiscoverOperation.m in Sources */,
+				19019D361A1DD9F200ED0F8C /* PublicOperation.m in Sources */,
 				332D831218C33F0B007A75D5 /* FXCheckBox.m in Sources */,
 				332D74DD18C33552007A75D5 /* FMResultSet.m in Sources */,
 				33771E3B18C9CD0400FB5002 /* PalmOperation.m in Sources */,
@@ -9253,8 +9260,8 @@
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODE_SIGN_IDENTITY = "iPhone Distribution: Shenyang Idtech Information Technology Co., Ltd.";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Shenyang Idtech Information Technology Co., Ltd.";
+				CODE_SIGN_IDENTITY = "iPhone Developer: yuan gao (5PS549TGY5)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: yuan gao (5PS549TGY5)";
 				COPY_PHASE_STRIP = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
@@ -9272,7 +9279,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 5.1;
 				ONLY_ACTIVE_ARCH = YES;
-				PROVISIONING_PROFILE = "6254ECE3-EB9C-46FA-8BF2-1464DF2443C8";
+				PROVISIONING_PROFILE = "c66ecf10-9171-41de-96bd-fcb949870b02";
 				SDKROOT = iphoneos;
 			};
 			name = Debug;
@@ -9293,8 +9300,8 @@
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODE_SIGN_IDENTITY = "iPhone Distribution: Shenyang Idtech Information Technology Co., Ltd.";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Shenyang Idtech Information Technology Co., Ltd.";
+				CODE_SIGN_IDENTITY = "iPhone Developer: yuan gao (5PS549TGY5)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: yuan gao (5PS549TGY5)";
 				COPY_PHASE_STRIP = YES;
 				ENABLE_NS_ASSERTIONS = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
@@ -9305,7 +9312,7 @@
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 5.1;
-				PROVISIONING_PROFILE = "6254ECE3-EB9C-46FA-8BF2-1464DF2443C8";
+				PROVISIONING_PROFILE = "c66ecf10-9171-41de-96bd-fcb949870b02";
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
 			};
@@ -9339,7 +9346,7 @@
 				ONLY_ACTIVE_ARCH = NO;
 				OTHER_LDFLAGS = "-lxml2";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "8ADA4211-F5E2-4B2C-BD42-E4012B0B901C";
+				PROVISIONING_PROFILE = "c66ecf10-9171-41de-96bd-fcb949870b02";
 				SDKROOT = iphoneos;
 				VALID_ARCHS = armv7;
 				WRAPPER_EXTENSION = app;
@@ -9374,7 +9381,7 @@
 				);
 				OTHER_LDFLAGS = "-lxml2";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "8ADA4211-F5E2-4B2C-BD42-E4012B0B901C";
+				PROVISIONING_PROFILE = "c66ecf10-9171-41de-96bd-fcb949870b02";
 				SDKROOT = iphoneos;
 				VALID_ARCHS = armv7;
 				WRAPPER_EXTENSION = app;
@@ -9385,6 +9392,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/teacher.app/teacher";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",
 					"$(inherited)",
@@ -9398,6 +9407,7 @@
 				);
 				INFOPLIST_FILE = "teacherTests/teacherTests-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 				TEST_HOST = "$(BUNDLE_LOADER)";
 				WRAPPER_EXTENSION = xctest;
 			};
@@ -9407,6 +9417,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/teacher.app/teacher";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",
 					"$(inherited)",
@@ -9416,6 +9428,7 @@
 				GCC_PREFIX_HEADER = "teacher/teacher-Prefix.pch";
 				INFOPLIST_FILE = "teacherTests/teacherTests-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 				TEST_HOST = "$(BUNDLE_LOADER)";
 				WRAPPER_EXTENSION = xctest;
 			};
