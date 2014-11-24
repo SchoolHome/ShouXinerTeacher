@@ -8,6 +8,9 @@
 
 #import "PalmViewController.h"
 
+#import "CPDBModelNotifyMessage.h"
 @interface BBServiceAccountDetailViewController : PalmViewController
+
+- (id)initWithModel:(CPDBModelNotifyMessage *)modelMessage;
 
 @end

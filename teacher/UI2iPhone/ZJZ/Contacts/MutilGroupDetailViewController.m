@@ -8,11 +8,13 @@
 
 #import "MutilGroupDetailViewController.h"
 #import "ContactsStartGroupChatViewController.h"
+#import "MutilIMViewController.h"
+
 
 #import "CPUIModelManagement.h"
 #import "CPUIModelMessageGroup.h"
 #import "CPUIModelMessageGroupMember.h"
-@interface MutilGroupDetailViewController ()<UITableViewDataSource,UITableViewDelegate>
+@interface MutilGroupDetailViewController ()<UITableViewDataSource,UITableViewDelegate,UIAlertViewDelegate>
 {
     GROUP_MEMBER_FROM_TYPE fromType;
 }
@@ -24,14 +26,30 @@
 
 @implementation MutilGroupDetailViewController
 
+- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
+{
+    [self closeProgress];
+    if([keyPath isEqualToString:@"quitGroupDic"]){
+        if ([[[CPUIModelManagement sharedInstance].quitGroupDic objectForKey:group_manage_dic_res_code]integerValue]== RESPONSE_CODE_SUCESS) {
+            [[HPTopTipView shareInstance] showMessage:@"操作成功" duration:2.0f];
+            [self.navigationController popToRootViewControllerAnimated:YES];
+        }else {
+            [self showProgressWithText:[[CPUIModelManagement sharedInstance].quitGroupDic objectForKey:group_manage_dic_res_desc] withDelayTime:3.f];
 
+        }
+    }
+}
 
 - (id)initWithMsgGroup: (CPUIModelMessageGroup *)tempMsgGroup andGroupName:(NSString *)tempGroupName
            andFromType:(GROUP_MEMBER_FROM_TYPE)type
 {
     self = [super init];
     if (self) {
-        self.msgGroup = tempMsgGroup;
+        if (type != GROUP_MEMBER_FROM_TYPE_IM) {
+            self.msgGroup = tempMsgGroup;
+        }
+        
+        [[CPUIModelManagement sharedInstance] setCurrentMsgGroup:self.msgGroup];
         groupName = tempGroupName;
         fromType = type;
     }
@@ -86,6 +104,18 @@
     // Dispose of any resources that can be recreated.
 }
 
+- (void)viewWillAppear:(BOOL)animated
+{
+    [[CPUIModelManagement sharedInstance] addObserver:self forKeyPath:@"quitGroupDic" options:0 context:@""];
+}
+
+- (void)viewWillDisappear:(BOOL)animated
+{
+    [[CPUIModelManagement sharedInstance] removeObserver:self forKeyPath:@"quitGroupDic"];
+    if (fromType != GROUP_MEMBER_FROM_TYPE_IM) {
+        [[CPUIModelManagement sharedInstance] setCurrentMsgGroup:nil];
+    }
+}
 
 
 /*
@@ -109,7 +139,12 @@
 #pragma mark - ViewControllerMethod
 - (void)refreshMsgGroup
 {
-    //self.msgGroup = [CPUIModelManagement sharedInstance].userMsgGroup;
+    for (CPUIModelMessageGroup *newMsgGroup in [CPUIModelManagement sharedInstance].userMessageGroupList) {
+        if ([newMsgGroup.msgGroupID integerValue] == [self.msgGroup.msgGroupID integerValue]) {
+            self.msgGroup = newMsgGroup;
+            break;
+        }
+    }
     [_memberDisplayView setMembers:[self getUserInfos]];
     [self.detailTableview reloadData];
 }
@@ -132,12 +167,22 @@
 
 - (void)quitGroup
 {
-    
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil message:@"确认退出吗?" delegate:self cancelButtonTitle:@"" otherButtonTitles:@"确认",@"取消",nil];
+    [alert show];
 }
 
 - (void)beginChat
 {
-    
+    MutilIMViewController *mutilIM = [[MutilIMViewController alloc] init:self.msgGroup];
+    [self.navigationController pushViewController:mutilIM animated:YES];
+}
+
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    if (buttonIndex == 0) {
+        [self showProgressWithText:@"正在退出..."];
+        [[CPUIModelManagement sharedInstance] quitGroupWithGroup:self.msgGroup];
+    }
 }
 #pragma mark - UItableview
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
