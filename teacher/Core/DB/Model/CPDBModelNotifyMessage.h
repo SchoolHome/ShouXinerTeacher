@@ -24,6 +24,7 @@
 @property (nonatomic,strong) NSString *fromUserName;
 @property (nonatomic,strong) NSString *fromUserAvatar;
 @property (nonatomic,strong) NSNumber *unReadedCount; //only available by msg isequal msgGroup
+@property (nonatomic,strong) NSString *mid;
 
 
 @end

@@ -37,7 +37,7 @@ typedef enum
     NSNumber *isReaded_;//是否已读  0已读  1未读
     NSString *msgText_;//消息文本内容
     NSNumber *contentType_;//内容类型
-    NSString *locationInfo_;//地理位置信息
+    NSString *locationInfo_;//mid
     NSNumber *attachResID_;//附件对应的资源ID
     NSString *magicMsgID_;//魔法表情对应的ID
     NSString *petMsgID_;//pet对应的ID
@@ -58,7 +58,7 @@ typedef enum
 @property (strong,nonatomic) NSNumber *isReaded;
 @property (strong,nonatomic) NSString *msgText;
 @property (strong,nonatomic) NSNumber *contentType;
-@property (strong,nonatomic) NSString *locationInfo;
+@property (strong,nonatomic) NSString *locationInfo;//mid
 @property (strong,nonatomic) NSNumber *attachResID;
 @property (strong,nonatomic) NSString *magicMsgID;
 @property (strong,nonatomic) NSString *petMsgID;
