@@ -42,6 +42,7 @@
         NSArray *msgImageUrl = nil;
         NSString *msgUserName = nil;
         NSString *msgUserAvatar = nil;
+        NSString *msgMid = nil;
         
         switch (userMsgType){
             case UserMessageTypeNotice:{
@@ -55,12 +56,17 @@
                 msgImageUrl = [jsonDict objectForKey:@"img"];
                 msgUserName = [jsonDict objectForKey:@"from_uname"];
                 msgUserAvatar = [jsonDict objectForKey:@"from_avatar"];
+                msgMid = [jsonDict objectForKey:@"mid"];
             }
             break;
             case UserMessageTypeUnknown:
                 break;
             default:
                 break;
+        }
+        
+        if (msgMid == nil || [msgMid isEqualToString:@""]) {
+            return nil;
         }
         
         NSNumber *delayedTime = nil;

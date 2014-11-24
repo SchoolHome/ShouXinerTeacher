@@ -19,4 +19,5 @@
 @property (nonatomic,strong) NSString *content;
 @property (nonatomic,strong) NSString *link;
 @property (nonatomic,strong) NSArray *imageUrl;
+@property (nonatomic,strong) NSString *mid;
 @end
