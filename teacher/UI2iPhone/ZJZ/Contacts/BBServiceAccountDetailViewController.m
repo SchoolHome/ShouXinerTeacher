@@ -110,8 +110,8 @@
 
 - (void)beginCheckMessage
 {
-    if (self.model.locationInfo.length > 0) {
-        [[PalmUIManagement sharedInstance] getPublicMessage:self.model.locationInfo];
+    if (self.model.mid.length > 0) {
+        [[PalmUIManagement sharedInstance] getPublicMessage:self.model.mid];
     }else [self showProgressWithText:@"无法查看消息" withDelayTime:1.f];
 }
 #pragma mark - UITableview
