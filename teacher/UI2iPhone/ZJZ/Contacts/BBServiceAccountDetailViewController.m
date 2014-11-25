@@ -16,6 +16,20 @@
 @end
 
 @implementation BBServiceAccountDetailViewController
+- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
+{
+    if ([keyPath isEqualToString:@"publicMessageResult"]) {
+        NSDictionary *result = [PalmUIManagement sharedInstance].publicMessageResult;
+        
+        if (![result[@"hasError"] boolValue]) {
+            
+        }else{
+            [self showProgressWithText:@"获取消息失败,请重试" withDelayTime:1];
+        }
+
+    }
+}
+
 - (id)initWithModel:(CPDBModelNotifyMessage *)modelMessage
 {
     self = [super init];
@@ -26,6 +40,15 @@
 
 }
 
+- (void)viewWillAppear:(BOOL)animated
+{
+    [[PalmUIManagement sharedInstance] addObserver:self forKeyPath:@"publicMessageResult" options:0 context:nil];
+}
+
+- (void)viewDidDisappear:(BOOL)animated
+{
+    [[PalmUIManagement sharedInstance] removeObserver:self forKeyPath:@"publicMessageResult"];
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -87,7 +110,9 @@
 
 - (void)beginCheckMessage
 {
-    
+    if (self.model.mid.length > 0) {
+        [[PalmUIManagement sharedInstance] getPublicMessage:self.model.mid];
+    }else [self showProgressWithText:@"无法查看消息" withDelayTime:1.f];
 }
 #pragma mark - UITableview
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
