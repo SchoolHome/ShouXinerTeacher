@@ -93,7 +93,7 @@
         noticeMessage.imageUrl = msgImageUrl;
         noticeMessage.fromUserName = msgUserName;
         noticeMessage.fromUserAvatar = msgUserAvatar;
-        
+        noticeMessage.mid = msgMid;
         noticeMessage.resourceMimeType = nil;
         noticeMessage.delayedTime = delayedTime;
     }
