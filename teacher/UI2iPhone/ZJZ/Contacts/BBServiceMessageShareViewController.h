@@ -7,7 +7,21 @@
 //
 
 #import "PalmViewController.h"
+#import "UIPlaceHolderTextView.h"
 
-@interface BBServiceMessageShareViewController : PalmViewController
+#import "BBGroupModel.h"
 
+@protocol BBServiceMessageShareTableviewTouchDelegate <NSObject>
+
+- (void)tableviewTouched;
+
+@end
+
+@interface BBServiceMessageShareViewController : PalmViewController<BBServiceMessageShareTableviewTouchDelegate>
+
+@end
+
+@interface BBServiceMessageShareTableview : UITableView <UIGestureRecognizerDelegate>
+
+@property (nonatomic, weak) id<BBServiceMessageShareTableviewTouchDelegate> touchDelegate;
 @end
