@@ -1302,6 +1302,8 @@
 		745D768D193F6E9D00AF666E /* BBDisplaySelectedStudentsView.m in Sources */ = {isa = PBXBuildFile; fileRef = 745D768C193F6E9D00AF666E /* BBDisplaySelectedStudentsView.m */; };
 		745D7690193F821700AF666E /* BBStudentModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 745D768F193F821700AF666E /* BBStudentModel.m */; };
 		746456F71A00D7CD008CF0BD /* plus_bg@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 746456F61A00D7CD008CF0BD /* plus_bg@2x.png */; };
+		746A8FDB1A2609B900DDBE19 /* BBServiceMessageShareViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 746A8FDA1A2609B900DDBE19 /* BBServiceMessageShareViewController.m */; };
+		746A8FDE1A2609D400DDBE19 /* BBServiceMessageDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 746A8FDD1A2609D400DDBE19 /* BBServiceMessageDetailViewController.m */; };
 		746C549B1A1623C6002482F1 /* BBContactPersonDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 746C549A1A1623C6002482F1 /* BBContactPersonDetailViewController.m */; };
 		7478550518DB545C0070DF87 /* ContactsStartGroupChatViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7478550418DB545C0070DF87 /* ContactsStartGroupChatViewController.m */; };
 		7478550818DB548C0070DF87 /* StartGroupChatTableviewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7478550718DB548C0070DF87 /* StartGroupChatTableviewCell.m */; };
@@ -3447,6 +3449,10 @@
 		745D768E193F821700AF666E /* BBStudentModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BBStudentModel.h; sourceTree = "<group>"; };
 		745D768F193F821700AF666E /* BBStudentModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BBStudentModel.m; sourceTree = "<group>"; };
 		746456F61A00D7CD008CF0BD /* plus_bg@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "plus_bg@2x.png"; sourceTree = "<group>"; };
+		746A8FD91A2609B900DDBE19 /* BBServiceMessageShareViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BBServiceMessageShareViewController.h; sourceTree = "<group>"; };
+		746A8FDA1A2609B900DDBE19 /* BBServiceMessageShareViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BBServiceMessageShareViewController.m; sourceTree = "<group>"; };
+		746A8FDC1A2609D400DDBE19 /* BBServiceMessageDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BBServiceMessageDetailViewController.h; sourceTree = "<group>"; };
+		746A8FDD1A2609D400DDBE19 /* BBServiceMessageDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BBServiceMessageDetailViewController.m; sourceTree = "<group>"; };
 		746C54991A1623C6002482F1 /* BBContactPersonDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BBContactPersonDetailViewController.h; sourceTree = "<group>"; };
 		746C549A1A1623C6002482F1 /* BBContactPersonDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BBContactPersonDetailViewController.m; sourceTree = "<group>"; };
 		7478550318DB545C0070DF87 /* ContactsStartGroupChatViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ContactsStartGroupChatViewController.h; sourceTree = "<group>"; };
@@ -7145,6 +7151,10 @@
 				740530AC1A1CD3260048C0B0 /* BBServiceAccountViewController.m */,
 				745BB5A81A1DD46000307F00 /* BBServiceAccountDetailViewController.h */,
 				745BB5A91A1DD46000307F00 /* BBServiceAccountDetailViewController.m */,
+				746A8FDC1A2609D400DDBE19 /* BBServiceMessageDetailViewController.h */,
+				746A8FDD1A2609D400DDBE19 /* BBServiceMessageDetailViewController.m */,
+				746A8FD91A2609B900DDBE19 /* BBServiceMessageShareViewController.h */,
+				746A8FDA1A2609B900DDBE19 /* BBServiceMessageShareViewController.m */,
 			);
 			path = Contacts;
 			sourceTree = "<group>";
@@ -8972,6 +8982,7 @@
 				332D833118C33F0B007A75D5 /* ExpressionsParser.m in Sources */,
 				332D752418C33552007A75D5 /* MKNetworkOperation.m in Sources */,
 				7A4D2A1B18DAEE2400C128B4 /* BBYZSShareViewController.m in Sources */,
+				746A8FDE1A2609D400DDBE19 /* BBServiceMessageDetailViewController.m in Sources */,
 				19E1A0F9194ED5D1009C06F7 /* ZYQAssetPickerController.m in Sources */,
 				33771E4518C9D20900FB5002 /* AsiGetRequestModel.m in Sources */,
 				332D753D18C33552007A75D5 /* XMPPIQ+JabberRPC.m in Sources */,
@@ -9062,6 +9073,7 @@
 				332D829318C33F0A007A75D5 /* AddContactCellBase.m in Sources */,
 				332D82CD18C33F0A007A75D5 /* HomePageTabBar.m in Sources */,
 				332D82B618C33F0A007A75D5 /* ForgetViewController.m in Sources */,
+				746A8FDB1A2609B900DDBE19 /* BBServiceMessageShareViewController.m in Sources */,
 				332D834018C33F0B007A75D5 /* SingleMagicExpressionCell.m in Sources */,
 				332D758E18C33552007A75D5 /* CPPTModelUserInfo.m in Sources */,
 				332D831818C33F0B007A75D5 /* FXInputAlert.m in Sources */,
