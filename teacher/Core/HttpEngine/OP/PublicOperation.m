@@ -21,7 +21,7 @@
     self = [self initOperation];
     if (nil != self) {
         self.type = kGetPublicMessage;
-        NSString *urlStr = [NSString stringWithFormat:@"http://%@/mapi/pubMessage?mid=%@",K_HOST_NAME_OF_PALM_SERVER,mid];
+        NSString *urlStr = [NSString stringWithFormat:@"http://%@/mapi/pubMessageBatch?mid=%@",K_HOST_NAME_OF_PALM_SERVER,mid];
         [self setHttpRequestGetWithUrl:urlStr];
     }
     return self;
