@@ -58,7 +58,7 @@
     [dbMsg setLink:userMsg.link];
     [dbMsg setImageUrl:userMsg.imageUrl];
     [dbMsg setBodyFrom:userMsg.bodyFrom];
-    [dbMsg setLocationInfo:userMsg.mid];
+    [dbMsg setMid:userMsg.mid];
     [dbMsg setFromUserAvatar:userMsg.fromUserAvatar];
     [dbMsg setFromUserName:userMsg.fromUserName];
     [dbMsg setFlag:[NSNumber numberWithInt:MSG_FLAG_RECEIVE]];

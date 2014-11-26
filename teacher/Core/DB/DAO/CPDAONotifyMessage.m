@@ -111,9 +111,9 @@
         [dbMessage setDate:[CoreUtils getLongFormatWithNowDate]];
     }
     NSLog(@"-10- %@",dbMessage);
-    NSString *sqlstr = [NSString stringWithFormat:@"insert into notifyMessage (oaid,bodyFrom ,title ,content,link ,fromJID ,toJID ,type,xmppType,fromUserName ,fromUserAvatar ,mobile ,flag ,date ,is_readed ,msg_text ,content_type ,location_info ,body_content ,msg_owner_name ) values (%@,%@,%@,%@,%@,%@,%@,%@,%@,%@,%@,%@,%@,%@,%@,%@,%@,%@,%@,%@)",dbMessage.oaid,dbMessage.bodyFrom,dbMessage.title,dbMessage.content,dbMessage.title,dbMessage.title,dbMessage.title,dbMessage.type,dbMessage.xmppType,dbMessage.fromUserName,dbMessage.fromUserAvatar,dbMessage.mobile,dbMessage.flag,dbMessage.date,dbMessage.isReaded,dbMessage.msgText,dbMessage.contentType,dbMessage.locationInfo,dbMessage.bodyContent,dbMessage.msgOwnerName];
+    NSString *sqlstr = [NSString stringWithFormat:@"insert into notifyMessage (oaid,bodyFrom ,title ,content,link ,fromJID ,toJID ,type,xmppType,fromUserName ,fromUserAvatar ,mobile ,flag ,date ,is_readed ,msg_text ,content_type ,location_info ,body_content ,msg_owner_name ) values (%@,%@,%@,%@,%@,%@,%@,%@,%@,%@,%@,%@,%@,%@,%@,%@,%@,%@,%@,%@)",dbMessage.oaid,dbMessage.bodyFrom,dbMessage.title,dbMessage.content,dbMessage.title,dbMessage.title,dbMessage.title,dbMessage.type,dbMessage.xmppType,dbMessage.fromUserName,dbMessage.fromUserAvatar,dbMessage.mobile,dbMessage.flag,dbMessage.date,dbMessage.isReaded,dbMessage.msgText,dbMessage.contentType,dbMessage.mid,dbMessage.bodyContent,dbMessage.msgOwnerName];
     NSLog(@"-11- %@",sqlstr);
-    [db executeUpdate:@"insert into notifyMessage (oaid,bodyFrom ,title ,content,link ,fromJID ,toJID ,type,xmppType,fromUserName ,fromUserAvatar ,mobile ,flag ,date ,is_readed ,msg_text ,content_type ,location_info ,body_content ,msg_owner_name ) values (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)",dbMessage.oaid,dbMessage.bodyFrom,dbMessage.title,dbMessage.content,dbMessage.link,dbMessage.from,dbMessage.to,dbMessage.type,dbMessage.xmppType,dbMessage.fromUserName,dbMessage.fromUserAvatar,dbMessage.mobile,dbMessage.flag,dbMessage.date,dbMessage.isReaded,dbMessage.msgText,dbMessage.contentType,dbMessage.locationInfo,dbMessage.bodyContent,dbMessage.msgOwnerName];
+    [db executeUpdate:@"insert into notifyMessage (oaid,bodyFrom ,title ,content,link ,fromJID ,toJID ,type,xmppType,fromUserName ,fromUserAvatar ,mobile ,flag ,date ,is_readed ,msg_text ,content_type ,location_info ,body_content ,msg_owner_name ) values (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)",dbMessage.oaid,dbMessage.bodyFrom,dbMessage.title,dbMessage.content,dbMessage.link,dbMessage.from,dbMessage.to,dbMessage.type,dbMessage.xmppType,dbMessage.fromUserName,dbMessage.fromUserAvatar,dbMessage.mobile,dbMessage.flag,dbMessage.date,dbMessage.isReaded,dbMessage.msgText,dbMessage.contentType,dbMessage.mid,dbMessage.bodyContent,dbMessage.msgOwnerName];
     NSLog(@"-12- %@",dbMessage);
     if ([db hadError])
     {
@@ -134,7 +134,7 @@
 -(void)updateMessageWithID:(NSNumber *)objID  obj:(CPDBModelNotifyMessage *)dbMessage
 {
     [db executeUpdate:@"update notifyMessage set group_id=?,msg_sender_id=?,msg_group_server_id=?,mobile=?,flag=?,send_state=?,date=?,is_readed=?,msg_text=?,content_type=?,location_info=?,attach_res_id=?,body_content=?,msg_owner_name=?,oaid=? ,bodyFrom=?,title=?,content=? ,link=?,headImagePath=? where id =?",
-     dbMessage.msgGroupID,dbMessage.msgSenderID,dbMessage.msgGroupServerID,dbMessage.mobile,dbMessage.flag,dbMessage.sendState,dbMessage.date,dbMessage.isReaded,dbMessage.msgText,dbMessage.contentType,dbMessage.locationInfo,dbMessage.attachResID,dbMessage.bodyContent,dbMessage.msgOwnerName,dbMessage.oaid,dbMessage.bodyFrom,dbMessage.title,dbMessage.content,dbMessage.link,@"",objID];
+     dbMessage.msgGroupID,dbMessage.msgSenderID,dbMessage.msgGroupServerID,dbMessage.mobile,dbMessage.flag,dbMessage.sendState,dbMessage.date,dbMessage.isReaded,dbMessage.msgText,dbMessage.contentType,dbMessage.mid,dbMessage.attachResID,dbMessage.bodyContent,dbMessage.msgOwnerName,dbMessage.oaid,dbMessage.bodyFrom,dbMessage.title,dbMessage.content,dbMessage.link,@"",objID];
     if ([db hadError])
     {
         CPLogError(@"Err %d: %@", [db lastErrorCode], [db lastErrorMessage]);
@@ -162,7 +162,7 @@
     [dbMessage setIsReaded:[NSNumber numberWithInt:[rs intForColumn:@"is_readed"]]];
     [dbMessage setMsgText:[rs stringForColumn:@"msg_text"]];
     [dbMessage setContentType:[NSNumber numberWithInt:[rs intForColumn:@"content_type"]]];
-    [dbMessage setLocationInfo:[rs stringForColumn:@"location_info"]];
+    [dbMessage setMid:[rs stringForColumn:@"location_info"]];
     [dbMessage setBodyContent:[rs stringForColumn:@"body_content"]];
     [dbMessage setMsgOwnerName:[rs stringForColumn:@"msg_owner_name"]];
     

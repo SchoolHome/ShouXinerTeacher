@@ -22,7 +22,8 @@
         NSDictionary *result = [PalmUIManagement sharedInstance].publicMessageResult;
         
         if (![result[@"hasError"] boolValue]) {
-            
+            NSDictionary *data = result[@"data"];
+            NSArray *list = data[@"list"];
         }else{
             [self showProgressWithText:@"获取消息失败,请重试" withDelayTime:1];
         }
