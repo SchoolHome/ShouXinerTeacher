@@ -8,7 +8,7 @@
 
 #import "MutilGroupDetailViewController.h"
 #import "ContactsStartGroupChatViewController.h"
-#import "MutilIMViewController.h"
+#import "BBMutilIMViewController.h"
 
 
 #import "CPUIModelManagement.h"
@@ -173,7 +173,7 @@
 
 - (void)beginChat
 {
-    MutilIMViewController *mutilIM = [[MutilIMViewController alloc] init:self.msgGroup];
+    BBMutilIMViewController *mutilIM = [[BBMutilIMViewController alloc] init:self.msgGroup];
     [self.navigationController pushViewController:mutilIM animated:YES];
 }
 
