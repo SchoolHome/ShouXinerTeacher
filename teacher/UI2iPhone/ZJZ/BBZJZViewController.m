@@ -84,7 +84,7 @@
     self.navigationItem.titleView = segementBtn;
     
     
-    _messageListTableview = [[BBMessageGroupBaseTableView alloc] initWithFrame:CGRectMake(0.f, -10.f, 320.f, self.screenHeight-89.f) style:UITableViewStylePlain];
+    _messageListTableview = [[BBMessageGroupBaseTableView alloc] initWithFrame:CGRectMake(0.f, 0.f, 320.f, self.screenHeight-89.f) style:UITableViewStylePlain];
     _messageListTableview.backgroundColor = [UIColor clearColor];
     _messageListTableview.messageGroupBaseTableViewdelegate = self;
     _messageListTableview.delegate = self;
@@ -457,6 +457,15 @@
     
 }
 #pragma mark UItableviewDatasouce
+/*
+- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
+{
+    if (listType == LIST_TYPE_MSG_GROUP) {
+        return [[UIView alloc] initWithFrame:CGRectMake(0.f, 0.f, self.screenWidth, 1.f)];
+    }
+    return nil;
+}
+*/
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     if (listType == LIST_TYPE_MSG_GROUP) {
@@ -548,7 +557,14 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
 {
-    return 10.f;
+    if (listType == LIST_TYPE_MSG_GROUP) {
+        return 0;
+    }else if (section == 0)
+    {
+        return 0;
+    }
+    
+    return 16.f;
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
