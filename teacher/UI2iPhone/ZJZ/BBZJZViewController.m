@@ -175,9 +175,10 @@
         NSArray *array = [NSArray arrayWithArray:[CPUIModelManagement sharedInstance].userMessageGroupList];
         NSMutableArray *arrayM = [[NSMutableArray alloc] initWithCapacity:20];
         for (CPUIModelMessageGroup *g in array) {
-            if ([g.msgList count] != 0) {
-                [arrayM addObject:g];
-            }
+//            if ([g.msgList count] != 0) {
+//                [arrayM addObject:g];
+//            }
+            [arrayM addObject:g];
         }
         [arrayM addObjectsFromArray:[PalmUIManagement sharedInstance].noticeArray];
         _tableviewDisplayDataArray = [NSArray arrayWithArray:arrayM];
@@ -201,9 +202,10 @@
         NSArray *array = [NSArray arrayWithArray:[CPUIModelManagement sharedInstance].userMessageGroupList];
         NSMutableArray *arrayM = [[NSMutableArray alloc] initWithCapacity:10];
         for (CPUIModelMessageGroup *g in array) {
-            if ([g.msgList count] != 0) {
-                [arrayM addObject:g];
-            }
+//            if ([g.msgList count] != 0) {
+//                [arrayM addObject:g];
+//            }
+            [arrayM addObject:g];
         }
         [arrayM addObjectsFromArray:[PalmUIManagement sharedInstance].noticeArray];
         
@@ -429,7 +431,7 @@
                 NSMutableArray *tempMutilMsgGroups = [[NSMutableArray alloc] init];
                 for (CPUIModelMessageGroup *group in self.tableviewDisplayDataArray) {
                     if ([group isKindOfClass:[CPUIModelMessageGroup class]]) {
-                        if (![group isMsgSingleGroup] && [group.msgList count] != 0) {
+                        if (![group isMsgSingleGroup]) {
                             [tempMutilMsgGroups addObject:group];
                         }
                     }
@@ -564,7 +566,7 @@
         return 0;
     }
     
-    return 16.f;
+    return 20.f;
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {

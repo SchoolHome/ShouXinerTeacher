@@ -1282,6 +1282,7 @@
 		339ECB0918CAF93C0062C5ED /* MBProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = 339ECB0818CAF93C0062C5ED /* MBProgressHUD.m */; };
 		740530AD1A1CD3260048C0B0 /* BBServiceAccountViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 740530AC1A1CD3260048C0B0 /* BBServiceAccountViewController.m */; };
 		740DFBDC1A271B4A0006D355 /* BBServiceMessageDetailTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 740DFBDB1A271B4A0006D355 /* BBServiceMessageDetailTableViewCell.m */; };
+		740DFBE31A276B620006D355 /* BBServiceMessageDetailModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 740DFBE21A276B620006D355 /* BBServiceMessageDetailModel.m */; };
 		741EBBC218D4C05A00F21085 /* BBMessageGroupBaseCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 741EBBC118D4C05A00F21085 /* BBMessageGroupBaseCell.m */; };
 		741EBBC518D4CC7B00F21085 /* BBSingleMessageGroupCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 741EBBC418D4CC7B00F21085 /* BBSingleMessageGroupCell.m */; };
 		741EBBC818D4CCA900F21085 /* BBGroupMessageGroupCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 741EBBC718D4CCA900F21085 /* BBGroupMessageGroupCell.m */; };
@@ -3411,6 +3412,8 @@
 		740530AC1A1CD3260048C0B0 /* BBServiceAccountViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BBServiceAccountViewController.m; sourceTree = "<group>"; };
 		740DFBDA1A271B4A0006D355 /* BBServiceMessageDetailTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BBServiceMessageDetailTableViewCell.h; sourceTree = "<group>"; };
 		740DFBDB1A271B4A0006D355 /* BBServiceMessageDetailTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BBServiceMessageDetailTableViewCell.m; sourceTree = "<group>"; };
+		740DFBE11A276B620006D355 /* BBServiceMessageDetailModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BBServiceMessageDetailModel.h; sourceTree = "<group>"; };
+		740DFBE21A276B620006D355 /* BBServiceMessageDetailModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BBServiceMessageDetailModel.m; sourceTree = "<group>"; };
 		741EBBC018D4C05A00F21085 /* BBMessageGroupBaseCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BBMessageGroupBaseCell.h; sourceTree = "<group>"; };
 		741EBBC118D4C05A00F21085 /* BBMessageGroupBaseCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BBMessageGroupBaseCell.m; sourceTree = "<group>"; };
 		741EBBC318D4CC7B00F21085 /* BBSingleMessageGroupCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BBSingleMessageGroupCell.h; sourceTree = "<group>"; };
@@ -7158,6 +7161,8 @@
 				746A8FDD1A2609D400DDBE19 /* BBServiceMessageDetailViewController.m */,
 				740DFBDA1A271B4A0006D355 /* BBServiceMessageDetailTableViewCell.h */,
 				740DFBDB1A271B4A0006D355 /* BBServiceMessageDetailTableViewCell.m */,
+				740DFBE11A276B620006D355 /* BBServiceMessageDetailModel.h */,
+				740DFBE21A276B620006D355 /* BBServiceMessageDetailModel.m */,
 				746A8FD91A2609B900DDBE19 /* BBServiceMessageShareViewController.h */,
 				746A8FDA1A2609B900DDBE19 /* BBServiceMessageShareViewController.m */,
 			);
@@ -9151,6 +9156,7 @@
 				332D74C518C33552007A75D5 /* AbDataManagement.m in Sources */,
 				193E594418D990C300DB1FF4 /* BBSingleIMViewController.m in Sources */,
 				332D74D518C33552007A75D5 /* CPDAOUserInfo.m in Sources */,
+				740DFBE31A276B620006D355 /* BBServiceMessageDetailModel.m in Sources */,
 				332D751C18C33552007A75D5 /* CPXmppEngineTransactionContext.m in Sources */,
 				332D74E818C33552007A75D5 /* CPDBModelPetInfo.m in Sources */,
 				19145F57191CDF3B008CE18C /* SDWebImageDownloaderOperation.m in Sources */,

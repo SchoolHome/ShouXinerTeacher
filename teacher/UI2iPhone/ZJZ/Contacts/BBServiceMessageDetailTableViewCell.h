@@ -7,15 +7,17 @@
 //
 
 #import <UIKit/UIKit.h>
-
+#import "EGOImageView.h"
 typedef enum
 {
-    DETAIL_CELL_TYPE_MAIN_IMAGE = 1,
-    DETAIL_CELL_TYPE_MAIN_TITLE = 2,
-    DETAIL_CELL_TYPE_SINGLE_FULL = 3,
+    DETAIL_CELL_TYPE_MUTIL = 1,
+    DETAIL_CELL_TYPE_SINGLE = 2,
 
 }DETAIL_CELL_TYPE;
 
 @interface BBServiceMessageDetailTableViewCell : UITableViewCell
+{
+    
+}
 @property (nonatomic) DETAIL_CELL_TYPE cellType;
 @end

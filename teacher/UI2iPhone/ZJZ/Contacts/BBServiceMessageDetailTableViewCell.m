@@ -13,17 +13,12 @@
 - (void)setCellType:(DETAIL_CELL_TYPE)cellType
 {
     switch (cellType) {
-        case DETAIL_CELL_TYPE_MAIN_IMAGE:
+        case DETAIL_CELL_TYPE_MUTIL:
         {
             
         }
             break;
-        case DETAIL_CELL_TYPE_MAIN_TITLE:
-        {
-        
-        }
-            break;
-        case DETAIL_CELL_TYPE_SINGLE_FULL:
+        case DETAIL_CELL_TYPE_SINGLE:
         {
         
         }
