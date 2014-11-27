@@ -8,16 +8,13 @@
 
 #import <UIKit/UIKit.h>
 #import "EGOImageView.h"
-typedef enum
-{
-    DETAIL_CELL_TYPE_MUTIL = 1,
-    DETAIL_CELL_TYPE_SINGLE = 2,
-
-}DETAIL_CELL_TYPE;
+#import "BBServiceMessageDetailModel.h"
 
 @interface BBServiceMessageDetailTableViewCell : UITableViewCell
 {
-    
+    UIImageView *back;
+    UILabel *time;
+    EGOImageView *banner;
 }
-@property (nonatomic) DETAIL_CELL_TYPE cellType;
+@property (nonatomic ,strong)BBServiceMessageDetailModel *model;
 @end
