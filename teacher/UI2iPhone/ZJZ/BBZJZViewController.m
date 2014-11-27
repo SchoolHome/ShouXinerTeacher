@@ -84,12 +84,12 @@
     self.navigationItem.titleView = segementBtn;
     
     
-    _messageListTableview = [[BBMessageGroupBaseTableView alloc] initWithFrame:CGRectMake(0.f, 0.f, 320.f, self.screenHeight-89.f) style:UITableViewStyleGrouped];
+    _messageListTableview = [[BBMessageGroupBaseTableView alloc] initWithFrame:CGRectMake(0.f, -10.f, 320.f, self.screenHeight-89.f) style:UITableViewStylePlain];
     _messageListTableview.backgroundColor = [UIColor clearColor];
     _messageListTableview.messageGroupBaseTableViewdelegate = self;
     _messageListTableview.delegate = self;
     _messageListTableview.dataSource = self;
-    _messageListTableview.tableHeaderView = [[UIView alloc] initWithFrame:CGRectMake(0.f, 0.f, 320.f, 1.f)];
+    //_messageListTableview.tableHeaderView = [[UIView alloc] initWithFrame:CGRectMake(0.f, 0.f, 320.f, 1.f)];
     _messageListTableview.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
     _messageListTableview.showsVerticalScrollIndicator = NO;
     [self.view addSubview:_messageListTableview];
