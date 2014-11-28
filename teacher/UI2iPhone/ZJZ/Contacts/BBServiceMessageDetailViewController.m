@@ -24,6 +24,7 @@
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
 {
+    [self closeProgress];
     if ([keyPath isEqualToString:@"publicMessageResult"]) {
         NSDictionary *result = [PalmUIManagement sharedInstance].publicMessageResult;
         
@@ -91,8 +92,9 @@
                 else mids = [mids stringByAppendingFormat:@",%@",message.mid];
             }
         }
+        [self showProgressWithText:@"正在获取..."];
         [[PalmUIManagement sharedInstance] getPublicMessage:mids];
-    }else [self showProgressWithText:@"无法查看消息" withDelayTime:1.f];
+    }
 }
 #pragma mark - ViewCOntroller
 - (void)backButtonTaped

@@ -107,7 +107,7 @@
         [messageDetail setModel:model];
         [self.navigationController pushViewController:messageDetail animated:YES];
 
-    }
+    }else [self showProgressWithText:@"无法查看" withDelayTime:2];
 }
 /*
 #pragma mark - Navigation
