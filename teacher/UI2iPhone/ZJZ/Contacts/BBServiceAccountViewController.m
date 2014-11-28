@@ -7,7 +7,7 @@
 //
 
 #import "BBServiceAccountViewController.h"
-#import "BBServiceAccountDetailViewController.h"
+#import "BBServiceMessageDetailViewController.h"
 @interface BBServiceAccountViewController ()<UITableViewDataSource,UITableViewDelegate>
 @property (nonatomic, strong)NSArray *serviceItems;
 @end
@@ -103,8 +103,10 @@
     NSLog(@"row == %d,index==%d",row,index);
     CPDBModelNotifyMessage *model = self.serviceItems[row*ItemCount + index];
     if (model) {
-        BBServiceAccountDetailViewController *detail = [[BBServiceAccountDetailViewController alloc] initWithModel:model];
-        [self.navigationController pushViewController:detail animated:YES];
+        BBServiceMessageDetailViewController *messageDetail = [[BBServiceMessageDetailViewController alloc] init];
+        [messageDetail setModel:model];
+        [self.navigationController pushViewController:messageDetail animated:YES];
+
     }
 }
 /*

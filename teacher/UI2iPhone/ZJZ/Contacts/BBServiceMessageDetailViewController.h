@@ -7,7 +7,9 @@
 //
 
 #import "PalmViewController.h"
-
+#import "CPDBModelNotifyMessage.h"
 @interface BBServiceMessageDetailViewController : PalmViewController
+
+@property (nonatomic, strong)CPDBModelNotifyMessage *model;
 
 @end

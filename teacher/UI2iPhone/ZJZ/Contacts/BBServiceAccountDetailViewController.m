@@ -18,20 +18,7 @@
 @end
 
 @implementation BBServiceAccountDetailViewController
-- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
-{
-    if ([keyPath isEqualToString:@"publicMessageResult"]) {
-        NSDictionary *result = [PalmUIManagement sharedInstance].publicMessageResult;
-        
-        if (![result[@"hasError"] boolValue]) {
-            NSDictionary *data = result[@"data"];
-            NSArray *list = data[@"list"];
-        }else{
-            [self showProgressWithText:@"获取消息失败,请重试" withDelayTime:1];
-        }
 
-    }
-}
 
 - (id)initWithModel:(CPDBModelNotifyMessage *)modelMessage
 {
@@ -43,15 +30,7 @@
 
 }
 
-- (void)viewWillAppear:(BOOL)animated
-{
-    [[PalmUIManagement sharedInstance] addObserver:self forKeyPath:@"publicMessageResult" options:0 context:nil];
-}
 
-- (void)viewDidDisappear:(BOOL)animated
-{
-    [[PalmUIManagement sharedInstance] removeObserver:self forKeyPath:@"publicMessageResult"];
-}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -113,19 +92,7 @@
 
 - (void)beginCheckMessage
 {
-    if (self.model.mid.length > 0) {
-        //findNotifyMessagesOfCurrentFromJID
-        NSArray *models = [[[CPSystemEngine sharedInstance] dbManagement] findNotifyMessagesOfCurrentFromJID:self.model.from];
-        NSString *mids;
-        for (int i = 0; i< models.count; i++) {
-            CPDBModelNotifyMessage *message = models[i];
-            if (message) {
-                if (i == 0) mids = message.mid;
-                else mids = [mids stringByAppendingFormat:@",%@",message.mid];
-            }
-        }
-        [[PalmUIManagement sharedInstance] getPublicMessage:mids];
-    }else [self showProgressWithText:@"无法查看消息" withDelayTime:1.f];
+
 }
 #pragma mark - UITableview
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
