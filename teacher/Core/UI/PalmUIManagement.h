@@ -184,7 +184,7 @@
 // 获取短信验证码
 -(void) getSMSVerifyCode : (NSString *)mobile;
 // 获取公共账号消息
--(void) getPublicMessage : (NSString *) mid;
+-(void) getPublicMessage : (NSString *) mids;
 // 转发公共账号消息
 -(void) postPublicMessageForward : (NSString *) mid withGroupID : (int) groupID withMessage : (NSString *) message;
 @end

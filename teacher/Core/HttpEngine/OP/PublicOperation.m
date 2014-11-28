@@ -17,11 +17,11 @@
 @end
 
 @implementation PublicOperation
--(PublicOperation *) initGetPublicMessage : (NSString *) mid{
+-(PublicOperation *) initGetPublicMessage : (NSString *) mids{
     self = [self initOperation];
     if (nil != self) {
         self.type = kGetPublicMessage;
-        NSString *urlStr = [NSString stringWithFormat:@"http://%@/mapi/pubMessageBatch?mid=%@",K_HOST_NAME_OF_PALM_SERVER,mid];
+        NSString *urlStr = [NSString stringWithFormat:@"http://%@/mapi/pubMessageBatch?mids=%@",K_HOST_NAME_OF_PALM_SERVER,mids];
         [self setHttpRequestGetWithUrl:urlStr];
     }
     return self;
