@@ -21,8 +21,10 @@
     self = [self initOperation];
     if (nil != self) {
         self.type = kGetPublicMessage;
-        NSString *urlStr = [NSString stringWithFormat:@"http://%@/mapi/pubMessageBatch?mids=%@",K_HOST_NAME_OF_PALM_SERVER,mids];
-        [self setHttpRequestGetWithUrl:urlStr];
+        NSString *urlStr = [NSString stringWithFormat:@"http://%@/mapi/pubMessageBatch",K_HOST_NAME_OF_PALM_SERVER];
+        [self setHttpRequestPostWithUrl:urlStr params:[NSDictionary dictionaryWithObjectsAndKeys:
+                                                       mids == nil ? @"" : mids , @"mids",
+                                                       nil]];
     }
     return self;
 }
@@ -42,7 +44,7 @@
 
 -(void) getPublicMessage{
     self.dataRequest.requestCookies = [[NSMutableArray alloc] initWithObjects:[PalmUIManagement sharedInstance].php, nil];
-    [self.request setRequestCompleted:^(NSDictionary *data){
+    [self.dataRequest setRequestCompleted:^(NSDictionary *data){
         dispatch_block_t updateTagBlock = ^{
             [PalmUIManagement sharedInstance].publicMessageResult = data;
         };
