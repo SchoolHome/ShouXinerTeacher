@@ -8,13 +8,13 @@
 
 #import <UIKit/UIKit.h>
 #import "EGOImageView.h"
-#import "BBServiceMessageDetailModel.h"
 
-@interface BBServiceMessageDetailTableViewCell : UITableViewCell
+
+@interface BBServiceMessageDetailView : UIView
 {
     UIImageView *back;
     UILabel *time;
     EGOImageView *banner;
 }
-@property (nonatomic ,strong)BBServiceMessageDetailModel *model;
+@property (nonatomic ,strong)NSArray *models;
 @end

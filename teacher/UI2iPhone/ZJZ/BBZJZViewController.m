@@ -15,6 +15,8 @@
 #import "SystemIMViewController.h"
 #import "ShuangShuangTeamViewController.h"
 #import "BBServiceAccountViewController.h"
+#import "BBServiceMessageDetailViewController.h"
+
 
 #import "BBNotifyMessageGroupCell.h"
 //shouxin version 4
@@ -84,7 +86,7 @@
     self.navigationItem.titleView = segementBtn;
     
     
-    _messageListTableview = [[BBMessageGroupBaseTableView alloc] initWithFrame:CGRectMake(0.f, 0.f, 320.f, self.screenHeight-89.f) style:UITableViewStylePlain];
+    _messageListTableview = [[BBMessageGroupBaseTableView alloc] initWithFrame:CGRectMake(0.f, 0.f, 320.f, self.screenHeight-110.f) style:UITableViewStylePlain];
     _messageListTableview.backgroundColor = [UIColor clearColor];
     _messageListTableview.messageGroupBaseTableViewdelegate = self;
     _messageListTableview.delegate = self;
@@ -392,10 +394,15 @@
             //设置未读数
             
             [[CPSystemEngine sharedInstance] updateUnreadedMessageStatusChanged:msgGroup];
-            
-            
-            NSArray *msgGroupOfCurrentFrom = [[[CPSystemEngine sharedInstance] dbManagement] findNotifyMessagesOfCurrentFromJID:msgGroup.from];
-            NSLog(@"msgGroupOfCurrentFrom%@",msgGroupOfCurrentFrom);
+        
+            if (msgGroup) {
+                BBServiceMessageDetailViewController *messageDetail = [[BBServiceMessageDetailViewController alloc] init];
+                [messageDetail setModel:msgGroup];
+                messageDetail.hidesBottomBarWhenPushed = YES;
+                [self.navigationController pushViewController:messageDetail animated:YES];
+                
+            }else [self showProgressWithText:@"无法查看" withDelayTime:2];
+        
         }
     }else
     {
@@ -445,6 +452,7 @@
             {
                 //[PalmUIManagement sharedInstance].noticeArray
                 BBServiceAccountViewController *serviceAccount = [[BBServiceAccountViewController alloc] initWithServiceItems:[PalmUIManagement sharedInstance].noticeArray];
+                serviceAccount.hidesBottomBarWhenPushed = YES;
                 [self.navigationController pushViewController:serviceAccount animated:YES];
             }
                 break;

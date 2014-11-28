@@ -17,10 +17,13 @@ typedef enum
 
 @interface BBServiceMessageDetailModel : NSObject
 
+@property (nonatomic, strong)NSString *mid;
 @property (nonatomic)DETAIL_CELL_TYPE type;
-@property (nonatomic, strong)NSString *bannerImageUrl;
-@property (nonatomic, strong)NSString *title;
-@property (nonatomic, strong)NSArray *items;
+@property (nonatomic, strong)NSString *imageUrl;
+@property (nonatomic, strong)NSString *content;
+@property (nonatomic, strong)NSString *avatar;
+@property (nonatomic, strong)NSString *link;
+@property (nonatomic, strong)NSNumber *ts;
 
-
++ (BBServiceMessageDetailModel  *)convertByDic:(NSDictionary *)dic;
 @end

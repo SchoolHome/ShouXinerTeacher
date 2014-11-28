@@ -9,15 +9,15 @@
 #import "BBServiceMessageDetailViewController.h"
 #import "BBServiceAccountDetailViewController.h"
 
-#import "BBServiceMessageDetailTableViewCell.h"
+#import "BBServiceMessageDetailView.h"
 
 
 #import "CPDBManagement.h"
+#import "BBServiceMessageDetailModel.h"
+@interface BBServiceMessageDetailViewController ()
 
-@interface BBServiceMessageDetailViewController ()<UITableViewDelegate,UITableViewDataSource>
-
-@property (nonatomic, strong) UITableView *detailTableView;
-
+@property (nonatomic, strong) UIScrollView *detailScrollview;
+@property (nonatomic, strong) NSArray *messages;
 @end
 
 @implementation BBServiceMessageDetailViewController
@@ -30,7 +30,8 @@
         
         if (![result[@"hasError"] boolValue]) {
             NSDictionary *data = result[@"data"];
-            NSArray *list = data[@"list"];
+            NSDictionary *list = data[@"list"];
+            [self filterData:list];
         }else{
             [self showProgressWithText:@"获取消息失败,请重试" withDelayTime:1];
         }
@@ -64,12 +65,9 @@
     [detail addTarget:self action:@selector(detailButtonTaped) forControlEvents:UIControlEventTouchUpInside];
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:detail];
     
-    _detailTableView = [[UITableView alloc] initWithFrame:CGRectMake(0.f, 0.f, self.screenWidth, self.screenHeight) style:UITableViewStyleGrouped];
-    _detailTableView.tableHeaderView = [[UIView alloc] initWithFrame:CGRectMake(0.f, 0.f, self.screenWidth, 1.f)];
-    _detailTableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
-    _detailTableView.delegate = self;
-    _detailTableView.dataSource = self;
-    [self.view addSubview:_detailTableView];
+    _detailScrollview = [[UITableView alloc] initWithFrame:CGRectMake(10.f, 0.f, self.screenWidth-20.f, self.screenHeight-70.f) style:UITableViewStyleGrouped];
+    _detailScrollview.showsVerticalScrollIndicator = NO;
+    [self.view addSubview:_detailScrollview];
     // Do any additional setup after loading the view.
 }
 
@@ -81,7 +79,8 @@
 - (void)setModel:(CPDBModelNotifyMessage *)model
 {
     _model = model;
-    if (model.mid.length > 0) {
+    if (model.from.length > 0) {
+        self.title = model.fromUserName;
         //findNotifyMessagesOfCurrentFromJID
         NSArray *models = [[[CPSystemEngine sharedInstance] dbManagement] findNotifyMessagesOfCurrentFromJID:self.model.from];
         NSString *mids;
@@ -108,32 +107,52 @@
     [self.navigationController pushViewController:detail animated:YES];
 }
 
-#pragma mark - UITableview
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
-{
-    return 1;
-}
 
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
+- (void)filterData:(NSDictionary *)fullData
 {
-    return 1;
-}
-
-- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    return 40.f;
-}
-
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    BBServiceMessageDetailTableViewCell *cell = [[BBServiceMessageDetailTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@""];
-    return cell;
-}
-
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
-{
+    NSMutableArray *tempMessages = [[NSMutableArray alloc] init];
+    for (NSString *key in fullData.allKeys) {
+        NSArray *tempValue = fullData[key];
+        if ([tempValue isKindOfClass:[NSArray class]])
+        {
+                NSMutableArray *subItems = [[NSMutableArray alloc]initWithCapacity:4];
+                for (int i = 0 ; i < tempValue.count; i++) {
+                    NSDictionary *dic = tempValue[i];
+                    [subItems addObject:[BBServiceMessageDetailModel convertByDic:dic]];
+                }
+                [tempMessages addObject:subItems];
+        }
+    }
+    self.messages = [NSArray arrayWithArray:tempMessages];
     
+    [self reloadData];
 }
+
+- (void)reloadData
+{
+    int singeViews = 0;
+    int mutilViews = 0;
+    CGFloat singeViewHeight = 220.f;
+    CGFloat MutilViewHeight = 220.f;
+    for (int i = 0; i<self.messages.count; i++) {
+        NSArray *tempArray = self.messages[i];
+        CGRect frame;
+        if (tempArray.count == 1) {
+            frame = CGRectMake(0.f, singeViewHeight*singeViews+MutilViewHeight*mutilViews, CGRectGetWidth(self.detailScrollview.frame), singeViewHeight);
+            singeViews++;
+        }else
+        {
+            frame = CGRectMake(0.f, singeViewHeight*singeViews+MutilViewHeight*mutilViews, CGRectGetWidth(self.detailScrollview.frame), singeViewHeight);
+            mutilViews++;
+        }
+        BBServiceMessageDetailView *detailView = [[BBServiceMessageDetailView alloc] initWithFrame:frame];
+        [detailView setModels:tempArray];
+        [self.detailScrollview addSubview:detailView];
+    }
+    
+    [self.detailScrollview setContentSize:CGSizeMake(self.screenWidth-20.f, singeViewHeight*singeViews+MutilViewHeight*mutilViews)];
+}
+
 /*
 #pragma mark - Navigation
 
