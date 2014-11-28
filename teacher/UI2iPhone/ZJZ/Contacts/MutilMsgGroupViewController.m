@@ -18,6 +18,7 @@
 @interface MutilMsgGroupViewController ()
 {
     NSArray *mutilMsgGroups;
+    UITableView *groupTableview;
 }
 @end
 
@@ -48,14 +49,14 @@
     [addButton addTarget:self action:@selector(addMsgGroup) forControlEvents:UIControlEventTouchUpInside];
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:addButton];
     
-    UITableView *tableview= [[UITableView alloc] initWithFrame:CGRectMake(0.f, 0.f, 320.f, self.screenHeight-89.f) style:UITableViewStyleGrouped];
-    tableview.backgroundColor = [UIColor clearColor];
-    tableview.delegate = self;
-    tableview.dataSource = self;
-    tableview.tableHeaderView = [[UIView alloc] initWithFrame:CGRectMake(0.f, 0.f, 320.f, 1.f)];
-    tableview.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
-    tableview.showsVerticalScrollIndicator = NO;
-    [self.view addSubview:tableview];
+   groupTableview = [[UITableView alloc] initWithFrame:CGRectMake(0.f, 0.f, 320.f, self.screenHeight-89.f) style:UITableViewStyleGrouped];
+    groupTableview.backgroundColor = [UIColor clearColor];
+    groupTableview.delegate = self;
+    groupTableview.dataSource = self;
+    groupTableview.tableHeaderView = [[UIView alloc] initWithFrame:CGRectMake(0.f, 0.f, 320.f, 1.f)];
+    groupTableview.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
+    groupTableview.showsVerticalScrollIndicator = NO;
+    [self.view addSubview:groupTableview];
     // Do any additional setup after loading the view.
 }
 
@@ -74,6 +75,20 @@
 {
     ContactsStartGroupChatViewController *groupChat = [[ContactsStartGroupChatViewController alloc] init];
     [self.navigationController pushViewController:groupChat animated:YES];
+}
+
+- (void)refreshMsgGroup
+{
+    NSMutableArray *tempMutilMsgGroups = [[NSMutableArray alloc] init];
+    for (CPUIModelMessageGroup *group in [CPUIModelManagement sharedInstance].userMessageGroupList) {
+        if ([group isKindOfClass:[CPUIModelMessageGroup class]]) {
+            if (![group isMsgSingleGroup]) {
+                [tempMutilMsgGroups addObject:group];
+            }
+        }
+    }
+    mutilMsgGroups = [NSArray arrayWithArray:tempMutilMsgGroups];
+    [groupTableview reloadData];
 }
 
 #pragma mark - UITableview

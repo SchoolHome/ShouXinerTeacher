@@ -8,6 +8,8 @@
 
 #import "BBServiceAccountDetailViewController.h"
 
+#import "CPDBManagement.h"
+
 #import "EGOImageView.h"
 
 @interface BBServiceAccountDetailViewController ()<UITableViewDataSource,UITableViewDelegate>
@@ -112,7 +114,17 @@
 - (void)beginCheckMessage
 {
     if (self.model.mid.length > 0) {
-        [[PalmUIManagement sharedInstance] getPublicMessage:self.model.mid];
+        //findNotifyMessagesOfCurrentFromJID
+        NSArray *models = [[[CPSystemEngine sharedInstance] dbManagement] findNotifyMessagesOfCurrentFromJID:self.model.from];
+        NSString *mids;
+        for (int i = 0; i< models.count; i++) {
+            CPDBModelNotifyMessage *message = models[i];
+            if (message) {
+                if (i == 0) mids = message.mid;
+                else mids = [mids stringByAppendingFormat:@",%@",message.mid];
+            }
+        }
+        [[PalmUIManagement sharedInstance] getPublicMessage:mids];
     }else [self showProgressWithText:@"无法查看消息" withDelayTime:1.f];
 }
 #pragma mark - UITableview
