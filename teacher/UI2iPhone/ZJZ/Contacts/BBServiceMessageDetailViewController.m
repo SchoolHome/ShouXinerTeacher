@@ -8,13 +8,13 @@
 
 #import "BBServiceMessageDetailViewController.h"
 #import "BBServiceAccountDetailViewController.h"
+#import "BBServiceMessageWebViewController.h"
 
 #import "BBServiceMessageDetailView.h"
 
-
 #import "CPDBManagement.h"
 #import "BBServiceMessageDetailModel.h"
-@interface BBServiceMessageDetailViewController ()
+@interface BBServiceMessageDetailViewController ()<BBServiceMessageDetailViewDelegate>
 
 @property (nonatomic, strong) UIScrollView *detailScrollview;
 @property (nonatomic, strong) NSArray *messages;
@@ -65,7 +65,7 @@
     [detail addTarget:self action:@selector(detailButtonTaped) forControlEvents:UIControlEventTouchUpInside];
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:detail];
     
-    _detailScrollview = [[UITableView alloc] initWithFrame:CGRectMake(10.f, 0.f, self.screenWidth-20.f, self.screenHeight-70.f) style:UITableViewStyleGrouped];
+    _detailScrollview = [[UIScrollView alloc] initWithFrame:CGRectMake(10.f, 0.f, self.screenWidth-20.f, self.screenHeight-70.f)];
     _detailScrollview.showsVerticalScrollIndicator = NO;
     [self.view addSubview:_detailScrollview];
     // Do any additional setup after loading the view.
@@ -103,7 +103,7 @@
 
 - (void)detailButtonTaped
 {
-    BBServiceAccountDetailViewController *detail = [[BBServiceAccountDetailViewController alloc] initWithModel:nil];
+    BBServiceAccountDetailViewController *detail = [[BBServiceAccountDetailViewController alloc] initWithModel:self.model];
     [self.navigationController pushViewController:detail animated:YES];
 }
 
@@ -146,6 +146,7 @@
             mutilViews++;
         }
         BBServiceMessageDetailView *detailView = [[BBServiceMessageDetailView alloc] initWithFrame:frame];
+        detailView.delegate = self;
         [detailView setModels:tempArray];
         [self.detailScrollview addSubview:detailView];
     }
@@ -153,6 +154,12 @@
     [self.detailScrollview setContentSize:CGSizeMake(self.screenWidth-20.f, singeViewHeight*singeViews+MutilViewHeight*mutilViews)];
 }
 
+- (void)itemSelected:(BBServiceMessageDetailModel *)model
+{
+    BBServiceMessageWebViewController *messageWeb = [[BBServiceMessageWebViewController alloc] init];
+    [messageWeb setModel:model];
+    [self.navigationController pushViewController:messageWeb animated:YES];
+}
 /*
 #pragma mark - Navigation
 

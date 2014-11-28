@@ -6,22 +6,34 @@
 //  Copyright (c) 2014年 ws. All rights reserved.
 //
 #define ThingsTextViewHeight 60.f
-#define ThingsTextViewSpaceing 5.f
+#define ThingsTextViewSpaceing 10.f
 
 
 #import "BBServiceMessageShareViewController.h"
 #import "ChooseClassViewController.h"
-@interface BBServiceMessageShareViewController ()<UITableViewDataSource,UITableViewDelegate>
+
+#import "EGOImageView.h"
+
+@interface BBServiceMessageShareViewController ()<UITableViewDataSource,UITableViewDelegate,ChooseClassDelegate>
 {
     UIPlaceHolderTextView *thingsTextView;
+    BBServiceMessageDetailModel *shareModel;
 }
 @property (nonatomic, strong) BBServiceMessageShareTableview *shareTableview;
 @property (nonatomic, readwrite) BBGroupModel *currentGroup;
-@property (nonatomic, strong) NSString *placeholder;
 @property (nonatomic, strong) NSArray *classModels;
 @end
 
 @implementation BBServiceMessageShareViewController
+
+- (id)initWithModel:(BBServiceMessageDetailModel *)model
+{
+    self = [super init];
+    if (self) {
+        shareModel = model;
+    }
+    return self;
+}
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context{
     
@@ -61,6 +73,7 @@
 {
     [super viewDidLoad];
     
+    self.title = @"分享";
     // left
     UIButton *backButton = [UIButton buttonWithType:UIButtonTypeCustom];
     [backButton setFrame:CGRectMake(0.f, 7.f, 24.f, 24.f)];
@@ -71,7 +84,7 @@
     // right
     UIButton *sendButton = [UIButton buttonWithType:UIButtonTypeCustom];
     [sendButton setFrame:CGRectMake(0.f, 7.f, 60.f, 30.f)];
-    [sendButton setTitle:@"发送" forState:UIControlStateNormal];
+    [sendButton setTitle:@"确定" forState:UIControlStateNormal];
     //sendButton.backgroundColor = [UIColor blackColor];
     [sendButton setTitleColor:[UIColor colorWithRed:251/255.f green:76/255.f blue:7/255.f alpha:1.f] forState:UIControlStateNormal];
     [sendButton addTarget:self action:@selector(sendButtonTaped) forControlEvents:UIControlEventTouchUpInside];
@@ -160,11 +173,23 @@
                 cell.selectionStyle = UITableViewCellSelectionStyleNone;
                 
                 thingsTextView = [[UIPlaceHolderTextView alloc] initWithFrame:CGRectMake(ThingsTextViewSpaceing, ThingsTextViewSpaceing,self.screenWidth-2*ThingsTextViewSpaceing, ThingsTextViewHeight)];
-                thingsTextView.placeholder = _placeholder;
+                thingsTextView.placeholder = @"想说的话...";
                 thingsTextView.backgroundColor = [UIColor clearColor];
                 [cell.contentView addSubview:thingsTextView];
                 
-
+                UIView *shareContentBG = [[UIView alloc] initWithFrame:CGRectMake(ThingsTextViewSpaceing, ThingsTextViewHeight, CGRectGetWidth(thingsTextView.frame), 50.f)];
+                shareContentBG.backgroundColor = [UIColor lightGrayColor];
+                [cell.contentView addSubview:shareContentBG];
+                
+                EGOImageView *messageImageView = [[EGOImageView alloc] initWithFrame:CGRectMake(ThingsTextViewSpaceing+5.f, ThingsTextViewHeight+5.f, 40.f, 40.f)];
+                [messageImageView setImageURL:[NSURL URLWithString:shareModel.imageUrl]];
+                [cell.contentView addSubview:messageImageView];
+                
+                UILabel *messageTitle = [[UILabel alloc] initWithFrame:CGRectMake(CGRectGetMaxX(messageImageView.frame)+5.f, ThingsTextViewHeight+5.f, CGRectGetWidth(shareContentBG.frame)-CGRectGetMaxX(messageImageView.frame)-5.f, CGRectGetHeight(messageImageView.frame))];
+                messageTitle.font = [UIFont systemFontOfSize:12.f];
+                messageTitle.text = shareModel.content;
+                messageTitle.numberOfLines = 2;
+                [cell.contentView addSubview:messageTitle];
             }
                 break;
             default:
@@ -207,7 +232,7 @@
 }
 
 - (void)backButtonTaped:(id)sender{
-    [self.navigationController popToRootViewControllerAnimated:YES];
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 - (void)sendButtonTaped
@@ -218,6 +243,12 @@
         
         return;
     }
+}
+#pragma mark - ChooseClassViewControllerDelegate
+- (void)classChoose:(NSInteger)index
+{
+    self.currentGroup = self.classModels[index];
+    [self.shareTableview reloadRowsAtIndexPaths:[NSArray arrayWithObject:[NSIndexPath indexPathForRow:0 inSection:0]] withRowAnimation:UITableViewRowAnimationAutomatic];
 }
 @end
 

@@ -1345,6 +1345,7 @@
 		74E159F81A0BE92900A0E95F /* BBCameraViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 74E159F71A0BE92900A0E95F /* BBCameraViewController.m */; };
 		74E159FA1A0BE93400A0E95F /* BBRecordViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 74E159F91A0BE93400A0E95F /* BBRecordViewController.m */; };
 		74E159FC1A0BE94200A0E95F /* BBImagePreviewVIewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 74E159FB1A0BE94200A0E95F /* BBImagePreviewVIewController.m */; };
+		74E5F65B1A28F6EF008AAFDA /* BBServiceMessageWebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 74E5F65A1A28F6EF008AAFDA /* BBServiceMessageWebViewController.m */; };
 		74E85D8D18D0445A00F1F1D5 /* BBZJZViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 74E85D8C18D0445A00F1F1D5 /* BBZJZViewController.m */; };
 		74EF7DFF1962BE4600DCD5A3 /* ZJZ_Seg_Parent@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 74EF7DFD1962BE4600DCD5A3 /* ZJZ_Seg_Parent@2x.png */; };
 		74EF7E001962BE4600DCD5A3 /* ZJZ_Seg_Teacher@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 74EF7DFE1962BE4600DCD5A3 /* ZJZ_Seg_Teacher@2x.png */; };
@@ -3510,6 +3511,8 @@
 		74E159F71A0BE92900A0E95F /* BBCameraViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BBCameraViewController.m; sourceTree = "<group>"; };
 		74E159F91A0BE93400A0E95F /* BBRecordViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BBRecordViewController.m; sourceTree = "<group>"; };
 		74E159FB1A0BE94200A0E95F /* BBImagePreviewVIewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BBImagePreviewVIewController.m; sourceTree = "<group>"; };
+		74E5F6591A28F6EF008AAFDA /* BBServiceMessageWebViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BBServiceMessageWebViewController.h; sourceTree = "<group>"; };
+		74E5F65A1A28F6EF008AAFDA /* BBServiceMessageWebViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BBServiceMessageWebViewController.m; sourceTree = "<group>"; };
 		74E85D8B18D0445A00F1F1D5 /* BBZJZViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BBZJZViewController.h; sourceTree = "<group>"; };
 		74E85D8C18D0445A00F1F1D5 /* BBZJZViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BBZJZViewController.m; sourceTree = "<group>"; };
 		74EF7DFD1962BE4600DCD5A3 /* ZJZ_Seg_Parent@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ZJZ_Seg_Parent@2x.png"; sourceTree = "<group>"; };
@@ -7163,6 +7166,8 @@
 				740DFBDB1A271B4A0006D355 /* BBServiceMessageDetailView.m */,
 				740DFBE11A276B620006D355 /* BBServiceMessageDetailModel.h */,
 				740DFBE21A276B620006D355 /* BBServiceMessageDetailModel.m */,
+				74E5F6591A28F6EF008AAFDA /* BBServiceMessageWebViewController.h */,
+				74E5F65A1A28F6EF008AAFDA /* BBServiceMessageWebViewController.m */,
 				746A8FD91A2609B900DDBE19 /* BBServiceMessageShareViewController.h */,
 				746A8FDA1A2609B900DDBE19 /* BBServiceMessageShareViewController.m */,
 			);
@@ -8727,6 +8732,7 @@
 				332D759318C33552007A75D5 /* CPPTModelUserRegisterInfo.m in Sources */,
 				74421CD818DF467A000D2F1B /* DisplaySelectedMemberView.m in Sources */,
 				332D833B18C33F0B007A75D5 /* GroupSystemUnknowCell.m in Sources */,
+				74E5F65B1A28F6EF008AAFDA /* BBServiceMessageWebViewController.m in Sources */,
 				332D74F418C33552007A75D5 /* CPUserManager.m in Sources */,
 				193E594718D9A39B00DB1FF4 /* BBMutilIMViewController.m in Sources */,
 				332D830318C33F0B007A75D5 /* LoadingView.m in Sources */,

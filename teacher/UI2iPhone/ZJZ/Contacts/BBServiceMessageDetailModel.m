@@ -8,21 +8,23 @@
 
 #import "BBServiceMessageDetailModel.h"
 
+#import "FXStringUtil.h"
 @implementation BBServiceMessageDetailModel
 
 + (BBServiceMessageDetailModel  *)convertByDic:(NSDictionary *)dic;
 {
     BBServiceMessageDetailModel *tempModel = [[BBServiceMessageDetailModel alloc] init];
     
-    tempModel.mid = dic[@"mid"];
-    tempModel.imageUrl = dic[@"image"];
+    tempModel.mid = [FXStringUtil fliterStringIsNull:dic[@"mid"]];
+    tempModel.imageUrl = [FXStringUtil fliterStringIsNull:dic[@"image"]];
     tempModel.type = [dic[@"type"] integerValue] == 2 ? DETAIL_CELL_TYPE_SINGLE : DETAIL_CELL_TYPE_MUTIL;
-    tempModel.content = dic[@"content"];
-    tempModel.link = dic[@"link"];
+    tempModel.content = [FXStringUtil fliterStringIsNull:dic[@"content"]];
+    tempModel.link = [FXStringUtil fliterStringIsNull:dic[@"link"]];
     tempModel.ts = dic[@"ts"];
-    tempModel.avatar = dic[@"avatar"];
+    tempModel.avatar = [FXStringUtil fliterStringIsNull:dic[@"avatar"]];
     
     return tempModel;
 }
+
 
 @end

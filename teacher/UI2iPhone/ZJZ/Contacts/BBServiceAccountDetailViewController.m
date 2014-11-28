@@ -59,7 +59,7 @@
     accountName.text = self.model.fromUserName;
     accountName.backgroundColor = [UIColor clearColor];
     [tableviewHeaderView addSubview:accountName];
-    
+    /*
     UIView *tableviewFootView = [[UIView alloc] initWithFrame:CGRectMake(0.f, 0.f, self.screenWidth, 50.f)];
     
     UIButton *checkMessage = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -67,14 +67,14 @@
     [checkMessage addTarget:self action:@selector(beginCheckMessage) forControlEvents:UIControlEventTouchUpInside];
     [checkMessage setBackgroundImage:[UIImage imageNamed:@"button_view_mes"] forState:UIControlStateNormal];
     [tableviewFootView  addSubview:checkMessage];
-    
+    */
     
     UITableView *tableview = [[UITableView alloc] initWithFrame:CGRectMake(0.f, 0.f, self.screenWidth, self.screenHeight-40.f) style:UITableViewStyleGrouped];
     tableview.scrollEnabled = NO;
     tableview.delegate = self;
     tableview.dataSource = self;
     tableview.tableHeaderView = tableviewHeaderView;
-    tableview.tableFooterView = tableviewFootView;
+    tableview.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
     [self.view addSubview:tableview];
     // Do any additional setup after loading the view.
 }

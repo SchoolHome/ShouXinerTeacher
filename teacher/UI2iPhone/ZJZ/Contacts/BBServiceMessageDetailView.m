@@ -12,7 +12,7 @@
 #define Item_Image_Widht 25.f
 
 #import "BBServiceMessageDetailView.h"
-#import "BBServiceMessageDetailModel.h"
+
 
 #import "ColorUtil.h"
 @implementation BBServiceMessageDetailView
@@ -31,6 +31,7 @@
         roundedLayer.borderWidth = 1;
         roundedLayer.borderColor = [[UIColor whiteColor] CGColor];
         
+        
         time = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, self.frame.size.width, 30)];
         [self addSubview:time];
         time.backgroundColor = [UIColor colorWithHexString:@"#f2f2f2"];
@@ -39,6 +40,7 @@
         time.font = [UIFont systemFontOfSize:12.f];
         
         banner = [[EGOImageView alloc] initWithPlaceholderImage:nil];
+        banner.userInteractionEnabled = YES;
         banner.contentMode = UIViewContentModeScaleAspectFit;
         [banner setFrame:CGRectMake(5.f, 5.f, Banner_Image_Width, Banner_Image_Height)];
         [back addSubview:banner];
@@ -88,6 +90,9 @@
         [back addSubview:arrow];
         
         [back setFrame:CGRectMake(0.f, CGRectGetMaxY(time.frame), self.frame.size.width, self.frame.size.height-CGRectGetHeight(time.frame))];
+        
+        UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(singleViewTapped)];
+        [back addGestureRecognizer:tap];
     }else if (self.models.count > 1)
     {
         for (int i = 0; i < self.models.count; i++) {
@@ -97,14 +102,21 @@
                 
                 time.text = [self dateString:model.ts];
                 
-                UILabel *titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(CGRectGetMinX(banner.frame), CGRectGetMaxY(banner.frame)+5.f, self.frame.size.width-20.f, 20.f)];
+                UILabel *titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(CGRectGetMinX(banner.frame), CGRectGetMaxY(banner.frame)-20.f, self.frame.size.width-20.f, 20.f)];
                 titleLabel.font = [UIFont systemFontOfSize:14.f];
                 titleLabel.backgroundColor = [[UIColor blackColor] colorWithAlphaComponent:0.5];
                 titleLabel.textColor = [UIColor whiteColor];
                 titleLabel.text = model.content;
                 [back addSubview:titleLabel];
+                
+                UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(mutilViewBannerTapped)];
+                [banner addGestureRecognizer:tap];
             }else
             {
+                UIView *tapView = [[UIView alloc] initWithFrame:CGRectZero];
+                tapView.tag = i;
+                [back addSubview:tapView];
+                
                 UIImageView *line = [[UIImageView alloc] initWithFrame:CGRectMake(-1, CGRectGetMaxY(banner.frame)+7.f+(Item_Image_Widht+4)*(i-1), self.frame.size.width+2, 1.f)];
                 line.backgroundColor = [UIColor lightGrayColor];
                 [back addSubview:line];
@@ -121,6 +133,10 @@
                 [itemImageview setFrame:CGRectMake(CGRectGetMaxX(banner.frame)-Item_Image_Widht, CGRectGetMaxY(line.frame)+2.f, Item_Image_Widht, Item_Image_Widht)];
                 [itemImageview setImageURL:[NSURL URLWithString:model.imageUrl]];
                 [back addSubview:itemImageview];
+                
+                [tapView setFrame:CGRectMake(CGRectGetMinX(line.frame), CGRectGetMinY(line.frame), CGRectGetWidth(line.frame), CGRectGetMaxY(itemImageview.frame)-CGRectGetMinY(line.frame))];
+                UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(mutilViewTapped:)];
+                [tapView addGestureRecognizer:tap];
             }
         }
 
@@ -128,10 +144,35 @@
     }
 }
 
+
+
 - (void)awakeFromNib {
     // Initialization code
 }
 
+- (void)singleViewTapped
+{
+    if ([self.delegate respondsToSelector:@selector(itemSelected:)]) {
+        BBServiceMessageDetailModel *model = self.models[0];
+        [self.delegate itemSelected:model];
+    }
+}
+
+- (void)mutilViewBannerTapped
+{
+    if ([self.delegate respondsToSelector:@selector(itemSelected:)]) {
+        BBServiceMessageDetailModel *model = self.models[0];
+        [self.delegate itemSelected:model];
+    }
+}
+
+- (void)mutilViewTapped:(UITapGestureRecognizer *)gesture
+{
+    if ([self.delegate respondsToSelector:@selector(itemSelected:)]) {
+        BBServiceMessageDetailModel *model = self.models[gesture.view.tag];
+        [self.delegate itemSelected:model];
+    }
+}
 
 -(NSString *)dateString:(NSNumber *)dateNumber
 {
