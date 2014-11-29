@@ -34,6 +34,7 @@
             [self filterData:list];
         }else{
             [self showProgressWithText:@"获取消息失败,请重试" withDelayTime:1];
+            [self.navigationController popViewControllerAnimated:YES];
         }
         
     }
@@ -65,7 +66,7 @@
     [detail addTarget:self action:@selector(detailButtonTaped) forControlEvents:UIControlEventTouchUpInside];
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:detail];
     
-    _detailScrollview = [[UIScrollView alloc] initWithFrame:CGRectMake(10.f, 0.f, self.screenWidth-20.f, self.screenHeight-70.f)];
+    _detailScrollview = [[UIScrollView alloc] initWithFrame:CGRectMake(15.f, 0.f, self.screenWidth-30.f, self.screenHeight-70.f)];
     _detailScrollview.showsVerticalScrollIndicator = NO;
     [self.view addSubview:_detailScrollview];
     // Do any additional setup after loading the view.
@@ -110,6 +111,7 @@
 
 - (void)filterData:(NSDictionary *)fullData
 {
+    //转model
     NSMutableArray *tempMessages = [[NSMutableArray alloc] init];
     for (NSString *key in fullData.allKeys) {
         NSArray *tempValue = fullData[key];
@@ -123,6 +125,9 @@
                 [tempMessages addObject:subItems];
         }
     }
+    
+    //时间排序
+    
     self.messages = [NSArray arrayWithArray:tempMessages];
     
     [self reloadData];
@@ -132,7 +137,7 @@
 {
     int singeViews = 0;
     int mutilViews = 0;
-    CGFloat singeViewHeight = 220.f;
+    CGFloat singeViewHeight = 240.f;
     CGFloat MutilViewHeight = 220.f;
     for (int i = 0; i<self.messages.count; i++) {
         NSArray *tempArray = self.messages[i];
@@ -151,7 +156,7 @@
         [self.detailScrollview addSubview:detailView];
     }
     
-    [self.detailScrollview setContentSize:CGSizeMake(self.screenWidth-20.f, singeViewHeight*singeViews+MutilViewHeight*mutilViews)];
+    [self.detailScrollview setContentSize:CGSizeMake(self.screenWidth-30.f, singeViewHeight*singeViews+MutilViewHeight*mutilViews)];
 }
 
 - (void)itemSelected:(BBServiceMessageDetailModel *)model

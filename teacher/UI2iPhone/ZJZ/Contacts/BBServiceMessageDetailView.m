@@ -7,7 +7,7 @@
 //
 
 #define Banner_Image_Height 100.f
-#define Banner_Image_Width 290.f
+#define Banner_Image_Width 280.f
 
 #define Item_Image_Widht 25.f
 
@@ -20,19 +20,22 @@
 {
     self = [super initWithFrame:frame];
     if (self) {
-        self.backgroundColor = [UIColor whiteColor];
+        self.backgroundColor = [UIColor clearColor];
+        
+        UIImage *imageBack = [UIImage imageNamed:@"blank_area"];
         
         back = [[UIImageView alloc] init];
+        [back setImage:[imageBack stretchableImageWithLeftCapWidth:imageBack.size.width/2 topCapHeight:imageBack.size.height/2]];
         back.userInteractionEnabled = YES;
         [self addSubview:back];
-        CALayer *roundedLayer = [back layer];
-        [roundedLayer setMasksToBounds:YES];
-        roundedLayer.cornerRadius = 8.0;
-        roundedLayer.borderWidth = 1;
-        roundedLayer.borderColor = [[UIColor whiteColor] CGColor];
+//        CALayer *roundedLayer = [back layer];
+//        [roundedLayer setMasksToBounds:YES];
+//        roundedLayer.cornerRadius = 8.0;
+//        roundedLayer.borderWidth = 1;
+//        roundedLayer.borderColor = [[UIColor whiteColor] CGColor];
         
         
-        time = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, self.frame.size.width, 30)];
+        time = [[UILabel alloc] initWithFrame:CGRectMake(0, 10, self.frame.size.width, 30)];
         [self addSubview:time];
         time.backgroundColor = [UIColor colorWithHexString:@"#f2f2f2"];
         time.textColor = [UIColor lightGrayColor];
@@ -75,10 +78,10 @@
         [back addSubview:titleLabel];
         
         UIImageView *line = [[UIImageView alloc] initWithFrame:CGRectMake(-1.f, CGRectGetMaxY(titleLabel.frame)+2, self.frame.size.width+2, 1.f)];
-        line.backgroundColor = [UIColor lightGrayColor];
+        line.backgroundColor = [UIColor colorWithRed:240/255.f green:242/255.f blue:245/255.f alpha:1.f];
         [back addSubview:line];
         
-        UILabel *readTitle = [[UILabel alloc] initWithFrame:CGRectMake(CGRectGetMinX(banner.frame), CGRectGetMaxY(line.frame)+4, 100.f, 20.f)];
+        UILabel *readTitle = [[UILabel alloc] initWithFrame:CGRectMake(CGRectGetMinX(banner.frame), CGRectGetMaxY(line.frame)+6, 100.f, 20.f)];
         readTitle.backgroundColor = [UIColor clearColor];
         readTitle.text = @"阅读全文";
         readTitle.font = [UIFont systemFontOfSize:14.f];
@@ -89,7 +92,7 @@
         [arrow setImage:[UIImage imageNamed:@"enter"]];
         [back addSubview:arrow];
         
-        [back setFrame:CGRectMake(0.f, CGRectGetMaxY(time.frame), self.frame.size.width, self.frame.size.height-CGRectGetHeight(time.frame))];
+        [back setFrame:CGRectMake(0.f, CGRectGetMaxY(time.frame), 290.f, self.frame.size.height-CGRectGetHeight(time.frame)-6.f)];
         
         UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(singleViewTapped)];
         [back addGestureRecognizer:tap];
@@ -118,7 +121,7 @@
                 [back addSubview:tapView];
                 
                 UIImageView *line = [[UIImageView alloc] initWithFrame:CGRectMake(-1, CGRectGetMaxY(banner.frame)+7.f+(Item_Image_Widht+4)*(i-1), self.frame.size.width+2, 1.f)];
-                line.backgroundColor = [UIColor lightGrayColor];
+                line.backgroundColor = [UIColor colorWithRed:240/255.f green:242/255.f blue:245/255.f alpha:1.f];
                 [back addSubview:line];
                 
                 UILabel *readTitle = [[UILabel alloc] initWithFrame:CGRectMake(CGRectGetMinX(banner.frame), CGRectGetMaxY(line.frame)+4, 100.f, 28.f)];
@@ -140,7 +143,7 @@
             }
         }
 
-        [back setFrame:CGRectMake(0.f, CGRectGetMaxY(time.frame), self.frame.size.width, self.frame.size.height-CGRectGetHeight(time.frame))];
+        [back setFrame:CGRectMake(0.f, CGRectGetMaxY(time.frame), self.frame.size.width, self.frame.size.height-CGRectGetHeight(time.frame)-6.f)];
     }
 }
 

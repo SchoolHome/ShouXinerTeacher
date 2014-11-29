@@ -459,12 +459,9 @@
             default:
                 break;
         }
-        [tableView deselectRowAtIndexPath:indexPath animated:NO];
+        
     }
-    
-
-    
-    
+    [tableView deselectRowAtIndexPath:indexPath animated:NO];
 }
 #pragma mark UItableviewDatasouce
 /*
