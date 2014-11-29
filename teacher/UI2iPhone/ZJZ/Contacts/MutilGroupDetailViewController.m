@@ -47,9 +47,9 @@
 {
     self = [super init];
     if (self) {
-        if (type != GROUP_MEMBER_FROM_TYPE_IM) {
-            self.msgGroup = tempMsgGroup;
-        }
+        
+        self.msgGroup = tempMsgGroup;
+        
         
         groupName = tempGroupName;
         fromType = type;
@@ -107,7 +107,7 @@
 
 - (void)viewWillAppear:(BOOL)animated
 {
-    [[CPUIModelManagement sharedInstance] addObserver:self forKeyPath:@"quitGroupDic" options:0 context:@""];
+    [[CPUIModelManagement sharedInstance] addObserver:self forKeyPath:@"quitGroupDic" options:0 context:nil];
 }
 
 - (void)viewWillDisappear:(BOOL)animated
@@ -172,7 +172,7 @@
 
 - (void)quitGroup
 {
-    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil message:@"确认退出吗?" delegate:self cancelButtonTitle:@"" otherButtonTitles:@"确认",@"取消",nil];
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil message:@"确认退出吗?" delegate:self cancelButtonTitle:nil otherButtonTitles:@"确认",@"取消",nil];
     [alert show];
 }
 
