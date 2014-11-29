@@ -15,13 +15,13 @@
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     if (self) {
         // Initialization code
-        self.backgroundColor = [UIColor colorWithRed:242/255.f green:236/255.f blue:230/255.f alpha:1.f];
+        //self.backgroundColor = [UIColor colorWithRed:242/255.f green:236/255.f blue:230/255.f alpha:1.f];
         //selectedBtn
         selectedBtn = [UIButton buttonWithType:UIButtonTypeCustom];
         [selectedBtn setFrame:CGRectMake(5.f, 19.f, 22.f, 22.f)];
         [selectedBtn addTarget:self action:@selector(selectUser:) forControlEvents:UIControlEventTouchUpInside];
-        [selectedBtn setBackgroundImage:[UIImage imageNamed:@"ZJZUnCheck"] forState:UIControlStateNormal];
-        [selectedBtn setBackgroundImage:[UIImage imageNamed:@"ZJZChecked"] forState:UIControlStateSelected];
+        [selectedBtn setBackgroundImage:[UIImage imageNamed:@"no_selected"] forState:UIControlStateNormal];
+        [selectedBtn setBackgroundImage:[UIImage imageNamed:@"selected"] forState:UIControlStateSelected];
         [self.contentView addSubview:selectedBtn];
         //姓名
         userNameLabel = [[UILabel alloc] initWithFrame:CGRectMake(40.f, 21.f, 120.f, 18.f)];

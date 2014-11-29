@@ -48,11 +48,11 @@
     if (self) {
         self.title = @"推荐范围";
         
-        UIButton *back = [UIButton buttonWithType:UIButtonTypeCustom];
-        [back setFrame:CGRectMake(0.f, 7.f, 30.f, 30.f)];
-        [back setBackgroundImage:[UIImage imageNamed:@"ZJZBack"] forState:UIControlStateNormal];
-        [back addTarget:self action:@selector(backAction) forControlEvents:UIControlEventTouchUpInside];
-        self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:back];
+        UIButton *backButton = [UIButton buttonWithType:UIButtonTypeCustom];
+        [backButton setFrame:CGRectMake(0.f, 7.f, 24.f, 24.f)];
+        [backButton setBackgroundImage:[UIImage imageNamed:@"back"] forState:UIControlStateNormal];
+        [backButton addTarget:self action:@selector(backAction) forControlEvents:UIControlEventTouchUpInside];
+        self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:backButton];
         
         self.selectedRanges = [[NSMutableArray alloc] initWithArray:ranges];
     }
@@ -71,6 +71,7 @@
     rangeTableview.backgroundColor = [UIColor clearColor];
     rangeTableview.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
     [self.view addSubview:rangeTableview];
+    
     
     UIImageView *lineImageview = [[UIImageView alloc] initWithFrame:CGRectMake(0.f, rangeTableview.frame.origin.y+rangeTableview.frame.size.height, 320.f, 2.f)];
     lineImageview.backgroundColor = [UIColor colorWithRed:138/255.f green:136/255.f blue:135/255.f alpha:1.f];
@@ -145,12 +146,12 @@
 -(UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
 {
     UIView *sectionView = [[UIView alloc] initWithFrame:CGRectZero];
-    sectionView.backgroundColor = [UIColor blackColor];
+    sectionView.backgroundColor = [UIColor colorWithHexString:@"#f2f2f2"];
     
     UILabel *title = [[UILabel alloc] initWithFrame:CGRectMake(10.f, 6.f, 200.f, 20.f)];
     title.backgroundColor = [UIColor clearColor];
     title.font = [UIFont boldSystemFontOfSize:14.f];
-    title.textColor = [UIColor whiteColor];
+    title.textColor = [UIColor lightGrayColor];
     title.text = @"可单选、多选";
     [sectionView addSubview:title];
     return sectionView;
@@ -167,7 +168,6 @@
     if (!cell) {
         cell = [[BBRecommendedRangeTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:rangeTableviewCellIden];
         cell.delegate = self;
-        cell.backgroundColor = [UIColor clearColor];
     }
     
     
@@ -211,7 +211,7 @@
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     if (self) {
         // Initialization code
-        self.backgroundColor = [UIColor colorWithRed:242/255.f green:236/255.f blue:230/255.f alpha:1.f];
+        //self.backgroundColor = [UIColor colorWithRed:242/255.f green:236/255.f blue:230/255.f alpha:1.f];
         //selectedBtn
         _selectedBtn = [UIButton buttonWithType:UIButtonTypeCustom];
         [_selectedBtn setFrame:CGRectMake(5.f, 19.f, 22.f, 22.f)];
