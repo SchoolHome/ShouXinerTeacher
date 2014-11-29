@@ -1587,7 +1587,6 @@
 }
 -(NSArray *)findNotifyMessagesOfCurrentFromJID:(NSString *)currentFromJID
 {
-    [self dbBeginTransaction];
     return [notifyMsgDAO findAllMessagesOfFromJID:currentFromJID];
 }
 -(NSInteger)allNotiUnreadedMessageCount
