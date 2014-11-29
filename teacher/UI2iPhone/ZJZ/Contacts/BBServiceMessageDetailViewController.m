@@ -24,7 +24,7 @@
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
 {
-    [self closeProgress];
+
     if ([keyPath isEqualToString:@"publicMessageResult"]) {
         NSDictionary *result = [PalmUIManagement sharedInstance].publicMessageResult;
         
@@ -33,6 +33,7 @@
             NSDictionary *list = data[@"list"];
             [self filterData:list];
         }else{
+            [self closeProgress];
             [self showProgressWithText:@"获取消息失败,请重试" withDelayTime:1];
             [self.navigationController popViewControllerAnimated:YES];
         }
@@ -92,6 +93,7 @@
                 else mids = [mids stringByAppendingFormat:@",%@",message.mid];
             }
         }
+        
         [self showProgressWithText:@"正在获取..."];
         [[PalmUIManagement sharedInstance] getPublicMessage:mids];
     }
@@ -123,11 +125,32 @@
                     [subItems addObject:[BBServiceMessageDetailModel convertByDic:dic]];
                 }
                 [tempMessages addObject:subItems];
+            
         }
     }
     
     //时间排序
+    for (NSArray *tempItemArray in tempMessages) {
+        if (tempItemArray.count > 1) {
+            [tempItemArray sortedArrayUsingComparator:^NSComparisonResult(id obj1, id obj2) {
+                BBServiceMessageDetailModel *tempModel1 = (BBServiceMessageDetailModel*) obj1;
+                BBServiceMessageDetailModel *tempModel2 = (BBServiceMessageDetailModel*) obj2;
+                return tempModel1.type < tempModel2.type;
+            }];
+        }
+    }
     
+    
+    [tempMessages sortUsingComparator:^NSComparisonResult(id obj1, id obj2) {
+        NSArray *tempObj1 = (NSArray *)obj1;
+        NSArray *tempObj2 = (NSArray *)obj2;
+        BBServiceMessageDetailModel *tempModel1;
+        BBServiceMessageDetailModel *tempModel2;
+        tempModel1 = tempObj1.count == 1 ? tempObj1[0] : tempObj1[0][0];
+        tempModel2 = tempObj2.count == 1 ? tempObj2[0] : tempObj2[0][0];
+        NSLog(@"1==%d,2==%d",tempModel1.ts.integerValue,tempModel2.ts.integerValue);
+        return tempModel1.ts.integerValue < tempModel2.ts.integerValue;
+    }];
     self.messages = [NSArray arrayWithArray:tempMessages];
     
     [self reloadData];
@@ -138,7 +161,7 @@
     int singeViews = 0;
     int mutilViews = 0;
     CGFloat singeViewHeight = 240.f;
-    CGFloat MutilViewHeight = 220.f;
+    CGFloat MutilViewHeight = 284.f;
     for (int i = 0; i<self.messages.count; i++) {
         NSArray *tempArray = self.messages[i];
         CGRect frame;
@@ -147,7 +170,7 @@
             singeViews++;
         }else
         {
-            frame = CGRectMake(0.f, singeViewHeight*singeViews+MutilViewHeight*mutilViews, CGRectGetWidth(self.detailScrollview.frame), singeViewHeight);
+            frame = CGRectMake(0.f, singeViewHeight*singeViews+MutilViewHeight*mutilViews, CGRectGetWidth(self.detailScrollview.frame), MutilViewHeight);
             mutilViews++;
         }
         BBServiceMessageDetailView *detailView = [[BBServiceMessageDetailView alloc] initWithFrame:frame];
@@ -157,6 +180,8 @@
     }
     
     [self.detailScrollview setContentSize:CGSizeMake(self.screenWidth-30.f, singeViewHeight*singeViews+MutilViewHeight*mutilViews)];
+    
+    [self closeProgress];
 }
 
 - (void)itemSelected:(BBServiceMessageDetailModel *)model

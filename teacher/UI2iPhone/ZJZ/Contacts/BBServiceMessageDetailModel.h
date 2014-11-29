@@ -8,7 +8,7 @@
 
 typedef enum
 {
-    DETAIL_CELL_TYPE_MUTIL = 1,
+    DETAIL_CELL_TYPE_BANNER = 1,
     DETAIL_CELL_TYPE_SINGLE = 2,
     
 }DETAIL_CELL_TYPE;

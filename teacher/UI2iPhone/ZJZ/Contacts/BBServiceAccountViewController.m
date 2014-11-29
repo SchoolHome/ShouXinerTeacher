@@ -104,7 +104,8 @@
     CPDBModelNotifyMessage *model = self.serviceItems[row*ItemCount + index];
     if (model) {
         BBServiceMessageDetailViewController *messageDetail = [[BBServiceMessageDetailViewController alloc] init];
-        [messageDetail setModel:model];
+        [messageDetail performSelector:@selector(setModel:) withObject:model afterDelay:0.5];
+        //[messageDetail setModel:model];
         [self.navigationController pushViewController:messageDetail animated:YES];
 
     }else [self showProgressWithText:@"无法查看" withDelayTime:2];

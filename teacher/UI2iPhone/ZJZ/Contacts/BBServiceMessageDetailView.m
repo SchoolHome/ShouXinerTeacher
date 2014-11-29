@@ -9,7 +9,7 @@
 #define Banner_Image_Height 100.f
 #define Banner_Image_Width 280.f
 
-#define Item_Image_Widht 25.f
+#define Item_Image_Widht 40.f
 
 #import "BBServiceMessageDetailView.h"
 
@@ -106,15 +106,15 @@
                 time.text = [self dateString:model.ts];
                 
                 UILabel *titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(CGRectGetMinX(banner.frame), CGRectGetMaxY(banner.frame)-20.f, self.frame.size.width-20.f, 20.f)];
-                titleLabel.font = [UIFont systemFontOfSize:14.f];
-                titleLabel.backgroundColor = [[UIColor blackColor] colorWithAlphaComponent:0.5];
+                titleLabel.font = [UIFont boldSystemFontOfSize:13.f];
+                titleLabel.backgroundColor = [[UIColor blackColor] colorWithAlphaComponent:0.6];
                 titleLabel.textColor = [UIColor whiteColor];
                 titleLabel.text = model.content;
                 [back addSubview:titleLabel];
                 
                 UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(mutilViewBannerTapped)];
                 [banner addGestureRecognizer:tap];
-            }else
+            }else if(i < 4)
             {
                 UIView *tapView = [[UIView alloc] initWithFrame:CGRectZero];
                 tapView.tag = i;
@@ -124,11 +124,11 @@
                 line.backgroundColor = [UIColor colorWithRed:240/255.f green:242/255.f blue:245/255.f alpha:1.f];
                 [back addSubview:line];
                 
-                UILabel *readTitle = [[UILabel alloc] initWithFrame:CGRectMake(CGRectGetMinX(banner.frame), CGRectGetMaxY(line.frame)+4, 100.f, 28.f)];
+                UILabel *readTitle = [[UILabel alloc] initWithFrame:CGRectMake(CGRectGetMinX(banner.frame), CGRectGetMaxY(line.frame)+4, CGRectGetMaxX(banner.frame)-Item_Image_Widht-20.f, 36.f)];
                 readTitle.backgroundColor = [UIColor clearColor];
                 readTitle.text = model.content;
                 readTitle.numberOfLines = 2;
-                readTitle.font = [UIFont systemFontOfSize:12.f];
+                readTitle.font = [UIFont systemFontOfSize:13.f];
                 readTitle.textColor = [UIColor lightGrayColor];
                 [back addSubview:readTitle];
                 

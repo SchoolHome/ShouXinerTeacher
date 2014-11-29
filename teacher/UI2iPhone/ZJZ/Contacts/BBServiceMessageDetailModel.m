@@ -17,7 +17,7 @@
     
     tempModel.mid = [FXStringUtil fliterStringIsNull:dic[@"mid"]];
     tempModel.imageUrl = [FXStringUtil fliterStringIsNull:dic[@"image"]];
-    tempModel.type = [dic[@"type"] integerValue] == 2 ? DETAIL_CELL_TYPE_SINGLE : DETAIL_CELL_TYPE_MUTIL;
+    tempModel.type = [dic[@"type"] integerValue] == 2 ? DETAIL_CELL_TYPE_SINGLE : DETAIL_CELL_TYPE_BANNER;
     tempModel.content = [FXStringUtil fliterStringIsNull:dic[@"content"]];
     tempModel.link = [FXStringUtil fliterStringIsNull:dic[@"link"]];
     tempModel.ts = dic[@"ts"];
