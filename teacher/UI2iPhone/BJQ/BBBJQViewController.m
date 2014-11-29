@@ -41,6 +41,7 @@
 
 @property (nonatomic,strong) NSString *videoFilePath;
 -(void) playVideo : (NSString *) videoPath;
+-(void) needRefresh;
 @end
 
 @implementation BBBJQViewController
@@ -490,7 +491,7 @@
     [[PalmUIManagement sharedInstance] getUserCredits];
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(receiveSeletedRangeList:) name:@"SeletedRangeList" object:nil];
-    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(needRefresh) name:@"BJQNeedRefresh" object:nil];
     [self checkNotify];
     
   
@@ -524,6 +525,10 @@
     [inputBar endEdit];
     
     [self removeObservers];
+}
+
+-(void) needRefresh{
+    [bjqTableView triggerPullToRefresh];
 }
 
 -(void)receiveSeletedRangeList:(NSNotification *)noti
