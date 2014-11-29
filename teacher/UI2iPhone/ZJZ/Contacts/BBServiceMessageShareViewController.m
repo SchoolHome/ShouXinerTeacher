@@ -9,11 +9,13 @@
 #define ThingsTextViewSpaceing 10.f
 
 
+
 #import "BBServiceMessageShareViewController.h"
 #import "ChooseClassViewController.h"
 
 #import "EGOImageView.h"
 
+#import "AppDelegate.h"
 @interface BBServiceMessageShareViewController ()<UITableViewDataSource,UITableViewDelegate,ChooseClassDelegate>
 {
     UIPlaceHolderTextView *thingsTextView;
@@ -50,6 +52,22 @@
         }else{
             [self showProgressWithText:@"班级列表加载失败" withDelayTime:0.1];
         }
+    }else if ([@"publicMessageForwardResult" isEqualToString:keyPath])//转发
+    {
+        [self closeProgress];
+        NSDictionary *result = [PalmUIManagement sharedInstance].publicMessageForwardResult;
+         if (![result[@"hasError"] boolValue]) { 
+             [self.navigationController popToRootViewControllerAnimated:YES];
+             AppDelegate *appDelegate = (AppDelegate *)[UIApplication sharedApplication].delegate;
+             if ([appDelegate.window.rootViewController isKindOfClass:[BBUITabBarController class]]) {
+                 BBUITabBarController *tabbar = (BBUITabBarController *)appDelegate.window.rootViewController;
+                 [tabbar performSelector:@selector(selectedItem:) withObject:0 afterDelay:0.5];
+                 [[NSNotificationCenter defaultCenter] postNotificationName:@"BJQNeedRefresh" object:nil];
+             }
+             
+         }else{
+             [self showProgressWithText:result[@"error"] withDelayTime:0.1];
+         }
     }
     
     
@@ -59,6 +77,7 @@
     [super viewWillAppear:animated];
     
     [[PalmUIManagement sharedInstance] addObserver:self forKeyPath:@"groupListResult" options:0 context:NULL];
+    [[PalmUIManagement sharedInstance] addObserver:self forKeyPath:@"publicMessageForwardResult" options:0 context:NULL];
 }
 
 - (void)viewWillDisappear:(BOOL)animated
@@ -66,7 +85,7 @@
     [super viewWillDisappear:animated];
     
     [[PalmUIManagement sharedInstance] removeObserver:self forKeyPath:@"groupListResult"];
-    
+    [[PalmUIManagement sharedInstance] removeObserver:self forKeyPath:@"publicMessageForwardResult"];
 }
 
 - (void)viewDidLoad
@@ -243,6 +262,9 @@
         
         return;
     }
+    
+    [self showProgressWithText:@"正在提交..."];
+    [[PalmUIManagement sharedInstance] postPublicMessageForward:shareModel.mid  withGroupID:self.currentGroup.groupid.integerValue withMessage:thingsTextView.text];
 }
 #pragma mark - ChooseClassViewControllerDelegate
 - (void)classChoose:(NSInteger)index

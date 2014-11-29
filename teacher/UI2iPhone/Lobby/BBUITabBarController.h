@@ -25,4 +25,6 @@
     UILabel *markYZS;
 }
 
+- (void)selectedItem:(NSInteger)itemIndex;
+
 @end

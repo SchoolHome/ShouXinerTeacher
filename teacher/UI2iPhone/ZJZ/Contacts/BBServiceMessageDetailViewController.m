@@ -148,7 +148,7 @@
         BBServiceMessageDetailModel *tempModel2;
         tempModel1 = tempObj1.count == 1 ? tempObj1[0] : tempObj1[0][0];
         tempModel2 = tempObj2.count == 1 ? tempObj2[0] : tempObj2[0][0];
-        NSLog(@"1==%d,2==%d",tempModel1.ts.integerValue,tempModel2.ts.integerValue);
+        
         return tempModel1.ts.integerValue < tempModel2.ts.integerValue;
     }];
     self.messages = [NSArray arrayWithArray:tempMessages];

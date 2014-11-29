@@ -28,15 +28,21 @@
     
     // right
     UIButton *share = [UIButton buttonWithType:UIButtonTypeCustom];
-    [share setFrame:CGRectMake(0.f, 7.f, 24.f, 24.f)];
+    [share setFrame:CGRectMake(0.f, 7.f, 60.f, 24.f)];
     //[share setBackgroundImage:[UIImage imageNamed:@"user_alt"] forState:UIControlStateNormal];
     [share setTitle:@"分享" forState:UIControlStateNormal];
+    [share setTitleColor:[UIColor colorWithRed:251/255.f green:76/255.f blue:7/255.f alpha:1.f] forState:UIControlStateNormal];
     [share addTarget:self action:@selector(shareButtonTaped) forControlEvents:UIControlEventTouchUpInside];
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:share];
     
     webView = [[UIWebView alloc] initWithFrame:CGRectMake(0, 0, 320, self.screenHeight-44)];
     [self.view addSubview:webView];
     
+
+}
+
+- (void)viewDidAppear:(BOOL)animated
+{
     NSURLRequest *req = [[NSURLRequest alloc] initWithURL:[NSURL URLWithString:self.model.link]];
     [webView loadRequest:req];
 }
