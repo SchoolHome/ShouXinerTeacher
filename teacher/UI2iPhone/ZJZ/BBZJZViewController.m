@@ -23,6 +23,7 @@
 #import "BBGroupModel.h"
 
 //notifyMessage change
+#import "CPUIModelMessageGroup.h"
 #import "CPUIModelManagement.h"
 #import "CPDBModelNotifyMessage.h"
 #import "CPDBManagement.h"
@@ -210,6 +211,29 @@
             [arrayM addObject:g];
         }
         [arrayM addObjectsFromArray:[PalmUIManagement sharedInstance].noticeArray];
+        
+        [arrayM sortUsingComparator:^NSComparisonResult(id obj1, id obj2) {
+            NSNumber *tempTimeInterval1;
+            NSNumber *tempTimeInterval2;
+            
+            if ([obj1 isKindOfClass:[CPUIModelMessageGroup class]]) {
+                CPUIModelMessageGroup *tempGroup = (CPUIModelMessageGroup *)obj1;
+                tempTimeInterval1 = tempGroup.updateDate;
+            }else{
+                CPDBModelNotifyMessage *tempGroup = (CPDBModelNotifyMessage *)obj1;
+                tempTimeInterval1 = tempGroup.date;
+            }
+            
+            if ([obj2 isKindOfClass:[CPUIModelMessageGroup class]]) {
+                CPUIModelMessageGroup *tempGroup = (CPUIModelMessageGroup *)obj2;
+                tempTimeInterval2 = tempGroup.updateDate;
+            }else{
+                CPDBModelNotifyMessage *tempGroup = (CPDBModelNotifyMessage *)obj2;
+                tempTimeInterval2 = tempGroup.date;
+            }
+            return tempTimeInterval1.integerValue < tempTimeInterval2.integerValue;
+
+        }];
         
         self.tableviewDisplayDataArray = [NSArray arrayWithArray:arrayM];
     }
