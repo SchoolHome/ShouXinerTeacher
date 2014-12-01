@@ -8,6 +8,8 @@
 
 #import "BBServiceAccountDetailViewController.h"
 
+#import "CPDBManagement.h"
+
 #import "EGOImageView.h"
 
 @interface BBServiceAccountDetailViewController ()<UITableViewDataSource,UITableViewDelegate>
@@ -16,20 +18,7 @@
 @end
 
 @implementation BBServiceAccountDetailViewController
-- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
-{
-    if ([keyPath isEqualToString:@"publicMessageResult"]) {
-        NSDictionary *result = [PalmUIManagement sharedInstance].publicMessageResult;
-        
-        if (![result[@"hasError"] boolValue]) {
-            NSDictionary *data = result[@"data"];
-            NSArray *list = data[@"list"];
-        }else{
-            [self showProgressWithText:@"获取消息失败,请重试" withDelayTime:1];
-        }
 
-    }
-}
 
 - (id)initWithModel:(CPDBModelNotifyMessage *)modelMessage
 {
@@ -41,15 +30,7 @@
 
 }
 
-- (void)viewWillAppear:(BOOL)animated
-{
-    [[PalmUIManagement sharedInstance] addObserver:self forKeyPath:@"publicMessageResult" options:0 context:nil];
-}
 
-- (void)viewDidDisappear:(BOOL)animated
-{
-    [[PalmUIManagement sharedInstance] removeObserver:self forKeyPath:@"publicMessageResult"];
-}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -78,7 +59,7 @@
     accountName.text = self.model.fromUserName;
     accountName.backgroundColor = [UIColor clearColor];
     [tableviewHeaderView addSubview:accountName];
-    
+    /*
     UIView *tableviewFootView = [[UIView alloc] initWithFrame:CGRectMake(0.f, 0.f, self.screenWidth, 50.f)];
     
     UIButton *checkMessage = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -86,14 +67,14 @@
     [checkMessage addTarget:self action:@selector(beginCheckMessage) forControlEvents:UIControlEventTouchUpInside];
     [checkMessage setBackgroundImage:[UIImage imageNamed:@"button_view_mes"] forState:UIControlStateNormal];
     [tableviewFootView  addSubview:checkMessage];
-    
+    */
     
     UITableView *tableview = [[UITableView alloc] initWithFrame:CGRectMake(0.f, 0.f, self.screenWidth, self.screenHeight-40.f) style:UITableViewStyleGrouped];
     tableview.scrollEnabled = NO;
     tableview.delegate = self;
     tableview.dataSource = self;
     tableview.tableHeaderView = tableviewHeaderView;
-    tableview.tableFooterView = tableviewFootView;
+    tableview.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
     [self.view addSubview:tableview];
     // Do any additional setup after loading the view.
 }
@@ -111,9 +92,7 @@
 
 - (void)beginCheckMessage
 {
-    if (self.model.mid.length > 0) {
-        [[PalmUIManagement sharedInstance] getPublicMessage:self.model.mid];
-    }else [self showProgressWithText:@"无法查看消息" withDelayTime:1.f];
+
 }
 #pragma mark - UITableview
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section

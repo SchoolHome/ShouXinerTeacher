@@ -119,11 +119,12 @@
         // Custom initialization
         self.title = @"学生列表";
         
-        UIButton *back = [UIButton buttonWithType:UIButtonTypeCustom];
-        [back setFrame:CGRectMake(0.f, 7.f, 30.f, 30.f)];
-        [back setBackgroundImage:[UIImage imageNamed:@"ZJZBack"] forState:UIControlStateNormal];
-        [back addTarget:self action:@selector(backAction) forControlEvents:UIControlEventTouchUpInside];
-        self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:back];
+        
+        UIButton *backButton = [UIButton buttonWithType:UIButtonTypeCustom];
+        [backButton setFrame:CGRectMake(0.f, 7.f, 24.f, 24.f)];
+        [backButton setBackgroundImage:[UIImage imageNamed:@"back"] forState:UIControlStateNormal];
+        [backButton addTarget:self action:@selector(backAction) forControlEvents:UIControlEventTouchUpInside];
+        self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:backButton];
         
         searchResultList = [[NSMutableArray alloc] init];
     }
@@ -427,12 +428,12 @@
         
         
         UIView *sectionView = [[UIView alloc] initWithFrame:CGRectZero];
-        sectionView.backgroundColor = [UIColor blackColor];
+        sectionView.backgroundColor = [UIColor colorWithHexString:@"#f2f2f2"];
         
         UILabel *title = [[UILabel alloc] initWithFrame:CGRectMake(10.f, 6.f, 200.f, 20.f)];
         title.backgroundColor = [UIColor clearColor];
         title.font = [UIFont boldSystemFontOfSize:14.f];
-        title.textColor = [UIColor whiteColor];
+        title.textColor = [UIColor lightGrayColor];
         title.text = [[self.sectionArray objectAtIndex:section] count] ? [[[UILocalizedIndexedCollation currentCollation] sectionTitles] objectAtIndex:section] : nil;
         [sectionView addSubview:title];
         return sectionView;
@@ -493,7 +494,6 @@
     BBStudentListTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIden];
     if (!cell) {
         cell = [[BBStudentListTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIden];
-        cell.backgroundColor = [UIColor clearColor];
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
         cell.delegate = self;
     }

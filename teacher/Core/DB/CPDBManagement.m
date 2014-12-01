@@ -1583,7 +1583,6 @@
 }
 -(NSArray *)findAllNewNotiyfMessages
 {
-    NSLog(@"%@",[notifyMsgDAO findAllNewMessages]);
     return   [notifyMsgDAO findAllNewMessages];
 }
 -(NSArray *)findNotifyMessagesOfCurrentFromJID:(NSString *)currentFromJID

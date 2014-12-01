@@ -8,12 +8,14 @@
 
 #import "MutilGroupDetailViewController.h"
 #import "ContactsStartGroupChatViewController.h"
-#import "MutilIMViewController.h"
-
+#import "BBMutilIMViewController.h"
+#import "MutilMsgGroupViewController.h"
 
 #import "CPUIModelManagement.h"
 #import "CPUIModelMessageGroup.h"
 #import "CPUIModelMessageGroupMember.h"
+
+
 @interface MutilGroupDetailViewController ()<UITableViewDataSource,UITableViewDelegate,UIAlertViewDelegate>
 {
     GROUP_MEMBER_FROM_TYPE fromType;
@@ -45,11 +47,10 @@
 {
     self = [super init];
     if (self) {
-        if (type != GROUP_MEMBER_FROM_TYPE_IM) {
-            self.msgGroup = tempMsgGroup;
-        }
         
-        [[CPUIModelManagement sharedInstance] setCurrentMsgGroup:self.msgGroup];
+        self.msgGroup = tempMsgGroup;
+        
+        
         groupName = tempGroupName;
         fromType = type;
     }
@@ -106,15 +107,12 @@
 
 - (void)viewWillAppear:(BOOL)animated
 {
-    [[CPUIModelManagement sharedInstance] addObserver:self forKeyPath:@"quitGroupDic" options:0 context:@""];
+    [[CPUIModelManagement sharedInstance] addObserver:self forKeyPath:@"quitGroupDic" options:0 context:nil];
 }
 
 - (void)viewWillDisappear:(BOOL)animated
 {
     [[CPUIModelManagement sharedInstance] removeObserver:self forKeyPath:@"quitGroupDic"];
-    if (fromType != GROUP_MEMBER_FROM_TYPE_IM) {
-        [[CPUIModelManagement sharedInstance] setCurrentMsgGroup:nil];
-    }
 }
 
 
@@ -162,18 +160,25 @@
 
 - (void)backAction
 {
+    for (id viewController in self.navigationController.viewControllers) {
+        if ([viewController isKindOfClass:[MutilMsgGroupViewController class]]) {
+            [(MutilMsgGroupViewController *)viewController refreshMsgGroup];
+            [self.navigationController popToViewController:viewController animated:YES];
+            return;
+        }
+    }
     [self.navigationController popViewControllerAnimated:YES];
 }
 
 - (void)quitGroup
 {
-    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil message:@"确认退出吗?" delegate:self cancelButtonTitle:@"" otherButtonTitles:@"确认",@"取消",nil];
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil message:@"确认退出吗?" delegate:self cancelButtonTitle:nil otherButtonTitles:@"确认",@"取消",nil];
     [alert show];
 }
 
 - (void)beginChat
 {
-    MutilIMViewController *mutilIM = [[MutilIMViewController alloc] init:self.msgGroup];
+    BBMutilIMViewController *mutilIM = [[BBMutilIMViewController alloc] init:self.msgGroup];
     [self.navigationController pushViewController:mutilIM animated:YES];
 }
 
@@ -252,34 +257,50 @@
         
         
         if (i == self.members.count) {
-            UIButton *addMember = [UIButton buttonWithType:UIButtonTypeCustom];
+            UIButton *addMember = (UIButton *)[self viewWithTag:1000];
+            if (!addMember) {
+                addMember = [UIButton buttonWithType:UIButtonTypeCustom];
+                
+                addMember.tag = 1000;
+                [addMember setBackgroundImage:[UIImage imageNamed:@"add_group"] forState:UIControlStateNormal];
+                [addMember addTarget:self action:@selector(addMemberInGroup) forControlEvents:UIControlEventTouchUpInside];
+                [self addSubview:addMember];
+            }
             [addMember setFrame:imageFrame];
-            [addMember setBackgroundImage:[UIImage imageNamed:@"add_group"] forState:UIControlStateNormal];
-            [addMember addTarget:self action:@selector(addMemberInGroup) forControlEvents:UIControlEventTouchUpInside];
-            [self addSubview:addMember];
+
             return;
         }
         CPUIModelUserInfo *userInfo = self.members[i];
         
         CGRect nickNameFrame = CGRectMake(CGRectGetMinX(imageFrame)-spacing/2, CGRectGetMaxY(imageFrame)+intervalForImageAndTitle, itemWidth+spacing, 14.f);
         
-        UIImageView *itemImage = [[UIImageView alloc] initWithFrame:imageFrame];
+        UIImageView *itemImage = (UIImageView *)[self viewWithTag:100+i];
+        if (!itemImage) {
+            itemImage = [[UIImageView alloc] initWithFrame:imageFrame];
+            itemImage.layer.cornerRadius = 25.f;
+            itemImage.layer.masksToBounds = YES;
+            itemImage.layer.borderWidth = 1.f;
+            itemImage.layer.borderColor = [UIColor lightGrayColor].CGColor;
+            itemImage.tag = 100+i;
+            [self addSubview:itemImage];
+        }
         [itemImage setImage:userInfo.headerPath.length ? [UIImage imageWithContentsOfFile:userInfo.headerPath] : [UIImage imageNamed:@"girl"]];
-        itemImage.layer.cornerRadius = 25.f;
-        itemImage.layer.masksToBounds = YES;
-        itemImage.layer.borderWidth = 1.f;
-        itemImage.layer.borderColor = [UIColor lightGrayColor].CGColor;
-        [self addSubview:itemImage];
         
-        UILabel *itemNickName = [[UILabel alloc] initWithFrame:nickNameFrame];
-        itemNickName.backgroundColor = [UIColor clearColor];
-        itemNickName.textAlignment = NSTextAlignmentCenter;
-        itemNickName.font = [UIFont systemFontOfSize:12.f];
-        itemNickName.textColor = [UIColor lightGrayColor];
+        UILabel *itemNickName = (UILabel *)[self viewWithTag:300+i];
+        if (!itemNickName) {
+            itemNickName = [[UILabel alloc] initWithFrame:nickNameFrame];
+            itemNickName.backgroundColor = [UIColor clearColor];
+            itemNickName.textAlignment = NSTextAlignmentCenter;
+            itemNickName.font = [UIFont systemFontOfSize:12.f];
+            itemNickName.textColor = [UIColor lightGrayColor];
+            itemNickName.tag = 300+i;
+            [self addSubview:itemNickName];
+        }
         itemNickName.text = userInfo.nickName;
-        [self addSubview:itemNickName];
+
         
     }
+    
 }
 
 - (void)addMemberInGroup

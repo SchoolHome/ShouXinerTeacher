@@ -233,7 +233,7 @@
 //根据fromJID获取所有此jid的数据
 -(NSArray *)findAllMessagesOfFromJID:(NSString *)fromJID
 {
-    FMResultSet *rs = [db executeQuery:@" SELECT * FROM notifyMessage where fromJID=?",fromJID];
+    FMResultSet *rs = [db executeQuery:@"SELECT * FROM notifyMessage where fromJID=?",fromJID];
     NSMutableArray *MessageList = [[NSMutableArray alloc] init];
     while ([rs next])
     {

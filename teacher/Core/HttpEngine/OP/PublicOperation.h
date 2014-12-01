@@ -12,6 +12,6 @@ typedef enum{
     kPostPublicMessage,
 }PublicMessageType;
 @interface PublicOperation : PalmOperation
--(PublicOperation *) initGetPublicMessage : (NSString *) mid;
+-(PublicOperation *) initGetPublicMessage : (NSString *) mids;
 -(PublicOperation *) initPostPublicMessageForward : (NSString *) mid withGroupID : (int) groupID withMessage : (NSString *) message;
 @end

@@ -15,6 +15,8 @@
 #import "SystemIMViewController.h"
 #import "ShuangShuangTeamViewController.h"
 #import "BBServiceAccountViewController.h"
+#import "BBServiceMessageDetailViewController.h"
+
 
 #import "BBNotifyMessageGroupCell.h"
 //shouxin version 4
@@ -84,12 +86,12 @@
     self.navigationItem.titleView = segementBtn;
     
     
-    _messageListTableview = [[BBMessageGroupBaseTableView alloc] initWithFrame:CGRectMake(0.f, 0.f, 320.f, self.screenHeight-89.f) style:UITableViewStyleGrouped];
+    _messageListTableview = [[BBMessageGroupBaseTableView alloc] initWithFrame:CGRectMake(0.f, 0.f, 320.f, self.screenHeight-110.f) style:UITableViewStylePlain];
     _messageListTableview.backgroundColor = [UIColor clearColor];
     _messageListTableview.messageGroupBaseTableViewdelegate = self;
     _messageListTableview.delegate = self;
     _messageListTableview.dataSource = self;
-    _messageListTableview.tableHeaderView = [[UIView alloc] initWithFrame:CGRectMake(0.f, 0.f, 320.f, 1.f)];
+    //_messageListTableview.tableHeaderView = [[UIView alloc] initWithFrame:CGRectMake(0.f, 0.f, 320.f, 1.f)];
     _messageListTableview.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
     _messageListTableview.showsVerticalScrollIndicator = NO;
     [self.view addSubview:_messageListTableview];
@@ -175,9 +177,10 @@
         NSArray *array = [NSArray arrayWithArray:[CPUIModelManagement sharedInstance].userMessageGroupList];
         NSMutableArray *arrayM = [[NSMutableArray alloc] initWithCapacity:20];
         for (CPUIModelMessageGroup *g in array) {
-            if ([g.msgList count] != 0) {
-                [arrayM addObject:g];
-            }
+//            if ([g.msgList count] != 0) {
+//                [arrayM addObject:g];
+//            }
+            [arrayM addObject:g];
         }
         [arrayM addObjectsFromArray:[PalmUIManagement sharedInstance].noticeArray];
         _tableviewDisplayDataArray = [NSArray arrayWithArray:arrayM];
@@ -201,9 +204,10 @@
         NSArray *array = [NSArray arrayWithArray:[CPUIModelManagement sharedInstance].userMessageGroupList];
         NSMutableArray *arrayM = [[NSMutableArray alloc] initWithCapacity:10];
         for (CPUIModelMessageGroup *g in array) {
-            if ([g.msgList count] != 0) {
-                [arrayM addObject:g];
-            }
+//            if ([g.msgList count] != 0) {
+//                [arrayM addObject:g];
+//            }
+            [arrayM addObject:g];
         }
         [arrayM addObjectsFromArray:[PalmUIManagement sharedInstance].noticeArray];
         
@@ -390,10 +394,15 @@
             //设置未读数
             
             [[CPSystemEngine sharedInstance] updateUnreadedMessageStatusChanged:msgGroup];
-            
-            
-            NSArray *msgGroupOfCurrentFrom = [[[CPSystemEngine sharedInstance] dbManagement] findNotifyMessagesOfCurrentFromJID:msgGroup.from];
-            NSLog(@"msgGroupOfCurrentFrom%@",msgGroupOfCurrentFrom);
+        
+            if (msgGroup) {
+                BBServiceMessageDetailViewController *messageDetail = [[BBServiceMessageDetailViewController alloc] init];
+                [messageDetail setModel:msgGroup];
+                messageDetail.hidesBottomBarWhenPushed = YES;
+                [self.navigationController pushViewController:messageDetail animated:YES];
+                
+            }else [self showProgressWithText:@"无法查看" withDelayTime:2];
+        
         }
     }else
     {
@@ -429,7 +438,7 @@
                 NSMutableArray *tempMutilMsgGroups = [[NSMutableArray alloc] init];
                 for (CPUIModelMessageGroup *group in self.tableviewDisplayDataArray) {
                     if ([group isKindOfClass:[CPUIModelMessageGroup class]]) {
-                        if (![group isMsgSingleGroup] && [group.msgList count] != 0) {
+                        if (![group isMsgSingleGroup]) {
                             [tempMutilMsgGroups addObject:group];
                         }
                     }
@@ -443,20 +452,27 @@
             {
                 //[PalmUIManagement sharedInstance].noticeArray
                 BBServiceAccountViewController *serviceAccount = [[BBServiceAccountViewController alloc] initWithServiceItems:[PalmUIManagement sharedInstance].noticeArray];
+                serviceAccount.hidesBottomBarWhenPushed = YES;
                 [self.navigationController pushViewController:serviceAccount animated:YES];
             }
                 break;
             default:
                 break;
         }
-        [tableView deselectRowAtIndexPath:indexPath animated:NO];
+        
     }
-    
-
-    
-    
+    [tableView deselectRowAtIndexPath:indexPath animated:NO];
 }
 #pragma mark UItableviewDatasouce
+/*
+- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
+{
+    if (listType == LIST_TYPE_MSG_GROUP) {
+        return [[UIView alloc] initWithFrame:CGRectMake(0.f, 0.f, self.screenWidth, 1.f)];
+    }
+    return nil;
+}
+*/
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     if (listType == LIST_TYPE_MSG_GROUP) {
@@ -548,7 +564,14 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
 {
-    return 10.f;
+    if (listType == LIST_TYPE_MSG_GROUP) {
+        return 0;
+    }else if (section == 0)
+    {
+        return 0;
+    }
+    
+    return 20.f;
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {

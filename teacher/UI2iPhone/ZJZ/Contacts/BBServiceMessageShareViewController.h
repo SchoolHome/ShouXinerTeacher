@@ -10,7 +10,7 @@
 #import "UIPlaceHolderTextView.h"
 
 #import "BBGroupModel.h"
-
+#import "BBServiceMessageDetailModel.h"
 @protocol BBServiceMessageShareTableviewTouchDelegate <NSObject>
 
 - (void)tableviewTouched;
@@ -18,7 +18,7 @@
 @end
 
 @interface BBServiceMessageShareViewController : PalmViewController<BBServiceMessageShareTableviewTouchDelegate>
-
+- (id)initWithModel:(BBServiceMessageDetailModel *)model;
 @end
 
 @interface BBServiceMessageShareTableview : UITableView <UIGestureRecognizerDelegate>

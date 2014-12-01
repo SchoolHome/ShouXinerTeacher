@@ -10,5 +10,5 @@
 
 @interface FXStringUtil : NSObject
 + (BOOL)do_check_is_mobile_string:(NSString *)string;
-
++ (NSString *)fliterStringIsNull:(NSString *)str;
 @end

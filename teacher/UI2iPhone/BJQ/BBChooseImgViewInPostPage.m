@@ -153,7 +153,7 @@
         
         deleteBtn = [UIButton buttonWithType:UIButtonTypeCustom];
         [deleteBtn setFrame:CGRectMake(CGRectGetMaxX(ges.view.frame)-10.f, CGRectGetMinY(ges.view.frame)-10.f, 22.f, 22.f)];
-        [deleteBtn setBackgroundImage:[UIImage imageNamed:@"close"] forState:UIControlStateNormal];
+        [deleteBtn setBackgroundImage:[UIImage imageNamed:@"imageClose"] forState:UIControlStateNormal];
         [deleteBtn addTarget:self action:@selector(deleteImage:) forControlEvents:UIControlEventTouchUpInside];
         [self addSubview:deleteBtn];
         

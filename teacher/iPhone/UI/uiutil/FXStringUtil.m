@@ -20,4 +20,11 @@
     return result_bool;
 }
 
++ (NSString *)fliterStringIsNull:(NSString *)str
+{
+    if (![str isKindOfClass:[NSNull class]] && str.length>0) {
+        return str;
+    }
+    return @"";
+}
 @end

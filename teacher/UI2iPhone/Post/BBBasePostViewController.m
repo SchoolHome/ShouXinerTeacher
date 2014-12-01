@@ -11,6 +11,8 @@
 #import "BBBasePostViewController.h"
 #import "ZYQAssetPickerController.h"
 #import "ChooseClassViewController.h"
+
+#import "AppDelegate.h"
 @interface BBBasePostViewController()<
 UIImagePickerControllerDelegate,
 UINavigationControllerDelegate,
@@ -215,6 +217,12 @@ ZYQAssetPickerControllerDelegate>
 - (void) backToBJQRoot
 {
     [self.navigationController popToRootViewControllerAnimated:YES];
+    AppDelegate *appDelegate = (AppDelegate *)[UIApplication sharedApplication].delegate;
+    if ([appDelegate.window.rootViewController isKindOfClass:[BBUITabBarController class]]) {
+        BBUITabBarController *tabbar = (BBUITabBarController *)appDelegate.window.rootViewController;
+        [tabbar performSelector:@selector(selectedItem:) withObject:0 afterDelay:0.5];
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"BJQNeedRefresh" object:nil];
+    }
 }
 #pragma mark - UITableview
 

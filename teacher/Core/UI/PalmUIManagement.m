@@ -220,8 +220,8 @@ static PalmUIManagement *sharedInstance = nil;
 }
 
 // 获取公共账号消息
--(void) getPublicMessage : (NSString *) mid{
-    PublicOperation *operation = [[PublicOperation alloc] initGetPublicMessage:mid];
+-(void) getPublicMessage : (NSString *) mids{
+    PublicOperation *operation = [[PublicOperation alloc] initGetPublicMessage:mids];
     [[PalmNetWorkService sharedInstance] networkEngine:operation];
 }
 // 转发公共账号消息

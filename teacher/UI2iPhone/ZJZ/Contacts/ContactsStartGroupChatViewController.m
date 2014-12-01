@@ -66,7 +66,7 @@
     [self.view addSubview:_contactsForGroupTableSearchBar];
     _contactsForGroupTableSearchBar.delegate = self;
     
-    _contactsForGroupListTableview = [[BBMessageGroupBaseTableView alloc] initWithFrame:CGRectMake(0.f, 40.f, 320.f, [UIScreen mainScreen].bounds.size.height-154.f ) style:UITableViewStylePlain];
+    _contactsForGroupListTableview = [[BBMessageGroupBaseTableView alloc] initWithFrame:CGRectMake(0.f, 40.f, 320.f, [UIScreen mainScreen].bounds.size.height-102.f ) style:UITableViewStylePlain];
     _contactsForGroupListTableview.delegate = self;
     _contactsForGroupListTableview.dataSource = self;
     _contactsForGroupListTableview.backgroundColor = [UIColor clearColor];
@@ -74,6 +74,7 @@
     _contactsForGroupListTableview.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
     [self.view addSubview:_contactsForGroupListTableview];
     
+    /*
     UIImageView *lineImageview = [[UIImageView alloc] initWithFrame:CGRectMake(0.f, _contactsForGroupListTableview.frame.origin.y+_contactsForGroupListTableview.frame.size.height, 320.f, 2.f)];
     lineImageview.backgroundColor = [UIColor colorWithRed:138/255.f green:136/255.f blue:135/255.f alpha:1.f];
     [self.view addSubview:lineImageview];
@@ -85,7 +86,7 @@
     if (self.hidedUserInfosArray.count > 0) {
         [self.displaySelectedMembersVIew setSelectedMembersArray:self.hidedUserInfosArray];
     }
-    
+    */
     if (!IOS7) {
         for (UIView *subview in _contactsForGroupTableSearchBar.subviews)
         {

@@ -7,7 +7,7 @@
 //
 
 #import "BBServiceAccountViewController.h"
-#import "BBServiceAccountDetailViewController.h"
+#import "BBServiceMessageDetailViewController.h"
 @interface BBServiceAccountViewController ()<UITableViewDataSource,UITableViewDelegate>
 @property (nonatomic, strong)NSArray *serviceItems;
 @end
@@ -103,9 +103,12 @@
     NSLog(@"row == %d,index==%d",row,index);
     CPDBModelNotifyMessage *model = self.serviceItems[row*ItemCount + index];
     if (model) {
-        BBServiceAccountDetailViewController *detail = [[BBServiceAccountDetailViewController alloc] initWithModel:model];
-        [self.navigationController pushViewController:detail animated:YES];
-    }
+        BBServiceMessageDetailViewController *messageDetail = [[BBServiceMessageDetailViewController alloc] init];
+        [messageDetail performSelector:@selector(setModel:) withObject:model afterDelay:0.5];
+        //[messageDetail setModel:model];
+        [self.navigationController pushViewController:messageDetail animated:YES];
+
+    }else [self showProgressWithText:@"无法查看" withDelayTime:2];
 }
 /*
 #pragma mark - Navigation

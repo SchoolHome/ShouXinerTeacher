@@ -12,4 +12,6 @@
 
 - (id)initWithMutilMsgGroups : (NSArray *)msgGroups;
 
+
+- (void)refreshMsgGroup;
 @end
