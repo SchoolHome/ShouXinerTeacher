@@ -9384,7 +9384,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "c66ecf10-9171-41de-96bd-fcb949870b02";
 				SDKROOT = iphoneos8.1;
-				VALID_ARCHS = "armv6 armv7";
+				VALID_ARCHS = armv7;
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
