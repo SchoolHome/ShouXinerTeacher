@@ -392,15 +392,13 @@
         }else if ([cell.msgGroup isKindOfClass:[CPDBModelNotifyMessage class]]){
             CPDBModelNotifyMessage *msgGroup = cell.msgGroup;
             //设置未读数
-            
-            [[CPSystemEngine sharedInstance] updateUnreadedMessageStatusChanged:msgGroup];
         
             if (msgGroup) {
                 BBServiceMessageDetailViewController *messageDetail = [[BBServiceMessageDetailViewController alloc] init];
                 [messageDetail setModel:msgGroup];
                 messageDetail.hidesBottomBarWhenPushed = YES;
                 [self.navigationController pushViewController:messageDetail animated:YES];
-                
+                [[CPSystemEngine sharedInstance] updateUnreadedMessageStatusChanged:msgGroup];
             }else [self showProgressWithText:@"无法查看" withDelayTime:2];
         
         }
