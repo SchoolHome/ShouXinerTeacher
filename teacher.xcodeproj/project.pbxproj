@@ -9356,10 +9356,7 @@
 		332D727E18C33464007A75D5 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ARCHS = (
-					armv6,
-					"$(ARCHS_STANDARD_32_BIT)",
-				);
+				ARCHS = "$(ARCHS_STANDARD)";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "iPhone Developer: yuan gao (5PS549TGY5)";
@@ -9385,15 +9382,9 @@
 				ONLY_ACTIVE_ARCH = NO;
 				OTHER_LDFLAGS = "-lxml2";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-<<<<<<< HEAD
 				PROVISIONING_PROFILE = "c66ecf10-9171-41de-96bd-fcb949870b02";
 				SDKROOT = iphoneos8.1;
 				VALID_ARCHS = "armv6 armv7";
-=======
-				PROVISIONING_PROFILE = "709F75F5-36D5-4576-A1CF-D7490871D808";
-				SDKROOT = iphoneos;
-				VALID_ARCHS = armv7;
->>>>>>> fdd6ff2e7e7e04e03c3c56e95fffdb1307aa542d
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -9401,10 +9392,7 @@
 		332D727F18C33464007A75D5 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ARCHS = (
-					armv6,
-					"$(ARCHS_STANDARD_32_BIT)",
-				);
+				ARCHS = "$(ARCHS_STANDARD)";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "iPhone Developer: yuan gao (5PS549TGY5)";
@@ -9430,15 +9418,9 @@
 				);
 				OTHER_LDFLAGS = "-lxml2";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-<<<<<<< HEAD
-				PROVISIONING_PROFILE = "c66ecf10-9171-41de-96bd-fcb949870b02";
-				SDKROOT = iphoneos8.1;
-				VALID_ARCHS = "armv6 armv7";
-=======
 				PROVISIONING_PROFILE = "709F75F5-36D5-4576-A1CF-D7490871D808";
 				SDKROOT = iphoneos;
 				VALID_ARCHS = armv7;
->>>>>>> fdd6ff2e7e7e04e03c3c56e95fffdb1307aa542d
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;
