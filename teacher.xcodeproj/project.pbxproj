@@ -9379,12 +9379,12 @@
 					"\"$(SRCROOT)\"/teacher/Core/TalkingData",
 					"\"$(SRCROOT)\"/teacher/Core//Engine/Service/XMPPFramework/Vendor/libidn",
 				);
-				ONLY_ACTIVE_ARCH = NO;
+				ONLY_ACTIVE_ARCH = YES;
 				OTHER_LDFLAGS = "-lxml2";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "c66ecf10-9171-41de-96bd-fcb949870b02";
-				SDKROOT = iphoneos8.1;
-				VALID_ARCHS = armv7;
+				SDKROOT = iphoneos;
+				VALID_ARCHS = "arm64 armv7 armv7s";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -9418,9 +9418,9 @@
 				);
 				OTHER_LDFLAGS = "-lxml2";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "709F75F5-36D5-4576-A1CF-D7490871D808";
+				PROVISIONING_PROFILE = "c66ecf10-9171-41de-96bd-fcb949870b02";
 				SDKROOT = iphoneos;
-				VALID_ARCHS = armv7;
+				VALID_ARCHS = "arm64 armv7 armv7s";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;

@@ -30,7 +30,11 @@
 	<array>
 		<string>UIInterfaceOrientationPortrait</string>
 	</array>
-	<key>UIViewControllerBasedStatusBarAppearance</key>
-	<false/>
+	<key>LSApplicationCategoryType</key>
+	<string></string>
+	<key>UIRequiredDeviceCapabilities</key>
+	<array>
+		<string>armv7</string>
+	</array>
 </dict>
 </plist>
