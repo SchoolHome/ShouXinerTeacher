@@ -56,14 +56,14 @@
         }else{
             markMessage.hidden = NO;
             markMessage.text = [NSString stringWithFormat:@"%d",count];
-            CGFloat width = [markYZS.text sizeWithFont:[UIFont systemFontOfSize:14]
+            CGFloat width = [markMessage.text sizeWithFont:[UIFont systemFontOfSize:14]
                                      constrainedToSize:CGSizeMake(CGFLOAT_MAX, CGFLOAT_MAX)].width;
             if (width<17) {
                 width = 20;
             }else{
                 width = width + 8;
             }
-            markMessage.frame = CGRectMake(320/5*4-16.f, -5, width, 20);
+            markMessage.frame = CGRectMake(320/5*2-16.f, -5, width, 20);
             [markMessage setNeedsDisplay];
         }
     }

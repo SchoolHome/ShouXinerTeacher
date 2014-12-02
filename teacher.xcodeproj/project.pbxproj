@@ -9385,6 +9385,7 @@
 				PROVISIONING_PROFILE = "c66ecf10-9171-41de-96bd-fcb949870b02";
 				SDKROOT = iphoneos;
 				VALID_ARCHS = "arm64 armv7 armv7s";
+
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
