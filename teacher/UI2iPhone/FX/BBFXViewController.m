@@ -27,74 +27,13 @@
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
 {
     if ([@"discoverResult" isEqualToString:keyPath]){
-        NSDictionary *discoverResult = [PalmUIManagement sharedInstance].discoverResult;
-        if ([discoverResult[@"errno"] integerValue]==0) {
-            [self.discoverArray removeAllObjects];
-            if (![discoverResult[@"discover"] isKindOfClass:[NSNull class]]) {
-                NSDictionary *discoverDic = discoverResult[@"discover"];
-                for (NSString *key in [discoverDic allKeys]) {
-                    NSDictionary *oneDiscover = discoverDic[key];
-                    BBFXModel *oneModel = [[BBFXModel alloc] initWithJson:oneDiscover];
-                    [self.discoverArray addObject:oneModel];
-                }
-            }
-            if (![discoverResult[@"service"] isKindOfClass:[NSNull class]]) {
-                [self.serviceArray removeAllObjects];
-                NSDictionary *serviceDic = discoverResult[@"service"];
-                for (NSString *key in [serviceDic allKeys]) {
-                    NSDictionary *oneService = serviceDic[key];
-                    BBFXModel *model = [[BBFXModel alloc] initWithJson:oneService];
-                    [self.serviceArray addObject:model];
-                }
-                
-            }
-        }
-        /*ceshi:::*/
-        if ([self.discoverArray count]==0) {
-            for (int i=0; i<3; i++) {
-                BBFXModel *model = [[BBFXModel alloc] init];
-                model.title = [NSString stringWithFormat:@"%d-----%d", i, i];
-                model.url = @"http://www.baidu.com";
-                model.isNew = (i%2?YES:NO);
-                model.image = (i%2?@"http://img.sccnn.com/bimg/322/599.jpg":@"http://pic23.nipic.com/20120817/5236266_171208039361_2.jpg");
-                [self.discoverArray addObject:model];
-                model = nil;
-            }
-        }
-        if ([self.serviceArray count] == 0) {
-            for (int i=0; i<5; i++) {
-                BBFXModel *model = [[BBFXModel alloc] init];
-                model.title = [NSString stringWithFormat:@"%d-----%d", i, i];
-                model.url = @"http://www.baidu.com";
-                model.isNew = (i%2?YES:NO);
-                model.image = (i%2?@"http://img.sccnn.com/bimg/322/599.jpg":@"http://pic23.nipic.com/20120817/5236266_171208039361_2.jpg");
-                [self.serviceArray addObject:model];
-                model = nil;
-            }
-        }
-        /*end*/
-        [fxTableView reloadData];
-        
-        if ([self.discoverArray count]>0) {
-            if (!adScrollView) {
-                adScrollView = [[BBFXAdScrollView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 130)];
-                [adScrollView setDelegate:(id<BBFXAdScrollViewDelegate>)self];
-                [self.view addSubview:adScrollView];
-            }
-            [adScrollView setAdsArray:self.discoverArray];
-            [self addDiscoverHeader];
-        }else{
-            if (adScrollView) {
-                [self removeDiscoverHeader];
-            }
-        }
+        [self initContentData];
     }
 }
 
 -(id)init{
     self = [super init];
     if (self) {
-        [[PalmUIManagement sharedInstance] addObserver:self forKeyPath:@"discoverResult" options:0 context:nil];
         _discoverArray = [[NSMutableArray alloc] init];
         _serviceArray = [[NSMutableArray alloc] init];
     }
@@ -117,17 +56,87 @@
     [fxTableView setDelegate:(id<UITableViewDelegate>)self];
     [fxTableView setDataSource:(id<UITableViewDataSource>)self];
     [self.view addSubview:fxTableView];
-    
-    [[PalmUIManagement sharedInstance] getDiscoverData];
+    [self initContentData];
+}
+
+-(void)initContentData
+{
+    if ([PalmUIManagement sharedInstance].discoverResult) {
+        NSDictionary *discoverResult = [PalmUIManagement sharedInstance].discoverResult;
+        if ([discoverResult[@"errno"] integerValue]==0) {
+            [self.discoverArray removeAllObjects];
+            if (![discoverResult[@"discover"] isKindOfClass:[NSNull class]]) {
+                NSDictionary *discoverDic = discoverResult[@"discover"];
+                for (NSString *key in [discoverDic allKeys]) {
+                    NSDictionary *oneDiscover = discoverDic[key];
+                    BBFXModel *oneModel = [[BBFXModel alloc] initWithJson:oneDiscover];
+                    [self.discoverArray addObject:oneModel];
+                }
+            }
+            if (![discoverResult[@"service"] isKindOfClass:[NSNull class]]) {
+                [self.serviceArray removeAllObjects];
+                NSDictionary *serviceDic = discoverResult[@"service"];
+                for (NSString *key in [serviceDic allKeys]) {
+                    NSDictionary *oneService = serviceDic[key];
+                    BBFXModel *model = [[BBFXModel alloc] initWithJson:oneService];
+                    [self.serviceArray addObject:model];
+                }
+                
+            }
+        }
+//        /*ceshi:::*/
+        if ([self.discoverArray count]==0) {
+            for (int i=0; i<3; i++) {
+                BBFXModel *model = [[BBFXModel alloc] init];
+                model.title = [NSString stringWithFormat:@"%d-----%d", i, i];
+                model.url = @"http://www.baidu.com";
+                model.isNew = (i%2?YES:NO);
+                model.image = (i%2?@"http://img.sccnn.com/bimg/322/599.jpg":@"http://pic23.nipic.com/20120817/5236266_171208039361_2.jpg");
+                [self.discoverArray addObject:model];
+                model = nil;
+            }
+        }
+        if ([self.serviceArray count] == 0) {
+            for (int i=0; i<5; i++) {
+                BBFXModel *model = [[BBFXModel alloc] init];
+                model.title = [NSString stringWithFormat:@"%d-----%d", i, i];
+                model.url = @"http://www.baidu.com";
+                model.isNew = (i%2?YES:NO);
+                model.image = (i%2?@"http://g.hiphotos.baidu.com/baike/w%3D268/sign=fcf18d39b3de9c82a665fe89548080d2/4610b912c8fcc3cead54a0339245d688d43f201d.jpg":@"http://imgsrc.baidu.com/forum/w%3D580/sign=7760bd9a32fa828bd1239debcd1e41cd/6ca62b3b5bb5c9eade903a7cd439b6003bf3b38f.jpg");
+                [self.serviceArray addObject:model];
+                model = nil;
+            }
+        }
+        /*end*/
+        [fxTableView reloadData];
+        
+        [self addDiscoverHeader];
+    }else{
+        [[PalmUIManagement sharedInstance] addObserver:self forKeyPath:@"discoverResult" options:0 context:nil];
+        [[PalmUIManagement sharedInstance] getDiscoverData];
+    }
 }
 
 -(void)addDiscoverHeader
 {
-    [UIView animateWithDuration:0.5f animations:^{
-        fxTableView.tableHeaderView = adScrollView;
-    } completion:^(BOOL finished){
-        
-    }];
+    if ([self.discoverArray count]>0) {
+        if (!adScrollView) {
+            adScrollView = [[BBFXAdScrollView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 130)];
+            [adScrollView setDelegate:(id<BBFXAdScrollViewDelegate>)self];
+            [self.view addSubview:adScrollView];
+        }
+        [adScrollView setAdsArray:self.discoverArray];
+        [UIView animateWithDuration:0.5f animations:^{
+            fxTableView.tableHeaderView = adScrollView;
+        } completion:^(BOOL finished){
+            
+        }];
+    }else{
+        if (adScrollView) {
+            [self removeDiscoverHeader];
+        }
+    }
+    
 }
 
 -(void)removeDiscoverHeader
@@ -245,5 +254,10 @@
     // Pass the selected object to the new view controller.
 }
 */
+
+-(void)dealloc
+{
+    [[PalmUIManagement sharedInstance] removeObserver:self forKeyPath:@"discoverResult"];
+}
 
 @end

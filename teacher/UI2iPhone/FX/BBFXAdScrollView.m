@@ -14,8 +14,16 @@
     self = [super initWithFrame:frame];
     if (self) {
         adScroll = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 0, frame.size.width, frame.size.height)];
+        [adScroll setDelegate:(id<UIScrollViewDelegate>)self];
+        [adScroll setShowsHorizontalScrollIndicator:NO];
         [adScroll setPagingEnabled:YES];
         [self addSubview:adScroll];
+        
+        pageControl = [[UIPageControl alloc] initWithFrame:CGRectMake(0, frame.size.height-25, frame.size.width, 20)];
+        [pageControl setPageIndicatorTintColor:[UIColor colorWithRed:1.0f green:1.0f blue:1.0f alpha:0.5f]];
+        [pageControl setCurrentPageIndicatorTintColor:[UIColor whiteColor]];
+        [pageControl addTarget:self action:@selector(changePage:) forControlEvents:UIControlEventValueChanged];
+        [self addSubview:pageControl];
     }
     return self;
 }
@@ -24,6 +32,7 @@
 {
     _adsArray = adsArray;
     NSInteger count = [self.adsArray count];
+    [pageControl setNumberOfPages:count];
     [adScroll setContentSize:CGSizeMake(adScroll.frame.size.width*count, adScroll.frame.size.height)];
     for (int i=0; i<count; i++) {
         BBFXModel *model = [self.adsArray objectAtIndex:i];
@@ -43,11 +52,26 @@
 {
     EGOImageView *egoAdView = (EGOImageView *)tap.view;
     NSInteger tag = egoAdView.tag;
-    NSLog(@"%d", tag);
     BBFXModel *model = [self.adsArray objectAtIndex:tag];
     if (_delegate && [self.delegate respondsToSelector:@selector(adViewTapped:)]) {
         [self.delegate performSelector:@selector(adViewTapped:) withObject:model];
     }
+}
+
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView
+{
+    CGFloat pageWidth = scrollView.frame.size.width;
+    NSInteger page = floor((scrollView.contentOffset.x - pageWidth / 2) / pageWidth) + 1;
+    pageControl.currentPage = page;
+}
+
+- (void)changePage:(UIPageControl *)sender
+{
+     int page = pageControl.currentPage;
+    CGRect frame = adScroll.frame;
+    frame.origin.x = frame.size.width * page;
+    frame.origin.y = 0;
+    [adScroll scrollRectToVisible:frame animated:YES];
 }
 
 /*

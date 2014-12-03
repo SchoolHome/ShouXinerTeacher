@@ -16,6 +16,7 @@
 @interface BBFXAdScrollView : UIView
 {
     UIScrollView *adScroll;
+    UIPageControl *pageControl;
 }
 @property (nonatomic, strong) NSArray *adsArray;
 @property (nonatomic, assign) id<BBFXAdScrollViewDelegate> delegate;

@@ -22,9 +22,9 @@
     
     
     UILabel *markMessage;
-    UILabel *markYZS;
 }
 
+@property (nonatomic, strong) UILabel *markYZS;
 - (void)selectedItem:(NSInteger)itemIndex;
 
 @end
