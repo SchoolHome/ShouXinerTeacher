@@ -65,12 +65,16 @@
                 [NSArray arrayWithObjects:[NSDictionary dictionaryWithObjectsAndKeys:@"设置", @"title", @"", @"url", @"set_up.png", @"icon", nil], nil],
                 nil];
     
-   
     meTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self.screenHeight-49-44-20)
                                                style:UITableViewStyleGrouped];
     [meTableView setDelegate:(id<UITableViewDelegate>)self];
     [meTableView setDataSource:(id<UITableViewDataSource>)self];
   //  [meTableView setSeparatorColor:[UIColor clearColor]];
+    
+    UIView *backgroundView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, meTableView.frame.size.width, meTableView.frame.size.height)];
+    [backgroundView setBackgroundColor:[UIColor colorWithRed:242.f/255.f green:242.f/255.f blue:242.f/255.f alpha:1.0f]];
+    [meTableView setBackgroundView:backgroundView];
+    backgroundView = nil;
     
     UIView *headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 170)];
     UIImageView *bgImage = [[UIImageView alloc] initWithFrame:headerView.bounds];
@@ -271,7 +275,13 @@
         }
     }
     if ([@"uiPersonalInfoTag" isEqualToString:keyPath]) {
-        [meTableView reloadData];
+        //[meTableView reloadData];
+        NSString *path = [[CPUIModelManagement sharedInstance].uiPersonalInfo selfHeaderImgPath];
+        if (path) {
+            [headerImgBtn setImage:[UIImage imageWithContentsOfFile:path] forState:UIControlStateNormal];
+        }else{
+            [headerImgBtn setImage:[UIImage imageNamed:@"girl.png"]forState:UIControlStateNormal];
+        }
     }
 }
 

@@ -66,6 +66,7 @@
     phoneField = [[UITextField alloc] initWithFrame:CGRectMake(85, 15, self.view.frame.size.width-95, 44)];
     [phoneField setPlaceholder:account.loginName];
     [phoneField setFont:[UIFont systemFontOfSize:14]];
+    [phoneField setContentVerticalAlignment:UIControlContentVerticalAlignmentCenter];
     [self.view addSubview:phoneField];
     
     title = [[UILabel alloc] initWithFrame:CGRectMake(0, 60, 80, 44)];
@@ -77,6 +78,7 @@
     codeField = [[UITextField alloc] initWithFrame:CGRectMake(85, 60, self.view.frame.size.width-200, 44)];
     [codeField setPlaceholder:@"请输入验证码"];
     [codeField setFont:[UIFont systemFontOfSize:14]];
+    [codeField setContentVerticalAlignment:UIControlContentVerticalAlignmentCenter];
     [self.view addSubview:codeField];
     
     UIButton *getCodeBtn = [UIButton buttonWithType:UIButtonTypeCustom];

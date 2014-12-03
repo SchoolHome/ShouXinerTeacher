@@ -10,7 +10,7 @@
 #import "BBProfileModel.h"
 @interface BBSignModifyViewController ()
 {
-    UITextField *signField;
+    UITextView *signView;
     BBProfileModel *userProfile;
 }
 @end
@@ -49,19 +49,20 @@
     
     userProfile = [BBProfileModel shareProfileModel];
     
-    UIImageView *bgImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 15, self.view.frame.size.width, 44)];
+    UIImageView *bgImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 15, self.view.frame.size.width, 124)];
     [bgImageView setBackgroundColor:[UIColor whiteColor]];
     [self.view addSubview:bgImageView];
     
-    signField = [[UITextField alloc] initWithFrame:CGRectMake(10, 15, self.view.frame.size.width-20, 44)];
-    [signField setTextColor:[UIColor colorWithRed:0.333f green:0.333f blue:0.333f alpha:1.0f]];
+    signView = [[UITextView alloc] initWithFrame:CGRectMake(10, 17, self.view.frame.size.width-20, 120)];
+    [signView setTextColor:[UIColor colorWithRed:0.333f green:0.333f blue:0.333f alpha:1.0f]];
+    [signView setDelegate:(id<UITextViewDelegate>)self];
     if (userProfile.sign.length>0) {
-        [signField setText:userProfile.sign];
+        [signView setText:userProfile.sign];
     }else{
-        [signField setPlaceholder:@"说点什么吧。"];
+        [signView setText:@"说点什么吧。"];
     }
-    [signField setFont:[UIFont systemFontOfSize:14]];
-    [self.view addSubview:signField];
+    [signView setFont:[UIFont systemFontOfSize:14]];
+    [self.view addSubview:signView];
 }
 
 -(void)backViewController
@@ -73,8 +74,8 @@
 {
     [self showProgressWithText:@"保存中，请稍后"];
     NSString *txtSign = @"";
-    if (signField.text.length) {
-        txtSign = signField.text;
+    if (signView.text.length) {
+        txtSign = signView.text;
     }
     [[PalmUIManagement sharedInstance] postUserInfo:nil withMobile:nil withVerifyCode:nil withPasswordOld:nil withPasswordNew:nil withSex:userProfile.sex withSign:txtSign];
 }
@@ -85,7 +86,7 @@
         NSDictionary *resultDic = [[PalmUIManagement sharedInstance] postUserInfoResult];
         NSDictionary *errDic = resultDic[@"data"];
         if ([errDic[@"errno"] integerValue] == 0) {
-            userProfile.sign = signField.text;
+            userProfile.sign = signView.text;
             [self showProgressWithText:@"保存成功" withDelayTime:2];
             [self.navigationController popViewControllerAnimated:YES];
         }else{
@@ -97,6 +98,14 @@
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+- (BOOL)textViewShouldBeginEditing:(UITextView *)textView
+{
+    if ([textView.text isEqualToString:@"说点什么吧。"]) {
+        [textView setText:@""];
+    }
+    return YES;
 }
 
 /*

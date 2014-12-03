@@ -50,7 +50,7 @@
         fixHeight = IOS7?64:44;
     }
     
-    setWebview = [[UIWebView alloc] initWithFrame:CGRectMake(0.f, height, self.view.frame.size.width, self.screenHeight-height-fixHeight)];
+    setWebview = [[UIWebView alloc] initWithFrame:CGRectMake(0.f, height, self.view.frame.size.width, self.view.frame.size.height-height-fixHeight)];
     setWebview.scalesPageToFit = YES;
     setWebview.delegate = (id<UIWebViewDelegate>)self;
     [setWebview.scrollView setMaximumZoomScale:4.f];

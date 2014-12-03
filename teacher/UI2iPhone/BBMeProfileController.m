@@ -70,9 +70,13 @@
     
     profileTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height-44)
                                                     style:UITableViewStyleGrouped];
-    [profileTableView setBackgroundColor:[UIColor colorWithRed:242.f/255.f green:242.f/255.f blue:242.f/255.f alpha:1.0f]];
     [profileTableView setDataSource:(id<UITableViewDataSource>)self];
     [profileTableView setDelegate:(id<UITableViewDelegate>)self];
+    
+    UIView *backgroundView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, profileTableView.frame.size.width, profileTableView.frame.size.height)];
+    [backgroundView setBackgroundColor:[UIColor colorWithRed:242.f/255.f green:242.f/255.f blue:242.f/255.f alpha:1.0f]];
+    [profileTableView setBackgroundView:backgroundView];
+    backgroundView = nil;
     
     UIView *headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 170)];
     UIImageView *bgImage = [[UIImageView alloc] initWithFrame:headerView.bounds];
