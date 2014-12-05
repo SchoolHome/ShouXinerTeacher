@@ -10,6 +10,7 @@
 #import "CPUIModelManagement.h"
 #import "PalmUIManagement.h"
 #import "activateViewController.h"
+#import "ForgotPwdVC.h"
 
 @interface Login ()<UITextFieldDelegate,UIAlertViewDelegate>
 @property (nonatomic,strong) UIImageView *bgImage;
@@ -279,15 +280,17 @@
 
 -(void)cantLogin:(UIButton *)btn
 {
-    UIActionSheet *actinSheet = [[UIActionSheet alloc] initWithTitle:nil delegate:(id<UIActionSheetDelegate>)self cancelButtonTitle:@"取消" destructiveButtonTitle:@"找回密码" otherButtonTitles:nil];
+    UIActionSheet *actinSheet = [[UIActionSheet alloc] initWithTitle:nil delegate:(id<UIActionSheetDelegate>)self cancelButtonTitle:@"取消" destructiveButtonTitle:nil otherButtonTitles:@"联系客服", @"找回密码", nil];
     [actinSheet showInView:self.view];
 }
 
 - (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
 {
-    if(buttonIndex == 0)
-    {
-        
+    if(buttonIndex == 0){
+        //call
+    }else{
+        ForgotPwdVC *forgotVC = [[ForgotPwdVC alloc] init];
+        [self.navigationController pushViewController:forgotVC animated:YES];
     }
     [actionSheet dismissWithClickedButtonIndex:buttonIndex animated:YES];
 }

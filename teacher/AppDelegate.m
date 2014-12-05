@@ -106,7 +106,7 @@
     
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     // Override point for customization after application launch.
-    
+    self.window.backgroundColor = [UIColor whiteColor];
     NSString *guidVersion = [[NSUserDefaults standardUserDefaults] objectForKey:@"guidVersion"];
     if (guidVersion == nil || ![guidVersion isEqualToString:GuidVersion]) {
         [self do_clear_controllers];
