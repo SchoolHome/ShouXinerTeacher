@@ -40,6 +40,9 @@
     [super viewWillAppear:animated];
     CPLGModelAccount *account = [[CPSystemEngine sharedInstance] accountModel];
     if ( nil != account.pwdMD5 && ![account.pwdMD5 isEqualToString:@""]) {
+        [self.userName setText:account.loginName];
+        [self.password setSecureTextEntry:YES];
+        [self.password setText:account.pwdMD5];
         [self showProgressWithText:@"正在登陆"];
     }
 }
@@ -111,40 +114,53 @@
     UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(clickBG:)];
     [self.bgImage addGestureRecognizer:tap];
     [self.view addSubview:self.bgImage];
-    
-    float height = 370.0f;
-    if (self.screenHeight != 568.0f) {
-        height = 370.0f - (568.0f - 480.0f);
-    }
-    
-    self.userName = [[UITextField alloc] initWithFrame:CGRectMake(60.0f, height, 200.0f, 20.0f)];
+//    float height = 370.0f;
+//    if (self.screenHeight != 568.0f) {
+//        height = 370.0f - (568.0f - 480.0f);
+//    }
+    float height = 170.0f;
+    self.userName = [[UITextField alloc] initWithFrame:CGRectMake(20, height, self.view.frame.size.width-40, 43.f)];
     self.userName.placeholder = @"用户名/邮箱/手机";
     self.userName.returnKeyType = UIReturnKeyDone;
     self.userName.delegate = self;
+    [self.userName setContentHorizontalAlignment:UIControlContentHorizontalAlignmentCenter];
+    [self.userName setContentVerticalAlignment:UIControlContentVerticalAlignmentCenter];
+    [self.userName setTextAlignment:NSTextAlignmentCenter];
+    [self.userName setFont:[UIFont systemFontOfSize:14]];
     [self.bgImage addSubview:self.userName];
-    
-    height = 415.0f;
-    if (self.screenHeight != 568.0f) {
-        height = 415.0f - (568.0f - 480.0f);
-    }
-    self.password = [[UITextField alloc] initWithFrame:CGRectMake(60.0f, height, 200.0f, 20.0f)];
+//    
+//    height = 415.0f;
+//    if (self.screenHeight != 568.0f) {
+//        height = 415.0f - (568.0f - 480.0f);
+//    }
+    height = 214.f;
+    self.password = [[UITextField alloc] initWithFrame:CGRectMake(20, height, self.view.frame.size.width-40, 43.f)];
     self.password.returnKeyType = UIReturnKeyDone;
     self.password.delegate = self;
-    self.password.secureTextEntry = YES;
+    self.password.placeholder = @"密码";
+    [self.password setContentHorizontalAlignment:UIControlContentHorizontalAlignmentCenter];
+    [self.password setContentVerticalAlignment:UIControlContentVerticalAlignmentCenter];
+    [self.password setFont:[UIFont systemFontOfSize:14]];
+    [self.password setTextAlignment:NSTextAlignmentCenter];
     [self.bgImage addSubview:self.password];
     
-    height = 0.0f;
-    if ([[[UIDevice currentDevice] systemVersion] floatValue] <= 7.0){
-        height = 20.0f;
-    }
-    
+//    height = 0.0f;
+//    if ([[[UIDevice currentDevice] systemVersion] floatValue] <= 7.0){
+//        height = 20.0f;
+//    }
+    height = 265.f;
     self.LoginButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    self.LoginButton.frame = CGRectMake((320.0f - 271.0f)/2.0f, self.screenHeight - 43.0f*2 - height, 271.0f, 43.0f);
+    self.LoginButton.frame = CGRectMake((320.0f - 271.0f)/2.0f, height, 271.0f, 43.0f);
     [self.LoginButton setImage:[UIImage imageNamed:@"LoginButton"] forState:UIControlStateNormal];
     [self.LoginButton setImage:[UIImage imageNamed:@"LoginButtonPress"] forState:UIControlStateHighlighted];
     [self.LoginButton addTarget:self action:@selector(login:) forControlEvents:UIControlEventTouchUpInside];
     [self.bgImage addSubview:self.LoginButton];
     
+    
+    height = 0.0f;
+    if ([[[UIDevice currentDevice] systemVersion] floatValue] <= 7.0){
+        height = 20.0f;
+    }
     UILabel *label = [[UILabel alloc] init];
 #ifdef IS_TEACHER
     label.text = @"手心网 v1.0 教师版";
@@ -153,11 +169,17 @@
 #endif
     label.textAlignment = NSTextAlignmentLeft;
     label.textColor = [UIColor whiteColor];
-    label.alpha = 0.6f;
     label.backgroundColor = [UIColor clearColor];
-    label.frame = CGRectMake(115.0f, self.screenHeight - 27.0f - height, 150.0f, 20.0f);
-    label.font = [UIFont systemFontOfSize:12.0f];
+    label.frame = CGRectMake(10, self.screenHeight - 27.0f - height, 150.0f, 20.0f);
+    label.font = [UIFont systemFontOfSize:14.0f];
     [self.view addSubview:label];
+    
+    UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
+    [btn setFrame:CGRectMake(self.view.frame.size.width-80, self.screenHeight-30, 80, 30)];
+    [btn setTitle:@"无法登录？" forState:UIControlStateNormal];
+    [btn.titleLabel setFont:[UIFont systemFontOfSize:14.f]];
+    [btn addTarget:self action:@selector(cantLogin:) forControlEvents:UIControlEventTouchUpInside];
+    [self.bgImage addSubview:btn];
 }
 
 -(void) clickBG : (UIGestureRecognizer *) recognizer{
@@ -245,6 +267,29 @@
 - (void)didReceiveMemoryWarning{
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+- (BOOL)textFieldShouldBeginEditing:(UITextField *)textField
+{
+    if (textField == self.password) {
+        [self.password setSecureTextEntry:YES];
+    }
+    return YES;
+}
+
+-(void)cantLogin:(UIButton *)btn
+{
+    UIActionSheet *actinSheet = [[UIActionSheet alloc] initWithTitle:nil delegate:(id<UIActionSheetDelegate>)self cancelButtonTitle:@"取消" destructiveButtonTitle:@"找回密码" otherButtonTitles:nil];
+    [actinSheet showInView:self.view];
+}
+
+- (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    if(buttonIndex == 0)
+    {
+        
+    }
+    [actionSheet dismissWithClickedButtonIndex:buttonIndex animated:YES];
 }
 
 -(void) dealloc{

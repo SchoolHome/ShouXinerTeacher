@@ -113,6 +113,7 @@
         NSDictionary *dic = [infoArr objectAtIndex:indexPath.row];
         if (indexPath.row == 0) {
             //更新
+            [[PalmUIManagement sharedInstance] postCheckVersion];
         }else{
             BBMeWebViewController *viewController = [[BBMeWebViewController alloc] init];
             viewController.url = [NSURL URLWithString:[dic objectForKey:@"url"]];

@@ -69,6 +69,7 @@
 		049099301A0C6CA100EDD91B /* BBFXTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0490992F1A0C6CA100EDD91B /* BBFXTableViewCell.m */; };
 		049099331A0C6CC600EDD91B /* BBFXGridView.m in Sources */ = {isa = PBXBuildFile; fileRef = 049099321A0C6CC600EDD91B /* BBFXGridView.m */; };
 		049099361A0CADDE00EDD91B /* BBFXModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 049099351A0CADDE00EDD91B /* BBFXModel.m */; };
+		049587671A3195DA006AF120 /* ForgotPwdVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 049587661A3195DA006AF120 /* ForgotPwdVC.m */; };
 		04B262141947EC7500B6D036 /* BBHonorViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 04B262131947EC7500B6D036 /* BBHonorViewController.m */; };
 		04D431C6190F89F9004B2806 /* BBComentBG.png in Resources */ = {isa = PBXBuildFile; fileRef = 04D431C2190F89F9004B2806 /* BBComentBG.png */; };
 		04D431C7190F89F9004B2806 /* BBComentBG@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 04D431C3190F89F9004B2806 /* BBComentBG@2x.png */; };
@@ -1592,6 +1593,8 @@
 		049099321A0C6CC600EDD91B /* BBFXGridView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BBFXGridView.m; path = FX/BBFXGridView.m; sourceTree = "<group>"; };
 		049099341A0CADDE00EDD91B /* BBFXModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BBFXModel.h; sourceTree = "<group>"; };
 		049099351A0CADDE00EDD91B /* BBFXModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BBFXModel.m; sourceTree = "<group>"; };
+		049587651A3195DA006AF120 /* ForgotPwdVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ForgotPwdVC.h; sourceTree = "<group>"; };
+		049587661A3195DA006AF120 /* ForgotPwdVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ForgotPwdVC.m; sourceTree = "<group>"; };
 		04B262121947EC7500B6D036 /* BBHonorViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BBHonorViewController.h; sourceTree = "<group>"; };
 		04B262131947EC7500B6D036 /* BBHonorViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BBHonorViewController.m; sourceTree = "<group>"; };
 		04D431C2190F89F9004B2806 /* BBComentBG.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = BBComentBG.png; sourceTree = "<group>"; };
@@ -6308,6 +6311,8 @@
 				331447AA18C48621008B5B21 /* Login.m */,
 				1970BC4B191BB26600F63454 /* activateViewController.h */,
 				1970BC4C191BB26600F63454 /* activateViewController.m */,
+				049587651A3195DA006AF120 /* ForgotPwdVC.h */,
+				049587661A3195DA006AF120 /* ForgotPwdVC.m */,
 			);
 			path = LoginViewController;
 			sourceTree = "<group>";
@@ -8840,6 +8845,7 @@
 				332D759B18C33552007A75D5 /* CPUIModelContactWay.m in Sources */,
 				19145F4A191CDF3B008CE18C /* MJPhoto.m in Sources */,
 				7ABA6A9818D6D4DC0019AFEF /* BBBJDropdownView.m in Sources */,
+				049587671A3195DA006AF120 /* ForgotPwdVC.m in Sources */,
 				332D831D18C33F0B007A75D5 /* FxProcessFixed.m in Sources */,
 				19145F60191CDF3B008CE18C /* UIImageView+WebCache.m in Sources */,
 				332D758618C33552007A75D5 /* CPPTModelMessage.m in Sources */,
@@ -9385,7 +9391,6 @@
 				PROVISIONING_PROFILE = "c66ecf10-9171-41de-96bd-fcb949870b02";
 				SDKROOT = iphoneos;
 				VALID_ARCHS = "arm64 armv7 armv7s";
-
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;

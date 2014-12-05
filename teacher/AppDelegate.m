@@ -69,6 +69,9 @@
     self.window.rootViewController = tab;
     //2014-7
     [PalmUIManagement sharedInstance].noticeArray = [[[CPSystemEngine sharedInstance] dbManagement] findAllNewNotiyfMessages];
+    
+    CPLGModelAccount *account = [[CPSystemEngine sharedInstance] accountModel];
+    [Crashlytics setUserName:account.loginName];
 }
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions{
