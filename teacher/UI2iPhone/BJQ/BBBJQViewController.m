@@ -398,7 +398,7 @@
     self.type = 0;
     self.navigationController.navigationBar.tintColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.5];
     self.view.backgroundColor = [UIColor brownColor];
-
+    
     bjqTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0.0f, 320, self.screenHeight-64.0f-48.0f) style:UITableViewStyleGrouped];
     bjqTableView.backgroundColor = [UIColor colorWithHexString:@"f2f2f2"];
     [bjqTableView setSeparatorStyle:UITableViewCellSeparatorStyleNone];
@@ -407,6 +407,10 @@
     [self.view addSubview:bjqTableView];
     [bjqTableView reloadData];
     
+    UIView *bjqBgView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, bjqTableView.frame.size.width, bjqTableView.frame.size.height)];
+    [bjqBgView setBackgroundColor:[UIColor colorWithHexString:@"f2f2f2"]];
+    [bjqTableView setBackgroundView:bjqBgView];
+    bjqBgView = nil;
     
     __weak BBBJQViewController *weakSelf = self;
     // 刷新

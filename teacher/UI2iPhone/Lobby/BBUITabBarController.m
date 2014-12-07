@@ -232,9 +232,13 @@
 {
     if ([viewController.tabBarItem.title isEqualToString:@"YZSS"]) {
         //展开view
-        BBMenuView *menu = [[BBMenuView alloc] initWithFrame:CGRectMake(0.0f, 0.0f, 320.0f, [UIScreen mainScreen].bounds.size.height)];
+        UIWindow *window = [UIApplication sharedApplication].keyWindow;
+        BBMenuView *menu = [[BBMenuView alloc] initWithFrame:CGRectMake(0.0f, window.bounds.size.height, window.bounds.size.width, window.bounds.size.height)];
         menu.delegate = self;
-        [[UIApplication sharedApplication].keyWindow addSubview:menu];
+        [window addSubview:menu];
+        [UIView animateWithDuration:0.3f animations:^(void){
+            [menu setFrame:CGRectMake(0, 0, window.bounds.size.width, window.bounds.size.height)];
+        }];
         return NO;
     }
     return YES;

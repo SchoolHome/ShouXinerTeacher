@@ -89,6 +89,10 @@
 }
 
 -(void) clickCloseView{
-    [self removeFromSuperview];
+    [UIView animateWithDuration:0.3f animations:^(void){
+        [self setFrame:CGRectMake(0, self.frame.size.height, self.frame.size.width, self.frame.size.height)];
+    } completion:^(BOOL finished){
+        [self removeFromSuperview];
+    }];
 }
 @end

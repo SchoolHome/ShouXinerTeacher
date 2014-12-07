@@ -34,6 +34,7 @@
 -(id)init{
     self = [super init];
     if (self) {
+        [[PalmUIManagement sharedInstance] addObserver:self forKeyPath:@"discoverResult" options:0 context:nil];
         _discoverArray = [[NSMutableArray alloc] init];
         _serviceArray = [[NSMutableArray alloc] init];
     }
@@ -112,7 +113,6 @@
         
         [self addDiscoverHeader];
     }else{
-        [[PalmUIManagement sharedInstance] addObserver:self forKeyPath:@"discoverResult" options:0 context:nil];
         [[PalmUIManagement sharedInstance] getDiscoverData];
     }
 }
