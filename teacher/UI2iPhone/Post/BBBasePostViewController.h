@@ -9,6 +9,7 @@
 #define TABLEVIEW_SECTION_COUNT 2
 
 #import "PalmViewController.h"
+#import "ChooseClassViewController.h"
 
 #import "UIPlaceHolderTextView.h"
 #import "BBChooseImgViewInPostPage.h"
@@ -33,7 +34,8 @@ typedef enum
 <UITableViewDataSource,
 UITableViewDelegate,
 UIActionSheetDelegate,
-BBChooseImgViewInPostPageDelegate>
+BBChooseImgViewInPostPageDelegate,
+ChooseClassDelegate>
 {
     
     

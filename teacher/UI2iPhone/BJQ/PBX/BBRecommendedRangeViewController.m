@@ -54,6 +54,15 @@
         [backButton addTarget:self action:@selector(backAction) forControlEvents:UIControlEventTouchUpInside];
         self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:backButton];
         
+        // right
+        UIButton *sendButton = [UIButton buttonWithType:UIButtonTypeCustom];
+        [sendButton setFrame:CGRectMake(0.f, 7.f, 60.f, 30.f)];
+        [sendButton setTitle:@"确认" forState:UIControlStateNormal];
+        //sendButton.backgroundColor = [UIColor blackColor];
+        [sendButton setTitleColor:[UIColor colorWithRed:251/255.f green:76/255.f blue:7/255.f alpha:1.f] forState:UIControlStateNormal];
+        [sendButton addTarget:self action:@selector(confirm) forControlEvents:UIControlEventTouchUpInside];
+        self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:sendButton];
+        
         self.selectedRanges = [[NSMutableArray alloc] initWithArray:ranges];
     }
     return self;
@@ -65,17 +74,18 @@
     self.view.backgroundColor = [UIColor colorWithRed:242/255.f green:236/255.f blue:230/255.f alpha:1.f];
     
     //Tableview
-    rangeTableview = [[UITableView alloc] initWithFrame:CGRectMake(0.f, 0.f, 320.f, [UIScreen mainScreen].bounds.size.height-114.f ) style:UITableViewStylePlain];
+    rangeTableview = [[UITableView alloc] initWithFrame:CGRectMake(0.f, 0.f, 320.f, [UIScreen mainScreen].bounds.size.height-62.f ) style:UITableViewStylePlain];
     rangeTableview.delegate = self;
     rangeTableview.dataSource = self;
     rangeTableview.backgroundColor = [UIColor clearColor];
     rangeTableview.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
     [self.view addSubview:rangeTableview];
     
-    
+    /*
     UIImageView *lineImageview = [[UIImageView alloc] initWithFrame:CGRectMake(0.f, rangeTableview.frame.origin.y+rangeTableview.frame.size.height, 320.f, 2.f)];
     lineImageview.backgroundColor = [UIColor colorWithRed:138/255.f green:136/255.f blue:135/255.f alpha:1.f];
     [self.view addSubview:lineImageview];
+    
     
     //SelectedStudentsDisplay
     selectedView =  [[BBdisplaySelectedRangeView alloc] initWithFrame:CGRectMake(0.f, rangeTableview.frame.origin.y+rangeTableview.frame.size.height+2, 320.f, 50.f)];
@@ -85,6 +95,7 @@
     }
     
     [self.view addSubview:selectedView];
+     */
     // Do any additional setup after loading the view.
 }
 
@@ -119,8 +130,14 @@
     [selectedView setRanges:self.selectedRanges];
 }
 #pragma mark - ViewControllerMethod
--(void)backAction
+- (void)backAction
 {
+    [self.navigationController popViewControllerAnimated:YES];
+}
+
+- (void)confirm
+{
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"SeletedRangeList" object:self.selectedRanges];
     [self.navigationController popViewControllerAnimated:YES];
 }
 #pragma mark - SelectedViewDelegate
@@ -216,8 +233,8 @@
         _selectedBtn = [UIButton buttonWithType:UIButtonTypeCustom];
         [_selectedBtn setFrame:CGRectMake(5.f, 19.f, 22.f, 22.f)];
         [_selectedBtn addTarget:self action:@selector(selectRange:) forControlEvents:UIControlEventTouchUpInside];
-        [_selectedBtn setBackgroundImage:[UIImage imageNamed:@"ZJZUnCheck"] forState:UIControlStateNormal];
-        [_selectedBtn setBackgroundImage:[UIImage imageNamed:@"ZJZChecked"] forState:UIControlStateSelected];
+        [_selectedBtn setBackgroundImage:[UIImage imageNamed:@"no_selected"] forState:UIControlStateNormal];
+        [_selectedBtn setBackgroundImage:[UIImage imageNamed:@"selected"] forState:UIControlStateSelected];
         [self.contentView addSubview:_selectedBtn];
         //姓名
         _rangeLabel = [[UILabel alloc] initWithFrame:CGRectMake(40.f, 21.f, 120.f, 18.f)];

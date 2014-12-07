@@ -10,15 +10,16 @@
 
 #import "BBBasePostViewController.h"
 #import "ZYQAssetPickerController.h"
-#import "ChooseClassViewController.h"
+#import "ViewImageViewController.h"
+
 
 #import "AppDelegate.h"
 @interface BBBasePostViewController()<
 UIImagePickerControllerDelegate,
 UINavigationControllerDelegate,
-ChooseClassDelegate,
 BBBasePostTableviewTouchDelegate,
-ZYQAssetPickerControllerDelegate>
+ZYQAssetPickerControllerDelegate,
+viewImageDeletedDelegate>
 {
     NSUInteger selectedImagesCount;
     CGFloat chooseImageViewHeight;
@@ -41,7 +42,7 @@ ZYQAssetPickerControllerDelegate>
 @implementation BBBasePostViewController
 -(NSMutableArray *)attachList
 {
-    if (!_attachList) _attachList = [[NSMutableArray alloc] initWithCapacity:7];
+    if (!_attachList) _attachList = [[NSMutableArray alloc] initWithCapacity:9];
     return _attachList;
 }
 - (NSArray *)classModels
@@ -127,7 +128,7 @@ ZYQAssetPickerControllerDelegate>
             }
             [self.postTableview reloadRowsAtIndexPaths:[NSArray arrayWithObject:[NSIndexPath indexPathForRow:0 inSection:0]] withRowAnimation:UITableViewRowAnimationAutomatic];
         }else{
-            [self showProgressWithText:@"班级列表加载失败" withDelayTime:0.1];
+            [self showProgressWithText:@"班级列表加载失败" withDelayTime:2.f];
         }
     }
 
@@ -290,10 +291,10 @@ ZYQAssetPickerControllerDelegate>
                 _chooseImageView.delegate = self;
                 
                 if (_postType == POST_TYPE_FZY) {
-                    _chooseImageView.maxImages = 3;
+                    _chooseImageView.maxImages = 9;
                 }else
                 {
-                    _chooseImageView.maxImages = 7;
+                    _chooseImageView.maxImages = 9;
                 }
                 [cell.contentView addSubview:_chooseImageView];
                 
@@ -433,7 +434,7 @@ ZYQAssetPickerControllerDelegate>
         case POST_TYPE_PBX:
             //
             _placeholder = @"说点赞美话...";
-            self.title = @"拍状态";
+            self.title = @"表现";
             
             _topicType = 4;
             break;
@@ -453,7 +454,8 @@ ZYQAssetPickerControllerDelegate>
 - (void)classChoose:(NSInteger)index
 {
     self.currentGroup = self.classModels[index];
-    [self.postTableview reloadRowsAtIndexPaths:[NSArray arrayWithObject:[NSIndexPath indexPathForRow:0 inSection:0]] withRowAnimation:UITableViewRowAnimationAutomatic];
+    //[self.postTableview reloadRowsAtIndexPaths:[NSArray arrayWithObject:[NSIndexPath indexPathForRow:0 inSection:0]] withRowAnimation:UITableViewRowAnimationAutomatic];
+    [self.postTableview reloadData];
 }
 #pragma mark - ActionSheet
 - (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex{
@@ -584,6 +586,17 @@ ZYQAssetPickerControllerDelegate>
     
 }
 
+- (void)imageDidTapped:(NSArray *)images andIndex:(NSInteger)index
+{
+    ViewImageViewController *imagesVC = [[ViewImageViewController alloc] initViewImageVC:images withSelectedIndex:index];
+    imagesVC.delegate = self;
+    [self.navigationController pushViewController:imagesVC animated:YES];
+}
+
+- (void) delectedIndex:(NSInteger)index
+{
+    [_chooseImageView removeImage:index];
+}
 @end
 
 @implementation BBBasePostTableview

@@ -12,13 +12,13 @@
 @protocol viewImageDeletedDelegate <NSObject>
 
 @required
--(void) delectedIndex: (int) index;
+-(void) delectedIndex: (NSInteger ) index;
 -(void) reloadView;
 @end
 
 @interface ViewImageViewController : PalmViewController<XLCycleScrollViewDatasource,XLCycleScrollViewDelegate>
 
 @property(nonatomic,assign) id<viewImageDeletedDelegate> delegate;
--(id) initViewImageVC : (NSArray *) images withSelectedIndex : (int) index;
+-(id) initViewImageVC : (NSArray *) images withSelectedIndex : (NSInteger ) index;
 
 @end

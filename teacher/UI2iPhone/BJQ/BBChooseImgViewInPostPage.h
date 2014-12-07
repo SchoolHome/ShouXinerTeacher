@@ -23,6 +23,8 @@
 - (void)cannotAddImage;
 
 - (void)imageDidDelete;
+
+- (void)imageDidTapped:(NSArray *)images andIndex:(NSInteger)index;
 @end
 @interface BBChooseImgViewInPostPage : UIView <UIActionSheetDelegate>
 {
@@ -41,4 +43,6 @@
 - (void)addVideoImage:(UIImage *)image;
 
 - (void)closeImageBtn;
+
+- (void)removeImage:(NSInteger)index;
 @end

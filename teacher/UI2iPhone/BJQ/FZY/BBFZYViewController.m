@@ -41,7 +41,7 @@
                         break;
                     case 2:
                         //
-                        title = @"拍状态";
+                        title = @"拍表现";
 
                         break;
                     case 3:
@@ -108,7 +108,7 @@
         case 2:
             //
             _placeholder = @"说点赞美话...";
-            self.title = @"拍状态";
+            self.title = @"拍表现";
             
             _topicType = 4;
             break;

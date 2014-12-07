@@ -24,8 +24,8 @@
 
 @interface BBPostPBXViewController ()
 {
-    NSArray *selectedStuArray;
-    NSArray *selectedRangeArray;
+    NSMutableArray *selectedStuArray;
+    NSMutableArray *selectedRangeArray;
     
     NSString *selectedStuStr;
     NSString *selectedRangeStr;
@@ -196,8 +196,8 @@
 {
     [super viewDidLoad];
     
-    selectedStuArray = [[NSArray alloc] init];
-    selectedRangeArray = [[NSArray alloc] init];
+    selectedStuArray = [[NSMutableArray alloc] init];
+    selectedRangeArray = [[NSMutableArray alloc] initWithCapacity:2];
     selectedStuStr = @"";
 
     
@@ -229,7 +229,7 @@
 {
     NSArray *selectedStudents = (NSArray *)[noti object];
     
-    selectedStuArray = [[NSArray alloc] initWithArray:selectedStudents];
+    selectedStuArray = [[NSMutableArray alloc] initWithArray:selectedStudents];
     
     NSMutableString *studentListText = [NSMutableString string];
     for ( int i = 0; i< selectedStudents.count; i++) {
@@ -289,6 +289,7 @@
 }
 - (void)sendVideo
 {
+    [self closeThingsText];
     [self showProgressWithText:@"正在上传"];
     [[PalmUIManagement sharedInstance] updateUserVideoFile:[NSURL fileURLWithPath:[self getTempSaveVideoPath]] withGroupID:[self.currentGroup.groupid intValue]];
 }
@@ -358,6 +359,30 @@
 {
     [self.chooseImageView addImages:tempImages];
 }
+
+-(void)playVideo
+{
+    if ([[CropVideo getFileSizeWithName:[self getTempSaveVideoPath]] integerValue] > 0) {
+        [self.navigationController setNavigationBarHidden:YES];
+        self.moviePlayer.view.hidden = NO;
+        [self.moviePlayer prepareToPlay];
+        [self.moviePlayer play];
+    }else
+    {
+        NSLog(@"not ready");
+    }
+}
+
+#pragma mark - ChooseClassViewControllerDelegate
+- (void)classChoose:(NSInteger)index
+{
+    
+    [selectedStuArray removeAllObjects];
+    [selectedRangeArray removeAllObjects];
+    
+    [super classChoose:index];
+
+}
 #pragma mark - Video
 - (void)initMoviePlayer
 {
@@ -385,18 +410,7 @@
     [CropVideo convertMpeg4WithUrl:_videoUrl andDstFilePath:[self getTempSaveVideoPath]];
 }
 
-- (void)playVideo
-{
-    if ([[CropVideo getFileSizeWithName:[self getTempSaveVideoPath]] integerValue] > 0) {
-        [self.navigationController setNavigationBarHidden:YES];
-        self.moviePlayer.view.hidden = NO;
-        [self.moviePlayer prepareToPlay];
-        [self.moviePlayer play];
-    }else
-    {
-        NSLog(@"not ready");
-    }
-}
+
 
 #pragma mark - VideoNoti
 - (void) playerPlaybackDidFinish:(NSNotification*)notification
@@ -485,10 +499,11 @@
 {
     if (indexPath.section == 2) {
         if (indexPath.row == 0) {
-            [self.postTableview deselectRowAtIndexPath:indexPath animated:NO];
+            [tableView deselectRowAtIndexPath:indexPath animated:NO];
             [[PalmUIManagement sharedInstance] getGroupStudents:[self.currentGroup.groupid stringValue]];
         }else
         {
+            [tableView deselectRowAtIndexPath:indexPath animated:NO];
             BBRecommendedRangeViewController *recommendedRangeVC = [[BBRecommendedRangeViewController alloc] initWithRanges:selectedRangeArray];
             [self.navigationController pushViewController:recommendedRangeVC animated:YES];
         }
@@ -533,6 +548,13 @@
                                                   otherButtonTitles:@"拍摄",@"相册", nil];
         [sheet showInView:self.view];
     }
+}
+
+- (void)imageDidTapped:(NSArray *)images andIndex:(NSInteger)index
+{
+    if ([self videoIsExist]) {
+        [self playVideo];
+    }else [super imageDidTapped:images andIndex:index];
 }
 
 - (void)imageDidDelete

@@ -11,7 +11,7 @@
 @interface ViewImageViewController ()<UIActionSheetDelegate>
 @property(nonatomic,strong) XLCycleScrollView *csView;
 @property(nonatomic,strong) NSArray *dataSource;
-@property(nonatomic) int selectedIndex;
+@property(nonatomic) NSInteger selectedIndex;
 @end
 
 @implementation ViewImageViewController
@@ -24,7 +24,7 @@
     return self;
 }
 
--(id) initViewImageVC : (NSArray *) images withSelectedIndex : (int) index{
+-(id) initViewImageVC : (NSArray *) images withSelectedIndex : (NSInteger ) index{
     self = [super init];
     if (self) {
         self.dataSource = images;
@@ -36,20 +36,30 @@
 - (void)viewDidLoad{
     [super viewDidLoad];
     
+    // left
     UIButton *backButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    [backButton setFrame:CGRectMake(0.f, 7.f, 30.f, 30.f)];
-    [backButton setBackgroundImage:[UIImage imageNamed:@"BBBack"] forState:UIControlStateNormal];
+    [backButton setFrame:CGRectMake(0.f, 7.f, 24.f, 24.f)];
+    [backButton setBackgroundImage:[UIImage imageNamed:@"back"] forState:UIControlStateNormal];
     [backButton addTarget:self action:@selector(backButtonTaped:) forControlEvents:UIControlEventTouchUpInside];
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:backButton];
     
+    // right
+    UIButton *sendButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    [sendButton setFrame:CGRectMake(8.f, 7.f, 60.f, 30.f)];
+    [sendButton setTitle:@"删除" forState:UIControlStateNormal];
+    //sendButton.backgroundColor = [UIColor blackColor];
+    [sendButton setTitleColor:[UIColor colorWithRed:251/255.f green:76/255.f blue:7/255.f alpha:1.f] forState:UIControlStateNormal];
+    [sendButton addTarget:self action:@selector(deleteButtonTap:) forControlEvents:UIControlEventTouchUpInside];
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:sendButton];
+    /*
     // right
     UIButton *deleteButton = [UIButton buttonWithType:UIButtonTypeCustom];
     [deleteButton setFrame:CGRectMake(0.f, 7.f, 30.f, 30.f)];
     [deleteButton setBackgroundImage:[UIImage imageNamed:@"BBDelete"] forState:UIControlStateNormal];
     [deleteButton addTarget:self action:@selector(deleteButtonTap:) forControlEvents:UIControlEventTouchUpInside];
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:deleteButton];
-    
-    self.csView = [[XLCycleScrollView alloc] initCycleScrollView:self.selectedIndex withFrame:self.view.bounds];
+    */
+    self.csView = [[XLCycleScrollView alloc] initCycleScrollView:(int)self.selectedIndex withFrame:self.view.frame];
     self.csView.delegate = self;
     self.csView.datasource = self;
     [self.view addSubview:self.csView];

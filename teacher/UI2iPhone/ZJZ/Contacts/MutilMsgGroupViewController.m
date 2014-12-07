@@ -10,6 +10,7 @@
 #import "ContactsStartGroupChatViewController.h"
 #import "MutilGroupDetailViewController.h"
 
+#import "CPUIModelManagement.h"
 #import "CPUIModelMessageGroup.h"
 #import "CPUIModelManagement.h"
 #import "CPUIModelPersonalInfo.h"
@@ -23,6 +24,29 @@
 @end
 
 @implementation MutilMsgGroupViewController
+
+- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
+{
+    [self closeProgress];
+    if([keyPath isEqualToString:@"quitGroupDic"]){
+        if ([[[CPUIModelManagement sharedInstance].quitGroupDic objectForKey:group_manage_dic_res_code]integerValue]== RESPONSE_CODE_SUCESS) {
+            NSMutableArray *tempMutilMsgGroups = [[NSMutableArray alloc] init];
+            for (CPUIModelMessageGroup *group in [CPUIModelManagement sharedInstance].userMessageGroupList) {
+                if ([group isKindOfClass:[CPUIModelMessageGroup class]]) {
+                    if (![group isMsgSingleGroup]) {
+                        [tempMutilMsgGroups addObject:group];
+                    }
+                }
+            }
+            
+            mutilMsgGroups = tempMutilMsgGroups;
+            [groupTableview reloadData];
+        }else {
+            [self showProgressWithText:[[CPUIModelManagement sharedInstance].quitGroupDic objectForKey:group_manage_dic_res_desc] withDelayTime:3.f];
+            
+        }
+    }
+}
 
 - (id)initWithMutilMsgGroups : (NSArray *)msgGroups
 {
@@ -58,6 +82,16 @@
     groupTableview.showsVerticalScrollIndicator = NO;
     [self.view addSubview:groupTableview];
     // Do any additional setup after loading the view.
+}
+
+- (void)viewDidAppear:(BOOL)animated
+{
+    [[CPUIModelManagement sharedInstance] addObserver:self forKeyPath:@"quitGroupDic" options:0 context:nil];
+}
+
+- (void)viewWillDisappear:(BOOL)animated
+{
+    [[CPUIModelManagement sharedInstance] removeObserver:self forKeyPath:@"quitGroupDic"];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -169,10 +203,14 @@
 {
     return UITableViewCellEditingStyleDelete;
 }
+
 -(void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    
+    [self showProgressWithText:@"正在删除..."];
+    CPUIModelMessageGroup *msgGroup = mutilMsgGroups[indexPath.row];
+    [[CPUIModelManagement sharedInstance] quitGroupWithGroup:msgGroup];
 }
+
 /*
 #pragma mark - Navigation
 

@@ -57,14 +57,7 @@
         [self closeProgress];
         NSDictionary *result = [PalmUIManagement sharedInstance].publicMessageForwardResult;
          if (![result[@"hasError"] boolValue]) { 
-             [self.navigationController popToRootViewControllerAnimated:YES];
-             AppDelegate *appDelegate = (AppDelegate *)[UIApplication sharedApplication].delegate;
-             if ([appDelegate.window.rootViewController isKindOfClass:[BBUITabBarController class]]) {
-                 BBUITabBarController *tabbar = (BBUITabBarController *)appDelegate.window.rootViewController;
-                 [tabbar performSelector:@selector(selectedItem:) withObject:0 afterDelay:0.5];
-                 [[NSNotificationCenter defaultCenter] postNotificationName:@"BJQNeedRefresh" object:nil];
-             }
-             
+             [self.navigationController popViewControllerAnimated:YES];
          }else{
              [self showProgressWithText:result[@"error"] withDelayTime:0.1];
          }

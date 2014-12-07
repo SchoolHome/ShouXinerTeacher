@@ -170,7 +170,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    self.title = @"拍状态";
+    self.title = @"拍表现";
     // left
     UIButton *backButton = [UIButton buttonWithType:UIButtonTypeCustom];
     [backButton setFrame:CGRectMake(0.f, 15.f, 40.f, 24.f)];

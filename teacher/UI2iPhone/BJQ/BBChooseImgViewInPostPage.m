@@ -15,6 +15,8 @@
     UIButton *deleteBtn;
     
     NSUInteger deleteViewTag;
+    
+    BOOL isVideoImage;
 }
 @property (nonatomic, readwrite)NSMutableArray *images;//已存在图片
 @property (nonatomic, strong)   UIButton *addImageBtn;
@@ -32,8 +34,8 @@
     if (self) {
         self.backgroundColor = [UIColor whiteColor];
         
-        UITapGestureRecognizer *tapGes = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tap)];
-        [self addGestureRecognizer:tapGes];
+        UITapGestureRecognizer *closeGes = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(close)];
+        [self addGestureRecognizer:closeGes];
     }
     
     return self;
@@ -55,11 +57,17 @@
     }
 }
 
+- (void)removeImage:(NSInteger)index
+{
+    [self deleteImage:index];
+    [self setNeedsDisplay];
+}
+
 - (void)addVideoImage:(UIImage *)image
 {
     if (image) {
         [self.images addObject:image];
-        //加入播放图片
+        isVideoImage = YES;
         
         [self setNeedsDisplay];
     }
@@ -78,6 +86,11 @@
         
         
         if (i == self.images.count) {
+            if (isVideoImage) {
+                [_addImageBtn removeFromSuperview];
+                break;
+            }
+            
             //add
             if (!_addImageBtn) {
                 _addImageBtn = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -106,10 +119,17 @@
                 imageview.userInteractionEnabled = YES;
                 [self addSubview:imageview];
                 
-                UILongPressGestureRecognizer *deleteAction = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(addDeleteBtn:)];
-                [imageview addGestureRecognizer:deleteAction];
+                if (isVideoImage) {
+                    UIImageView *palyImage = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"play"]];
+                    [palyImage setFrame:CGRectMake((IMAGE_WIDTH-35)/2, (IMAGE_HEIGHT-35.f)/2, 35.f, 35.f)];
+                    [imageview addSubview:palyImage];
+                }
                 
-
+                UILongPressGestureRecognizer *longGes = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(addDeleteBtn:)];
+                [imageview addGestureRecognizer:longGes];
+                
+                UITapGestureRecognizer *tapGes = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapAction:)];
+                [imageview addGestureRecognizer:tapGes];
             }
             
             UIImage *tempImage = [self.images objectAtIndex:i];
@@ -128,6 +148,20 @@
     }
 }
 
+- (void)deleteImage : (NSInteger)index
+{
+    [[self viewWithTag:index+1000] removeFromSuperview];
+    for (int i = index+1 ; i < self.images.count; i++) {
+        EGOImageView *imageview = (EGOImageView *)[self viewWithTag:1000+i];
+        imageview.tag = 1000+i-1;
+    }
+    [self.images removeObjectAtIndex:index];
+    [self closeImageBtn];
+    
+    if ([self.delegate respondsToSelector:@selector(imageDidDelete)]) {
+        [self.delegate imageDidDelete];
+    }
+}
 #pragma mark - actions
 - (void)addImageAction:(UIButton *)sender
 {
@@ -154,30 +188,27 @@
         deleteBtn = [UIButton buttonWithType:UIButtonTypeCustom];
         [deleteBtn setFrame:CGRectMake(CGRectGetMaxX(ges.view.frame)-10.f, CGRectGetMinY(ges.view.frame)-10.f, 22.f, 22.f)];
         [deleteBtn setBackgroundImage:[UIImage imageNamed:@"imageClose"] forState:UIControlStateNormal];
-        [deleteBtn addTarget:self action:@selector(deleteImage:) forControlEvents:UIControlEventTouchUpInside];
+        [deleteBtn addTarget:self action:@selector(deleteImageAction:) forControlEvents:UIControlEventTouchUpInside];
         [self addSubview:deleteBtn];
         
         deleteViewTag = gesTag;
     }
 }
 
-- (void)deleteImage:(UIButton *)sender
+- (void)deleteImageAction:(UIButton *)sender
 {
-    [[self viewWithTag:deleteViewTag+1000] removeFromSuperview];
-    for (int i = deleteViewTag+1 ; i < self.images.count; i++) {
-        EGOImageView *imageview = (EGOImageView *)[self viewWithTag:1000+i];
-        imageview.tag = 1000+i-1;
-    }
-    [self.images removeObjectAtIndex:deleteViewTag];
-    [self closeImageBtn];
+    [self deleteImage:deleteViewTag];
     [self setNeedsDisplay];
-    
-    if ([self.delegate respondsToSelector:@selector(imageDidDelete)]) {
-        [self.delegate imageDidDelete];
+}
+
+- (void)tapAction:(UITapGestureRecognizer *)ges
+{
+    if ([self.delegate respondsToSelector:@selector(imageDidTapped:andIndex:)]) {
+        [self.delegate imageDidTapped:self.images andIndex:ges.view.tag-1000];
     }
 }
 
-- (void)tap
+- (void)close
 {
     [self closeImageBtn];
 }

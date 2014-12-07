@@ -105,7 +105,7 @@
     // Dispose of any resources that can be recreated.
 }
 
-- (void)viewWillAppear:(BOOL)animated
+- (void)viewDidAppear:(BOOL)animated
 {
     [[CPUIModelManagement sharedInstance] addObserver:self forKeyPath:@"quitGroupDic" options:0 context:nil];
 }
@@ -203,7 +203,7 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     UITableViewCell *cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:@"cellIden"];
-    cell.textLabel.text = @"群名称";
+    cell.textLabel.text = @"组名称";
     cell.detailTextLabel.text = groupName;
     cell.detailTextLabel.textAlignment = NSTextAlignmentRight;
     return cell;
