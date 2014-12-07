@@ -288,7 +288,7 @@
 {
     if(buttonIndex == 0){
         //call
-    }else{
+    }else if(buttonIndex == 1){
         ForgotPwdVC *forgotVC = [[ForgotPwdVC alloc] init];
         [self.navigationController pushViewController:forgotVC animated:YES];
     }
