@@ -39,13 +39,6 @@
 
 -(void) viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
-    CPLGModelAccount *account = [[CPSystemEngine sharedInstance] accountModel];
-    if ( nil != account.pwdMD5 && ![account.pwdMD5 isEqualToString:@""]) {
-        [self.userName setText:account.loginName];
-        [self.password setSecureTextEntry:YES];
-        [self.password setText:account.pwdMD5];
-        [self showProgressWithText:@"正在登陆"];
-    }
 }
 
 -(void) viewDidAppear:(BOOL)animated{
@@ -82,7 +75,7 @@
     [UIView setAnimationBeginsFromCurrentState:YES];
     [UIView setAnimationDuration:[duration doubleValue]];
     [UIView setAnimationCurve:[curve intValue]];
-    self.view.frame = CGRectMake(0, -keyboardBounds.size.height, self.view.frame.size.width, self.view.frame.size.height);
+    self.view.frame = CGRectMake(0, -40, self.view.frame.size.width, self.view.frame.size.height);
     [UIView commitAnimations];
 }
 
@@ -176,11 +169,19 @@
     [self.view addSubview:label];
     
     UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
-    [btn setFrame:CGRectMake(self.view.frame.size.width-80, self.screenHeight-30, 80, 30)];
+    [btn setFrame:CGRectMake(self.view.frame.size.width-80, self.screenHeight-30- height, 80, 30)];
     [btn setTitle:@"无法登录？" forState:UIControlStateNormal];
     [btn.titleLabel setFont:[UIFont systemFontOfSize:14.f]];
     [btn addTarget:self action:@selector(cantLogin:) forControlEvents:UIControlEventTouchUpInside];
     [self.bgImage addSubview:btn];
+    
+    CPLGModelAccount *account = [[CPSystemEngine sharedInstance] accountModel];
+    if ( nil != account.pwdMD5 && ![account.pwdMD5 isEqualToString:@""]) {
+        [self.userName setText:account.loginName];
+        [self.password setSecureTextEntry:YES];
+        [self.password setText:account.pwdMD5];
+        [self showProgressWithText:@"正在登陆"];
+    }
 }
 
 -(void) clickBG : (UIGestureRecognizer *) recognizer{
