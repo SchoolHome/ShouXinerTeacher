@@ -236,7 +236,7 @@ viewImageDeletedDelegate>
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     return indexPath.section == 1 ?
-    chooseImageViewHeight+ThingsTextViewHeight+2*ThingsTextViewSpaceing : 40;
+    chooseImageViewHeight+ThingsTextViewHeight+2*ThingsTextViewSpaceing+10.f : 40;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
@@ -282,12 +282,12 @@ viewImageDeletedDelegate>
                 cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:imageCellIden];
                 cell.selectionStyle = UITableViewCellSelectionStyleNone;
                 
-                thingsTextView = [[UIPlaceHolderTextView alloc] initWithFrame:CGRectMake(ThingsTextViewSpaceing, ThingsTextViewSpaceing,self.screenWidth-2*ThingsTextViewSpaceing, ThingsTextViewHeight)];
+                thingsTextView = [[UIPlaceHolderTextView alloc] initWithFrame:CGRectMake(ThingsTextViewSpaceing, ThingsTextViewSpaceing,CGRectGetWidth(cell.contentView.frame)-2*ThingsTextViewSpaceing-20, ThingsTextViewHeight)];
                 thingsTextView.placeholder = _placeholder;
                 thingsTextView.backgroundColor = [UIColor clearColor];
                 [cell.contentView addSubview:thingsTextView];
                 
-                _chooseImageView = [[BBChooseImgViewInPostPage alloc] initWithFrame:CGRectMake(0.f, CGRectGetMaxY(thingsTextView.frame)+ThingsTextViewSpaceing,self.screenWidth,chooseImageViewHeight)];
+                _chooseImageView = [[BBChooseImgViewInPostPage alloc] initWithFrame:CGRectMake(0.f, CGRectGetMaxY(thingsTextView.frame)+ThingsTextViewSpaceing,CGRectGetWidth(cell.contentView.frame)-20.f,chooseImageViewHeight)];
                 _chooseImageView.delegate = self;
                 
                 if (_postType == POST_TYPE_FZY) {
@@ -320,6 +320,8 @@ viewImageDeletedDelegate>
 {
     [tableView deselectRowAtIndexPath:indexPath animated:NO];
     
+    [self closeThingsText];
+    
     if (indexPath.section == 1) {
         return;
     }else
@@ -336,10 +338,17 @@ viewImageDeletedDelegate>
     }
 }
 
+- (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView
+{
+    [self closeThingsText];
+}
 #pragma mark - ViewControllerMethod
 - (void)closeThingsText
 {
-    [thingsTextView resignFirstResponder];
+    if ([thingsTextView isFirstResponder]) {
+        [thingsTextView resignFirstResponder];
+    }
+    
 }
 
 - (void)backButtonTaped:(id)sender{

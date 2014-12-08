@@ -54,15 +54,20 @@
     [super viewDidLoad];
     self.view.backgroundColor = [UIColor blackColor];
     
+    CGFloat height = 0.f;
+//    if (IOS7) {
+//        height = 0.f;
+//    }
+    
     closeBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    [closeBtn setFrame:CGRectMake(20.f, 18.f, 44.f, 32.f)];
+    [closeBtn setFrame:CGRectMake(20.f, 10.f+height, 44.f, 32.f)];
     [closeBtn setImage:[UIImage imageNamed:@"close"] forState:UIControlStateNormal];
     [closeBtn setImageEdgeInsets:UIEdgeInsetsMake(5.f, 10.f, 5.f, 10.f)];
     [closeBtn addTarget:self action:@selector(close) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:closeBtn];
     
     flashBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    [flashBtn setFrame:CGRectMake(self.screenWidth-100.f, 18.f, 44.f, 32.f)];
+    [flashBtn setFrame:CGRectMake(self.screenWidth-100.f, 10.f+height, 44.f, 32.f)];
     [flashBtn setImage:[UIImage imageNamed:@"lamp_off"] forState:UIControlStateNormal];
     [flashBtn setImage:[UIImage imageNamed:@"lamp"] forState:UIControlStateSelected];
     [flashBtn setImageEdgeInsets:UIEdgeInsetsMake(5, 10, 5, 10)];
@@ -70,7 +75,7 @@
     [self.view addSubview:flashBtn];
     
     camerControl = [UIButton buttonWithType:UIButtonTypeCustom];
-    [camerControl setFrame:CGRectMake(self.screenWidth-50.f, 10.f, 44.f, 32.f)];
+    [camerControl setFrame:CGRectMake(self.screenWidth-50.f, 10.f+height, 44.f, 32.f)];
     [camerControl setImage:[UIImage imageNamed:@"switch"] forState:UIControlStateNormal];
     [camerControl setImageEdgeInsets:UIEdgeInsetsMake(5.f, 10.f, 5.f, 10.f)];
     [camerControl addTarget:self action:@selector(controlCarmerDirection:) forControlEvents:UIControlEventTouchUpInside];
@@ -80,7 +85,7 @@
 
     
     recordBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    [recordBtn setFrame:CGRectMake(self.screenWidth/2-66/2, self.screenHeight-80.f,66.f , 66.f)];
+    [recordBtn setFrame:CGRectMake(self.screenWidth/2-66/2, self.screenHeight-80.f+height,66.f , 66.f)];
     [recordBtn addTarget:self action:@selector(startVideoCapture:) forControlEvents:UIControlEventTouchUpInside];
     [recordBtn setBackgroundImage:[UIImage imageNamed:@"record"] forState:UIControlStateNormal];
     [recordBtn setBackgroundColor:[UIColor blackColor]];
@@ -94,6 +99,7 @@
     [self.view addSubview:takePictureBtn];
     
     timeCountDisplay = [[UILabel alloc] initWithFrame:CGRectMake(self.screenWidth/2-50, 42.f, 100.f, 22.f)];
+    timeCountDisplay.backgroundColor = [UIColor clearColor];
     timeCountDisplay.textAlignment = NSTextAlignmentCenter;
     timeCountDisplay.textColor = [UIColor whiteColor];
     timeCountDisplay.font = [UIFont boldSystemFontOfSize:20.f];
@@ -193,15 +199,17 @@
     
     //output
     self.movieFileOutput = [[AVCaptureMovieFileOutput alloc] init];
+    //[[self.movieFileOutput connectionWithMediaType:AVMediaTypeVideo] setVideoOrientation:[[self.preViewLayer connection] videoOrientation]];
     [_captureSession addOutput:_movieFileOutput];
     
     //preset
-    _captureSession.sessionPreset = AVCaptureSessionPresetHigh;
+    _captureSession.sessionPreset = AVCaptureSessionPreset640x480;
     
     //preview layer------------------
     self.preViewLayer = [AVCaptureVideoPreviewLayer layerWithSession:_captureSession];
     
     _preViewLayer.videoGravity = AVLayerVideoGravityResizeAspectFill;
+    
     
     [_captureSession startRunning];
 }
@@ -219,7 +227,7 @@
     
     timeCountDisplay.text = [NSString stringWithFormat:@"%2.f",15.00-_currentVideoDur];
     if (_totalVideoDur + _currentVideoDur >= MAX_VIDEO_DUR) {
-        timeCountDisplay.text = @"0";
+        timeCountDisplay.text = [NSString stringWithFormat:@"%2.f",0.00];
         [self stopCurrentVideoRecording];
     }
     
@@ -366,6 +374,11 @@
 //    takePictureBtn.hidden = NO;
 //    closeBtn.hidden = NO;
     camerControl.alpha = takePictureBtn.alpha = closeBtn.alpha = flashBtn.alpha = 1.f;
+}
+#pragma mark - Orientation
+- (void)willRotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration
+{
+    [[(AVCaptureVideoPreviewLayer *)[self preViewLayer] connection] setVideoOrientation:(AVCaptureVideoOrientation)toInterfaceOrientation];
 }
 
 #pragma mark - ButtonMethod
