@@ -86,7 +86,8 @@
     
     recordBtn = [UIButton buttonWithType:UIButtonTypeCustom];
 //    [recordBtn setFrame:CGRectMake(self.screenWidth/2-66/2, self.screenHeight-80.f+height,66.f , 66.f)];
-    [recordBtn setFrame:CGRectMake(50.f, 100.f,66.f , 66.f)];
+    [recordBtn setFrame:CGRectMake(100, 50.f , 66.f,66.f)];
+
     [recordBtn addTarget:self action:@selector(startVideoCapture:) forControlEvents:UIControlEventTouchUpInside];
     [recordBtn setBackgroundImage:[UIImage imageNamed:@"record"] forState:UIControlStateNormal];
     [recordBtn setBackgroundColor:[UIColor blackColor]];
