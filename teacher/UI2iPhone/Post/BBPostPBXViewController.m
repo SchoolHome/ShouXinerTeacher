@@ -213,7 +213,7 @@
 - (void)receiveSeletedRangeList:(NSNotification *)noti
 {
     NSArray *selectedRanges = (NSArray *)[noti object];
-    selectedRangeArray = [[NSArray alloc] initWithArray:selectedRanges];
+    selectedRangeArray = [[NSMutableArray alloc] initWithArray:selectedRanges];
     selectedRangeStr = @"";
     
     for (int i =0 ; i< selectedRanges.count ; i++) {
@@ -379,6 +379,8 @@
     
     [selectedStuArray removeAllObjects];
     [selectedRangeArray removeAllObjects];
+    selectedStuStr = @"";
+    selectedRangeStr = @"";
     
     [super classChoose:index];
 

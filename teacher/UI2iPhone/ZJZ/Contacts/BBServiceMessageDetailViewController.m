@@ -53,7 +53,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.title = @"详情";
+
     
     // left
     UIButton *backButton = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -82,6 +82,7 @@
 
 - (void)setModel:(CPDBModelNotifyMessage *)model
 {
+    self.title = model.fromUserName;
     _model = model;
     if (model.from.length > 0) {
         self.title = model.fromUserName;

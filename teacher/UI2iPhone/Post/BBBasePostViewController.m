@@ -434,7 +434,7 @@ viewImageDeletedDelegate>
         case POST_TYPE_PBX:
             //
             _placeholder = @"说点赞美话...";
-            self.title = @"表现";
+            self.title = @"拍表现";
             
             _topicType = 4;
             break;
@@ -483,11 +483,11 @@ viewImageDeletedDelegate>
             
         {
             if (_postType == POST_TYPE_FZY) {
-                if (selectedImagesCount >= 3) {
+                if (selectedImagesCount >= _chooseImageView.maxImages) {
                     return;
                 }
             }else{
-                if (selectedImagesCount >= 7) {
+                if (selectedImagesCount >= _chooseImageView.maxImages) {
                     return;
                 }
             }
@@ -496,9 +496,9 @@ viewImageDeletedDelegate>
             
             ZYQAssetPickerController *picker = [[ZYQAssetPickerController alloc] init];
             if (_postType == POST_TYPE_FZY){
-                picker.maximumNumberOfSelection = 3 - selectedImagesCount;
+                picker.maximumNumberOfSelection = _chooseImageView.maxImages - selectedImagesCount;
             }else{
-                picker.maximumNumberOfSelection = 7 - selectedImagesCount;
+                picker.maximumNumberOfSelection = _chooseImageView.maxImages - selectedImagesCount;
             }
             picker.assetsFilter = [ALAssetsFilter allPhotos];
             picker.showEmptyGroups=NO;
