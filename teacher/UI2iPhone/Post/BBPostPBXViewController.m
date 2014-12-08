@@ -280,6 +280,14 @@
 #pragma mark - ViewController
 - (void)sendButtonTaped
 {
+    if ([[self getThingsText] length]==0) {  // 没有输入文本
+        
+        [self showProgressWithText:@"请输入文字" withDelayTime:0.1];
+        
+        return;
+    }
+    
+    
     if ([self videoIsExist]) {
         [self sendVideo];
     }else{
