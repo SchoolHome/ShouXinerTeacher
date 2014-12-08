@@ -229,4 +229,9 @@ static PalmUIManagement *sharedInstance = nil;
     PublicOperation *operation = [[PublicOperation alloc] initPostPublicMessageForward:mid withGroupID:groupID withMessage:message];
     [[PalmNetWorkService sharedInstance] networkEngine:operation];
 }
+// 客服电话
+-(void) getCustomerServiceTelNumber{
+    SystemOperation *operation = [[SystemOperation alloc] initGetCustomerServiceTel];
+    [[PalmNetWorkService sharedInstance] networkEngine:operation];
+}
 @end
