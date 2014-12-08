@@ -70,7 +70,7 @@
     [self.view addSubview:flashBtn];
     
     camerControl = [UIButton buttonWithType:UIButtonTypeCustom];
-    [camerControl setFrame:CGRectMake(self.screenWidth-50.f, 18.f, 44.f, 32.f)];
+    [camerControl setFrame:CGRectMake(self.screenWidth-50.f, 10.f, 44.f, 32.f)];
     [camerControl setImage:[UIImage imageNamed:@"switch"] forState:UIControlStateNormal];
     [camerControl setImageEdgeInsets:UIEdgeInsetsMake(5.f, 10.f, 5.f, 10.f)];
     [camerControl addTarget:self action:@selector(controlCarmerDirection:) forControlEvents:UIControlEventTouchUpInside];
