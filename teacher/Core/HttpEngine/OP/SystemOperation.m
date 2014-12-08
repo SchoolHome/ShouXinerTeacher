@@ -15,6 +15,7 @@
 -(void) getAdvInfo;
 -(void) getAdvInfoWithGroupID;
 -(void) getSmsVerifyCode;
+-(void) getCustomerServiceTel;
 @end
 
 @implementation SystemOperation
@@ -33,6 +34,16 @@
     if (nil != self) {
         self.type = kGetAdvInfoWithGroup;
         NSString *urlStr = [NSString stringWithFormat:@"http://%@/mapi/adv/login?groupid=%d",K_HOST_NAME_OF_PALM_SERVER,groupID];
+        [self setHttpRequestGetWithUrl:urlStr];
+    }
+    return self;
+}
+
+-(SystemOperation *) initGetCustomerServiceTel{
+    self = [self initOperation];
+    if (nil != self) {
+        self.type = kGetCustomerServiceTel;
+        NSString *urlStr = [NSString stringWithFormat:@"http://%@/mapi/cs400",K_HOST_NAME_OF_PALM_SERVER];
         [self setHttpRequestGetWithUrl:urlStr];
     }
     return self;
@@ -86,6 +97,17 @@
     [self startAsynchronous];
 }
 
+-(void) getCustomerServiceTel{
+    [self.request setRequestCompleted:^(NSDictionary *data){
+        dispatch_block_t updateTagBlock = ^{
+            [PalmUIManagement sharedInstance].customerServiceTel = data;
+        };
+        dispatch_async(dispatch_get_main_queue(), updateTagBlock);
+    }];
+    [self startAsynchronous];
+}
+
+
 -(void) main{
     @autoreleasepool {
         switch (self.type) {
@@ -97,6 +119,9 @@
                 break;
             case kGetSmsVerifyCode:
                 [self getSmsVerifyCode];
+                break;
+            case kGetCustomerServiceTel:
+                [self getCustomerServiceTel];
                 break;
             default:
                 break;

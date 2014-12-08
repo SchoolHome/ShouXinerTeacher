@@ -106,6 +106,8 @@
 @property (nonatomic,strong) NSDictionary *publicMessageResult;
 // 公共账号消息转发
 @property (nonatomic,strong) NSDictionary *publicMessageForwardResult;
+// 客服电话
+@property (nonatomic,strong) NSDictionary *customerServiceTel;
 
 // 获取用户信息
 -(void) getUserProfile;
@@ -187,4 +189,6 @@
 -(void) getPublicMessage : (NSString *) mids;
 // 转发公共账号消息
 -(void) postPublicMessageForward : (NSString *) mid withGroupID : (int) groupID withMessage : (NSString *) message;
+// 客服电话
+-(void) getCustomerServiceTelNumber;
 @end

@@ -12,10 +12,12 @@ typedef enum{
     kGetAdvInfo,
     kGetAdvInfoWithGroup,
     kGetSmsVerifyCode,
+    kGetCustomerServiceTel,
 }SystemType;
 
 @interface SystemOperation : PalmOperation
 -(SystemOperation *) initGetAdvInfo;
 -(SystemOperation *) initGetAdvInfo : (int) groupID;
 -(SystemOperation *) initGetSMSVerifyCode : (NSString *)mobile;
+-(SystemOperation *) initGetCustomerServiceTel;
 @end
