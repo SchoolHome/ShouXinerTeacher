@@ -435,8 +435,8 @@
         //[[self.movieFileOutput connectionWithMediaType:AVMediaTypeVideo] setVideoOrientation:[[self.preViewLayer connection] videoOrientation]];
         [[self.movieFileOutput connectionWithMediaType:AVMediaTypeVideo] setVideoOrientation:(AVCaptureVideoOrientation)[UIDevice currentDevice].orientation];
         
-        NSString *outputFilePath = [NSTemporaryDirectory() stringByAppendingPathComponent:[@"movie" stringByAppendingPathExtension:@"mov"]];
-        [self startRecordingToOutputFileURL:[NSURL fileURLWithPath:outputFilePath]];
+        //NSString *outputFilePath = [NSTemporaryDirectory() stringByAppendingPathComponent:[@"movie" stringByAppendingPathExtension:@"mov"]];
+        [self startRecordingToOutputFileURL:[NSURL fileURLWithPath:[self getTempSaveVideoPath]]];
         [self.view bringSubviewToFront:localView];
     }
     sender.selected = !sender.selected;
