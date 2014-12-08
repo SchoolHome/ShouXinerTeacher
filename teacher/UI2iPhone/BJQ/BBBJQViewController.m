@@ -1051,7 +1051,7 @@
     NSURL*videoPathURL=[[NSURL alloc] initFileURLWithPath:videoPath];
     MPMoviePlayerViewController *playViewController = [[MPMoviePlayerViewController alloc] initWithContentURL:videoPathURL];
     MPMoviePlayerController *player = [playViewController moviePlayer];
-    player.scalingMode = MPMovieScalingModeFill;
+    player.scalingMode = MPMovieScalingModeNone;
     player.controlStyle = MPMovieControlStyleFullscreen;
     [player play];
     [self.navigationController presentViewController:playViewController animated:NO completion:nil];
