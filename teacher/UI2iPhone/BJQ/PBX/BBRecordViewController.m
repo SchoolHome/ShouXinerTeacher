@@ -85,7 +85,8 @@
 
     
     recordBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    [recordBtn setFrame:CGRectMake(self.screenWidth/2-66/2, self.screenHeight-80.f+height,66.f , 66.f)];
+//    [recordBtn setFrame:CGRectMake(self.screenWidth/2-66/2, self.screenHeight-80.f+height,66.f , 66.f)];
+    [recordBtn setFrame:CGRectMake(50.f, 100.f,66.f , 66.f)];
     [recordBtn addTarget:self action:@selector(startVideoCapture:) forControlEvents:UIControlEventTouchUpInside];
     [recordBtn setBackgroundImage:[UIImage imageNamed:@"record"] forState:UIControlStateNormal];
     [recordBtn setBackgroundColor:[UIColor blackColor]];
@@ -199,7 +200,6 @@
     
     //output
     self.movieFileOutput = [[AVCaptureMovieFileOutput alloc] init];
-    //[[self.movieFileOutput connectionWithMediaType:AVMediaTypeVideo] setVideoOrientation:[[self.preViewLayer connection] videoOrientation]];
     [_captureSession addOutput:_movieFileOutput];
     
     //preset
@@ -376,11 +376,25 @@
     camerControl.alpha = takePictureBtn.alpha = closeBtn.alpha = flashBtn.alpha = 1.f;
 }
 #pragma mark - Orientation
+- (NSUInteger)supportedInterfaceOrientations
+{
+    return UIInterfaceOrientationMaskAll;
+}
+
 - (void)willRotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration
 {
     [[(AVCaptureVideoPreviewLayer *)[self preViewLayer] connection] setVideoOrientation:(AVCaptureVideoOrientation)toInterfaceOrientation];
 }
 
+- (BOOL)shouldAutorotate
+{
+    return YES;
+}
+
+- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
+{
+    return YES;
+}
 #pragma mark - ButtonMethod
 -(void)controlFlash:(UIButton *)sender
 {
@@ -421,7 +435,9 @@
     }else
     {
         [recordBtn setBackgroundImage:[UIImage imageNamed:@"record_on"] forState:UIControlStateNormal];
-        [self startRecordingToOutputFileURL:[NSURL fileURLWithPath:[self getTempSaveVideoPath]]];
+        [[self.movieFileOutput connectionWithMediaType:AVMediaTypeVideo] setVideoOrientation:[[self.preViewLayer connection] videoOrientation]];
+        NSString *outputFilePath = [NSTemporaryDirectory() stringByAppendingPathComponent:[@"movie" stringByAppendingPathExtension:@"mov"]];
+        [self startRecordingToOutputFileURL:[NSURL fileURLWithPath:outputFilePath]];
         [self.view bringSubviewToFront:localView];
     }
     sender.selected = !sender.selected;
