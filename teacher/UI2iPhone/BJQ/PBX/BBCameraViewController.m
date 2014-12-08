@@ -38,10 +38,10 @@
     flashStatus = 0;
     
     //self.view.backgroundColor = [UIColor clearColor];
-    CGFloat height = -20.f;
-    if (IOS7) {
-        height = 0.f;
-    }
+    CGFloat height = 0.f;
+//    if (IOS7) {
+//        height = 0.f;
+//    }
     
     UIView *overlayView = [[UIView alloc] initWithFrame:self.view.frame];
     
@@ -102,9 +102,9 @@
     self.imagePickerController.navigationBarHidden = YES;
     
     CGRect overlayViewFrame = self.imagePickerController.cameraOverlayView.frame;
+    //CGRectGetHeight(overlayViewFrame) -self.view.frame.size.height
     CGRect newFrame = CGRectMake(0.0,
-                                 CGRectGetHeight(overlayViewFrame) -
-                                 self.view.frame.size.height ,
+                                  0,
                                  CGRectGetWidth(overlayViewFrame),
                                  self.view.frame.size.height);
     self.view.frame = newFrame;
@@ -116,12 +116,13 @@
 
 - (void)viewWillAppear:(BOOL)animated
 {
-    [[UIApplication sharedApplication] setStatusBarHidden:YES withAnimation:UIStatusBarAnimationNone];
+    //[[UIApplication sharedApplication] setStatusBarHidden:YES withAnimation:UIStatusBarAnimationNone];
     [self.navigationController setNavigationBarHidden:YES];
 }
 
 - (void)viewWillDisappear:(BOOL)animated
 {
+    //[[UIApplication sharedApplication] setStatusBarHidden:NO withAnimation:UIStatusBarAnimationNone];
     [self.navigationController setNavigationBarHidden:NO];
 }
 
@@ -218,7 +219,7 @@
 
 -(void)close
 {
-    [[UIApplication sharedApplication] setStatusBarHidden:NO withAnimation:UIStatusBarAnimationNone];
+    //[[UIApplication sharedApplication] setStatusBarHidden:NO withAnimation:UIStatusBarAnimationNone];
     [self.navigationController popToRootViewControllerAnimated:YES];
 }
 
