@@ -38,10 +38,10 @@
     flashStatus = 0;
     
     //self.view.backgroundColor = [UIColor clearColor];
-    CGFloat height = 0.f;
-//    if (IOS7) {
-//        height = 0.f;
-//    }
+    CGFloat height = -20.f;
+    if (IOS7) {
+        height = 0.f;
+    }
     
     UIView *overlayView = [[UIView alloc] initWithFrame:self.view.frame];
     
@@ -116,13 +116,13 @@
 
 - (void)viewWillAppear:(BOOL)animated
 {
-    //[[UIApplication sharedApplication] setStatusBarHidden:YES withAnimation:UIStatusBarAnimationNone];
+    [[UIApplication sharedApplication] setStatusBarHidden:YES withAnimation:UIStatusBarAnimationNone];
     [self.navigationController setNavigationBarHidden:YES];
 }
 
 - (void)viewWillDisappear:(BOOL)animated
 {
-    //[[UIApplication sharedApplication] setStatusBarHidden:NO withAnimation:UIStatusBarAnimationNone];
+    [[UIApplication sharedApplication] setStatusBarHidden:NO withAnimation:UIStatusBarAnimationNone];
     [self.navigationController setNavigationBarHidden:NO];
 }
 
