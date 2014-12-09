@@ -86,11 +86,90 @@
 - (void)viewDidLoad{
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    
     self.title = @"账号激活";
     [self.navigationController setNavigationBarHidden:NO];
     self.navigationItem.hidesBackButton = YES;
+    CGFloat height = 10.f;
+    UIView *subView = [[UIView alloc] initWithFrame:CGRectMake(0, height, self.view.frame.size.width, 44.f)];
+    [subView setBackgroundColor:[UIColor whiteColor]];
+    [self.view addSubview:subView];
+    subView = nil;
+    self.telPhone = [[UITextField alloc] initWithFrame:CGRectMake(10, height, self.view.frame.size.width-20, 44.0f)];
+    self.telPhone.backgroundColor = [UIColor whiteColor];
+    [self.telPhone setUserInteractionEnabled:NO];
+    self.telPhone.returnKeyType = UIReturnKeyNext;
+    [self.telPhone setContentHorizontalAlignment:UIControlContentHorizontalAlignmentCenter];
+    [self.telPhone setContentVerticalAlignment:UIControlContentVerticalAlignmentCenter];
+    self.telPhone.keyboardType = UIKeyboardTypeNumberPad;
+    self.telPhone.delegate = self;
+    [self.view addSubview:self.telPhone];
+    height = height + 45.f;
+    subView = [[UIView alloc] initWithFrame:CGRectMake(0, height, self.view.frame.size.width, 44.f)];
+    [subView setBackgroundColor:[UIColor whiteColor]];
+    [self.view addSubview:subView];
+    subView = nil;
+    self.smsCode = [[UITextField alloc] initWithFrame:CGRectMake(10.f, height, self.view.frame.size.width-120, 44.0f)];
+    self.smsCode.backgroundColor = [UIColor whiteColor];
+    self.smsCode.returnKeyType = UIReturnKeyNext;
+    self.smsCode.placeholder = @"输入验证码";
+    self.smsCode.keyboardType = UIKeyboardTypeNumberPad;
+    [self.smsCode setContentHorizontalAlignment:UIControlContentHorizontalAlignmentCenter];
+    [self.smsCode setContentVerticalAlignment:UIControlContentVerticalAlignmentCenter];
+    self.smsCode.delegate = self;
+    [self.view addSubview:self.smsCode];
+    self.smsButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    [self.smsButton setBackgroundImage:[UIImage imageNamed:@"GetSmsCode"] forState:UIControlStateNormal];
+    [self.smsButton setBackgroundImage:[UIImage imageNamed:@"GetSmsCode"] forState:UIControlStateHighlighted];
+    self.smsButton.frame = CGRectMake(self.view.frame.size.width-100, height+7.f, 80.0f, 30.0f);
+    [self.smsButton addTarget:self action:@selector(getsmsCode) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:self.smsButton];
     
+    if (self.needSetUserName) {
+        height = height + 55.f;
+        subView = [[UIView alloc] initWithFrame:CGRectMake(0, height, self.view.frame.size.width, 44.f)];
+        [subView setBackgroundColor:[UIColor whiteColor]];
+        [self.view addSubview:subView];
+        subView = nil;
+        self.passwordOld = [[UITextField alloc] initWithFrame:CGRectMake(10, height, self.view.frame.size.width-20, 44.f)];
+        self.passwordOld.backgroundColor = [UIColor whiteColor];
+        self.passwordOld.returnKeyType = UIReturnKeyDone;
+        [self.passwordOld setContentHorizontalAlignment:UIControlContentHorizontalAlignmentCenter];
+        [self.passwordOld setContentVerticalAlignment:UIControlContentVerticalAlignmentCenter];
+        self.passwordOld.delegate = self;
+        self.passwordOld.placeholder = @"输入用户名";
+        [self.view addSubview:self.passwordOld];
+    }
+    height = height + 55.f;
+    subView = [[UIView alloc] initWithFrame:CGRectMake(0, height, self.view.frame.size.width, 44.f)];
+    [subView setBackgroundColor:[UIColor whiteColor]];
+    [self.view addSubview:subView];
+    subView = nil;
+    self.password = [[UITextField alloc] initWithFrame:CGRectMake(10.f, height, self.view.frame.size.width-20, 44.f)];
+    self.password.backgroundColor = [UIColor whiteColor];
+    self.password.returnKeyType = UIReturnKeyNext;
+    [self.password setContentHorizontalAlignment:UIControlContentHorizontalAlignmentCenter];
+    [self.password setContentVerticalAlignment:UIControlContentVerticalAlignmentCenter];
+    self.password.secureTextEntry = YES;
+    self.password.delegate = self;
+    self.password.placeholder = @"密码 至少6位的数字与字母组合";
+    [self.view addSubview:self.password];
+    height = height + 45.f;
+    subView = [[UIView alloc] initWithFrame:CGRectMake(0, height, self.view.frame.size.width, 44.f)];
+    [subView setBackgroundColor:[UIColor whiteColor]];
+    [self.view addSubview:subView];
+    subView = nil;
+    self.confrimPassWord = [[UITextField alloc] initWithFrame:CGRectMake(10.f, height, self.view.frame.size.width-20, 44.f)];
+    self.confrimPassWord.backgroundColor = [UIColor whiteColor];
+    self.confrimPassWord.returnKeyType = UIReturnKeyDone;
+    self.confrimPassWord.secureTextEntry = YES;
+    [self.confrimPassWord setContentHorizontalAlignment:UIControlContentHorizontalAlignmentCenter];
+    [self.confrimPassWord setContentVerticalAlignment:UIControlContentVerticalAlignmentCenter];
+    self.confrimPassWord.delegate = self;
+    self.confrimPassWord.placeholder = @"确认密码";
+    [self.view addSubview:self.confrimPassWord];
+    
+    [self.telPhone setText:[[[CPSystemEngine sharedInstance] accountModel] loginName]];
+    /*
     if (self.needSetUserName) {
         UIImageView *fromImage = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"ActivateBigFrom"]];
         fromImage.frame = CGRectMake(0.0f, 29.0f, 320.0f, 224.0f);
@@ -172,6 +251,7 @@
         self.confrimPassWord.delegate = self;
         [fromImage addSubview:self.confrimPassWord];
     }
+    */
     
     UIButton *activateButton = [UIButton buttonWithType:UIButtonTypeCustom];
     activateButton.frame = CGRectMake((320.0f - 272.0f)/2.0f, self.screenHeight - 70.0f *2, 272.0f, 45.0f);

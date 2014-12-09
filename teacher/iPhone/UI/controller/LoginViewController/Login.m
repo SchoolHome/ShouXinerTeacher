@@ -228,6 +228,8 @@
                     [self.navigationController pushViewController:activate animated:YES];
                 }else{
                     [self closeProgress];
+//                    activateViewController *activate = [[activateViewController alloc] initActivateViewController:YES];
+//                    [self.navigationController pushViewController:activate animated:YES];
                     AppDelegate *appDelegate = (AppDelegate *)[UIApplication sharedApplication].delegate;
                     [appDelegate launchApp];
                 }
