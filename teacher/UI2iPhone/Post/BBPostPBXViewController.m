@@ -50,6 +50,7 @@
             [self showProgressWithText:[dic objectForKey:ASI_REQUEST_ERROR_MESSAGE] withDelayTime:3];
         }else
         {
+            [self closeProgress];
             NSDictionary *students = (NSDictionary *)[[[dic objectForKey:ASI_REQUEST_DATA] objectForKey:@"list"] objectForKey:[self.currentGroup.groupid stringValue]];
             
             if (students && [students isKindOfClass:[NSDictionary class]]) {
@@ -57,11 +58,11 @@
                 [self.navigationController pushViewController:studentListVC animated:YES];
             }else
             {
-                [self showProgressWithText:@"学生列表获取失败" withDelayTime:3];
+                [self showProgressWithText:@"学生列表获取失败" withDelayTime:2.f];
             }
             
         }
-        [self closeProgress];
+        
     }
     if ([@"updateImageResult" isEqualToString:keyPath])  // 图片上传成功
     {
@@ -230,7 +231,7 @@
     NSArray *selectedStudents = (NSArray *)[noti object];
     
     selectedStuArray = [[NSMutableArray alloc] initWithArray:selectedStudents];
-    
+    //selectedStuStr = @"";
     NSMutableString *studentListText = [NSMutableString string];
     for ( int i = 0; i< selectedStudents.count; i++) {
         BBStudentModel *tempModel = [selectedStudents objectAtIndex:i];
@@ -436,6 +437,11 @@
     [self closeProgress];
     UIImage *image = [self.moviePlayer thumbnailImageAtTime:1.f timeOption:MPMovieTimeOptionExact];
     NSLog(@"getThumbnailImage==%@",image);
+    if (!image) {
+        [self showProgressWithText:@"获取图片失败,请重试" withDelayTime:2.f];
+        [self.navigationController popToRootViewControllerAnimated:YES];
+        return;
+    }
     [self setChoosenImages:@[image] andISVideo:YES];
 }
 
@@ -527,13 +533,14 @@
 {
     if ([[actionSheet buttonTitleAtIndex:0] isEqualToString:@"拍摄"] && buttonIndex == 0) {
         //进自定义拍照界面
+        /*
         for (id viewController in self.navigationController.viewControllers) {
             if ([viewController isKindOfClass:[BBCameraViewController class]]) {
                 [self.navigationController popToViewController:(BBCameraViewController *)viewController animated:YES];
                 return;
             }
         }
-        
+        */
         BBCameraViewController *camera = [[BBCameraViewController alloc] init];
         [self.navigationController pushViewController:camera animated:YES];
     }else

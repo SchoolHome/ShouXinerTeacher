@@ -85,9 +85,10 @@
         
         
         
-        if (i == self.images.count) {
+        if (i == self.images.count || !self.images.count) {
             if (isVideoImage) {
                 [_addImageBtn removeFromSuperview];
+                _addImageBtn = nil;
                 break;
             }
             
@@ -198,6 +199,9 @@
 - (void)deleteImageAction:(UIButton *)sender
 {
     [self deleteImage:deleteViewTag];
+    if (isVideoImage) {
+        isVideoImage = NO;
+    }
     [self setNeedsDisplay];
 }
 

@@ -136,9 +136,14 @@
     [thingsTextView resignFirstResponder];
 }
 
+- (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView
+{
+    [thingsTextView resignFirstResponder];
+}
+
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return indexPath.section == 1 ? 120 : 40;
+    return indexPath.section == 1 ? 140 : 40;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
@@ -184,12 +189,12 @@
                 cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:textCellIden];
                 cell.selectionStyle = UITableViewCellSelectionStyleNone;
                 
-                thingsTextView = [[UIPlaceHolderTextView alloc] initWithFrame:CGRectMake(ThingsTextViewSpaceing, ThingsTextViewSpaceing,self.screenWidth-2*ThingsTextViewSpaceing, ThingsTextViewHeight)];
+                thingsTextView = [[UIPlaceHolderTextView alloc] initWithFrame:CGRectMake(ThingsTextViewSpaceing, ThingsTextViewSpaceing,self.screenWidth-2*ThingsTextViewSpaceing-20.f, ThingsTextViewHeight)];
                 thingsTextView.placeholder = @"想说的话...";
                 thingsTextView.backgroundColor = [UIColor clearColor];
                 [cell.contentView addSubview:thingsTextView];
                 
-                UIView *shareContentBG = [[UIView alloc] initWithFrame:CGRectMake(ThingsTextViewSpaceing, ThingsTextViewHeight, CGRectGetWidth(thingsTextView.frame), 50.f)];
+                UIView *shareContentBG = [[UIView alloc] initWithFrame:CGRectMake(ThingsTextViewSpaceing, CGRectGetMaxY(thingsTextView.frame)+4.f, CGRectGetWidth(thingsTextView.frame), 50.f)];
                 shareContentBG.backgroundColor = [UIColor lightGrayColor];
                 [cell.contentView addSubview:shareContentBG];
                 
@@ -197,7 +202,10 @@
                 [messageImageView setImageURL:[NSURL URLWithString:shareModel.imageUrl]];
                 [cell.contentView addSubview:messageImageView];
                 
-                UILabel *messageTitle = [[UILabel alloc] initWithFrame:CGRectMake(CGRectGetMaxX(messageImageView.frame)+5.f, ThingsTextViewHeight+5.f, CGRectGetWidth(shareContentBG.frame)-CGRectGetMaxX(messageImageView.frame)-5.f, CGRectGetHeight(messageImageView.frame))];
+                UILabel *messageTitle = [[UILabel alloc] initWithFrame:CGRectMake(CGRectGetMaxX(messageImageView.frame)+5.f,
+                    ThingsTextViewHeight+5.f,
+                    CGRectGetWidth(shareContentBG.frame)-CGRectGetMaxX(messageImageView.frame)-5.f,
+                    CGRectGetHeight(messageImageView.frame))];
                 messageTitle.font = [UIFont systemFontOfSize:12.f];
                 messageTitle.text = shareModel.content;
                 messageTitle.numberOfLines = 2;
@@ -219,6 +227,7 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    [thingsTextView resignFirstResponder];
     [tableView deselectRowAtIndexPath:indexPath animated:NO];
     
     if (indexPath.section == 1) {

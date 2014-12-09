@@ -234,12 +234,7 @@
         
     }
     return tempSectionArray;
-
-    
     // [selectedView setStudentNames:selectedStu];
-    
-    
-    
 }
 - (CPUIModelUserInfo *)getUserInfoByModelID:(NSInteger)modelID
 {

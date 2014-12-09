@@ -88,11 +88,12 @@
     [quit setBackgroundImage:[UIImage imageNamed:@"button_del"] forState:UIControlStateNormal];
     [tableviewFootView  addSubview:quit];
     
-    _detailTableview = [[UITableView alloc] initWithFrame:CGRectMake(0.f, 0.f, self.screenWidth, self.screenHeight) style:UITableViewStyleGrouped];
+    _detailTableview = [[UITableView alloc] initWithFrame:CGRectMake(0.f, 0.f, self.screenWidth, self.screenHeight-64.f) style:UITableViewStyleGrouped];
     _detailTableview.dataSource = self;
     _detailTableview.delegate = self;
     _detailTableview.tableFooterView = tableviewFootView;
     _detailTableview.tableHeaderView = _memberDisplayView;
+    _detailTableview.showsVerticalScrollIndicator = NO;
     [self.view addSubview:_detailTableview];
     
     
@@ -144,7 +145,11 @@
         }
     }
     [_memberDisplayView setMembers:[self getUserInfos]];
+    
+    [self.detailTableview setTableHeaderView:_memberDisplayView];
     [self.detailTableview reloadData];
+
+
 }
 
 - (NSArray *)getUserInfos

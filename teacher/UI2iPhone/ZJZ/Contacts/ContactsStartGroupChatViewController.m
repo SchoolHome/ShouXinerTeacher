@@ -16,6 +16,16 @@
 
 #import "MutilIMViewController.h"
 #import "MutilGroupDetailViewController.h"
+
+NSInteger nickNameSort(CPUIModelUserInfo *user1, CPUIModelUserInfo *user2, void *context)
+{
+    CPUIModelUserInfo *u1,*u2;
+    //类型转换
+    u1 = (CPUIModelUserInfo *)user1;
+    u2 = (CPUIModelUserInfo *)user2;
+    return  [u1.nickName localizedCompare:u2.nickName];
+}
+
 @interface ContactsStartGroupChatViewController ()
 @property (nonatomic , strong) BBMessageGroupBaseTableView *contactsForGroupListTableview;
 @property (nonatomic , strong) NSMutableArray *contactsForGroupListDataArray;//通讯录array,tableview数据源
@@ -46,8 +56,10 @@
         [confirm setFrame:CGRectMake(0.f, 7.f, 60.f, 30.f)];
         //sendButton.backgroundColor = [UIColor blackColor];
         [confirm setTitleColor:[UIColor colorWithRed:251/255.f green:76/255.f blue:7/255.f alpha:1.f] forState:UIControlStateNormal];
+        [confirm setTitleColor:[UIColor lightGrayColor] forState:UIControlStateDisabled];
         [confirm addTarget:self action:@selector(confirmAction) forControlEvents:UIControlEventTouchUpInside];
         self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:confirm];
+        self.navigationItem.rightBarButtonItem.enabled = NO;
     }
     return self;
 }
@@ -145,6 +157,7 @@
     for (CPUIModelUserInfo *selectedUserInfo in userInfos) {
         for (int i = 0; i < self.contactsForGroupListDataArray.count; i++) {
             CPUIModelUserInfo *userInfo = [self.contactsForGroupListDataArray objectAtIndex:i];
+            NSLog(@"\n----selectedUserInfo: nickName = %@  userID = %@ \n----userInfo: nickName = %@  userID = %@",selectedUserInfo.nickName,selectedUserInfo.userInfoID,userInfo.nickName,userInfo.userInfoID);
             if ([userInfo.userInfoID integerValue] == [selectedUserInfo.userInfoID integerValue]) {
                 [tempMutableArray removeObject:userInfo];
                 break;
@@ -157,6 +170,20 @@
     self.filterExistUserInfosArray = tempMutableArray;
 
 }
+
+- (NSMutableArray *)getUsefulUserinfoList
+{
+    NSMutableArray *usefulUserInfos = [[NSMutableArray alloc] init];
+    NSArray *tempFriends = [[NSArray alloc] initWithArray:[CPUIModelManagement sharedInstance].friendArray];
+    for (CPUIModelUserInfo *userInfo in tempFriends) {
+        if (userInfo) {
+            [usefulUserInfos addObject:userInfo];
+        }
+    }
+    return [[NSMutableArray alloc] initWithArray:[usefulUserInfos sortedArrayUsingFunction:nickNameSort context:NULL]];
+}
+
+
 #pragma mark Getter&&Setter
 - (DisplaySelectedMemberView *)displaySelectedMembersVIew
 {
@@ -168,7 +195,7 @@
 - (NSMutableArray *)filterExistUserInfosArray
 {
     if (!_filterExistUserInfosArray) {
-        _filterExistUserInfosArray = [[NSMutableArray alloc] initWithArray:[CPUIModelManagement sharedInstance].friendArray];
+        _filterExistUserInfosArray = [self getUsefulUserinfoList];
     }
     return _filterExistUserInfosArray;
 }
@@ -182,14 +209,14 @@
 - (NSMutableArray *)contactsForGroupListDataArray
 {
     if (!_contactsForGroupListDataArray) {
-        _contactsForGroupListDataArray = [[NSMutableArray alloc] initWithArray:[CPUIModelManagement sharedInstance].friendArray];
+        _contactsForGroupListDataArray = [self getUsefulUserinfoList];
     }
     return _contactsForGroupListDataArray;
 }
 
 - (void)setContactsForGroupListDataArray:(NSArray *)contactsForGroupListDataArray
 {
-    _contactsForGroupListDataArray = [[NSMutableArray alloc] initWithArray:contactsForGroupListDataArray];
+    _contactsForGroupListDataArray = [[NSMutableArray alloc] initWithArray:[contactsForGroupListDataArray sortedArrayUsingFunction:nickNameSort context:NULL]];
     [self.contactsForGroupListTableview reloadData];
 }
 /*
@@ -255,7 +282,13 @@
 
 - (void)confirmAction
 {
+    if (!self.selectedItemsArray.count) {
+        [self showProgressWithText:@"人员不能为空" withDelayTime:2.f];
+        return;
+    }
+    
     if (!self.isAddMemberInExistMsgGroup) {
+        [self.selectedItemsArray addObjectsFromArray:self.hidedUserInfosArray];
         [[CPUIModelManagement sharedInstance] createConversationWithUsers:self.selectedItemsArray andMsgGroups:nil andType:CREATE_CONVER_TYPE_COMMON];
     }else
     {
@@ -302,6 +335,9 @@
     NSMutableArray *tempAllSelectedArray = [NSMutableArray arrayWithArray:self.hidedUserInfosArray];
     [tempAllSelectedArray addObjectsFromArray:self.selectedItemsArray];
     [self.displaySelectedMembersVIew setSelectedMembersArray:tempAllSelectedArray];
+    
+    self.navigationItem.rightBarButtonItem.enabled = tempAllSelectedArray.count ?YES:NO;
+    
 }
 #pragma mark DisplaySelectedViewDelegate
 -(void)confirmBtnTapped:(NSArray *)userinfos

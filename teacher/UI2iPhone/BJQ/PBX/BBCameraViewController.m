@@ -156,6 +156,7 @@
 #pragma mark Camera Actions
 - (void)record
 {
+    
     BBRecordViewController *record = [[BBRecordViewController alloc] init];
     [self.navigationController pushViewController:record animated:NO];
 }
@@ -200,7 +201,7 @@
 
 - (void)enterPhotoAlbum:(id)sender {
     ZYQAssetPickerController *picker = [[ZYQAssetPickerController alloc] init];
-    picker.maximumNumberOfSelection = 7;
+    picker.maximumNumberOfSelection = 9;
     picker.assetsFilter = [ALAssetsFilter allPhotos];
     picker.showEmptyGroups=NO;
     picker.delegate=self;

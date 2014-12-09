@@ -3436,8 +3436,8 @@
 		7441DF3A1969813900D9928A /* CustomNavigationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomNavigationController.m; sourceTree = "<group>"; };
 		74421CD618DF467A000D2F1B /* DisplaySelectedMemberView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DisplaySelectedMemberView.h; sourceTree = "<group>"; };
 		74421CD718DF467A000D2F1B /* DisplaySelectedMemberView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DisplaySelectedMemberView.m; sourceTree = "<group>"; };
-		745350AF1A021AC50068E185 /* BBChooseImgViewInPostPage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BBChooseImgViewInPostPage.h; sourceTree = "<group>"; };
-		745350B01A021AC50068E185 /* BBChooseImgViewInPostPage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BBChooseImgViewInPostPage.m; sourceTree = "<group>"; };
+		745350AF1A021AC50068E185 /* BBChooseImgViewInPostPage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BBChooseImgViewInPostPage.h; path = ../BJQ/BBChooseImgViewInPostPage.h; sourceTree = "<group>"; };
+		745350B01A021AC50068E185 /* BBChooseImgViewInPostPage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BBChooseImgViewInPostPage.m; path = ../BJQ/BBChooseImgViewInPostPage.m; sourceTree = "<group>"; };
 		745470C9197D43A500200E4E /* CPOperationReceiveYTZMessage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPOperationReceiveYTZMessage.h; sourceTree = "<group>"; };
 		745470CA197D43A500200E4E /* CPOperationReceiveYTZMessage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CPOperationReceiveYTZMessage.m; sourceTree = "<group>"; };
 		745BB5A81A1DD46000307F00 /* BBServiceAccountDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BBServiceAccountDetailViewController.h; sourceTree = "<group>"; };
@@ -7270,6 +7270,8 @@
 				74E159F51A0BE91500A0E95F /* BBPostPBXViewController.m */,
 				74FD88811A03160E003037C9 /* ChooseClassViewController.h */,
 				74FD88821A03160E003037C9 /* ChooseClassViewController.m */,
+				745350AF1A021AC50068E185 /* BBChooseImgViewInPostPage.h */,
+				745350B01A021AC50068E185 /* BBChooseImgViewInPostPage.m */,
 			);
 			path = Post;
 			sourceTree = "<group>";
@@ -7649,8 +7651,6 @@
 				7A74DBA518FAD9C400EBFA93 /* BBJFViewController.m */,
 				7A922F7A18E2CEFC00026C4A /* BBInputView.h */,
 				7A922F7B18E2CEFC00026C4A /* BBInputView.m */,
-				745350AF1A021AC50068E185 /* BBChooseImgViewInPostPage.h */,
-				745350B01A021AC50068E185 /* BBChooseImgViewInPostPage.m */,
 				7AC51B9E18CDDA6900AD1A8C /* BBBJQViewController.h */,
 				7AC51B9F18CDDA6900AD1A8C /* BBBJQViewController.m */,
 			);
