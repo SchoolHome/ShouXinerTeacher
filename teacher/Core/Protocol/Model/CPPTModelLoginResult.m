@@ -42,6 +42,7 @@
             result.needSetUserName = NO;
             result.url = [[jsonDict objectForKey:@"update"] objectForKey:@"url"];
             result.version = [[jsonDict objectForKey:@"update"] objectForKey:@"version"];
+            result.mobile = [jsonDict objectForKey:@"mobile"];
         }
     }
     

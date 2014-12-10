@@ -14,6 +14,8 @@
 
 @interface Login ()<UITextFieldDelegate,UIAlertViewDelegate>
 @property (nonatomic,strong) UIImageView *bgImage;
+@property (nonatomic, strong) UIImageView *iconImage;
+@property (nonatomic, strong) UIView *loginView;
 @property (nonatomic,strong) UITextField *userName;
 @property (nonatomic,strong) UITextField *password;
 @property (nonatomic,strong) UIButton *LoginButton;
@@ -75,22 +77,22 @@
     [UIView setAnimationBeginsFromCurrentState:YES];
     [UIView setAnimationDuration:[duration doubleValue]];
     [UIView setAnimationCurve:[curve intValue]];
-    self.view.frame = CGRectMake(0, -40, self.view.frame.size.width, self.view.frame.size.height);
+    [self.iconImage setFrame:CGRectMake((self.view.frame.size.width-165.f)/2, 0.f, 165.f, 138.f)];
+    [self.loginView setFrame:CGRectMake((self.view.frame.size.width-297.f)/2, 120.f, 297.f, 195.f)];
     [UIView commitAnimations];
 }
 
 -(void) keyboardWillHide : (NSNotification *)not{
-//    if ([textView isFirstResponder]) {  // 过滤
-        NSNumber *duration = [not.userInfo objectForKey:UIKeyboardAnimationDurationUserInfoKey];
-        NSNumber *curve = [not.userInfo objectForKey:UIKeyboardAnimationCurveUserInfoKey];
+    NSNumber *duration = [not.userInfo objectForKey:UIKeyboardAnimationDurationUserInfoKey];
+    NSNumber *curve = [not.userInfo objectForKey:UIKeyboardAnimationCurveUserInfoKey];
         // animations settings
-        [UIView beginAnimations:nil context:NULL];
-        [UIView setAnimationBeginsFromCurrentState:YES];
-        [UIView setAnimationDuration:[duration doubleValue]];
-        [UIView setAnimationCurve:[curve intValue]];
-        self.view.frame = CGRectMake(0, 0.0f, self.view.frame.size.width, self.view.frame.size.height);
-        [UIView commitAnimations];
-//    }
+    [UIView beginAnimations:nil context:NULL];
+    [UIView setAnimationBeginsFromCurrentState:YES];
+    [UIView setAnimationDuration:[duration doubleValue]];
+    [UIView setAnimationCurve:[curve intValue]];
+    [self.iconImage setFrame:CGRectMake((self.view.frame.size.width-197.f)/2, 33.f, 197.f, 165.f)];
+    [self.loginView setFrame:CGRectMake((self.view.frame.size.width-297.f)/2, 208.f, 297.f, 195.f)];
+    [UIView commitAnimations];
 }
 
 
@@ -99,57 +101,62 @@
 	// Do any additional setup after loading the view.
     
     self.bgImage = [[UIImageView alloc] initWithFrame:CGRectMake(0.0f, 0.0f, 320.0f, self.screenHeight)];
-    if (self.screenHeight == 568.0f) {
-        self.bgImage.image = [UIImage imageNamed:@"Login568.jpg"];
-    }else{
-        self.bgImage.image = [UIImage imageNamed:@"Login"];
-    }
+    self.bgImage.image = [UIImage imageNamed:@"login_bg.png"];
     self.bgImage.userInteractionEnabled = YES;
     UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(clickBG:)];
     [self.bgImage addGestureRecognizer:tap];
     [self.view addSubview:self.bgImage];
-//    float height = 370.0f;
-//    if (self.screenHeight != 568.0f) {
-//        height = 370.0f - (568.0f - 480.0f);
-//    }
-    float height = 170.0f;
-    self.userName = [[UITextField alloc] initWithFrame:CGRectMake(20, height, self.view.frame.size.width-40, 43.f)];
+    
+    self.iconImage = [[UIImageView alloc] initWithFrame:CGRectMake((self.view.frame.size.width-197.f)/2, 33.f, 197.f, 165.f)];
+    [self.iconImage setImage:[UIImage imageNamed:@"login_img.png"]];
+    [self.bgImage addSubview:self.iconImage];
+    
+    self.loginView = [[UIImageView alloc] initWithFrame:CGRectMake((self.view.frame.size.width-297.f)/2, 208.f, 297.f, 195.f)];
+    [self.loginView setUserInteractionEnabled:YES];
+    [self.bgImage addSubview:self.loginView];
+    
+    UIImageView *inputBg = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, self.loginView.frame.size.width, 125.f)];
+    [inputBg setImage:[UIImage imageNamed:@"login_input.png"]];
+    [self.loginView addSubview:inputBg];
+    inputBg = nil;
+    
+    float height = 18.f;
+    self.userName = [[UITextField alloc] initWithFrame:CGRectMake(65.f, height, 205.f, 40.f)];
     self.userName.placeholder = @"用户名/邮箱/手机";
     self.userName.returnKeyType = UIReturnKeyDone;
     self.userName.delegate = self;
     [self.userName setContentHorizontalAlignment:UIControlContentHorizontalAlignmentCenter];
     [self.userName setContentVerticalAlignment:UIControlContentVerticalAlignmentCenter];
     [self.userName setTextAlignment:NSTextAlignmentCenter];
-    [self.userName setFont:[UIFont systemFontOfSize:14]];
-    [self.bgImage addSubview:self.userName];
-//    
-//    height = 415.0f;
-//    if (self.screenHeight != 568.0f) {
-//        height = 415.0f - (568.0f - 480.0f);
-//    }
-    height = 214.f;
-    self.password = [[UITextField alloc] initWithFrame:CGRectMake(20, height, self.view.frame.size.width-40, 43.f)];
+    [self.userName setFont:[UIFont systemFontOfSize:16]];
+    [self.userName setBackgroundColor:[UIColor whiteColor]];
+    [self.loginView addSubview:self.userName];
+
+    height = 68.f;
+    self.password = [[UITextField alloc] initWithFrame:CGRectMake(65.f, height, 205.f, 40.f)];
     self.password.returnKeyType = UIReturnKeyDone;
     self.password.delegate = self;
     self.password.placeholder = @"密码";
     [self.password setContentHorizontalAlignment:UIControlContentHorizontalAlignmentCenter];
     [self.password setContentVerticalAlignment:UIControlContentVerticalAlignmentCenter];
-    [self.password setFont:[UIFont systemFontOfSize:14]];
+    [self.password setFont:[UIFont systemFontOfSize:16]];
     [self.password setTextAlignment:NSTextAlignmentCenter];
-    [self.bgImage addSubview:self.password];
-    
-//    height = 0.0f;
-//    if ([[[UIDevice currentDevice] systemVersion] floatValue] <= 7.0){
-//        height = 20.0f;
-//    }
-    height = 265.f;
+    [self.password setBackgroundColor:[UIColor whiteColor]];
+    [self.loginView addSubview:self.password];
+
+    height = 124.f;
     self.LoginButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    self.LoginButton.frame = CGRectMake((320.0f - 271.0f)/2.0f, height, 271.0f, 43.0f);
-    [self.LoginButton setImage:[UIImage imageNamed:@"LoginButton"] forState:UIControlStateNormal];
-    [self.LoginButton setImage:[UIImage imageNamed:@"LoginButtonPress"] forState:UIControlStateHighlighted];
+    self.LoginButton.frame = CGRectMake((self.loginView.frame.size.width - 245.f)/2.0f, height, 245.f, 39.f);
+    [self.LoginButton setImage:[UIImage imageNamed:@"login_btn.png"] forState:UIControlStateNormal];
     [self.LoginButton addTarget:self action:@selector(login:) forControlEvents:UIControlEventTouchUpInside];
-    [self.bgImage addSubview:self.LoginButton];
-    
+    [self.loginView addSubview:self.LoginButton];
+    height = 170.f;
+    UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
+    [btn setFrame:CGRectMake(self.loginView.frame.size.width-90, height, 80, 30)];
+    [btn setTitle:@"无法登录？" forState:UIControlStateNormal];
+    [btn.titleLabel setFont:[UIFont systemFontOfSize:16.f]];
+    [btn addTarget:self action:@selector(cantLogin:) forControlEvents:UIControlEventTouchUpInside];
+    [self.loginView addSubview:btn];
     
     height = 0.0f;
     if ([[[UIDevice currentDevice] systemVersion] floatValue] <= 7.0){
@@ -157,23 +164,16 @@
     }
     UILabel *label = [[UILabel alloc] init];
 #ifdef IS_TEACHER
-    label.text = @"手心网 v1.0 教师版";
+    label.text = @"手心网 V4.0 教师版";
 #else
-    label.text = @"手心网 v1.0 家长版";
+    label.text = @"手心网 V4.0 家长版";
 #endif
-    label.textAlignment = NSTextAlignmentLeft;
+    label.textAlignment = NSTextAlignmentCenter;
     label.textColor = [UIColor whiteColor];
     label.backgroundColor = [UIColor clearColor];
-    label.frame = CGRectMake(10, self.screenHeight - 27.0f - height, 150.0f, 20.0f);
+    label.frame = CGRectMake((self.view.frame.size.width-150.f)/2, self.screenHeight - 27.0f - height, 150.0f, 20.0f);
     label.font = [UIFont systemFontOfSize:14.0f];
-    [self.view addSubview:label];
-    
-    UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
-    [btn setFrame:CGRectMake(self.view.frame.size.width-80, self.screenHeight-30- height, 80, 30)];
-    [btn setTitle:@"无法登录？" forState:UIControlStateNormal];
-    [btn.titleLabel setFont:[UIFont systemFontOfSize:14.f]];
-    [btn addTarget:self action:@selector(cantLogin:) forControlEvents:UIControlEventTouchUpInside];
-    [self.bgImage addSubview:btn];
+    [self.bgImage addSubview:label];
     
     CPLGModelAccount *account = [[CPSystemEngine sharedInstance] accountModel];
     if ( nil != account.pwdMD5 && ![account.pwdMD5 isEqualToString:@""]) {
@@ -228,8 +228,6 @@
                     [self.navigationController pushViewController:activate animated:YES];
                 }else{
                     [self closeProgress];
-//                    activateViewController *activate = [[activateViewController alloc] initActivateViewController:YES];
-//                    [self.navigationController pushViewController:activate animated:YES];
                     AppDelegate *appDelegate = (AppDelegate *)[UIApplication sharedApplication].delegate;
                     [appDelegate launchApp];
                 }
@@ -283,17 +281,17 @@
 
 -(void)cantLogin:(UIButton *)btn
 {
-    UIActionSheet *actinSheet = [[UIActionSheet alloc] initWithTitle:nil delegate:(id<UIActionSheetDelegate>)self cancelButtonTitle:@"取消" destructiveButtonTitle:nil otherButtonTitles:@"联系客服", @"找回密码", nil];
+    UIActionSheet *actinSheet = [[UIActionSheet alloc] initWithTitle:nil delegate:(id<UIActionSheetDelegate>)self cancelButtonTitle:@"取消" destructiveButtonTitle:nil otherButtonTitles:@"重置密码", @"联系客服", nil];
     [actinSheet showInView:self.view];
 }
 
 - (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
 {
     if(buttonIndex == 0){
-        //call
-    }else if(buttonIndex == 1){
         ForgotPwdVC *forgotVC = [[ForgotPwdVC alloc] init];
         [self.navigationController pushViewController:forgotVC animated:YES];
+    }else if(buttonIndex == 1){
+        //拨打电话
     }
     [actionSheet dismissWithClickedButtonIndex:buttonIndex animated:YES];
 }

@@ -45,6 +45,14 @@
 		0433AD1A18E53A8800BDF9D5 /* keyboard_sound@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0433AD0818E53A8800BDF9D5 /* keyboard_sound@2x.png */; };
 		0433AD1B18E53A8800BDF9D5 /* keyboard_text_back.png in Resources */ = {isa = PBXBuildFile; fileRef = 0433AD0918E53A8800BDF9D5 /* keyboard_text_back.png */; };
 		0433AD1C18E53A8800BDF9D5 /* keyboard_text_back@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0433AD0A18E53A8800BDF9D5 /* keyboard_text_back@2x.png */; };
+		043D4C211A37EB0D0063F230 /* login_bg.png in Resources */ = {isa = PBXBuildFile; fileRef = 043D4C191A37EB0D0063F230 /* login_bg.png */; };
+		043D4C221A37EB0D0063F230 /* login_bg@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 043D4C1A1A37EB0D0063F230 /* login_bg@2x.png */; };
+		043D4C231A37EB0D0063F230 /* login_btn.png in Resources */ = {isa = PBXBuildFile; fileRef = 043D4C1B1A37EB0D0063F230 /* login_btn.png */; };
+		043D4C241A37EB0D0063F230 /* login_btn@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 043D4C1C1A37EB0D0063F230 /* login_btn@2x.png */; };
+		043D4C251A37EB0D0063F230 /* login_img.png in Resources */ = {isa = PBXBuildFile; fileRef = 043D4C1D1A37EB0D0063F230 /* login_img.png */; };
+		043D4C261A37EB0D0063F230 /* login_img@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 043D4C1E1A37EB0D0063F230 /* login_img@2x.png */; };
+		043D4C271A37EB0D0063F230 /* login_input.png in Resources */ = {isa = PBXBuildFile; fileRef = 043D4C1F1A37EB0D0063F230 /* login_input.png */; };
+		043D4C281A37EB0D0063F230 /* login_input@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 043D4C201A37EB0D0063F230 /* login_input@2x.png */; };
 		045082E11A104F700004F8DD /* BBFXAdScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = 045082E01A104F700004F8DD /* BBFXAdScrollView.m */; };
 		045082E41A1061DC0004F8DD /* BBFXDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 045082E31A1061DC0004F8DD /* BBFXDetailViewController.m */; };
 		0454E91B1A15866D000AA44F /* BBSignModifyViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0454E91A1A15866D000AA44F /* BBSignModifyViewController.m */; };
@@ -1557,6 +1565,14 @@
 		0433AD0818E53A8800BDF9D5 /* keyboard_sound@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "keyboard_sound@2x.png"; path = "keyboard/keyboard_sound@2x.png"; sourceTree = "<group>"; };
 		0433AD0918E53A8800BDF9D5 /* keyboard_text_back.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = keyboard_text_back.png; path = keyboard/keyboard_text_back.png; sourceTree = "<group>"; };
 		0433AD0A18E53A8800BDF9D5 /* keyboard_text_back@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "keyboard_text_back@2x.png"; path = "keyboard/keyboard_text_back@2x.png"; sourceTree = "<group>"; };
+		043D4C191A37EB0D0063F230 /* login_bg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = login_bg.png; sourceTree = "<group>"; };
+		043D4C1A1A37EB0D0063F230 /* login_bg@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "login_bg@2x.png"; sourceTree = "<group>"; };
+		043D4C1B1A37EB0D0063F230 /* login_btn.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = login_btn.png; sourceTree = "<group>"; };
+		043D4C1C1A37EB0D0063F230 /* login_btn@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "login_btn@2x.png"; sourceTree = "<group>"; };
+		043D4C1D1A37EB0D0063F230 /* login_img.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = login_img.png; sourceTree = "<group>"; };
+		043D4C1E1A37EB0D0063F230 /* login_img@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "login_img@2x.png"; sourceTree = "<group>"; };
+		043D4C1F1A37EB0D0063F230 /* login_input.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = login_input.png; sourceTree = "<group>"; };
+		043D4C201A37EB0D0063F230 /* login_input@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "login_input@2x.png"; sourceTree = "<group>"; };
 		045082DF1A104F700004F8DD /* BBFXAdScrollView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BBFXAdScrollView.h; path = FX/BBFXAdScrollView.h; sourceTree = "<group>"; };
 		045082E01A104F700004F8DD /* BBFXAdScrollView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BBFXAdScrollView.m; path = FX/BBFXAdScrollView.m; sourceTree = "<group>"; };
 		045082E21A1061DC0004F8DD /* BBFXDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BBFXDetailViewController.h; path = FX/BBFXDetailViewController.h; sourceTree = "<group>"; };
@@ -4239,6 +4255,14 @@
 		1950ADAA18D2B293002120C4 /* Login */ = {
 			isa = PBXGroup;
 			children = (
+				043D4C191A37EB0D0063F230 /* login_bg.png */,
+				043D4C1A1A37EB0D0063F230 /* login_bg@2x.png */,
+				043D4C1B1A37EB0D0063F230 /* login_btn.png */,
+				043D4C1C1A37EB0D0063F230 /* login_btn@2x.png */,
+				043D4C1D1A37EB0D0063F230 /* login_img.png */,
+				043D4C1E1A37EB0D0063F230 /* login_img@2x.png */,
+				043D4C1F1A37EB0D0063F230 /* login_input.png */,
+				043D4C201A37EB0D0063F230 /* login_input@2x.png */,
 				19A83D4218D34C8900441FDE /* LoginButton.png */,
 				19A83D4318D34C8900441FDE /* LoginButton@2x.png */,
 				19A83D4418D34C8900441FDE /* LoginButtonPress.png */,
@@ -7906,6 +7930,7 @@
 				1927E4BB18E5544E0079EA53 /* ZJZReceiverSound.png in Resources */,
 				1982F73D1A0C72820075F35F /* line@2x.png in Resources */,
 				332D7FC918C33F0A007A75D5 /* toutouwen_QP@2x.gif in Resources */,
+				043D4C211A37EB0D0063F230 /* login_bg.png in Resources */,
 				332D7FBC18C33F0A007A75D5 /* pic_im_drlt001@2x.jpg in Resources */,
 				7A334AF118F2BF6F001F57C4 /* BBBottomIndexPress2@2x.png in Resources */,
 				332D7F9218C33F0A007A75D5 /* emotion_magic_02@2x.png in Resources */,
@@ -8080,6 +8105,7 @@
 				193FA74C19F0A27A00874F1E /* ok.png in Resources */,
 				332D7FB918C33F0A007A75D5 /* im_profile_background@2x.jpg in Resources */,
 				332D824118C33F0A007A75D5 /* btn_Male-symbol_im@2x.png in Resources */,
+				043D4C231A37EB0D0063F230 /* login_btn.png in Resources */,
 				1982F7561A0C72820075F35F /* i_voice_talk.png in Resources */,
 				19DB3A3119F600D200F66057 /* BJQMoreButton@2x.png in Resources */,
 				7A334AF518F2BF6F001F57C4 /* BBBottomIndexPress4@2x.png in Resources */,
@@ -8130,6 +8156,7 @@
 				332D7F5A18C33F0A007A75D5 /* bg_im_system_gray@2x.png in Resources */,
 				332D825518C33F0A007A75D5 /* profile_icon_female_02@2x.png in Resources */,
 				332D7FA818C33F0A007A75D5 /* im_float_profile.png in Resources */,
+				043D4C251A37EB0D0063F230 /* login_img.png in Resources */,
 				332D7F3618C33F0A007A75D5 /* btn_on_close@2x.png in Resources */,
 				19C08C30193F1BAA00C548CD /* BJQHasZanButton.png in Resources */,
 				0433AD1A18E53A8800BDF9D5 /* keyboard_sound@2x.png in Resources */,
@@ -8168,6 +8195,7 @@
 				1927E4BC18E5544E0079EA53 /* ZJZReceiverSound@2x.png in Resources */,
 				1982F7611A0C72820075F35F /* t_keyboard@2x.png in Resources */,
 				7AA5001D18DF168600FC59C4 /* BBComment@2x.png in Resources */,
+				043D4C271A37EB0D0063F230 /* login_input.png in Resources */,
 				195B1A9918E5997D00B3F9A7 /* ZJZAddPeople.png in Resources */,
 				332D7ECB18C33F0A007A75D5 /* bg_list_top_red@2x.png in Resources */,
 				1970BC5A191BB7E400F63454 /* ActivateButton@2x.png in Resources */,
@@ -8243,6 +8271,7 @@
 				7A46B21618F44CCC006AEA00 /* BBheart.png in Resources */,
 				332D7FD218C33F0A007A75D5 /* item_im_say@2x.png in Resources */,
 				1927E4BE18E5544E0079EA53 /* ZJZReceiverText@2x.png in Resources */,
+				043D4C241A37EB0D0063F230 /* login_btn@2x.png in Resources */,
 				19AD08B018F67F7900E8AA55 /* user_credit_back@2x.png in Resources */,
 				1982F73E1A0C72820075F35F /* list_add.png in Resources */,
 				332D7F2818C33F0A007A75D5 /* wall_bg_group01@2x.png in Resources */,
@@ -8272,6 +8301,7 @@
 				7A334B0418F2C49F001F57C4 /* BBBack@2x.png in Resources */,
 				332D825718C33F0A007A75D5 /* profile_icon_male_02@2x.png in Resources */,
 				0488B5D31A12FDCB00327973 /* sign_out@2x.png in Resources */,
+				043D4C281A37EB0D0063F230 /* login_input@2x.png in Resources */,
 				74AF37191963A4EA008EA251 /* BBAddContacts.png in Resources */,
 				332D7F2418C33F0A007A75D5 /* icon_video.png in Resources */,
 				7A076ADC18E1D90200911291 /* YZSShared@2x.png in Resources */,
@@ -8282,6 +8312,7 @@
 				7A076ADA18E1D90200911291 /* YZSBG@2x.png in Resources */,
 				332D7EE518C33F0A007A75D5 /* item_check_unselected.png in Resources */,
 				332D7FCE18C33F0A007A75D5 /* profile_bg_recent_others@2x.png in Resources */,
+				043D4C261A37EB0D0063F230 /* login_img@2x.png in Resources */,
 				193FA77219F0A27A00874F1E /* zan_press.png in Resources */,
 				19CBA1D319FDF11000548396 /* BJQClassTapPressed@2x.png in Resources */,
 				193FA77F19F0A27A00874F1E /* me@2x.png in Resources */,
@@ -8488,6 +8519,7 @@
 				1982F7641A0C72820075F35F /* t_pic.png in Resources */,
 				7A334AEE18F2BF6F001F57C4 /* BBBottomIndexPress1.png in Resources */,
 				7A076AD918E1D90200911291 /* YZSBG.png in Resources */,
+				043D4C221A37EB0D0063F230 /* login_bg@2x.png in Resources */,
 				1982F75A1A0C72820075F35F /* new_mes.png in Resources */,
 				0433AD1918E53A8800BDF9D5 /* keyboard_sound.png in Resources */,
 				7A334B1D18F2DE60001F57C4 /* BBFTZPress.png in Resources */,

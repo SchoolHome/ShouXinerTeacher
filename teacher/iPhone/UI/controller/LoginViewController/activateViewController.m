@@ -89,6 +89,7 @@
     self.title = @"账号激活";
     [self.navigationController setNavigationBarHidden:NO];
     self.navigationItem.hidesBackButton = YES;
+    CPPTModelLoginResult *loginModel = [PalmUIManagement sharedInstance].loginResult;
     CGFloat height = 10.f;
     UIView *subView = [[UIView alloc] initWithFrame:CGRectMake(0, height, self.view.frame.size.width, 44.f)];
     [subView setBackgroundColor:[UIColor whiteColor]];
@@ -96,9 +97,7 @@
     subView = nil;
     self.telPhone = [[UITextField alloc] initWithFrame:CGRectMake(10, height, self.view.frame.size.width-20, 44.0f)];
     self.telPhone.backgroundColor = [UIColor whiteColor];
-    [self.telPhone setUserInteractionEnabled:NO];
     self.telPhone.returnKeyType = UIReturnKeyNext;
-    [self.telPhone setContentHorizontalAlignment:UIControlContentHorizontalAlignmentCenter];
     [self.telPhone setContentVerticalAlignment:UIControlContentVerticalAlignmentCenter];
     self.telPhone.keyboardType = UIKeyboardTypeNumberPad;
     self.telPhone.delegate = self;
@@ -113,7 +112,6 @@
     self.smsCode.returnKeyType = UIReturnKeyNext;
     self.smsCode.placeholder = @"输入验证码";
     self.smsCode.keyboardType = UIKeyboardTypeNumberPad;
-    [self.smsCode setContentHorizontalAlignment:UIControlContentHorizontalAlignmentCenter];
     [self.smsCode setContentVerticalAlignment:UIControlContentVerticalAlignmentCenter];
     self.smsCode.delegate = self;
     [self.view addSubview:self.smsCode];
@@ -124,7 +122,7 @@
     [self.smsButton addTarget:self action:@selector(getsmsCode) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:self.smsButton];
     
-    if (self.needSetUserName) {
+    if (loginModel.needSetUserName) {
         height = height + 55.f;
         subView = [[UIView alloc] initWithFrame:CGRectMake(0, height, self.view.frame.size.width, 44.f)];
         [subView setBackgroundColor:[UIColor whiteColor]];
@@ -132,8 +130,7 @@
         subView = nil;
         self.passwordOld = [[UITextField alloc] initWithFrame:CGRectMake(10, height, self.view.frame.size.width-20, 44.f)];
         self.passwordOld.backgroundColor = [UIColor whiteColor];
-        self.passwordOld.returnKeyType = UIReturnKeyDone;
-        [self.passwordOld setContentHorizontalAlignment:UIControlContentHorizontalAlignmentCenter];
+        self.passwordOld.returnKeyType = UIReturnKeyNext;
         [self.passwordOld setContentVerticalAlignment:UIControlContentVerticalAlignmentCenter];
         self.passwordOld.delegate = self;
         self.passwordOld.placeholder = @"输入用户名";
@@ -147,11 +144,10 @@
     self.password = [[UITextField alloc] initWithFrame:CGRectMake(10.f, height, self.view.frame.size.width-20, 44.f)];
     self.password.backgroundColor = [UIColor whiteColor];
     self.password.returnKeyType = UIReturnKeyNext;
-    [self.password setContentHorizontalAlignment:UIControlContentHorizontalAlignmentCenter];
     [self.password setContentVerticalAlignment:UIControlContentVerticalAlignmentCenter];
     self.password.secureTextEntry = YES;
     self.password.delegate = self;
-    self.password.placeholder = @"密码 至少6位的数字与字母组合";
+    self.password.placeholder = @"新密码(6位以上字母和数字组合)";
     [self.view addSubview:self.password];
     height = height + 45.f;
     subView = [[UIView alloc] initWithFrame:CGRectMake(0, height, self.view.frame.size.width, 44.f)];
@@ -162,96 +158,18 @@
     self.confrimPassWord.backgroundColor = [UIColor whiteColor];
     self.confrimPassWord.returnKeyType = UIReturnKeyDone;
     self.confrimPassWord.secureTextEntry = YES;
-    [self.confrimPassWord setContentHorizontalAlignment:UIControlContentHorizontalAlignmentCenter];
     [self.confrimPassWord setContentVerticalAlignment:UIControlContentVerticalAlignmentCenter];
     self.confrimPassWord.delegate = self;
     self.confrimPassWord.placeholder = @"确认密码";
     [self.view addSubview:self.confrimPassWord];
     
-    [self.telPhone setText:[[[CPSystemEngine sharedInstance] accountModel] loginName]];
-    /*
-    if (self.needSetUserName) {
-        UIImageView *fromImage = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"ActivateBigFrom"]];
-        fromImage.frame = CGRectMake(0.0f, 29.0f, 320.0f, 224.0f);
-        fromImage.userInteractionEnabled = YES;
-        [self.view addSubview:fromImage];
-        
-        self.telPhone = [[UITextField alloc] initWithFrame:CGRectMake(95.0f, 12.0f, 180.0f, 24.0f)];
-        self.telPhone.backgroundColor = [UIColor clearColor];
-        self.telPhone.textAlignment = NSTextAlignmentLeft;
-        self.telPhone.returnKeyType = UIReturnKeyDone;
-        self.telPhone.keyboardType = UIKeyboardTypeNumberPad;
-        self.telPhone.delegate = self;
-        [fromImage addSubview:self.telPhone];
-        
-        self.smsCode = [[UITextField alloc] initWithFrame:CGRectMake(95.0f, 55.0f, 90.0f, 24.0f)];
-        self.smsCode.backgroundColor = [UIColor clearColor];
-        self.smsCode.textAlignment = NSTextAlignmentLeft;
-        self.smsCode.returnKeyType = UIReturnKeyDone;
-        self.smsCode.keyboardType = UIKeyboardTypeNumberPad;
-        self.smsCode.delegate = self;
-        [fromImage addSubview:self.smsCode];
-        
-        self.smsButton = [UIButton buttonWithType:UIButtonTypeCustom];
-        [self.smsButton setBackgroundImage:[UIImage imageNamed:@"GetSmsCode"] forState:UIControlStateNormal];
-        [self.smsButton setBackgroundImage:[UIImage imageNamed:@"GetSmsCode"] forState:UIControlStateHighlighted];
-        self.smsButton.frame = CGRectMake(210.0f, 52.0f, 80.0f, 30.0f);
-        [self.smsButton addTarget:self action:@selector(getsmsCode) forControlEvents:UIControlEventTouchUpInside];
-        [fromImage addSubview:self.smsButton];
-        
-        self.passwordOld = [[UITextField alloc] initWithFrame:CGRectMake(95.0f, 98.0f, 180.0f, 24.0f)];
-        self.passwordOld.backgroundColor = [UIColor clearColor];
-        self.passwordOld.textAlignment = NSTextAlignmentLeft;
-        self.passwordOld.returnKeyType = UIReturnKeyDone;
-        self.passwordOld.secureTextEntry = YES;
-        self.passwordOld.delegate = self;
-        [fromImage addSubview:self.passwordOld];
-        
-        self.password = [[UITextField alloc] initWithFrame:CGRectMake(95.0f, 144.0f, 180.0f, 24.0f)];
-        self.password.backgroundColor = [UIColor clearColor];
-        self.password.textAlignment = NSTextAlignmentLeft;
-        self.password.returnKeyType = UIReturnKeyDone;
-        self.password.secureTextEntry = YES;
-        self.password.delegate = self;
-        [fromImage addSubview:self.password];
-        
-        self.confrimPassWord = [[UITextField alloc] initWithFrame:CGRectMake(95.0f, 190.0f, 180.0f, 24.0f)];
-        self.confrimPassWord.backgroundColor = [UIColor clearColor];
-        self.confrimPassWord.returnKeyType = UIReturnKeyDone;
-        self.confrimPassWord.secureTextEntry = YES;
-        self.confrimPassWord.textAlignment = NSTextAlignmentLeft;
-        self.confrimPassWord.delegate = self;
-        [fromImage addSubview:self.confrimPassWord];
+    if([loginModel.mobile length]>0){
+        [self.telPhone setText:loginModel.mobile];
+        [self.telPhone setUserInteractionEnabled:NO];
     }else{
-        UIImageView *fromImage = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"ActivateSmallFrom2"]];
-        fromImage.frame = CGRectMake((320.0f-285.0f)/2.0f, 20.0f, 285.0f, 130.0f);
-        fromImage.userInteractionEnabled = YES;
-        [self.view addSubview:fromImage];
-        
-        self.telPhone = [[UITextField alloc] initWithFrame:CGRectMake(95.0f, 12.0f, 170.0f, 24.0f)];
-        self.telPhone.backgroundColor = [UIColor clearColor];
-        self.telPhone.textAlignment = NSTextAlignmentRight;
-        self.telPhone.returnKeyType = UIReturnKeyDone;
-        self.telPhone.delegate = self;
-        [fromImage addSubview:self.telPhone];
-        
-        self.password = [[UITextField alloc] initWithFrame:CGRectMake(95.0f, 52.0f, 170.0f, 24.0f)];
-        self.password.backgroundColor = [UIColor clearColor];
-        self.password.textAlignment = NSTextAlignmentRight;
-        self.password.returnKeyType = UIReturnKeyDone;
-        self.password.secureTextEntry = YES;
-        self.password.delegate = self;
-        [fromImage addSubview:self.password];
-        
-        self.confrimPassWord = [[UITextField alloc] initWithFrame:CGRectMake(95.0f, 92.0f, 170.0f, 24.0f)];
-        self.confrimPassWord.backgroundColor = [UIColor clearColor];
-        self.confrimPassWord.secureTextEntry = YES;
-        self.confrimPassWord.textAlignment = NSTextAlignmentRight;
-        self.confrimPassWord.returnKeyType = UIReturnKeyDone;
-        self.confrimPassWord.delegate = self;
-        [fromImage addSubview:self.confrimPassWord];
+        [self.telPhone setPlaceholder:@"输入手机号"];
+        [self.telPhone setUserInteractionEnabled:YES];
     }
-    */
     
     UIButton *activateButton = [UIButton buttonWithType:UIButtonTypeCustom];
     activateButton.frame = CGRectMake((320.0f - 272.0f)/2.0f, self.screenHeight - 70.0f *2, 272.0f, 45.0f);

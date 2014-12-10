@@ -27,6 +27,7 @@
 @property (strong,nonatomic) NSString *url;
 @property (strong,nonatomic) NSString *version;
 @property (nonatomic) BOOL needSetUserName;
+@property (nonatomic, strong) NSString *mobile;
 + (CPPTModelLoginResult *)fromJsonDict:(NSDictionary *)jsonDict;
 
 @end

@@ -48,7 +48,7 @@
     UILabel *title = [[UILabel alloc] initWithFrame:CGRectMake(0, height, headerView.frame.size.width, 44)];
     [title setFont:[UIFont systemFontOfSize:20]];
     [title setBackgroundColor:[UIColor whiteColor]];
-    [title setText:@"重设密码"];
+    [title setText:@"重置密码"];
     [title setTextAlignment:NSTextAlignmentCenter];
     [title setTextColor:[UIColor colorWithHexString:@"ff9632"]];
     [headerView addSubview:title];
@@ -69,7 +69,7 @@
     [self.view addSubview:subView];
     subView = nil;
     phoneField = [[UITextField alloc] initWithFrame:CGRectMake(10, height, self.view.frame.size.width-20, 44)];
-    [phoneField setPlaceholder:@"请输入正确得手机号码"];
+    [phoneField setPlaceholder:@"输入正确得手机号码"];
     [phoneField setFont:[UIFont systemFontOfSize:16]];
     [phoneField setContentVerticalAlignment:UIControlContentVerticalAlignmentCenter];
     [phoneField setBackgroundColor:[UIColor whiteColor]];
@@ -81,16 +81,16 @@
     [subView setBackgroundColor:[UIColor whiteColor]];
     [self.view addSubview:subView];
     subView = nil;
-    verfyField = [[UITextField alloc] initWithFrame:CGRectMake(10, height, self.view.frame.size.width-120, 44)];
-    [verfyField setPlaceholder:@"请输入验证码"];
+    verfyField = [[UITextField alloc] initWithFrame:CGRectMake(10, height, self.view.frame.size.width-110, 44)];
+    [verfyField setPlaceholder:@"输入验证码"];
     [verfyField setFont:[UIFont systemFontOfSize:16]];
     [verfyField setContentVerticalAlignment:UIControlContentVerticalAlignmentCenter];
     [verfyField setBackgroundColor:[UIColor whiteColor]];
     [verfyField setDelegate:(id<UITextFieldDelegate>)self];
     [self.view addSubview:verfyField];
     UIButton *codeBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    [codeBtn setFrame:CGRectMake(self.view.frame.size.width-110, height+5, 100, 34)];
-    [codeBtn setBackgroundColor:[UIColor blueColor]];
+    [codeBtn setFrame:CGRectMake(self.view.frame.size.width-100, height+5, 80, 30)];
+    [codeBtn setImage:[UIImage imageNamed:@"GetSmsCode.png"] forState:UIControlStateNormal];
     [codeBtn addTarget:self action:@selector(getVerfyCode:) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:codeBtn];
     
@@ -100,7 +100,7 @@
     [self.view addSubview:subView];
     subView = nil;
     newPwdField = [[UITextField alloc] initWithFrame:CGRectMake(10, height, self.view.frame.size.width-20, 44)];
-    [newPwdField setPlaceholder:@"新密码(6位以上字母数字组合)"];
+    [newPwdField setPlaceholder:@"新密码(6位以上字母和数字组合)"];
     [newPwdField setFont:[UIFont systemFontOfSize:16]];
     [newPwdField setContentVerticalAlignment:UIControlContentVerticalAlignmentCenter];
     [newPwdField setBackgroundColor:[UIColor whiteColor]];
