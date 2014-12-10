@@ -22,6 +22,17 @@
 -(void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
+    [[PalmUIManagement sharedInstance] addObserver:self forKeyPath:@"postUserInfoResult" options:0 context:nil];
+    [[PalmUIManagement sharedInstance] addObserver:self forKeyPath:@"customerServiceTel" options:0 context:nil];
+    [[PalmUIManagement sharedInstance] addObserver:self forKeyPath:@"smsVerifyCode" options:0 context:nil];
+}
+
+-(void)viewWillDisappear:(BOOL)animated
+{
+    [super viewWillDisappear:animated];
+    [[PalmUIManagement sharedInstance] removeObserver:self forKeyPath:@"smsVerifyCode"];
+    [[PalmUIManagement sharedInstance] removeObserver:self forKeyPath:@"postUserInfoResult"];
+    [[PalmUIManagement sharedInstance] removeObserver:self forKeyPath:@"customerServiceTel"];
 }
 
 - (void)viewDidLoad {
@@ -120,14 +131,69 @@
     [self.view addSubview:confirmPwd];
     height = height + 80;
     UIButton *loginBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    [loginBtn setFrame:CGRectMake(20, height, self.view.frame.size.width-40, 40)];
-    
+    loginBtn.frame = CGRectMake((self.view.frame.size.width - 271.f)/2.0f, height, 271.f, 43.f);
+    [loginBtn setImage:[UIImage imageNamed:@"LoginButton.png"] forState:UIControlStateNormal];
+    [loginBtn addTarget:self action:@selector(login:) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:loginBtn];
+    
+    height = height + 50;
+    UIButton *contactCom = [UIButton buttonWithType:UIButtonTypeCustom];
+    [contactCom setFrame:CGRectMake(self.view.frame.size.width-150, height, 140, 40)];
+    [contactCom setTitleColor:[UIColor colorWithHexString:@"ff9632"] forState:UIControlStateNormal];
+    [contactCom setTitle:@"忘记账号?联系我们" forState:UIControlStateNormal];
+    [contactCom.titleLabel setFont:[UIFont systemFontOfSize:16.f]];
+    [contactCom addTarget:self action:@selector(contactCom:) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:contactCom];
 }
 
 -(void)getVerfyCode:(UIButton *)btn
 {
+    NSString *telPhoneText = nil;
+    if (nil != phoneField) {
+        telPhoneText = [phoneField.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
+    }
+    if (nil != phoneField) {
+        if (nil == telPhoneText || [telPhoneText isEqualToString:@""]) {
+            [self showProgressWithText:@"手机号不能为空" withDelayTime:1.0f];
+            return;
+        }
+    }
+    [[PalmUIManagement sharedInstance] getSMSVerifyCode:telPhoneText];
+}
+
+-(void)login:(UIButton *)btn
+{
+    [phoneField resignFirstResponder];
+    [verfyField resignFirstResponder];
+    [newPwdField resignFirstResponder];
+    [confirmPwd resignFirstResponder];
     
+    //    self.userName.text = @"13940231890";
+    //    self.password.text = @"231890";
+    
+    NSString *userName  = [phoneField.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
+    if ( nil == userName || [userName isEqualToString:@""] ) {
+        [self showProgressWithText:@"手机号不能为空" withDelayTime:1.5f];
+        return;
+    }
+    
+    NSString *verfyCode  = [verfyField.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
+    if ( nil == verfyCode || [verfyCode isEqualToString:@""] ) {
+        [self showProgressWithText:@"验证码不能为空" withDelayTime:1.5f];
+        return;
+    }
+    
+    if ([newPwdField.text isEqualToString:confirmPwd.text]) {
+        NSString *password = [newPwdField.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
+        if (nil == password || [password isEqualToString:@""]) {
+            [self showProgressWithText:@"请填写密码" withDelayTime:1.5f];
+            return;
+        }
+        [[PalmUIManagement sharedInstance] postUserInfo:nil withMobile:phoneField.text withVerifyCode:verfyField.text withPasswordOld:nil withPasswordNew:newPwdField.text withSex:0 withSign:nil];
+        [self showProgressWithText:@"正在重置，请稍候..."];
+    }else{
+        [self showProgressWithText:@"两次密码输入不一致" withDelayTime:1.0f];
+    }
 }
 
 -(void)backViewController
@@ -138,6 +204,34 @@
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+-(void) observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context{
+    if ([keyPath isEqualToString:@"smsVerifyCode"]){
+        if ([[PalmUIManagement sharedInstance].smsVerifyCode[ASI_REQUEST_HAS_ERROR] boolValue]) {
+            [self showProgressWithText:[PalmUIManagement sharedInstance].smsVerifyCode[ASI_REQUEST_ERROR_MESSAGE] withDelayTime:1.0f];
+            return;
+        }
+    }else if([keyPath isEqualToString:@"postUserInfoResult"]){
+        
+    }else if([keyPath isEqualToString:@"customerServiceTel"]){
+        NSDictionary *resultDic = [[PalmUIManagement sharedInstance] customerServiceTel];
+        if ([resultDic[@"hasError"] integerValue] == 0) {
+            [self closeProgress];
+            NSMutableString * str=[[NSMutableString alloc] initWithFormat:@"tel:%@",resultDic[@"data"][@"number"]];
+            UIWebView * callWebview = [[UIWebView alloc] init];
+            [callWebview loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:str]]];
+            [self.view addSubview:callWebview];
+        }else{
+            [self showProgressWithText:resultDic[@"errorMessage"] withDelayTime:2];
+        }
+    }
+}
+
+-(void)contactCom:(UIButton *)btn
+{
+    [self showProgressWithText:@"正在为您联系空闲客服..."];
+    [[PalmUIManagement sharedInstance] getCustomerServiceTelNumber];
 }
 
 @end

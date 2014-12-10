@@ -166,7 +166,6 @@
         if ([errDic[@"errno"] integerValue] == 0) {
             userProfile.sex = sexTag;
             [self showProgressWithText:@"更新成功" withDelayTime:2];
-            [self.navigationController popViewControllerAnimated:YES];
         }else{
             [self showProgressWithText:resultDic[@"errorMessage"] withDelayTime:2];
         }
@@ -357,6 +356,7 @@
 -(void)takePhotoFromAssets
 {
     UIImagePickerController *picker = [[UIImagePickerController alloc] init];
+    
     //资源类型为图片库
     picker.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
     picker.delegate = self;
@@ -371,7 +371,6 @@
         if (pickImage) {
             pickImage = nil;
         }
-        
         imageData = UIImageJPEGRepresentation(image, 0.5f);
         pickImage = [[UIImage alloc] initWithData:imageData];
         //这里要处理image上传
@@ -394,8 +393,7 @@
 
 -(void)dealloc
 {
-//    [[PalmUIManagement sharedInstance] removeObserver:self forKeyPath:@"updateUserHeader"];
-//    [[PalmUIManagement sharedInstance] removeObserver:self forKeyPath:@"updateUserHeaderResult"];
+    
 }
 
 @end
