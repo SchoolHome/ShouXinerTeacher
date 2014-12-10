@@ -34,4 +34,9 @@
 @property (nonatomic, assign) BOOL isParent;
 //userinfo里的userInfo.regionNumber字段为是否激活
 @property (nonatomic, assign) BOOL isActive;
+
+@property (strong,nonatomic) NSNumber *sex;
+
+@property (nonatomic, strong)NSString *sign;
+@property (nonatomic, strong)NSString *cityName;
 @end

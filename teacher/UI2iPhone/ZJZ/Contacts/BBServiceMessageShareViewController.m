@@ -193,6 +193,7 @@
                 
                 thingsTextView = [[UIPlaceHolderTextView alloc] initWithFrame:CGRectMake(ThingsTextViewSpaceing, ThingsTextViewSpaceing,self.screenWidth-2*ThingsTextViewSpaceing-20.f, ThingsTextViewHeight)];
                 thingsTextView.placeholder = @"想说的话...";
+                thingsTextView.font = [UIFont systemFontOfSize:14.f];
                 thingsTextView.backgroundColor = [UIColor clearColor];
                 [cell.contentView addSubview:thingsTextView];
                 

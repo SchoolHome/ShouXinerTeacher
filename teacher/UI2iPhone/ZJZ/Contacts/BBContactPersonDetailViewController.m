@@ -14,7 +14,7 @@
 
 @interface BBContactPersonDetailViewController ()<UITableViewDataSource,UITableViewDelegate>
 
-@property (nonatomic, strong)CPUIModelUserInfo *userInfo;
+@property (nonatomic, strong)ContactsModel *userInfo;
 
 @end
 
@@ -22,7 +22,7 @@
 
 
 
-- (id)initWithUserInfo:(CPUIModelUserInfo *)tempUserInfo
+- (id)initWithUserInfo:(ContactsModel *)tempUserInfo
 {
     self = [super init];
     if (self) {
@@ -45,8 +45,8 @@
     UIView *tableviewHeaderView = [[UIView alloc] initWithFrame:CGRectMake(0.f, 0.f, self.screenWidth, 90.f)];
     
     UIImageView *head = [[UIImageView alloc] initWithFrame:CGRectMake(10.f, 10.f, 70.f, 70.f)];
-    if (self.userInfo.headerPath.length > 0) {
-        [head setImage:[UIImage imageWithContentsOfFile:self.userInfo.headerPath]];
+    if (self.userInfo.avatarPath.length > 0) {
+        [head setImage:[UIImage imageWithContentsOfFile:self.userInfo.avatarPath]];
         head.layer.masksToBounds = YES;
         head.layer.cornerRadius = 35.f;
         head.layer.borderColor = [[UIColor whiteColor] CGColor];
@@ -58,7 +58,7 @@
     [tableviewHeaderView addSubview:head];
     
     UILabel *nickName = [[UILabel alloc] initWithFrame:CGRectMake(CGRectGetMaxX(head.frame)+16.f, CGRectGetMidY(head.frame)-12.f,self.screenWidth-CGRectGetMaxX(head.frame)-10.f , 24.f)];
-    nickName.text = self.userInfo.nickName;
+    nickName.text = self.userInfo.userName;
     nickName.backgroundColor = [UIColor clearColor];
     [tableviewHeaderView addSubview:nickName];
     
@@ -97,8 +97,14 @@
 
 - (void)beginChat
 {
-    [self showProgressWithText:@"正在发起聊天..."];
-    [[CPUIModelManagement sharedInstance] createConversationWithUsers:[NSArray arrayWithObject:self.userInfo] andMsgGroups:nil andType:CREATE_CONVER_TYPE_COMMON];
+    CPUIModelUserInfo *tempUserInfo = [self getUserInfoByModelID:self.userInfo.modelID];
+    if (tempUserInfo) {
+        [self showProgressWithText:@"正在发起聊天..."];
+        [[CPUIModelManagement sharedInstance] createConversationWithUsers:[NSArray arrayWithObject:self.userInfo] andMsgGroups:nil andType:CREATE_CONVER_TYPE_COMMON];
+    }else {
+        [self showProgressWithText:@"发起聊天失败" withDelayTime:2.f];
+    }
+
 }
 
 - (void)backButtonTaped
@@ -106,7 +112,17 @@
     [self.navigationController popViewControllerAnimated:YES];
 }
 
-#pragma mark Observer
+#pragma mark - Data
+- (CPUIModelUserInfo *)getUserInfoByModelID:(NSInteger)modelID
+{
+    for (CPUIModelUserInfo *userInfo in [CPUIModelManagement sharedInstance].friendArray) {
+        if ([userInfo.userInfoID integerValue] == modelID) {
+            return userInfo;
+        }
+    }
+    return nil;
+}
+#pragma mark - Observer
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
 {
     
@@ -171,13 +187,13 @@
         {
             cell.textLabel.text = indexPath.row == 0 ? @"性别":@"地区";
             NSString *sexTitle = [self.userInfo.sex integerValue] == 1 ? @"男" : @"女";
-            cell.detailTextLabel.text = indexPath.row == 0 ? sexTitle:self.userInfo.citys;
+            cell.detailTextLabel.text = indexPath.row == 0 ? sexTitle:self.userInfo.cityName;
         }
             break;
         case 1:
         {
             cell.textLabel.text = @"个性签名";
-            cell.detailTextLabel.text = self.userInfo.threeSizes;
+            cell.detailTextLabel.text = self.userInfo.sign;
         }
             break;
         default:

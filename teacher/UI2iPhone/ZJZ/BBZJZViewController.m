@@ -121,7 +121,7 @@
         //[_messageListTableSearchBar setScopeBarBackgroundImage:[UIImage imageNamed:@"ZJZSearch"]];
     }
     */
-    self.view.backgroundColor = [UIColor colorWithRed:242/255.f green:236/255.f blue:230/255.f alpha:1.f];
+    //self.view.backgroundColor = [UIColor colorWithRed:242/255.f green:236/255.f blue:230/255.f alpha:1.f];
 }
 
 -(void) viewWillAppear:(BOOL)animated{
@@ -317,6 +317,7 @@
         tempModel.mobile = model.mobileNumber;
         //tempModel.uid = [infoDic objectForKey:@"uid"];
         tempModel.userName = model.nickName;
+        tempModel.sex = model.sex;
         //是否激活
         NSLog(@"%d",[model.sex integerValue]);
         tempModel.isActive = [model.sex integerValue] == 0 ? NO : YES;

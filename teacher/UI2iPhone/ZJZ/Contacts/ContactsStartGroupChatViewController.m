@@ -435,13 +435,13 @@ NSInteger nickNameSort(CPUIModelUserInfo *user1, CPUIModelUserInfo *user2, void 
     title.backgroundColor = [UIColor clearColor];
     title.font = [UIFont boldSystemFontOfSize:14.f];
     title.textColor = [UIColor lightGrayColor];
-    title.text = @"手心网家长用户";
+    title.text = @"手心网用户";
     [sectionView addSubview:title];
     return sectionView;
 }
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
 {
-    return @"手心网家长用户";
+    return @"手心网用户";
 }
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
