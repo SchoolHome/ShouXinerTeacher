@@ -41,6 +41,7 @@
 
 -(void) viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
+    [[PalmUIManagement sharedInstance] addObserver:self forKeyPath:@"customerServiceTel" options:0 context:nil];
 }
 
 -(void) viewDidAppear:(BOOL)animated{
@@ -61,6 +62,7 @@
 -(void) viewDidDisappear:(BOOL)animated{
     [super viewDidDisappear:animated];
     [[CPUIModelManagement sharedInstance ] removeObserver:self forKeyPath:@"loginCode"];
+    [[PalmUIManagement sharedInstance] removeObserver:self forKeyPath:@"customerServiceTel"];
 }
 
 -(void) keyboardWillShow : (NSNotification *)not{
@@ -217,9 +219,19 @@
 }
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context{
-    if ([@"loginCode" isEqualToString:keyPath]){
+    if ([keyPath isEqualToString:@"customerServiceTel"]) {
+        NSDictionary *resultDic = [[PalmUIManagement sharedInstance] customerServiceTel];
+        if ([resultDic[@"hasError"] integerValue] == 0) {
+            [self closeProgress];
+            NSMutableString * str=[[NSMutableString alloc] initWithFormat:@"tel:%@",resultDic[@"data"][@"number"]];
+            UIWebView * callWebview = [[UIWebView alloc] init];
+            [callWebview loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:str]]];
+            [self.view addSubview:callWebview];
+        }else{
+            [self showProgressWithText:resultDic[@"errorMessage"] withDelayTime:2];
+        }
+    }else if ([@"loginCode" isEqualToString:keyPath]){
         NSInteger login_code_int = [CPUIModelManagement sharedInstance].loginCode;
-        
         if(login_code_int == 0){
             if (![PalmUIManagement sharedInstance].loginResult.recommend && ![PalmUIManagement sharedInstance].loginResult.force) {
                 if (![PalmUIManagement sharedInstance].loginResult.activated) {
@@ -292,6 +304,8 @@
         [self.navigationController pushViewController:forgotVC animated:YES];
     }else if(buttonIndex == 1){
         //拨打电话
+        [self showProgressWithText:@"正在为您联系空闲客服..."];
+        [[PalmUIManagement sharedInstance] getCustomerServiceTelNumber];
     }
     [actionSheet dismissWithClickedButtonIndex:buttonIndex animated:YES];
 }

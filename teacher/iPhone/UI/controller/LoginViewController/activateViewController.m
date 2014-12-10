@@ -170,9 +170,9 @@
         [self.telPhone setPlaceholder:@"输入手机号"];
         [self.telPhone setUserInteractionEnabled:YES];
     }
-    
+    height = height + 60.f;
     UIButton *activateButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    activateButton.frame = CGRectMake((320.0f - 272.0f)/2.0f, self.screenHeight - 70.0f *2, 272.0f, 45.0f);
+    activateButton.frame = CGRectMake((self.view.frame.size.width - 272.0f)/2.0f, height, 272.0f, 45.0f);
     [activateButton setImage:[UIImage imageNamed:@"ActivateButton"] forState:UIControlStateNormal];
     [activateButton setImage:[UIImage imageNamed:@"ActivateButtonPress"] forState:UIControlStateHighlighted];
     [activateButton addTarget:self action:@selector(clickActivate) forControlEvents:UIControlEventTouchUpInside];
