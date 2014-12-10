@@ -51,7 +51,7 @@
         NSString *urlStr = @"";
         self.type = kGetGroupTopic;
         if (type == 2) {
-            urlStr = [NSString stringWithFormat:@"http://%@/mapi/getTopicInfoList?groupid=%d&ts=%d&offset=%d&size=%dtype=2",K_HOST_NAME_OF_PALM_SERVER,groupID,timeStamp,offset,limit];
+            urlStr = [NSString stringWithFormat:@"http://%@/mapi/getTopicInfoList?groupid=%d&ts=%d&offset=%d&size=%d&type=2",K_HOST_NAME_OF_PALM_SERVER,groupID,timeStamp,offset,limit];
         }else{
             urlStr = [NSString stringWithFormat:@"http://%@/mapi/getTopicInfoList?groupid=%d&ts=%d&offset=%d&size=%d",K_HOST_NAME_OF_PALM_SERVER,groupID,timeStamp,offset,limit];
         }

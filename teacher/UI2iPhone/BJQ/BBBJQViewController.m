@@ -65,6 +65,7 @@
                     _currentGroup = bjDropdownView.listData[0];
                     [titleButton setTitle:_currentGroup.alias forState:UIControlStateNormal];
                 }
+                [PalmUIManagement sharedInstance].currentGroupInfo = _currentGroup;
                 [bjqTableView triggerPullToRefresh];
             }
         }else{
