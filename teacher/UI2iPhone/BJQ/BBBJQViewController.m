@@ -39,6 +39,8 @@
 //如果为2则获取作业类型，否则取全部类型数据
 @property (nonatomic) int type;
 
+@property(nonatomic,strong) BBBaseTableViewCell *deleteCell;
+
 @property (nonatomic,strong) NSString *videoFilePath;
 -(void) playVideo : (NSString *) videoPath;
 -(void) needRefresh;
@@ -1028,7 +1030,16 @@
 }
 
 -(void) bbBaseTableViewCell:(BBBaseTableViewCell *)cell deleteButtonTaped:(UIButton *)sender{
-    [[PalmUIManagement sharedInstance] deleteTopic:[cell.data.topicid longLongValue]];
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"删除" message:@"是否删除" delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"确定", nil];
+    alert.delegate = self;
+    self.deleteCell = cell;
+    [alert show];
+}
+
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
+    if (buttonIndex != 0) {
+        [[PalmUIManagement sharedInstance] deleteTopic:[self.deleteCell.data.topicid longLongValue]];
+    }
 }
 
 -(void) bbBaseTableViewCell:(BBBaseTableViewCell *)cell playVideoTaped:(EGOImageButton *)sender{
