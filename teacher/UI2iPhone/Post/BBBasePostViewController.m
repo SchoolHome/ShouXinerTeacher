@@ -123,12 +123,14 @@ viewImageDeletedDelegate>
         
         if (![result[@"hasError"] boolValue]) { // 没错
             self.classModels = [NSArray arrayWithArray:result[@"data"]];
+            /*
             if (self.classModels.count > 0) {
                 self.currentGroup = self.classModels[0];
             }
             [self.postTableview reloadRowsAtIndexPaths:[NSArray arrayWithObject:[NSIndexPath indexPathForRow:0 inSection:0]] withRowAnimation:UITableViewRowAnimationAutomatic];
+             */
         }else{
-            [self showProgressWithText:@"班级列表加载失败" withDelayTime:2.f];
+            //[self showProgressWithText:@"班级列表加载失败" withDelayTime:2.f];
         }
     }
 
@@ -310,7 +312,8 @@ viewImageDeletedDelegate>
     }
     
     if (indexPath.section == 0) {
-        cell.detailTextLabel.text = self.currentGroup.alias;
+        NSLog(@"%@",[PalmUIManagement sharedInstance].currentGroupInfo.alias);
+        cell.detailTextLabel.text = self.currentGroup ? self.currentGroup.alias : [PalmUIManagement sharedInstance].currentGroupInfo.alias;
     }
     
     return cell;
