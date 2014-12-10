@@ -45,12 +45,14 @@
         
         if (![result[@"hasError"] boolValue]) { // 没错
             self.classModels = [NSArray arrayWithArray:result[@"data"]];
+            /*
             if (self.classModels.count > 0) {
                 self.currentGroup = self.classModels[0];
             }
             [self.shareTableview reloadRowsAtIndexPaths:[NSArray arrayWithObject:[NSIndexPath indexPathForRow:0 inSection:0]] withRowAnimation:UITableViewRowAnimationAutomatic];
+             */
         }else{
-            [self showProgressWithText:@"班级列表加载失败" withDelayTime:0.1];
+           // [self showProgressWithText:@"班级列表加载失败" withDelayTime:0.1];
         }
     }else if ([@"publicMessageForwardResult" isEqualToString:keyPath])//转发
     {
@@ -219,7 +221,7 @@
     }
     
     if (indexPath.section == 0) {
-        cell.detailTextLabel.text = self.currentGroup.alias;
+        cell.detailTextLabel.text = self.currentGroup ? self.currentGroup.alias : [PalmUIManagement sharedInstance].currentGroupInfo.alias;
     }
     
     return cell;

@@ -65,6 +65,7 @@
                     _currentGroup = bjDropdownView.listData[0];
                     [titleButton setTitle:_currentGroup.alias forState:UIControlStateNormal];
                 }
+                [PalmUIManagement sharedInstance].currentGroupInfo = _currentGroup;
                 [bjqTableView triggerPullToRefresh];
             }
         }else{
@@ -425,9 +426,9 @@
         weakSelf.isLoading = YES;
         weakSelf.loadStatus = TopicLoadStatusAppend;
         int offset = [weakSelf.allTopicList count];
-        BBTopicModel *model = [weakSelf.allTopicList lastObject];
-        int st = [model.ts intValue];
-        [[PalmUIManagement sharedInstance] getGroupTopic:[weakSelf.currentGroup.groupid intValue] withTimeStamp:st withOffset:offset withLimit:30 withType:weakSelf.type];
+//        BBTopicModel *model = [weakSelf.allTopicList lastObject];
+//        int st = [model.ts intValue];
+        [[PalmUIManagement sharedInstance] getGroupTopic:[weakSelf.currentGroup.groupid intValue] withTimeStamp:1 withOffset:offset withLimit:30 withType:weakSelf.type];
     }];
     
     UIImageView *head = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 320, 147)];
@@ -527,7 +528,12 @@
 -(void)viewWillDisappear:(BOOL)animated{
     [super viewWillDisappear:animated];
     [inputBar endEdit];
-    
+    if (bjDropdownView.unfolded) {
+        [bjDropdownView dismiss];
+    }
+    if (fsDropdownView.unfolded) {
+        [fsDropdownView dismiss];
+    }
     [self removeObservers];
 }
 
@@ -811,6 +817,7 @@
 #pragma mark - BBBJDropdownViewDelegate
 -(void)bbBJDropdownView:(BBBJDropdownView *) dropdownView_ didSelectedAtIndex:(NSInteger) index_{
     _currentGroup = dropdownView_.listData[index_];
+    [PalmUIManagement sharedInstance].currentGroupInfo = _currentGroup;
     [titleButton setTitle:_currentGroup.alias forState:UIControlStateNormal];
     
     [bjqTableView triggerPullToRefresh];
