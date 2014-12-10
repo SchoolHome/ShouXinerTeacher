@@ -178,10 +178,9 @@
         NSArray *array = [NSArray arrayWithArray:[CPUIModelManagement sharedInstance].userMessageGroupList];
         NSMutableArray *arrayM = [[NSMutableArray alloc] initWithCapacity:20];
         for (CPUIModelMessageGroup *g in array) {
-//            if ([g.msgList count] != 0) {
-//                [arrayM addObject:g];
-//            }
-            [arrayM addObject:g];
+            if (([g.msgList count] != 0 && [g isMsgSingleGroup]) || [g isMsgMultiGroup]) {
+                [arrayM addObject:g];
+            }
         }
         [arrayM addObjectsFromArray:[PalmUIManagement sharedInstance].noticeArray];
         _tableviewDisplayDataArray = [NSArray arrayWithArray:arrayM];
@@ -205,10 +204,9 @@
         NSArray *array = [NSArray arrayWithArray:[CPUIModelManagement sharedInstance].userMessageGroupList];
         NSMutableArray *arrayM = [[NSMutableArray alloc] initWithCapacity:10];
         for (CPUIModelMessageGroup *g in array) {
-//            if ([g.msgList count] != 0) {
-//                [arrayM addObject:g];
-//            }
-            [arrayM addObject:g];
+            if (([g.msgList count] != 0 && [g isMsgSingleGroup]) || [g isMsgMultiGroup]) {
+                [arrayM addObject:g];
+            }
         }
         [arrayM addObjectsFromArray:[PalmUIManagement sharedInstance].noticeArray];
         

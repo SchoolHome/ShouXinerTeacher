@@ -97,6 +97,12 @@
                 [self.delegate delectedIndex:self.csView.currentPage];
             }
             self.csView.currentPage = 0;
+        }else if (self.csView.currentPage == 0 && [images count] == 0)
+        {
+            if (self.delegate != nil && [self.delegate respondsToSelector:@selector(delectedIndex:)]) {
+                [self.delegate delectedIndex:0];
+            }
+            [self.navigationController popViewControllerAnimated:YES];
         }
         
         if ([images count] == 0) {
