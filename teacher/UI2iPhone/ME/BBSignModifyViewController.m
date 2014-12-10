@@ -77,6 +77,9 @@
     if (signView.text.length) {
         txtSign = signView.text;
     }
+    if(txtSign.length == 0){
+        txtSign = @"说点什么吧。";
+    }
     [[PalmUIManagement sharedInstance] postUserInfo:nil withMobile:nil withVerifyCode:nil withPasswordOld:nil withPasswordNew:nil withSex:userProfile.sex withSign:txtSign];
 }
 

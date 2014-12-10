@@ -12,7 +12,6 @@
 {
     UITextField *phoneField;
     UITextField *codeField;
-    CPLGModelAccount *account;
 }
 @end
 
@@ -51,8 +50,6 @@
     [check addTarget:self action:@selector(modifySign:) forControlEvents:UIControlEventTouchUpInside];
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:check];
     
-    account = [[CPSystemEngine sharedInstance] accountModel];
-    
     UIImageView *bgImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 15, self.view.frame.size.width, 89)];
     [bgImageView setBackgroundColor:[UIColor whiteColor]];
     [self.view addSubview:bgImageView];
@@ -64,7 +61,7 @@
     [self.view addSubview:title];
     title = nil;
     phoneField = [[UITextField alloc] initWithFrame:CGRectMake(85, 15, self.view.frame.size.width-95, 44)];
-    [phoneField setPlaceholder:account.loginName];
+    [phoneField setPlaceholder:[PalmUIManagement sharedInstance].loginResult.mobile];
     [phoneField setFont:[UIFont systemFontOfSize:14]];
     [phoneField setContentVerticalAlignment:UIControlContentVerticalAlignmentCenter];
     [self.view addSubview:phoneField];
@@ -103,7 +100,7 @@
 
 -(BOOL)verifyMobile:(NSString *)mobile
 {
-    NSString * MOBILE = @"^1(3[0-9]|5[0-35-9]|8[025-9])\\d{8}$";
+    NSString * MOBILE = @"^1\[0-9]{10}$";
     NSPredicate *regextestmobile = [NSPredicate predicateWithFormat:@"SELF MATCHES %@", MOBILE];
     if ([regextestmobile evaluateWithObject:mobile] == YES){
         return YES;
@@ -151,7 +148,7 @@
         NSDictionary *errDic = resultDic[@"data"];
         if ([errDic[@"errno"] integerValue] == 0) {
             [self showProgressWithText:@"更新成功" withDelayTime:2];
-            account.loginName = phoneField.text;
+            [[CPSystemEngine sharedInstance] accountModel].loginName = phoneField.text;
             [self.navigationController popViewControllerAnimated:YES];
         }else{
             [self showProgressWithText:resultDic[@"errorMessage"] withDelayTime:2];

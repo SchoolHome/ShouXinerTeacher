@@ -84,7 +84,8 @@
         BOOL isVibrantion = [[userDefault objectForKey:[NSString stringWithFormat:@"%@_Vibration", account.loginName]] boolValue];
         BOOL isRingalert = [[userDefault objectForKey:[NSString stringWithFormat:@"%@_Ringalert", account.loginName]] boolValue];
         if (indexPath.row == 0) {
-            UISwitch *vibSwith = [[UISwitch alloc] initWithFrame:CGRectMake(cell.contentView.frame.size.width-100, 10, 80, 40)];
+            UISwitch *vibSwith = [[UISwitch alloc] init];
+            vibSwith.center = CGPointMake(cell.contentView.frame.size.width-vibSwith.frame.size.width/2-10, vibSwith.center.y+5);
             [vibSwith addTarget:self action:@selector(vibrationSwitch:) forControlEvents:UIControlEventValueChanged];
             [cell addSubview:vibSwith];
             if (isVibrantion) {
@@ -93,7 +94,8 @@
                 [vibSwith setOn:NO];
             }
         }else{
-            UISwitch *ringSwith = [[UISwitch alloc] initWithFrame:CGRectMake(cell.contentView.frame.size.width-100, 10, 80, 40)];
+            UISwitch *ringSwith = [[UISwitch alloc] init];
+            ringSwith.center = CGPointMake(cell.contentView.frame.size.width-ringSwith.frame.size.width/2-10, ringSwith.center.y+5);
             [ringSwith addTarget:self action:@selector(alertSwitch:) forControlEvents:UIControlEventValueChanged];
             [cell addSubview:ringSwith];
             if (isRingalert) {
