@@ -27,7 +27,7 @@
         title.textColor = [UIColor colorWithHexString:@"#4a7f9d"];
         title.backgroundColor = [UIColor clearColor];
         
-        typeImage = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"state"]];
+        typeImage = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"video"]];
         typeImage.frame = CGRectMake(280.0f, 10.0f, 28.0f, 15.0f);
         [self addSubview:typeImage];
         

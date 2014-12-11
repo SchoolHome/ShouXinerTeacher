@@ -140,7 +140,7 @@ NSDataDetector* sharedReusableDataDetector(NSTextCheckingTypes types)
 	}
     self.automaticallyAddLinksForType = linksType;
     
-	self.onlyCatchTouchesOnLinks = YES;
+	self.onlyCatchTouchesOnLinks = NO;
 	self.userInteractionEnabled = YES;
 	self.contentMode = UIViewContentModeRedraw;
 	[self resetAttributedText];

@@ -434,30 +434,36 @@
     }];
     
     UIImageView *head = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 320, 147)];
-    head.backgroundColor = [UIColor colorWithHexString:@"f2f2f2"];//[UIColor colorWithRed:242/255.f green:236/255.f blue:230/255.f alpha:1.f];
+    head.backgroundColor = [UIColor colorWithHexString:@"f2f2f2"];
     head.userInteractionEnabled = YES;
+    
     
     UIImageView *headImage = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 320, 120)];
     headImage.image = [UIImage imageNamed:@"BBTopBGNew"];
+    headImage.userInteractionEnabled = YES;
     [head addSubview:headImage];
     
+    UITapGestureRecognizer *gesture = [[UITapGestureRecognizer  alloc] initWithTarget:self action:@selector(pointTaped:)];
     UIImageView *scoreImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"BBScoreBG"]];
     scoreImageView.frame = CGRectMake(320.0f - 108.0f, 24.0f, 108.0f, 35.0f);
     scoreImageView.userInteractionEnabled = YES;
-    [head addSubview:scoreImageView];
+    [headImage addSubview:scoreImageView];
     
     point = [[OHAttributedLabel alloc] initWithFrame:CGRectMake(0, 9, 108, 35)];
     point.backgroundColor = [UIColor clearColor];
+    point.userInteractionEnabled = YES;
     [scoreImageView addSubview:point];
     point.text = @"您有 0 积分";
     point.textAlignment = NSTextAlignmentCenter;
     point.font = [UIFont boldSystemFontOfSize:11];
     point.textColor = [UIColor grayColor];
     point.userInteractionEnabled = YES;
-    
-    UITapGestureRecognizer *gesture = [[UITapGestureRecognizer  alloc] initWithTarget:self action:@selector(pointTaped:)];
     [point addGestureRecognizer:gesture];
+//    [head addGestureRecognizer:gesture];
+//    [headImage addGestureRecognizer:gesture];
+    
     bjqTableView.tableHeaderView = head;
+    bjqTableView.tableHeaderView.userInteractionEnabled = YES;
     
 #ifdef IS_TEACHER
     UIButton *addButton = [UIButton buttonWithType:UIButtonTypeCustom];
