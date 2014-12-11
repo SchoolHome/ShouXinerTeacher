@@ -106,7 +106,6 @@
             if (self.delegate != nil && [self.delegate respondsToSelector:@selector(delectedIndex:)]) {
                 [self.delegate delectedIndex:0];
             }
-            [self.navigationController popViewControllerAnimated:YES];
         }
         
         if ([images count] == 0) {

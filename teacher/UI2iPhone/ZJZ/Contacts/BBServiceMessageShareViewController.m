@@ -269,7 +269,8 @@
     }
     
     [self showProgressWithText:@"正在提交..."];
-    [[PalmUIManagement sharedInstance] postPublicMessageForward:shareModel.mid  withGroupID:self.currentGroup.groupid.integerValue withMessage:thingsTextView.text];
+    [[PalmUIManagement sharedInstance] postPublicMessageForward:shareModel.mid  withGroupID:self.currentGroup ? self.currentGroup.groupid.integerValue :
+     [PalmUIManagement sharedInstance].currentGroupInfo.groupid.integerValue withMessage:thingsTextView.text];
 }
 #pragma mark - ChooseClassViewControllerDelegate
 - (void)classChoose:(NSInteger)index
