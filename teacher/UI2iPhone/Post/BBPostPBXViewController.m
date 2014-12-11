@@ -231,7 +231,7 @@
     NSArray *selectedStudents = (NSArray *)[noti object];
     
     selectedStuArray = [[NSMutableArray alloc] initWithArray:selectedStudents];
-    //selectedStuStr = @"";
+    selectedStuStr = @"";
     NSMutableString *studentListText = [NSMutableString string];
     for ( int i = 0; i< selectedStudents.count; i++) {
         BBStudentModel *tempModel = [selectedStudents objectAtIndex:i];
