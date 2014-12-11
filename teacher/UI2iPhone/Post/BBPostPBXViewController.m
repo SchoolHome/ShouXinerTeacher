@@ -532,6 +532,11 @@
         [super tableView:tableView didSelectRowAtIndexPath:indexPath];
     }
 }
+
+- (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView
+{
+    [super scrollViewWillBeginDragging:scrollView];
+}
 #pragma mark - ActionSheet
 - (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
 {
