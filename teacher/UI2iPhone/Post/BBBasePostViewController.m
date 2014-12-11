@@ -274,6 +274,8 @@ viewImageDeletedDelegate>
             {
                 cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:titleCellIden];
                 cell.textLabel.text = @"当前班级";
+                cell.textLabel.font = [UIFont systemFontOfSize:14.f];
+                cell.detailTextLabel.font = [UIFont systemFontOfSize:14.f];
                 cell.textLabel.backgroundColor = [UIColor blackColor];
                 cell.detailTextLabel.textColor = [UIColor colorWithHexString:@"#4a7f9d"];
                 cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
@@ -286,6 +288,7 @@ viewImageDeletedDelegate>
                 
                 thingsTextView = [[UIPlaceHolderTextView alloc] initWithFrame:CGRectMake(ThingsTextViewSpaceing, ThingsTextViewSpaceing,CGRectGetWidth(cell.contentView.frame)-2*ThingsTextViewSpaceing-20, ThingsTextViewHeight)];
                 thingsTextView.placeholder = _placeholder;
+                thingsTextView.font = [UIFont systemFontOfSize:14.f];
                 thingsTextView.backgroundColor = [UIColor clearColor];
                 [cell.contentView addSubview:thingsTextView];
                 

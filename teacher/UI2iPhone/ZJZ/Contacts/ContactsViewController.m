@@ -89,10 +89,13 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     [[CPUIModelManagement sharedInstance] addObserver:self forKeyPath:@"createMsgGroupTag" options:0 context:nil];
+    //otherUserProfile
+    [[PalmUIManagement sharedInstance] addObserver:self forKeyPath:@"otherUserProfile" options:0 context:nil];
 }
 - (void)viewWillDisappear:(BOOL)animated
 {
     [[CPUIModelManagement sharedInstance] removeObserver:self forKeyPath:@"createMsgGroupTag"];
+    [[PalmUIManagement sharedInstance] removeObserver:self forKeyPath:@"otherUserProfile"];
 }
 - (void)viewDidLoad
 {
@@ -179,6 +182,16 @@
         }else if (resultCodeInt == RESPONSE_CODE_ERROR) {
             NSString *errorStr = (NSString *)[[CPUIModelManagement sharedInstance].responseActionDic objectForKey:response_action_res_desc];
             CPLogInfo(@"%@",errorStr);
+        }
+    }else if ([keyPath isEqualToString:@"otherUserProfile"])
+    {
+        NSDictionary *dic = [PalmUIManagement sharedInstance].otherUserProfile;
+        if ([dic objectForKey:ASI_REQUEST_HAS_ERROR]) {
+            [self showProgressWithText:[dic objectForKey:ASI_REQUEST_ERROR_MESSAGE] withDelayTime:2];
+        }else{
+            [self closeProgress];
+            //BBContactPersonDetailViewController *personDetail = [[BBContactPersonDetailViewController alloc] initWithUserInfo:dic];
+            //[self.navigationController pushViewController:personDetail animated:YES];
         }
     }
 }
@@ -315,19 +328,16 @@
 {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     ContactsModel *model = self.contactsListSection[indexPath.section][indexPath.row];
-    CPUIModelUserInfo *userInfo = [self getUserInfoByModelID:model.modelID];
-    if (!userInfo) {
-        [self showProgressWithText:@"未获取到信息" withDelayTime:3];
-        return;
-    }
-    
-    if ([userInfo.sex integerValue] == 0) {
+
+    if (!model.isActive) {
         [self showProgressWithText:@"当前用户没有激活,请先邀请他加入手心" withDelayTime:3];
         return;
     }
     
-    BBContactPersonDetailViewController *personDetail = [[BBContactPersonDetailViewController alloc] initWithUserInfo:userInfo];
-    [self.navigationController pushViewController:personDetail animated:YES];
+    [self showProgressWithText:@"正在获取..."];
+    [[PalmUIManagement sharedInstance] getUserProfileWithUID:[NSString stringWithFormat:@"%d",model.modelID]];
+    
+
 }
 #pragma mark UItableviewDatasouce
 -(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section

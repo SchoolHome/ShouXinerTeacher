@@ -62,12 +62,14 @@
     [backButton addTarget:self action:@selector(backButtonTaped) forControlEvents:UIControlEventTouchUpInside];
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:backButton];
     
+    /*
     // right
     UIButton *detail = [UIButton buttonWithType:UIButtonTypeCustom];
     [detail setFrame:CGRectMake(0.f, 7.f, 24.f, 24.f)];
     [detail setBackgroundImage:[UIImage imageNamed:@"user_alt"] forState:UIControlStateNormal];
     [detail addTarget:self action:@selector(detailButtonTaped) forControlEvents:UIControlEventTouchUpInside];
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:detail];
+    */
     
     _detailScrollview = [[UIScrollView alloc] initWithFrame:CGRectMake(15.f, 0.f, self.screenWidth-30.f, self.screenHeight-70.f)];
     _detailScrollview.showsVerticalScrollIndicator = NO;

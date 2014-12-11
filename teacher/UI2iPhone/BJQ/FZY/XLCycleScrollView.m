@@ -106,6 +106,10 @@
         [_scrollView addSubview:v];
     }
     
+    if ([_delegate respondsToSelector:@selector(didClickPage:atIndex:)]) {
+        [_delegate didClickPage:self atIndex:_curPage];
+    }
+    
     [_scrollView setContentOffset:CGPointMake(_scrollView.frame.size.width, 0)];
 }
 

@@ -485,10 +485,12 @@
             if (!cell) {
                 cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:studentIden];
                 cell.detailTextLabel.numberOfLines = 100;
+                cell.textLabel.font = [UIFont systemFontOfSize:14.f];
                 cell.detailTextLabel.font = [UIFont systemFontOfSize:14.f];
                 cell.textLabel.backgroundColor = [UIColor blackColor];
                 cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
                 cell.textLabel.text = @"@点名表扬:";
+                
             }
             cell.detailTextLabel.text = selectedStuStr;
             return cell;
@@ -501,6 +503,8 @@
                 cell.textLabel.backgroundColor = [UIColor blackColor];
                 cell.detailTextLabel.textColor = [UIColor colorWithHexString:@"#4a7f9d"];
                 cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+                cell.textLabel.font = [UIFont systemFontOfSize:14.f];
+                cell.detailTextLabel.font = [UIFont systemFontOfSize:14.f];
             }
             cell.detailTextLabel.text = selectedRangeStr;
             return cell;

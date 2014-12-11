@@ -34,7 +34,8 @@ BBBaseTableViewCellDelegate,
 BBInputViewDelegate,
 UserMessageImageDelegate,
 UIImagePickerControllerDelegate,
-UINavigationControllerDelegate>
+UINavigationControllerDelegate,
+UIAlertViewDelegate>
 {
     UIButton *titleButton;
     EGOImageView *avatar;
