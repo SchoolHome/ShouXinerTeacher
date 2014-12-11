@@ -29,6 +29,8 @@
     if (self) {
         self.dataSource = images;
         self.selectedIndex = index;
+        
+        self.title = [NSString stringWithFormat:@"%d/%d",index+1,images.count];
     }
     return self;
 }
@@ -92,11 +94,18 @@
                 [self.delegate delectedIndex:self.csView.currentPage];
             }
             self.csView.currentPage -= 1;
+            self.title = [NSString stringWithFormat:@"%d/%d",self.csView.currentPage+1,images.count];
         }else if (self.csView.currentPage == 0 && [images count] > 0 ){
             if (self.delegate != nil && [self.delegate respondsToSelector:@selector(delectedIndex:)]) {
                 [self.delegate delectedIndex:self.csView.currentPage];
             }
             self.csView.currentPage = 0;
+            self.title = [NSString stringWithFormat:@"1/%d",images.count];
+        }else if (self.csView.currentPage == 0 && [images count] == 0)
+        {
+            if (self.delegate != nil && [self.delegate respondsToSelector:@selector(delectedIndex:)]) {
+                [self.delegate delectedIndex:0];
+            }
         }
         
         if ([images count] == 0) {
@@ -122,6 +131,12 @@
 - (void)didReceiveMemoryWarning{
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+- (void)didClickPage:(XLCycleScrollView *)csView atIndex:(NSInteger)index;
+{
+    NSMutableArray *images = [[NSMutableArray alloc] initWithArray:self.dataSource];
+    self.title = [NSString stringWithFormat:@"%d/%d",index+1,images.count];
 }
 
 @end

@@ -121,7 +121,7 @@
         //[_messageListTableSearchBar setScopeBarBackgroundImage:[UIImage imageNamed:@"ZJZSearch"]];
     }
     */
-    self.view.backgroundColor = [UIColor colorWithRed:242/255.f green:236/255.f blue:230/255.f alpha:1.f];
+    //self.view.backgroundColor = [UIColor colorWithRed:242/255.f green:236/255.f blue:230/255.f alpha:1.f];
 }
 
 -(void) viewWillAppear:(BOOL)animated{
@@ -178,10 +178,9 @@
         NSArray *array = [NSArray arrayWithArray:[CPUIModelManagement sharedInstance].userMessageGroupList];
         NSMutableArray *arrayM = [[NSMutableArray alloc] initWithCapacity:20];
         for (CPUIModelMessageGroup *g in array) {
-//            if ([g.msgList count] != 0) {
-//                [arrayM addObject:g];
-//            }
-            [arrayM addObject:g];
+            if (([g.msgList count] != 0 && [g isMsgSingleGroup]) || [g isMsgMultiGroup]) {
+                [arrayM addObject:g];
+            }
         }
         [arrayM addObjectsFromArray:[PalmUIManagement sharedInstance].noticeArray];
         _tableviewDisplayDataArray = [NSArray arrayWithArray:arrayM];
@@ -205,10 +204,9 @@
         NSArray *array = [NSArray arrayWithArray:[CPUIModelManagement sharedInstance].userMessageGroupList];
         NSMutableArray *arrayM = [[NSMutableArray alloc] initWithCapacity:10];
         for (CPUIModelMessageGroup *g in array) {
-//            if ([g.msgList count] != 0) {
-//                [arrayM addObject:g];
-//            }
-            [arrayM addObject:g];
+            if (([g.msgList count] != 0 && [g isMsgSingleGroup]) || [g isMsgMultiGroup]) {
+                [arrayM addObject:g];
+            }
         }
         [arrayM addObjectsFromArray:[PalmUIManagement sharedInstance].noticeArray];
         
@@ -313,12 +311,13 @@
     NSMutableArray *tempParentsArray = [[NSMutableArray alloc] init];
     for (CPUIModelUserInfo *model in [CPUIModelManagement sharedInstance].friendArray) {
         ContactsModel *tempModel = [[ContactsModel alloc] init];
-        tempModel.modelID = [model.userInfoID integerValue];
+        tempModel.modelID = [model.lifeStatus integerValue];
         tempModel.avatarPath = model.headerPath;
         //tempModel.jid = model.
         tempModel.mobile = model.mobileNumber;
         //tempModel.uid = [infoDic objectForKey:@"uid"];
         tempModel.userName = model.nickName;
+        tempModel.sex = model.sex;
         //是否激活
         NSLog(@"%d",[model.sex integerValue]);
         tempModel.isActive = [model.sex integerValue] == 0 ? NO : YES;

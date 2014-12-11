@@ -76,6 +76,7 @@
         [cell setSelectionStyle:UITableViewCellSelectionStyleGray];
     }
     NSDictionary *infoDic = [[settingList objectAtIndex:indexPath.section] objectAtIndex:indexPath.row];
+    [cell.textLabel setFont:[UIFont systemFontOfSize:16.f]];
     [cell.textLabel setText:[infoDic objectForKey:@"title"]];
     [cell.imageView setImage:[UIImage imageNamed:[infoDic objectForKey:@"icon"]]];
     if (indexPath.section == 0) {

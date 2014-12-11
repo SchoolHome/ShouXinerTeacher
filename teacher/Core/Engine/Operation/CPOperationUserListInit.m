@@ -52,6 +52,7 @@
 //                        [dbUserInfo setHeaderPath:[NSString stringWithFormat:@"%@%@",SERVER_IMG_URL_PREFIX,ptUserInfo.icon]];
                     }
                     [frisArray addObject:dbUserInfo];
+                    NSLog(@"----PTuserName == %@,PTuid == %@\n---DBuserName == %@,DB uid == %@",ptUserInfo.nickName,ptUserInfo.lifeStatus,dbUserInfo.nickName,dbUserInfo.lifeStatus);
                 }
                 [[[CPSystemEngine sharedInstance] dbManagement] initUsersWithUserArray:frisArray 
                                                                         andAccountName:[[[CPSystemEngine sharedInstance] accountModel] loginName]];
@@ -61,6 +62,7 @@
                     [[CPSystemEngine sharedInstance] backupSystemInfoWithFrisTimeStamp:friendTimeStamp];
                     [[CPSystemEngine sharedInstance] setCachedMyFriendTimeStamp:nil];
                 }
+                
                 [[[CPSystemEngine sharedInstance] userManager] initUserList];
                 [[[CPSystemEngine sharedInstance] msgManager] filterMessageGroupByFriendArray];
                 [[[CPSystemEngine sharedInstance] userManager] initSysUserConver];

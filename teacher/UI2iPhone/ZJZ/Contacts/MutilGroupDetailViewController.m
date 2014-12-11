@@ -30,11 +30,12 @@
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
 {
-    [self closeProgress];
+    
     if([keyPath isEqualToString:@"quitGroupDic"]){
         if ([[[CPUIModelManagement sharedInstance].quitGroupDic objectForKey:group_manage_dic_res_code]integerValue]== RESPONSE_CODE_SUCESS) {
             [[HPTopTipView shareInstance] showMessage:@"操作成功" duration:2.0f];
             [self.navigationController popToRootViewControllerAnimated:YES];
+            [self closeProgress];
         }else {
             [self showProgressWithText:[[CPUIModelManagement sharedInstance].quitGroupDic objectForKey:group_manage_dic_res_desc] withDelayTime:3.f];
 

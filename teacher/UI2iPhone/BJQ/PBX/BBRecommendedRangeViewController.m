@@ -71,7 +71,7 @@
 {
     [super viewDidLoad];
     
-    self.view.backgroundColor = [UIColor colorWithRed:242/255.f green:236/255.f blue:230/255.f alpha:1.f];
+    //self.view.backgroundColor = [UIColor colorWithRed:242/255.f green:236/255.f blue:230/255.f alpha:1.f];
     
     //Tableview
     rangeTableview = [[UITableView alloc] initWithFrame:CGRectMake(0.f, 0.f, 320.f, [UIScreen mainScreen].bounds.size.height-62.f ) style:UITableViewStylePlain];

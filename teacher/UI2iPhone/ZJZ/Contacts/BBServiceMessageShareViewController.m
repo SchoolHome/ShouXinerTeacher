@@ -193,6 +193,7 @@
                 
                 thingsTextView = [[UIPlaceHolderTextView alloc] initWithFrame:CGRectMake(ThingsTextViewSpaceing, ThingsTextViewSpaceing,self.screenWidth-2*ThingsTextViewSpaceing-20.f, ThingsTextViewHeight)];
                 thingsTextView.placeholder = @"想说的话...";
+                thingsTextView.font = [UIFont systemFontOfSize:14.f];
                 thingsTextView.backgroundColor = [UIColor clearColor];
                 [cell.contentView addSubview:thingsTextView];
                 
@@ -268,7 +269,8 @@
     }
     
     [self showProgressWithText:@"正在提交..."];
-    [[PalmUIManagement sharedInstance] postPublicMessageForward:shareModel.mid  withGroupID:self.currentGroup.groupid.integerValue withMessage:thingsTextView.text];
+    [[PalmUIManagement sharedInstance] postPublicMessageForward:shareModel.mid  withGroupID:self.currentGroup ? self.currentGroup.groupid.integerValue :
+     [PalmUIManagement sharedInstance].currentGroupInfo.groupid.integerValue withMessage:thingsTextView.text];
 }
 #pragma mark - ChooseClassViewControllerDelegate
 - (void)classChoose:(NSInteger)index

@@ -176,7 +176,7 @@ NSInteger nickNameSort(CPUIModelUserInfo *user1, CPUIModelUserInfo *user2, void 
     NSMutableArray *usefulUserInfos = [[NSMutableArray alloc] init];
     NSArray *tempFriends = [[NSArray alloc] initWithArray:[CPUIModelManagement sharedInstance].friendArray];
     for (CPUIModelUserInfo *userInfo in tempFriends) {
-        if (userInfo) {
+        if (userInfo && ![userInfo.nickName isKindOfClass:[NSNull class]] && userInfo.nickName.length) {
             [usefulUserInfos addObject:userInfo];
         }
     }
@@ -252,8 +252,9 @@ NSInteger nickNameSort(CPUIModelUserInfo *user1, CPUIModelUserInfo *user2, void 
      [[HPTopTipView shareInstance] showMessage:[tempDic objectForKey:ASI_REQUEST_ERROR_MESSAGE]];
      }
      */
-    [self closeProgress];
+    
     if ([keyPath isEqualToString:@"createMsgGroupTag"]) {
+        [self closeProgress];
         NSInteger resultCodeInt = [CPUIModelManagement sharedInstance].createMsgGroupTag;
         // 成功
         if(resultCodeInt == RESPONSE_CODE_SUCESS){
@@ -266,12 +267,21 @@ NSInteger nickNameSort(CPUIModelUserInfo *user1, CPUIModelUserInfo *user2, void 
         }
     }else if ([keyPath isEqualToString:@"addGroupMemDic"])
     {
-        for (id viewController in self.navigationController.viewControllers) {
-            if ([viewController isKindOfClass:[MutilGroupDetailViewController class]]) {
-                [(MutilGroupDetailViewController *)viewController refreshMsgGroup];
-                [self.navigationController popToViewController:viewController animated:YES];
+        NSDictionary *result = [CPUIModelManagement sharedInstance].addGroupMemDic;
+        if ([[result objectForKey:group_manage_dic_res_code] integerValue] == RES_CODE_SUCESS) {
+            [self closeProgress];
+            for (id viewController in self.navigationController.viewControllers) {
+                if ([viewController isKindOfClass:[MutilGroupDetailViewController class]]) {
+                    [(MutilGroupDetailViewController *)viewController refreshMsgGroup];
+                    [self.navigationController popToViewController:viewController animated:YES];
+                }
             }
+        }else
+        {
+            [self showProgressWithText:result[group_manage_dic_res_desc] withDelayTime:2.f];
+            [self.navigationController popViewControllerAnimated:YES];
         }
+
     }
 }
 #pragma mark ContactsStartGroupChatViewController
@@ -425,13 +435,13 @@ NSInteger nickNameSort(CPUIModelUserInfo *user1, CPUIModelUserInfo *user2, void 
     title.backgroundColor = [UIColor clearColor];
     title.font = [UIFont boldSystemFontOfSize:14.f];
     title.textColor = [UIColor lightGrayColor];
-    title.text = @"手心网家长用户";
+    title.text = @"手心网用户";
     [sectionView addSubview:title];
     return sectionView;
 }
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
 {
-    return @"手心网家长用户";
+    return @"手心网用户";
 }
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {

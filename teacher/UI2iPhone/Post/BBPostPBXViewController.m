@@ -51,7 +51,7 @@
         }else
         {
             [self closeProgress];
-            NSDictionary *students = (NSDictionary *)[[[dic objectForKey:ASI_REQUEST_DATA] objectForKey:@"list"] objectForKey:[self.currentGroup.groupid stringValue]];
+            NSDictionary *students = (NSDictionary *)[[[dic objectForKey:ASI_REQUEST_DATA] objectForKey:@"list"] objectForKey:[[self getGroupID] stringValue]];
             
             if (students && [students isKindOfClass:[NSDictionary class]]) {
                 BBStudentsListViewController *studentListVC = [[BBStudentsListViewController alloc] initWithSelectedStudents:selectedStuArray withStudentModel:students];
@@ -92,7 +92,7 @@
                 }
                 
                 
-                [[PalmUIManagement sharedInstance] postPBX:[self.currentGroup.groupid intValue] withTitle:@"拍表现" withContent:[self getThingsText] withAttach:attach withAward:[self getAward] withToHomePage:hasHomePage withToUpGroup:hasTopGroup];
+                [[PalmUIManagement sharedInstance] postPBX:[[self getGroupID] intValue] withTitle:@"拍表现" withContent:[self getThingsText] withAttach:attach withAward:[self getAward] withToHomePage:hasHomePage withToUpGroup:hasTopGroup];
             }
             
         }else{  // 上传失败
@@ -156,7 +156,7 @@
                         hasHomePage = YES;
                     }
                 }
-                [[PalmUIManagement sharedInstance] postPBX:[self.currentGroup.groupid intValue] withTitle:@"拍表现" withContent:[self getThingsText] withAttach:attach withAward:[self getAward] withToHomePage:hasHomePage withToUpGroup:hasTopGroup];
+                [[PalmUIManagement sharedInstance] postPBX:[[self getGroupID] intValue] withTitle:@"拍表现" withContent:[self getThingsText] withAttach:attach withAward:[self getAward] withToHomePage:hasHomePage withToUpGroup:hasTopGroup];
             }
         }
     }
@@ -300,7 +300,7 @@
 {
     [self closeThingsText];
     [self showProgressWithText:@"正在上传"];
-    [[PalmUIManagement sharedInstance] updateUserVideoFile:[NSURL fileURLWithPath:[self getTempSaveVideoPath]] withGroupID:[self.currentGroup.groupid intValue]];
+    [[PalmUIManagement sharedInstance] updateUserVideoFile:[NSURL fileURLWithPath:[self getTempSaveVideoPath]] withGroupID:[[self getGroupID] intValue]];
 }
 
 - (void)sendImages
@@ -321,7 +321,7 @@
         if (image) {
             image = [self imageWithImage:image];
             NSData *data = UIImageJPEGRepresentation(image, 0.5f);
-            [[PalmUIManagement sharedInstance] updateUserImageFile:data withGroupID:[self.currentGroup.groupid intValue]];
+            [[PalmUIManagement sharedInstance] updateUserImageFile:data withGroupID:[[self getGroupID] intValue]];
         }
     }
     
@@ -341,7 +341,7 @@
         }
         
         
-        [[PalmUIManagement sharedInstance] postPBX:[self.currentGroup.groupid intValue] withTitle:@"拍表现" withContent:[self getThingsText] withAttach:@"" withAward:[self getAward] withToHomePage:hasHomePage withToUpGroup:hasTopGroup];
+        [[PalmUIManagement sharedInstance] postPBX:[self getGroupID].intValue withTitle:@"拍表现" withContent:[self getThingsText] withAttach:@"" withAward:[self getAward] withToHomePage:hasHomePage withToUpGroup:hasTopGroup];
     }
     
     [self closeThingsText];
@@ -485,10 +485,12 @@
             if (!cell) {
                 cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:studentIden];
                 cell.detailTextLabel.numberOfLines = 100;
+                cell.textLabel.font = [UIFont systemFontOfSize:14.f];
                 cell.detailTextLabel.font = [UIFont systemFontOfSize:14.f];
                 cell.textLabel.backgroundColor = [UIColor blackColor];
                 cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
                 cell.textLabel.text = @"@点名表扬:";
+                
             }
             cell.detailTextLabel.text = selectedStuStr;
             return cell;
@@ -501,6 +503,8 @@
                 cell.textLabel.backgroundColor = [UIColor blackColor];
                 cell.detailTextLabel.textColor = [UIColor colorWithHexString:@"#4a7f9d"];
                 cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+                cell.textLabel.font = [UIFont systemFontOfSize:14.f];
+                cell.detailTextLabel.font = [UIFont systemFontOfSize:14.f];
             }
             cell.detailTextLabel.text = selectedRangeStr;
             return cell;
@@ -516,7 +520,7 @@
     if (indexPath.section == 2) {
         if (indexPath.row == 0) {
             [tableView deselectRowAtIndexPath:indexPath animated:NO];
-            [[PalmUIManagement sharedInstance] getGroupStudents:[self.currentGroup.groupid stringValue]];
+            [[PalmUIManagement sharedInstance] getGroupStudents:[[self getGroupID] stringValue]];
         }else
         {
             [tableView deselectRowAtIndexPath:indexPath animated:NO];

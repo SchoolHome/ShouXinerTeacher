@@ -8,10 +8,10 @@
 
 #import "PalmViewController.h"
 
-#import "CPUIModelUserInfo.h"
+#import "ContactsModel.h"
 
 @interface BBContactPersonDetailViewController : PalmViewController
 
-- (id)initWithUserInfo:(CPUIModelUserInfo *)tempUserInfo;
+- (id)initWithUserInfo:(ContactsModel *)tempUserInfo;
 
 @end

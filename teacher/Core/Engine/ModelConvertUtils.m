@@ -747,6 +747,7 @@
     [uiUserInfo setCoupleAccount:dbUserInfo.coupleAccount];
     [uiUserInfo setDomain:dbUserInfo.domain];
     NSInteger dbLifeStatus = [dbUserInfo.lifeStatus integerValue];
+    /*
     if (dbLifeStatus>128)
     {
         [uiUserInfo setLifeStatus:[NSNumber numberWithInt:(dbLifeStatus-128)]];
@@ -757,7 +758,10 @@
         [uiUserInfo setLifeStatus:[NSNumber numberWithInt:dbLifeStatus]];
         [uiUserInfo setHasBaby:[NSNumber numberWithBool:YES]];
     }
-
+    */
+    [uiUserInfo setLifeStatus:[NSNumber numberWithInt:dbLifeStatus]];
+    [uiUserInfo setHasBaby:[NSNumber numberWithBool:YES]];
+    
     for(CPDBModelUserInfoData *dbUserData in dbUserInfo.dataList)
     {
         NSString *resPath = [[[CPSystemEngine sharedInstance] resManager] getResourcePathWithResID:dbUserData.resourceID];

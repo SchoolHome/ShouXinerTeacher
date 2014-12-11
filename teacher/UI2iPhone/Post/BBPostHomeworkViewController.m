@@ -13,7 +13,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    kmList = @[@"不指定科目",@"语文",@"数学",@"英语",@"体育",@"自然科学",@"其它"];
+    kmList = @[@"不指定科目",@"数学",@"语文",@"英语",@"体育",@"自然科学",@"其它"];
 }
 
 -(void)bbXKMViewController:(BBXKMViewController *)controller didSelectedIndex:(int)index{

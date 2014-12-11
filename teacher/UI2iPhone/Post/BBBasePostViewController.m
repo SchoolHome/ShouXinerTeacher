@@ -87,7 +87,7 @@ viewImageDeletedDelegate>
                 }
                 
                 NSString *attach = [self.attachList componentsJoinedByString:@"***"];
-                [[PalmUIManagement sharedInstance] postTopic:[_currentGroup.groupid intValue]
+                [[PalmUIManagement sharedInstance] postTopic:[[self getGroupID] intValue]
                                                withTopicType:_topicType
                                                  withSubject:_selectedIndex
                                                    withTitle:title
@@ -274,6 +274,8 @@ viewImageDeletedDelegate>
             {
                 cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:titleCellIden];
                 cell.textLabel.text = @"当前班级";
+                cell.textLabel.font = [UIFont systemFontOfSize:14.f];
+                cell.detailTextLabel.font = [UIFont systemFontOfSize:14.f];
                 cell.textLabel.backgroundColor = [UIColor blackColor];
                 cell.detailTextLabel.textColor = [UIColor colorWithHexString:@"#4a7f9d"];
                 cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
@@ -286,6 +288,7 @@ viewImageDeletedDelegate>
                 
                 thingsTextView = [[UIPlaceHolderTextView alloc] initWithFrame:CGRectMake(ThingsTextViewSpaceing, ThingsTextViewSpaceing,CGRectGetWidth(cell.contentView.frame)-2*ThingsTextViewSpaceing-20, ThingsTextViewHeight)];
                 thingsTextView.placeholder = _placeholder;
+                thingsTextView.font = [UIFont systemFontOfSize:14.f];
                 thingsTextView.backgroundColor = [UIColor clearColor];
                 [cell.contentView addSubview:thingsTextView];
                 
@@ -375,7 +378,8 @@ viewImageDeletedDelegate>
             if (image) {
                 image = [self imageWithImage:image];
                 NSData *data = UIImageJPEGRepresentation(image, 0.5f);
-                [[PalmUIManagement sharedInstance] updateUserImageFile:data withGroupID:[_currentGroup.groupid intValue]];
+                
+                [[PalmUIManagement sharedInstance] updateUserImageFile:data withGroupID:[[self getGroupID] intValue]];
             }
         }
 
@@ -406,7 +410,7 @@ viewImageDeletedDelegate>
                 break;
         }
         
-        [[PalmUIManagement sharedInstance] postTopic:[_currentGroup.groupid intValue]
+        [[PalmUIManagement sharedInstance] postTopic:[[self getGroupID] intValue]
                                        withTopicType:_topicType
                                          withSubject:_selectedIndex
                                            withTitle:title
@@ -461,6 +465,12 @@ viewImageDeletedDelegate>
         default:
             break;
     }
+}
+
+- (NSNumber *)getGroupID
+{
+    return self.currentGroup ? self.currentGroup.groupid:
+    [PalmUIManagement sharedInstance].currentGroupInfo.groupid;
 }
 #pragma mark - ChooseClassViewControllerDelegate
 - (void)classChoose:(NSInteger)index

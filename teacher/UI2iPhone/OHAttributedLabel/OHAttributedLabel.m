@@ -446,6 +446,7 @@ NSDataDetector* sharedReusableDataDetector(NSTextCheckingTypes types)
 
 -(void)_gestureRecognised:(UIGestureRecognizer*)recogniser
 {
+    
     CGPoint pt = [recogniser locationInView:self];
     
     switch (recogniser.state) {
@@ -479,6 +480,10 @@ NSDataDetector* sharedReusableDataDetector(NSTextCheckingTypes types)
             
             self.activeLink = nil;
             [self setNeedsDisplay];
+            
+            if ([self.delegate respondsToSelector:@selector(attributedLabelTapped)]) {
+                [self.delegate attributedLabelTapped];
+            }
         }
             break;
         case UIGestureRecognizerStateCancelled:

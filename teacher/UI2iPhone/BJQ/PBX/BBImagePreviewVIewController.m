@@ -47,9 +47,9 @@
     [self.view addSubview:toolBar];
     
     UIButton *close = [UIButton buttonWithType:UIButtonTypeCustom];
-    [close setFrame:CGRectMake(20.f, 10.f, 44.f, 32.f)];
+    [close setFrame:CGRectMake(10.f, 0.f, 54.f, 42.f)];
     [close setImage:[UIImage imageNamed:@"close"] forState:UIControlStateNormal];
-    [close setImageEdgeInsets:UIEdgeInsetsMake(5.f, 10.f, 5.f, 10.f)];
+    [close setImageEdgeInsets:UIEdgeInsetsMake(15.f, 15.f, 5.f, 15.f)];
     [close addTarget:self action:@selector(close) forControlEvents:UIControlEventTouchUpInside];
     [toolBar addSubview:close];
     
@@ -97,7 +97,8 @@
 
 - (void)close
 {
-    [self.navigationController popViewControllerAnimated:YES];
+    [self.navigationController popToRootViewControllerAnimated:YES];
+    //[self.navigationController popViewControllerAnimated:YES];
 }
 
 - (void)confirm
