@@ -9420,7 +9420,7 @@
 				ONLY_ACTIVE_ARCH = YES;
 				OTHER_LDFLAGS = "-lxml2";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "c66ecf10-9171-41de-96bd-fcb949870b02";
+				PROVISIONING_PROFILE = "d9d1f112-c699-4138-9414-395edbae353f";
 				SDKROOT = iphoneos;
 				VALID_ARCHS = "arm64 armv7 armv7s";
 				WRAPPER_EXTENSION = app;
@@ -9456,7 +9456,7 @@
 				);
 				OTHER_LDFLAGS = "-lxml2";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "c66ecf10-9171-41de-96bd-fcb949870b02";
+				PROVISIONING_PROFILE = "d9d1f112-c699-4138-9414-395edbae353f";
 				SDKROOT = iphoneos;
 				VALID_ARCHS = "arm64 armv7 armv7s";
 				WRAPPER_EXTENSION = app;
