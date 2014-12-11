@@ -87,7 +87,7 @@ viewImageDeletedDelegate>
                 }
                 
                 NSString *attach = [self.attachList componentsJoinedByString:@"***"];
-                [[PalmUIManagement sharedInstance] postTopic:[_currentGroup.groupid intValue]
+                [[PalmUIManagement sharedInstance] postTopic:[[self getGroupID] intValue]
                                                withTopicType:_topicType
                                                  withSubject:_selectedIndex
                                                    withTitle:title
@@ -378,7 +378,8 @@ viewImageDeletedDelegate>
             if (image) {
                 image = [self imageWithImage:image];
                 NSData *data = UIImageJPEGRepresentation(image, 0.5f);
-                [[PalmUIManagement sharedInstance] updateUserImageFile:data withGroupID:[_currentGroup.groupid intValue]];
+                
+                [[PalmUIManagement sharedInstance] updateUserImageFile:data withGroupID:[[self getGroupID] intValue]];
             }
         }
 
@@ -409,7 +410,7 @@ viewImageDeletedDelegate>
                 break;
         }
         
-        [[PalmUIManagement sharedInstance] postTopic:[_currentGroup.groupid intValue]
+        [[PalmUIManagement sharedInstance] postTopic:[[self getGroupID] intValue]
                                        withTopicType:_topicType
                                          withSubject:_selectedIndex
                                            withTitle:title
@@ -464,6 +465,12 @@ viewImageDeletedDelegate>
         default:
             break;
     }
+}
+
+- (NSNumber *)getGroupID
+{
+    return self.currentGroup ? self.currentGroup.groupid:
+    [PalmUIManagement sharedInstance].currentGroupInfo.groupid;
 }
 #pragma mark - ChooseClassViewControllerDelegate
 - (void)classChoose:(NSInteger)index

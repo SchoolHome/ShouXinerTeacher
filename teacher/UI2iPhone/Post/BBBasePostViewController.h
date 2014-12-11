@@ -64,6 +64,8 @@ ChooseClassDelegate>
 - (UIImage*)imageWithImage:(UIImage*)image;
 
 - (void)chooseImageViewLoaded;
+
+- (NSNumber *)getGroupID;
 @end
 
 @interface BBBasePostTableview : UITableView <UIGestureRecognizerDelegate>
