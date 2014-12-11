@@ -88,7 +88,7 @@
 - (void)viewDidLoad{
     [super viewDidLoad];
 	//self.view.backgroundColor = [UIColor colorWithHexString:@"#f2f2f2"];
-    self.view.backgroundColor = [UIColor whiteColor];
+    self.view.backgroundColor = [UIColor colorWithRed:239/255.f green:239/255.f blue:239/255.f alpha:1.f];
     float currentVersion = 7.0;
     if ([[[UIDevice currentDevice] systemVersion] floatValue] >= currentVersion) {
         if ([self respondsToSelector:@selector(edgesForExtendedLayout)])
