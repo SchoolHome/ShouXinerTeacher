@@ -100,7 +100,7 @@
     CPUIModelUserInfo *tempUserInfo = [self getUserInfoByModelID:self.userInfo.modelID];
     if (tempUserInfo) {
         [self showProgressWithText:@"正在发起聊天..."];
-        [[CPUIModelManagement sharedInstance] createConversationWithUsers:[NSArray arrayWithObject:self.userInfo] andMsgGroups:nil andType:CREATE_CONVER_TYPE_COMMON];
+        [[CPUIModelManagement sharedInstance] createConversationWithUsers:[NSArray arrayWithObject:tempUserInfo] andMsgGroups:nil andType:CREATE_CONVER_TYPE_COMMON];
     }else {
         [self showProgressWithText:@"发起聊天失败" withDelayTime:2.f];
     }
@@ -116,7 +116,7 @@
 - (CPUIModelUserInfo *)getUserInfoByModelID:(NSInteger)modelID
 {
     for (CPUIModelUserInfo *userInfo in [CPUIModelManagement sharedInstance].friendArray) {
-        if ([userInfo.userInfoID integerValue] == modelID) {
+        if ([userInfo.lifeStatus integerValue] == modelID) {
             return userInfo;
         }
     }

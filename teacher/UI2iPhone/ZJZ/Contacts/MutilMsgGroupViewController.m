@@ -27,9 +27,10 @@
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
 {
-    [self closeProgress];
+    
     if([keyPath isEqualToString:@"quitGroupDic"]){
         if ([[[CPUIModelManagement sharedInstance].quitGroupDic objectForKey:group_manage_dic_res_code]integerValue]== RESPONSE_CODE_SUCESS) {
+            [self closeProgress];
             NSMutableArray *tempMutilMsgGroups = [[NSMutableArray alloc] init];
             for (CPUIModelMessageGroup *group in [CPUIModelManagement sharedInstance].userMessageGroupList) {
                 if ([group isKindOfClass:[CPUIModelMessageGroup class]]) {

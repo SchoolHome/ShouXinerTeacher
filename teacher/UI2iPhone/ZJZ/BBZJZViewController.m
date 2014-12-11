@@ -311,7 +311,7 @@
     NSMutableArray *tempParentsArray = [[NSMutableArray alloc] init];
     for (CPUIModelUserInfo *model in [CPUIModelManagement sharedInstance].friendArray) {
         ContactsModel *tempModel = [[ContactsModel alloc] init];
-        tempModel.modelID = [model.userInfoID integerValue];
+        tempModel.modelID = [model.lifeStatus integerValue];
         tempModel.avatarPath = model.headerPath;
         //tempModel.jid = model.
         tempModel.mobile = model.mobileNumber;

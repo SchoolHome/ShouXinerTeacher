@@ -208,7 +208,7 @@
     for(CPDBModelUserInfo *dbUserInfo in allUserArray)
     {
         CPUIModelUserInfo *uiUserInfo = [ModelConvertUtils dbUserInfoToUi:dbUserInfo];
-        
+        NSLog(@"%@,%@",uiUserInfo.nickName,uiUserInfo.lifeStatus);
         // 王硕
         CPDBModelContact *dbContact = [[[CPSystemEngine sharedInstance] dbManagement] getContactWithMobile:uiUserInfo.mobileNumber];
         [uiUserInfo setFullName:dbContact.fullName];
