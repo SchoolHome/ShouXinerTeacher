@@ -27,7 +27,7 @@
     [backButton setBackgroundImage:[UIImage imageNamed:@"BBBack"] forState:UIControlStateNormal];
     [backButton addTarget:self action:@selector(backButtonTaped:) forControlEvents:UIControlEventTouchUpInside];
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:backButton];
-    
+    self.title = @"手心商城";
     int heightFix = 20;
     if (IOS7) {
         heightFix = 20;

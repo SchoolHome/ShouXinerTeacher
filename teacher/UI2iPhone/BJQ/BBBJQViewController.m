@@ -321,6 +321,8 @@
     [[PalmUIManagement sharedInstance] addObserver:self forKeyPath:@"deleteTopicResult" options:0 context:NULL];
     
     [[PalmUIManagement sharedInstance] addObserver:self forKeyPath:@"downloadVideoResult" options:0 context:nil];
+    
+    
 }
 
 -(void)removeObservers{
@@ -338,6 +340,8 @@
     [[PalmUIManagement sharedInstance] removeObserver:self forKeyPath:@"advWithGroupResult"];
     [[PalmUIManagement sharedInstance] removeObserver:self forKeyPath:@"deleteTopicResult"];
     [[PalmUIManagement sharedInstance] removeObserver:self forKeyPath:@"downloadVideoResult"];
+    
+    
 }
 
 -(void)checkNotify{
@@ -401,7 +405,7 @@
     [super viewDidLoad];
     
     self.allTopicList = [[NSMutableArray alloc] init];
-    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(changeVC) name:@"changeVC" object:nil];
     // 不要移除，用户其他页面更新头像后，此页面同步更新
     [[CPUIModelManagement sharedInstance] addObserver:self forKeyPath:@"uiPersonalInfoTag" options:0 context:NULL];
     
@@ -415,6 +419,7 @@
     bjqTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0.0f, 320, self.screenHeight-64.0f-48.0f) style:UITableViewStyleGrouped];
     bjqTableView.backgroundColor = [UIColor colorWithHexString:@"f2f2f2"];
     [bjqTableView setSeparatorStyle:UITableViewCellSeparatorStyleNone];
+    bjqTableView.separatorColor = [UIColor clearColor];
     bjqTableView.dataSource = self;
     bjqTableView.delegate = self;
     [self.view addSubview:bjqTableView];
@@ -544,13 +549,26 @@
 -(void)viewWillDisappear:(BOOL)animated{
     [super viewWillDisappear:animated];
     [inputBar endEdit];
+    [self removeObservers];
+}
+
+-(void) changeVC{
     if (bjDropdownView.unfolded) {
         [bjDropdownView dismiss];
     }
     if (fsDropdownView.unfolded) {
         [fsDropdownView dismiss];
     }
-    [self removeObservers];
+    
+    if (self.tempMoreImage != nil) {
+        [self.tempMoreImage removeFromSuperview];
+        self.tempMoreImage = nil;
+    }
+    if (nil != copyContentButton) {
+        [copyContentButton removeFromSuperview];
+        self.contentText = @"";
+        copyContentButton = nil;
+    }
 }
 
 -(void) needRefresh{
@@ -1145,5 +1163,6 @@
 
 -(void) dealloc{
     [[CPUIModelManagement sharedInstance] removeObserver:self forKeyPath:@"uiPersonalInfoTag"];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"changeVC" object:nil];
 }
 @end

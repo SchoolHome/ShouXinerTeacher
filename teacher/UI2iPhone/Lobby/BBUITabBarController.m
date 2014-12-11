@@ -278,6 +278,7 @@
     if (tabBarController.selectedIndex == 3) { // 点击消失
         self.markYZS.hidden = YES;
     }
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"changeVC" object:nil];
 }
 
 - (void)selectedItem:(NSInteger)itemIndex
