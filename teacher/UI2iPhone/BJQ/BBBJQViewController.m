@@ -22,7 +22,7 @@
 #import <MediaPlayer/MediaPlayer.h>
 
 @class BBWSPViewController;
-@interface BBBJQViewController ()<ADImageviewDelegate>
+@interface BBBJQViewController ()<ADImageviewDelegate,OHAttributedLabelDelegate>
 {
 }
 @property (nonatomic,strong) BBTopicModel *tempTopModel;
@@ -377,6 +377,16 @@
     }
 }
 
+- (void)attributedLabelTapped
+{
+#ifdef IS_TEACHER
+    BBJFViewController *jf = [[BBJFViewController alloc] init];
+    jf.hidesBottomBarWhenPushed = YES;
+    jf.url = [NSURL URLWithString:@"http://www.shouxiner.com/teacher_jfen/mobile_web_shop"];
+    [self.navigationController pushViewController:jf animated:YES];
+#endif
+}
+
 -(void)pointTaped:(UITapGestureRecognizer *)gesture{
 #ifdef IS_TEACHER
     BBJFViewController *jf = [[BBJFViewController alloc] init];
@@ -450,13 +460,14 @@
     point.backgroundColor = [UIColor clearColor];
     [scoreImageView addSubview:point];
     point.text = @"您有 0 积分";
+    point.delegate = self;
     point.textAlignment = NSTextAlignmentCenter;
     point.font = [UIFont boldSystemFontOfSize:11];
     point.textColor = [UIColor grayColor];
     point.userInteractionEnabled = YES;
     
-    UITapGestureRecognizer *gesture = [[UITapGestureRecognizer  alloc] initWithTarget:self action:@selector(pointTaped:)];
-    [point addGestureRecognizer:gesture];
+//    UITapGestureRecognizer *gesture = [[UITapGestureRecognizer  alloc] initWithTarget:self action:@selector(pointTaped:)];
+//    [point addGestureRecognizer:gesture];
     bjqTableView.tableHeaderView = head;
     
 #ifdef IS_TEACHER

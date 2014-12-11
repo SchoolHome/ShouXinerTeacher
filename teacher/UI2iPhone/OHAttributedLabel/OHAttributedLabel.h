@@ -41,6 +41,8 @@
 -(BOOL)attributedLabel:(OHAttributedLabel*)attributedLabel shouldFollowLink:(NSTextCheckingResult*)linkInfo;
 //! @parameter underlineStyle Combination of CTUnderlineStyle and CTUnderlineStyleModifiers
 -(UIColor*)attributedLabel:(OHAttributedLabel*)attributedLabel colorForLink:(NSTextCheckingResult*)linkInfo underlineStyle:(int32_t*)underlineStyle;
+
+- (void)attributedLabelTapped;
 @end
 
 
