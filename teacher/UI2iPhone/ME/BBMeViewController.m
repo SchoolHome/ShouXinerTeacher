@@ -58,9 +58,9 @@
     self.navigationItem.title = @"我";
     
     listData = [[NSArray alloc] initWithObjects:
-                [NSArray arrayWithObjects:[NSDictionary dictionaryWithObjectsAndKeys:@"手心商城", @"title", @"http://www.shouxiner.com/teacher_jfen/mobile_web_shop", @"url", @"shop.png", @"icon", nil],
+                [NSArray arrayWithObjects://[NSDictionary dictionaryWithObjectsAndKeys:@"手心商城", @"title", @"http://www.shouxiner.com/teacher_jfen/mobile_web_shop", @"url", @"shop.png", @"icon", nil],
                  [NSDictionary dictionaryWithObjectsAndKeys:@"荣誉档案", @"title", @"http://www.shouxiner.com/webview/group_awards", @"url", @"star.png", @"icon", nil],
-                 [NSDictionary dictionaryWithObjectsAndKeys:@"成长中心", @"title", @"http://www.shouxiner.com", @"url", @"grow.png", @"icon", nil],
+                 [NSDictionary dictionaryWithObjectsAndKeys:@"成长中心", @"title", @"http://www.shouxiner.com/webview/medal_list", @"url", @"grow.png", @"icon", nil],
                  nil],
                 [NSArray arrayWithObjects:[NSDictionary dictionaryWithObjectsAndKeys:@"设置", @"title", @"", @"url", @"set_up.png", @"icon", nil], nil],
                 nil];

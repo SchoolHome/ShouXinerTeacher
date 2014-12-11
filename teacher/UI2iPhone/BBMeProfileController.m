@@ -165,6 +165,7 @@
         NSDictionary *errDic = resultDic[@"data"];
         if ([errDic[@"errno"] integerValue] == 0) {
             userProfile.sex = sexTag;
+            [profileTableView reloadData];
             [self showProgressWithText:@"更新成功" withDelayTime:2];
         }else{
             [self showProgressWithText:resultDic[@"errorMessage"] withDelayTime:2];
