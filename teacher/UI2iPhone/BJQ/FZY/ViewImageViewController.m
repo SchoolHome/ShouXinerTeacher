@@ -122,8 +122,8 @@
 
 
 - (UIView *)pageAtIndex:(NSInteger)index{
-    UIImageView *imageView = [[UIImageView alloc] initWithFrame:self.view.bounds];
-    imageView.image = [self.dataSource objectAtIndex:index];
+    UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(0.f, 0.f, self.screenWidth, self.screenHeight)];
+    imageView.image = [self imageWithImage:[self.dataSource objectAtIndex:index]];
     imageView.contentMode = UIViewContentModeScaleAspectFit;
     return imageView;
 }
@@ -137,6 +137,19 @@
 {
     NSMutableArray *images = [[NSMutableArray alloc] initWithArray:self.dataSource];
     self.title = [NSString stringWithFormat:@"%d/%d",index+1,images.count];
+}
+
+
+-(UIImage*)imageWithImage:(UIImage*)image
+{
+    CGSize newSize = CGSizeMake(image.size.width*0.3, image.size.height*0.3);
+    UIGraphicsBeginImageContext(newSize);
+    
+    [image drawInRect:CGRectMake(0, 0, newSize.width, newSize.height)];
+    UIImage* newImage = UIGraphicsGetImageFromCurrentImageContext();
+    
+    UIGraphicsEndImageContext();
+    return newImage;
 }
 
 @end

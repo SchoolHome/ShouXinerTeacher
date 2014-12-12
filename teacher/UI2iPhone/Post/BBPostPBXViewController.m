@@ -231,7 +231,7 @@
     NSArray *selectedStudents = (NSArray *)[noti object];
     
     selectedStuArray = [[NSMutableArray alloc] initWithArray:selectedStudents];
-    //selectedStuStr = @"";
+    selectedStuStr = @"";
     NSMutableString *studentListText = [NSMutableString string];
     for ( int i = 0; i< selectedStudents.count; i++) {
         BBStudentModel *tempModel = [selectedStudents objectAtIndex:i];
@@ -531,6 +531,11 @@
     {
         [super tableView:tableView didSelectRowAtIndexPath:indexPath];
     }
+}
+
+- (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView
+{
+    [super scrollViewWillBeginDragging:scrollView];
 }
 #pragma mark - ActionSheet
 - (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex

@@ -645,9 +645,13 @@ viewImageDeletedDelegate>
 -(BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldReceiveTouch:(UITouch *)touch
 {
     if ([NSStringFromClass([touch.view class]) isEqualToString:@"UITableViewCellContentView"]) {
-        return NO;
+        if ([gestureRecognizer isKindOfClass:[UITapGestureRecognizer class]]) {
+            return NO;
+        }
     }
     return YES;
 }
+
+
 
 @end

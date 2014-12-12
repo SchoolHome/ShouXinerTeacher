@@ -92,6 +92,7 @@
 
 - (void)viewWillDisappear:(BOOL)animated
 {
+    [groupTableview setEditing:NO];
     [[CPUIModelManagement sharedInstance] removeObserver:self forKeyPath:@"quitGroupDic"];
 }
 
