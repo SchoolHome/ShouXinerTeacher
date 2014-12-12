@@ -293,8 +293,9 @@
 
 -(void)cantLogin:(UIButton *)btn
 {
-    UIActionSheet *actinSheet = [[UIActionSheet alloc] initWithTitle:nil delegate:(id<UIActionSheetDelegate>)self cancelButtonTitle:@"取消" destructiveButtonTitle:nil otherButtonTitles:@"重置密码", @"联系客服", nil];
-    [actinSheet showInView:self.view];
+    UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:nil delegate:(id<UIActionSheetDelegate>)self cancelButtonTitle:@"取消" destructiveButtonTitle:nil otherButtonTitles:@"重置密码", @"联系客服",nil];
+    actionSheet.actionSheetStyle = UIActionSheetStyleBlackOpaque;
+    [actionSheet showInView:self.view];
 }
 
 - (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
