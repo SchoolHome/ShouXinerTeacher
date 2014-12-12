@@ -22,7 +22,7 @@
     
     self.height = 48.0f + 40 * ([listData count] - 1);
     
-    self.bgView = [[UIImageView alloc] initWithFrame:CGRectMake((320 - kDropdownWidth)/2.0f, 44+20, kDropdownWidth, self.height)];
+    self.bgView = [[UIImageView alloc] initWithFrame:CGRectMake((320 - kDropdownWidth)/2.0f, 44+20, kDropdownWidth, 300.0f)];
     self.bgView.userInteractionEnabled = YES;
     self.bgView.clipsToBounds = YES;
     [self addSubview:self.bgView];

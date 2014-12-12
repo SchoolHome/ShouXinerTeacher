@@ -158,7 +158,7 @@
     {
         NSDictionary *dict = [PalmUIManagement sharedInstance].userCredits;
         NSNumber *credits = dict[@"data"][@"credits"];
-        NSString *txt = [NSString stringWithFormat:@"您有 %d 积分",[credits intValue]];
+        NSString *txt = [NSString stringWithFormat:@"您有 %d 手心币",[credits intValue]];
         NSMutableAttributedString* attrStr = [NSMutableAttributedString attributedStringWithString:txt];
         [attrStr setTextColor:[UIColor grayColor]];
         [attrStr setTextColor:[UIColor orangeColor] range:[txt rangeOfString:[NSString stringWithFormat:@"%d",[credits intValue]]]];
@@ -468,7 +468,7 @@
     point.backgroundColor = [UIColor clearColor];
     point.userInteractionEnabled = YES;
     [scoreImageView addSubview:point];
-    point.text = @"您有 0 积分";
+    point.text = @"您有 0 手心币";
     point.delegate = self;
     point.textAlignment = NSTextAlignmentCenter;
     point.font = [UIFont boldSystemFontOfSize:11];
@@ -498,14 +498,15 @@
     titleButton.titleLabel.lineBreakMode = NSLineBreakByTruncatingMiddle;
     [titleButton addTarget:self action:@selector(bjButtonTaped:) forControlEvents:UIControlEventTouchUpInside];
     [titleButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
-    UIImageView *arrow = [[UIImageView alloc] initWithFrame:CGRectMake(124, 9, 22, 22)];
+    UIImageView *arrow = [[UIImageView alloc] initWithFrame:CGRectMake(125, 12, 22, 22)];
     [titleButton addSubview:arrow];
     arrow.image = [UIImage imageNamed:@"BBDown"];
     
-    bjDropdownView = [[BBBJDropdownView alloc] initWithFrame:self.view.bounds];
+    CGRect rect = CGRectMake(self.view.bounds.origin.x, self.view.bounds.origin.y, self.view.bounds.size.width, 280.0f);
+    bjDropdownView = [[BBBJDropdownView alloc] initWithFrame:rect];
     bjDropdownView.delegate = self;
     
-    fsDropdownView = [[BBFSDropdownView alloc] initWithFrame:self.view.bounds];
+    fsDropdownView = [[BBFSDropdownView alloc] initWithFrame:rect];
     fsDropdownView.delegate = self;
     
     CGFloat h = [[UIScreen mainScreen] bounds].size.height;
