@@ -294,7 +294,7 @@
 -(void)cantLogin:(UIButton *)btn
 {
     UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:nil delegate:(id<UIActionSheetDelegate>)self cancelButtonTitle:@"取消" destructiveButtonTitle:nil otherButtonTitles:@"重置密码", @"联系客服",nil];
-    actionSheet.actionSheetStyle = UIActionSheetStyleBlackOpaque;
+    actionSheet.actionSheetStyle = UIActionSheetStyleBlackTranslucent;
     [actionSheet showInView:self.view];
 }
 
