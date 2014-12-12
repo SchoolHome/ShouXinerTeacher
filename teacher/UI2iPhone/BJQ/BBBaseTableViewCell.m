@@ -135,6 +135,7 @@
         [self.deleteTopic setTitleColor:[UIColor colorWithHexString:@"7596cc"] forState:UIControlStateNormal];
         
         _relpyContentBack = [[UIImageView alloc] init];
+        _relpyContentBack.userInteractionEnabled = YES;
         [self addSubview:_relpyContentBack];
         
         _relpyContentLine = [[UIImageView alloc] init];
