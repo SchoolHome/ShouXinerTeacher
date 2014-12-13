@@ -107,7 +107,7 @@
     //icon.imageURL = [NSURL URLWithString:_data.sender_avatar];
     
     title.text = _data.sender_name;
-    content.text = data.topic_title;
+    content.text = data.comment;
     time.text = [self timeStringFromNumber:data.ts];
     
 //    tlike
@@ -119,8 +119,6 @@
     }else if([_data.type isEqualToString:@"tcomment"]){
         like.hidden = YES;
         content.hidden = NO;
-        
-        
     }
     
     
@@ -129,8 +127,7 @@
         contentPreView.hidden = NO;
         thumbnail.hidden = YES;
         if (data.content != [NSNull null]) contentPreView.text = data.content;
-    }else
-    {
+    }else{
         thumbnail.hidden = NO;
         contentPreView.hidden = YES;
         [thumbnail  setImageURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@/mlogo",imageUrl]]];
