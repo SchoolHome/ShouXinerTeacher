@@ -124,7 +124,6 @@
     {
         NSDictionary *dict = [PalmUIManagement sharedInstance].notifyCount;
         int count = [dict[@"data"][@"count"] intValue];
-        count = 1;
         notifyCount = count;
         if (count > 0) {
             if (self.notifyButton != nil) {
@@ -954,7 +953,7 @@
     copyContentButton = [UIButton buttonWithType:UIButtonTypeCustom];
     [copyContentButton setBackgroundImage:[UIImage imageNamed:@"BBCopyContent"] forState:UIControlStateNormal];
     [copyContentButton setBackgroundImage:[UIImage imageNamed:@"BBCopyContent"] forState:UIControlStateHighlighted];
-    copyContentButton.frame = CGRectMake(superPointaa.x - 32.0f, superPointaa.y - 80.0f, 64.0f, 37.0f);
+    copyContentButton.frame = CGRectMake(superPointaa.x - 32.0f, superPointaa.y - 60.0f, 64.0f, 37.0f);
     [copyContentButton addTarget:self action:@selector(copyContent) forControlEvents:UIControlEventTouchUpInside];
     self.contentText = text;
     [self.view addSubview:copyContentButton];
