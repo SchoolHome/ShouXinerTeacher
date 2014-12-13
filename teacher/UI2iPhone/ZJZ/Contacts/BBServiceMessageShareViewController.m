@@ -198,7 +198,7 @@
                 [cell.contentView addSubview:thingsTextView];
                 
                 UIView *shareContentBG = [[UIView alloc] initWithFrame:CGRectMake(ThingsTextViewSpaceing, CGRectGetMaxY(thingsTextView.frame)+4.f, CGRectGetWidth(thingsTextView.frame), 50.f)];
-                shareContentBG.backgroundColor = [UIColor lightGrayColor];
+                shareContentBG.backgroundColor = [UIColor colorWithRed:225/255.f green:225/255.f blue:225/255.f alpha:1.f];
                 [cell.contentView addSubview:shareContentBG];
                 
                 EGOImageView *messageImageView = [[EGOImageView alloc] initWithFrame:CGRectMake(ThingsTextViewSpaceing+5.f, ThingsTextViewHeight+5.f, 40.f, 40.f)];

@@ -18,7 +18,7 @@
     if (self) {
         // Initialization code
         
-        self.contentView.backgroundColor = [UIColor colorWithRed:242/255.f green:236/255.f blue:230/255.f alpha:1.f];
+        //self.contentView.backgroundColor = [UIColor colorWithRed:242/255.f green:236/255.f blue:230/255.f alpha:1.f];
         
         icon = [[EGOImageView alloc] initWithFrame:CGRectMake(10, 10, 50, 50)];
         icon.backgroundColor = [UIColor grayColor];
