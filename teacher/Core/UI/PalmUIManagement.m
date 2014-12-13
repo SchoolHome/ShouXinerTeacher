@@ -234,4 +234,16 @@ static PalmUIManagement *sharedInstance = nil;
     SystemOperation *operation = [[SystemOperation alloc] initGetCustomerServiceTel];
     [[PalmNetWorkService sharedInstance] networkEngine:operation];
 }
+
+// 登陆前短信验证码
+-(void) getResetPasswordSMS : (NSString *) mobileNumber{
+    SystemOperation *operation = [[SystemOperation alloc] initGetResetPasswordSMS:mobileNumber];
+    [[PalmNetWorkService sharedInstance] networkEngine:operation];
+}
+
+// 登陆前修改密码
+-(void) postResetPassword : (NSString *) smsID withSmsCode : (NSString *) smsCode withNewPassword : (NSString *) newPassword{
+    SystemOperation *operation = [[SystemOperation alloc] initPostResetPassword:smsID withSmsCode:smsCode withNewPassword:newPassword];
+    [[PalmNetWorkService sharedInstance] networkEngine:operation];
+}
 @end

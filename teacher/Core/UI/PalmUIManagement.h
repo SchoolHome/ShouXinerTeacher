@@ -110,6 +110,10 @@
 @property (nonatomic,strong) NSDictionary *publicMessageForwardResult;
 // 客服电话
 @property (nonatomic,strong) NSDictionary *customerServiceTel;
+// 登陆前短信验证码
+@property (nonatomic,strong) NSDictionary *resetSMSCode;
+// 登陆前修改密码
+@property (nonatomic,strong) NSDictionary *resetPassword;
 
 // 获取用户信息
 -(void) getUserProfile;
@@ -193,4 +197,9 @@
 -(void) postPublicMessageForward : (NSString *) mid withGroupID : (int) groupID withMessage : (NSString *) message;
 // 客服电话
 -(void) getCustomerServiceTelNumber;
+
+// 登陆前短信验证码
+-(void) getResetPasswordSMS : (NSString *) mobileNumber;
+// 登陆前修改密码
+-(void) postResetPassword : (NSString *) smsID withSmsCode : (NSString *) smsCode withNewPassword : (NSString *) newPassword;
 @end
