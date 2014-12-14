@@ -14,6 +14,7 @@
     UITextField *verfyField;
     UITextField *newPwdField;
     UITextField *confirmPwd;
+    NSString *smsID;
 }
 @end
 
@@ -22,16 +23,16 @@
 -(void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    [[PalmUIManagement sharedInstance] addObserver:self forKeyPath:@"postUserInfoResult" options:0 context:nil];
+    [[PalmUIManagement sharedInstance] addObserver:self forKeyPath:@"resetSMSCode" options:0 context:nil];
+    [[PalmUIManagement sharedInstance] addObserver:self forKeyPath:@"resetPassword" options:0 context:nil];
     [[PalmUIManagement sharedInstance] addObserver:self forKeyPath:@"customerServiceTel" options:0 context:nil];
-    [[PalmUIManagement sharedInstance] addObserver:self forKeyPath:@"smsVerifyCode" options:0 context:nil];
 }
 
 -(void)viewWillDisappear:(BOOL)animated
 {
     [super viewWillDisappear:animated];
-    [[PalmUIManagement sharedInstance] removeObserver:self forKeyPath:@"smsVerifyCode"];
-    [[PalmUIManagement sharedInstance] removeObserver:self forKeyPath:@"postUserInfoResult"];
+    [[PalmUIManagement sharedInstance] removeObserver:self forKeyPath:@"resetSMSCode"];
+    [[PalmUIManagement sharedInstance] removeObserver:self forKeyPath:@"resetPassword"];
     [[PalmUIManagement sharedInstance] removeObserver:self forKeyPath:@"customerServiceTel"];
 }
 
@@ -115,6 +116,7 @@
     [newPwdField setFont:[UIFont systemFontOfSize:16]];
     [newPwdField setContentVerticalAlignment:UIControlContentVerticalAlignmentCenter];
     [newPwdField setBackgroundColor:[UIColor whiteColor]];
+    [newPwdField setSecureTextEntry:YES];
     [newPwdField setDelegate:(id<UITextFieldDelegate>)self];
     [self.view addSubview:newPwdField];
     height = height + 45;
@@ -127,6 +129,7 @@
     [confirmPwd setFont:[UIFont systemFontOfSize:16]];
     [confirmPwd setContentVerticalAlignment:UIControlContentVerticalAlignmentCenter];
     [confirmPwd setBackgroundColor:[UIColor whiteColor]];
+    [confirmPwd setSecureTextEntry:YES];
     [confirmPwd setDelegate:(id<UITextFieldDelegate>)self];
     [self.view addSubview:confirmPwd];
     height = height + 80;
@@ -144,6 +147,9 @@
     [contactCom.titleLabel setFont:[UIFont systemFontOfSize:16.f]];
     [contactCom addTarget:self action:@selector(contactCom:) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:contactCom];
+    
+    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(clickBG:)];
+    [self.view addGestureRecognizer:tap];
 }
 
 -(void)getVerfyCode:(UIButton *)btn
@@ -158,7 +164,15 @@
             return;
         }
     }
-    [[PalmUIManagement sharedInstance] getSMSVerifyCode:telPhoneText];
+    [[PalmUIManagement sharedInstance] getResetPasswordSMS:telPhoneText];
+}
+
+-(void)clickBG:(UIGestureRecognizer *)tap
+{
+    [phoneField resignFirstResponder];
+    [verfyField resignFirstResponder];
+    [newPwdField resignFirstResponder];
+    [confirmPwd resignFirstResponder];
 }
 
 -(void)login:(UIButton *)btn
@@ -189,7 +203,7 @@
             [self showProgressWithText:@"请填写密码" withDelayTime:1.5f];
             return;
         }
-        [[PalmUIManagement sharedInstance] postUserInfo:nil withMobile:phoneField.text withVerifyCode:verfyField.text withPasswordOld:nil withPasswordNew:newPwdField.text withSex:0 withSign:nil];
+        [[PalmUIManagement sharedInstance] postResetPassword:smsID withSmsCode:verfyCode withNewPassword:password];
         [self showProgressWithText:@"正在重置，请稍候..."];
     }else{
         [self showProgressWithText:@"两次密码输入不一致" withDelayTime:1.0f];
@@ -206,14 +220,24 @@
     // Dispose of any resources that can be recreated.
 }
 
--(void) observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context{
-    if ([keyPath isEqualToString:@"smsVerifyCode"]){
-        if ([[PalmUIManagement sharedInstance].smsVerifyCode[ASI_REQUEST_HAS_ERROR] boolValue]) {
-            [self showProgressWithText:[PalmUIManagement sharedInstance].smsVerifyCode[ASI_REQUEST_ERROR_MESSAGE] withDelayTime:1.0f];
+-(void) observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
+{
+    if ([keyPath isEqualToString:@"resetSMSCode"]){
+        NSDictionary *resultDic = [[PalmUIManagement sharedInstance] resetSMSCode];
+        if ([resultDic[ASI_REQUEST_HAS_ERROR] boolValue]) {
+            [self showProgressWithText:resultDic[ASI_REQUEST_ERROR_MESSAGE] withDelayTime:1.0f];
             return;
+        }else{
+            smsID = resultDic[@"id"];
         }
-    }else if([keyPath isEqualToString:@"postUserInfoResult"]){
-        
+    }else if([keyPath isEqualToString:@"resetPassword"]){
+        NSDictionary *resultDic = [[PalmUIManagement sharedInstance] resetPassword];
+        if ([resultDic[@"data"][@"errno"] integerValue] == 0) {
+            [self closeProgress];
+            [self.navigationController popViewControllerAnimated:YES];
+        }else{
+            [self showProgressWithText:resultDic[@"data"][@"error"] withDelayTime:2];
+        }
     }else if([keyPath isEqualToString:@"customerServiceTel"]){
         NSDictionary *resultDic = [[PalmUIManagement sharedInstance] customerServiceTel];
         if ([resultDic[@"hasError"] integerValue] == 0) {
