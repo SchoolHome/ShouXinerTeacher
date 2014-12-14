@@ -86,6 +86,7 @@
     [phoneField setContentVerticalAlignment:UIControlContentVerticalAlignmentCenter];
     [phoneField setBackgroundColor:[UIColor whiteColor]];
     [phoneField setDelegate:(id<UITextFieldDelegate>)self];
+    [phoneField setKeyboardType:UIKeyboardTypeNumberPad];
     [self.view addSubview:phoneField];
     
     height = height + 45;
@@ -99,6 +100,7 @@
     [verfyField setContentVerticalAlignment:UIControlContentVerticalAlignmentCenter];
     [verfyField setBackgroundColor:[UIColor whiteColor]];
     [verfyField setDelegate:(id<UITextFieldDelegate>)self];
+    [verfyField setKeyboardType:UIKeyboardTypeNumberPad];
     [self.view addSubview:verfyField];
     UIButton *codeBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     [codeBtn setFrame:CGRectMake(self.view.frame.size.width-100, height+5, 80, 30)];
@@ -228,7 +230,7 @@
             [self showProgressWithText:resultDic[ASI_REQUEST_ERROR_MESSAGE] withDelayTime:1.0f];
             return;
         }else{
-            smsID = resultDic[@"id"];
+            smsID = resultDic[@"data"][@"id"];
         }
     }else if([keyPath isEqualToString:@"resetPassword"]){
         NSDictionary *resultDic = [[PalmUIManagement sharedInstance] resetPassword];
@@ -258,4 +260,16 @@
     [[PalmUIManagement sharedInstance] getCustomerServiceTelNumber];
 }
 
+- (BOOL)textFieldShouldReturn:(UITextField *)textField{
+    if (textField == phoneField) {
+        [verfyField becomeFirstResponder];
+    }else if(textField == verfyField){
+        [newPwdField becomeFirstResponder];
+    }else if(textField == newPwdField){
+        [confirmPwd becomeFirstResponder];
+    }else{
+        [confirmPwd resignFirstResponder];
+    }
+    return YES;
+}
 @end
