@@ -133,7 +133,7 @@
 }
 
 -(void) getResetPasswordSMS{
-    [self.dataRequest setRequestCompleted:^(NSDictionary *data){
+    [self.request setRequestCompleted:^(NSDictionary *data){
         dispatch_block_t updateTagBlock = ^{
             [PalmUIManagement sharedInstance].resetSMSCode = data;
         };
