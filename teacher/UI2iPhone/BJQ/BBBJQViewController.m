@@ -131,10 +131,10 @@
                 [bjqTableView reloadData];
             }else{
                 self.notifyButton = [UIButton buttonWithType:UIButtonTypeCustom];
-                self.notifyButton.frame = CGRectMake(75, 156, 172, 38);
+                self.notifyButton.frame = CGRectMake((320.0f - 128.0f)/2.0f, 156, 128, 31);
                 [self.notifyButton setBackgroundImage:[UIImage imageNamed:@"BBNewMessage"] forState:UIControlStateNormal];
                 self.notifyButton.backgroundColor = [UIColor clearColor];
-                self.notifyButton.titleLabel.font = [UIFont boldSystemFontOfSize:14];
+                self.notifyButton.titleLabel.font = [UIFont boldSystemFontOfSize:13];
                 self.notifyButton.titleLabel.textAlignment = NSTextAlignmentCenter;
                 [self.notifyButton setTitle:[NSString stringWithFormat:@"您有%d条新消息",notifyCount] forState:UIControlStateNormal];
                 [self.notifyButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
