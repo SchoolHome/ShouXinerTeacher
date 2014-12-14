@@ -123,6 +123,8 @@
         self.deleteTopic.hidden = YES;
     }
     
+    
+    
     if ([self.data.praisesStr length] > 0 || [self.data.commentsStr length] > 0) {
         self.likeContent.hidden = YES;
         self.relpyContentBack.hidden = YES;
@@ -255,12 +257,17 @@
         [self.labelArray removeAllObjects];
         [self.buttonArray removeAllObjects];
     }
+    if (self.cellLine != nil) {
+        [self.cellLine removeFromSuperview];
+        self.cellLine = nil;
+    }
+    self.cellLine = [[UIImageView alloc] initWithImage:[[UIImage imageNamed:@"BJQCellLine"] stretchableImageWithLeftCapWidth:1.0f topCapHeight:1.0f]];
+    [self addSubview:self.cellLine];
     if (self.relpyContentBack.hidden == NO) {
         self.cellLine.frame = CGRectMake(0.0f, self.relpyContentBack.frame.origin.y + self.relpyContentBack.frame.size.height + 14.0f, 320.0f, 1.0f);
     }else{
         self.cellLine.frame = CGRectMake(0.0f, self.moreButton.frame.origin.y + self.moreButton.frame.size.height + 10.0f, 320.0f, 1.0f);
     }
-    
 #ifdef RECTDEBUG
     [self showDebugRect:YES];
 #endif

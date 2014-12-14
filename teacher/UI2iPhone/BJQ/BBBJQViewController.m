@@ -419,7 +419,6 @@
     hasNew = YES;
     self.type = 0;
     self.navigationController.navigationBar.tintColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.5];
-    self.view.backgroundColor = [UIColor brownColor];
     
     bjqTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0.0f, 320, self.screenHeight-64.0f-48.0f) style:UITableViewStyleGrouped];
     bjqTableView.backgroundColor = [UIColor colorWithHexString:@"f2f2f2"];
@@ -431,7 +430,7 @@
     [bjqTableView reloadData];
     
     UIView *bjqBgView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, bjqTableView.frame.size.width, bjqTableView.frame.size.height)];
-    [bjqBgView setBackgroundColor:[UIColor colorWithHexString:@"f2f2f2"]];
+    [bjqBgView setBackgroundColor:[UIColor clearColor]];
     [bjqTableView setBackgroundView:bjqBgView];
     bjqBgView = nil;
     
@@ -454,7 +453,7 @@
     }];
     
     UIImageView *head = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 320, 147)];
-    head.backgroundColor = [UIColor colorWithHexString:@"f2f2f2"];
+    head.backgroundColor = [UIColor clearColor];
     head.userInteractionEnabled = YES;
     
     
@@ -619,36 +618,7 @@
 }
 
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
-    
-//    if (notifyCount>0) {
-//        
-//        UIView *backView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 320, 76)];
-//        backView.backgroundColor = [UIColor colorWithHexString:@"f2f2f2"];
-//        
-//        UIButton *newNotify = [UIButton buttonWithType:UIButtonTypeCustom];
-//        newNotify.frame = CGRectMake(75, 36, 172, 38);
-//        [newNotify setBackgroundImage:[UIImage imageNamed:@"BBNewMessage"] forState:UIControlStateNormal];
-//        newNotify.backgroundColor = [UIColor clearColor];
-//        newNotify.titleLabel.font = [UIFont boldSystemFontOfSize:14];
-//        newNotify.titleLabel.textColor = [UIColor whiteColor];
-//        newNotify.titleLabel.textAlignment = NSTextAlignmentCenter;
-//        newNotify.titleLabel.text = [NSString stringWithFormat:@"您有%d条新消息",notifyCount];
-//        [backView addSubview:newNotify];
-//        [newNotify addTarget:self action:@selector(newNotifyTaped:) forControlEvents:UIControlEventTouchUpInside];
-//        
-////        UILabel *msg = [[UILabel alloc] initWithFrame:CGRectMake(0, 9, 170, 20)];
-////        [newNotify addSubview:msg];
-////        msg.textColor = [UIColor whiteColor];
-////        msg.backgroundColor = [UIColor clearColor];
-////        msg.font = [UIFont boldSystemFontOfSize:14];
-////        msg.textAlignment = NSTextAlignmentCenter;
-////        msg.text = [NSString stringWithFormat:@"您有%d条新消息",notifyCount];
-//        
-//        return backView;
-//    }
-//    
     return nil;
-    
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {

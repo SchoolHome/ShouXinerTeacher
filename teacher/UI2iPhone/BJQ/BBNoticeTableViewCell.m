@@ -274,6 +274,12 @@
         [self.labelArray removeAllObjects];
         [self.buttonArray removeAllObjects];
     }
+    if (self.cellLine != nil) {
+        [self.cellLine removeFromSuperview];
+        self.cellLine = nil;
+    }
+    self.cellLine = [[UIImageView alloc] initWithImage:[[UIImage imageNamed:@"BJQCellLine"] stretchableImageWithLeftCapWidth:1.0f topCapHeight:1.0f]];
+    [self addSubview:self.cellLine];
     if (self.relpyContentBack.hidden == NO) {
         self.cellLine.frame = CGRectMake(0.0f, self.relpyContentBack.frame.origin.y + self.relpyContentBack.frame.size.height - k_CELLLINE_OFFSET, 320.0f, 1.0f);
     }else{
