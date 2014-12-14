@@ -97,8 +97,8 @@
 
 - (void)close
 {
-    [self.navigationController popToRootViewControllerAnimated:YES];
-    //[self.navigationController popViewControllerAnimated:YES];
+    //[self.navigationController popToRootViewControllerAnimated:YES];
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 - (void)confirm

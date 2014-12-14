@@ -54,20 +54,18 @@
     [super viewDidLoad];
     self.view.backgroundColor = [UIColor blackColor];
     
-    CGFloat height = 0.f;
-//    if (IOS7) {
-//        height = 0.f;
-//    }
+
+    CGFloat height = IOS7? 0.f:-20.f;
     
     closeBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    [closeBtn setFrame:CGRectMake(20.f, 18.f+height, 44.f, 32.f)];
+    [closeBtn setFrame:CGRectMake(20.f, 18.f, 44.f, 32.f)];
     [closeBtn setImage:[UIImage imageNamed:@"close"] forState:UIControlStateNormal];
     [closeBtn setImageEdgeInsets:UIEdgeInsetsMake(5.f, 10.f, 5.f, 10.f)];
     [closeBtn addTarget:self action:@selector(close) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:closeBtn];
     
     flashBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    [flashBtn setFrame:CGRectMake(self.screenWidth-100.f, 18.f+height, 44.f, 32.f)];
+    [flashBtn setFrame:CGRectMake(self.screenWidth-100.f, 18.f, 44.f, 32.f)];
     [flashBtn setImage:[UIImage imageNamed:@"lamp_off"] forState:UIControlStateNormal];
     [flashBtn setImage:[UIImage imageNamed:@"lamp"] forState:UIControlStateSelected];
     [flashBtn setImageEdgeInsets:UIEdgeInsetsMake(5, 10, 5, 10)];
@@ -75,7 +73,7 @@
     [self.view addSubview:flashBtn];
     
     camerControl = [UIButton buttonWithType:UIButtonTypeCustom];
-    [camerControl setFrame:CGRectMake(self.screenWidth-50.f, 18.f+height, 44.f, 32.f)];
+    [camerControl setFrame:CGRectMake(self.screenWidth-50.f, 18.f, 44.f, 32.f)];
     [camerControl setImage:[UIImage imageNamed:@"switch"] forState:UIControlStateNormal];
     [camerControl setImageEdgeInsets:UIEdgeInsetsMake(5.f, 10.f, 5.f, 10.f)];
     [camerControl addTarget:self action:@selector(controlCarmerDirection:) forControlEvents:UIControlEventTouchUpInside];
@@ -108,7 +106,7 @@
     [self.view addSubview:timeCountDisplay];
     timeCountDisplay.hidden = YES;
     
-    localView= [[UIView alloc] initWithFrame:CGRectMake(0.f, self.screenHeight/2.f-120.f, 320.f, 240.f)];
+    localView= [[UIView alloc] initWithFrame:CGRectMake(0.f, self.screenHeight/2.f-120.f+height, 320.f, 240.f)];
     [self.view addSubview:localView];
     self.preViewLayer.frame = CGRectMake(0.f, 0.f, 320.f, 240.f);
     [localView.layer addSublayer:self.preViewLayer];
@@ -124,14 +122,14 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    [[UIApplication sharedApplication] setStatusBarHidden:YES withAnimation:UIStatusBarAnimationNone];
+    //[[UIApplication sharedApplication] setStatusBarHidden:YES withAnimation:UIStatusBarAnimationNone];
     [self.navigationController setNavigationBarHidden:YES];
 }
 
 - (void)viewWillDisappear:(BOOL)animated
 {
     [super viewWillDisappear:animated];
-    [[UIApplication sharedApplication] setStatusBarHidden:NO withAnimation:UIStatusBarAnimationNone];
+    //[[UIApplication sharedApplication] setStatusBarHidden:NO withAnimation:UIStatusBarAnimationNone];
     [self.navigationController setNavigationBarHidden:NO];
 }
 /*
