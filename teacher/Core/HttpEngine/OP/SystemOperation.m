@@ -65,7 +65,7 @@
     self = [self initOperation];
     if (nil != self) {
         self.type = kGetResetPasswordSMS;
-        NSString *urlStr = [NSString stringWithFormat:@"http://%@/mapi/resetPasswordSMS",K_HOST_NAME_OF_PALM_SERVER];
+        NSString *urlStr = [NSString stringWithFormat:@"http://%@/mapi/resetPasswordSMS?mobile=%@",K_HOST_NAME_OF_PALM_SERVER,mobileNumber];
         [self setHttpRequestGetWithUrl:urlStr];
     }
     return self;
@@ -133,7 +133,7 @@
 }
 
 -(void) getResetPasswordSMS{
-    [self.dataRequest setRequestCompleted:^(NSDictionary *data){
+    [self.request setRequestCompleted:^(NSDictionary *data){
         dispatch_block_t updateTagBlock = ^{
             [PalmUIManagement sharedInstance].resetSMSCode = data;
         };
