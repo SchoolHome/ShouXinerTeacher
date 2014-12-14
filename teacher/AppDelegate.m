@@ -84,13 +84,21 @@
         image = [UIImage imageNamed:@"navbar_back"];
     }else{
         image = [UIImage imageNamed:@"navBarBg44"];
+
     }
-    [[UINavigationBar appearance] setBackgroundImage:image forBarMetrics:UIBarMetricsDefault];
-    [[UINavigationBar appearanceWhenContainedIn:[CustomNavigationController class], nil] setBackgroundImage:image forBarMetrics:UIBarMetricsDefault];
+//    [[UINavigationBar appearance] setBackgroundImage:image forBarMetrics:UIBarMetricsDefault];
+        [[UINavigationBar appearanceWhenContainedIn:[CustomNavigationController class], nil] setBackgroundImage:image forBarMetrics:UIBarMetricsDefault];
     
-    NSDictionary *attributes=[NSDictionary dictionaryWithObjectsAndKeys:[UIColor colorWithRed:251/255.f green:76/255.f blue:7/255.f alpha:1.f],UITextAttributeTextColor,[UIFont boldSystemFontOfSize:18],UITextAttributeFont, nil];
-    //[[UINavigationBar appearance] setTitleTextAttributes:attributes];
-    [[UINavigationBar appearanceWhenContainedIn:[CustomNavigationController class], nil] setTitleTextAttributes:attributes];
+    if (IOS7) {
+        NSDictionary *attributes=[NSDictionary dictionaryWithObjectsAndKeys:
+                                  [UIColor colorWithRed:251/255.f green:76/255.f blue:7/255.f alpha:1.f],UITextAttributeTextColor,
+                                  [UIColor colorWithRed:251/255.f green:76/255.f blue:7/255.f alpha:1.f],NSForegroundColorAttributeName,
+                                  [UIFont boldSystemFontOfSize:18],UITextAttributeFont,
+                                  [NSValue valueWithUIOffset:UIOffsetZero],UITextAttributeTextShadowOffset, nil];
+        //[[UINavigationBar appearance] setTitleTextAttributes:attributes];
+        [[UINavigationBar appearanceWhenContainedIn:[CustomNavigationController class], nil] setTitleTextAttributes:attributes];
+    }
+
     
     
     [[UIApplication sharedApplication] registerForRemoteNotificationTypes:(UIRemoteNotificationTypeBadge | UIRemoteNotificationTypeSound | UIRemoteNotificationTypeAlert)];
