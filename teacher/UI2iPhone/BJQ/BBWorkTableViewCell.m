@@ -284,6 +284,11 @@
         [self.labelArray removeAllObjects];
         [self.buttonArray removeAllObjects];
     }
+    if (self.relpyContentBack.hidden == NO) {
+        self.line.frame = CGRectMake(0.0f, 10.0f, 320.0f, 1.0f);
+    }else{
+        self.line.frame = CGRectMake(0.0f, self.moreButton.frame.origin.y + self.moreButton.frame.size.height + k_CELLLINE_OFFSET2, 320.0f, 1.0f);
+    }
 #ifdef RECTDEBUG
     [self showDebugRect:YES];
 #endif

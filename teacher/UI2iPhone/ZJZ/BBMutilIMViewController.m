@@ -98,7 +98,7 @@
     
     UIButton *add = [UIButton buttonWithType:UIButtonTypeCustom];
     [add setFrame:CGRectMake(0.0f, 7.0f, 22.0f, 22.0f)];
-    [add setBackgroundImage:[UIImage imageNamed:@"user_alt"] forState:UIControlStateNormal];
+    [add setBackgroundImage:[UIImage imageNamed:@"user_group"] forState:UIControlStateNormal];
     [add addTarget:self action:@selector(add) forControlEvents:UIControlEventTouchUpInside];
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:add];
 }
