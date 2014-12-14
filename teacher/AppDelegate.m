@@ -183,7 +183,10 @@
     [self setLatestActiveTime:[CoreUtils getLongFormatWithNowDate]];
     [[CPUIModelManagement sharedInstance] sysActive];
     [[PalmUIManagement sharedInstance] foreground];
-    [[PalmUIManagement sharedInstance] userLoginToken];
+    CPLGModelAccount *account = [[CPSystemEngine sharedInstance] accountModel];
+    if (account.loginName != nil && account.pwdMD5 != nil && ![account.loginName isEqualToString:@""] && ![account.pwdMD5 isEqualToString:@""]) {
+        [[PalmUIManagement sharedInstance] userLoginToken];
+    }
 //    [[PalmUIManagement sharedInstance] postCheckVersion];
 }
 

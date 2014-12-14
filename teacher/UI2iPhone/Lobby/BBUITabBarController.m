@@ -251,8 +251,7 @@
         BBCameraViewController *camera = [[BBCameraViewController alloc] init];
         camera.hidesBottomBarWhenPushed = YES;
         [(UINavigationController *)self.selectedViewController pushViewController:camera animated:YES];
-    }else
-    {
+    }else{
         if (item == kHomeWorkItem) {
             BBPostHomeworkViewController *postHomeWork = [[BBPostHomeworkViewController alloc] initWithPostType:POST_TYPE_FZY];
             postHomeWork.hidesBottomBarWhenPushed = YES;
@@ -263,6 +262,7 @@
             [(UINavigationController *)self.selectedViewController pushViewController:post animated:YES];
         }
     }
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"changeVC" object:nil];
 }
 
 - (void)tabBarController:(UITabBarController *)tabBarController didSelectViewController:(UIViewController *)viewController{
