@@ -293,6 +293,8 @@
 
 -(void)cantLogin:(UIButton *)btn
 {
+    [self.userName resignFirstResponder];
+    [self.password resignFirstResponder];
     UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:nil delegate:(id<UIActionSheetDelegate>)self cancelButtonTitle:@"取消" destructiveButtonTitle:nil otherButtonTitles:@"重置密码", @"联系客服",nil];
     actionSheet.actionSheetStyle = UIActionSheetStyleBlackTranslucent;
     [actionSheet showInView:self.view];
