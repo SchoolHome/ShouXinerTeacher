@@ -256,9 +256,9 @@
         [self.buttonArray removeAllObjects];
     }
     if (self.relpyContentBack.hidden == NO) {
-        self.line.frame = CGRectMake(0.0f, self.relpyContentBack.frame.origin.y + self.relpyContentBack.frame.size.height - k_CELLLINE_OFFSET, 320.0f, 1.0f);
+        self.cellLine.frame = CGRectMake(0.0f, self.relpyContentBack.frame.origin.y + self.relpyContentBack.frame.size.height + 14.0f, 320.0f, 1.0f);
     }else{
-        self.line.frame = CGRectMake(0.0f, self.moreButton.frame.origin.y + self.moreButton.frame.size.height + 10.0f, 320.0f, 1.0f);
+        self.cellLine.frame = CGRectMake(0.0f, self.moreButton.frame.origin.y + self.moreButton.frame.size.height + 10.0f, 320.0f, 1.0f);
     }
     
 #ifdef RECTDEBUG
