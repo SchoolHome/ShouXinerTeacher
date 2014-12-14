@@ -76,7 +76,8 @@
 - (void)drawRect:(CGRect)rect
 {
     for (int i = 0; i < self.images.count+1; i++) {
-        CGFloat spacing = (320 - IMAGE_WIDTH*4 - IMAGE_INTERVAL*3)/2;
+        
+        CGFloat spacing = (self.frame.size.width - IMAGE_WIDTH*4 - IMAGE_INTERVAL*3)/2;
         
         CGRect frame =CGRectMake(
                                  spacing + (IMAGE_WIDTH + IMAGE_INTERVAL)*(i-i/4*4),
