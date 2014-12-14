@@ -21,7 +21,7 @@
     self = [super initWithFrame:frame];
     if (self) {
         // Initialization code
-        _scrollView = [[UIScrollView alloc] initWithFrame:self.bounds];
+        _scrollView = [[UIScrollView alloc] initWithFrame:self.frame];
         _scrollView.delegate = self;
         _scrollView.contentSize = CGSizeMake(self.bounds.size.width * 3, self.bounds.size.height);
         _scrollView.showsHorizontalScrollIndicator = NO;
