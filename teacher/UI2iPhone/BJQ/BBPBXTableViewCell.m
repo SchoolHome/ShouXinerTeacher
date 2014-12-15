@@ -248,7 +248,7 @@
                 replay.font = [UIFont systemFontOfSize:K_REPLY_SIZE];
                 [replay setBackgroundColor:[UIColor clearColor]];
                 UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
-                button.backgroundColor = [UIColor redColor];
+                button.backgroundColor = [UIColor clearColor];
                 button.frame = replay.frame;
                 [button addTarget:self action:@selector(hEvent:) forControlEvents:UIControlEventTouchUpInside];
                 button.tag = i;
