@@ -20,6 +20,8 @@
 {
     NSArray *mutilMsgGroups;
     UITableView *groupTableview;
+    
+    BOOL alreadyQuitGroup;
 }
 @end
 
@@ -29,6 +31,9 @@
 {
     
     if([keyPath isEqualToString:@"quitGroupDic"]){
+        if (alreadyQuitGroup) {
+            return;
+        }
         if ([[[CPUIModelManagement sharedInstance].quitGroupDic objectForKey:group_manage_dic_res_code]integerValue]== RESPONSE_CODE_SUCESS) {
             [self closeProgress];
             NSMutableArray *tempMutilMsgGroups = [[NSMutableArray alloc] init];
@@ -44,7 +49,30 @@
             [groupTableview reloadData];
         }else {
             [self showProgressWithText:[[CPUIModelManagement sharedInstance].quitGroupDic objectForKey:group_manage_dic_res_desc] withDelayTime:3.f];
+        }
+            alreadyQuitGroup = YES;
+    }
+    
+    //quitGroupDic无效时备用
+    if ([keyPath isEqualToString:@"userMsgGroupTag"]) {
+        if ([CPUIModelManagement sharedInstance].userMsgGroupTag == UPDATE_USER_GROUP_TAG_DEL) {
+            if (alreadyQuitGroup) {
+                return;
+            }
+            [self closeProgress];
+            NSMutableArray *tempMutilMsgGroups = [[NSMutableArray alloc] init];
+            for (CPUIModelMessageGroup *group in [CPUIModelManagement sharedInstance].userMessageGroupList) {
+                if ([group isKindOfClass:[CPUIModelMessageGroup class]]) {
+                    if (![group isMsgSingleGroup]) {
+                        [tempMutilMsgGroups addObject:group];
+                    }
+                }
+            }
             
+            mutilMsgGroups = tempMutilMsgGroups;
+            [groupTableview reloadData];
+            
+            alreadyQuitGroup = YES;
         }
     }
 }
@@ -88,12 +116,14 @@
 - (void)viewDidAppear:(BOOL)animated
 {
     [[CPUIModelManagement sharedInstance] addObserver:self forKeyPath:@"quitGroupDic" options:0 context:nil];
+    [[CPUIModelManagement sharedInstance] addObserver:self forKeyPath:@"userMsgGroupTag" options:0 context:nil];
 }
 
 - (void)viewWillDisappear:(BOOL)animated
 {
     [groupTableview setEditing:NO];
     [[CPUIModelManagement sharedInstance] removeObserver:self forKeyPath:@"quitGroupDic"];
+    [[CPUIModelManagement sharedInstance] removeObserver:self forKeyPath:@"userMsgGroupTag"];
 }
 
 - (void)didReceiveMemoryWarning {

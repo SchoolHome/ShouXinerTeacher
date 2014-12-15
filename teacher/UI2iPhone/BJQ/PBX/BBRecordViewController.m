@@ -241,6 +241,8 @@
 {
     [_countDurTimer invalidate];
     self.countDurTimer = nil;
+    
+
 }
 
 - (AVCaptureDevice *)getCameraDevice:(BOOL)isFront
@@ -556,6 +558,7 @@
 - (void)stopCurrentVideoRecording
 {
     [self stopCountDurTimer];
+    [self recoverToolWhenEndRecording];
     [_movieFileOutput stopRecording];
 }
 

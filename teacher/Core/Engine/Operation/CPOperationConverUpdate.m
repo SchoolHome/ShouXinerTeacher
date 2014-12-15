@@ -175,13 +175,6 @@
     if (existDbModelMsgGroup.msgGroupID)
     {
         [[[CPSystemEngine sharedInstance] dbManagement] deleteGroupWithID:existDbModelMsgGroup.msgGroupID];
-        CPUIModelMessageGroup *currMsgGroup = [[CPUIModelManagement sharedInstance] userMsgGroup];
-        if(!currMsgGroup){// 从独立profile退群和从大家墙删群
-            [[CPSystemEngine sharedInstance] updateTagByMsgGroupDel];
-        }else if(currMsgGroup.msgGroupID&&[currMsgGroup.msgGroupID isEqualToNumber:existDbModelMsgGroup.msgGroupID])// multi chat
-        {
-            [[CPSystemEngine sharedInstance] updateTagByMsgGroupDel];
-        }
         
         NSMutableArray *uiMsgGroups = [[NSMutableArray alloc] initWithArray:[[CPUIModelManagement sharedInstance] userMessageGroupList]];
         for(CPUIModelMessageGroup *uiMsgGroup in uiMsgGroups)
@@ -194,6 +187,16 @@
                 break;
             }
         }
+        
+        CPUIModelMessageGroup *currMsgGroup = [[CPUIModelManagement sharedInstance] userMsgGroup];
+        if(!currMsgGroup){// 从独立profile退群和从大家墙删群
+            [[CPSystemEngine sharedInstance] updateTagByMsgGroupDel];
+        }else if(currMsgGroup.msgGroupID&&[currMsgGroup.msgGroupID isEqualToNumber:existDbModelMsgGroup.msgGroupID])// multi chat
+        {
+            [[CPSystemEngine sharedInstance] updateTagByMsgGroupDel];
+        }
+        
+
 
     }
 }
