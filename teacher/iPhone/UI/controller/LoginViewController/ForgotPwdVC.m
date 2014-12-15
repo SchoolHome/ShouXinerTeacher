@@ -81,7 +81,7 @@
     [self.view addSubview:subView];
     subView = nil;
     phoneField = [[UITextField alloc] initWithFrame:CGRectMake(10, height, self.view.frame.size.width-20, 44)];
-    [phoneField setPlaceholder:@"输入正确得手机号码"];
+    [phoneField setPlaceholder:@"输入正确的手机号码"];
     [phoneField setFont:[UIFont systemFontOfSize:16]];
     [phoneField setContentVerticalAlignment:UIControlContentVerticalAlignmentCenter];
     [phoneField setBackgroundColor:[UIColor whiteColor]];
@@ -137,7 +137,7 @@
     height = height + 80;
     UIButton *loginBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     loginBtn.frame = CGRectMake((self.view.frame.size.width - 271.f)/2.0f, height, 271.f, 43.f);
-    [loginBtn setImage:[UIImage imageNamed:@"LoginButton.png"] forState:UIControlStateNormal];
+    [loginBtn setImage:[UIImage imageNamed:@"reset.png"] forState:UIControlStateNormal];
     [loginBtn addTarget:self action:@selector(login:) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:loginBtn];
     
@@ -205,8 +205,13 @@
             [self showProgressWithText:@"请填写密码" withDelayTime:1.5f];
             return;
         }
-        [[PalmUIManagement sharedInstance] postResetPassword:smsID withSmsCode:verfyCode withNewPassword:password];
-        [self showProgressWithText:@"正在重置，请稍候..."];
+        if (smsID != nil || smsID.length == 0) {
+            [self showProgressWithText:@"正在重置，请稍候..."];
+            [[PalmUIManagement sharedInstance] postResetPassword:smsID withSmsCode:verfyCode withNewPassword:password];
+        }else{
+            [self showProgressWithText:@"请获取验证码" withDelayTime:2.0f];
+        }
+        
     }else{
         [self showProgressWithText:@"两次密码输入不一致" withDelayTime:1.0f];
     }

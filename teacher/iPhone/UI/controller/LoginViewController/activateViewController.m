@@ -88,7 +88,11 @@
     // Do any additional setup after loading the view.
     self.title = @"账号激活";
     [self.navigationController setNavigationBarHidden:NO];
-    self.navigationItem.hidesBackButton = YES;
+    UIButton *back = [UIButton buttonWithType:UIButtonTypeCustom];
+    [back setFrame:CGRectMake(0.f, 7.f, 22.f, 22.f)];
+    [back setBackgroundImage:[UIImage imageNamed:@"back.png"] forState:UIControlStateNormal];
+    [back addTarget:self action:@selector(backViewController) forControlEvents:UIControlEventTouchUpInside];
+    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:back];
     CPPTModelLoginResult *loginModel = [PalmUIManagement sharedInstance].loginResult;
     CGFloat height = 10.f;
     UIView *subView = [[UIView alloc] initWithFrame:CGRectMake(0, height, self.view.frame.size.width, 44.f)];
@@ -291,5 +295,9 @@
     // Dispose of any resources that can be recreated.
 }
 
+-(void)backViewController
+{
+    [self.navigationController popViewControllerAnimated:YES];
+}
 
 @end
