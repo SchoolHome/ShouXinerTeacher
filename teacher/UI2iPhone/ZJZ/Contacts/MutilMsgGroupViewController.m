@@ -102,11 +102,14 @@
     [addButton addTarget:self action:@selector(addMsgGroup) forControlEvents:UIControlEventTouchUpInside];
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:addButton];
     
-   groupTableview = [[UITableView alloc] initWithFrame:CGRectMake(0.f, 0.f, 320.f, self.screenHeight-89.f) style:UITableViewStyleGrouped];
+   groupTableview = [[UITableView alloc] initWithFrame:CGRectMake(0.f, 0.f, 320.f, self.screenHeight-89.f) style:UITableViewStylePlain];
     groupTableview.backgroundColor = [UIColor clearColor];
     groupTableview.delegate = self;
     groupTableview.dataSource = self;
-    groupTableview.tableHeaderView = [[UIView alloc] initWithFrame:CGRectMake(0.f, 0.f, 320.f, 1.f)];
+    if (IOS7) {
+        groupTableview.tableHeaderView =  [[UIView alloc] initWithFrame:CGRectMake(0.f, 0.f, 320.f, 1.f)];
+    }
+    
     groupTableview.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
     groupTableview.showsVerticalScrollIndicator = NO;
     [self.view addSubview:groupTableview];
@@ -220,7 +223,7 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
 {
-    return 10.f;
+    return IOS7?10.f : 0.f;
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
