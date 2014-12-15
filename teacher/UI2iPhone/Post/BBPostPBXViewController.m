@@ -439,8 +439,9 @@
     NSLog(@"getThumbnailImage==%@",image);
     if (!image) {
         [self showProgressWithText:@"获取图片失败,请重试" withDelayTime:2.f];
-        [self.navigationController popToRootViewControllerAnimated:YES];
-        return;
+        //[self setChoosenImages:@[image] andISVideo:YES];
+        //[self.navigationController popToRootViewControllerAnimated:YES];
+        //return;
     }
     [self setChoosenImages:@[image] andISVideo:YES];
 }
