@@ -201,18 +201,21 @@
                 shareContentBG.backgroundColor = [UIColor colorWithRed:225/255.f green:225/255.f blue:225/255.f alpha:1.f];
                 [cell.contentView addSubview:shareContentBG];
                 
-                EGOImageView *messageImageView = [[EGOImageView alloc] initWithFrame:CGRectMake(ThingsTextViewSpaceing+5.f, ThingsTextViewHeight+5.f, 40.f, 40.f)];
-                [messageImageView setImageURL:[NSURL URLWithString:shareModel.imageUrl]];
+                EGOImageView *messageImageView = [[EGOImageView alloc] initWithFrame:CGRectMake(ThingsTextViewSpaceing+5.f, CGRectGetMinY(shareContentBG.frame)+5.f, 40.f, 40.f)];
+                [messageImageView setImageURL:[NSURL URLWithString:shareModel.avatar]];
                 [cell.contentView addSubview:messageImageView];
                 
                 UILabel *messageTitle = [[UILabel alloc] initWithFrame:CGRectMake(CGRectGetMaxX(messageImageView.frame)+5.f,
-                    ThingsTextViewHeight+5.f,
+                    CGRectGetMinY(shareContentBG.frame)+5.f,
                     CGRectGetWidth(shareContentBG.frame)-CGRectGetMaxX(messageImageView.frame)-5.f,
                     CGRectGetHeight(messageImageView.frame))];
                 messageTitle.font = [UIFont systemFontOfSize:12.f];
+                messageTitle.backgroundColor = [UIColor clearColor];
                 messageTitle.text = shareModel.content;
                 messageTitle.numberOfLines = 2;
                 [cell.contentView addSubview:messageTitle];
+                
+
             }
                 break;
             default:

@@ -24,6 +24,7 @@ typedef enum
 @property (nonatomic, strong)NSString *avatar;
 @property (nonatomic, strong)NSString *link;
 @property (nonatomic, strong)NSNumber *ts;
+@property (nonatomic, strong)NSString *userName;
 
 + (BBServiceMessageDetailModel  *)convertByDic:(NSDictionary *)dic;
 @end
