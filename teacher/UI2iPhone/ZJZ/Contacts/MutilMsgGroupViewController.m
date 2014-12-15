@@ -20,6 +20,8 @@
 {
     NSArray *mutilMsgGroups;
     UITableView *groupTableview;
+    
+    BOOL alreadyQuitGroup;
 }
 @end
 
@@ -29,6 +31,9 @@
 {
     
     if([keyPath isEqualToString:@"quitGroupDic"]){
+        if (alreadyQuitGroup) {
+            return;
+        }
         if ([[[CPUIModelManagement sharedInstance].quitGroupDic objectForKey:group_manage_dic_res_code]integerValue]== RESPONSE_CODE_SUCESS) {
             [self closeProgress];
             NSMutableArray *tempMutilMsgGroups = [[NSMutableArray alloc] init];
@@ -44,7 +49,30 @@
             [groupTableview reloadData];
         }else {
             [self showProgressWithText:[[CPUIModelManagement sharedInstance].quitGroupDic objectForKey:group_manage_dic_res_desc] withDelayTime:3.f];
+        }
+            alreadyQuitGroup = YES;
+    }
+    
+    //quitGroupDic无效时备用
+    if ([keyPath isEqualToString:@"userMsgGroupTag"]) {
+        if ([CPUIModelManagement sharedInstance].userMsgGroupTag == UPDATE_USER_GROUP_TAG_DEL) {
+            if (alreadyQuitGroup) {
+                return;
+            }
+            [self closeProgress];
+            NSMutableArray *tempMutilMsgGroups = [[NSMutableArray alloc] init];
+            for (CPUIModelMessageGroup *group in [CPUIModelManagement sharedInstance].userMessageGroupList) {
+                if ([group isKindOfClass:[CPUIModelMessageGroup class]]) {
+                    if (![group isMsgSingleGroup]) {
+                        [tempMutilMsgGroups addObject:group];
+                    }
+                }
+            }
             
+            mutilMsgGroups = tempMutilMsgGroups;
+            [groupTableview reloadData];
+            
+            alreadyQuitGroup = YES;
         }
     }
 }
@@ -74,11 +102,14 @@
     [addButton addTarget:self action:@selector(addMsgGroup) forControlEvents:UIControlEventTouchUpInside];
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:addButton];
     
-   groupTableview = [[UITableView alloc] initWithFrame:CGRectMake(0.f, 0.f, 320.f, self.screenHeight-89.f) style:UITableViewStyleGrouped];
+   groupTableview = [[UITableView alloc] initWithFrame:CGRectMake(0.f, 0.f, 320.f, self.screenHeight-89.f) style:UITableViewStylePlain];
     groupTableview.backgroundColor = [UIColor clearColor];
     groupTableview.delegate = self;
     groupTableview.dataSource = self;
-    groupTableview.tableHeaderView = [[UIView alloc] initWithFrame:CGRectMake(0.f, 0.f, 320.f, 1.f)];
+    if (IOS7) {
+        groupTableview.tableHeaderView =  [[UIView alloc] initWithFrame:CGRectMake(0.f, 0.f, 320.f, 1.f)];
+    }
+    
     groupTableview.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
     groupTableview.showsVerticalScrollIndicator = NO;
     [self.view addSubview:groupTableview];
@@ -88,12 +119,14 @@
 - (void)viewDidAppear:(BOOL)animated
 {
     [[CPUIModelManagement sharedInstance] addObserver:self forKeyPath:@"quitGroupDic" options:0 context:nil];
+    [[CPUIModelManagement sharedInstance] addObserver:self forKeyPath:@"userMsgGroupTag" options:0 context:nil];
 }
 
 - (void)viewWillDisappear:(BOOL)animated
 {
     [groupTableview setEditing:NO];
     [[CPUIModelManagement sharedInstance] removeObserver:self forKeyPath:@"quitGroupDic"];
+    [[CPUIModelManagement sharedInstance] removeObserver:self forKeyPath:@"userMsgGroupTag"];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -190,7 +223,7 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
 {
-    return 10.f;
+    return IOS7?10.f : 0.f;
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
