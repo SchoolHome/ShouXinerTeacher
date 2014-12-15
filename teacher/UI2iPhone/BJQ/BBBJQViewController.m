@@ -45,6 +45,7 @@
 @property (nonatomic,strong) NSString *videoFilePath;
 -(void) playVideo : (NSString *) videoPath withCell : (BBVideoTableViewCell *) cell;
 -(void) needRefresh;
+-(void) needRefreshBJQData;
 @end
 
 @implementation BBBJQViewController
@@ -92,7 +93,7 @@
                     [self.allTopicList addObjectsFromArray:arr];
                     
                     [bjqTableView.pullToRefreshView stopAnimating];
-                    
+                    NSLog(@"123456789");
                     NSDate *now = [CoreUtils convertDateToLocalTime:[NSDate date]];
                     NSString *date = [NSString stringWithFormat:@"最近更新: %@",[[now description] substringToIndex:16]];
                     [bjqTableView.pullToRefreshView setSubtitle:date forState:SVPullToRefreshStateAll];
@@ -588,6 +589,11 @@
 }
 
 -(void) needRefresh{
+    NSLog(@"needRefresh");
+    [self performSelector:@selector(needRefreshBJQData) withObject:nil afterDelay:1.0f];
+}
+
+-(void) needRefreshBJQData{
     [bjqTableView triggerPullToRefresh];
 }
 
@@ -878,6 +884,7 @@
     if (self.tempMoreImage != nil) {
         [self.tempMoreImage removeFromSuperview];
         self.tempMoreImage = nil;
+        return;
     }
     if (nil != copyContentButton) {
         [copyContentButton removeFromSuperview];
