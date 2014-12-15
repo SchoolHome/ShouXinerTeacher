@@ -1,18 +1,18 @@
 //
-//  BBJFViewController.m
+//  BBShareWebViewController.m
 //  teacher
 //
-//  Created by mtf on 14-4-13.
+//  Created by singlew on 14/12/15.
 //  Copyright (c) 2014年 ws. All rights reserved.
 //
 
-#import "BBJFViewController.h"
+#import "BBShareWebViewController.h"
 
-@interface BBJFViewController ()
+@interface BBShareWebViewController ()
 
 @end
 
-@implementation BBJFViewController
+@implementation BBShareWebViewController
 
 -(void)backButtonTaped:(id)sender{
     [self.navigationController popViewControllerAnimated:YES];
@@ -27,7 +27,7 @@
     [backButton setBackgroundImage:[UIImage imageNamed:@"back"] forState:UIControlStateNormal];
     [backButton addTarget:self action:@selector(backButtonTaped:) forControlEvents:UIControlEventTouchUpInside];
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:backButton];
-    self.title = @"手心商城";
+    self.title = @"分享";
     int heightFix = 20;
     if (IOS7) {
         heightFix = 20;

@@ -252,6 +252,7 @@
 		1970BC5E191BB7E400F63454 /* ActivateSmallFrom@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1970BC56191BB7E400F63454 /* ActivateSmallFrom@2x.png */; };
 		19735B441A14CFFB000DA633 /* GetSmsCode.png in Resources */ = {isa = PBXBuildFile; fileRef = 19735B421A14CFFB000DA633 /* GetSmsCode.png */; };
 		19735B451A14CFFB000DA633 /* GetSmsCode@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 19735B431A14CFFB000DA633 /* GetSmsCode@2x.png */; };
+		197363821A3EFCD20026AA31 /* BBShareWebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 197363811A3EFCD20026AA31 /* BBShareWebViewController.m */; };
 		19757BD519F8F732009F9E17 /* BJQHaveNotZanButton.png in Resources */ = {isa = PBXBuildFile; fileRef = 19757BCD19F8F732009F9E17 /* BJQHaveNotZanButton.png */; };
 		19757BD619F8F732009F9E17 /* BJQHaveNotZanButton@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 19757BCE19F8F732009F9E17 /* BJQHaveNotZanButton@2x.png */; };
 		19757BD719F8F732009F9E17 /* BJQMoreBg.png in Resources */ = {isa = PBXBuildFile; fileRef = 19757BCF19F8F732009F9E17 /* BJQMoreBg.png */; };
@@ -1835,6 +1836,8 @@
 		1970BC56191BB7E400F63454 /* ActivateSmallFrom@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ActivateSmallFrom@2x.png"; sourceTree = "<group>"; };
 		19735B421A14CFFB000DA633 /* GetSmsCode.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = GetSmsCode.png; sourceTree = "<group>"; };
 		19735B431A14CFFB000DA633 /* GetSmsCode@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "GetSmsCode@2x.png"; sourceTree = "<group>"; };
+		197363801A3EFCD20026AA31 /* BBShareWebViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BBShareWebViewController.h; sourceTree = "<group>"; };
+		197363811A3EFCD20026AA31 /* BBShareWebViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BBShareWebViewController.m; sourceTree = "<group>"; };
 		19757BCD19F8F732009F9E17 /* BJQHaveNotZanButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = BJQHaveNotZanButton.png; sourceTree = "<group>"; };
 		19757BCE19F8F732009F9E17 /* BJQHaveNotZanButton@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "BJQHaveNotZanButton@2x.png"; sourceTree = "<group>"; };
 		19757BCF19F8F732009F9E17 /* BJQMoreBg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = BJQMoreBg.png; sourceTree = "<group>"; };
@@ -7677,6 +7680,8 @@
 				7A922F7B18E2CEFC00026C4A /* BBInputView.m */,
 				7AC51B9E18CDDA6900AD1A8C /* BBBJQViewController.h */,
 				7AC51B9F18CDDA6900AD1A8C /* BBBJQViewController.m */,
+				197363801A3EFCD20026AA31 /* BBShareWebViewController.h */,
+				197363811A3EFCD20026AA31 /* BBShareWebViewController.m */,
 			);
 			path = BJQ;
 			sourceTree = "<group>";
@@ -8819,6 +8824,7 @@
 				332D834818C33F0B007A75D5 /* SingleSystemUnknowCell.m in Sources */,
 				332D82C318C33F0A007A75D5 /* BKLocationManager.m in Sources */,
 				332D835418C33F0B007A75D5 /* TaggingHoliday.m in Sources */,
+				197363821A3EFCD20026AA31 /* BBShareWebViewController.m in Sources */,
 				332D756518C33552007A75D5 /* DDAbstractDatabaseLogger.m in Sources */,
 				332D755E18C33552007A75D5 /* LibIDN.m in Sources */,
 				332D753B18C33552007A75D5 /* XMPPRoster.xcdatamodel in Sources */,
@@ -9420,7 +9426,7 @@
 				ONLY_ACTIVE_ARCH = NO;
 				OTHER_LDFLAGS = "-lxml2";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "d6a62645-a0e2-42d0-9fb0-5db31b1ab28d";
+				PROVISIONING_PROFILE = "8ADA4211-F5E2-4B2C-BD42-E4012B0B901C";
 				SDKROOT = iphoneos;
 				VALID_ARCHS = armv7;
 				WRAPPER_EXTENSION = app;
@@ -9456,7 +9462,7 @@
 				);
 				OTHER_LDFLAGS = "-lxml2";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "d6a62645-a0e2-42d0-9fb0-5db31b1ab28d";
+				PROVISIONING_PROFILE = "8ADA4211-F5E2-4B2C-BD42-E4012B0B901C";
 				SDKROOT = iphoneos;
 				VALID_ARCHS = armv7;
 				WRAPPER_EXTENSION = app;

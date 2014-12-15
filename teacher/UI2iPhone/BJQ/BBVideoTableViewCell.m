@@ -45,8 +45,8 @@
         [self addSubview:content];
         content.backgroundColor = [UIColor clearColor];
         
-        imageContent = [[EGOImageButton alloc] init];
-        [self addSubview:imageContent];
+        self.imageContent = [[EGOImageButton alloc] init];
+        [self addSubview:self.imageContent];
 //        [imageContent addTarget:self action:@selector(imageButtonTaped:) forControlEvents:UIControlEventTouchUpInside];
         
         playImage = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"play"]];
@@ -88,16 +88,16 @@
     
     // 视频图片
     CGFloat timeBegin = 0;
-    imageContent.frame = CGRectMake(60, kViewFoot(content)+10, 85, 64);
-    imageContent.backgroundColor = [UIColor grayColor];
+    self.imageContent.frame = CGRectMake(60, kViewFoot(content)+10, 85, 64);
+    self.imageContent.backgroundColor = [UIColor grayColor];
     NSArray *array = [self.data.videoList[0] componentsSeparatedByString:@","];
     NSString *url = [NSString stringWithFormat:@"%@preview",array[0]];
-    imageContent.imageURL = [NSURL URLWithString:url];
+    self.imageContent.imageURL = [NSURL URLWithString:url];
     
-    [imageContent addSubview:playImage];
-    playImage.center = CGPointMake(imageContent.frame.size.width/2.0f, imageContent.frame.size.height/2.0f);
+    [self.imageContent addSubview:playImage];
+    playImage.center = CGPointMake(self.imageContent.frame.size.width/2.0f, self.imageContent.frame.size.height/2.0f);
     
-    timeBegin = kViewFoot(imageContent);
+    timeBegin = kViewFoot(self.imageContent);
     
     if (self.data.recommendToGroups || self.data.recommendToHomepage || self.data.recommendToUpGroup) {
         self.recommendButton.frame = CGRectMake(232.0f, timeBegin+2.0f, 29.0, 26.0f);

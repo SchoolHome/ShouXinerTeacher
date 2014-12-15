@@ -13,8 +13,7 @@
     UIImageView *contentBack;
     UILabel *content;
     UIImageView *typeImage;
-    EGOImageButton *imageContent;
     UIImageView *playImage;
 }
-
+@property (nonatomic,strong) EGOImageButton *imageContent;
 @end
