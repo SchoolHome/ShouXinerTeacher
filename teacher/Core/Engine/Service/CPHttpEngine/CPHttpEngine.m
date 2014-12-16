@@ -941,6 +941,9 @@ typedef enum httpEngineState HttpEngineState;
                     loginResult = [CPPTModelLoginResult fromJsonDict:rspJsonDict];
                     [[NSUserDefaults standardUserDefaults] setObject:[NSNumber numberWithInt:0] forKey:[NSString stringWithFormat:@"first_login%@",userName]];
                     [[NSUserDefaults standardUserDefaults] synchronize];
+                }else{
+                    loginResult = [[CPPTModelLoginResult alloc] init];
+                    loginResult.loginErrorMsg = rspJsonDict[@"error"];
                 }
 #ifdef SYS_STATE_MIGR
                 else

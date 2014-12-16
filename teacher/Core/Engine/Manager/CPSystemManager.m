@@ -686,7 +686,12 @@
     NSInteger resCode;
     if ([resultCode intValue] != LOGIN_RESPONSE_CODE_SUCESS)
     {
-        responseDesc = [CoreUtils filterResponseDescWithCode:resultCode];
+        CPPTModelLoginResult *errorResult = nil;
+        if (resultObject && [resultObject isKindOfClass:[CPPTModelLoginResult class]])
+        {
+            errorResult = (CPPTModelLoginResult *)resultObject;
+        }
+        responseDesc = errorResult.loginErrorMsg;
         resCode = LOGIN_RESPONSE_CODE_SERVER_ERROR;
         
 #ifdef SYS_STATE_MIGR
