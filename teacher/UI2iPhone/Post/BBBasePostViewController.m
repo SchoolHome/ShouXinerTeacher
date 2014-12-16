@@ -50,6 +50,7 @@ viewImageDeletedDelegate>
     if (!_classModels) _classModels = [[NSArray alloc] init];
     return _classModels;
 }
+
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context{
     if ([@"updateImageResult" isEqualToString:keyPath])  // 图片上传成功
     {

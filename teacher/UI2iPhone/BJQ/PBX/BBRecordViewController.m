@@ -558,7 +558,7 @@
 - (void)stopCurrentVideoRecording
 {
     [self stopCountDurTimer];
-    [self recoverToolWhenEndRecording];
+    //[self recoverToolWhenEndRecording];
     [_movieFileOutput stopRecording];
 }
 

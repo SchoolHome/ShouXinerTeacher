@@ -15,7 +15,7 @@
 #define IS_TEACHER
 
 // guid显示版本定义
-#define GuidVersion @"1.0"
+#define GuidVersion @"2.0"
 
 // 注释掉TEST为线上环境
 //#define TEST

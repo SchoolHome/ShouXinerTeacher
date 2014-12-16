@@ -22,6 +22,7 @@
     tempModel.link = [FXStringUtil fliterStringIsNull:dic[@"link"]];
     tempModel.ts = dic[@"ts"];
     tempModel.avatar = [FXStringUtil fliterStringIsNull:dic[@"avatar"]];
+    tempModel.userName = [FXStringUtil fliterStringIsNull:dic[@"username"]];
     
     return tempModel;
 }

@@ -116,6 +116,7 @@
             [self backToBJQRoot];
         }
     }
+    
     if ([@"groupListResult" isEqualToString:keyPath]) {
         [super observeValueForKeyPath:keyPath ofObject:object change:change context:context];
     }
@@ -175,16 +176,17 @@
 {
     [super viewWillAppear:animated];
     
-    [[PalmUIManagement sharedInstance] addObserver:self forKeyPath:@"updateImageResult" options:0 context:NULL];
-    [[PalmUIManagement sharedInstance] addObserver:self forKeyPath:@"topicResult" options:0 context:NULL];
+    [[PalmUIManagement sharedInstance] addObserver:self forKeyPath:@"updateImageResult" options:0 context:nil];
+    [[PalmUIManagement sharedInstance] addObserver:self forKeyPath:@"topicResult" options:0 context:nil];
     [[PalmUIManagement sharedInstance] addObserver:self forKeyPath:@"groupStudents" options:0 context:nil];
     [[PalmUIManagement sharedInstance] addObserver:self forKeyPath:@"videoCompressionState" options:0 context:nil];
     [[PalmUIManagement sharedInstance] addObserver:self forKeyPath:@"uploadVideoResult" options:0 context:nil];
     
 }
-- (void)viewDidDisappear:(BOOL)animated
+
+- (void)viewWillDisappear:(BOOL)animated
 {
-    [super viewDidDisappear:animated];
+    [super viewWillDisappear:animated];
     
     [[PalmUIManagement sharedInstance] removeObserver:self forKeyPath:@"updateImageResult"];
     [[PalmUIManagement sharedInstance] removeObserver:self forKeyPath:@"topicResult"];
