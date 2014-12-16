@@ -1213,6 +1213,7 @@ andTmpFilePath:(NSString *)filePath
     [[CPUIModelManagement sharedInstance] setLoginDesc:desc];
     __block NSNumber * resCode = code;
     dispatch_block_t updateTagBlock = ^{
+        [CPUIModelManagement sharedInstance].loginErrorMsg = desc;
         [[CPUIModelManagement sharedInstance] setLoginCode:[resCode intValue]];
     };
     dispatch_async(dispatch_get_main_queue(), updateTagBlock);

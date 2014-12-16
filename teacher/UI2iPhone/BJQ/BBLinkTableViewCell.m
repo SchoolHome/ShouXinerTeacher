@@ -86,7 +86,7 @@
     content.userInteractionEnabled = YES;
     [content sizeToFit];
     
-    linkTitle.text = self.data.forward.title;
+    linkTitle.text = self.data.forward.summary;
     linkTitle.font = [UIFont systemFontOfSize:14];
     linkTitle.numberOfLines = 3;
     [linkTitle sizeToFit];

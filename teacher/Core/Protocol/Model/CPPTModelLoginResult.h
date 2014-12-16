@@ -28,6 +28,7 @@
 @property (strong,nonatomic) NSString *version;
 @property (nonatomic) BOOL needSetUserName;
 @property (nonatomic, strong) NSString *mobile;
+@property (nonatomic,strong) NSString *loginErrorMsg;
 + (CPPTModelLoginResult *)fromJsonDict:(NSDictionary *)jsonDict;
 
 @end

@@ -255,7 +255,11 @@
         }else{
             /*登录失败*/
             NSLog(@"登录失败");
-            [self showProgressWithText:@"登陆失败" withDelayTime:2.0f];
+            if ([CPUIModelManagement sharedInstance].loginErrorMsg == nil || [[CPUIModelManagement sharedInstance].loginErrorMsg isEqualToString:@""]) {
+                [self showProgressWithText:@"登录失败" withDelayTime:2.0f];
+            }else{
+                [self showProgressWithText:[CPUIModelManagement sharedInstance].loginErrorMsg withDelayTime:2.0f];
+            }
         }
     }
 }
