@@ -103,6 +103,16 @@
 
 - (void)confirm
 {
+    NSMutableArray *navControllers = [NSMutableArray arrayWithArray:self.navigationController.viewControllers];
+    for (id controller in navControllers) {
+        if ([controller isKindOfClass:[BBPostPBXViewController class]]) {
+            [navControllers removeObject:controller];
+            [self.navigationController setViewControllers:[NSArray arrayWithArray:navControllers] animated:NO];
+            break;
+        }
+    }
+    
+    
     BBPostPBXViewController *postPBX = [[BBPostPBXViewController alloc] initWithImages:[NSArray arrayWithObject:self.image]];
     [self.navigationController pushViewController:postPBX animated:YES];
 }

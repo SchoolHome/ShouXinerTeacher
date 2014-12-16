@@ -221,6 +221,14 @@
 -(void)close
 {
     //[[UIApplication sharedApplication] setStatusBarHidden:NO withAnimation:UIStatusBarAnimationNone];
+    NSLog(@"%@",self.navigationController.viewControllers);
+    for (id controller in self.navigationController.viewControllers ) {
+        if ([controller isKindOfClass:[BBPostPBXViewController class]]) {
+            [self.navigationController popToViewController:controller animated:YES];
+            return;
+        }
+    }
+    
     [self.navigationController popToRootViewControllerAnimated:YES];
 }
 

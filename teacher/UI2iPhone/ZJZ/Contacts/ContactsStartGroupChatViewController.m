@@ -299,7 +299,13 @@ NSInteger nickNameSort(CPUIModelUserInfo *user1, CPUIModelUserInfo *user2, void 
     
     if (!self.isAddMemberInExistMsgGroup) {
         [self.selectedItemsArray addObjectsFromArray:self.hidedUserInfosArray];
-        [[CPUIModelManagement sharedInstance] createConversationWithUsers:self.selectedItemsArray andMsgGroups:nil andType:CREATE_CONVER_TYPE_COMMON];
+        if (self.selectedItemsArray.count) {
+            [[CPUIModelManagement sharedInstance] createConversationWithUsers:self.selectedItemsArray andMsgGroups:nil andType:CREATE_CONVER_TYPE_COMMON];
+        }else
+        {
+            [self showProgressWithText:@"必须选择两位及以上才能开始群聊" withDelayTime:2.f];
+        }
+
     }else
     {
         [self showProgressWithText:@"正在添加..."];

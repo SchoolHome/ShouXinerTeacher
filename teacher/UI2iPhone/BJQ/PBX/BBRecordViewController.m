@@ -422,6 +422,14 @@
 -(void)close
 {
     [self.navigationController setNavigationBarHidden:NO];
+    
+    for (id controller in self.navigationController.viewControllers ) {
+        if ([controller isKindOfClass:[BBPostPBXViewController class]]) {
+            [self.navigationController popToViewController:controller animated:YES];
+            return;
+        }
+    }
+    
     [self.navigationController popToRootViewControllerAnimated:YES];
 }
 
@@ -582,6 +590,15 @@
     
     //    BBWSPViewController *wsp = [[BBWSPViewController alloc] initWithVideoUrl:outputFileURL andType:VIDEO_TYPE_CARMER andGroupModel:model];
     //    [self.navigationController pushViewController:wsp animated:YES];
+    NSMutableArray *navControllers = [NSMutableArray arrayWithArray:self.navigationController.viewControllers];
+    for (id controller in navControllers) {
+        if ([controller isKindOfClass:[BBPostPBXViewController class]]) {
+            [navControllers removeObject:controller];
+            [self.navigationController setViewControllers:[NSArray arrayWithArray:navControllers] animated:NO];
+            break;
+        }
+    }
+    
     BBPostPBXViewController *postVideoPBX = [[BBPostPBXViewController alloc] initWithPostType:POST_TYPE_PBX];
     postVideoPBX.videoUrl = outputFileURL;
     [self.navigationController pushViewController:postVideoPBX animated:YES];
