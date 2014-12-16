@@ -3743,6 +3743,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				332D75C218C33626007A75D5 /* CoreLocation.framework in Frameworks */,
 				332D75BA18C335FB007A75D5 /* MobileCoreServices.framework in Frameworks */,
 				19EF58461917CF0D00371505 /* Crashlytics.framework in Frameworks */,
 				332D75E018C336FC007A75D5 /* CoreMIDI.framework in Frameworks */,
@@ -3760,7 +3761,6 @@
 				332D75C818C33651007A75D5 /* MediaPlayer.framework in Frameworks */,
 				332D75C618C3363F007A75D5 /* OpenAL.framework in Frameworks */,
 				332D75C418C33633007A75D5 /* libz.dylib in Frameworks */,
-				332D75C218C33626007A75D5 /* CoreLocation.framework in Frameworks */,
 				332D75C018C3361C007A75D5 /* MapKit.framework in Frameworks */,
 				332D75BE18C33610007A75D5 /* CoreTelephony.framework in Frameworks */,
 				332D75BC18C33606007A75D5 /* SystemConfiguration.framework in Frameworks */,

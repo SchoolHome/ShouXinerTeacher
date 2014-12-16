@@ -39,6 +39,7 @@
 @synthesize ground_nav_c = _ground_nav_c;
 @synthesize guid_nav_c = _guid_nav_c;
 @synthesize latestActiveTime = _latestActiveTime;
+@synthesize locationManager = _locationManager;
 
 - (void)do_clear_controllers{     // 清除多余的controller，用于退出登录。。。
     for (UIView *aView in [self.window subviews]) {
@@ -98,12 +99,17 @@
         //[[UINavigationBar appearance] setTitleTextAttributes:attributes];
         [[UINavigationBar appearanceWhenContainedIn:[CustomNavigationController class], nil] setTitleTextAttributes:attributes];
     }
-
-    
-    
-    [[UIApplication sharedApplication] registerForRemoteNotificationTypes:(UIRemoteNotificationTypeBadge | UIRemoteNotificationTypeSound | UIRemoteNotificationTypeAlert)];
     
     [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleDefault];
+    //注册推送通知，兼容ios8及ios8-
+    if ([[[UIDevice currentDevice] systemVersion] floatValue] >= 8.0) {
+        [[UIApplication sharedApplication] registerUserNotificationSettings:[UIUserNotificationSettings settingsForTypes:(UIUserNotificationTypeSound |  UIUserNotificationTypeAlert | UIUserNotificationTypeBadge) categories:nil]];
+        [[UIApplication sharedApplication] registerForRemoteNotifications];
+    }
+    else {
+        [[UIApplication sharedApplication]registerForRemoteNotificationTypes:UIRemoteNotificationTypeAlert | UIRemoteNotificationTypeBadge | UIRemoteNotificationTypeSound];
+    }
+    
     // Configure logging framework
     DDFileLogger *fileLogger = [[DDFileLogger alloc] init];
     fileLogger.rollingFrequency = 60 * 60 * 24;
@@ -115,6 +121,9 @@
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     // Override point for customization after application launch.
     self.window.backgroundColor = [UIColor whiteColor];
+   
+    
+    
     NSString *guidVersion = [[NSUserDefaults standardUserDefaults] objectForKey:@"guidVersion"];
     if (guidVersion == nil || ![guidVersion isEqualToString:GuidVersion]) {
         [self do_clear_controllers];
@@ -122,9 +131,16 @@
         CustomNavigationController * nav = [[CustomNavigationController alloc] initWithRootViewController:guid];
         [nav setNavigationBarHidden:YES];
         self.window.rootViewController = nav;
-        [self.window makeKeyAndVisible];
         [[NSUserDefaults standardUserDefaults] setObject:GuidVersion forKey:@"guidVersion"];
         [[NSUserDefaults standardUserDefaults] synchronize];
+        //开启定位功能
+        _locationManager = [[CLLocationManager alloc]init];
+        if([_locationManager respondsToSelector:@selector(requestAlwaysAuthorization)]) {
+            [_locationManager requestAlwaysAuthorization]; // 永久授权
+            [_locationManager requestWhenInUseAuthorization]; //使用中授权
+        }
+        [_locationManager startUpdatingLocation];
+        [self.window makeKeyAndVisible];
         return YES;
     }
     
@@ -143,7 +159,13 @@
     }else{
         [self launchApp];
     }
-    
+    //开启定位功能
+    _locationManager = [[CLLocationManager alloc]init];
+    if([_locationManager respondsToSelector:@selector(requestAlwaysAuthorization)]) {
+        [_locationManager requestAlwaysAuthorization]; // 永久授权
+        [_locationManager requestWhenInUseAuthorization]; //使用中授权
+    }
+    [_locationManager startUpdatingLocation];
     [self.window makeKeyAndVisible];
     return YES;
 }
@@ -236,4 +258,5 @@
 - (void)applicationDidReceiveMemoryWarning:(UIApplication *)application{
     CPLogInfo(@"");
 }
+
 @end
