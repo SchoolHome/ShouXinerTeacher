@@ -51,6 +51,7 @@
             cell.textLabel.backgroundColor = [UIColor blackColor];
             cell.detailTextLabel.textColor = [UIColor colorWithHexString:@"#4a7f9d"];
             cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+            cell.backgroundColor = [UIColor whiteColor];
         }
             cell.detailTextLabel.text = kmList[self.selectedIndex];
         

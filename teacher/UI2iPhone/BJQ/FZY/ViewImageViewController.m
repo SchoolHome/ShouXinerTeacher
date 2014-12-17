@@ -124,7 +124,7 @@
 
 - (UIView *)pageAtIndex:(NSInteger)index{
     UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(0.f, 0.f, self.screenWidth, self.screenHeight)];
-    imageView.image = [self imageWithImage:[self.dataSource objectAtIndex:index]];
+    imageView.image = [self.dataSource objectAtIndex:index];
     imageView.contentMode = UIViewContentModeScaleAspectFit & UIViewContentModeCenter;
     
     return imageView;
