@@ -31,15 +31,15 @@
         title.textColor = [UIColor colorWithHexString:@"#4a7f9d"];
         title.backgroundColor = [UIColor clearColor];
         
-        self.TuiJianImage = [[UIImageView alloc] initWithFrame:CGRectMake(title.frame.origin.x + title.frame.size.width, 2.0f, 10, 15.0f)];
-        self.TuiJianImage.image = [UIImage imageNamed:@"BJQTuiJian"];
-        self.TuiJianImage.hidden = YES;
-        [self addSubview:self.TuiJianImage];
-        
-        self.RongYuImage = [[UIImageView alloc] initWithFrame:CGRectMake(self.TuiJianImage.frame.origin.x + 20.0f, 2.0f, 10, 15.0f)];
-        self.RongYuImage.image = [UIImage imageNamed:@"BJQRongYun"];
-        self.RongYuImage.hidden = YES;
-        [self addSubview:self.RongYuImage];
+//        self.RongYuImage = [[UIImageView alloc] initWithFrame:CGRectMake(typeImage.frame.origin.x - 25.0f, 7.0f, 15, 24.0f)];
+//        self.RongYuImage.image = [UIImage imageNamed:@"BJQRongYun"];
+//        self.RongYuImage.hidden = YES;
+//        [self addSubview:self.RongYuImage];
+//        
+//        self.TuiJianImage = [[UIImageView alloc] initWithFrame:CGRectMake(typeImage.frame.origin.x - 50.0f, 2.0f, 15, 24.0f)];
+//        self.TuiJianImage.image = [UIImage imageNamed:@"BJQTuiJian"];
+//        self.TuiJianImage.hidden = YES;
+//        [self addSubview:self.TuiJianImage];
         
         content = [[UILabel alloc] init];
         [self addSubview:content];
@@ -70,13 +70,17 @@
     
     content.frame = CGRectMake(K_LEFT_PADDING, title.frame.origin.y + title.frame.size.height + 10.0f, 225, 0);
     
-    if (data.recommended) {
-        self.TuiJianImage.frame = CGRectMake(title.frame.origin.x + title.frame.size.width + 5.0f, 2.0f, 15.0f, 15.0f);
-        self.TuiJianImage.hidden = NO;
-    }else{
-        self.TuiJianImage.frame = CGRectMake(title.frame.origin.x + title.frame.size.width + 5.0f, 2.0f, 15.0f, 15.0f);
-        self.TuiJianImage.hidden = YES;
-    }
+//    if (data.recommended) {
+//        self.TuiJianImage.hidden = NO;
+//    }else{
+//        self.TuiJianImage.hidden = YES;
+//    }
+//    
+//    if (data.award) {
+//        self.RongYuImage.hidden = NO;
+//    }else{
+//        self.RongYuImage.hidden = YES;
+//    }
     
     content.text = self.data.content;
     content.font = [UIFont systemFontOfSize:14];
@@ -86,7 +90,7 @@
     content.userInteractionEnabled = YES;
     [content sizeToFit];
     
-    linkTitle.text = self.data.forward.summary;
+    linkTitle.text = self.data.forward.title;
     linkTitle.font = [UIFont systemFontOfSize:14];
     linkTitle.numberOfLines = 3;
     [linkTitle sizeToFit];
