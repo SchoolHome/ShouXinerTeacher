@@ -2269,7 +2269,8 @@ typedef enum httpEngineState HttpEngineState;
                             if ([array[7] isEqualToString:@"amr"]) {
                                 obj = [NSString stringWithFormat:@"%@/amr",path];
                             }else{
-                                obj = [NSString stringWithFormat:@"%@/middle",path];
+                                obj = [NSString stringWithFormat:@"%@",path];
+                                
                             }
                         }
                     }
