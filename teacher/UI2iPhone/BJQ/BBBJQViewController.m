@@ -41,11 +41,12 @@
 @property (nonatomic) int type;
 
 @property(nonatomic,strong) BBBaseTableViewCell *deleteCell;
-
+@property(nonatomic,strong) BBVideoTableViewCell *videoCell;
 @property (nonatomic,strong) NSString *videoFilePath;
 -(void) playVideo : (NSString *) videoPath withCell : (BBVideoTableViewCell *) cell;
 -(void) needRefresh;
 -(void) needRefreshBJQData;
+-(void) downLoadVideo;
 @end
 
 @implementation BBBJQViewController
@@ -1059,12 +1060,19 @@
     UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"删除" message:@"是否删除" delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"确定", nil];
     alert.delegate = self;
     self.deleteCell = cell;
+    alert.tag = 1;
     [alert show];
 }
 
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
-    if (buttonIndex != 0) {
-        [[PalmUIManagement sharedInstance] deleteTopic:[self.deleteCell.data.topicid longLongValue]];
+    if (alertView.tag == 1) {
+        if (buttonIndex != 0) {
+            [[PalmUIManagement sharedInstance] deleteTopic:[self.deleteCell.data.topicid longLongValue]];
+        }
+    }else if (alertView.tag == 2){
+        if (buttonIndex != 0) {
+            [self downLoadVideo];
+        }
     }
 }
 
@@ -1083,9 +1091,47 @@
     if ([fileManager fileExistsAtPath:self.videoFilePath]) {
         [self playVideo:self.videoFilePath];
     }else{
-        [self showProgressWithText:@"正在下载"];
-        [[PalmUIManagement sharedInstance] downLoadUserVideoFile:url withKey:key];
+        switch ([[Reachability reachabilityForLocalWiFi] currentReachabilityStatus]) {
+            case NotReachable:{
+                // 无网的情况
+                [self showProgressWithText:@"网络不是很给力哦，稍等后再试试" withDelayTime:2.0f];
+                return;
+            }
+                break;
+            case ReachableViaWiFi:{
+                // wifi的情况
+                [self showProgressWithText:@"正在下载"];
+                [[PalmUIManagement sharedInstance] downLoadUserVideoFile:url withKey:key];
+            }
+                break;
+            case ReachableViaWWAN:{
+                // 3g的情况
+                UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"下载" message:@"您当前处于非wifi情况，下载需要耗费流程，是否下载？" delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"确定", nil];
+                alert.delegate = self;
+                alert.tag = 2;
+                self.videoCell = cell;
+                [alert show];
+            }
+                break;
+            default:
+                break;
+        }
     }
+}
+
+-(void) downLoadVideo{
+    NSArray *array = [self.videoCell.data.videoList[0] componentsSeparatedByString:@","];
+    NSString *url = array[0];
+    url = [url substringToIndex:url.length - 1];
+    NSString *key = [[url componentsSeparatedByString:@"/"] lastObject];
+    url = [NSString stringWithFormat:@"%@/mp4",url];
+    
+    CPLGModelAccount *account = [[CPSystemEngine sharedInstance] accountModel];
+    NSString *writeFileName = [NSString stringWithFormat:@"%@.%@",key,@".mp4"];
+    NSString *fileDir = [NSString stringWithFormat:@"%@/Video/",account.loginName];
+    self.videoFilePath = [NSString stringWithFormat:@"%@/%@%@",[CoreUtils getDocumentPath],fileDir,writeFileName];
+    [self showProgressWithText:@"正在下载"];
+    [[PalmUIManagement sharedInstance] downLoadUserVideoFile:url withKey:key];
 }
 
 -(void) playVideo:(NSString *)videoPath{
@@ -1146,7 +1192,6 @@
 
 #pragma 展示图片的委托实现开始
 -(void)beganCloseImageAnimation{
-    
     [[UIApplication sharedApplication] setStatusBarHidden:NO withAnimation:UIStatusBarAnimationFade];
 }
 -(void)endCloseImageAnimation{
@@ -1165,8 +1210,7 @@
     }
 }
 
-- (void)didReceiveMemoryWarning
-{
+- (void)didReceiveMemoryWarning{
     [super didReceiveMemoryWarning];
 }
 
