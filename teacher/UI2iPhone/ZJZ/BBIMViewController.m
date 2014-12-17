@@ -234,6 +234,9 @@ messagePictrueController = _messagePictrueController;
 -(void)viewWillDisappear:(BOOL)animated
 {
     [super viewWillDisappear:animated];
+    
+    [self.keybordView resetFrame];
+    
     [[CPUIModelManagement sharedInstance] removeObserver:self forKeyPath:@"userMsgGroupTag"];
     [[CPUIModelManagement sharedInstance] removeObserver:self forKeyPath:@"modifyFriendTypeDic"];
     [[CPUIModelManagement sharedInstance] removeObserver:self forKeyPath:@"deleteFriendDic"];

@@ -12,9 +12,13 @@
 {
     UITextField *phoneField;
     UITextField *verfyField;
+    UIButton *codeBtn;
     UITextField *newPwdField;
     UITextField *confirmPwd;
     NSString *smsID;
+    
+    NSTimer *lastTimer;
+    NSInteger restTime;
 }
 @end
 
@@ -25,7 +29,6 @@
     [super viewWillAppear:animated];
     [[PalmUIManagement sharedInstance] addObserver:self forKeyPath:@"resetSMSCode" options:0 context:nil];
     [[PalmUIManagement sharedInstance] addObserver:self forKeyPath:@"resetPassword" options:0 context:nil];
-    [[PalmUIManagement sharedInstance] addObserver:self forKeyPath:@"customerServiceTel" options:0 context:nil];
 }
 
 -(void)viewWillDisappear:(BOOL)animated
@@ -33,7 +36,6 @@
     [super viewWillDisappear:animated];
     [[PalmUIManagement sharedInstance] removeObserver:self forKeyPath:@"resetSMSCode"];
     [[PalmUIManagement sharedInstance] removeObserver:self forKeyPath:@"resetPassword"];
-    [[PalmUIManagement sharedInstance] removeObserver:self forKeyPath:@"customerServiceTel"];
 }
 
 - (void)viewDidLoad {
@@ -102,9 +104,10 @@
     [verfyField setDelegate:(id<UITextFieldDelegate>)self];
     [verfyField setKeyboardType:UIKeyboardTypeNumberPad];
     [self.view addSubview:verfyField];
-    UIButton *codeBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+    codeBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     [codeBtn setFrame:CGRectMake(self.view.frame.size.width-100, height+5, 80, 30)];
     [codeBtn setImage:[UIImage imageNamed:@"GetSmsCode.png"] forState:UIControlStateNormal];
+    [codeBtn.titleLabel setFont:[UIFont systemFontOfSize:14.f]];
     [codeBtn addTarget:self action:@selector(getVerfyCode:) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:codeBtn];
     
@@ -141,15 +144,6 @@
     [loginBtn addTarget:self action:@selector(login:) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:loginBtn];
     
-    height = height + 50;
-    UIButton *contactCom = [UIButton buttonWithType:UIButtonTypeCustom];
-    [contactCom setFrame:CGRectMake(self.view.frame.size.width-150, height, 140, 40)];
-    [contactCom setTitleColor:[UIColor colorWithHexString:@"ff9632"] forState:UIControlStateNormal];
-    [contactCom setTitle:@"忘记账号?联系我们" forState:UIControlStateNormal];
-    [contactCom.titleLabel setFont:[UIFont systemFontOfSize:16.f]];
-    [contactCom addTarget:self action:@selector(contactCom:) forControlEvents:UIControlEventTouchUpInside];
-    [self.view addSubview:contactCom];
-    
     UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(clickBG:)];
     [self.view addGestureRecognizer:tap];
 }
@@ -166,7 +160,26 @@
             return;
         }
     }
+    restTime = 120;
+    [codeBtn setBackgroundColor:[UIColor grayColor]];
+    [codeBtn setImage:nil forState:UIControlStateNormal];
+    [codeBtn setUserInteractionEnabled:NO];
+    [codeBtn setTitle:[NSString stringWithFormat:@"%d秒后重试", restTime] forState:UIControlStateNormal];
+    lastTimer = [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(lastTime) userInfo:nil repeats:YES];
     [[PalmUIManagement sharedInstance] getResetPasswordSMS:telPhoneText];
+}
+
+-(void)lastTime
+{
+    restTime = restTime - 1;
+    if (restTime == 0) {
+        [lastTimer invalidate];
+        lastTimer = nil;
+        [codeBtn setImage:[UIImage imageNamed:@"GetSmsCode.png"] forState:UIControlStateNormal];
+        [codeBtn setUserInteractionEnabled:YES];
+    }else{
+        [codeBtn setTitle:[NSString stringWithFormat:@"%d秒后重试", restTime] forState:UIControlStateNormal];
+    }
 }
 
 -(void)clickBG:(UIGestureRecognizer *)tap
@@ -183,9 +196,6 @@
     [verfyField resignFirstResponder];
     [newPwdField resignFirstResponder];
     [confirmPwd resignFirstResponder];
-    
-    //    self.userName.text = @"13940231890";
-    //    self.password.text = @"231890";
     
     NSString *userName  = [phoneField.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
     if ( nil == userName || [userName isEqualToString:@""] ) {
@@ -243,26 +253,13 @@
             [self closeProgress];
             [self.navigationController popViewControllerAnimated:YES];
         }else{
+            [lastTimer invalidate];
+            lastTimer = nil;
+            [codeBtn setImage:[UIImage imageNamed:@"GetSmsCode.png"] forState:UIControlStateNormal];
+            [codeBtn setUserInteractionEnabled:YES];
             [self showProgressWithText:resultDic[@"data"][@"error"] withDelayTime:2];
         }
-    }else if([keyPath isEqualToString:@"customerServiceTel"]){
-        NSDictionary *resultDic = [[PalmUIManagement sharedInstance] customerServiceTel];
-        if ([resultDic[@"hasError"] integerValue] == 0) {
-            [self closeProgress];
-            NSMutableString * str=[[NSMutableString alloc] initWithFormat:@"tel:%@",resultDic[@"data"][@"number"]];
-            UIWebView * callWebview = [[UIWebView alloc] init];
-            [callWebview loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:str]]];
-            [self.view addSubview:callWebview];
-        }else{
-            [self showProgressWithText:resultDic[@"errorMessage"] withDelayTime:2];
-        }
     }
-}
-
--(void)contactCom:(UIButton *)btn
-{
-    [self showProgressWithText:@"正在为您联系空闲客服..."];
-    [[PalmUIManagement sharedInstance] getCustomerServiceTelNumber];
 }
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField{

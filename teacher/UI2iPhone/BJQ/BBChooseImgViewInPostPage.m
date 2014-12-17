@@ -85,8 +85,7 @@
                                  IMAGE_WIDTH, IMAGE_HEIGHT);
         
         
-        
-        if (i == self.images.count || !self.images.count) {
+         if (i == self.images.count || !self.images.count ) {
             if (isVideoImage) {
                 [_addImageBtn removeFromSuperview];
                 _addImageBtn = nil;
@@ -112,6 +111,11 @@
                     [self.delegate viewBoundsChanged:selfFrame];
                 }
             }
+             
+             if (self.images.count == 9) {
+                 [_addImageBtn removeFromSuperview];
+                 _addImageBtn = nil;
+             }
         }else
         {
             EGOImageView *imageview = (EGOImageView *)[self viewWithTag:1000+i];

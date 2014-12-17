@@ -546,13 +546,6 @@
     if ([[actionSheet buttonTitleAtIndex:0] isEqualToString:@"拍摄"] && buttonIndex == 0) {
         //进自定义拍照界面
         
-        for (id viewController in self.navigationController.viewControllers) {
-            if ([viewController isKindOfClass:[BBCameraViewController class]]) {
-                [self.navigationController popToViewController:(BBCameraViewController *)viewController animated:YES];
-                return;
-            }
-        }
-        
         BBCameraViewController *camera = [[BBCameraViewController alloc] init];
         [self.navigationController pushViewController:camera animated:YES];
     }else
