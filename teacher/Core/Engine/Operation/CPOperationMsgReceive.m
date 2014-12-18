@@ -272,7 +272,7 @@
             [play play];
         }
         if (isSound) {
-            MsgPlaySound *play = [[MsgPlaySound alloc] initSystemSoundWithName:@"ReceivedMessage" SoundType:@"caf"];
+            MsgPlaySound *play = [[MsgPlaySound alloc] initSystemSoundWithName:@"sms-received1" SoundType:@"caf"];
             [play play];
         }
     }
