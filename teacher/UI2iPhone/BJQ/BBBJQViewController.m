@@ -1106,7 +1106,7 @@
                 break;
             case ReachableViaWWAN:{
                 // 3g的情况
-                UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"下载" message:@"您当前处于非wifi情况，下载需要耗费流程，是否下载？" delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"确定", nil];
+                UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"下载" message:@"您当前处于非wifi情况，下载需要耗费流量，是否下载？" delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"确定", nil];
                 alert.delegate = self;
                 alert.tag = 2;
                 self.videoCell = cell;

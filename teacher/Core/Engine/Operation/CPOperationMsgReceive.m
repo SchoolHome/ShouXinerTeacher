@@ -19,7 +19,7 @@
 #import "CPResManager.h"
 #import "CPUIModelManagement.h"
 #import "ModelConvertUtils.h"
-
+#import "MsgPlaySound.h"
 #import "AlarmClockHelper.h"
 @implementation CPOperationMsgReceive
 - (id) initWithMsgs:(NSArray *) receiveMsgs
@@ -262,13 +262,20 @@
             [alarmHelper endTimeAlarm];
             [alarmHelper beginTimeAlarm];
         }
-        
-        //        [[[CPSystemEngine sharedInstance] msgManager] refreshMsgListWithMsgGroupID:msgGroupID isCreated:NO];
+        CPLGModelAccount *account = [[CPSystemEngine sharedInstance] accountModel];
+        NSString *shakeKey = [NSString stringWithFormat:@"%@_Vibration",account.uid];
+        NSString *soundKey = [NSString stringWithFormat:@"%@_Ringalert",account.uid];
+        BOOL isShake = [[[NSUserDefaults standardUserDefaults] objectForKey:shakeKey] boolValue];
+        BOOL isSound = [[[NSUserDefaults standardUserDefaults] objectForKey:soundKey] boolValue];
+        if (isShake) {
+            MsgPlaySound *play = [[MsgPlaySound alloc] initSystemShake];
+            [play play];
+        }
+        if (isSound) {
+            MsgPlaySound *play = [[MsgPlaySound alloc] initSystemSoundWithName:@"ReceivedMessage" SoundType:@"caf"];
+            [play play];
+        }
     }
-    //    else
-    //    {
-    //        CPLogInfo(@"msg receive , get msg group error");
-    //    }
     return newMsgID;
 }
 -(NSNumber *)excuteGroupMsgWithMsg:(XMPPGroupMessage *)userMsg
