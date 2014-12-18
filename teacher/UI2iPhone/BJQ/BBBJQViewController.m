@@ -591,6 +591,7 @@
 
 -(void) needRefresh{
     NSLog(@"needRefresh");
+    [bjqTableView scrollRectToVisible:CGRectMake(0.0f, 0.0f, 1.0f, 1.0f) animated:NO];
     [self performSelector:@selector(needRefreshBJQData) withObject:nil afterDelay:1.0f];
 }
 
@@ -809,33 +810,16 @@
      */
     if (index_ == 0) {
         self.type = 0;
+        [bjqTableView scrollRectToVisible:CGRectMake(0.0f, 0.0f, 1.0f, 1.0f) animated:NO];
         [bjqTableView triggerPullToRefresh];
     }else if(index_ == 1){
         self.type = 2;
+        [bjqTableView scrollRectToVisible:CGRectMake(0.0f, 0.0f, 1.0f, 1.0f) animated:NO];
         [bjqTableView triggerPullToRefresh];
     }else{
+        [bjqTableView scrollRectToVisible:CGRectMake(0.0f, 0.0f, 1.0f, 1.0f) animated:NO];
         [bjqTableView triggerPullToRefresh];
     }
-    
-//    if (index_ == 0) {
-//        BBPBXViewController *pbx = [[BBPBXViewController alloc] init];
-//        pbx.hidesBottomBarWhenPushed = YES;
-//        pbx.currentGroup = _currentGroup;
-//        [self.navigationController pushViewController:pbx animated:YES];
-//    }else
-//    {
-//        BBFZYViewController *fzy = [[BBFZYViewController alloc] init];
-//        fzy.hidesBottomBarWhenPushed = YES;
-//        if (index_ == 1) {
-//            fzy.style = 0;
-//        }else if (index_ == 2){
-//            fzy.style = 1;
-//        }else{
-//            fzy.style = 3;
-//        }
-//        fzy.currentGroup = _currentGroup;
-//        [self.navigationController pushViewController:fzy animated:YES];
-//    }
 }
 
 -(void)bbFSDropdownViewTaped:(BBFSDropdownView *) dropdownView_{
@@ -847,7 +831,7 @@
     _currentGroup = dropdownView_.listData[index_];
     [PalmUIManagement sharedInstance].currentGroupInfo = _currentGroup;
     [titleButton setTitle:_currentGroup.alias forState:UIControlStateNormal];
-    
+    [bjqTableView scrollRectToVisible:CGRectMake(0.0f, 0.0f, 1.0f, 1.0f) animated:NO];
     [bjqTableView triggerPullToRefresh];
     NSUserDefaults *def = [NSUserDefaults standardUserDefaults];
     [def setInteger:index_ forKey:@"saved_topic_group_index"];

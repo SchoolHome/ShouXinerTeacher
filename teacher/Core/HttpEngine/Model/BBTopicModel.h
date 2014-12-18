@@ -35,6 +35,7 @@
 @property(nonatomic,strong) NSMutableArray *commentStr;
 @property(nonatomic,strong) NSMutableString *commentText;
 @property(nonatomic,strong) NSMutableArray *commentTextArray;
+@property(nonatomic) BOOL editable;
 @property(nonatomic) BOOL award;
 @property(nonatomic) BOOL recommended;
 @property(nonatomic) BOOL recommendToGroups;

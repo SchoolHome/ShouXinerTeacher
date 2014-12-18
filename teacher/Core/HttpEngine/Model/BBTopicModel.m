@@ -39,7 +39,7 @@
         tp.recommendToHomepage = [dict[@"recommendToHomepage"] boolValue];
         tp.recommendToUpGroup = [dict[@"recommendToUpGroup"] boolValue];
         tp.recommended = [dict[@"recommended"] boolValue];
-        
+        tp.editable = [dict[@"editable"] boolValue];
         // 赞列表
         NSArray *praises = dict[@"praises"];
         if (praises) {

@@ -120,8 +120,7 @@
     self.time.text = [self timeStringFromNumber:self.data.ts];
     
     self.deleteTopic.frame = CGRectMake(K_LEFT_PADDING + 62.0f, self.time.frame.origin.y + 6.0f, 40.0f, 20.0f);
-    CPLGModelAccount *account = [[CPSystemEngine sharedInstance] accountModel];
-    if ([account.uid integerValue] == [data.author_uid integerValue]) {
+    if (data.editable) {
         self.deleteTopic.hidden = NO;
     }else{
         self.deleteTopic.hidden = YES;
