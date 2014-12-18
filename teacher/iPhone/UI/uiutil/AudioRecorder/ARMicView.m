@@ -33,11 +33,13 @@
         
         micBackground = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, self.frame.size.width, self.frame.size.height)];
         micBackground.image = [UIImage imageNamed:@"im_recording"];
+        micBackground.backgroundColor = [[UIColor lightGrayColor] colorWithAlphaComponent:0.5];
         [self addSubview:micBackground];
         
-        countDownLabel = [[UILabel alloc] initWithFrame:CGRectMake(11,5,60,15)];
+        countDownLabel = [[UILabel alloc] initWithFrame:CGRectMake(11,62,60,15)];
         countDownLabel.backgroundColor = [UIColor clearColor];
-        countDownLabel.textColor = [UIColor colorWithHexString:@"#CCCCCC"];
+        //countDownLabel.textColor = [UIColor colorWithHexString:@"#CCCCCC"];
+        countDownLabel.textColor = [UIColor whiteColor];
         countDownLabel.shadowColor = [UIColor blackColor];
         countDownLabel.shadowOffset = CGSizeMake(0,-1);
         countDownLabel.textAlignment = UITextAlignmentCenter;

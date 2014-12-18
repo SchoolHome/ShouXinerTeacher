@@ -82,8 +82,8 @@
     if (indexPath.section == 0) {
         CPLGModelAccount *account = [[CPSystemEngine sharedInstance] accountModel];
         NSUserDefaults *userDefault = [NSUserDefaults standardUserDefaults];
-        BOOL isVibrantion = [[userDefault objectForKey:[NSString stringWithFormat:@"%@_Vibration", account.loginName]] boolValue];
-        BOOL isRingalert = [[userDefault objectForKey:[NSString stringWithFormat:@"%@_Ringalert", account.loginName]] boolValue];
+        BOOL isVibrantion = [[userDefault objectForKey:[NSString stringWithFormat:@"%@_Vibration", account.uid]] boolValue];
+        BOOL isRingalert = [[userDefault objectForKey:[NSString stringWithFormat:@"%@_Ringalert", account.uid]] boolValue];
         if (indexPath.row == 0) {
             UISwitch *vibSwith = [[UISwitch alloc] init];
             vibSwith.center = CGPointMake(cell.contentView.frame.size.width-vibSwith.frame.size.width/2-10, vibSwith.center.y+5);
@@ -137,7 +137,7 @@
     }
     CPLGModelAccount *account = [[CPSystemEngine sharedInstance] accountModel];
     NSUserDefaults *userDefault = [NSUserDefaults standardUserDefaults];
-    NSString *key = [NSString stringWithFormat:@"%@_Vibration", account.loginName];
+    NSString *key = [NSString stringWithFormat:@"%@_Vibration", account.uid];
     [userDefault setObject:[NSNumber numberWithBool:isOn] forKey:key];
     [userDefault synchronize];
 }
@@ -152,7 +152,7 @@
     }
     CPLGModelAccount *account = [[CPSystemEngine sharedInstance] accountModel];
     NSUserDefaults *userDefault = [NSUserDefaults standardUserDefaults];
-    NSString *key = [NSString stringWithFormat:@"%@_Ringalert", account.loginName];
+    NSString *key = [NSString stringWithFormat:@"%@_Ringalert", account.uid];
     [userDefault setObject:[NSNumber numberWithBool:isOn] forKey:key];
     [userDefault synchronize];
 }
