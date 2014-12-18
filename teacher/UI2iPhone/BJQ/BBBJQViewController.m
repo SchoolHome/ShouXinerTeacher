@@ -1138,6 +1138,22 @@
     if (videoPath == nil || [videoPath isEqualToString:@""]) {
         return;
     }
+    if (bjDropdownView.unfolded) {
+        [bjDropdownView dismiss];
+    }
+    if (fsDropdownView.unfolded) {
+        [fsDropdownView dismiss];
+    }
+    
+    if (self.tempMoreImage != nil) {
+        [self.tempMoreImage removeFromSuperview];
+        self.tempMoreImage = nil;
+    }
+    if (nil != copyContentButton) {
+        [copyContentButton removeFromSuperview];
+        self.contentText = @"";
+        copyContentButton = nil;
+    }
     NSURL*videoPathURL=[[NSURL alloc] initFileURLWithPath:videoPath];
     MPMoviePlayerViewController *playViewController = [[MPMoviePlayerViewController alloc] initWithContentURL:videoPathURL];
     MPMoviePlayerController *player = [playViewController moviePlayer];
