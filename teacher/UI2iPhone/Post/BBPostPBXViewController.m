@@ -404,7 +404,7 @@
     NSLog(@"cropSize==%@",[CropVideo getFileSizeWithName:[self getTempSaveVideoPath]]);
     self.moviePlayer = [[MPMoviePlayerController alloc] initWithContentURL:[NSURL fileURLWithPath:[self getTempSaveVideoPath]]];
     NSLog(@"%@",self.moviePlayer.contentURL);
-    self.moviePlayer.view.frame = CGRectMake(0.0f, 0.0f, self.screenWidth, self.screenHeight);
+    self.moviePlayer.view.frame = CGRectMake(0.0f, IOS7?0.f:-20.f, self.screenWidth, IOS7?self.screenHeight:self.screenHeight+20.f);
     
     
     self.moviePlayer.useApplicationAudioSession = NO;
@@ -493,6 +493,7 @@
                 cell.textLabel.backgroundColor = [UIColor blackColor];
                 cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
                 cell.textLabel.text = @"@点名表扬:";
+                cell.backgroundColor = [UIColor whiteColor];
                 
             }
             cell.detailTextLabel.text = selectedStuStr;
@@ -508,6 +509,7 @@
                 cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
                 cell.textLabel.font = [UIFont systemFontOfSize:14.f];
                 cell.detailTextLabel.font = [UIFont systemFontOfSize:14.f];
+                cell.backgroundColor = [UIColor whiteColor];
             }
             cell.detailTextLabel.text = selectedRangeStr;
             return cell;

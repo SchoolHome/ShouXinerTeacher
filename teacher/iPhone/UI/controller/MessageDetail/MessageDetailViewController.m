@@ -1496,36 +1496,15 @@
                 // 3g的情况
                 // 取得视频大小
                 float size = [exModel.messageModel.fileSize floatValue] / 1024.0f;
-            
                 if (size < 1.0f) {
                     // 如果小于1.0mb
                     [[CPUIModelManagement sharedInstance] downloadResourceWithMsg:exModel.messageModel];
                     return;
                 }
-            
-//                NSString *tipStr = [NSString stringWithFormat:@"该视频为%.1fMB，你处于非wifi环境，现在下载么？",size];
                 NSString *tipStr = [NSString stringWithFormat:@"共%.1fM，你处于非wifi环境，现在下载么？",size];
                 CustomAlertView *custom = [[CustomAlertView alloc] init];
-//                MessageBoxView *messageboxView = [custom showMessageBox:tipStr withContext:exModel];
                 MessageBoxView *messageboxView = [custom showMessageBox:tipStr withButtonType:DownLoadingSource withContext:exModel];
                 messageboxView.delegate = self;
-//            if (size < 1.0f) {
-//                // 如果小于1.0mb
-//                [[CPUIModelManagement sharedInstance] downloadResourceWithMsg:exModel.messageModel];
-//                return;
-//            }
-//            NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-//            NSString *allow = [defaults objectForKey:@"VideoDownLoad"];
-//            
-//            if (allow == nil || [allow isEqualToString:@""] || [allow isEqualToString:@"RemindMe"]){
-//                CustomAlertView *custom = [[CustomAlertView alloc] init];
-//                NSString *tipStr = [NSString stringWithFormat:@"该视频为%.1fMB，你处于非wifi环境，现在下载么？",size];
-//                CheckMessageView *checkMessage = [custom showCheckMessage:tipStr withContext:exModel];
-//                checkMessage.delegate = self;
-//            }else {
-//                [[CPUIModelManagement sharedInstance] downloadResourceWithMsg:exModel.messageModel];
-//                return;
-//            }
             }
             break;
         default:

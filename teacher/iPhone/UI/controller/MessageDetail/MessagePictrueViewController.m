@@ -239,38 +239,45 @@
     CGRect rect;
     UIImage *image = [UIImage imageWithContentsOfFile:self.path];
 
-    if (image.size.width <= 640.0f && image.size.height <=960.0f) {
+    float maxHeight = 960.0f;
+    float height = 480.0f;
+    if (isIPhone5) {
+        maxHeight = 1136.0f;
+        height = 568.0f;
+    }
+    
+    if (image.size.width <= 640.0f && image.size.height <=maxHeight) {
         rect.origin.x = (320.0f - image.size.width / 2.0f) / 2.0f;
-        rect.origin.y = (480.0f - image.size.height / 2.0f) / 2.0f;
+        rect.origin.y = (height - image.size.height / 2.0f) / 2.0f;
         rect.size.width = image.size.width / 2.0f;
         rect.size.height = image.size.height / 2.0f;
         return rect;
-    }else if (image.size.width > 640.0f && image.size.height <= 960.0f) {
+    }else if (image.size.width > 640.0f && image.size.height <= maxHeight) {
         rect.origin.x = 0.0f;
         rect.size.width = 320.0f;
         
         float horizontalScale = 640.0f / image.size.width;
         rect.size.height = (image.size.height * horizontalScale) / 2.0f;
-        rect.origin.y = (480.0f - rect.size.height) / 2.0f;
+        rect.origin.y = (height - rect.size.height) / 2.0f;
         return rect;
-    }else if (image.size.width <= 640.0f && image.size.height > 960.0f) {
+    }else if (image.size.width <= 640.0f && image.size.height > maxHeight) {
         rect.origin.y = 0.0f;
-        rect.size.height = 480.0f;
+        rect.size.height = height;
         
-        float verticalScale = 960.0f / image.size.height;
+        float verticalScale = maxHeight / image.size.height;
         rect.size.width = (image.size.width * verticalScale) /2.0f;
         rect.origin.x = (320.0f - rect.size.width) / 2.0f;
         return rect;
     }else {
         float horizontalScale = 640.0f / image.size.width;
-        float verticalScale = 960.0f / image.size.height;
+        float verticalScale = maxHeight / image.size.height;
         
         if (horizontalScale <= verticalScale) {
             rect.size.width = (image.size.width * horizontalScale) / 2.0f;
             rect.size.height = (image.size.height * horizontalScale) / 2.0f;
             
             rect.origin.x = 0.0f;
-            rect.origin.y = (480.0f - rect.size.height) / 2.0f;
+            rect.origin.y = (height - rect.size.height) / 2.0f;
             return rect;
         }else {
             rect.size.width = (image.size.width * verticalScale) / 2.0f;
@@ -281,29 +288,6 @@
             return rect;
         }
     }
-    
-    /*
-    float horizontalScale = 320.0f / self.imageView.frame.size.width;
-    float VerticalScale = 480.0f / self.imageView.frame.size.height;
-    CPLogInfo(@"self.imageView.frame.size.width : %f",self.imageView.frame.size.width);
-    CPLogInfo(@"self.imageView.frame.size.height : %f",self.imageView.frame.size.height);
-    if (horizontalScale <= VerticalScale) {
-        rect.origin.x = 0.0f;
-        rect.size.width = 320.0f;
-        rect.size.height = self.imageView.frame.size.height + ((320.0f - self.imageView.frame.size.width) / 2.0f);
-        rect.origin.y = (480.0f - rect.size.height) / 2.0f;
-    }else {
-        rect.origin.y = 0.0f;
-        rect.size.height = 480.0f;
-        rect.size.width = self.imageView.frame.size.width + ((480.0f - self.imageView.frame.size.height) /2.0f);
-        rect.origin.x = (320.0f - rect.size.width) / 2.0f;
-    }
-     */
-//    CPLogInfo(@"rect.origin.x : %f",rect.origin.x);
-//    CPLogInfo(@"rect.origin.y : %f",rect.origin.y);
-//    CPLogInfo(@"rect.size.width : %f",rect.size.width);
-//    CPLogInfo(@"rect.size.height : %f",rect.size.height);
-//    return rect;
 }
 
 -(void) scrollViewDidZoom:(UIScrollView *)scrollView{

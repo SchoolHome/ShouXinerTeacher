@@ -77,6 +77,11 @@
     tableview.dataSource = self;
     tableview.tableHeaderView = tableviewHeaderView;
     tableview.tableFooterView = tableviewFootView;
+    if (!IOS7) {
+        UIView *tableviewBGView = [[UIView alloc] initWithFrame:tableview.frame];
+        tableviewBGView.backgroundColor = [UIColor colorWithHexString:@"#f2f2f2"];
+        tableview.backgroundView = tableviewBGView;
+    }
     [self.view addSubview:tableview];
     // Do any additional setup after loading the view.
 }
@@ -180,7 +185,7 @@
     cell.detailTextLabel.font = [UIFont systemFontOfSize:14.f];
     cell.detailTextLabel.textColor = [UIColor lightGrayColor];
     cell.textLabel.textColor = [UIColor lightGrayColor];
-        
+    cell.backgroundColor = [UIColor whiteColor];
     
     switch (indexPath.section) {
         case 0:
