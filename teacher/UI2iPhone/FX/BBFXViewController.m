@@ -85,30 +85,6 @@
                 
             }
         }
-//        /*ceshi:::*/
-        if ([self.discoverArray count]==0) {
-            for (int i=0; i<3; i++) {
-                BBFXModel *model = [[BBFXModel alloc] init];
-                model.title = [NSString stringWithFormat:@"%d-----%d", i, i];
-                model.url = @"http://www.baidu.com";
-                model.isNew = (i%2?YES:NO);
-                model.image = (i%2?@"http://img.sccnn.com/bimg/322/599.jpg":@"http://pic23.nipic.com/20120817/5236266_171208039361_2.jpg");
-                [self.discoverArray addObject:model];
-                model = nil;
-            }
-        }
-        if ([self.serviceArray count] == 0) {
-            for (int i=0; i<5; i++) {
-                BBFXModel *model = [[BBFXModel alloc] init];
-                model.title = [NSString stringWithFormat:@"%d-----%d", i, i];
-                model.url = @"http://www.baidu.com";
-                model.isNew = (i%2?YES:NO);
-                model.image = (i%2?@"http://g.hiphotos.baidu.com/baike/w%3D268/sign=fcf18d39b3de9c82a665fe89548080d2/4610b912c8fcc3cead54a0339245d688d43f201d.jpg":@"http://imgsrc.baidu.com/forum/w%3D580/sign=7760bd9a32fa828bd1239debcd1e41cd/6ca62b3b5bb5c9eade903a7cd439b6003bf3b38f.jpg");
-                [self.serviceArray addObject:model];
-                model = nil;
-            }
-        }
-        /*end*/
         [fxTableView reloadData];
         
         [self addDiscoverHeader];
