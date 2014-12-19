@@ -207,6 +207,9 @@
 
 - (void)applicationDidEnterBackground:(UIApplication *)application{
     [[CPUIModelManagement sharedInstance] sysInActive];
+    taskID = [application beginBackgroundTaskWithExpirationHandler:^{
+        
+    }];
 }
 
 - (void)applicationWillEnterForeground:(UIApplication *)application{

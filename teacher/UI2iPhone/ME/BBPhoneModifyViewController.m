@@ -8,10 +8,13 @@
 
 #import "BBPhoneModifyViewController.h"
 #import "BBProfileModel.h"
+#import "AppDelegate.h"
 @interface BBPhoneModifyViewController ()
 {
     UITextField *phoneField;
     UITextField *codeField;
+    UIButton *getCodeBtn;
+    NSTimer *restTimer;
 }
 @end
 
@@ -78,9 +81,10 @@
     [codeField setContentVerticalAlignment:UIControlContentVerticalAlignmentCenter];
     [self.view addSubview:codeField];
     
-    UIButton *getCodeBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+    getCodeBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     [getCodeBtn setFrame:CGRectMake(self.view.frame.size.width-90, 67, 80, 30)];
     [getCodeBtn setImage:[UIImage imageNamed:@"obtain_code.png"] forState:UIControlStateNormal];
+    [getCodeBtn.titleLabel setFont:[UIFont systemFontOfSize:14.f]];
     [getCodeBtn addTarget:self action:@selector(getVerifyCode:) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:getCodeBtn];
 }
@@ -89,6 +93,13 @@
 {
     if (phoneField.text.length > 0) {
         if ([self verifyMobile:phoneField.text]) {
+            [getCodeBtn setBackgroundColor:[UIColor grayColor]];
+            [getCodeBtn setImage:nil forState:UIControlStateNormal];
+            [getCodeBtn setUserInteractionEnabled:NO];
+            AppDelegate *delegate = (AppDelegate *)[UIApplication sharedApplication].delegate;
+            delegate.smsTime = 120;
+            [getCodeBtn setTitle:[NSString stringWithFormat:@"%d秒后重试", delegate.smsTime] forState:UIControlStateNormal];
+            restTimer = [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(restTime:) userInfo:nil repeats:YES];
             [[PalmUIManagement sharedInstance] getSMSVerifyCode:phoneField.text];
         }else{
             [self showProgressWithText:@"请输入正确的手机号" withDelayTime:2];
@@ -116,6 +127,12 @@
 
 -(void)backViewController
 {
+    if (restTimer) {
+        AppDelegate *delegate = (AppDelegate *)[UIApplication sharedApplication].delegate;
+        delegate.smsTime = 120;
+        [restTimer invalidate];
+        restTimer = nil;
+    }
     [self.navigationController popViewControllerAnimated:YES];
 }
 
@@ -159,8 +176,26 @@
         if ([errDic[@"errno"] integerValue] == 0) {
             
         }else{
-            [self showProgressWithText:resultDic[@"errorMessage"] withDelayTime:2];
+            [restTimer invalidate];
+            restTimer = nil;
+            [getCodeBtn setImage:[UIImage imageNamed:@"GetSmsCode.png"] forState:UIControlStateNormal];
+            [getCodeBtn setUserInteractionEnabled:YES];
+            [self showProgressWithText:resultDic[@"errorMessage"] withDelayTime:1];
         }
+    }
+}
+
+-(void)restTime:(NSTimer *)timer
+{
+    AppDelegate *delegate = (AppDelegate *)[UIApplication sharedApplication].delegate;
+    delegate.smsTime = delegate.smsTime - 1;
+    if (delegate.smsTime == 0) {
+        [restTimer invalidate];
+        restTimer = nil;
+        [getCodeBtn setImage:[UIImage imageNamed:@"GetSmsCode.png"] forState:UIControlStateNormal];
+        [getCodeBtn setUserInteractionEnabled:YES];
+    }else{
+        [getCodeBtn setTitle:[NSString stringWithFormat:@"%d秒后重试", delegate.smsTime] forState:UIControlStateNormal];
     }
 }
 
