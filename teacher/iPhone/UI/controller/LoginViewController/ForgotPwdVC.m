@@ -242,6 +242,10 @@
     if ([keyPath isEqualToString:@"resetSMSCode"]){
         NSDictionary *resultDic = [[PalmUIManagement sharedInstance] resetSMSCode];
         if ([resultDic[ASI_REQUEST_HAS_ERROR] boolValue]) {
+            [lastTimer invalidate];
+            lastTimer = nil;
+            [codeBtn setImage:[UIImage imageNamed:@"GetSmsCode.png"] forState:UIControlStateNormal];
+            [codeBtn setUserInteractionEnabled:YES];
             [self showProgressWithText:resultDic[ASI_REQUEST_ERROR_MESSAGE] withDelayTime:1.0f];
             return;
         }else{
