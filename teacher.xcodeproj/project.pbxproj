@@ -1323,6 +1323,7 @@
 		7478550818DB548C0070DF87 /* StartGroupChatTableviewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7478550718DB548C0070DF87 /* StartGroupChatTableviewCell.m */; };
 		748EBE161980BAA30060AE71 /* BBNotifyMessageGroupCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 748EBE151980BAA30060AE71 /* BBNotifyMessageGroupCell.m */; };
 		749132E61A19C56200CFCE7E /* MutilGroupDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 749132E51A19C56200CFCE7E /* MutilGroupDetailViewController.m */; };
+		749C8E591A43AB8A0070C7D6 /* IMSoundImage@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 749C8E581A43AB8A0070C7D6 /* IMSoundImage@2x.png */; };
 		749D72AE18D6147200936D5E /* BBMessageGroupBaseTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 749D72AD18D6147200936D5E /* BBMessageGroupBaseTableView.m */; };
 		74A4E5C418DFD9BD000F79E6 /* BBMembersInMsgGroupViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 74A4E5C318DFD9BD000F79E6 /* BBMembersInMsgGroupViewController.m */; };
 		74A4E5C718DFE4B6000F79E6 /* BBMemberInMsgGroupTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 74A4E5C618DFE4B6000F79E6 /* BBMemberInMsgGroupTableViewCell.m */; };
@@ -3498,6 +3499,7 @@
 		748EBE151980BAA30060AE71 /* BBNotifyMessageGroupCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BBNotifyMessageGroupCell.m; sourceTree = "<group>"; };
 		749132E41A19C56200CFCE7E /* MutilGroupDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MutilGroupDetailViewController.h; sourceTree = "<group>"; };
 		749132E51A19C56200CFCE7E /* MutilGroupDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MutilGroupDetailViewController.m; sourceTree = "<group>"; };
+		749C8E581A43AB8A0070C7D6 /* IMSoundImage@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "IMSoundImage@2x.png"; sourceTree = "<group>"; };
 		749D72AC18D6147200936D5E /* BBMessageGroupBaseTableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BBMessageGroupBaseTableView.h; sourceTree = "<group>"; };
 		749D72AD18D6147200936D5E /* BBMessageGroupBaseTableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BBMessageGroupBaseTableView.m; sourceTree = "<group>"; };
 		74A4E5C218DFD9BD000F79E6 /* BBMembersInMsgGroupViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BBMembersInMsgGroupViewController.h; sourceTree = "<group>"; };
@@ -4020,6 +4022,7 @@
 				1927E4B818E5544E0079EA53 /* ZJZSenderSound@2x.png */,
 				1927E4B918E5544E0079EA53 /* ZJZSenderText.png */,
 				1927E4BA18E5544E0079EA53 /* ZJZSenderText@2x.png */,
+				749C8E581A43AB8A0070C7D6 /* IMSoundImage@2x.png */,
 			);
 			path = IMAndKeyboard;
 			sourceTree = "<group>";
@@ -7775,6 +7778,7 @@
 				1982F7601A0C72820075F35F /* t_keyboard.png in Resources */,
 				193FA75219F0A27A00874F1E /* heart.png in Resources */,
 				1982F7551A0C72820075F35F /* i_talk@2x.png in Resources */,
+				749C8E591A43AB8A0070C7D6 /* IMSoundImage@2x.png in Resources */,
 				0488B5CD1A12FDCB00327973 /* obtain_code@2x.png in Resources */,
 				332D828F18C33F0A007A75D5 /* surepress_im_magicdownload@2x.png in Resources */,
 				74EF7DFF1962BE4600DCD5A3 /* ZJZ_Seg_Parent@2x.png in Resources */,
