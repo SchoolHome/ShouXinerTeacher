@@ -436,13 +436,20 @@
             CPLogInfo(@"-7- %@",userMsg);
             newMsgID = [[[CPSystemEngine sharedInstance] dbManagement] insertMessage:dbMsg];
         }
-        
-        //        [[[CPSystemEngine sharedInstance] msgManager] refreshMsgListWithMsgGroupID:msgGroupID isCreated:NO];
+        CPLGModelAccount *account = [[CPSystemEngine sharedInstance] accountModel];
+        NSString *shakeKey = [NSString stringWithFormat:@"%@_Vibration",account.uid];
+        NSString *soundKey = [NSString stringWithFormat:@"%@_Ringalert",account.uid];
+        BOOL isShake = [[[NSUserDefaults standardUserDefaults] objectForKey:shakeKey] boolValue];
+        BOOL isSound = [[[NSUserDefaults standardUserDefaults] objectForKey:soundKey] boolValue];
+        if (isShake) {
+            MsgPlaySound *play = [[MsgPlaySound alloc] initSystemShake];
+            [play play];
+        }
+        if (isSound) {
+            MsgPlaySound *play = [[MsgPlaySound alloc] initSystemSoundWithName:@"sms-received1" SoundType:@"caf"];
+            [play play];
+        }
     }
-    //    else
-    //    {
-    //        CPLogInfo(@"msg receive , get msg group error");
-    //    }
     return newMsgID;
 }
 -(void)main

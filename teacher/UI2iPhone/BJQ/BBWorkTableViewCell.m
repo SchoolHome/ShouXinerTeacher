@@ -72,6 +72,8 @@
         typeImage.image = [UIImage imageNamed:@"BJQChinese"];
     }else if ([data.subject integerValue] == 3){
         typeImage.image = [UIImage imageNamed:@"BJQEnglish"];
+    }else if ([data.subject integerValue] == 0){
+        typeImage.image = [UIImage imageNamed:@"BJQZuoye"];
     }else{
         typeImage.image = nil;
     }
