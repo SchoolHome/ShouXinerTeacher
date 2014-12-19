@@ -7,7 +7,7 @@
 //
 
 #import "ForgotPwdVC.h"
-
+#import "AppDelegate.h"
 @interface ForgotPwdVC ()
 {
     UITextField *phoneField;
@@ -18,7 +18,6 @@
     NSString *smsID;
     
     NSTimer *lastTimer;
-    NSInteger restTime;
 }
 @end
 
@@ -160,25 +159,27 @@
             return;
         }
     }
-    restTime = 120;
     [codeBtn setBackgroundColor:[UIColor grayColor]];
     [codeBtn setImage:nil forState:UIControlStateNormal];
     [codeBtn setUserInteractionEnabled:NO];
-    [codeBtn setTitle:[NSString stringWithFormat:@"%d秒后重试", restTime] forState:UIControlStateNormal];
+    AppDelegate *delegate = (AppDelegate *)[UIApplication sharedApplication].delegate;
+    delegate.smsTime = 120;
+    [codeBtn setTitle:[NSString stringWithFormat:@"%d秒后重试", delegate.smsTime] forState:UIControlStateNormal];
     lastTimer = [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(lastTime) userInfo:nil repeats:YES];
     [[PalmUIManagement sharedInstance] getResetPasswordSMS:telPhoneText];
 }
 
 -(void)lastTime
 {
-    restTime = restTime - 1;
-    if (restTime == 0) {
+    AppDelegate *delegate = (AppDelegate *)[UIApplication sharedApplication].delegate;
+    delegate.smsTime = delegate.smsTime - 1;
+    if (delegate.smsTime == 0) {
         [lastTimer invalidate];
         lastTimer = nil;
         [codeBtn setImage:[UIImage imageNamed:@"GetSmsCode.png"] forState:UIControlStateNormal];
         [codeBtn setUserInteractionEnabled:YES];
     }else{
-        [codeBtn setTitle:[NSString stringWithFormat:@"%d秒后重试", restTime] forState:UIControlStateNormal];
+        [codeBtn setTitle:[NSString stringWithFormat:@"%d秒后重试", delegate.smsTime] forState:UIControlStateNormal];
     }
 }
 
@@ -229,6 +230,8 @@
 
 -(void)backViewController
 {
+    [lastTimer invalidate];
+    lastTimer = nil;
     [self.navigationController popViewControllerAnimated:YES];
 }
 
@@ -242,6 +245,10 @@
     if ([keyPath isEqualToString:@"resetSMSCode"]){
         NSDictionary *resultDic = [[PalmUIManagement sharedInstance] resetSMSCode];
         if ([resultDic[ASI_REQUEST_HAS_ERROR] boolValue]) {
+            [lastTimer invalidate];
+            lastTimer = nil;
+            [codeBtn setImage:[UIImage imageNamed:@"GetSmsCode.png"] forState:UIControlStateNormal];
+            [codeBtn setUserInteractionEnabled:YES];
             [self showProgressWithText:resultDic[ASI_REQUEST_ERROR_MESSAGE] withDelayTime:1.0f];
             return;
         }else{

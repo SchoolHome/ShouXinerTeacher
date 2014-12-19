@@ -11,6 +11,9 @@
 #import "CPSystemEngine.h"
 
 @interface activateViewController ()<UITextFieldDelegate>
+{
+    NSTimer *restTimer;
+}
 @property (nonatomic) BOOL needSetUserName;
 @property (nonatomic,strong) UITextField *smsCode;
 @property (nonatomic,strong) UITextField *telPhone;
@@ -120,9 +123,9 @@
     self.smsCode.delegate = self;
     [self.view addSubview:self.smsCode];
     self.smsButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    [self.smsButton setBackgroundImage:[UIImage imageNamed:@"GetSmsCode"] forState:UIControlStateNormal];
-    [self.smsButton setBackgroundImage:[UIImage imageNamed:@"GetSmsCode"] forState:UIControlStateHighlighted];
+    [self.smsButton setImage:[UIImage imageNamed:@"GetSmsCode"] forState:UIControlStateNormal];
     self.smsButton.frame = CGRectMake(self.view.frame.size.width-100, height+7.f, 80.0f, 30.0f);
+    [self.smsButton.titleLabel setFont:[UIFont systemFontOfSize:14]];
     [self.smsButton addTarget:self action:@selector(getsmsCode) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:self.smsButton];
     
@@ -167,7 +170,7 @@
     self.confrimPassWord.placeholder = @"确认密码";
     [self.view addSubview:self.confrimPassWord];
     
-    if([loginModel.mobile length]>0){
+    if([loginModel.mobile length] == 11){
         [self.telPhone setText:loginModel.mobile];
         [self.telPhone setUserInteractionEnabled:NO];
     }else{
@@ -265,6 +268,13 @@
             return;
         }
     }
+    [self.smsButton setBackgroundColor:[UIColor grayColor]];
+    [self.smsButton setImage:nil forState:UIControlStateNormal];
+    [self.smsButton setUserInteractionEnabled:NO];
+    AppDelegate *delegate = (AppDelegate *)[UIApplication sharedApplication].delegate;
+    delegate.smsTime = 120;
+    [self.smsButton setTitle:[NSString stringWithFormat:@"%d秒后重试", delegate.smsTime] forState:UIControlStateNormal];
+    restTimer = [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(restTime:) userInfo:nil repeats:YES];
     [[PalmUIManagement sharedInstance] getSMSVerifyCode:telPhoneText];
 }
 
@@ -284,6 +294,10 @@
         [appDelegate launchApp];
     }else if ([keyPath isEqualToString:@"smsVerifyCode"]){
         if ([[PalmUIManagement sharedInstance].smsVerifyCode[ASI_REQUEST_HAS_ERROR] boolValue]) {
+            [restTimer invalidate];
+            restTimer = nil;
+            [self.smsButton setImage:[UIImage imageNamed:@"GetSmsCode.png"] forState:UIControlStateNormal];
+            [self.smsButton setUserInteractionEnabled:YES];
             [self showProgressWithText:[PalmUIManagement sharedInstance].smsVerifyCode[ASI_REQUEST_ERROR_MESSAGE] withDelayTime:1.0f];
             return;
         }
@@ -297,7 +311,27 @@
 
 -(void)backViewController
 {
+    if (restTimer) {
+        AppDelegate *delegate = (AppDelegate *)[UIApplication sharedApplication].delegate;
+        delegate.smsTime = 120;
+        [restTimer invalidate];
+        restTimer = nil;
+    }
+    [self.navigationController setNavigationBarHidden:YES];
     [self.navigationController popViewControllerAnimated:YES];
 }
 
+-(void)restTime:(NSTimer *)timer
+{
+    AppDelegate *delegate = (AppDelegate *)[UIApplication sharedApplication].delegate;
+    delegate.smsTime = delegate.smsTime - 1;
+    if (delegate.smsTime == 0) {
+        [restTimer invalidate];
+        restTimer = nil;
+        [self.smsButton setImage:[UIImage imageNamed:@"GetSmsCode.png"] forState:UIControlStateNormal];
+        [self.smsButton setUserInteractionEnabled:YES];
+    }else{
+        [self.smsButton setTitle:[NSString stringWithFormat:@"%d秒后重试", delegate.smsTime] forState:UIControlStateNormal];
+    }
+}
 @end
