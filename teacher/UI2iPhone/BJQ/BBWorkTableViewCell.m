@@ -72,10 +72,8 @@
         typeImage.image = [UIImage imageNamed:@"BJQChinese"];
     }else if ([data.subject integerValue] == 3){
         typeImage.image = [UIImage imageNamed:@"BJQEnglish"];
-    }else if ([data.subject integerValue] == 0){
-        typeImage.image = [UIImage imageNamed:@"BJQZuoye"];
     }else{
-        typeImage.image = nil;
+        typeImage.image = [UIImage imageNamed:@"BJQZuoye"];
     }
     
     content.frame = CGRectMake(K_LEFT_PADDING, title.frame.origin.y + title.frame.size.height + 10.0f, 225, 0);
