@@ -13,7 +13,7 @@
     UILabel *title;
     UILabel *content;
     
-    EGOImageButton *imageContent[8];
+    EGOImageButton *imageContent[9];
 }
 
 

@@ -60,6 +60,7 @@
                         break;
                     case 7:
                     case 8:
+                    case 9:
                     {
                         imageHeight = 75*3+5*2;
                     }
@@ -154,6 +155,7 @@
                         break;
                     case 7:
                     case 8:
+                    case 9:
                     {
                         imageHeight = 75*3+5*2;
                     }
@@ -251,6 +253,7 @@
                                 break;
                             case 7:
                             case 8:
+                            case 9:
                             {
                                 imageHeight = 75*3+5*2;
                             }
@@ -415,6 +418,7 @@
                                 break;
                             case 7:
                             case 8:
+                            case 9:
                             {
                                 imageHeight = 75*3+5*2;
                             }
@@ -506,6 +510,7 @@
                             break;
                         case 7:
                         case 8:
+                        case 9:
                         {
                             imageHeight = 75*3+5*2;
                         }
@@ -659,6 +664,7 @@
                         break;
                     case 7:
                     case 8:
+                    case 9:
                     {
                         imageHeight = 75*3+5*2;
                     }

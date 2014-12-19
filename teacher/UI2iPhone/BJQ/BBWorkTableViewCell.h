@@ -18,7 +18,7 @@
     UIImageView *contentBack;
     UILabel *content;
     UIImageView *typeImage;
-    EGOImageButton *imageContent[8];
+    EGOImageButton *imageContent[9];
 }
 
 @end

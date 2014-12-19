@@ -114,8 +114,8 @@
         NSDictionary *attach = dict[@"attach"];
         if (attach) {
             NSArray *list = attach[@"image"];
-            if ([list count]>=8) {  // 避免图片太多引起错误
-                tp.imageList = [list subarrayWithRange:NSMakeRange(0, 7)];
+            if ([list count]>=10) {  // 避免图片太多引起错误
+                tp.imageList = [list subarrayWithRange:NSMakeRange(0, 9)];
             }else{
                 tp.imageList = list;
             }

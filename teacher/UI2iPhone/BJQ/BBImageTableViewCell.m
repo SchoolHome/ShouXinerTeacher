@@ -41,7 +41,7 @@
         [self addSubview:content];
         content.backgroundColor = [UIColor clearColor];
         
-        for (int i = 0; i<8; i++) {
+        for (int i = 0; i<9; i++) {
             imageContent[i] = [[EGOImageButton alloc] init];
             imageContent[i].tag = i;
             [self addSubview:imageContent[i]];
@@ -86,7 +86,7 @@
     content.userInteractionEnabled = YES;
     [content sizeToFit];
     
-    for (int i = 0; i<8; i++) {
+    for (int i = 0; i<9; i++) {
         imageContent[i].hidden = YES;
     }
     
@@ -94,7 +94,7 @@
         int cnt = [self.data.imageList count];
         for (int i = 0; i<cnt; i++) {
             
-            if(i<8&&i>=6){
+            if(i<9&&i>=6){
                 imageContent[i].frame = CGRectMake(K_LEFT_PADDING+(i-6)*80, kViewFoot(content)+10+80*2, 75, 75);
                 imageContent[i].backgroundColor = [UIColor grayColor];
             }else if(i<6&&i>=3){
