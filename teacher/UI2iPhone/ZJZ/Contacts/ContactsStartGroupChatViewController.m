@@ -299,11 +299,11 @@ NSInteger nickNameSort(CPUIModelUserInfo *user1, CPUIModelUserInfo *user2, void 
     
     if (!self.isAddMemberInExistMsgGroup) {
         [self.selectedItemsArray addObjectsFromArray:self.hidedUserInfosArray];
-        if (self.selectedItemsArray.count) {
+        if (self.selectedItemsArray.count > 1) {
             [[CPUIModelManagement sharedInstance] createConversationWithUsers:self.selectedItemsArray andMsgGroups:nil andType:CREATE_CONVER_TYPE_COMMON];
         }else
         {
-            [self showProgressWithText:@"必须选择两位及以上才能开始群聊" withDelayTime:2.f];
+            [self showProgressWithText:@"人数不足，至少选择两人" withDelayTime:2.f];
         }
 
     }else
