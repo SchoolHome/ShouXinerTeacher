@@ -263,8 +263,8 @@
             [alarmHelper beginTimeAlarm];
         }
         CPLGModelAccount *account = [[CPSystemEngine sharedInstance] accountModel];
-        NSString *shakeKey = [NSString stringWithFormat:@"%@_Vibration",account.uid];
-        NSString *soundKey = [NSString stringWithFormat:@"%@_Ringalert",account.uid];
+        NSString *shakeKey = [NSString stringWithFormat:@"%@_Ringalert",account.uid];
+        NSString *soundKey = [NSString stringWithFormat:@"%@_Vibration",account.uid];
         BOOL isShake = [[[NSUserDefaults standardUserDefaults] objectForKey:shakeKey] boolValue];
         BOOL isSound = [[[NSUserDefaults standardUserDefaults] objectForKey:soundKey] boolValue];
         if (isShake) {
@@ -437,8 +437,8 @@
             newMsgID = [[[CPSystemEngine sharedInstance] dbManagement] insertMessage:dbMsg];
         }
         CPLGModelAccount *account = [[CPSystemEngine sharedInstance] accountModel];
-        NSString *shakeKey = [NSString stringWithFormat:@"%@_Vibration",account.uid];
-        NSString *soundKey = [NSString stringWithFormat:@"%@_Ringalert",account.uid];
+        NSString *shakeKey = [NSString stringWithFormat:@"%@_Ringalert",account.uid];
+        NSString *soundKey = [NSString stringWithFormat:@"%@_Vibration",account.uid];
         BOOL isShake = [[[NSUserDefaults standardUserDefaults] objectForKey:shakeKey] boolValue];
         BOOL isSound = [[[NSUserDefaults standardUserDefaults] objectForKey:soundKey] boolValue];
         if (isShake) {
