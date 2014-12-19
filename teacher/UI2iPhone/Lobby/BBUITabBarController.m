@@ -78,7 +78,6 @@
                 NSDictionary *serviceDic = discoverResult[@"service"];
                 discoverCount += [[serviceDic allKeys] count];
             }
-            discoverCount +=2;
             if (discoverCount > 0) {
                 self.markYZS.hidden = NO;
                 self.markYZS.text = [NSString stringWithFormat:@"%d", discoverCount];
@@ -102,6 +101,7 @@
     self = [super init];
     if (self) {
         //
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(checkUnreadCount) name:UIApplicationWillEnterForegroundNotification object:nil];
         [[CPUIModelManagement sharedInstance] addObserver:self forKeyPath:@"friendMsgUnReadedCount" options:0 context:NULL];
         [[PalmUIManagement sharedInstance] addObserver:self forKeyPath:@"notiUnReadCount" options:0 context:NULL];
         [[PalmUIManagement sharedInstance] addObserver:self forKeyPath:@"discoverResult" options:0 context:nil];
