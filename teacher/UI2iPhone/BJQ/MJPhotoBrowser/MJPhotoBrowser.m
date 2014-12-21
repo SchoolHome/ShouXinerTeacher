@@ -142,9 +142,10 @@
     for (UIView *view in [_photoScrollView subviews]) {
         if ([view isMemberOfClass:[MJPhotoView class]]) {
             MJPhotoView *mjView = (MJPhotoView *)view;
-            mjView._photoLoadingView = nil;
-            [mjView._imageView setImageWithURL:[NSURL URLWithString:@"file:///abc"]];
-            [mjView._imageView cancelCurrentImageLoad];
+            mjView.photoLoadingView = nil;
+//            [mjView.imageView setImageWithURL:[NSURL URLWithString:@"file:///abc"]];
+            [mjView.imageView cancelImageLoad];
+            [mjView.imageView cancelCurrentImageLoad];
         }
     }
     
@@ -232,13 +233,13 @@
 - (void)loadImageNearIndex:(int)index
 {
     if (index > 0) {
-        MJPhoto *photo = _photos[index - 1];
-        [SDWebImageManager downloadWithURL:photo.url];
+//        MJPhoto *photo = _photos[index - 1];
+//        [SDWebImageManager downloadWithURL:photo.url];
     }
     
     if (index < _photos.count - 1) {
-        MJPhoto *photo = _photos[index + 1];
-        [SDWebImageManager downloadWithURL:photo.url];
+//        MJPhoto *photo = _photos[index + 1];
+//        [SDWebImageManager downloadWithURL:photo.url];
     }
 }
 

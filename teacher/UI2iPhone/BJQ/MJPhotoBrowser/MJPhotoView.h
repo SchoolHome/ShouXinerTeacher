@@ -7,6 +7,7 @@
 
 #import <UIKit/UIKit.h>
 #import "MJPhotoLoadingView.h"
+#import "EGOImageView.h"
 
 @class MJPhotoBrowser, MJPhoto, MJPhotoView;
 
@@ -16,9 +17,9 @@
 - (void)photoViewDidEndZoom:(MJPhotoView *)photoView;
 @end
 
-@interface MJPhotoView : UIScrollView <UIScrollViewDelegate>
-@property(nonatomic,strong) UIImageView *_imageView;
-@property(nonatomic,strong) MJPhotoLoadingView *_photoLoadingView;
+@interface MJPhotoView : UIScrollView <UIScrollViewDelegate,EGOImageViewDelegate>
+@property(nonatomic,strong) EGOImageView *imageView;
+@property(nonatomic,strong) MJPhotoLoadingView *photoLoadingView;
 // 图片
 @property (nonatomic, strong) MJPhoto *photo;
 // 代理

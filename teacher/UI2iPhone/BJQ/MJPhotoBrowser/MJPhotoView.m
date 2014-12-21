@@ -13,10 +13,7 @@
 
 @interface MJPhotoView ()
 {
-    BOOL _doubleTap;
-    UIImageView *_imageView;
-    MJPhotoLoadingView *_photoLoadingView;
-    
+    BOOL _doubleTap;    
 }
 @end
 
@@ -27,12 +24,10 @@
     if ((self = [super initWithFrame:frame])) {
         self.clipsToBounds = YES;
 		// 图片
-		_imageView = [[UIImageView alloc] init];
-		_imageView.contentMode = UIViewContentModeScaleAspectFit;
-		[self addSubview:_imageView];
+		
         
         // 进度条
-        _photoLoadingView = [[MJPhotoLoadingView alloc] init];
+        self.photoLoadingView = [[MJPhotoLoadingView alloc] init];
 		
 		// 属性
 		self.backgroundColor = [UIColor clearColor];
@@ -66,19 +61,21 @@
 - (void)showImage
 {
     if (_photo.firstShow) { // 首次显示
-        _imageView.image = _photo.placeholder; // 占位图片
+        _imageView.placeholderImage = _photo.placeholder; // 占位图片
         _photo.srcImageView.image = nil;
         
         // 不是gif，就马上开始下载
         if (![_photo.url.absoluteString hasSuffix:@"gif"]) {
-            __unsafe_unretained MJPhotoView *photoView = self;
-            __unsafe_unretained MJPhoto *photo = _photo;
-            [_imageView setImageWithURL:_photo.url placeholderImage:_photo.placeholder options:SDWebImageRetryFailed|SDWebImageLowPriority completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType) {
-                photo.image = image;
-                
-                // 调整frame参数
-                [photoView adjustFrame];
-            }];
+            if (self.imageView != nil) {
+                [self.imageView cancelImageLoad];
+                [self.imageView removeFromSuperview];
+                self.imageView = nil;
+            }
+            self.imageView = [[EGOImageView alloc] initWithPlaceholderImage:_photo.srcImageView.image];
+            self.imageView.delegate = self;
+            self.imageView.contentMode = UIViewContentModeScaleAspectFit;
+            [self addSubview:_imageView];
+            [self.imageView setImageURL:_photo.url];
         }
     } else {
         [self photoStartLoad];
@@ -100,21 +97,27 @@
         [_photoLoadingView showLoading];
         
         [self addSubview:_photoLoadingView];
-        
-        __unsafe_unretained MJPhotoView *photoView = self;
-        __unsafe_unretained MJPhotoLoadingView *loading = _photoLoadingView;
-        [_imageView setImageWithURL:_photo.url placeholderImage:_photo.srcImageView.image options:SDWebImageRetryFailed|SDWebImageLowPriority progress:^(NSUInteger receivedSize, long long expectedSize) {
-//            if (receivedSize > kMinProgress) {
-//                if (nil != loading && [loading superview] != nil) {
-////                    loading.progress = (float)receivedSize/expectedSize;
-//                }
-//                
-//            }
-        } completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType) {
-            [loading stop];
-            [photoView photoDidFinishLoadWithImage:image];
-        }];
+        if (self.imageView != nil) {
+            [self.imageView cancelImageLoad];
+            [self.imageView removeFromSuperview];
+            self.imageView = nil;
+        }
+        self.imageView = [[EGOImageView alloc] initWithPlaceholderImage:_photo.srcImageView.image];
+        self.imageView.delegate = self;
+        self.imageView.contentMode = UIViewContentModeScaleAspectFit;
+        [self addSubview:_imageView];
+        [self.imageView setImageURL:_photo.url];
     }
+}
+
+- (void)imageViewLoadedImage:(EGOImageView*)imageView{
+    // 调整frame参数
+    [self adjustFrame];
+    [_photoLoadingView stop];
+}
+
+- (void)imageViewFailedToLoadImage:(EGOImageView*)imageView error:(NSError*)error{
+    [_photoLoadingView stop];
 }
 
 #pragma mark 加载完毕
@@ -207,7 +210,7 @@
     _photoLoadingView = nil;
     [_imageView cancelCurrentImageLoad];
     [_imageView cancelCurrentArrayLoad];
-    [_imageView setImageWithURL:[NSURL URLWithString:@"file:///abc"]];
+    [_imageView cancelImageLoad];
     
     // 移除进度条
     
@@ -264,6 +267,6 @@
 - (void)dealloc
 {
     // 取消请求
-    [_imageView setImageWithURL:[NSURL URLWithString:@"file:///abc"]];
+    [_imageView cancelImageLoad];
 }
 @end
