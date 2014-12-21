@@ -321,8 +321,8 @@
     for (int i = 0; i<self.chooseImageView.images.count; i++) {
         UIImage *image = self.chooseImageView.images[i];
         if (image) {
-            image = [self imageWithImage:image];
-            NSData *data = UIImageJPEGRepresentation(image, 0.5f);
+            //image = [self imageWithImage:image];
+            NSData *data = UIImageJPEGRepresentation(image, 0.6f);
             [[PalmUIManagement sharedInstance] updateUserImageFile:data withGroupID:[[self getGroupID] intValue]];
         }
     }
