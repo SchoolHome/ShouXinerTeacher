@@ -261,6 +261,7 @@
 
 - (void)segeValueChanged:(UIButton *)sender
 {
+    
     sender.selected = !sender.selected;
     listType = sender.selected ? LIST_TYPE_CONTACTS : LIST_TYPE_MSG_GROUP;
     [self.messageListTableview reloadData];
