@@ -26,5 +26,5 @@
 
 @property (nonatomic, strong) UILabel *markYZS;
 - (void)selectedItem:(NSInteger)itemIndex;
-
+@property (nonatomic) BOOL canClick;
 @end

@@ -230,6 +230,9 @@
 }
 - (BOOL)tabBarController:(UITabBarController *)tabBarController shouldSelectViewController:(UIViewController *)viewController
 {
+    if (!self.canClick) {
+        return NO;
+    }
     if ([viewController.tabBarItem.title isEqualToString:@"YZSS"]) {
         //展开view
         UIWindow *window = [UIApplication sharedApplication].keyWindow;
@@ -246,6 +249,9 @@
 
 -(void) clickItemIndex : (ClickMenuItem) item{
     NSLog(@"%d",item);
+    if (!self.canClick) {
+        return;
+    }
     if (item == kPBXItem) {
 //        BBPostPBXViewController *postPBX = [[BBPostPBXViewController alloc] initWithPostType:POST_TYPE_PBX];
         BBCameraViewController *camera = [[BBCameraViewController alloc] init];
@@ -266,7 +272,9 @@
 }
 
 - (void)tabBarController:(UITabBarController *)tabBarController didSelectViewController:(UIViewController *)viewController{
-    
+    if (!self.canClick) {
+        return;
+    }
     for (int i = 0 ; i<[_tapImages count]; i++) {
         if (tabBarController.selectedIndex == i) {
             _subTabItem[i].image = [_tapImages objectAtIndex:i];

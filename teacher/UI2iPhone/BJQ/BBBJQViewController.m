@@ -21,6 +21,7 @@
 #import "BBVideoTableViewCell.h"
 #import <MediaPlayer/MediaPlayer.h>
 #import "BBShareWebViewController.h"
+#import "AppDelegate.h"
 
 @class BBWSPViewController;
 @interface BBBJQViewController ()<ADImageviewDelegate,OHAttributedLabelDelegate>
@@ -306,6 +307,11 @@
         }else{
             [self closeProgress];
             [self playVideo:self.videoFilePath];
+        }
+        AppDelegate *appDelegate = (AppDelegate *)[UIApplication sharedApplication].delegate;
+        if ([appDelegate.window.rootViewController isKindOfClass:[BBUITabBarController class]]) {
+            BBUITabBarController *tabbar = (BBUITabBarController *)appDelegate.window.rootViewController;
+            tabbar.canClick = YES;
         }
     }
 }
@@ -1106,6 +1112,12 @@
                 // wifi的情况
                 [self showProgressWithText:@"正在下载"];
                 [[PalmUIManagement sharedInstance] downLoadUserVideoFile:url withKey:key];
+                AppDelegate *appDelegate = (AppDelegate *)[UIApplication sharedApplication].delegate;
+                if ([appDelegate.window.rootViewController isKindOfClass:[BBUITabBarController class]]) {
+                    BBUITabBarController *tabbar = (BBUITabBarController *)appDelegate.window.rootViewController;
+                    tabbar.canClick = NO;
+                }
+                [[PalmUIManagement sharedInstance] downLoadUserVideoFile:url withKey:key];
             }
                 break;
             case ReachableViaWWAN:{
@@ -1135,6 +1147,11 @@
     NSString *fileDir = [NSString stringWithFormat:@"%@/Video/",account.loginName];
     self.videoFilePath = [NSString stringWithFormat:@"%@/%@%@",[CoreUtils getDocumentPath],fileDir,writeFileName];
     [self showProgressWithText:@"正在下载"];
+    AppDelegate *appDelegate = (AppDelegate *)[UIApplication sharedApplication].delegate;
+    if ([appDelegate.window.rootViewController isKindOfClass:[BBUITabBarController class]]) {
+        BBUITabBarController *tabbar = (BBUITabBarController *)appDelegate.window.rootViewController;
+        tabbar.canClick = NO;
+    }
     [[PalmUIManagement sharedInstance] downLoadUserVideoFile:url withKey:key];
 }
 
