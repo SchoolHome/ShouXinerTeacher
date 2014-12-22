@@ -308,13 +308,7 @@
     NSMutableArray *tempTeachersArray = [[NSMutableArray alloc] init];
     NSMutableArray *tempParentsArray = [[NSMutableArray alloc] init];
     for (CPUIModelUserInfo *model in [CPUIModelManagement sharedInstance].friendArray) {
-        if ([model.lifeStatus integerValue] == 100022478) {
-<<<<<<< HEAD
-            NSLog(@"100022478");
-=======
-            NSLog(@"1");
->>>>>>> 795e7d3e8cea232afce755f359cc581e4350803d
-        }
+
         ContactsModel *tempModel = [[ContactsModel alloc] init];
         tempModel.modelID = [model.lifeStatus integerValue];
         tempModel.avatarPath = model.headerPath;
