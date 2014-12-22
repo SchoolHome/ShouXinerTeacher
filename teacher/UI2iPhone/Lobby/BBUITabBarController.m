@@ -198,7 +198,7 @@
         }
     }
     
-    _markYZS = [[UILabel alloc] initWithFrame:CGRectMake(320/itemCount*4-16.f, -5, 20, 20)];
+    _markYZS = [[UILabel alloc] initWithFrame:CGRectMake(320/itemCount*4-20.f, -5, 20, 20)];
     _markYZS.font = [UIFont systemFontOfSize:14];
     [_imageTabBar addSubview:_markYZS];
     _markYZS.backgroundColor = [UIColor colorWithRed:252/255.0 green:79/255.0 blue:6/255.0 alpha:1.0];
@@ -214,7 +214,7 @@
     
     [self checkUnreadCount];
     
-    markMessage = [[UILabel alloc] initWithFrame:CGRectMake(320/itemCount*2-16.f, -5, 20, 20)];
+    markMessage = [[UILabel alloc] initWithFrame:CGRectMake(320/itemCount*2-20.f, -5, 20, 20)];
     markMessage.font = [UIFont systemFontOfSize:14];
     [_imageTabBar addSubview:markMessage];
     markMessage.backgroundColor = [UIColor colorWithRed:252/255.0 green:79/255.0 blue:6/255.0 alpha:1.0];

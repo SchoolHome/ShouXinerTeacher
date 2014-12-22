@@ -35,10 +35,13 @@
 {
     [super viewDidLoad];
     
+    CGFloat scale = _image.size.height/_image.size.width;
+    
     self.view.backgroundColor = [UIColor blackColor];
     
     previewImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0.f, 0.f, self.screenWidth, self.screenHeight)];
     [previewImageView setImage:_image];
+    if (scale < 1) previewImageView.contentMode = UIViewContentModeScaleAspectFit;
     previewImageView.userInteractionEnabled = YES;
     [self.view addSubview:previewImageView];
     
