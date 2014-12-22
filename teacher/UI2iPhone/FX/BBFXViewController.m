@@ -56,6 +56,12 @@
     [fxTableView setSeparatorColor:[UIColor clearColor]];
     [fxTableView setDelegate:(id<UITableViewDelegate>)self];
     [fxTableView setDataSource:(id<UITableViewDataSource>)self];
+    
+    UIView *backgroundView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, fxTableView.frame.size.width, fxTableView.frame.size.height)];
+    [backgroundView setBackgroundColor:[UIColor colorWithRed:242.f/255.f green:242.f/255.f blue:242.f/255.f alpha:1.0f]];
+    [fxTableView setBackgroundView:backgroundView];
+    backgroundView = nil;
+    
     [self.view addSubview:fxTableView];
     [self initContentData];
 }
