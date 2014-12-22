@@ -48,6 +48,11 @@
     [tbvSetting setScrollEnabled:NO];
     [tbvSetting setDelegate:(id<UITableViewDelegate>)self];
     [tbvSetting setDataSource:(id<UITableViewDataSource>)self];
+    
+    UIView *bgView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self.screenHeight - 44)];
+    [bgView setBackgroundColor:[UIColor whiteColor]];
+    [tbvSetting setBackgroundView:bgView];
+    
     [self.view addSubview:tbvSetting];
 }
 
