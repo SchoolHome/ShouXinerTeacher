@@ -182,7 +182,7 @@
         [self.userName setText:account.loginName];
         [self.password setSecureTextEntry:YES];
         [self.password setText:account.pwdMD5];
-        [self showProgressWithText:@"正在登陆"];
+        [self showProgressWithText:@"正在登录"];
     }
 }
 
@@ -214,7 +214,7 @@
         return;
     }
     
-    [self showProgressWithText:@"正在登陆"];
+    [self showProgressWithText:@"正在登录"];
     [[CPUIModelManagement sharedInstance] loginWithName:userName password:password];
 }
 
