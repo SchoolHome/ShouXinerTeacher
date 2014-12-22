@@ -1308,6 +1308,7 @@
 		745350B11A021AC50068E185 /* BBChooseImgViewInPostPage.m in Sources */ = {isa = PBXBuildFile; fileRef = 745350B01A021AC50068E185 /* BBChooseImgViewInPostPage.m */; };
 		745470CB197D43A500200E4E /* CPOperationReceiveYTZMessage.m in Sources */ = {isa = PBXBuildFile; fileRef = 745470CA197D43A500200E4E /* CPOperationReceiveYTZMessage.m */; };
 		7457D0531A485A5D00C82636 /* BBRecordViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7457D0521A485A5D00C82636 /* BBRecordViewController.m */; };
+		7457D05B1A48780C00C82636 /* BBMutilIMViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7457D05A1A48780C00C82636 /* BBMutilIMViewController.m */; };
 		745BB5AA1A1DD46000307F00 /* BBServiceAccountDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 745BB5A91A1DD46000307F00 /* BBServiceAccountDetailViewController.m */; };
 		745C5C67197E3DCC00BD07D4 /* CPDAONotifyMessage.m in Sources */ = {isa = PBXBuildFile; fileRef = 745C5C66197E3DCC00BD07D4 /* CPDAONotifyMessage.m */; };
 		745C5C6A197E457900BD07D4 /* CPDBModelNotifyMessage.m in Sources */ = {isa = PBXBuildFile; fileRef = 745C5C69197E457900BD07D4 /* CPDBModelNotifyMessage.m */; };
@@ -3467,6 +3468,7 @@
 		745470CA197D43A500200E4E /* CPOperationReceiveYTZMessage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CPOperationReceiveYTZMessage.m; sourceTree = "<group>"; };
 		7457D0511A485A5D00C82636 /* BBRecordViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BBRecordViewController.h; sourceTree = "<group>"; };
 		7457D0521A485A5D00C82636 /* BBRecordViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BBRecordViewController.m; sourceTree = "<group>"; };
+		7457D05A1A48780C00C82636 /* BBMutilIMViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BBMutilIMViewController.m; sourceTree = "<group>"; };
 		745BB5A81A1DD46000307F00 /* BBServiceAccountDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BBServiceAccountDetailViewController.h; sourceTree = "<group>"; };
 		745BB5A91A1DD46000307F00 /* BBServiceAccountDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BBServiceAccountDetailViewController.m; sourceTree = "<group>"; };
 		745C5C65197E3DCC00BD07D4 /* CPDAONotifyMessage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPDAONotifyMessage.h; sourceTree = "<group>"; };
@@ -7286,6 +7288,7 @@
 				193E594218D990C300DB1FF4 /* BBSingleIMViewController.h */,
 				193E594318D990C300DB1FF4 /* BBSingleIMViewController.m */,
 				193E594518D9A39B00DB1FF4 /* BBMutilIMViewController.h */,
+				7457D05A1A48780C00C82636 /* BBMutilIMViewController.m */,
 				74A4E5C218DFD9BD000F79E6 /* BBMembersInMsgGroupViewController.h */,
 				74A4E5C318DFD9BD000F79E6 /* BBMembersInMsgGroupViewController.m */,
 				74A4E5C518DFE4B6000F79E6 /* BBMemberInMsgGroupTableViewCell.h */,
@@ -8744,6 +8747,7 @@
 				332D74ED18C33552007A75D5 /* CPSystemEngine.m in Sources */,
 				332D82E318C33F0A007A75D5 /* SingleIndependentProfileViewController.m in Sources */,
 				332D74E518C33552007A75D5 /* CPDBModelPersonalInfoData.m in Sources */,
+				7457D05B1A48780C00C82636 /* BBMutilIMViewController.m in Sources */,
 				332D74C718C33552007A75D5 /* ABPersonMultiValueModel.m in Sources */,
 				332D830F18C33F0B007A75D5 /* FxButton.m in Sources */,
 				332D752C18C33552007A75D5 /* XMPPJID.m in Sources */,
@@ -9436,7 +9440,7 @@
 				ONLY_ACTIVE_ARCH = NO;
 				OTHER_LDFLAGS = "-lxml2";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "8ADA4211-F5E2-4B2C-BD42-E4012B0B901C";
+				PROVISIONING_PROFILE = "709F75F5-36D5-4576-A1CF-D7490871D808";
 				SDKROOT = iphoneos;
 				VALID_ARCHS = armv7;
 				WRAPPER_EXTENSION = app;
@@ -9472,7 +9476,7 @@
 				);
 				OTHER_LDFLAGS = "-lxml2";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "8ADA4211-F5E2-4B2C-BD42-E4012B0B901C";
+				PROVISIONING_PROFILE = "709F75F5-36D5-4576-A1CF-D7490871D808";
 				SDKROOT = iphoneos;
 				VALID_ARCHS = armv7;
 				WRAPPER_EXTENSION = app;
