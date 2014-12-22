@@ -69,14 +69,25 @@
     if ([@"discoverResult" isEqualToString:keyPath]){
         NSDictionary *discoverResult = [PalmUIManagement sharedInstance].discoverResult;
         if ([discoverResult[@"errno"] integerValue]==0) {
+            NSDictionary *dataResult = discoverResult[@"data"];
             NSInteger discoverCount = 0;
-            if (![discoverResult[@"discover"] isKindOfClass:[NSNull class]]) {
-                NSDictionary *discoverDic = discoverResult[@"discover"];
-                discoverCount += [[discoverDic allKeys] count];
+            if (![dataResult[@"discover"] isKindOfClass:[NSNull class]]) {
+                NSDictionary *discoverDic = dataResult[@"discover"];
+                for (NSString *key in [discoverDic allKeys]) {
+                    NSDictionary *dic = discoverDic[key];
+                    if ([dic[@"isNew"] boolValue]) {
+                        discoverCount += 1;
+                    }
+                }
             }
-            if (![discoverResult[@"service"] isKindOfClass:[NSNull class]]) {
-                NSDictionary *serviceDic = discoverResult[@"service"];
-                discoverCount += [[serviceDic allKeys] count];
+            if (![dataResult[@"service"] isKindOfClass:[NSNull class]]) {
+                NSDictionary *serviceDic = dataResult[@"service"];
+                for (NSString *key in [serviceDic allKeys]) {
+                    NSDictionary *dic = serviceDic[key];
+                    if ([dic[@"isNew"] boolValue]) {
+                        discoverCount += 1;
+                    }
+                }
             }
             if (discoverCount > 0) {
                 self.markYZS.hidden = NO;
@@ -105,6 +116,7 @@
         [[CPUIModelManagement sharedInstance] addObserver:self forKeyPath:@"friendMsgUnReadedCount" options:0 context:NULL];
         [[PalmUIManagement sharedInstance] addObserver:self forKeyPath:@"notiUnReadCount" options:0 context:NULL];
         [[PalmUIManagement sharedInstance] addObserver:self forKeyPath:@"discoverResult" options:0 context:nil];
+        self.canClick = YES;
     }
     return self;
 }
@@ -230,6 +242,9 @@
 }
 - (BOOL)tabBarController:(UITabBarController *)tabBarController shouldSelectViewController:(UIViewController *)viewController
 {
+    if (!self.canClick) {
+        return NO;
+    }
     if ([viewController.tabBarItem.title isEqualToString:@"YZSS"]) {
         //展开view
         UIWindow *window = [UIApplication sharedApplication].keyWindow;
@@ -246,6 +261,9 @@
 
 -(void) clickItemIndex : (ClickMenuItem) item{
     NSLog(@"%d",item);
+    if (!self.canClick) {
+        return;
+    }
     if (item == kPBXItem) {
 //        BBPostPBXViewController *postPBX = [[BBPostPBXViewController alloc] initWithPostType:POST_TYPE_PBX];
         BBCameraViewController *camera = [[BBCameraViewController alloc] init];
@@ -266,7 +284,9 @@
 }
 
 - (void)tabBarController:(UITabBarController *)tabBarController didSelectViewController:(UIViewController *)viewController{
-    
+    if (!self.canClick) {
+        return;
+    }
     for (int i = 0 ; i<[_tapImages count]; i++) {
         if (tabBarController.selectedIndex == i) {
             _subTabItem[i].image = [_tapImages objectAtIndex:i];
@@ -299,6 +319,7 @@
 }
 
 -(void)dealloc{
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:UIApplicationWillEnterForegroundNotification object:nil];
     [[PalmUIManagement sharedInstance] removeObserver:self forKeyPath:@"discoverResult"];
     [[CPUIModelManagement sharedInstance] removeObserver:self forKeyPath:@"friendMsgUnReadedCount"];
     [[PalmUIManagement sharedInstance] removeObserver:self forKeyPath:@"notiUnReadCount"];

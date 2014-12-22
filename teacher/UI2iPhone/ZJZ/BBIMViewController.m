@@ -910,20 +910,15 @@ messagePictrueController = _messagePictrueController;
     
 }
 //取消图片选择器
--(void)imagePickerControllerDidCancel:(UIImagePickerController *)picker
-{
-//    [[HPStatusBarTipView shareInstance] setHidden:NO];
+-(void)imagePickerControllerDidCancel:(UIImagePickerController *)picker{
     [self dismissModalViewControllerAnimated:YES];
     self.detailViewController.canPlayMagic = YES;
 }
+
 //图片选择器选择图片后续
-- (void)imagePickerController:(UIImagePickerController *)picker
-didFinishPickingMediaWithInfo:(NSDictionary *)info
-{
-//    [[HPStatusBarTipView shareInstance] setHidden:NO];
+- (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info{
     NSString *mediaType = [info objectForKey:UIImagePickerControllerMediaType];
-    if([mediaType isEqualToString:@"public.movie"])
-    {
+    if([mediaType isEqualToString:@"public.movie"]){
         
         NSURL *videoURL = [info objectForKey:UIImagePickerControllerMediaURL];
         
@@ -935,8 +930,7 @@ didFinishPickingMediaWithInfo:(NSDictionary *)info
             [[CPUIModelManagement sharedInstance] sendMsgWithGroup:self.modelMessageGroup andMsg:message];
         }else {
         }
-    }else if ([mediaType isEqualToString:@"public.image"])
-    {
+    }else if ([mediaType isEqualToString:@"public.image"]){
         if (self.modelMessageGroup) {
             CPUIModelMessage *message = [[CPUIModelMessage alloc] init];
             [message setContentType:[NSNumber numberWithInt:MSG_CONTENT_TYPE_IMG]];
@@ -961,9 +955,7 @@ didFinishPickingMediaWithInfo:(NSDictionary *)info
             if (scaleFloat > 0.0f) {
                 imageScale = [UIImage scaleImage:image scaleFactor:scaleFloat];
             }
-            //CGSize size = imageScale.size;
             [message setMsgData:UIImageJPEGRepresentation(imageScale, 0.5f)];
-            //size = imageScale.size;
             [[CPUIModelManagement sharedInstance] sendMsgWithGroup:self.modelMessageGroup andMsg:message];
         }else {
             
@@ -972,7 +964,6 @@ didFinishPickingMediaWithInfo:(NSDictionary *)info
     
     [self dismissModalViewControllerAnimated:YES];
     self.detailViewController.canPlayMagic = YES;
-//    self.IMView.frame = CGRectMake(0, 0, self.IMView.frame.size.width, 200.0f);
 }
 
 

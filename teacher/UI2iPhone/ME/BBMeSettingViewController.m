@@ -48,6 +48,12 @@
     [tbvSetting setScrollEnabled:NO];
     [tbvSetting setDelegate:(id<UITableViewDelegate>)self];
     [tbvSetting setDataSource:(id<UITableViewDataSource>)self];
+    
+    UIView *backgroundView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, tbvSetting.frame.size.width, tbvSetting.frame.size.height)];
+    [backgroundView setBackgroundColor:[UIColor colorWithRed:242.f/255.f green:242.f/255.f blue:242.f/255.f alpha:1.0f]];
+    [tbvSetting setBackgroundView:backgroundView];
+    backgroundView = nil;
+    
     [self.view addSubview:tbvSetting];
 }
 
@@ -76,7 +82,7 @@
         [cell setSelectionStyle:UITableViewCellSelectionStyleGray];
     }
     NSDictionary *infoDic = [[settingList objectAtIndex:indexPath.section] objectAtIndex:indexPath.row];
-    [cell.textLabel setFont:[UIFont systemFontOfSize:16.f]];
+    [cell.textLabel setFont:[UIFont systemFontOfSize:14.f]];
     [cell.textLabel setText:[infoDic objectForKey:@"title"]];
     [cell.imageView setImage:[UIImage imageNamed:[infoDic objectForKey:@"icon"]]];
     if (indexPath.section == 0) {

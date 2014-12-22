@@ -56,6 +56,12 @@
     [fxTableView setSeparatorColor:[UIColor clearColor]];
     [fxTableView setDelegate:(id<UITableViewDelegate>)self];
     [fxTableView setDataSource:(id<UITableViewDataSource>)self];
+    
+    UIView *backgroundView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, fxTableView.frame.size.width, fxTableView.frame.size.height)];
+    [backgroundView setBackgroundColor:[UIColor colorWithRed:242.f/255.f green:242.f/255.f blue:242.f/255.f alpha:1.0f]];
+    [fxTableView setBackgroundView:backgroundView];
+    backgroundView = nil;
+    
     [self.view addSubview:fxTableView];
     [self initContentData];
 }
@@ -66,17 +72,18 @@
         NSDictionary *discoverResult = [PalmUIManagement sharedInstance].discoverResult;
         if ([discoverResult[@"errno"] integerValue]==0) {
             [self.discoverArray removeAllObjects];
-            if (![discoverResult[@"discover"] isKindOfClass:[NSNull class]]) {
-                NSDictionary *discoverDic = discoverResult[@"discover"];
+            NSDictionary *dataResult = discoverResult[@"data"];
+            if (![dataResult[@"discover"] isKindOfClass:[NSNull class]]) {
+                NSDictionary *discoverDic = dataResult[@"discover"];
                 for (NSString *key in [discoverDic allKeys]) {
                     NSDictionary *oneDiscover = discoverDic[key];
                     BBFXModel *oneModel = [[BBFXModel alloc] initWithJson:oneDiscover];
                     [self.discoverArray addObject:oneModel];
                 }
             }
-            if (![discoverResult[@"service"] isKindOfClass:[NSNull class]]) {
+            if (![dataResult[@"service"] isKindOfClass:[NSNull class]]) {
                 [self.serviceArray removeAllObjects];
-                NSDictionary *serviceDic = discoverResult[@"service"];
+                NSDictionary *serviceDic = dataResult[@"service"];
                 for (NSString *key in [serviceDic allKeys]) {
                     NSDictionary *oneService = serviceDic[key];
                     BBFXModel *model = [[BBFXModel alloc] initWithJson:oneService];
