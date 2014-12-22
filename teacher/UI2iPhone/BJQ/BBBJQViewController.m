@@ -1067,7 +1067,7 @@
 }
 
 -(void) bbBaseTableViewCell:(BBBaseTableViewCell *)cell deleteButtonTaped:(UIButton *)sender{
-    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"删除" message:@"是否删除" delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"确定", nil];
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil message:@"确认删除本条话题" delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"删除", nil];
     alert.delegate = self;
     self.deleteCell = cell;
     alert.tag = 1;

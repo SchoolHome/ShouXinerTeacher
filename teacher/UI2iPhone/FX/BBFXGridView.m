@@ -40,7 +40,7 @@
     [self addSubview:bgImgv];
     bgImgv = nil;
     
-    [self.egoLogo setFrame:CGRectMake(0, 0, frame.size.width-1, frame.size.height-20)];
+    [self.egoLogo setFrame:CGRectMake(20, 15, 67, 67)];
     [self.txtName setFrame:CGRectMake(0, frame.size.height-20, frame.size.width-1, 20)];
     [self.flagNew setFrame:CGRectMake(frame.size.width-20, 10, 10, 10)];
 }
