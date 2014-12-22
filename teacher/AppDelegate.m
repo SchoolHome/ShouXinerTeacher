@@ -74,7 +74,7 @@
     CPLGModelAccount *account = [[CPSystemEngine sharedInstance] accountModel];
     [Crashlytics setUserName:account.loginName];
 }
-
+ 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions{
     CPLogInfo(@"launchOptions %@",launchOptions);
     [[PalmUIManagement sharedInstance] addObserver:self forKeyPath:@"checkVersion" options:0 context:nil];
