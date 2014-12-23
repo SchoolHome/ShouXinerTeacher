@@ -13,6 +13,7 @@
 -(id)init{
     self = [super init];
     if (self) {
+        [self setBackgroundColor:[UIColor whiteColor]];
         _egoLogo = [[EGOImageView alloc] initWithPlaceholderImage:[UIImage imageNamed:@""]];
         [_egoLogo setContentMode:UIViewContentModeScaleAspectFit];
         [self addSubview:_egoLogo];

@@ -22,11 +22,26 @@
 
 - (void)viewDidLoad
 {
+    [super viewDidLoad];
+    self.title = @"选择班级";
+    
+    // left
+    UIButton *backButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    [backButton setFrame:CGRectMake(0.f, 7.f, 24.f, 24.f)];
+    [backButton setBackgroundImage:[UIImage imageNamed:@"back"] forState:UIControlStateNormal];
+    [backButton addTarget:self action:@selector(backButtonTaped:) forControlEvents:UIControlEventTouchUpInside];
+    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:backButton];
+    
     UITableView *tableview = [[UITableView alloc] initWithFrame:CGRectMake(0.f, 0.f, self.screenWidth, self.screenHeight-44.f) style:UITableViewStylePlain];
     tableview.delegate = self;
     tableview.dataSource = self;
     tableview.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
     [self.view addSubview:tableview];
+}
+
+- (void)backButtonTaped:(UIButton *)sender
+{
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section

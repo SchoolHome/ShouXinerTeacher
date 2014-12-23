@@ -261,6 +261,7 @@
 
 - (void)segeValueChanged:(UIButton *)sender
 {
+    
     sender.selected = !sender.selected;
     listType = sender.selected ? LIST_TYPE_CONTACTS : LIST_TYPE_MSG_GROUP;
     [self.messageListTableview reloadData];
@@ -308,9 +309,7 @@
     NSMutableArray *tempTeachersArray = [[NSMutableArray alloc] init];
     NSMutableArray *tempParentsArray = [[NSMutableArray alloc] init];
     for (CPUIModelUserInfo *model in [CPUIModelManagement sharedInstance].friendArray) {
-        if ([model.lifeStatus integerValue] == 100022478) {
-            NSLog(@"1");
-        }
+
         ContactsModel *tempModel = [[ContactsModel alloc] init];
         tempModel.modelID = [model.lifeStatus integerValue];
         tempModel.avatarPath = model.headerPath;
@@ -556,6 +555,7 @@
             cell.contentView.backgroundColor = [UIColor whiteColor];
             cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
             cell.backgroundColor = [UIColor whiteColor];
+            cell.textLabel.font = [UIFont systemFontOfSize:14.f];
             if (!IOS7) {
                 UIView *cellBG = [[UIView alloc] initWithFrame:CGRectMake(0.f, 0.f, self.screenWidth, 40.f)];
                 cellBG.backgroundColor = [UIColor whiteColor];
