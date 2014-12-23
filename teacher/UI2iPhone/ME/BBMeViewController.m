@@ -150,7 +150,7 @@
         [separatorLine setBackgroundColor:[UIColor grayColor]];
         [cell addSubview:separatorLine];*/
         [cell.textLabel setTextColor:[UIColor colorWithRed:39.f/255.f green:39.f/255.f blue:39.f/255.f alpha:1.0f]];
-        [cell.textLabel setFont:[UIFont systemFontOfSize:16]];
+        [cell.textLabel setFont:[UIFont systemFontOfSize:14.f]];
     }
     NSArray *dataList = [listData objectAtIndex:indexPath.section];
     NSDictionary *dataDic = [dataList objectAtIndex:indexPath.row];
