@@ -1109,6 +1109,7 @@
             case ReachableViaWiFi:{
                 // wifi的情况
                 [self showProgressWithText:@"正在下载"];
+                [inputBar endEdit];
                 [[PalmUIManagement sharedInstance] downLoadUserVideoFile:url withKey:key];
                 AppDelegate *appDelegate = (AppDelegate *)[UIApplication sharedApplication].delegate;
                 if ([appDelegate.window.rootViewController isKindOfClass:[BBUITabBarController class]]) {
@@ -1145,6 +1146,7 @@
     NSString *fileDir = [NSString stringWithFormat:@"%@/Video/",account.loginName];
     self.videoFilePath = [NSString stringWithFormat:@"%@/%@%@",[CoreUtils getDocumentPath],fileDir,writeFileName];
     [self showProgressWithText:@"正在下载"];
+    [inputBar endEdit];
     AppDelegate *appDelegate = (AppDelegate *)[UIApplication sharedApplication].delegate;
     if ([appDelegate.window.rootViewController isKindOfClass:[BBUITabBarController class]]) {
         BBUITabBarController *tabbar = (BBUITabBarController *)appDelegate.window.rootViewController;
@@ -1173,6 +1175,7 @@
         self.contentText = @"";
         copyContentButton = nil;
     }
+    [inputBar endEdit];
     NSURL*videoPathURL=[[NSURL alloc] initFileURLWithPath:videoPath];
     MPMoviePlayerViewController *playViewController = [[MPMoviePlayerViewController alloc] initWithContentURL:videoPathURL];
     MPMoviePlayerController *player = [playViewController moviePlayer];

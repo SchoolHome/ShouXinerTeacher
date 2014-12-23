@@ -25,7 +25,7 @@
             viewHeight = viewHeight + kTextSizeHeight+kTwoLinePadding;
         }
     }
-    return viewHeight+kCellTopPadding + (kTopAndButtomPadding-2)*2 + kTimestampLabelHeight+1 - kTwoLinePadding;  //每行高度 * 行数
+    return viewHeight+kCellTopPadding + (kTopAndButtomPadding-2)*2 + kTimestampLabelHeight+1 - kTwoLinePadding + 4.0f;  //每行高度 * 行数
 }
 
 +(CGFloat)heightOfTextAlarmExpressionCell:(NSArray *)heightArray{
