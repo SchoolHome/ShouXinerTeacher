@@ -900,8 +900,7 @@ messagePictrueController = _messagePictrueController;
     }
     imagePicker.delegate = self;
     self.msgGroupNeedRemove = YES;
-    [self presentModalViewController: imagePicker
-                            animated: YES];
+    [self presentModalViewController:imagePicker animated: YES];
     [self reBoundByCurrentStatus];
     /*********************王硕 2012－6－19***************************/
     [self stopMessageDetailSound];

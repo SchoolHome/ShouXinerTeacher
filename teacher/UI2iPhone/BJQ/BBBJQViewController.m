@@ -939,9 +939,7 @@
 // 复制
 -(void) bbBaseTableViewCell:(BBBaseTableViewCell *)cell touchPoint:(CGPoint)touchPoint longPressText:(NSString *)text{
     if (nil != copyContentButton) {
-        [copyContentButton removeFromSuperview];
-        self.contentText = @"";
-        copyContentButton = nil;
+        return;
     }
     if (self.tempMoreImage != nil) {
         [self.tempMoreImage removeFromSuperview];

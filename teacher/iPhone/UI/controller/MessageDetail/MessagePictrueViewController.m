@@ -15,16 +15,8 @@
 @interface MessagePictrueViewController ()
 // 图片的存储路径
 @property (nonatomic,strong) NSString *path;
-
-@property (nonatomic,strong) NSString *url;
-// 保存图片按钮
-//@property (nonatomic,strong) UIButton *saveImageButton;
 // 保存浮层
 @property (nonatomic,strong) LoadingView *loadingView;
-
-@property BOOL fromUrl;
-
-@property (nonatomic, strong) UIActivityIndicatorView *activityView;
 
 //计算UIImage的最大Frame
 -(CGRect) calculateImageRect;
@@ -39,7 +31,7 @@
 @end
 
 @implementation MessagePictrueViewController
-@synthesize imageView = _imageView , scrollView = _scrollView , path = _path,url= _url;
+@synthesize imageView = _imageView , scrollView = _scrollView , path = _path;
 @synthesize imageViewRect = _imageViewRect , isSaveing = _isSaveing , isuserCloseImageView = _isuserCloseImageView;
 @synthesize delegate = _delegate , isBeganShowAnimation = _isBeganShowAnimation;
 @synthesize isEndCloseAnimation = _isEndCloseAnimation;
@@ -47,9 +39,7 @@
 
 -(id) initWithPictruePath : (NSString *) pictruePath withRect : (CGRect) rect {
     self = [super init];
-    
     if (self) {
-        
         self.path = pictruePath;
         self.imageViewRect = rect;
         self.isSaveing = NO;
@@ -57,26 +47,6 @@
         
         self.isBeganShowAnimation = YES;
         self.isEndCloseAnimation = NO;
-        
-    }
-    return self;
-}
-
--(id) initWithPictrueURL : (NSString *) pictrueURL withRect : (CGRect) rect;{
-    self = [super init];
-    
-    if (self) {
-        
-        self.url = pictrueURL;
-        self.imageViewRect = rect;
-        self.isSaveing = NO;
-        self.isuserCloseImageView = NO;
-        
-        self.isBeganShowAnimation = YES;
-        self.isEndCloseAnimation = NO;
-        
-        self.fromUrl = YES;
-        
     }
     return self;
 }
@@ -84,17 +54,6 @@
 // 截取当前用户触摸输入
 -(void) touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event{
 }
-//
-//-(void) touchesCancelled:(NSSet *)touches withEvent:(UIEvent *)event{
-//    self.isuserCloseImageView = NO;
-//}
-//
-//-(void) touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event{
-//    
-//    if (!self.isuserCloseImageView) {
-//        return;
-//    }
-//}
 
 // 关闭图片显示动画
 -(void) closeImageViewAnimation{
@@ -104,66 +63,25 @@
         [self.delegate beganCloseImageAnimation];
     }
     
-    
     CGRect closeRect = [self.scrollView convertRect:self.imageViewRect fromView:nil];
     
-    // uiview动画
-    [UIImageView beginAnimations:@"ImageClose" context:nil];
-    [UIImageView setAnimationDelay:0.1f];
-    [UIImageView setAnimationDuration:ANIMATIONTIME];
-    [UIImageView setAnimationCurve:UIViewAnimationCurveLinear];
-    
-    // 动画的结束回调，回调方法内，增加下载按钮
-    [UIImageView setAnimationDelegate:self];
-    [UIImageView setAnimationDidStopSelector:@selector(animationDidStop:finished:context:)];
-    
-    self.imageView.frame = closeRect;
-    
-    self.view.backgroundColor = [UIColor blackColor];
-    self.view.backgroundColor = [UIColor clearColor];
-    
-    [UIImageView commitAnimations];
-}
-
-- (void)imageViewLoadedImage:(EGOImageView*)imageView{
-
-    [self.activityView stopAnimating];
-}
-- (void)imageViewFailedToLoadImage:(EGOImageView*)imageView error:(NSError*)error{
-    [self.activityView stopAnimating];
+    [UIView animateWithDuration:ANIMATIONTIME animations:^{
+        self.imageView.frame = closeRect;
+        
+        self.view.backgroundColor = [UIColor blackColor];
+        self.view.backgroundColor = [UIColor clearColor];
+    } completion:^(BOOL finished) {
+        if ([self.delegate respondsToSelector:@selector(endCloseImageAnimation)]) {
+            [self.delegate endCloseImageAnimation];
+        }
+    }];
 }
 
 - (void)viewDidLoad{
     [super viewDidLoad];
-    self.imageView = [[EGOImageView alloc] initWithFrame:self.imageViewRect];
-
-    
-    if (self.url&&self.fromUrl) {
-        self.imageView.contentMode = UIViewContentModeScaleAspectFit;
-        
-//        NSString *urlSmall = [NSString stringWithFormat:@"%@/mlogo",self.url];
-//        self.imageView.imageURL = [NSURL URLWithString:urlSmall];
-        
-        self.imageView.delegate = self;
-        
-        self.activityView = [[UIActivityIndicatorView alloc] initWithFrame:CGRectMake(0, 0, 30, 30)];
-        [self.activityView setCenter:self.view.center];
-        [self.activityView setActivityIndicatorViewStyle:UIActivityIndicatorViewStyleWhite];
-        
-        [self.view addSubview:self.activityView];
-        [self.activityView startAnimating];
-        
-        self.imageView.imageURL = [NSURL URLWithString:self.url];
-    }else{
-    
-        UIImage *image = [UIImage imageWithContentsOfFile:self.path];
-        
-        CPLogInfo(@"图片的地址：%@",self.path);
-        CPLogInfo(@"图片的width：%f",image.size.width);
-        CPLogInfo(@"图片的height：%f",image.size.height);
-        self.imageView.image = image;
-    }
-    
+    self.imageView = [[UIImageView alloc] initWithFrame:self.imageViewRect];
+    UIImage *image = [UIImage imageWithContentsOfFile:self.path];
+    self.imageView.image = image;
     
     float height = 0.0f;
     if (isIPhone5) {
@@ -171,7 +89,6 @@
     }else{
         height = 480.0f;
     }
-
     
     self.scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0.0f, 0.0f, 320.0f, height)];
     [self.scrollView addSubview:self.imageView];
@@ -204,22 +121,11 @@
     // 动画的结束回调，回调方法内，增加下载按钮
     [UIImageView setAnimationDelegate:self];
     [UIImageView setAnimationDidStopSelector:@selector(animationDidStop:finished:context:)];
-    
-    if (self.url&&self.fromUrl) {
-        self.imageView.frame = CGRectMake(0, 0, 320, height);
-        
-        
-    }else{
-    
-        self.imageView.frame = [self calculateImageRect];
-    }
+    self.imageView.frame = [self calculateImageRect];
     
     self.view.backgroundColor = [UIColor clearColor];
     self.view.backgroundColor = [UIColor blackColor];
-    
     [UIImageView commitAnimations];
-    
-    [self.view bringSubviewToFront:self.activityView];
 }
 
 // 动画的结束回调，回调方法内，增加下载按钮
@@ -230,7 +136,6 @@
         if ([self.delegate respondsToSelector:@selector(endCloseImageAnimation)]) {
             [self.delegate endCloseImageAnimation];
         }
-        [self.view removeFromSuperview];
     }
 }
 
@@ -375,17 +280,6 @@
 
 // 保存图片的回调方法
 - (void)image:(UIImage *)image didFinishSavingWithError:(NSError *)error contextInfo:(void *)contextInfo{
-//    UIAlertView *alert;
-//    if (error == nil){
-//        // 图片已保存
-//        alert = [[UIAlertView alloc] initWithTitle:nil message:@"图片已保存" delegate:nil cancelButtonTitle:@"OK." otherButtonTitles:nil];
-//        [alert show];
-//    }
-//    else{
-//        // 保存相片失败
-//        alert = [[UIAlertView alloc] initWithTitle:nil message:@"图片保存失败" delegate:nil cancelButtonTitle:@"OK." otherButtonTitles:nil];
-//        [alert show];
-//    }
     
     NSString *loadingString = @"";
     if (error == nil){
@@ -407,10 +301,6 @@
     [self.loadingView close];
     
     self.isSaveing = NO;
-}
-
-- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation{
-    return (interfaceOrientation == UIInterfaceOrientationPortrait);
 }
 
 @end

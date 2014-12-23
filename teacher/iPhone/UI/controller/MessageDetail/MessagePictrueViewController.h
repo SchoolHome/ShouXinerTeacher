@@ -21,11 +21,10 @@
 
 #import <UIKit/UIKit.h>
 #import "HPStatusBarTipView.h"
-#import "EGOImageView.h"
-@interface MessagePictrueViewController : UIViewController <UIScrollViewDelegate,UIActionSheetDelegate,EGOImageViewDelegate>
+@interface MessagePictrueViewController : UIViewController <UIScrollViewDelegate,UIActionSheetDelegate>
 
 // 展示图片的UIImageView
-@property (nonatomic,strong) EGOImageView *imageView;
+@property (nonatomic,strong) UIImageView *imageView;
 // scrollView
 @property (nonatomic,strong) UIScrollView *scrollView;
 
@@ -45,5 +44,4 @@
 
 -(id) initWithPictruePath : (NSString *) pictruePath withRect : (CGRect) rect;
 
--(id) initWithPictrueURL : (NSString *) pictrueURL withRect : (CGRect) rect;
 @end
