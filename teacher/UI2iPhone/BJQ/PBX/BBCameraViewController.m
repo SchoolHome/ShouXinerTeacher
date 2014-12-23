@@ -114,6 +114,24 @@
     
 }
 
+- (void)viewDidAppear:(BOOL)animated
+{
+    BOOL pbxVCExist = NO;
+    for (id controller in self.navigationController.viewControllers ) {
+        if ([controller isKindOfClass:[BBPostPBXViewController class]]) {
+            pbxVCExist = YES;
+        }
+    }
+    
+    if (!pbxVCExist) {
+        NSMutableArray *tempNavViewControllers = [NSMutableArray arrayWithArray:self.navigationController.viewControllers];
+        
+        BBPostPBXViewController *postPBX = [[BBPostPBXViewController alloc] initWithImages:nil];
+        [tempNavViewControllers insertObject:postPBX atIndex:self.navigationController.viewControllers.count-1];
+        self.navigationController.viewControllers = tempNavViewControllers;
+    }
+}
+
 - (void)viewWillAppear:(BOOL)animated
 {
     [[UIApplication sharedApplication] setStatusBarHidden:YES withAnimation:UIStatusBarAnimationNone];

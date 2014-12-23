@@ -16,7 +16,7 @@
 #import "TimeDetector.h"
 #import "TimeParser.h"
 #import "Reachability.h"
-#import "SJAvatarBrowser.h"
+//#import "SJAvatarBrowser.h"
 
 @interface MessageDetailViewController ()
 

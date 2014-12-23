@@ -20,7 +20,7 @@
 #import "CropVideoModel.h"
 #import "CoreUtils.h"
 
-
+#import "CPUIModelManagement.h"
 
 @interface BBPostPBXViewController ()
 {
@@ -290,6 +290,10 @@
         return;
     }
     
+    if(![[CPUIModelManagement sharedInstance] canConnectToNetwork]){
+        [self showProgressWithText:NETWORK_ERROR_TEXT withDelayTime:2.f];
+        return;
+    }
     
     if ([self videoIsExist]) {
         [self sendVideo];
