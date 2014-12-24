@@ -9,6 +9,7 @@
 #import "PalmViewController.h"
 
 #import <AVFoundation/AVFoundation.h>
+#import <AVFoundation/AVCaptureOutput.h>
 @interface BBRecordViewController : PalmViewController
 
 @property (nonatomic, strong) AVCaptureVideoPreviewLayer *preViewLayer;

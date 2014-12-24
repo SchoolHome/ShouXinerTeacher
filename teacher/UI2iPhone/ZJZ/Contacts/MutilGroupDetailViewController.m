@@ -34,9 +34,6 @@
 {
     
     if([keyPath isEqualToString:@"quitGroupDic"]){
-        if (alreadyQuitGroup) {
-            return;
-        }
         
         if ([[[CPUIModelManagement sharedInstance].quitGroupDic objectForKey:group_manage_dic_res_code]integerValue]== RESPONSE_CODE_SUCESS) {
             [[HPTopTipView shareInstance] showMessage:@"操作成功" duration:2.0f];
@@ -45,19 +42,14 @@
         }else {
             [self showProgressWithText:[[CPUIModelManagement sharedInstance].quitGroupDic objectForKey:group_manage_dic_res_desc] withDelayTime:2.f];
         }
-        alreadyQuitGroup = YES;
     }
     
     //quitGroupDic无效时备用
     if ([keyPath isEqualToString:@"userMsgGroupTag"]) {
         if ([CPUIModelManagement sharedInstance].userMsgGroupTag == UPDATE_USER_GROUP_TAG_DEL) {
-            if (alreadyQuitGroup) {
-                return;
-            }
             [[HPTopTipView shareInstance] showMessage:@"操作成功" duration:2.0f];
             [self.navigationController popToRootViewControllerAnimated:YES];
             [self closeProgress];
-            alreadyQuitGroup = YES;
         }
     }
 }
