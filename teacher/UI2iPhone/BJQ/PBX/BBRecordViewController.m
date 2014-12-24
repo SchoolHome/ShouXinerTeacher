@@ -618,4 +618,15 @@
     return savePath;
 }
 
+#pragma mark - AppDelegate
+- (void)applicationDidBecomeActive:(UIApplication *)application
+{
+    NSLog(@"DidBecomeActive");
+    
+}
+
+- (void)applicationWillResignActive:(UIApplication *)application
+{
+    NSLog(@"WillResignActive");
+}
 @end

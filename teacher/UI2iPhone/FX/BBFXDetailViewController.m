@@ -47,10 +47,7 @@
     [back addTarget:self action:@selector(backViewController) forControlEvents:UIControlEventTouchUpInside];
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:back];
     
-    CGFloat fix = 0;
-    if (IOS7) {
-        fix = 20;
-    }
+    CGFloat fix = 20;
     
     adWebview = [[UIWebView alloc] initWithFrame:CGRectMake(0.f, 0, self.view.frame.size.width, self.screenHeight-fix-44)];
     adWebview.scalesPageToFit = YES;

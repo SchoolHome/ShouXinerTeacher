@@ -17,6 +17,8 @@
 #import "TimeParser.h"
 #import "Reachability.h"
 
+//#import "SJAvatarBrowser.h"
+
 @interface MessageDetailViewController ()
 
 #pragma mark - 私有属性声明

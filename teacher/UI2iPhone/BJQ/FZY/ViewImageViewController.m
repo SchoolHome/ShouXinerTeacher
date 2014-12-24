@@ -62,7 +62,7 @@
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:deleteButton];
     */
     self.csView = [[XLCycleScrollView alloc] initCycleScrollView:(int)self.selectedIndex withFrame:CGRectMake(0.f, 0.f, self.screenWidth, self.screenHeight)];
-    self.csView.backgroundColor = [UIColor redColor];
+    self.csView.backgroundColor = [UIColor clearColor];
     self.csView.delegate = self;
     self.csView.datasource = self;
     [self.view addSubview:self.csView];
@@ -125,7 +125,9 @@
 - (UIView *)pageAtIndex:(NSInteger)index{
     UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(0.f, 0.f, self.screenWidth, self.screenHeight)];
     imageView.image = [self.dataSource objectAtIndex:index];
-    imageView.contentMode = UIViewContentModeScaleAspectFit & UIViewContentModeCenter;
+    CGFloat scale = imageView.image.size.height/imageView.image.size.width;
+    
+    imageView.contentMode = scale > 1 ? UIViewContentModeScaleAspectFit & UIViewContentModeCenter : UIViewContentModeScaleAspectFit;
     
     return imageView;
 }

@@ -12,7 +12,7 @@
 #import "ZYQAssetPickerController.h"
 #import "ViewImageViewController.h"
 
-
+#import "CPUIModelManagement.h"
 #import "AppDelegate.h"
 @interface BBBasePostViewController()<
 UIImagePickerControllerDelegate,
@@ -161,6 +161,8 @@ viewImageDeletedDelegate>
     
         [[PalmUIManagement sharedInstance] addObserver:self forKeyPath:@"groupListResult" options:0 context:NULL];
 }
+
+
 
 - (void)viewWillDisappear:(BOOL)animated
 {
@@ -377,7 +379,10 @@ viewImageDeletedDelegate>
         return;
     }
     
-    
+    if(![[CPUIModelManagement sharedInstance] canConnectToNetwork]){
+        [self showProgressWithText:NETWORK_ERROR_TEXT withDelayTime:2.f];
+        return;
+    }
     
 
         for (int i = 0; i<self.chooseImageView.images.count; i++) {
@@ -617,6 +622,7 @@ viewImageDeletedDelegate>
 
 - (void)imageDidTapped:(NSArray *)images andIndex:(NSInteger)index
 {
+    [self closeThingsText];
     ViewImageViewController *imagesVC = [[ViewImageViewController alloc] initViewImageVC:images withSelectedIndex:index];
     imagesVC.delegate = self;
     [self.navigationController pushViewController:imagesVC animated:YES];

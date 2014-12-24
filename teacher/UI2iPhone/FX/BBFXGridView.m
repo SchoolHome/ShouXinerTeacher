@@ -20,6 +20,7 @@
         
         _txtName = [[UILabel alloc] init];
         [_txtName setTextAlignment:NSTextAlignmentCenter];
+        [_txtName setBackgroundColor:[UIColor clearColor]];
         [_txtName setFont:[UIFont boldSystemFontOfSize:12]];
         [self addSubview:_txtName];
         

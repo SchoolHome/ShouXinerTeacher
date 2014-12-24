@@ -42,7 +42,7 @@
             }else{
                 width = width + 8;
             }
-            self.markYZS.frame = CGRectMake(320/5*4-16.f, -5, width, 20);
+            self.markYZS.frame = CGRectMake(320/5*4-18.f, -5, width, 20);
             [self.markYZS setNeedsDisplay];
         }
     }
@@ -62,7 +62,7 @@
             }else{
                 width = width + 8;
             }
-            markMessage.frame = CGRectMake(320/5*2-16.f, -5, width, 20);
+            markMessage.frame = CGRectMake(320/5*2-18.f, -5, width, 20);
             [markMessage setNeedsDisplay];
         }
     }
@@ -99,7 +99,7 @@
                 }else{
                     width = width + 8;
                 }
-                self.markYZS.frame = CGRectMake(320/5*4-16.f, -5, width, 20);
+                self.markYZS.frame = CGRectMake(320/5*4-18.f, -5, width, 20);
                 [self.markYZS setNeedsDisplay];
             }else{
                 self.markYZS.hidden = YES;
@@ -210,7 +210,7 @@
         }
     }
     
-    _markYZS = [[UILabel alloc] initWithFrame:CGRectMake(320/itemCount*4-20.f, -5, 20, 20)];
+    _markYZS = [[UILabel alloc] initWithFrame:CGRectMake(320/itemCount*4-18.f, -5, 20, 20)];
     _markYZS.font = [UIFont systemFontOfSize:14];
     [_imageTabBar addSubview:_markYZS];
     _markYZS.backgroundColor = [UIColor colorWithRed:252/255.0 green:79/255.0 blue:6/255.0 alpha:1.0];
@@ -226,7 +226,7 @@
     
     [self checkUnreadCount];
     
-    markMessage = [[UILabel alloc] initWithFrame:CGRectMake(320/itemCount*2-20.f, -5, 20, 20)];
+    markMessage = [[UILabel alloc] initWithFrame:CGRectMake(320/itemCount*2-18.f, -5, 20, 20)];
     markMessage.font = [UIFont systemFontOfSize:14];
     [_imageTabBar addSubview:markMessage];
     markMessage.backgroundColor = [UIColor colorWithRed:252/255.0 green:79/255.0 blue:6/255.0 alpha:1.0];
