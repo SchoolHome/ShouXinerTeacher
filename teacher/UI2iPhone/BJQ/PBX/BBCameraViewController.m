@@ -127,6 +127,7 @@
         NSMutableArray *tempNavViewControllers = [NSMutableArray arrayWithArray:self.navigationController.viewControllers];
         
         BBPostPBXViewController *postPBX = [[BBPostPBXViewController alloc] initWithImages:nil];
+        postPBX.hidesBottomBarWhenPushed = YES;
         [tempNavViewControllers insertObject:postPBX atIndex:self.navigationController.viewControllers.count-1];
         self.navigationController.viewControllers = tempNavViewControllers;
     }
