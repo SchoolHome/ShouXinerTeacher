@@ -339,8 +339,6 @@
     [[PalmUIManagement sharedInstance] addObserver:self forKeyPath:@"deleteTopicResult" options:0 context:NULL];
     
     [[PalmUIManagement sharedInstance] addObserver:self forKeyPath:@"downloadVideoResult" options:0 context:nil];
-    
-    
 }
 
 -(void)removeObservers{
@@ -358,15 +356,11 @@
     [[PalmUIManagement sharedInstance] removeObserver:self forKeyPath:@"advWithGroupResult"];
     [[PalmUIManagement sharedInstance] removeObserver:self forKeyPath:@"deleteTopicResult"];
     [[PalmUIManagement sharedInstance] removeObserver:self forKeyPath:@"downloadVideoResult"];
-    
-    
 }
 
 -(void)checkNotify{
-
     [[PalmUIManagement sharedInstance] getNotiCount];
     [self performSelector:@selector(checkNotify) withObject:nil afterDelay:35.0f];
-
 }
 
 -(void)addNewTaped:(id)sender{
@@ -517,7 +511,9 @@
     
     titleButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 125, 44)];
     [titleButton setTitle:@"班级" forState:UIControlStateNormal];
-    self.navigationItem.titleView = titleButton;
+    
+    self.navigationItem.titleView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 125, 44)];
+    [self.navigationItem.titleView addSubview: titleButton];
     titleButton.titleLabel.lineBreakMode = NSLineBreakByTruncatingMiddle;
     [titleButton addTarget:self action:@selector(bjButtonTaped:) forControlEvents:UIControlEventTouchUpInside];
     [titleButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
@@ -563,11 +559,8 @@
 
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
-    
     self.isLoading = NO;
     [self addObservers];
-    
-//    [bjqTableView triggerPullToRefresh];
 }
 
 -(void)viewWillDisappear:(BOOL)animated{
@@ -578,6 +571,7 @@
 
 -(void) viewDidDisappear:(BOOL)animated{
     [super viewDidDisappear:animated];
+    titleButton.frame = CGRectMake(0, 0, 125, 44);
     if (bjDropdownView.unfolded) {
         [bjDropdownView dismiss];
     }
@@ -617,6 +611,7 @@
 
 -(void) needRefresh{
     NSLog(@"needRefresh");
+    titleButton.frame = CGRectMake(0, 0, 125, 44);
     [bjqTableView scrollRectToVisible:CGRectMake(0.0f, 0.0f, 1.0f, 1.0f) animated:NO];
     [self performSelector:@selector(needRefreshBJQData) withObject:nil afterDelay:1.0f];
 }
@@ -1216,7 +1211,6 @@
 -(void)bbInputView:(BBInputView *)view sendText:(NSString *)text{
     // send
     
-//    BBTopicModel *model = view.data;
     self.tempTopModelInput = view.data;
     self.inputText = text;
     int replyUid = [self.tempTopModelInput.author_uid intValue];
