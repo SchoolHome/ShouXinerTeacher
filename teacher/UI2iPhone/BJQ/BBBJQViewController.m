@@ -717,20 +717,21 @@
             //
         {
             if ([model.subject integerValue] == 1) {
-                if (model.imageList != nil && [model.imageList count] != 0) {
-                    BBBaseTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier4];
+                if (model.videoList != nil && [model.videoList count] != 0) {
+                    
+                    BBBaseTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier6];
                     if (!cell) {
-                        cell = [[BBPBXTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier4];
+                        cell = [[BBVideoTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier6];
                         cell.delegate = self;
                         cell.selectionStyle = UITableViewCellSelectionStyleNone;
                     }
                     [cell setData:model];
                     cell.delegate = self;
                     return cell;
-                }else if(model.videoList != nil && [model.videoList count] != 0){
-                    BBBaseTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier6];
+                }else if(model.imageList != nil && [model.imageList count] != 0){
+                    BBBaseTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier4];
                     if (!cell) {
-                        cell = [[BBVideoTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier6];
+                        cell = [[BBPBXTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier4];
                         cell.delegate = self;
                         cell.selectionStyle = UITableViewCellSelectionStyleNone;
                     }
