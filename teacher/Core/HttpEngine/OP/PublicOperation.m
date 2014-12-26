@@ -14,6 +14,7 @@
 @property (nonatomic) PublicMessageType type;
 -(void) getPublicMessage;
 -(void) postPublicMessageForward;
+-(void) getPublicAccount;
 @end
 
 @implementation PublicOperation
@@ -42,6 +43,16 @@
     return self;
 }
 
+-(PublicOperation *) initGetPublicAccount{
+    self = [self initOperation];
+    if (nil != self) {
+        self.type = kGetPublicAccount;
+        NSString *urlStr = [NSString stringWithFormat:@"http://%@/mapi/pubAccounts",K_HOST_NAME_OF_PALM_SERVER];
+        [self setHttpRequestGetWithUrl:urlStr];
+    }
+    return self;
+}
+
 -(void) getPublicMessage{
     self.dataRequest.requestCookies = [[NSMutableArray alloc] initWithObjects:[PalmUIManagement sharedInstance].php, nil];
     [self.dataRequest setRequestCompleted:^(NSDictionary *data){
@@ -64,6 +75,15 @@
     [self startAsynchronous];
 }
 
+-(void) getPublicAccount{
+    [self.request setRequestCompleted:^(NSDictionary *data){
+        dispatch_block_t updateTagBlock = ^{
+            [PalmUIManagement sharedInstance].publicAccountDic = data;
+        };
+        dispatch_async(dispatch_get_main_queue(), updateTagBlock);
+    }];
+    [self startAsynchronous];
+}
 
 -(void) main{
     @autoreleasepool {
@@ -74,6 +94,9 @@
             case kPostPublicMessage:
                 [self postPublicMessageForward];
                 break;
+            case kGetPublicAccount:
+                [self getPublicAccount];
+                return;
             default:
                 break;
         }
