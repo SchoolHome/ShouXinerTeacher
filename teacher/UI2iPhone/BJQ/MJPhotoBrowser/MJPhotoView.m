@@ -71,8 +71,7 @@
                 [self.imageView removeFromSuperview];
                 self.imageView = nil;
             }
-            self.imageView = [[EGOImageView alloc] initWithPlaceholderImage:_photo.image];
-            self.imageView.image = _photo.srcImageView.image;
+            self.imageView = [[EGOImageView alloc] initWithPlaceholderImage:_photo.placeholder];
             [self adjustFrame];
             CGSize size = _photo.srcImageView.image.size;
             float width = 320.0f;
@@ -118,8 +117,8 @@
             [self.imageView removeFromSuperview];
             self.imageView = nil;
         }
-        self.imageView = [[EGOImageView alloc] initWithPlaceholderImage:_photo.image];
-        self.imageView.image = _photo.srcImageView.image;
+        self.imageView = [[EGOImageView alloc] initWithPlaceholderImage:_photo.placeholder];
+//        self.imageView.image = _photo.srcImageView.image;
         [self adjustFrame];
         CGSize size = _photo.srcImageView.image.size;
         float width = 320.0f;
