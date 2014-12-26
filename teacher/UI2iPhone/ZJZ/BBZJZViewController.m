@@ -37,6 +37,8 @@
     NSInteger listType;
     //是否请求过班级列表
     BOOL isRequestClassList;
+    
+    UIButton *segementBtn;
 }
 @property (nonatomic, strong)NSArray *tableviewDisplayDataArray;
 @property (nonatomic, strong) NSArray *classModels; //班级
@@ -79,11 +81,12 @@
     listType = LIST_TYPE_MSG_GROUP;
     //self.navigationItem.title = @"找家长";
     
-    UIButton *segementBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+    segementBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     [segementBtn setFrame:CGRectMake(0.f, 0.f, 125.f, 30.f)];
     [segementBtn setBackgroundImage:[UIImage imageNamed:@"tab_mes"] forState:UIControlStateNormal];
     [segementBtn setBackgroundImage:[UIImage imageNamed:@"tab_contact"] forState:UIControlStateSelected];
-    [segementBtn addTarget:self action:@selector(segeValueChanged:) forControlEvents:UIControlEventTouchUpInside];
+    [segementBtn setBackgroundImage:nil forState:UIControlStateHighlighted];
+    [segementBtn addTarget:self action:@selector(segeValueChanged:event:) forControlEvents:UIControlEventTouchUpInside];
     self.navigationItem.titleView = segementBtn;
     
     
@@ -259,9 +262,17 @@
     }
 }
 
-- (void)segeValueChanged:(UIButton *)sender
+- (void)segeValueChanged:(UIButton *)sender event:(UIEvent *) touchEvent
 {
-    
+    /*
+    UITouch *touch = [[touchEvent allTouches] anyObject];
+    if (CGRectContainsPoint(CGRectMake(0.f, 0.f, CGRectGetWidth(segementBtn.frame)/2, CGRectGetHeight(segementBtn.frame)), [touch locationInView:segementBtn]) && listType == LIST_TYPE_MSG_GROUP) {
+        return;
+    }else if (CGRectContainsPoint(CGRectMake(CGRectGetWidth(segementBtn.frame)/2, 0.f, CGRectGetWidth(segementBtn.frame)/2, CGRectGetHeight(segementBtn.frame)), [touch locationInView:segementBtn]) && listType == LIST_TYPE_CONTACTS)
+    {
+        return;
+    }
+    */
     sender.selected = !sender.selected;
     listType = sender.selected ? LIST_TYPE_CONTACTS : LIST_TYPE_MSG_GROUP;
     [self.messageListTableview reloadData];

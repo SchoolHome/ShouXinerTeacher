@@ -24,7 +24,6 @@
     
     UILabel *timeCountDisplay;
     
-    BOOL isEnterBackground;
     
 }
 @property (strong, nonatomic) NSTimer *countDurTimer;
@@ -127,9 +126,6 @@
     //[[UIApplication sharedApplication] setStatusBarHidden:YES withAnimation:UIStatusBarAnimationNone];
     [self.navigationController setNavigationBarHidden:YES];
     
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(reciveEnterBackgroundNoti)
-                                                 name:UIApplicationDidEnterBackgroundNotification object:nil];
 }
 
 - (void)viewWillDisappear:(BOOL)animated
@@ -138,7 +134,11 @@
     //[[UIApplication sharedApplication] setStatusBarHidden:NO withAnimation:UIStatusBarAnimationNone];
     [self.navigationController setNavigationBarHidden:NO];
     
-    [[NSNotificationCenter defaultCenter] removeObserver:self name:UIApplicationDidEnterBackgroundNotification object:nil];
+}
+
+- (void)viewDidDisappear:(BOOL)animated
+{
+    [self.captureSession stopRunning];
 }
 /*
  #pragma mark - Navigation
@@ -227,7 +227,7 @@
 {
     self.countDurTimer = [NSTimer scheduledTimerWithTimeInterval:COUNT_DUR_TIMER_INTERVAL target:self selector:@selector(onTimer:) userInfo:nil repeats:YES];
     timeCountDisplay.hidden = NO;
-    recordBtn.enabled = NO;
+
 }
 
 - (void)onTimer:(NSTimer *)timer
@@ -391,27 +391,20 @@
 {
     self.totalVideoDur = 0.0f;
     timeCountDisplay.hidden = YES;
-    recordBtn.selected = NO;
     [recordBtn setBackgroundImage:[UIImage imageNamed:@"record"] forState:UIControlStateNormal];
+    [self stopCountDurTimer];
     [self recoverToolWhenEndRecording];
     
-    self.captureSession = nil;
-    self.preViewLayer = nil;
-    self.movieFileOutput = nil;
-    self.videoDeviceInput = nil;
-    
-    isEnterBackground = NO;
-    
-    [self initalize];
+//    self.captureSession = nil;
+//    self.preViewLayer = nil;
+//    self.movieFileOutput = nil;
+//    self.videoDeviceInput = nil;
+//    
+//    [self initalize];
     
 }
 
 
-- (void)reciveEnterBackgroundNoti
-{
-    isEnterBackground = YES;
-    [self stopCurrentVideoRecording];
-}
 #pragma mark - Orientation
 - (NSUInteger)supportedInterfaceOrientations
 {
@@ -470,7 +463,7 @@
 -(void)startVideoCapture:(UIButton *)sender
 {
 
-    if (sender.selected) {
+    if ([_movieFileOutput isRecording]) {
         [recordBtn setBackgroundImage:[UIImage imageNamed:@"record"] forState:UIControlStateNormal];
         [self stopCurrentVideoRecording];
     }else
@@ -482,17 +475,19 @@
         //NSString *outputFilePath = [NSTemporaryDirectory() stringByAppendingPathComponent:[@"movie" stringByAppendingPathExtension:@"mov"]];
         [self startRecordingToOutputFileURL:[NSURL fileURLWithPath:[self getTempSaveVideoPath]]];
         [self.view bringSubviewToFront:localView];
+        
+        recordBtn.enabled = NO;
     }
-    sender.selected = !sender.selected;
 }
 
 - (void)takePicture
 {
-    NSLog(@"%@",self.navigationController.viewControllers);
+
     for (id viewController in self.navigationController.viewControllers) {
         if ([viewController isKindOfClass:[BBCameraViewController class]]) {
-            [self.navigationController popToViewController:(BBCameraViewController *)viewController animated:NO];
-            return;
+            NSMutableArray *tempNavViewControllers = [NSMutableArray arrayWithArray:self.navigationController.viewControllers];
+            [tempNavViewControllers removeObject:viewController];
+            self.navigationController.viewControllers = tempNavViewControllers;
         }
     }
     
@@ -541,22 +536,26 @@
         [self openTorch:NO];
     }
     
-    [_captureSession beginConfiguration];
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^{
+        [_captureSession beginConfiguration];
+        
+        [_captureSession removeInput:_videoDeviceInput];
+        
+        self.isUsingFrontCamera = !_isUsingFrontCamera;
+        AVCaptureDevice *device = [self getCameraDevice:_isUsingFrontCamera];
+        
+        [device lockForConfiguration:nil];
+        if ([device isExposureModeSupported:AVCaptureExposureModeContinuousAutoExposure]) {
+            [device setExposureMode:AVCaptureExposureModeContinuousAutoExposure];
+        }
+        [device unlockForConfiguration];
+        
+        self.videoDeviceInput = [AVCaptureDeviceInput deviceInputWithDevice:device error:nil];
+        [_captureSession addInput:_videoDeviceInput];
+        [_captureSession commitConfiguration];
+    });
     
-    [_captureSession removeInput:_videoDeviceInput];
-    
-    self.isUsingFrontCamera = !_isUsingFrontCamera;
-    AVCaptureDevice *device = [self getCameraDevice:_isUsingFrontCamera];
-    
-    [device lockForConfiguration:nil];
-    if ([device isExposureModeSupported:AVCaptureExposureModeContinuousAutoExposure]) {
-        [device setExposureMode:AVCaptureExposureModeContinuousAutoExposure];
-    }
-    [device unlockForConfiguration];
-    
-    self.videoDeviceInput = [AVCaptureDeviceInput deviceInputWithDevice:device error:nil];
-    [_captureSession addInput:_videoDeviceInput];
-    [_captureSession commitConfiguration];
+ 
 }
 
 - (BOOL)isTorchSupported
@@ -619,7 +618,9 @@
 
 - (void)captureOutput:(AVCaptureFileOutput *)captureOutput didFinishRecordingToOutputFileAtURL:(NSURL *)outputFileURL fromConnections:(NSArray *)connections error:(NSError *)error
 {
-    if (isEnterBackground) {
+    if (error) {
+        //[self showProgressWithText:@"出错了!" withDelayTime:1.5f];
+        [[NSFileManager defaultManager] removeItemAtURL:outputFileURL error:nil];
         [self resetState];
         return;
     }

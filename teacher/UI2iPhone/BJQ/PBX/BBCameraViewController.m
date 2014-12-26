@@ -175,6 +175,14 @@
 #pragma mark Camera Actions
 - (void)record
 {
+
+    for (id viewController in self.navigationController.viewControllers) {
+        if ([viewController isKindOfClass:[BBRecordViewController class]]) {
+            NSMutableArray *tempNavViewControllers = [NSMutableArray arrayWithArray:self.navigationController.viewControllers];
+            [tempNavViewControllers removeObject:viewController];
+            self.navigationController.viewControllers = tempNavViewControllers;
+        }
+    }
     
     BBRecordViewController *record = [[BBRecordViewController alloc] init];
     [self.navigationController pushViewController:record animated:NO];
