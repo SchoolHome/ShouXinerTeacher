@@ -619,7 +619,7 @@
 - (void)captureOutput:(AVCaptureFileOutput *)captureOutput didFinishRecordingToOutputFileAtURL:(NSURL *)outputFileURL fromConnections:(NSArray *)connections error:(NSError *)error
 {
     if (error) {
-        [self showProgressWithText:@"出错了!" withDelayTime:1.5f];
+        //[self showProgressWithText:@"出错了!" withDelayTime:1.5f];
         [[NSFileManager defaultManager] removeItemAtURL:outputFileURL error:nil];
         [self resetState];
         return;
