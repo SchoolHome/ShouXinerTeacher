@@ -1041,6 +1041,7 @@
         imageview.hidden = YES;
         [self.view addSubview:imageview];
         photo.srcImageView = imageview; // 来源于哪个UIImageView
+        photo.image = imageview.image;
         [photos addObject:photo];
     }
     
