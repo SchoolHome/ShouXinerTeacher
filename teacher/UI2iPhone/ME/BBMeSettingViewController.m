@@ -40,7 +40,7 @@
     
     settingList = [[NSArray alloc] initWithObjects:[NSArray arrayWithObjects:[NSDictionary dictionaryWithObjectsAndKeys:@"响铃提示", @"title", @"ring.png", @"icon", nil],
                                                     [NSDictionary dictionaryWithObjectsAndKeys:@"震动提示", @"title", @"activity-stream.png", @"icon", nil], nil],
-                   [NSArray arrayWithObjects: [NSDictionary dictionaryWithObjectsAndKeys:@"软件更新", @"title", @"", @"url", @"checkversion.png", @"icon", nil], [NSDictionary dictionaryWithObjectsAndKeys:@"帮助中心", @"title", @"http://www.shouxiner.com/res/mobilemall/helpl.html", @"url", @"help.png", @"icon", nil], [NSDictionary dictionaryWithObjectsAndKeys:@"反馈建议", @"title", @"http://www.shouxiner.com/advicebox/mobile_web_advice", @"url", @"file.png", @"icon", nil], [NSDictionary dictionaryWithObjectsAndKeys:@"关于手心", @"title", @"", @"ulr", @"about.png", @"icon",nil] ,nil],
+                   [NSArray arrayWithObjects: [NSDictionary dictionaryWithObjectsAndKeys:@"软件更新", @"title", @"", @"url", @"checkversion.png", @"icon", nil], [NSDictionary dictionaryWithObjectsAndKeys:@"帮助中心", @"title", @"http://www.shouxiner.com/res/mobilemall/helpl.html", @"url", @"help.png", @"icon", nil], [NSDictionary dictionaryWithObjectsAndKeys:@"反馈建议", @"title", @"http://www.shouxiner.com/advicebox/mobile_web_advice", @"url", @"file.png", @"icon", nil], [NSDictionary dictionaryWithObjectsAndKeys:@"关于手心", @"title", @"http://www.shouxiner.com/res/mobilemall/habout.html", @"url", @"about.png", @"icon",nil] ,nil],
                    nil];
     
     tbvSetting = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self.screenHeight-44) style:UITableViewStyleGrouped];
