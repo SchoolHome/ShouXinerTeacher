@@ -17,6 +17,7 @@ typedef enum{
     kGetResetPasswordSMS,
     // 登陆前重置密码
     kPostResetPassword,
+    
 }SystemType;
 
 @interface SystemOperation : PalmOperation
@@ -27,4 +28,5 @@ typedef enum{
 
 -(SystemOperation *) initGetResetPasswordSMS : (NSString *) mobileNumber;
 -(SystemOperation *) initPostResetPassword : (NSString *) smsID withSmsCode : (NSString *) smsCode withNewPassword : (NSString *) newPassword;
+
 @end

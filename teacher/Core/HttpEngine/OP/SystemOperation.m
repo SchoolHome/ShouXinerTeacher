@@ -18,6 +18,7 @@
 -(void) getCustomerServiceTel;
 -(void) getResetPasswordSMS;
 -(void) postResetPassword;
+
 @end
 
 @implementation SystemOperation
@@ -30,6 +31,8 @@
     }
     return self;
 }
+
+
 
 -(SystemOperation *) initGetAdvInfo : (int) groupID{
     self = [self initOperation];
@@ -153,6 +156,7 @@
 }
 
 
+
 -(void) main{
     @autoreleasepool {
         switch (self.type) {
@@ -174,6 +178,7 @@
             case kPostResetPassword:
                 [self postResetPassword];
                 return;
+
             default:
                 break;
         }
