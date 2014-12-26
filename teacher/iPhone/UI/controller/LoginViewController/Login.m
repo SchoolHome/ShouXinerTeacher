@@ -234,14 +234,20 @@
         NSInteger login_code_int = [CPUIModelManagement sharedInstance].loginCode;
         if(login_code_int == 0){
             if (![PalmUIManagement sharedInstance].loginResult.recommend && ![PalmUIManagement sharedInstance].loginResult.force) {
-                if (![PalmUIManagement sharedInstance].loginResult.activated) {
+                if ([PalmUIManagement sharedInstance].loginResult.needSetUserName) {
                     [self closeProgress];
                     activateViewController *activate = [[activateViewController alloc] initActivateViewController:YES];
                     [self.navigationController pushViewController:activate animated:YES];
                 }else{
-                    [self closeProgress];
-                    AppDelegate *appDelegate = (AppDelegate *)[UIApplication sharedApplication].delegate;
-                    [appDelegate launchApp];
+                    if (![PalmUIManagement sharedInstance].loginResult.activated) {
+                        [self closeProgress];
+                        activateViewController *activate = [[activateViewController alloc] initActivateViewController:NO];
+                        [self.navigationController pushViewController:activate animated:YES];
+                    }else{
+                        [self closeProgress];
+                        AppDelegate *appDelegate = (AppDelegate *)[UIApplication sharedApplication].delegate;
+                        [appDelegate launchApp];
+                    }
                 }
             }else if([PalmUIManagement sharedInstance].loginResult.recommend && ![PalmUIManagement sharedInstance].loginResult.force){
                 [self closeProgress];
@@ -270,13 +276,18 @@
             [[UIApplication sharedApplication] openURL:[NSURL URLWithString:[PalmUIManagement sharedInstance].loginResult.url]];
         }
     }else{
-        if (![PalmUIManagement sharedInstance].loginResult.activated) {
+        if ([PalmUIManagement sharedInstance].loginResult.needSetUserName) {
             activateViewController *activate = [[activateViewController alloc] initActivateViewController:YES];
             [self.navigationController pushViewController:activate animated:YES];
         }else{
-            [self closeProgress];
-            AppDelegate *appDelegate = (AppDelegate *)[UIApplication sharedApplication].delegate;
-            [appDelegate launchApp];
+            if (![PalmUIManagement sharedInstance].loginResult.activated) {
+                activateViewController *activate = [[activateViewController alloc] initActivateViewController:NO];
+                [self.navigationController pushViewController:activate animated:YES];
+            }else{
+                [self closeProgress];
+                AppDelegate *appDelegate = (AppDelegate *)[UIApplication sharedApplication].delegate;
+                [appDelegate launchApp];
+            }
         }
     }
 }
