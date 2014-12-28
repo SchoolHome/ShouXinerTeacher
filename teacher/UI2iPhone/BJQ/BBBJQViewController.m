@@ -41,6 +41,8 @@
 //如果为2则获取作业类型，否则取全部类型数据
 @property (nonatomic) int type;
 
+@property(nonatomic,strong) UIImageView *arrow;
+
 @property(nonatomic,strong) BBBaseTableViewCell *deleteCell;
 @property(nonatomic,strong) BBVideoTableViewCell *videoCell;
 @property (nonatomic,strong) NSString *videoFilePath;
@@ -395,6 +397,12 @@
         [bjDropdownView dismiss];
     }else{
         [bjDropdownView show];
+        CGAffineTransform endAngle = CGAffineTransformMakeRotation(-180.0f * (M_PI / 180.0f));
+        [UIView animateWithDuration:0.5f delay:0 options:UIViewAnimationOptionCurveLinear animations:^{
+            self.arrow.transform = endAngle;
+        } completion:^(BOOL finished) {
+            
+        }];
     }
 }
 
@@ -517,9 +525,9 @@
     titleButton.titleLabel.lineBreakMode = NSLineBreakByTruncatingMiddle;
     [titleButton addTarget:self action:@selector(bjButtonTaped:) forControlEvents:UIControlEventTouchUpInside];
     [titleButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
-    UIImageView *arrow = [[UIImageView alloc] initWithFrame:CGRectMake(125, 12, 22, 22)];
-    [titleButton addSubview:arrow];
-    arrow.image = [UIImage imageNamed:@"BBDown"];
+    self.arrow = [[UIImageView alloc] initWithFrame:CGRectMake(125, 12, 22, 22)];
+    [titleButton addSubview:self.arrow];
+    self.arrow.image = [UIImage imageNamed:@"BBDown"];
     
     CGRect rect = CGRectMake(self.view.bounds.origin.x, self.view.bounds.origin.y, self.view.bounds.size.width, 280.0f);
     bjDropdownView = [[BBBJDropdownView alloc] initWithFrame:rect];
@@ -574,6 +582,12 @@
     titleButton.frame = CGRectMake(0, 0, 125, 44);
     if (bjDropdownView.unfolded) {
         [bjDropdownView dismiss];
+        CGAffineTransform endAngle = CGAffineTransformMakeRotation(0.0f * (M_PI / 180.0f));
+        [UIView animateWithDuration:0.5f delay:0 options:UIViewAnimationOptionCurveLinear animations:^{
+            self.arrow.transform = endAngle;
+        } completion:^(BOOL finished) {
+            
+        }];
     }
     if (fsDropdownView.unfolded) {
         [fsDropdownView dismiss];
@@ -593,6 +607,12 @@
 -(void) changeVC{
     if (bjDropdownView.unfolded) {
         [bjDropdownView dismiss];
+        CGAffineTransform endAngle = CGAffineTransformMakeRotation(0.0f * (M_PI / 180.0f));
+        [UIView animateWithDuration:0.01f delay:0 options:UIViewAnimationOptionCurveLinear animations:^{
+            self.arrow.transform = endAngle;
+        } completion:^(BOOL finished) {
+            
+        }];
     }
     if (fsDropdownView.unfolded) {
         [fsDropdownView dismiss];
@@ -1158,6 +1178,12 @@
     }
     if (bjDropdownView.unfolded) {
         [bjDropdownView dismiss];
+        CGAffineTransform endAngle = CGAffineTransformMakeRotation(0.0f * (M_PI / 180.0f));
+        [UIView animateWithDuration:0.01f delay:0 options:UIViewAnimationOptionCurveLinear animations:^{
+            self.arrow.transform = endAngle;
+        } completion:^(BOOL finished) {
+            
+        }];
     }
     if (fsDropdownView.unfolded) {
         [fsDropdownView dismiss];
@@ -1192,6 +1218,12 @@
     }
     if (bjDropdownView.unfolded) {
         [bjDropdownView dismiss];
+        CGAffineTransform endAngle = CGAffineTransformMakeRotation(0.0f * (M_PI / 180.0f));
+        [UIView animateWithDuration:0.5f delay:0 options:UIViewAnimationOptionCurveLinear animations:^{
+            self.arrow.transform = endAngle;
+        } completion:^(BOOL finished) {
+            
+        }];
     }
     if (fsDropdownView.unfolded) {
         [fsDropdownView dismiss];
