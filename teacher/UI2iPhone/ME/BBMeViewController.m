@@ -36,7 +36,6 @@
     self = [super init];
     if (self) {
         [[PalmUIManagement sharedInstance] addObserver:self forKeyPath:@"userProfile" options:0 context:nil];
-        [[PalmUIManagement sharedInstance] addObserver:self forKeyPath:@"userCredits" options:0 context:nil];
     }
     return self;
 }
@@ -264,8 +263,9 @@
         [profileModel coverWithJson:userProfile];
         //查询用户商城积分
         self.navigationItem.title = profileModel.username;
-        [[PalmUIManagement sharedInstance] getUserCredits];
+        [meTableView reloadData];
     }
+    /*
     if ([@"userCredits" isEqualToString:keyPath]) {
         NSDictionary *userCredits = [[PalmUIManagement sharedInstance].userCredits objectForKey:ASI_REQUEST_DATA];
         if (![[userCredits objectForKey:@"error"] integerValue]) {
@@ -273,7 +273,7 @@
                 [meTableView reloadData];
             }
         }
-    }
+    }*/
     if ([@"uiPersonalInfoTag" isEqualToString:keyPath]) {
         //[meTableView reloadData];
         NSString *path = [[CPUIModelManagement sharedInstance].uiPersonalInfo selfHeaderImgPath];
@@ -302,7 +302,6 @@
 -(void)dealloc
 {
     [[PalmUIManagement sharedInstance] removeObserver:self forKeyPath:@"userProfile"];
-    [[PalmUIManagement sharedInstance] removeObserver:self forKeyPath:@"userCredits"];
     [[CPUIModelManagement sharedInstance] removeObserver:self forKeyPath:@"uiPersonalInfoTag"];
 }
 

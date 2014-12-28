@@ -17,7 +17,7 @@
 @property (nonatomic) BOOL needSetUserName;
 @property (nonatomic,strong) UITextField *smsCode;
 @property (nonatomic,strong) UITextField *telPhone;
-@property (nonatomic,strong) UITextField *passwordOld;
+@property (nonatomic,strong) UITextField *userName;
 @property (nonatomic,strong) UITextField *password;
 @property (nonatomic,strong) UITextField *confrimPassWord;
 @property (nonatomic,strong) UIButton *smsButton;
@@ -35,55 +35,14 @@
 
 -(void) viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
-    [[PalmUIManagement sharedInstance] addObserver:self forKeyPath:@"postUserInfoResult" options:0 context:nil];
+    [[PalmUIManagement sharedInstance] addObserver:self forKeyPath:@"activateDic" options:0 context:nil];
     [[PalmUIManagement sharedInstance] addObserver:self forKeyPath:@"smsVerifyCode" options:0 context:nil];
 }
 
 -(void) viewDidDisappear:(BOOL)animated{
     [super viewDidDisappear:animated];;
-    [[PalmUIManagement sharedInstance] removeObserver:self forKeyPath:@"postUserInfoResult"];
+    [[PalmUIManagement sharedInstance] removeObserver:self forKeyPath:@"activateDic"];
     [[PalmUIManagement sharedInstance] removeObserver:self forKeyPath:@"smsVerifyCode"];
-}
-
--(void) keyboardWillShow : (NSNotification *)not{
-    
-    CGRect keyboardBounds;
-    [[not.userInfo valueForKey:UIKeyboardFrameEndUserInfoKey] getValue: &keyboardBounds];
-    NSNumber *duration = [not.userInfo objectForKey:UIKeyboardAnimationDurationUserInfoKey];
-    NSNumber *curve = [not.userInfo objectForKey:UIKeyboardAnimationCurveUserInfoKey];
-    
-    keyboardBounds = [self.view convertRect:keyboardBounds toView:nil];
-    
-    [UIView beginAnimations:nil context:NULL];
-    [UIView setAnimationBeginsFromCurrentState:YES];
-    [UIView setAnimationDuration:[duration doubleValue]];
-    [UIView setAnimationCurve:[curve intValue]];
-    if (!self.needSetUserName) {
-        if (self.currentVersion == kIOS6) {
-            self.view.frame = CGRectMake(0, 20.0f, self.view.frame.size.width, self.view.frame.size.height);
-        }else{
-            self.view.frame = CGRectMake(0, 20.0f, self.view.frame.size.width, self.view.frame.size.height);
-        }
-    }else{
-        self.view.frame = CGRectMake(0, 20.0f, self.view.frame.size.width, self.view.frame.size.height);
-    }
-    [UIView commitAnimations];
-}
-
--(void) keyboardWillHide : (NSNotification *)not{
-
-    NSNumber *duration = [not.userInfo objectForKey:UIKeyboardAnimationDurationUserInfoKey];
-    NSNumber *curve = [not.userInfo objectForKey:UIKeyboardAnimationCurveUserInfoKey];
-    [UIView beginAnimations:nil context:NULL];
-    [UIView setAnimationBeginsFromCurrentState:YES];
-    [UIView setAnimationDuration:[duration doubleValue]];
-    [UIView setAnimationCurve:[curve intValue]];
-    if (self.currentVersion == kIOS6) {
-        self.view.frame = CGRectMake(0, 0.0f, self.view.frame.size.width, self.view.frame.size.height);
-    }else{
-        self.view.frame = CGRectMake(0, 64.0f, self.view.frame.size.width, self.view.frame.size.height);
-    }
-    [UIView commitAnimations];
 }
 
 - (void)viewDidLoad{
@@ -129,19 +88,19 @@
     [self.smsButton addTarget:self action:@selector(getsmsCode) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:self.smsButton];
     
-    if (loginModel.needSetUserName) {
+    if (self.needSetUserName) {
         height = height + 55.f;
         subView = [[UIView alloc] initWithFrame:CGRectMake(0, height, self.view.frame.size.width, 44.f)];
         [subView setBackgroundColor:[UIColor whiteColor]];
         [self.view addSubview:subView];
         subView = nil;
-        self.passwordOld = [[UITextField alloc] initWithFrame:CGRectMake(10, height, self.view.frame.size.width-20, 44.f)];
-        self.passwordOld.backgroundColor = [UIColor whiteColor];
-        self.passwordOld.returnKeyType = UIReturnKeyNext;
-        [self.passwordOld setContentVerticalAlignment:UIControlContentVerticalAlignmentCenter];
-        self.passwordOld.delegate = self;
-        self.passwordOld.placeholder = @"输入用户名";
-        [self.view addSubview:self.passwordOld];
+        self.userName = [[UITextField alloc] initWithFrame:CGRectMake(10, height, self.view.frame.size.width-20, 44.f)];
+        self.userName.backgroundColor = [UIColor whiteColor];
+        self.userName.returnKeyType = UIReturnKeyNext;
+        [self.userName setContentVerticalAlignment:UIControlContentVerticalAlignmentCenter];
+        self.userName.delegate = self;
+        self.userName.placeholder = @"输入用户名";
+        [self.view addSubview:self.userName];
     }
     height = height + 55.f;
     subView = [[UIView alloc] initWithFrame:CGRectMake(0, height, self.view.frame.size.width, 44.f)];
@@ -187,29 +146,70 @@
     
     UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(clickBG:)];
     [self.view addGestureRecognizer:tap];
-    
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(keyboardWillShow:)
-                                                 name:UIKeyboardWillShowNotification
-                                               object:nil];
-    
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(keyboardWillHide:)
-                                                 name:UIKeyboardWillHideNotification
-                                               object:nil];
+}
+
+-(void)keyBoardWillDisappear
+{
+    [UIView beginAnimations:nil context:NULL];
+    [UIView setAnimationBeginsFromCurrentState:YES];
+    [UIView setAnimationDuration:0.3f];
+    [UIView setAnimationCurve:UIViewAnimationCurveEaseInOut];
+    if (self.currentVersion == kIOS6) {
+        [self.view setFrame:CGRectMake(0, 0.f, self.view.frame.size.width, self.view.frame.size.height)];
+    }else{
+        [self.view setFrame:CGRectMake(0, 64.0f, self.view.frame.size.width, self.view.frame.size.height)];
+    }
+    [UIView commitAnimations];
+}
+
+-(void)keyBoardWillAppear:(UITextField *)textField
+{
+    CGFloat fix = -10;
+    if (self.needSetUserName) {
+        fix = 54;
+    }
+    [UIView beginAnimations:nil context:NULL];
+    [UIView setAnimationBeginsFromCurrentState:YES];
+    [UIView setAnimationDuration:0.3f];
+    [UIView setAnimationCurve:UIViewAnimationCurveEaseInOut];
+    if (self.currentVersion == kIOS6) {
+        if (textField == self.telPhone || textField == self.smsCode) {
+            [self.view setFrame:CGRectMake(0, 0.f, self.view.frame.size.width, self.view.frame.size.height)];
+        }else if(textField == self.userName){
+            [self.view setFrame:CGRectMake(0, -50.f, self.view.frame.size.width, self.view.frame.size.height)];
+        }else if(textField == self.password || textField == self.confrimPassWord){
+            [self.view setFrame:CGRectMake(0, -(40+fix), self.view.frame.size.width, self.view.frame.size.height)];
+        }
+    }else{
+        if (textField == self.telPhone || textField == self.smsCode) {
+            [self.view setFrame:CGRectMake(0, 64.0f, self.view.frame.size.width, self.view.frame.size.height)];
+        }else if(textField == self.userName){
+            [self.view setFrame:CGRectMake(0, 10.f, self.view.frame.size.width, self.view.frame.size.height)];
+        }else if(textField == self.password || textField == self.confrimPassWord){
+            [self.view setFrame:CGRectMake(0, -fix, self.view.frame.size.width, self.view.frame.size.height)];
+        }
+    }
+    [UIView commitAnimations];
 }
 
 -(void) clickBG : (UIGestureRecognizer *) recognizer{
     [self.smsCode resignFirstResponder];
     [self.telPhone resignFirstResponder];
-    [self.passwordOld resignFirstResponder];
+    [self.userName resignFirstResponder];
     [self.password resignFirstResponder];
     [self.confrimPassWord resignFirstResponder];
+    [self keyBoardWillDisappear];
 }
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField{
+    [self keyBoardWillDisappear];
     [textField resignFirstResponder];
     return YES;
+}
+
+- (void)textFieldDidBeginEditing:(UITextField *)textField
+{
+    [self keyBoardWillAppear:textField];
 }
 
 -(void) clickActivate{
@@ -235,15 +235,6 @@
         return;
     }
     
-    NSString *passwordOld = nil;
-    if (nil != self.passwordOld) {
-        passwordOld = [self.passwordOld.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
-    }
-    if (nil == passwordOld || [passwordOld isEqualToString:@""]) {
-        [self showProgressWithText:@"旧密码不能为空" withDelayTime:1.0f];
-        return;
-    }
-    
     NSString *passwordText = [self.password.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
     NSString *confrimPassWordText = [self.confrimPassWord.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
     
@@ -253,8 +244,20 @@
             return;
         }
     }
-
-    [[PalmUIManagement sharedInstance] postUserInfo:@"" withMobile:telPhoneText withVerifyCode:smsCode withPasswordOld:passwordOld withPasswordNew:passwordText withSex:0 withSign:@""];
+    if(self.needSetUserName)
+    {
+        NSString *username = nil;
+        if (nil != self.userName) {
+            username = [self.userName.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
+        }
+        if (nil == username || [username isEqualToString:@""]) {
+            [self showProgressWithText:@"用户名不能为空" withDelayTime:1.0f];
+            return;
+        }
+        [[PalmUIManagement sharedInstance] activate:username withTelPhone:telPhoneText withEmail:@"" withPassWord:passwordText];
+    }else{
+        [[PalmUIManagement sharedInstance] activate:@"" withTelPhone:telPhoneText withEmail:@"" withPassWord:passwordText];
+    }
 }
 
 -(void) getsmsCode{
@@ -279,9 +282,9 @@
 }
 
 -(void) observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context{
-    if ([keyPath isEqualToString:@"postUserInfoResult"]) {
-        if ([[PalmUIManagement sharedInstance].postUserInfoResult[ASI_REQUEST_HAS_ERROR] boolValue]) {
-            [self showProgressWithText:[PalmUIManagement sharedInstance].postUserInfoResult[ASI_REQUEST_ERROR_MESSAGE] withDelayTime:1.0f];
+    if ([keyPath isEqualToString:@"activateDic"]) {
+        if ([[PalmUIManagement sharedInstance].activateDic[ASI_REQUEST_HAS_ERROR] boolValue]) {
+            [self showProgressWithText:[PalmUIManagement sharedInstance].activateDic[ASI_REQUEST_ERROR_MESSAGE] withDelayTime:1.0f];
             return;
         }
         NSString *telPhoneText = [self.telPhone.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];

@@ -114,6 +114,8 @@
 @property (nonatomic,strong) NSDictionary *resetSMSCode;
 // 登陆前修改密码
 @property (nonatomic,strong) NSDictionary *resetPassword;
+// 获取公共账号
+@property (nonatomic,strong) NSDictionary *publicAccountDic;
 
 // 获取用户信息
 -(void) getUserProfile;
@@ -202,4 +204,6 @@
 -(void) getResetPasswordSMS : (NSString *) mobileNumber;
 // 登陆前修改密码
 -(void) postResetPassword : (NSString *) smsID withSmsCode : (NSString *) smsCode withNewPassword : (NSString *) newPassword;
+// 获取公共账号信息
+-(void) getPublicAccount;
 @end

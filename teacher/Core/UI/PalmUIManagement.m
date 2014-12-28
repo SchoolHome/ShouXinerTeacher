@@ -246,4 +246,10 @@ static PalmUIManagement *sharedInstance = nil;
     SystemOperation *operation = [[SystemOperation alloc] initPostResetPassword:smsID withSmsCode:smsCode withNewPassword:newPassword];
     [[PalmNetWorkService sharedInstance] networkEngine:operation];
 }
+
+// 获取公共账号信息
+-(void) getPublicAccount{
+    PublicOperation *operation = [[PublicOperation alloc] initGetPublicAccount];
+    [[PalmNetWorkService sharedInstance] networkEngine:operation];
+}
 @end

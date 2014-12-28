@@ -496,7 +496,7 @@
                 cell.detailTextLabel.font = [UIFont systemFontOfSize:14.f];
                 cell.textLabel.backgroundColor = [UIColor blackColor];
                 cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-                cell.textLabel.text = @"@点名表扬:";
+                cell.textLabel.text = @"@:发小红花:";
                 cell.backgroundColor = [UIColor whiteColor];
                 
             }

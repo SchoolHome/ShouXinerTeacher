@@ -71,9 +71,24 @@
                 [self.imageView removeFromSuperview];
                 self.imageView = nil;
             }
-            self.imageView = [[EGOImageView alloc] initWithPlaceholderImage:_photo.srcImageView.image];
+            self.imageView = [[EGOImageView alloc] initWithPlaceholderImage:_photo.placeholder];
+            [self adjustFrame];
+            CGSize size = _photo.srcImageView.image.size;
+            float width = 320.0f;
+            float height = 480.0f;
+            if (isIPhone5) {
+                height = 568.0f;
+            }else if (isIPhone6){
+                width = 375.0f;
+                height = 667.0f;
+            }else if (isIPhone6plus){
+                width = 562.0f;
+                height = 1000.0f;
+            }
+            self.imageView.frame = CGRectMake( (width - size.width)/2.0f, (height - size.height)/2.0f, width, height);
             self.imageView.delegate = self;
             self.imageView.contentMode = UIViewContentModeScaleAspectFit;
+            self.imageView.image = _photo.srcImageView.image;
             [self addSubview:_imageView];
             [self.imageView setImageURL:_photo.url];
         }
@@ -102,9 +117,25 @@
             [self.imageView removeFromSuperview];
             self.imageView = nil;
         }
-        self.imageView = [[EGOImageView alloc] initWithPlaceholderImage:_photo.srcImageView.image];
+        self.imageView = [[EGOImageView alloc] initWithPlaceholderImage:_photo.placeholder];
+//        self.imageView.image = _photo.srcImageView.image;
+        [self adjustFrame];
+        CGSize size = _photo.srcImageView.image.size;
+        float width = 320.0f;
+        float height = 480.0f;
+        if (isIPhone5) {
+            height = 568.0f;
+        }else if (isIPhone6){
+            width = 375.0f;
+            height = 667.0f;
+        }else if (isIPhone6plus){
+            width = 562.0f;
+            height = 1000.0f;
+        }
+        self.imageView.frame = CGRectMake( (width - size.width)/2.0f, (height - size.height)/2.0f, width, height);
         self.imageView.delegate = self;
         self.imageView.contentMode = UIViewContentModeScaleAspectFit;
+        self.imageView.image = _photo.srcImageView.image;
         [self addSubview:_imageView];
         [self.imageView setImageURL:_photo.url];
     }
@@ -178,16 +209,17 @@
 	}
     
     if (_photo.firstShow) { // 第一次显示的图片
-        _photo.firstShow = NO; // 已经显示过了
-        _imageView.frame = [_photo.srcImageView convertRect:_photo.srcImageView.bounds toView:nil];
-        
-        [UIView animateWithDuration:0.3 animations:^{
-            _imageView.frame = imageFrame;
-        } completion:^(BOOL finished) {
-            // 设置底部的小图片
-            _photo.srcImageView.image = _photo.placeholder;
-            [self photoStartLoad];
-        }];
+//        _photo.firstShow = NO; // 已经显示过了
+//        _imageView.frame = [_photo.srcImageView convertRect:_photo.srcImageView.bounds toView:nil];
+//        
+//        [UIView animateWithDuration:0.0 animations:^{
+//            _imageView.frame = imageFrame;
+//        } completion:^(BOOL finished) {
+//            // 设置底部的小图片
+//            _photo.srcImageView.image = _photo.placeholder;
+//            [self photoStartLoad];
+//        }];
+        _imageView.frame = imageFrame;
     } else {
         _imageView.frame = imageFrame;
     }
