@@ -878,7 +878,12 @@
     NSUserDefaults *def = [NSUserDefaults standardUserDefaults];
     [def setInteger:index_ forKey:@"saved_topic_group_index"];
     [def synchronize];
-    
+    CGAffineTransform endAngle = CGAffineTransformMakeRotation(0.0f * (M_PI / 180.0f));
+    [UIView animateWithDuration:0.5f delay:0 options:UIViewAnimationOptionCurveLinear animations:^{
+        self.arrow.transform = endAngle;
+    } completion:^(BOOL finished) {
+        
+    }];
 }
 
 -(void)bbBJDropdownViewTaped:(BBBJDropdownView *) dropdownView_{
