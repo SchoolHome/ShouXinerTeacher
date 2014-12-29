@@ -653,6 +653,8 @@
     }
     
     BBPostPBXViewController *postVideoPBX = [[BBPostPBXViewController alloc] initWithPostType:POST_TYPE_PBX];
+
+    [self.navigationController pushViewController:postVideoPBX animated:YES];
     if (error) {
         [[NSFileManager defaultManager] removeItemAtURL:outputFileURL error:nil];
     }else
@@ -660,8 +662,6 @@
         postVideoPBX.videoUrl = outputFileURL;
         [postVideoPBX showProgressWithText:@"正在压缩"];
     }
-    [self.navigationController pushViewController:postVideoPBX animated:YES];
-    
 }
 
 -(NSString *)getTempSaveVideoPath
