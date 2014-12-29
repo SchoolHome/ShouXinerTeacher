@@ -871,6 +871,14 @@ messagePictrueController = _messagePictrueController;
 -(void)keyboardViewOpenPhotoLibrary
 {
 //    [[HPStatusBarTipView shareInstance] setHidden:YES];
+    
+    float height = 461.0f;
+    if (self.screenHeight != 568.0f) {
+        height = 373.0f;
+    }
+    self.IMView.frame = CGRectMake(0, 0, self.IMView.frame.size.width, height);
+    
+    
     self.detailViewController.canPlayMagic = NO;
     imagePicker = [[UIImagePickerController alloc] init];
     if ([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypePhotoLibrary]){
@@ -885,6 +893,12 @@ messagePictrueController = _messagePictrueController;
 -(void)keyboardViewOpenCamera
 {
 //    [[HPStatusBarTipView shareInstance] setHidden:YES];
+    
+    float height = 461.0f;
+    if (self.screenHeight != 568.0f) {
+        height = 373.0f;
+    }
+    self.IMView.frame = CGRectMake(0, 0, self.IMView.frame.size.width, height);
     self.detailViewController.canPlayMagic = NO;
     imagePicker = [[UIImagePickerController alloc] init];
     if ([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera]){
