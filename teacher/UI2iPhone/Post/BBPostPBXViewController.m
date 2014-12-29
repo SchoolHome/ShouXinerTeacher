@@ -450,6 +450,7 @@
     
     [encoder exportAsynchronouslyWithCompletionHandler:^
     {
+        /*
         if (status == AVAssetExportSessionStatusCompleted)
         {
             NSLog(@"Video export succeeded");
@@ -462,6 +463,7 @@
         {
             NSLog(@"Video export failed with error: %@ (%d)", error.localizedDescription, error.code);
         }
+         */
     }];
 
 }
