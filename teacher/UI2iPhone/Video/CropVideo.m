@@ -199,6 +199,7 @@
     NSMutableDictionary *resDic = [[NSMutableDictionary alloc] init];
     BOOL isSucess = YES;
     AVMutableComposition* mixComposition = [AVMutableComposition composition];
+    
     AVURLAsset* videoAsset = [[AVURLAsset alloc]initWithURL:url options:nil];
     
     long long videoValue = videoAsset.duration.value;
@@ -221,6 +222,8 @@
     
     AVMutableCompositionTrack *compositionVideoTrack = [mixComposition addMutableTrackWithMediaType:AVMediaTypeVideo
                                                                                    preferredTrackID:kCMPersistentTrackID_Invalid];
+    
+
     /*
     [compositionVideoTrack insertTimeRange:CMTimeRangeMake(kCMTimeZero, videoAsset.duration)
                                    ofTrack:[[videoAsset tracksWithMediaType:AVMediaTypeVideo] objectAtIndex:0]
