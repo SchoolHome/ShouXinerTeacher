@@ -43,9 +43,9 @@
         singleTap.numberOfTapsRequired = 1;
         [self addGestureRecognizer:singleTap];
         
-        UITapGestureRecognizer *doubleTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleDoubleTap:)];
-        doubleTap.numberOfTapsRequired = 2;
-        [self addGestureRecognizer:doubleTap];
+//        UITapGestureRecognizer *doubleTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleDoubleTap:)];
+//        doubleTap.numberOfTapsRequired = 2;
+//        [self addGestureRecognizer:doubleTap];
     }
     return self;
 }
@@ -226,9 +226,9 @@
 }
 
 #pragma mark - UIScrollViewDelegate
-- (UIView *)viewForZoomingInScrollView:(UIScrollView *)scrollView {
-	return _imageView;
-}
+//- (UIView *)viewForZoomingInScrollView:(UIScrollView *)scrollView {
+//	return _imageView;
+//}
 
 #pragma mark - 手势处理
 - (void)handleSingleTap:(UITapGestureRecognizer *)tap {
