@@ -1328,6 +1328,7 @@
 		749132E61A19C56200CFCE7E /* MutilGroupDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 749132E51A19C56200CFCE7E /* MutilGroupDetailViewController.m */; };
 		749C8E591A43AB8A0070C7D6 /* IMSoundImage@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 749C8E581A43AB8A0070C7D6 /* IMSoundImage@2x.png */; };
 		749D72AE18D6147200936D5E /* BBMessageGroupBaseTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 749D72AD18D6147200936D5E /* BBMessageGroupBaseTableView.m */; };
+		74A0B24E1A51873B0070B2E9 /* SDAVAssetExportSession.m in Sources */ = {isa = PBXBuildFile; fileRef = 74A0B24D1A51873B0070B2E9 /* SDAVAssetExportSession.m */; };
 		74A4E5C418DFD9BD000F79E6 /* BBMembersInMsgGroupViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 74A4E5C318DFD9BD000F79E6 /* BBMembersInMsgGroupViewController.m */; };
 		74A4E5C718DFE4B6000F79E6 /* BBMemberInMsgGroupTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 74A4E5C618DFE4B6000F79E6 /* BBMemberInMsgGroupTableViewCell.m */; };
 		74A4E5E118DFE8B8000F79E6 /* ZJZAdd.png in Resources */ = {isa = PBXBuildFile; fileRef = 74A4E5C918DFE8B7000F79E6 /* ZJZAdd.png */; };
@@ -3508,6 +3509,8 @@
 		749C8E581A43AB8A0070C7D6 /* IMSoundImage@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "IMSoundImage@2x.png"; sourceTree = "<group>"; };
 		749D72AC18D6147200936D5E /* BBMessageGroupBaseTableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BBMessageGroupBaseTableView.h; sourceTree = "<group>"; };
 		749D72AD18D6147200936D5E /* BBMessageGroupBaseTableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BBMessageGroupBaseTableView.m; sourceTree = "<group>"; };
+		74A0B24C1A51873B0070B2E9 /* SDAVAssetExportSession.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SDAVAssetExportSession.h; sourceTree = "<group>"; };
+		74A0B24D1A51873B0070B2E9 /* SDAVAssetExportSession.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SDAVAssetExportSession.m; sourceTree = "<group>"; };
 		74A4E5C218DFD9BD000F79E6 /* BBMembersInMsgGroupViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BBMembersInMsgGroupViewController.h; sourceTree = "<group>"; };
 		74A4E5C318DFD9BD000F79E6 /* BBMembersInMsgGroupViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BBMembersInMsgGroupViewController.m; sourceTree = "<group>"; };
 		74A4E5C518DFE4B6000F79E6 /* BBMemberInMsgGroupTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BBMemberInMsgGroupTableViewCell.h; sourceTree = "<group>"; };
@@ -5552,6 +5555,8 @@
 		332D74AB18C33552007A75D5 /* Utils */ = {
 			isa = PBXGroup;
 			children = (
+				74A0B24C1A51873B0070B2E9 /* SDAVAssetExportSession.h */,
+				74A0B24D1A51873B0070B2E9 /* SDAVAssetExportSession.m */,
 				332D74AC18C33552007A75D5 /* AudioRouteChange.h */,
 				332D74AD18C33552007A75D5 /* AudioRouteChange.m */,
 				332D74AE18C33552007A75D5 /* CoreUtils.h */,
@@ -8697,6 +8702,7 @@
 				19145F5D191CDF3B008CE18C /* UIImage+MultiFormat.m in Sources */,
 				332D758018C33552007A75D5 /* CPPTModelGetUsersResultList.m in Sources */,
 				332D82FD18C33F0B007A75D5 /* RegistFirstViewController.m in Sources */,
+				74A0B24E1A51873B0070B2E9 /* SDAVAssetExportSession.m in Sources */,
 				332D834B18C33F0B007A75D5 /* SingleVideoCell.m in Sources */,
 				332D752E18C33552007A75D5 /* XMPPModule.m in Sources */,
 				332D756E18C33552007A75D5 /* DDXMLDocument.m in Sources */,
