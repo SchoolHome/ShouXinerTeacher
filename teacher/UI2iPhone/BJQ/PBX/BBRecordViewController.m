@@ -8,7 +8,7 @@
 #define MIN_VIDEO_DUR 2.0f
 #define MAX_VIDEO_DUR 15.0f
 #define VIDEO_FOLDER @"Video"
-#define COUNT_DUR_TIMER_INTERVAL 0.05
+#define COUNT_DUR_TIMER_INTERVAL 0.2
 
 #import "BBRecordViewController.h"
 #import "BBPostPBXViewController.h"
@@ -203,7 +203,17 @@
     [backCamera unlockForConfiguration];
     
     self.videoDeviceInput = [AVCaptureDeviceInput deviceInputWithDevice:backCamera error:nil];
-    AVCaptureDeviceInput *audioDeviceInput = [AVCaptureDeviceInput deviceInputWithDevice:[AVCaptureDevice defaultDeviceWithMediaType:AVMediaTypeAudio] error:nil];
+    //AVCaptureDeviceInput *audioDeviceInput = [AVCaptureDeviceInput deviceInputWithDevice:[AVCaptureDevice defaultDeviceWithMediaType:AVMediaTypeAudio] error:nil];
+    NSError *error = nil;
+    AVCaptureDevice *audioDevice = [[AVCaptureDevice devicesWithMediaType:AVMediaTypeAudio] firstObject];
+    AVCaptureDeviceInput *audioDeviceInput = [AVCaptureDeviceInput deviceInputWithDevice:audioDevice error:&error];
+
+    
+    if (error)
+    {
+        NSLog(@"%@", error);
+    }
+    
     [_captureSession addInput:_videoDeviceInput];
     [_captureSession addInput:audioDeviceInput];
     
@@ -618,12 +628,14 @@
 
 - (void)captureOutput:(AVCaptureFileOutput *)captureOutput didFinishRecordingToOutputFileAtURL:(NSURL *)outputFileURL fromConnections:(NSArray *)connections error:(NSError *)error
 {
+    /*
     if (error) {
         //[self showProgressWithText:@"出错了!" withDelayTime:1.5f];
         [[NSFileManager defaultManager] removeItemAtURL:outputFileURL error:nil];
         [self resetState];
         return;
     }
+     */
     
     self.totalVideoDur += _currentVideoDur;
     NSLog(@"本段视频长度: %f", _currentVideoDur);
@@ -641,9 +653,15 @@
     }
     
     BBPostPBXViewController *postVideoPBX = [[BBPostPBXViewController alloc] initWithPostType:POST_TYPE_PBX];
-    postVideoPBX.videoUrl = outputFileURL;
+    if (error) {
+        [[NSFileManager defaultManager] removeItemAtURL:outputFileURL error:nil];
+    }else
+    {
+        postVideoPBX.videoUrl = outputFileURL;
+        [postVideoPBX showProgressWithText:@"正在压缩"];
+    }
     [self.navigationController pushViewController:postVideoPBX animated:YES];
-    [postVideoPBX showProgressWithText:@"正在压缩"];
+    
 }
 
 -(NSString *)getTempSaveVideoPath
