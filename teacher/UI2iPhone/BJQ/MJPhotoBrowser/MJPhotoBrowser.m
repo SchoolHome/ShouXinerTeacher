@@ -143,7 +143,6 @@
         if ([view isMemberOfClass:[MJPhotoView class]]) {
             MJPhotoView *mjView = (MJPhotoView *)view;
             mjView.photoLoadingView = nil;
-//            [mjView.imageView setImageWithURL:[NSURL URLWithString:@"file:///abc"]];
             [mjView.imageView cancelImageLoad];
             [mjView.imageView cancelCurrentImageLoad];
         }
