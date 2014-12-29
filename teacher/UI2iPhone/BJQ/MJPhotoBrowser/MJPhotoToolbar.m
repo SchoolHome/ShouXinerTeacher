@@ -70,7 +70,7 @@
     } else {
         MJPhoto *photo = _photos[_currentPhotoIndex];
         photo.save = YES;
-        _saveImageBtn.enabled = NO;
+//        _saveImageBtn.enabled = NO;
         [MBProgressHUD showSuccess:@"成功保存到相册" toView:nil];
     }
 }
@@ -84,7 +84,8 @@
     
     MJPhoto *photo = _photos[_currentPhotoIndex];
     // 按钮
-    _saveImageBtn.enabled = photo.image != nil && !photo.save;
+//    _saveImageBtn.enabled = photo.image != nil && !photo.save;
+    _saveImageBtn.enabled = YES;
 }
 
 @end

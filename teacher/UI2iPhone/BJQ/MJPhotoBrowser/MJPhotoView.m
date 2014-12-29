@@ -13,7 +13,7 @@
 
 @interface MJPhotoView ()
 {
-    BOOL _doubleTap;    
+    BOOL _doubleTap;
 }
 @end
 
@@ -117,8 +117,8 @@
             [self.imageView removeFromSuperview];
             self.imageView = nil;
         }
+        
         self.imageView = [[EGOImageView alloc] initWithPlaceholderImage:_photo.placeholder];
-//        self.imageView.image = _photo.srcImageView.image;
         [self adjustFrame];
         CGSize size = _photo.srcImageView.image.size;
         float width = 320.0f;
@@ -137,12 +137,14 @@
         self.imageView.contentMode = UIViewContentModeScaleAspectFit;
         self.imageView.image = _photo.srcImageView.image;
         [self addSubview:_imageView];
+        
         [self.imageView setImageURL:_photo.url];
     }
 }
 
 - (void)imageViewLoadedImage:(EGOImageView*)imageView{
     // 调整frame参数
+    _photo.image = imageView.image;
     [self adjustFrame];
     [_photoLoadingView stop];
 }
