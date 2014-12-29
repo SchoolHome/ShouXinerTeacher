@@ -329,9 +329,9 @@
     [self bringSubviewToFront:self.alarmTip];
     
     if (self.isBelongMe) {
-        avatar.frame = CGRectMake(7.5f, ellipticalBackground.frame.origin.y + ellipticalBackground.frame.size.height -  kAvatarHeight + 4.0f, kAvatarWidth, kAvatarHeight);
+        avatar.frame = CGRectMake(7.5f, ellipticalBackground.frame.origin.y - 8.0f, kAvatarWidth, kAvatarHeight);
     }else{
-        avatar.frame = CGRectMake(320.0f-7.5f-kAvatarWidth, ellipticalBackground.frame.origin.y+ ellipticalBackground.frame.size.height -  kAvatarHeight + 4.0f, kAvatarWidth, kAvatarHeight);
+        avatar.frame = CGRectMake(320.0f-7.5f-kAvatarWidth, ellipticalBackground.frame.origin.y-8.0f, kAvatarWidth, kAvatarHeight);
     }
     
     if (!self.userHeadImage) {

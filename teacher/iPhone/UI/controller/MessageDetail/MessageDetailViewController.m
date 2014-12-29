@@ -1406,7 +1406,7 @@
     [self.messagePictrueController.view removeFromSuperview];
     [self.messagePictrueController removeFromParentViewController];
     self.canPlayMagic = YES;
-    CPLogInfo(@"endCloseImageAnimation");
+    CPLogInfo(@"endCloseImageAnimation");//65503181
 }
 
 #pragma mark - 展示图片的委托实现结束
