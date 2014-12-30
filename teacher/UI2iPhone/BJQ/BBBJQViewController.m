@@ -135,19 +135,30 @@
     {
         NSDictionary *dict = [PalmUIManagement sharedInstance].notifyCount;
         int count = [dict[@"data"][@"count"] intValue];
+        count = 200;
         notifyCount = count;
         if (count > 0) {
             if (self.notifyButton != nil) {
-                self.notifyButton.titleLabel.text = [NSString stringWithFormat:@"您有%d条新消息",notifyCount];
+                if (count > 99) {
+                    self.notifyButton.titleLabel.text = [NSString stringWithFormat:@"您有%d+条新消息",99];
+                }else{
+                    self.notifyButton.titleLabel.text = [NSString stringWithFormat:@"您有%d条新消息",notifyCount];
+                }
+                
                 [bjqTableView reloadData];
             }else{
                 self.notifyButton = [UIButton buttonWithType:UIButtonTypeCustom];
-                self.notifyButton.frame = CGRectMake((320.0f - 128.0f)/2.0f, 156, 128, 31);
+                self.notifyButton.frame = CGRectMake((320.0f - 128.0f)/2.0f, 150, 134, 31);
                 [self.notifyButton setBackgroundImage:[UIImage imageNamed:@"BBNewMessage"] forState:UIControlStateNormal];
                 self.notifyButton.backgroundColor = [UIColor clearColor];
                 self.notifyButton.titleLabel.font = [UIFont boldSystemFontOfSize:13];
                 self.notifyButton.titleLabel.textAlignment = NSTextAlignmentCenter;
-                [self.notifyButton setTitle:[NSString stringWithFormat:@"您有%d条新消息",notifyCount] forState:UIControlStateNormal];
+                if (count>99) {
+                    [self.notifyButton setTitle:[NSString stringWithFormat:@"您有%d+条新消息",99] forState:UIControlStateNormal];
+                }else{
+                    [self.notifyButton setTitle:[NSString stringWithFormat:@"您有%d条新消息",notifyCount] forState:UIControlStateNormal];
+                }
+                
                 [self.notifyButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
                 bjqTableView.tableHeaderView.frame = CGRectMake(0, 0, 320, 188);
                 [bjqTableView.tableHeaderView addSubview:self.notifyButton];
