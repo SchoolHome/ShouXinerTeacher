@@ -135,12 +135,13 @@
     [super viewWillDisappear:animated];
     //[[UIApplication sharedApplication] setStatusBarHidden:NO withAnimation:UIStatusBarAnimationNone];
     [self.navigationController setNavigationBarHidden:NO];
-    [[NSNotificationCenter defaultCenter] removeObserver:self];
+    
     
 }
 
 - (void)viewDidDisappear:(BOOL)animated
 {
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
     [self.captureSession stopRunning];
 }
 /*
