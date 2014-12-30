@@ -15,6 +15,7 @@
 #import "BBStudentsListViewController.h"
 #import "BBCameraViewController.h"
 
+
 #import "BBStudentModel.h"
 #import "CropVideo.h"
 #import "CropVideoModel.h"
@@ -425,8 +426,8 @@
 }
 - (void)convertMp4
 {
-    //[CropVideo convertMpeg4WithUrl:_videoUrl andDstFilePath:[self getTempSaveVideoPath]];
-    
+    [CropVideo convertMpeg4WithUrl:_videoUrl andDstFilePath:[self getTempSaveVideoPath]];
+    /*
     SDAVAssetExportSession *encoder = [SDAVAssetExportSession.alloc initWithAsset:[AVAsset assetWithURL:_videoUrl]];
     encoder.outputFileType = AVFileTypeMPEG4;
     encoder.outputURL = [NSURL fileURLWithPath:[self getTempSaveVideoPath]];
@@ -469,7 +470,7 @@
         
     }];
 
-
+*/
 }
 
 
@@ -596,10 +597,21 @@
 {
     if ([[actionSheet buttonTitleAtIndex:0] isEqualToString:@"拍摄"] && buttonIndex == 0) {
         //进自定义拍照界面
+        NSMutableArray *navControllers = [NSMutableArray arrayWithArray:self.navigationController.viewControllers];
+        for (id controller in navControllers) {
+            if ([controller isKindOfClass:[BBCameraViewController class]]) {
+                [navControllers removeObject:controller];
+                [self.navigationController setViewControllers:[NSArray arrayWithArray:navControllers] animated:NO];
+                break;
+            }
+        }
+
         
         BBCameraViewController *camera = [[BBCameraViewController alloc] init];
+        camera.hidesBottomBarWhenPushed = YES;
         [self.navigationController pushViewController:camera animated:YES];
-    }else
+        NSLog(@"%@",self.navigationController.viewControllers);
+        }else
     {
         [super actionSheet:actionSheet clickedButtonAtIndex:buttonIndex];
     }
