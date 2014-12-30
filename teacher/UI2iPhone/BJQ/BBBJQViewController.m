@@ -650,9 +650,12 @@
 
 -(void) needRefresh{
     NSLog(@"needRefresh");
-    titleButton.frame = CGRectMake(0, 0, 125, 44);
-    [bjqTableView scrollRectToVisible:CGRectMake(0.0f, 0.0f, 1.0f, 1.0f) animated:NO];
-    [self performSelector:@selector(needRefreshBJQData) withObject:nil afterDelay:1.0f];
+    NSLog(@"%@",self.navigationController.viewControllers);
+    if ([[self.navigationController.viewControllers lastObject] isMemberOfClass:[self class]]) {
+        titleButton.frame = CGRectMake(0, 0, 125, 44);
+        [bjqTableView scrollRectToVisible:CGRectMake(0.0f, 0.0f, 1.0f, 1.0f) animated:NO];
+        [self performSelector:@selector(needRefreshBJQData) withObject:nil afterDelay:1.0f];
+    }
 }
 
 -(void) needRefreshBJQData{
