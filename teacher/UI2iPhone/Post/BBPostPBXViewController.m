@@ -425,8 +425,8 @@
 }
 - (void)convertMp4
 {
-    [CropVideo convertMpeg4WithUrl:_videoUrl andDstFilePath:[self getTempSaveVideoPath]];
-    /*
+    //[CropVideo convertMpeg4WithUrl:_videoUrl andDstFilePath:[self getTempSaveVideoPath]];
+    
     SDAVAssetExportSession *encoder = [SDAVAssetExportSession.alloc initWithAsset:[AVAsset assetWithURL:_videoUrl]];
     encoder.outputFileType = AVFileTypeMPEG4;
     encoder.outputURL = [NSURL fileURLWithPath:[self getTempSaveVideoPath]];
@@ -437,7 +437,7 @@
     AVVideoHeightKey: @480,
     AVVideoCompressionPropertiesKey: @
         {
-        AVVideoAverageBitRateKey: @6000000,
+        AVVideoAverageBitRateKey: @600000,
         AVVideoProfileLevelKey: AVVideoProfileLevelH264High40,
         },
     };
@@ -454,6 +454,8 @@
         if (encoder.status == AVAssetExportSessionStatusCompleted)
         {
             NSLog(@"Video export succeeded");
+            //[self performSelector:@selector(initMoviePlayer) withObject:nil afterDelay:1.f];
+            [self initMoviePlayer];
         }
         else if (encoder.status == AVAssetExportSessionStatusCancelled)
         {
@@ -461,11 +463,12 @@
         }
         else
         {
+            [self closeProgress];
             NSLog(@"Video export failed with error:");
         }
         
     }];
-*/
+
 
 }
 
