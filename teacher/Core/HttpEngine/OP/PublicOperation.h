@@ -11,9 +11,13 @@ typedef enum{
     kGetPublicMessage,
     kPostPublicMessage,
     kGetPublicAccount,
+    kGetPublicAccountMessages,
 }PublicMessageType;
 @interface PublicOperation : PalmOperation
 -(PublicOperation *) initGetPublicMessage : (NSString *) mids;
 -(PublicOperation *) initPostPublicMessageForward : (NSString *) mid withGroupID : (int) groupID withMessage : (NSString *) message;
 -(PublicOperation *) initGetPublicAccount;
+
+-(PublicOperation *) initGetPublicAccountMessages : (int) accountID withMid : (NSString *) mid withSize : (int) size;
+
 @end

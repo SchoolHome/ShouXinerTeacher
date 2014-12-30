@@ -252,4 +252,10 @@ static PalmUIManagement *sharedInstance = nil;
     PublicOperation *operation = [[PublicOperation alloc] initGetPublicAccount];
     [[PalmNetWorkService sharedInstance] networkEngine:operation];
 }
+
+// 获取指定公众号历史消息
+-(void) getPublicAccountMessages : (int) accountID withMid : (NSString *) mid withSize : (int) size{
+    PublicOperation *operation = [[PublicOperation alloc] initGetPublicAccountMessages:accountID withMid:mid withSize:size];
+    [[PalmNetWorkService sharedInstance] networkEngine:operation];
+}
 @end

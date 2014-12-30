@@ -116,6 +116,8 @@
 @property (nonatomic,strong) NSDictionary *resetPassword;
 // 获取公共账号
 @property (nonatomic,strong) NSDictionary *publicAccountDic;
+// 获取指定公众号历史消息
+@property (nonatomic,strong) NSDictionary *publicAccountMessages;
 
 // 获取用户信息
 -(void) getUserProfile;
@@ -206,4 +208,6 @@
 -(void) postResetPassword : (NSString *) smsID withSmsCode : (NSString *) smsCode withNewPassword : (NSString *) newPassword;
 // 获取公共账号信息
 -(void) getPublicAccount;
+// 获取指定公众号历史消息
+-(void) getPublicAccountMessages : (int) accountID withMid : (NSString *) mid withSize : (int) size;
 @end

@@ -15,6 +15,7 @@
 -(void) getPublicMessage;
 -(void) postPublicMessageForward;
 -(void) getPublicAccount;
+-(void) getPublicAccountMessages;
 @end
 
 @implementation PublicOperation
@@ -38,6 +39,19 @@
                                                        mid == nil ? @"" : mid , @"mid",
                                                        [NSNumber numberWithInt:groupID], @"groupid",
                                                        message == nil ? @"" : message , @"message",
+                                                       nil]];
+    }
+    return self;
+}
+
+-(PublicOperation *) initGetPublicAccountMessages : (int) accountID withMid : (NSString *) mid withSize : (int) size{
+    if ([self initOperation]) {
+        self.type = kPostPublicMessage;
+        NSString *urlStr = [NSString stringWithFormat:@"http://%@/mapi/pubAccountMessages",K_HOST_NAME_OF_PALM_SERVER];
+        [self setHttpRequestPostWithUrl:urlStr params:[NSDictionary dictionaryWithObjectsAndKeys:
+                                                       [NSNumber numberWithInt:accountID] , @"account",
+                                                       mid == nil ? @"" : mid, @"mid",
+                                                       [NSNumber numberWithInt:size] , @"size",
                                                        nil]];
     }
     return self;
@@ -85,6 +99,17 @@
     [self startAsynchronous];
 }
 
+-(void) getPublicAccountMessages{
+    self.dataRequest.requestCookies = [[NSMutableArray alloc] initWithObjects:[PalmUIManagement sharedInstance].php, nil];
+    [self.dataRequest setRequestCompleted:^(NSDictionary *data){
+        dispatch_block_t updateTagBlock = ^{
+            [PalmUIManagement sharedInstance].publicAccountMessages = data;
+        };
+        dispatch_async(dispatch_get_main_queue(), updateTagBlock);
+    }];
+    [self startAsynchronous];
+}
+
 -(void) main{
     @autoreleasepool {
         switch (self.type) {
@@ -97,6 +122,9 @@
             case kGetPublicAccount:
                 [self getPublicAccount];
                 return;
+            case kGetPublicAccountMessages:
+                [self getPublicAccountMessages];
+                break;
             default:
                 break;
         }
