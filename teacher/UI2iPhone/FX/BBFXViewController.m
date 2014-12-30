@@ -58,7 +58,7 @@
     [fxTableView setDataSource:(id<UITableViewDataSource>)self];
     
     UIView *backgroundView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, fxTableView.frame.size.width, fxTableView.frame.size.height)];
-    [backgroundView setBackgroundColor:[UIColor colorWithRed:242.f/255.f green:242.f/255.f blue:242.f/255.f alpha:1.0f]];
+    [backgroundView setBackgroundColor:[UIColor whiteColor]];
     [fxTableView setBackgroundView:backgroundView];
     backgroundView = nil;
     
@@ -89,11 +89,25 @@
                     BBFXModel *model = [[BBFXModel alloc] initWithJson:oneService];
                     [self.serviceArray addObject:model];
                 }
-                
+                NSInteger count = self.serviceArray.count;
+                NSInteger temp = count - 12;
+                if(temp > 0)
+                {
+                    if (temp%3 != 0) {
+                        for (int i=0; i<(3-temp%3); i++) {
+                            BBFXModel *model = [[BBFXModel alloc] init];
+                            [self.serviceArray addObject:model];
+                        }
+                    }
+                }else{
+                    for (int i=0; i<(12-count); i++) {
+                        BBFXModel *model = [[BBFXModel alloc] init];
+                        [self.serviceArray addObject:model];
+                    }
+                }
             }
         }
         [fxTableView reloadData];
-        
         [self addDiscoverHeader];
     }else{
         [[PalmUIManagement sharedInstance] getDiscoverData];
@@ -202,12 +216,14 @@
 {
     NSInteger index = gridView.rowIndex*3 + gridView.colIndex;
     BBFXModel *model = [self.serviceArray objectAtIndex:index];
-    model.isNew = NO;
-    [gridView.flagNew setHidden:YES];
-    BBFXDetailViewController *detailViewController = [[BBFXDetailViewController alloc] init];
-    detailViewController.url = [NSURL URLWithString:model.url];
-    [detailViewController setHidesBottomBarWhenPushed:YES];
-    [self.navigationController pushViewController:detailViewController animated:YES];
+    if (model.url && model.url.length>0) {
+        model.isNew = NO;
+        [gridView.flagNew setHidden:YES];
+        BBFXDetailViewController *detailViewController = [[BBFXDetailViewController alloc] init];
+        detailViewController.url = [NSURL URLWithString:model.url];
+        [detailViewController setHidesBottomBarWhenPushed:YES];
+        [self.navigationController pushViewController:detailViewController animated:YES];
+    }
 }
 
 -(BBFXGridView *)dequeueReusableGridView{
@@ -222,10 +238,12 @@
 #pragma adscrollview
 -(void)adViewTapped:(BBFXModel *)model
 {
-    BBFXDetailViewController *detailViewController = [[BBFXDetailViewController alloc] init];
-    detailViewController.url = [NSURL URLWithString:model.url];
-    [detailViewController setHidesBottomBarWhenPushed:YES];
-    [self.navigationController pushViewController:detailViewController animated:YES];
+    if (model.url && model.url.length>0) {
+        BBFXDetailViewController *detailViewController = [[BBFXDetailViewController alloc] init];
+        detailViewController.url = [NSURL URLWithString:model.url];
+        [detailViewController setHidesBottomBarWhenPushed:YES];
+        [self.navigationController pushViewController:detailViewController animated:YES];
+    }
 }
 
 /*
