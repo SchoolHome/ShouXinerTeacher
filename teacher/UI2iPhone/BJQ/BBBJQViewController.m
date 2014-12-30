@@ -46,6 +46,7 @@
 @property(nonatomic,strong) BBBaseTableViewCell *deleteCell;
 @property(nonatomic,strong) BBVideoTableViewCell *videoCell;
 @property (nonatomic,strong) NSString *videoFilePath;
+@property (nonatomic,strong) UIButton *addButton;
 -(void) playVideo : (NSString *) videoPath withCell : (BBVideoTableViewCell *) cell;
 -(void) needRefresh;
 -(void) needRefreshBJQData;
@@ -368,6 +369,12 @@
 -(void)addNewTaped:(id)sender{
     [[UIApplication sharedApplication].keyWindow addSubview:fsDropdownView];
     [fsDropdownView show];
+    CGAffineTransform endAngle = CGAffineTransformMakeRotation(-180.0f * (M_PI / 180.0f));
+    [UIView animateWithDuration:0.2f delay:0 options:UIViewAnimationOptionCurveLinear animations:^{
+        self.addButton.transform = endAngle;
+    } completion:^(BOOL finished) {
+        
+    }];
 }
 
 -(void)newNotifyTaped:(id)sender{
@@ -398,7 +405,7 @@
     }else{
         [bjDropdownView show];
         CGAffineTransform endAngle = CGAffineTransformMakeRotation(-180.0f * (M_PI / 180.0f));
-        [UIView animateWithDuration:0.5f delay:0 options:UIViewAnimationOptionCurveLinear animations:^{
+        [UIView animateWithDuration:0.2f delay:0 options:UIViewAnimationOptionCurveLinear animations:^{
             self.arrow.transform = endAngle;
         } completion:^(BOOL finished) {
             
@@ -504,11 +511,11 @@
     bjqTableView.tableHeaderView.userInteractionEnabled = YES;
     
 #ifdef IS_TEACHER
-    UIButton *addButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    [addButton setFrame:CGRectMake(0.f, 14.f, 23.f, 23.f)];
-    [addButton setBackgroundImage:[UIImage imageNamed:@"BBAdd"] forState:UIControlStateNormal];
-    [addButton addTarget:self action:@selector(addNewTaped:) forControlEvents:UIControlEventTouchUpInside];
-    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:addButton];
+    self.addButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    [self.addButton setFrame:CGRectMake(0.f, 14.f, 23.f, 23.f)];
+    [self.addButton setBackgroundImage:[UIImage imageNamed:@"BBAdd"] forState:UIControlStateNormal];
+    [self.addButton addTarget:self action:@selector(addNewTaped:) forControlEvents:UIControlEventTouchUpInside];
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:self.addButton];
 #else
     UIButton *shareButton = [UIButton buttonWithType:UIButtonTypeCustom];
     [shareButton setFrame:CGRectMake(0.f, 7.f, 40.f, 30.f)];
@@ -583,7 +590,7 @@
     if (bjDropdownView.unfolded) {
         [bjDropdownView dismiss];
         CGAffineTransform endAngle = CGAffineTransformMakeRotation(0.0f * (M_PI / 180.0f));
-        [UIView animateWithDuration:0.5f delay:0 options:UIViewAnimationOptionCurveLinear animations:^{
+        [UIView animateWithDuration:0.2f delay:0 options:UIViewAnimationOptionCurveLinear animations:^{
             self.arrow.transform = endAngle;
         } completion:^(BOOL finished) {
             
@@ -591,6 +598,12 @@
     }
     if (fsDropdownView.unfolded) {
         [fsDropdownView dismiss];
+        CGAffineTransform endAngle = CGAffineTransformMakeRotation(0.0f * (M_PI / 180.0f));
+        [UIView animateWithDuration:0.2f delay:0 options:UIViewAnimationOptionCurveLinear animations:^{
+            self.addButton.transform = endAngle;
+        } completion:^(BOOL finished) {
+            
+        }];
     }
     
     if (self.tempMoreImage != nil) {
@@ -616,6 +629,12 @@
     }
     if (fsDropdownView.unfolded) {
         [fsDropdownView dismiss];
+        CGAffineTransform endAngle = CGAffineTransformMakeRotation(0.0f * (M_PI / 180.0f));
+        [UIView animateWithDuration:0.2f delay:0 options:UIViewAnimationOptionCurveLinear animations:^{
+            self.addButton.transform = endAngle;
+        } completion:^(BOOL finished) {
+            
+        }];
     }
     
     if (self.tempMoreImage != nil) {
@@ -862,10 +881,21 @@
         [bjqTableView scrollRectToVisible:CGRectMake(0.0f, 0.0f, 1.0f, 1.0f) animated:NO];
         [bjqTableView triggerPullToRefresh];
     }
+    CGAffineTransform endAngle = CGAffineTransformMakeRotation(0.0f * (M_PI / 180.0f));
+    [UIView animateWithDuration:0.2f delay:0 options:UIViewAnimationOptionCurveLinear animations:^{
+        self.addButton.transform = endAngle;
+    } completion:^(BOOL finished) {
+        
+    }];
 }
 
 -(void)bbFSDropdownViewTaped:(BBFSDropdownView *) dropdownView_{
-
+    CGAffineTransform endAngle = CGAffineTransformMakeRotation(0.0f * (M_PI / 180.0f));
+    [UIView animateWithDuration:0.2f delay:0 options:UIViewAnimationOptionCurveLinear animations:^{
+        self.addButton.transform = endAngle;
+    } completion:^(BOOL finished) {
+        
+    }];
 }
 
 #pragma mark - BBBJDropdownViewDelegate
@@ -879,7 +909,7 @@
     [def setInteger:index_ forKey:@"saved_topic_group_index"];
     [def synchronize];
     CGAffineTransform endAngle = CGAffineTransformMakeRotation(0.0f * (M_PI / 180.0f));
-    [UIView animateWithDuration:0.5f delay:0 options:UIViewAnimationOptionCurveLinear animations:^{
+    [UIView animateWithDuration:0.2f delay:0 options:UIViewAnimationOptionCurveLinear animations:^{
         self.arrow.transform = endAngle;
     } completion:^(BOOL finished) {
         
@@ -888,7 +918,7 @@
 
 -(void)bbBJDropdownViewTaped:(BBBJDropdownView *) dropdownView_{
     CGAffineTransform endAngle = CGAffineTransformMakeRotation(0.0f * (M_PI / 180.0f));
-    [UIView animateWithDuration:0.5f delay:0 options:UIViewAnimationOptionCurveLinear animations:^{
+    [UIView animateWithDuration:0.2f delay:0 options:UIViewAnimationOptionCurveLinear animations:^{
         self.arrow.transform = endAngle;
     } completion:^(BOOL finished) {
         
@@ -1197,6 +1227,12 @@
     }
     if (fsDropdownView.unfolded) {
         [fsDropdownView dismiss];
+        CGAffineTransform endAngle = CGAffineTransformMakeRotation(0.0f * (M_PI / 180.0f));
+        [UIView animateWithDuration:0.2f delay:0 options:UIViewAnimationOptionCurveLinear animations:^{
+            self.addButton.transform = endAngle;
+        } completion:^(BOOL finished) {
+            
+        }];
     }
     
     if (self.tempMoreImage != nil) {
@@ -1229,7 +1265,7 @@
     if (bjDropdownView.unfolded) {
         [bjDropdownView dismiss];
         CGAffineTransform endAngle = CGAffineTransformMakeRotation(0.0f * (M_PI / 180.0f));
-        [UIView animateWithDuration:0.5f delay:0 options:UIViewAnimationOptionCurveLinear animations:^{
+        [UIView animateWithDuration:0.2f delay:0 options:UIViewAnimationOptionCurveLinear animations:^{
             self.arrow.transform = endAngle;
         } completion:^(BOOL finished) {
             
@@ -1237,6 +1273,12 @@
     }
     if (fsDropdownView.unfolded) {
         [fsDropdownView dismiss];
+        CGAffineTransform endAngle = CGAffineTransformMakeRotation(0.0f * (M_PI / 180.0f));
+        [UIView animateWithDuration:0.2f delay:0 options:UIViewAnimationOptionCurveLinear animations:^{
+            self.addButton.transform = endAngle;
+        } completion:^(BOOL finished) {
+            
+        }];
     }
     
     if (self.tempMoreImage != nil) {
