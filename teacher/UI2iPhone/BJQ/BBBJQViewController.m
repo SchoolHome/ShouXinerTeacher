@@ -135,7 +135,6 @@
     {
         NSDictionary *dict = [PalmUIManagement sharedInstance].notifyCount;
         int count = [dict[@"data"][@"count"] intValue];
-        count = 200;
         notifyCount = count;
         if (count > 0) {
             if (self.notifyButton != nil) {
@@ -144,11 +143,10 @@
                 }else{
                     self.notifyButton.titleLabel.text = [NSString stringWithFormat:@"您有%d条新消息",notifyCount];
                 }
-                
                 [bjqTableView reloadData];
             }else{
                 self.notifyButton = [UIButton buttonWithType:UIButtonTypeCustom];
-                self.notifyButton.frame = CGRectMake((320.0f - 128.0f)/2.0f, 150, 134, 31);
+                self.notifyButton.frame = CGRectMake((320.0f - 134.0f)/2.0f, 150, 134, 31);
                 [self.notifyButton setBackgroundImage:[UIImage imageNamed:@"BBNewMessage"] forState:UIControlStateNormal];
                 self.notifyButton.backgroundColor = [UIColor clearColor];
                 self.notifyButton.titleLabel.font = [UIFont boldSystemFontOfSize:13];
