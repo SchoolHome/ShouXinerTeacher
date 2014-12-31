@@ -135,13 +135,21 @@
     {
         NSDictionary *dict = [PalmUIManagement sharedInstance].notifyCount;
         int count = [dict[@"data"][@"count"] intValue];
+        
+//        static int c = 10;
+//        
+//        if (c > 220) {
+//            c = 0;
+//        }
+//        c+=100;
+//        count = c;
         notifyCount = count;
         if (count > 0) {
             if (self.notifyButton != nil) {
-                if (count > 99) {
-                    self.notifyButton.titleLabel.text = [NSString stringWithFormat:@"您有%d+条新消息",99];
+                if (count>99) {
+                    [self.notifyButton setTitle:[NSString stringWithFormat:@"您有%d+条新消息",99] forState:UIControlStateNormal];
                 }else{
-                    self.notifyButton.titleLabel.text = [NSString stringWithFormat:@"您有%d条新消息",notifyCount];
+                    [self.notifyButton setTitle:[NSString stringWithFormat:@"您有%d条新消息",notifyCount] forState:UIControlStateNormal];
                 }
                 [bjqTableView reloadData];
             }else{
