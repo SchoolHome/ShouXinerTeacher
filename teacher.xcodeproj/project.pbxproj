@@ -1312,7 +1312,6 @@
 		745BB5AA1A1DD46000307F00 /* BBServiceAccountDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 745BB5A91A1DD46000307F00 /* BBServiceAccountDetailViewController.m */; };
 		745C5C67197E3DCC00BD07D4 /* CPDAONotifyMessage.m in Sources */ = {isa = PBXBuildFile; fileRef = 745C5C66197E3DCC00BD07D4 /* CPDAONotifyMessage.m */; };
 		745C5C6A197E457900BD07D4 /* CPDBModelNotifyMessage.m in Sources */ = {isa = PBXBuildFile; fileRef = 745C5C69197E457900BD07D4 /* CPDBModelNotifyMessage.m */; };
-		745CD94619D6A9400096094F /* BBWSPViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 745CD94519D6A9400096094F /* BBWSPViewController.m */; };
 		745D7684193F685600AF666E /* BBStudentsListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 745D7683193F685600AF666E /* BBStudentsListViewController.m */; };
 		745D7687193F68A200AF666E /* BBRecommendedRangeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 745D7686193F68A200AF666E /* BBRecommendedRangeViewController.m */; };
 		745D768A193F6A6000AF666E /* BBStudentListTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 745D7689193F6A6000AF666E /* BBStudentListTableViewCell.m */; };
@@ -3476,8 +3475,6 @@
 		745C5C66197E3DCC00BD07D4 /* CPDAONotifyMessage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CPDAONotifyMessage.m; sourceTree = "<group>"; };
 		745C5C68197E457900BD07D4 /* CPDBModelNotifyMessage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPDBModelNotifyMessage.h; sourceTree = "<group>"; };
 		745C5C69197E457900BD07D4 /* CPDBModelNotifyMessage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CPDBModelNotifyMessage.m; sourceTree = "<group>"; };
-		745CD94419D6A9400096094F /* BBWSPViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BBWSPViewController.h; sourceTree = "<group>"; };
-		745CD94519D6A9400096094F /* BBWSPViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BBWSPViewController.m; sourceTree = "<group>"; };
 		745D7682193F685600AF666E /* BBStudentsListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BBStudentsListViewController.h; sourceTree = "<group>"; };
 		745D7683193F685600AF666E /* BBStudentsListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BBStudentsListViewController.m; sourceTree = "<group>"; };
 		745D7685193F68A200AF666E /* BBRecommendedRangeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BBRecommendedRangeViewController.h; sourceTree = "<group>"; };
@@ -7222,15 +7219,6 @@
 			path = Contacts;
 			sourceTree = "<group>";
 		};
-		745CD94319D6A9270096094F /* WSP */ = {
-			isa = PBXGroup;
-			children = (
-				745CD94419D6A9400096094F /* BBWSPViewController.h */,
-				745CD94519D6A9400096094F /* BBWSPViewController.m */,
-			);
-			path = WSP;
-			sourceTree = "<group>";
-		};
 		74A4E5C818DFE8A9000F79E6 /* ZJZ */ = {
 			isa = PBXGroup;
 			children = (
@@ -7673,7 +7661,6 @@
 				7A59194018D6BDA500C03DED /* PBX */,
 				7A59194318D6BDA500C03DED /* SBS */,
 				7A59194618D6BDA500C03DED /* XKM */,
-				745CD94319D6A9270096094F /* WSP */,
 				7AC51B9418CDDA6900AD1A8C /* BBCellHeight.h */,
 				7AC51B9518CDDA6900AD1A8C /* BBCellHeight.m */,
 				7AC51B9618CDDA6900AD1A8C /* BBBaseTableViewCell.h */,
@@ -8964,7 +8951,6 @@
 				332D754518C33552007A75D5 /* XMPPvCard.xcdatamodeld in Sources */,
 				332D755C18C33552007A75D5 /* DDList.m in Sources */,
 				332D755018C33552007A75D5 /* NSDate+XMPPDateTimeProfiles.m in Sources */,
-				745CD94619D6A9400096094F /* BBWSPViewController.m in Sources */,
 				332D835B18C33F0B007A75D5 /* TimeParser.m in Sources */,
 				19451C7B19F77E8400E4D92B /* BBNoticeTableViewCell.m in Sources */,
 				332D832118C33F0B007A75D5 /* StatusPanelItem.m in Sources */,
