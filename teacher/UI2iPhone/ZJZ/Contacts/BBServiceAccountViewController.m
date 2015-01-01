@@ -14,6 +14,20 @@
 
 @implementation BBServiceAccountViewController
 
+- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
+{
+    if ([keyPath isEqualToString:@"publicAccountDic"]) {
+        NSDictionary *result = [PalmUIManagement sharedInstance].publicAccountDic;
+        if (![result[@"hasError"] boolValue]) {
+            NSArray *data = result[@"data"][@"list"];
+            [self setServiceItems:data];
+        }else
+        {
+            [self showProgressWithText:result[@"errorMessage"] withDelayTime:2.f];
+        }
+    }
+}
+
 - (id)initWithServiceItems:(NSArray *)items
 {
     self = [super init];
@@ -42,7 +56,20 @@
     serviceTableview.backgroundColor = [UIColor clearColor];
     serviceTableview.separatorStyle = UITableViewCellSeparatorStyleNone;
     [self.view addSubview:serviceTableview];
+    
+    [self showProgressWithText:@"正在获取"];
+    [[PalmUIManagement sharedInstance] getPublicAccount];
     // Do any additional setup after loading the view.
+}
+
+- (void)viewWillAppear:(BOOL)animated
+{
+    [[PalmUIManagement sharedInstance] addObserver:self forKeyPath:@"publicAccountDic" options:0 context:nil];
+}
+
+- (void)viewDidDisappear:(BOOL)animated
+{
+    [[PalmUIManagement sharedInstance] removeObserver:self forKeyPath:@"publicAccountDic"];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -53,6 +80,11 @@
 - (void)backAction
 {
     [self.navigationController popViewControllerAnimated:YES];
+}
+#pragma mark - Setter
+- (void)setServiceItems:(NSArray *)serviceItems
+{
+    
 }
 #pragma mark - UITableview
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath

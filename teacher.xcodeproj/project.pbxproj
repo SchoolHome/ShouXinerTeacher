@@ -1360,6 +1360,7 @@
 		74E159F61A0BE91500A0E95F /* BBPostPBXViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 74E159F51A0BE91500A0E95F /* BBPostPBXViewController.m */; };
 		74E159F81A0BE92900A0E95F /* BBCameraViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 74E159F71A0BE92900A0E95F /* BBCameraViewController.m */; };
 		74E159FC1A0BE94200A0E95F /* BBImagePreviewVIewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 74E159FB1A0BE94200A0E95F /* BBImagePreviewVIewController.m */; };
+		74E377891A558342004E7C63 /* BBServiceAccountModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 74E377881A558342004E7C63 /* BBServiceAccountModel.m */; };
 		74E5F65B1A28F6EF008AAFDA /* BBServiceMessageWebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 74E5F65A1A28F6EF008AAFDA /* BBServiceMessageWebViewController.m */; };
 		74E85D8D18D0445A00F1F1D5 /* BBZJZViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 74E85D8C18D0445A00F1F1D5 /* BBZJZViewController.m */; };
 		74EF7DFF1962BE4600DCD5A3 /* ZJZ_Seg_Parent@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 74EF7DFD1962BE4600DCD5A3 /* ZJZ_Seg_Parent@2x.png */; };
@@ -3543,6 +3544,8 @@
 		74E159F51A0BE91500A0E95F /* BBPostPBXViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BBPostPBXViewController.m; sourceTree = "<group>"; };
 		74E159F71A0BE92900A0E95F /* BBCameraViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BBCameraViewController.m; sourceTree = "<group>"; };
 		74E159FB1A0BE94200A0E95F /* BBImagePreviewVIewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BBImagePreviewVIewController.m; sourceTree = "<group>"; };
+		74E377871A558342004E7C63 /* BBServiceAccountModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BBServiceAccountModel.h; sourceTree = "<group>"; };
+		74E377881A558342004E7C63 /* BBServiceAccountModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BBServiceAccountModel.m; sourceTree = "<group>"; };
 		74E5F6591A28F6EF008AAFDA /* BBServiceMessageWebViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BBServiceMessageWebViewController.h; sourceTree = "<group>"; };
 		74E5F65A1A28F6EF008AAFDA /* BBServiceMessageWebViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BBServiceMessageWebViewController.m; sourceTree = "<group>"; };
 		74E85D8B18D0445A00F1F1D5 /* BBZJZViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BBZJZViewController.h; sourceTree = "<group>"; };
@@ -7201,6 +7204,8 @@
 				7478550718DB548C0070DF87 /* StartGroupChatTableviewCell.m */,
 				74421CD618DF467A000D2F1B /* DisplaySelectedMemberView.h */,
 				74421CD718DF467A000D2F1B /* DisplaySelectedMemberView.m */,
+				74E377871A558342004E7C63 /* BBServiceAccountModel.h */,
+				74E377881A558342004E7C63 /* BBServiceAccountModel.m */,
 				740530AB1A1CD3260048C0B0 /* BBServiceAccountViewController.h */,
 				740530AC1A1CD3260048C0B0 /* BBServiceAccountViewController.m */,
 				745BB5A81A1DD46000307F00 /* BBServiceAccountDetailViewController.h */,
@@ -9191,6 +9196,7 @@
 				332D82C018C33F0A007A75D5 /* HomeInfo.m in Sources */,
 				196421A21928A52600944016 /* XLCycleScrollView.m in Sources */,
 				7AC51B9018CDDA5700AD1A8C /* BBIndicationTableViewCell.m in Sources */,
+				74E377891A558342004E7C63 /* BBServiceAccountModel.m in Sources */,
 				7AC51B9118CDDA5700AD1A8C /* BBYZSViewController.m in Sources */,
 				745D768D193F6E9D00AF666E /* BBDisplaySelectedStudentsView.m in Sources */,
 				332D750E18C33552007A75D5 /* CPOperationUploadAb.m in Sources */,
