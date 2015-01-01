@@ -14,17 +14,17 @@
 
 @interface BBServiceAccountDetailViewController ()<UITableViewDataSource,UITableViewDelegate>
 
-@property (nonatomic, strong)CPDBModelNotifyMessage *model;
+@property (nonatomic, strong)BBServiceAccountModel *model;
 @end
 
 @implementation BBServiceAccountDetailViewController
 
 
-- (id)initWithModel:(CPDBModelNotifyMessage *)modelMessage
+- (id)initWithModel:(BBServiceAccountModel *)serviceAccountmodel
 {
     self = [super init];
     if (self) {
-        self.model = modelMessage;
+        self.model = serviceAccountmodel;
     }
     return self;
 
@@ -47,7 +47,7 @@
     
      EGOImageView *accountHead = [[EGOImageView alloc] initWithFrame:CGRectMake(10.f, 10.f, 70.f, 70.f)];
     [accountHead setPlaceholderImage:[UIImage imageNamed:@"girl"]];
-    [accountHead setImageURL:[NSURL URLWithString:self.model.fromUserAvatar]];
+    [accountHead setImageURL:[NSURL URLWithString:self.model.accountLogo]];
     accountHead.layer.masksToBounds = YES;
     accountHead.layer.cornerRadius = 35.f;
     accountHead.layer.borderColor = [[UIColor whiteColor] CGColor];
@@ -56,7 +56,7 @@
     [tableviewHeaderView addSubview:accountHead];
     
     UILabel *accountName = [[UILabel alloc] initWithFrame:CGRectMake(CGRectGetMaxX(accountHead.frame)+16.f, CGRectGetMidY(accountHead.frame)-12.f,self.screenWidth-CGRectGetMaxX(accountHead.frame)-10.f , 24.f)];
-    accountName.text = self.model.fromUserName;
+    accountName.text = self.model.accountName;
     accountName.backgroundColor = [UIColor clearColor];
     [tableviewHeaderView addSubview:accountName];
     /*
@@ -102,7 +102,7 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    CGSize strSize = [self.model.content sizeWithFont:[UIFont boldSystemFontOfSize:14.f] constrainedToSize:CGSizeMake(180.f, 800.f)];
+    CGSize strSize = [self.model.accountIntraduction sizeWithFont:[UIFont boldSystemFontOfSize:14.f] constrainedToSize:CGSizeMake(180.f, 800.f)];
     if (strSize.height < 60) return 60;
     else return strSize.height;
 }
@@ -115,7 +115,7 @@
     cell.textLabel.textColor = [UIColor lightGrayColor];
     cell.detailTextLabel.numberOfLines = 100;
     cell.detailTextLabel.font = [UIFont systemFontOfSize:12.f];
-    cell.detailTextLabel.text = self.model.content;
+    cell.detailTextLabel.text = self.model.accountIntraduction;
     cell.detailTextLabel.textAlignment = NSTextAlignmentLeft;
     cell.detailTextLabel.textColor = [UIColor lightGrayColor];
     return cell;

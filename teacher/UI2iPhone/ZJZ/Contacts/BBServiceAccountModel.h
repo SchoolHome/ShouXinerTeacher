@@ -15,4 +15,6 @@
 @property (nonatomic, strong)NSString *accountName;
 @property (nonatomic, strong)NSString *accountLogo;
 
++ (BBServiceAccountModel  *)convertByDic:(NSDictionary *)dic;
+
 @end

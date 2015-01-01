@@ -8,7 +8,12 @@
 
 #import "BBServiceAccountViewController.h"
 #import "BBServiceMessageDetailViewController.h"
+
+
 @interface BBServiceAccountViewController ()<UITableViewDataSource,UITableViewDelegate>
+{
+    UITableView *serviceTableview;
+}
 @property (nonatomic, strong)NSArray *serviceItems;
 @end
 
@@ -19,7 +24,8 @@
     if ([keyPath isEqualToString:@"publicAccountDic"]) {
         NSDictionary *result = [PalmUIManagement sharedInstance].publicAccountDic;
         if (![result[@"hasError"] boolValue]) {
-            NSArray *data = result[@"data"][@"list"];
+            [self closeProgress];
+            NSDictionary *data = result[@"data"][@"list"];
             [self setServiceItems:data];
         }else
         {
@@ -48,7 +54,7 @@
     [backButton addTarget:self action:@selector(backAction) forControlEvents:UIControlEventTouchUpInside];
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:backButton];
     
-    UITableView *serviceTableview = [[UITableView alloc] initWithFrame:CGRectMake(0.f, 0.f, self.screenWidth, self.screenHeight) style:UITableViewStylePlain];
+    serviceTableview = [[UITableView alloc] initWithFrame:CGRectMake(0.f, 0.f, self.screenWidth, self.screenHeight) style:UITableViewStylePlain];
     serviceTableview.delegate = self;
     serviceTableview.dataSource = self;
     serviceTableview.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
@@ -82,9 +88,16 @@
     [self.navigationController popViewControllerAnimated:YES];
 }
 #pragma mark - Setter
-- (void)setServiceItems:(NSArray *)serviceItems
+- (void)setServiceItems:(NSDictionary *)serviceItems
 {
-    
+    NSMutableArray *items = [NSMutableArray array];
+    for (NSDictionary *tempItemModel in serviceItems.allValues) {
+        if ([tempItemModel isKindOfClass:[NSDictionary class]]) {
+            [items addObject:[BBServiceAccountModel convertByDic:tempItemModel]];
+        }
+    }
+    _serviceItems = [[NSArray alloc] initWithArray:items];
+    [serviceTableview reloadData];
 }
 #pragma mark - UITableview
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -130,6 +143,7 @@
     return cell;
 }
 #pragma mark - Delegate
+/*
 - (void)itemTappedWithRow:(NSInteger)row andIndex:(NSInteger)index
 {
     NSLog(@"row == %d,index==%d",row,index);
@@ -140,6 +154,17 @@
         //[messageDetail setModel:model];
         [self.navigationController pushViewController:messageDetail animated:YES];
 
+    }else [self showProgressWithText:@"无法查看" withDelayTime:2];
+}
+*/
+- (void)itemTappedWithServiceAccountModel:(BBServiceAccountModel *)model
+{
+    if (model) {
+        BBServiceMessageDetailViewController *messageDetail = [[BBServiceMessageDetailViewController alloc] init];
+        [messageDetail performSelector:@selector(setModel:) withObject:model afterDelay:0.5];
+        //[messageDetail setModel:model];
+        [self.navigationController pushViewController:messageDetail animated:YES];
+        
     }else [self showProgressWithText:@"无法查看" withDelayTime:2];
 }
 /*
@@ -181,17 +206,20 @@
     return self;
 }
 
-- (void)setContent:(CPDBModelNotifyMessage *)message
+- (void)setContent:(BBServiceAccountModel *)model
 {
-    [self.itemHead setImageURL:[NSURL URLWithString:message.fromUserAvatar]];
-    [self.itemTitle setText:message.fromUserName];
-    
+    [self.itemHead setImageURL:[NSURL URLWithString:model.accountLogo]];
+    [self.itemTitle setText:model.accountName];
+    self.cacheModel = model;
 }
 
 - (void)tapHead
 {
-    if ([self.delegate respondsToSelector:@selector(itemTappedWithRow:andIndex:)]) {
-        [self.delegate itemTappedWithRow:self.itemRow andIndex:self.itemIndex];
-    }
+//    if ([self.delegate respondsToSelector:@selector(itemTappedWithRow:andIndex:)]) {
+//        [self.delegate itemTappedWithRow:self.itemRow andIndex:self.itemIndex];
+//    }
+    if ([self.delegate respondsToSelector:@selector(itemTappedWithServiceAccountModel:)]) {
+            [self.delegate itemTappedWithServiceAccountModel:self.cacheModel];
+        }
 }
 @end

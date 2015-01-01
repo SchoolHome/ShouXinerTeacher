@@ -84,7 +84,7 @@
 
 - (void)setModel:(CPDBModelNotifyMessage *)model
 {
-    self.title = model.fromUserName;
+    /*
     _model = model;
     if (model.from.length > 0) {
         self.title = model.fromUserName;
@@ -102,6 +102,7 @@
         [self showProgressWithText:@"正在获取..."];
         [[PalmUIManagement sharedInstance] getPublicMessage:mids];
     }
+     */
 }
 #pragma mark - ViewCOntroller
 - (void)backButtonTaped

@@ -8,14 +8,16 @@
 
 #import "PalmViewController.h"
 
-#import "CPDBModelNotifyMessage.h"
+#import "BBServiceAccountModel.h"
 @class ServiceItem;
 
 @protocol ServiceItemDelegate <NSObject>
 
 @required
-- (void)itemTappedWithRow:(NSInteger)row andIndex:(NSInteger)index;
+- (void)itemTappedWithServiceAccountModel:(BBServiceAccountModel *)model;
 
+@optional
+- (void)itemTappedWithRow:(NSInteger)row andIndex:(NSInteger)index;
 @end
 
 @interface BBServiceAccountViewController : PalmViewController<ServiceItemDelegate>
@@ -38,7 +40,8 @@
 @property (nonatomic)NSInteger itemRow;
 @property (nonatomic)NSInteger itemIndex;
 @property (nonatomic, weak)id<ServiceItemDelegate> delegate;
+@property (nonatomic, strong)BBServiceAccountModel *cacheModel;
 
-- (void)setContent:(CPDBModelNotifyMessage *)message;
+- (void)setContent:(BBServiceAccountModel *)model;
 
 @end
