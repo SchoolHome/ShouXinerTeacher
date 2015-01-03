@@ -15,9 +15,12 @@
 #import "CPDBManagement.h"
 #import "BBServiceMessageDetailModel.h"
 @interface BBServiceMessageDetailViewController ()<BBServiceMessageDetailViewDelegate>
+{
 
+}
 @property (nonatomic, strong) UIScrollView *detailScrollview;
 @property (nonatomic, strong) NSArray *messages;
+@property (nonatomic, strong) NSString *lastestMid;
 @end
 
 @implementation BBServiceMessageDetailViewController
@@ -25,36 +28,46 @@
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
 {
 
-    if ([keyPath isEqualToString:@"publicMessageResult"]) {
-        NSDictionary *result = [PalmUIManagement sharedInstance].publicMessageResult;
+    if ([keyPath isEqualToString:@"publicAccountMessages"]) {
+        NSDictionary *result = [PalmUIManagement sharedInstance].publicAccountMessages;
         
         if (![result[@"hasError"] boolValue]) {
             NSDictionary *data = result[@"data"];
             NSDictionary *list = data[@"list"];
             [self filterData:list];
+            
         }else{
             [self closeProgress];
             [self showProgressWithText:@"获取消息失败,请重试" withDelayTime:1];
             [self.navigationController popViewControllerAnimated:YES];
         }
         
+        if (self.loadStatus == AccountMessageLoadStatusAppend) {
+            [self.detailScrollview.infiniteScrollingView stopAnimating];
+        }else if (self.loadStatus == AccountMessageLoadStatusRefresh)
+        {
+            [self.detailScrollview.pullToRefreshView stopAnimating];
+        }
+        
+        
+        
     }
 }
 
 - (void)viewWillAppear:(BOOL)animated
 {
-    [[PalmUIManagement sharedInstance] addObserver:self forKeyPath:@"publicMessageResult" options:0 context:nil];
+    [[PalmUIManagement sharedInstance] addObserver:self forKeyPath:@"publicAccountMessages" options:0 context:nil];
 }
 
 - (void)viewDidDisappear:(BOOL)animated
 {
-    [[PalmUIManagement sharedInstance] removeObserver:self forKeyPath:@"publicMessageResult"];
+    [[PalmUIManagement sharedInstance] removeObserver:self forKeyPath:@"publicAccountMessages"];
 }
 
 - (void)viewDidLoad {
     [super viewDidLoad];
 
-    
+    self.lastestMid = @"";
     // left
     UIButton *backButton = [UIButton buttonWithType:UIButtonTypeCustom];
     [backButton setFrame:CGRectMake(0.f, 7.f, 24.f, 24.f)];
@@ -62,19 +75,34 @@
     [backButton addTarget:self action:@selector(backButtonTaped) forControlEvents:UIControlEventTouchUpInside];
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:backButton];
     
-    /*
+    
     // right
     UIButton *detail = [UIButton buttonWithType:UIButtonTypeCustom];
     [detail setFrame:CGRectMake(0.f, 7.f, 24.f, 24.f)];
     [detail setBackgroundImage:[UIImage imageNamed:@"user_alt"] forState:UIControlStateNormal];
     [detail addTarget:self action:@selector(detailButtonTaped) forControlEvents:UIControlEventTouchUpInside];
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:detail];
-    */
+    
     
     _detailScrollview = [[UIScrollView alloc] initWithFrame:CGRectMake(15.f, 0.f, self.screenWidth-30.f, self.screenHeight-70.f)];
     _detailScrollview.showsVerticalScrollIndicator = NO;
     [self.view addSubview:_detailScrollview];
     // Do any additional setup after loading the view.
+    
+    __weak BBServiceMessageDetailViewController *weakSelf = self;
+    // 刷新
+    [_detailScrollview addPullToRefreshWithActionHandler:^{
+        weakSelf.loadStatus = AccountMessageLoadStatusRefresh;
+        [[PalmUIManagement sharedInstance] getPublicAccountMessages:weakSelf.model.accountID withMid:@"" withSize:10];
+    }];
+    
+    // 追加
+    [_detailScrollview addInfiniteScrollingWithActionHandler:^{
+        if (![weakSelf.lastestMid isEqualToString:@""]) {
+            weakSelf.loadStatus = AccountMessageLoadStatusAppend;
+            [[PalmUIManagement sharedInstance] getPublicAccountMessages:weakSelf.model.accountID withMid:weakSelf.lastestMid withSize:10];
+        }
+    }];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -82,8 +110,13 @@
     // Dispose of any resources that can be recreated.
 }
 
-- (void)setModel:(CPDBModelNotifyMessage *)model
+- (void)setModel:(BBServiceAccountModel *)model
 {
+    _model = model;
+    self.title = model.accountName;
+    
+    [self showProgressWithText:@"正在获取..."];
+    [[PalmUIManagement sharedInstance] getPublicAccountMessages:model.accountID withMid:@"" withSize:10];
     /*
     _model = model;
     if (model.from.length > 0) {
@@ -120,6 +153,7 @@
 - (void)filterData:(NSDictionary *)fullData
 {
     //转model
+    
     NSMutableArray *tempMessages = [[NSMutableArray alloc] init];
     for (NSString *key in fullData.allKeys) {
         NSArray *tempValue = fullData[key];
@@ -128,11 +162,18 @@
                 NSMutableArray *subItems = [[NSMutableArray alloc]initWithCapacity:4];
                 for (int i = 0 ; i < tempValue.count; i++) {
                     NSDictionary *dic = tempValue[i];
-                    [subItems addObject:[BBServiceMessageDetailModel convertByDic:dic]];
+                    BBServiceMessageDetailModel *tempModel = [BBServiceMessageDetailModel convertByDic:dic];
+                    [subItems addObject:tempModel];
+                    if (i == tempValue.count-1) {
+                        self.lastestMid = tempModel.mid;
+                    }
                 }
                 [tempMessages addObject:subItems];
-            
         }
+    }
+    
+    if (self.loadStatus == AccountMessageLoadStatusAppend) {
+        [tempMessages addObjectsFromArray:self.messages];
     }
     
     //时间排序
@@ -164,6 +205,13 @@
 
 - (void)reloadData
 {
+    for (id view in self.detailScrollview.subviews) {
+        if ([view isKindOfClass:[BBServiceMessageDetailView class]]) {
+            [view removeFromSuperview];
+        }
+        
+    }
+    
     int singeViews = 0;
     int mutilViews = 0;
     CGFloat singeViewHeight = 240.f;
