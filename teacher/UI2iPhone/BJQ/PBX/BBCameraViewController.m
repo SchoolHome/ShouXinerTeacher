@@ -12,7 +12,6 @@
 #import <AssetsLibrary/AssetsLibrary.h>
 
 #import "BBRecordViewController.h"
-#import "BBTempRecordViewController.h"
 #import "BBPostPBXViewController.h"
 #import "BBImagePreviewVIewController.h"
 
