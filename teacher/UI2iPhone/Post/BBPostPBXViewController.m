@@ -14,7 +14,8 @@
 #import "BBRecommendedRangeViewController.h"
 #import "BBStudentsListViewController.h"
 #import "BBCameraViewController.h"
-
+#import "BBImagePreviewVIewController.h"
+#import "BBRecordViewController.h"
 
 #import "BBStudentModel.h"
 #import "CropVideo.h"
@@ -129,6 +130,7 @@
         CropVideoModel *model = [PalmUIManagement sharedInstance].videoCompressionState;
         if (model.state == kCropVideoCompleted) {
             [self closeProgress];
+            [[NSFileManager defaultManager] removeItemAtURL:self.videoUrl error:nil];
             [self initMoviePlayer];
         }else if (model.state == KCropVideoError){
             [self closeProgress];
@@ -178,6 +180,7 @@
 {
     [super viewWillAppear:animated];
     
+    [self.navigationController setNavigationBarHidden:NO];
     [[PalmUIManagement sharedInstance] addObserver:self forKeyPath:@"updateImageResult" options:0 context:nil];
     [[PalmUIManagement sharedInstance] addObserver:self forKeyPath:@"topicResult" options:0 context:nil];
     [[PalmUIManagement sharedInstance] addObserver:self forKeyPath:@"groupStudents" options:0 context:nil];
@@ -195,6 +198,18 @@
     [[PalmUIManagement sharedInstance] removeObserver:self forKeyPath:@"groupStudents"];
     [[PalmUIManagement sharedInstance]removeObserver:self forKeyPath:@"videoCompressionState"];
     [[PalmUIManagement sharedInstance]removeObserver:self forKeyPath:@"uploadVideoResult"];
+}
+
+- (void)viewDidAppear:(BOOL)animated
+{
+    
+    NSMutableArray *navControllers = [NSMutableArray arrayWithArray:self.navigationController.viewControllers];
+    for (id controller in self.navigationController.viewControllers) {
+        if ([controller isKindOfClass:[BBCameraViewController class]] || [controller isKindOfClass:[BBRecordViewController class]] || [controller isKindOfClass:[BBImagePreviewVIewController  class]]) {
+            [navControllers removeObject:controller];
+        }
+    }
+    [self.navigationController setViewControllers:[NSArray arrayWithArray:navControllers] animated:NO];
 }
 
 - (void)viewDidLoad
@@ -408,8 +423,10 @@
     //videoPlayer
     // 显示视频
     NSLog(@"cropSize==%@",[CropVideo getFileSizeWithName:[self getTempSaveVideoPath]]);
+    
     self.moviePlayer = [[MPMoviePlayerController alloc] initWithContentURL:[NSURL fileURLWithPath:[self getTempSaveVideoPath]]];
     NSLog(@"%@",self.moviePlayer.contentURL);
+    
     self.moviePlayer.view.frame = CGRectMake(0.0f, IOS7?0.f:-20.f, self.screenWidth, IOS7?self.screenHeight:self.screenHeight+20.f);
     
     
@@ -493,7 +510,7 @@
         [self showProgressWithText:@"获取图片失败,请重试" withDelayTime:2.f];
         //[self setChoosenImages:@[image] andISVideo:YES];
         //[self.navigationController popToRootViewControllerAnimated:YES];
-        //return;
+        return;
     }
     [self setChoosenImages:@[image] andISVideo:YES];
 }
@@ -597,15 +614,9 @@
 {
     if ([[actionSheet buttonTitleAtIndex:0] isEqualToString:@"拍摄"] && buttonIndex == 0) {
         //进自定义拍照界面
-        NSMutableArray *navControllers = [NSMutableArray arrayWithArray:self.navigationController.viewControllers];
-        for (id controller in navControllers) {
-            if ([controller isKindOfClass:[BBCameraViewController class]]) {
-                [navControllers removeObject:controller];
-                [self.navigationController setViewControllers:[NSArray arrayWithArray:navControllers] animated:NO];
-                break;
-            }
+        if (self.moviePlayer) {
+            self.moviePlayer = nil;
         }
-
         
         BBCameraViewController *camera = [[BBCameraViewController alloc] init];
         camera.hidesBottomBarWhenPushed = YES;
