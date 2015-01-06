@@ -20,6 +20,7 @@
     
     
 }
+@property (nonatomic) NSInteger flashStatus;
 @property (nonatomic, strong) UIImagePickerController *imagePickerController;
 
 @end

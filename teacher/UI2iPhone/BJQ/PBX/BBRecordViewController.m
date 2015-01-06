@@ -314,7 +314,6 @@ static void * SessionRunningAndDeviceAuthorizedContext = &SessionRunningAndDevic
             if (isRecording)
             {
                 [[self camerControl] setEnabled:NO];
-                //[[self recordBtn] setTitle:NSLocalizedString(@"Stop", @"Recording button stop title") forState:UIControlStateNormal];
                 [[self recordBtn] setBackgroundImage:[UIImage imageNamed:@"record_on"] forState:UIControlStateNormal];
                 [[self recordBtn] setEnabled:NO];
             }
@@ -380,9 +379,7 @@ static void * SessionRunningAndDeviceAuthorizedContext = &SessionRunningAndDevic
 
 - (void)receiveDidEnterBackground
 {
-    if ([[self movieFileOutput] isRecording]) {
         isEnteredBackground = YES;
-    }
 }
 
 #pragma mark Actions
@@ -417,7 +414,7 @@ static void * SessionRunningAndDeviceAuthorizedContext = &SessionRunningAndDevic
                 break;
         }
 
-        [BBRecordViewController setFlashMode:AVCaptureFlashModeOn forDevice:device];
+        [BBRecordViewController setFlashMode:flashStatus forDevice:device];
     }
 }
 
@@ -425,8 +422,7 @@ static void * SessionRunningAndDeviceAuthorizedContext = &SessionRunningAndDevic
 
 - (void)startVideoCapture:(id)sender
 {
-    
-    
+    isEnteredBackground = NO;
     dispatch_async([self sessionQueue], ^{
         if (![[self movieFileOutput] isRecording])
         {
@@ -454,8 +450,6 @@ static void * SessionRunningAndDeviceAuthorizedContext = &SessionRunningAndDevic
             [[self movieFileOutput] stopRecording];
         }
     });
-    
-    [[self recordBtn] setEnabled:NO];
 }
 
 - (void)controlCarmerDirection:(id)sender
@@ -556,7 +550,11 @@ static void * SessionRunningAndDeviceAuthorizedContext = &SessionRunningAndDevic
 - (void)captureOutput:(AVCaptureFileOutput *)captureOutput didFinishRecordingToOutputFileAtURL:(NSURL *)outputFileURL fromConnections:(NSArray *)connections error:(NSError *)error
 {
     if (error)
+    {
         NSLog(@"%@", error);
+        [self showProgressWithText:[NSString stringWithFormat:@"%@",error.userInfo[@"NSLocalizedDescription"]] withDelayTime:2.f];
+    }
+    
     
     NSMutableArray *navControllers = [NSMutableArray arrayWithArray:self.navigationController.viewControllers];
     for (id controller in navControllers) {
@@ -572,7 +570,7 @@ static void * SessionRunningAndDeviceAuthorizedContext = &SessionRunningAndDevic
     
     if (backgroundRecordingID != UIBackgroundTaskInvalid) [[UIApplication sharedApplication] endBackgroundTask:backgroundRecordingID];
     
-    if (isEnteredBackground) {
+    if (isEnteredBackground || error) {
         [[NSFileManager defaultManager] removeItemAtURL:outputFileURL error:nil];
         BBPostPBXViewController *postVideoPBX = [[BBPostPBXViewController alloc] initWithPostType:POST_TYPE_PBX];
         postVideoPBX.hidesBottomBarWhenPushed = YES;
@@ -642,6 +640,7 @@ static void * SessionRunningAndDeviceAuthorizedContext = &SessionRunningAndDevic
         if ([device lockForConfiguration:&error])
         {
             [device setFlashMode:flashMode];
+            [device setTorchMode:flashMode];
             [device unlockForConfiguration];
         }
         else
