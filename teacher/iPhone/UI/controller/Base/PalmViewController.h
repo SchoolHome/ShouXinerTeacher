@@ -13,6 +13,7 @@
 #import "ColorUtil.h"
 
 #define HUDDelay 2
+#define IOS8 ([[[UIDevice currentDevice] systemVersion] floatValue] >= 8.0 ? YES : NO)
 #define IOS7 ([[[UIDevice currentDevice] systemVersion] floatValue] >= 7.0 ? YES : NO)
 #define IOS6 ([[[UIDevice currentDevice] systemVersion] floatValue] >= 6.0 ? YES : NO)
 
