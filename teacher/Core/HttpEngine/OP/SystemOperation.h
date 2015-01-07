@@ -17,11 +17,13 @@ typedef enum{
     kGetResetPasswordSMS,
     // 登陆前重置密码
     kPostResetPassword,
-    
+    //班级圈banner广告
+    kGetAdvBannerInBJQ,
 }SystemType;
 
 @interface SystemOperation : PalmOperation
 -(SystemOperation *) initGetAdvInfo;
+-(SystemOperation *) initGetAdvBannerInBJQ;
 -(SystemOperation *) initGetAdvInfo : (int) groupID;
 -(SystemOperation *) initGetSMSVerifyCode : (NSString *)mobile;
 -(SystemOperation *) initGetCustomerServiceTel;
