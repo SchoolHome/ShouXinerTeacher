@@ -382,9 +382,26 @@ static void * SessionRunningAndDeviceAuthorizedContext = &SessionRunningAndDevic
         isEnteredBackground = YES;
 }
 
+- (void)hideToolsWhenRecording
+{
+    _camerControl.alpha = _takePictureBtn.alpha = _closeBtn.alpha = _flashBtn.alpha = 0.f;
+}
+
+- (void)recoverToolWhenEndRecording
+{
+    _camerControl.alpha = _takePictureBtn.alpha = _closeBtn.alpha = _flashBtn.alpha = 1.f;
+}
+
 #pragma mark Actions
 - (void)close
 {
+    for (id controller in self.navigationController.viewControllers ) {
+        if ([controller isKindOfClass:[BBPostPBXViewController class]]) {
+            [self.navigationController popToViewController:controller animated:YES];
+            return;
+        }
+    }
+    
     [self.navigationController popToRootViewControllerAnimated:YES];
 }
 
@@ -440,9 +457,19 @@ static void * SessionRunningAndDeviceAuthorizedContext = &SessionRunningAndDevic
             // Turning OFF flash for video recording
             [BBRecordViewController setFlashMode:flashStatus forDevice:[[self videoDeviceInput] device]];
             
+            
+            
             // Start recording to a temporary file.
             NSString *outputFilePath = [NSTemporaryDirectory() stringByAppendingPathComponent:[@"movie" stringByAppendingPathExtension:@"mov"]];
             [[self movieFileOutput] startRecordingToOutputFileURL:[NSURL fileURLWithPath:outputFilePath] recordingDelegate:self];
+            
+            dispatch_async(dispatch_get_main_queue(), ^{
+                //隐藏多余控制
+                [UIView animateWithDuration:0.3f animations:^{
+                    [self hideToolsWhenRecording];
+                }];
+            });
+            
         }
         else
         {
