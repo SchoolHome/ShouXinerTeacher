@@ -37,6 +37,8 @@
     
     self.title = @"详情";
     
+    self.view.backgroundColor = [UIColor colorWithHexString:@"#f2f2f2"];
+    
     UIButton *backButton = [UIButton buttonWithType:UIButtonTypeCustom];
     [backButton setFrame:CGRectMake(0.f, 7.f, 24.f, 24.f)];
     [backButton setBackgroundImage:[UIImage imageNamed:@"back"] forState:UIControlStateNormal];
@@ -69,11 +71,12 @@
     [tableviewFootView  addSubview:checkMessage];
     */
     
-    UITableView *tableview = [[UITableView alloc] initWithFrame:CGRectMake(0.f, 0.f, self.screenWidth, self.screenHeight-40.f) style:UITableViewStyleGrouped];
+    UITableView *tableview = [[UITableView alloc] initWithFrame:CGRectMake(0.f, 0.f, self.screenWidth, self.screenHeight-40.f) style:UITableViewStylePlain];
     tableview.scrollEnabled = NO;
     tableview.delegate = self;
     tableview.dataSource = self;
     tableview.tableHeaderView = tableviewHeaderView;
+    tableview.backgroundColor = [UIColor clearColor];
     tableview.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
     [self.view addSubview:tableview];
     // Do any additional setup after loading the view.
@@ -111,6 +114,9 @@
 {
     UITableViewCell *cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue2 reuseIdentifier:@"cellIden"];
     cell.textLabel.text = @"功能介绍";
+    cell.userInteractionEnabled = NO;
+    cell.contentView.backgroundColor = [UIColor whiteColor];
+    cell.backgroundColor = [UIColor clearColor];
     cell.textLabel.textAlignment  = NSTextAlignmentCenter;
     cell.textLabel.textColor = [UIColor lightGrayColor];
     cell.detailTextLabel.numberOfLines = 100;

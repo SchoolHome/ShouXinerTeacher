@@ -710,7 +710,13 @@ static void * SessionRunningAndDeviceAuthorizedContext = &SessionRunningAndDevic
 
 - (void)checkDeviceAuthorizationStatus
 {
+    if (!IOS7) {
+        [self setDeviceAuthorized:YES];
+        return;
+    }
+    
     NSString *mediaType = AVMediaTypeVideo;
+    
     
     [AVCaptureDevice requestAccessForMediaType:mediaType completionHandler:^(BOOL granted) {
         if (granted)

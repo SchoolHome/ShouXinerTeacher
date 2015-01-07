@@ -346,10 +346,11 @@
             
             //所属班级
             NSDictionary *dic = (NSDictionary *)[model.birthday objectFromJSONString];
-            NSLog(@"%@",dic);
             if (dic && dic.allKeys > 0) {
-                if ([dic.allKeys[0] integerValue] == classNum) {
-                    [tempParentsArray addObject:tempModel];
+                for (NSString *key in dic.allKeys) {
+                    if ([key integerValue] == classNum) {
+                        [tempParentsArray addObject:tempModel];
+                    }
                 }
             }
         }else if ([model.coupleAccount isEqualToString:@"TeacherAndParent"])
@@ -359,8 +360,10 @@
             [tempTeachersArray addObject:tempModel];
             NSDictionary *dic = (NSDictionary *)[model.birthday objectFromJSONString];
             if (dic && dic.allKeys > 0) {
-                if ([dic.allKeys[0] integerValue] == classNum) {
-                    [tempParentsArray addObject:tempModel];
+                for (NSString *key in dic.allKeys) {
+                    if ([key integerValue] == classNum) {
+                        [tempParentsArray addObject:tempModel];
+                    }
                 }
             }
         }else

@@ -83,7 +83,7 @@
     
     _memberDisplayView = [[MutilGroupMemberDisplayView alloc] initWithFrame:CGRectMake(0.f, 0.f, self.screenWidth, 0.f)];
     _memberDisplayView.delegate = self;
-    [_memberDisplayView setMembers:[self getUserInfos]];
+    [_memberDisplayView setMembers:self.msgGroup.memberList];
     _memberDisplayView.backgroundColor = [UIColor whiteColor];
     
     UIView *tableviewFootView = [[UIView alloc] initWithFrame:CGRectMake(0.f, 0.f, self.screenWidth, 106.f)];
@@ -166,7 +166,7 @@
             break;
         }
     }
-    [_memberDisplayView setMembers:[self getUserInfos]];
+    [_memberDisplayView setMembers:self.msgGroup.memberList];
     
     [self.detailTableview setTableHeaderView:_memberDisplayView];
     [self.detailTableview reloadData];
@@ -178,9 +178,7 @@
 {
     NSMutableArray *userInfos = [[NSMutableArray alloc] init];
     for (CPUIModelMessageGroupMember *member in self.msgGroup.memberList) {
-        if (member.userInfo) {
             [userInfos addObject:member.userInfo];
-        }
     }
     return [NSArray arrayWithArray:userInfos];
 }
@@ -259,13 +257,17 @@
 
 - (void)setMembers:(NSArray *)members
 {
+    /*
     NSMutableArray *tempMembers = [[NSMutableArray alloc] init];
     for (CPUIModelUserInfo *userInfo in members) {
-        if (userInfo.nickName.length > 0 && ![userInfo.nickName isEqualToString:[CPUIModelManagement sharedInstance].uiPersonalInfo.nickName]) {
+//        if (userInfo.nickName.length > 0 && ![userInfo.nickName isEqualToString:[CPUIModelManagement sharedInstance].uiPersonalInfo.nickName]) {
+//            [tempMembers addObject:userInfo];
+//        }
+        //算自己
             [tempMembers addObject:userInfo];
-        }
     }
-    _members = [NSArray arrayWithArray:tempMembers];
+     */
+    _members = [NSArray arrayWithArray:members];
     CGRect tempFrame = self.frame;
     tempFrame.size.height = 18+(itemWidth+14.f+intervalForItem+intervalForImageAndTitle)*[self getItemLines];
     self.frame = tempFrame;
@@ -298,7 +300,9 @@
 
             return;
         }
-        CPUIModelUserInfo *userInfo = self.members[i];
+        
+        CPUIModelMessageGroupMember *member = self.members[i];
+        CPUIModelUserInfo *userInfo = member.userInfo;
         
         CGRect nickNameFrame = CGRectMake(CGRectGetMinX(imageFrame)-spacing/2, CGRectGetMaxY(imageFrame)+intervalForImageAndTitle, itemWidth+spacing, 14.f);
         
@@ -312,7 +316,16 @@
             itemImage.tag = 100+i;
             [self addSubview:itemImage];
         }
-        [itemImage setImage:userInfo.headerPath.length ? [UIImage imageWithContentsOfFile:userInfo.headerPath] : [UIImage imageNamed:@"girl"]];
+        if (userInfo.headerPath.length) {
+            [itemImage setImage:[UIImage imageWithContentsOfFile:userInfo.headerPath]];
+        }else
+        {
+            if (!userInfo.nickName.length || [userInfo.nickName isEqualToString:[CPUIModelManagement sharedInstance].uiPersonalInfo.nickName]) {
+                [itemImage setImage:[UIImage imageWithContentsOfFile:[CPUIModelManagement sharedInstance].uiPersonalInfo.selfHeaderImgPath]];
+            }else [itemImage setImage:[UIImage imageNamed:@"girl"]];
+            
+        }
+
         
         UILabel *itemNickName = (UILabel *)[self viewWithTag:300+i];
         if (!itemNickName) {
@@ -324,9 +337,7 @@
             itemNickName.tag = 300+i;
             [self addSubview:itemNickName];
         }
-        itemNickName.text = userInfo.nickName;
-
-        
+        itemNickName.text = userInfo.nickName.length ? userInfo.nickName : [CPUIModelManagement sharedInstance].uiPersonalInfo.nickName;
     }
     
 }
