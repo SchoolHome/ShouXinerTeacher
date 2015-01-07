@@ -179,7 +179,7 @@ static void * SessionRunningAndDeviceAuthorizedContext = &SessionRunningAndDevic
                 // Because AVCaptureVideoPreviewLayer is the backing layer for AVCamPreviewView and UIView can only be manipulated on main thread.
                 // Note: As an exception to the above rule, it is not necessary to serialize video orientation changes on the AVCaptureVideoPreviewLayer’s connection with other session manipulation.
                 
-                [[(AVCaptureVideoPreviewLayer *)[[self previewView] layer] connection] setVideoOrientation:(AVCaptureVideoOrientation)[self interfaceOrientation]];
+                //[[(AVCaptureVideoPreviewLayer *)[[self previewView] layer] connection] setVideoOrientation:(AVCaptureVideoOrientation)[self interfaceOrientation]];
             });
         }
         
@@ -277,7 +277,7 @@ static void * SessionRunningAndDeviceAuthorizedContext = &SessionRunningAndDevic
 {
     return YES;
 }
-
+/*
 - (BOOL)shouldAutorotate
 {
     // Disable autorotation of the interface when recording is in progress.
@@ -294,7 +294,7 @@ static void * SessionRunningAndDeviceAuthorizedContext = &SessionRunningAndDevic
     [[(AVCaptureVideoPreviewLayer *)[[self previewView] layer] connection] setVideoOrientation:(AVCaptureVideoOrientation)toInterfaceOrientation];
     
 }
-
+*/
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
 {
     if (context == CapturingStillImageContext)
@@ -453,7 +453,7 @@ static void * SessionRunningAndDeviceAuthorizedContext = &SessionRunningAndDevic
             
             // Update the orientation on the movie file output video connection before starting recording.
             //[[[self movieFileOutput] connectionWithMediaType:AVMediaTypeVideo] setVideoOrientation:[[(AVCaptureVideoPreviewLayer *)[[self previewView] layer] connection] videoOrientation]];
-            [[self.movieFileOutput connectionWithMediaType:AVMediaTypeVideo] setVideoOrientation:(AVCaptureVideoOrientation)[UIDevice currentDevice].orientation];
+            //[[self.movieFileOutput connectionWithMediaType:AVMediaTypeVideo] setVideoOrientation:(AVCaptureVideoOrientation)[UIDevice currentDevice].orientation];
             // Turning OFF flash for video recording
             [BBRecordViewController setFlashMode:flashStatus forDevice:[[self videoDeviceInput] device]];
             
@@ -461,9 +461,10 @@ static void * SessionRunningAndDeviceAuthorizedContext = &SessionRunningAndDevic
             
             // Start recording to a temporary file.
             NSString *outputFilePath = [NSTemporaryDirectory() stringByAppendingPathComponent:[@"movie" stringByAppendingPathExtension:@"mov"]];
-            [[self movieFileOutput] startRecordingToOutputFileURL:[NSURL fileURLWithPath:outputFilePath] recordingDelegate:self];
+            [[NSFileManager defaultManager] removeItemAtURL:[NSURL fileURLWithPath:outputFilePath] error:nil];
             
             dispatch_async(dispatch_get_main_queue(), ^{
+                [[self movieFileOutput] startRecordingToOutputFileURL:[NSURL fileURLWithPath:outputFilePath] recordingDelegate:self];
                 //隐藏多余控制
                 [UIView animateWithDuration:0.3f animations:^{
                     [self hideToolsWhenRecording];
