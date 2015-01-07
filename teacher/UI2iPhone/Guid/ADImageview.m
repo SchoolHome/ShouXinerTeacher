@@ -21,7 +21,8 @@
     }
     return self;
 }
--(id)initWithUrl:(NSURL *)url
+
+-(id)initWithAdvDic:(NSDictionary *)advDic;
 {
     CGFloat screenHeight = [UIScreen mainScreen].bounds.size.height;
     //280,400.
@@ -34,7 +35,7 @@
 //        [self addSubview:bg];
         
         EGOImageView *adImageview = [[EGOImageView alloc] initWithFrame:CGRectMake(0,0 , 320.f, screenHeight)];
-        [adImageview setImageURL:url];
+        [adImageview setImageURL:nil];
         [self addSubview:adImageview];
         
         UIButton *close = [UIButton buttonWithType:UIButtonTypeCustom];

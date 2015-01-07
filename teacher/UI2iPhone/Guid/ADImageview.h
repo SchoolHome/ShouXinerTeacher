@@ -14,5 +14,5 @@
 @property (nonatomic, assign) id<ADImageviewDelegate> adDelegate;
 
 
--(id)initWithUrl:(NSURL *)url;
+-(id)initWithAdvDic:(NSDictionary *)advDic;
 @end

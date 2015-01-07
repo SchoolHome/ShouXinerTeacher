@@ -183,6 +183,13 @@ static PalmUIManagement *sharedInstance = nil;
     [[PalmNetWorkService sharedInstance] networkEngine:operation];
 }
 
+//获取班级圈banner广告
+-(void)getAdvBannerInBJQ
+{
+    SystemOperation *operation = [[SystemOperation alloc] initGetAdvBannerInBJQ];
+    [[PalmNetWorkService sharedInstance] networkEngine:operation];
+}
+
 // 上传视频
 -(void) updateUserVideoFile : (NSURL *) videoUrl withGroupID : (int) groupID{
     UpAndDownLoadOperation *operation = [[UpAndDownLoadOperation alloc] initUpdateUserVideoFile:videoUrl withGroupID:groupID];

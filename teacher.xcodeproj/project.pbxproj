@@ -100,6 +100,7 @@
 		04D431C7190F89F9004B2806 /* BBComentBG@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 04D431C3190F89F9004B2806 /* BBComentBG@2x.png */; };
 		04D431C8190F89F9004B2806 /* BBComentX.png in Resources */ = {isa = PBXBuildFile; fileRef = 04D431C4190F89F9004B2806 /* BBComentX.png */; };
 		04D431C9190F89F9004B2806 /* BBComentX@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 04D431C5190F89F9004B2806 /* BBComentX@2x.png */; };
+		04EB7A721A5CCDD400009B92 /* BBBJQBannerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 04EB7A711A5CCDD400009B92 /* BBBJQBannerView.m */; };
 		04F6E98818E00085007D24DF /* BBShopViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 04F6E98718E00085007D24DF /* BBShopViewController.m */; };
 		04F7FEB718CEF38A0086D09D /* BBMeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 04F7FEB618CEF38A0086D09D /* BBMeViewController.m */; };
 		19019D361A1DD9F200ED0F8C /* PublicOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 19019D351A1DD9F200ED0F8C /* PublicOperation.m */; };
@@ -1640,6 +1641,8 @@
 		04D431C3190F89F9004B2806 /* BBComentBG@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "BBComentBG@2x.png"; sourceTree = "<group>"; };
 		04D431C4190F89F9004B2806 /* BBComentX.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = BBComentX.png; sourceTree = "<group>"; };
 		04D431C5190F89F9004B2806 /* BBComentX@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "BBComentX@2x.png"; sourceTree = "<group>"; };
+		04EB7A701A5CCDD400009B92 /* BBBJQBannerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BBBJQBannerView.h; sourceTree = "<group>"; };
+		04EB7A711A5CCDD400009B92 /* BBBJQBannerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BBBJQBannerView.m; sourceTree = "<group>"; };
 		04F6E98618E00085007D24DF /* BBShopViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BBShopViewController.h; sourceTree = "<group>"; };
 		04F6E98718E00085007D24DF /* BBShopViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BBShopViewController.m; sourceTree = "<group>"; };
 		04F7FEB518CEF38A0086D09D /* BBMeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BBMeViewController.h; path = ME/BBMeViewController.h; sourceTree = "<group>"; };
@@ -7695,6 +7698,8 @@
 				7AC51B9F18CDDA6900AD1A8C /* BBBJQViewController.m */,
 				197363801A3EFCD20026AA31 /* BBShareWebViewController.h */,
 				197363811A3EFCD20026AA31 /* BBShareWebViewController.m */,
+				04EB7A701A5CCDD400009B92 /* BBBJQBannerView.h */,
+				04EB7A711A5CCDD400009B92 /* BBBJQBannerView.m */,
 			);
 			path = BJQ;
 			sourceTree = "<group>";
@@ -8878,6 +8883,7 @@
 				332D831618C33F0B007A75D5 /* FXForgetPasswordPanel.m in Sources */,
 				332D759D18C33552007A75D5 /* CPUIModelMessageGroup.m in Sources */,
 				332D831018C33F0B007A75D5 /* FXButtonExt.m in Sources */,
+				04EB7A721A5CCDD400009B92 /* BBBJQBannerView.m in Sources */,
 				332D82C618C33F0A007A75D5 /* HomePageAnimView.m in Sources */,
 				7A47062918D967F2006449F3 /* OHTouchesGestureRecognizer.m in Sources */,
 				332D74D218C33552007A75D5 /* CPDAOPersonalInfoDataAddition.m in Sources */,
@@ -9444,7 +9450,7 @@
 				ONLY_ACTIVE_ARCH = NO;
 				OTHER_LDFLAGS = "-lxml2";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "709F75F5-36D5-4576-A1CF-D7490871D808";
+				PROVISIONING_PROFILE = "dd754915-e488-4ce1-8eb7-0d40b7df03f2";
 				SDKROOT = iphoneos;
 				VALID_ARCHS = armv7;
 				WRAPPER_EXTENSION = app;
@@ -9480,7 +9486,7 @@
 				);
 				OTHER_LDFLAGS = "-lxml2";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "709F75F5-36D5-4576-A1CF-D7490871D808";
+				PROVISIONING_PROFILE = "dd754915-e488-4ce1-8eb7-0d40b7df03f2";
 				SDKROOT = iphoneos;
 				VALID_ARCHS = armv7;
 				WRAPPER_EXTENSION = app;

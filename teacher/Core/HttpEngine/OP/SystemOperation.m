@@ -32,7 +32,17 @@
     return self;
 }
 
-
+-(SystemOperation *) initGetAdvBannerInBJQ
+{
+    self = [self initOperation];
+    if (nil != self) {
+        self.type = kGetAdvBannerInBJQ;
+        NSString *urlStr = [NSString stringWithFormat:@"http://%@/mapi/adv/class",K_HOST_NAME_OF_PALM_SERVER];
+        NSLog(@"sxurl%@", urlStr);
+        [self setHttpRequestGetWithUrl:urlStr];
+    }
+    return self;
+}
 
 -(SystemOperation *) initGetAdvInfo : (int) groupID{
     self = [self initOperation];
@@ -155,7 +165,16 @@
     [self startAsynchronous];
 }
 
-
+-(void)getAdvBannerInBJQ
+{
+    [self.request setRequestCompleted:^(NSDictionary *data){
+        dispatch_block_t updateTagBlock = ^{
+            [PalmUIManagement sharedInstance].advBannerInBJQ = data;
+        };
+        dispatch_async(dispatch_get_main_queue(), updateTagBlock);
+    }];
+    [self startAsynchronous];
+}
 
 -(void) main{
     @autoreleasepool {
@@ -178,7 +197,9 @@
             case kPostResetPassword:
                 [self postResetPassword];
                 return;
-
+            case kGetAdvBannerInBJQ:
+                [self getAdvBannerInBJQ];
+                return;
             default:
                 break;
         }
