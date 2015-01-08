@@ -24,7 +24,7 @@
 
 #import "CPUIModelManagement.h"
 
-#import "SDAVAssetExportSession.h"
+//#import "SDAVAssetExportSession.h"
 @interface BBPostPBXViewController ()
 {
     NSMutableArray *selectedStuArray;
@@ -635,9 +635,9 @@
 {
     if ([[actionSheet buttonTitleAtIndex:0] isEqualToString:@"拍摄"] && buttonIndex == 0) {
         //进自定义拍照界面
-        if (self.moviePlayer) {
-            self.moviePlayer = nil;
-        }
+//        if (self.moviePlayer) {
+//            self.moviePlayer = nil;
+//        }
         
         BBCameraViewController *camera = [[BBCameraViewController alloc] init];
         camera.hidesBottomBarWhenPushed = YES;
