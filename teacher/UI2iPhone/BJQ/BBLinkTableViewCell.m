@@ -53,7 +53,7 @@
         linkIcon = [[EGOImageView alloc] initWithFrame:CGRectMake(10, 5, 45, 45)];
         [link addSubview:linkIcon];
         
-        linkTitle = [[UILabel alloc] initWithFrame:CGRectMake(65, 5, 185, 50)];
+        linkTitle = [[UILabel alloc] initWithFrame:CGRectMake(65, 5, 185, 45)];
         [link addSubview:linkTitle];
         linkTitle.backgroundColor = [UIColor clearColor];
     }
@@ -69,7 +69,6 @@
     [title sizeToFit];
     
     content.frame = CGRectMake(K_LEFT_PADDING, title.frame.origin.y + title.frame.size.height + 10.0f, 225, 0);
-    
 //    if (data.recommended) {
 //        self.TuiJianImage.hidden = NO;
 //    }else{
@@ -93,7 +92,7 @@
     linkTitle.text = self.data.forward.title;
     linkTitle.font = [UIFont systemFontOfSize:14];
     linkTitle.numberOfLines = 3;
-    [linkTitle sizeToFit];
+    //[linkTitle sizeToFit];
     
     if (self.data.forward.author_avatar) {
         NSString *url = [NSString stringWithFormat:@"%@/mlogo",self.data.forward.author_avatar];
