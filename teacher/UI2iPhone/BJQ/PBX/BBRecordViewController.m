@@ -238,12 +238,22 @@ static void * SessionRunningAndDeviceAuthorizedContext = &SessionRunningAndDevic
         [self setRuntimeErrorHandlingObserver:[[NSNotificationCenter defaultCenter] addObserverForName:AVCaptureSessionRuntimeErrorNotification object:[self session] queue:nil usingBlock:^(NSNotification *note) {
             BBRecordViewController *strongSelf = weakSelf;
             dispatch_async([strongSelf sessionQueue], ^{
+                NSLog(@"beginstartRunning");
                 // Manually restarting the session since it must have been stopped due to an error.
                 [[strongSelf session] startRunning];
-                [[strongSelf recordBtn] setBackgroundImage:[UIImage imageNamed:@"record"] forState:UIControlStateNormal];
+                NSLog(@"endstartRunning");
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    NSLog(@"beginsetImage");
+                    [[strongSelf recordBtn] setBackgroundImage:[UIImage imageNamed:@"record"] forState:UIControlStateNormal];
+                    NSLog(@"endSetImage");
+                });
+
             });
         }]];
+        NSLog(@"beginstartRunning out block");
+        sleep(1.f);
         [[self session] startRunning];
+        NSLog(@"endstartRunning out block");
     });
     
     //[self.navigationController setNavigationBarHidden:YES];

@@ -99,6 +99,7 @@
     self.imagePickerController = [[UIImagePickerController alloc] init];
     self.imagePickerController.delegate = self;
     self.imagePickerController.sourceType = UIImagePickerControllerSourceTypeCamera;
+    self.imagePickerController.mediaTypes = [UIImagePickerController availableMediaTypesForSourceType:UIImagePickerControllerSourceTypeCamera];
     self.imagePickerController.showsCameraControls = NO;
     self.imagePickerController.navigationBarHidden = YES;
     self.imagePickerController.cameraFlashMode = (UIImagePickerControllerCameraFlashMode)self.flashStatus;
