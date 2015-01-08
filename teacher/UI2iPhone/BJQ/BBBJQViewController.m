@@ -339,7 +339,11 @@
     if ([keyPath isEqualToString:@"advBannerInBJQ"]) {
         NSDictionary *dic = [PalmUIManagement sharedInstance].advBannerInBJQ;
         if (![dic[@"hasError"] boolValue]) {
-            NSArray *advArray = dic[@"data"][@"list"];
+            NSDictionary *allAdvs = dic[@"data"][@"list"];
+            NSMutableArray *advArray = [[NSMutableArray alloc] init];
+            for (NSString *key in [allAdvs allKeys]) {
+                [advArray addObject:[allAdvs objectForKey:key]];
+            }
             [self addBannerByAdvs:advArray];
         }
     }
@@ -1381,7 +1385,15 @@
 
 -(void)addBannerByAdvs:(NSArray *)advArray
 {
-   /* BBBJQBannerView *bannerView = [[BBBJQBannerView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 80)];
-    [[UIApplication sharedApplication].keyWindow addSubview:bannerView];*/
+    BBBJQBannerView *bannerView = [[BBBJQBannerView alloc] initWithAdvs:advArray];
+    [bannerView setDelegate:(id<BBBJQBannerViewDelegate>)self];
+    [self.navigationController.view addSubview:bannerView];
+}
+
+-(void)advTappedByURL:(NSURL *)advUrl
+{
+    ADDetailViewController *adDetailVC = [[ADDetailViewController alloc] initWithUrl:advUrl andADType:AD_TYPE_SCREEN];
+    adDetailVC.hidesBottomBarWhenPushed = YES;
+    [self.navigationController pushViewController:adDetailVC animated:YES];
 }
 @end
