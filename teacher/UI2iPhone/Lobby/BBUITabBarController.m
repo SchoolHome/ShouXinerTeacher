@@ -176,7 +176,7 @@
     
     NSArray *ctrls = [NSArray arrayWithObjects:n1,n2,n3,n4,n5,nil];
     self.viewControllers = ctrls;
-    self.tabBar.tintColor = [UIColor blackColor];
+    self.tabBar.tintColor = [UIColor clearColor];
     self.tabBar.shadowImage = [[UIImage alloc] init];
     self.selectedIndex = 0;
     self.delegate = (id<UITabBarControllerDelegate>)self;

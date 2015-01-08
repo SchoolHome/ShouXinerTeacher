@@ -38,7 +38,6 @@
     if (nil != self) {
         self.type = kGetAdvBannerInBJQ;
         NSString *urlStr = [NSString stringWithFormat:@"http://%@/mapi/adv/class",K_HOST_NAME_OF_PALM_SERVER];
-        NSLog(@"sxurl%@", urlStr);
         [self setHttpRequestGetWithUrl:urlStr];
     }
     return self;

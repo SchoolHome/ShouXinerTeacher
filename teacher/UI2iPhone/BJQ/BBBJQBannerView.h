@@ -6,12 +6,18 @@
 //  Copyright (c) 2015年 ws. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
+#import "EGOImageView.h"
 @protocol BBBJQBannerViewDelegate <NSObject>
 -(void)advTappedByURL:(NSURL *)advUrl;
 @end
-@interface BBBJQBannerView : UIView
+@interface BBBJQBannerView : UIView<EGOImageViewDelegate>
 {
     UIScrollView *advScroll;
+    UILabel *txtTime;
+    NSArray *advsArray;
+    NSInteger lastTime;
+    NSTimer *closeTimer;
 }
+@property (nonatomic, weak) id<BBBJQBannerViewDelegate> delegate;
+-(id)initWithAdvs:(NSArray *)advs;
 @end

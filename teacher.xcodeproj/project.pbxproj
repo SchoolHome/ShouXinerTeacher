@@ -75,6 +75,10 @@
 		0454E91B1A15866D000AA44F /* BBSignModifyViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0454E91A1A15866D000AA44F /* BBSignModifyViewController.m */; };
 		04572A061A130C2900E465A2 /* grow.png in Resources */ = {isa = PBXBuildFile; fileRef = 04572A041A130C2900E465A2 /* grow.png */; };
 		04572A071A130C2900E465A2 /* grow@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 04572A051A130C2900E465A2 /* grow@2x.png */; };
+		0464EB331A5E639800763FC5 /* bjq_banner_close.png in Resources */ = {isa = PBXBuildFile; fileRef = 0464EB2F1A5E639800763FC5 /* bjq_banner_close.png */; };
+		0464EB341A5E639800763FC5 /* bjq_banner_close@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0464EB301A5E639800763FC5 /* bjq_banner_close@2x.png */; };
+		0464EB351A5E639800763FC5 /* bjq_banner_graybg.png in Resources */ = {isa = PBXBuildFile; fileRef = 0464EB311A5E639800763FC5 /* bjq_banner_graybg.png */; };
+		0464EB361A5E639800763FC5 /* bjq_banner_graybg@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0464EB321A5E639800763FC5 /* bjq_banner_graybg@2x.png */; };
 		046EB5B51A11D2AD008AE07A /* BBMeSettingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 046EB5B41A11D2AD008AE07A /* BBMeSettingViewController.m */; };
 		047823DA18D2A9F60012D87D /* BBMeTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 047823D918D2A9F60012D87D /* BBMeTableViewCell.m */; };
 		047823DD18D2C8660012D87D /* BBMeProfileController.m in Sources */ = {isa = PBXBuildFile; fileRef = 047823DC18D2C8660012D87D /* BBMeProfileController.m */; };
@@ -1605,6 +1609,10 @@
 		0454E91A1A15866D000AA44F /* BBSignModifyViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BBSignModifyViewController.m; path = ME/BBSignModifyViewController.m; sourceTree = "<group>"; };
 		04572A041A130C2900E465A2 /* grow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = grow.png; path = ME/grow.png; sourceTree = "<group>"; };
 		04572A051A130C2900E465A2 /* grow@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "grow@2x.png"; path = "ME/grow@2x.png"; sourceTree = "<group>"; };
+		0464EB2F1A5E639800763FC5 /* bjq_banner_close.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = bjq_banner_close.png; sourceTree = "<group>"; };
+		0464EB301A5E639800763FC5 /* bjq_banner_close@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "bjq_banner_close@2x.png"; sourceTree = "<group>"; };
+		0464EB311A5E639800763FC5 /* bjq_banner_graybg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = bjq_banner_graybg.png; sourceTree = "<group>"; };
+		0464EB321A5E639800763FC5 /* bjq_banner_graybg@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "bjq_banner_graybg@2x.png"; sourceTree = "<group>"; };
 		046EB5B31A11D2AD008AE07A /* BBMeSettingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BBMeSettingViewController.h; path = ME/BBMeSettingViewController.h; sourceTree = "<group>"; };
 		046EB5B41A11D2AD008AE07A /* BBMeSettingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BBMeSettingViewController.m; path = ME/BBMeSettingViewController.m; sourceTree = "<group>"; };
 		047823D818D2A9F60012D87D /* BBMeTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BBMeTableViewCell.h; path = ME/BBMeTableViewCell.h; sourceTree = "<group>"; };
@@ -7521,6 +7529,10 @@
 		7AA5000518DF168600FC59C4 /* BJQ */ = {
 			isa = PBXGroup;
 			children = (
+				0464EB2F1A5E639800763FC5 /* bjq_banner_close.png */,
+				0464EB301A5E639800763FC5 /* bjq_banner_close@2x.png */,
+				0464EB311A5E639800763FC5 /* bjq_banner_graybg.png */,
+				0464EB321A5E639800763FC5 /* bjq_banner_graybg@2x.png */,
 				19C08C12193F1BAA00C548CD /* BJQBiaoXian.png */,
 				19C08C13193F1BAA00C548CD /* BJQBiaoXian@2x.png */,
 				19C08C14193F1BAA00C548CD /* BJQBiaoXianRight.png */,
@@ -8058,6 +8070,7 @@
 				332D7F0C18C33F0A007A75D5 /* pb_addlike_press@2x.png in Resources */,
 				332D7F9E18C33F0A007A75D5 /* headpic_group_40x40@2x.png in Resources */,
 				198F473C1A19DA19001334CE /* Bottomlabel_bg@2x.png in Resources */,
+				0464EB331A5E639800763FC5 /* bjq_banner_close.png in Resources */,
 				332D822318C33F0A007A75D5 /* bg_im_graybackround@2x.png in Resources */,
 				332D7E6218C33F0A007A75D5 /* alarm_im_icon_gray@2x.png in Resources */,
 				332D7F4318C33F0A007A75D5 /* icon_index_she@2x.png in Resources */,
@@ -8221,6 +8234,7 @@
 				1982F7611A0C72820075F35F /* t_keyboard@2x.png in Resources */,
 				7AA5001D18DF168600FC59C4 /* BBComment@2x.png in Resources */,
 				043D4C271A37EB0D0063F230 /* login_input.png in Resources */,
+				0464EB351A5E639800763FC5 /* bjq_banner_graybg.png in Resources */,
 				195B1A9918E5997D00B3F9A7 /* ZJZAddPeople.png in Resources */,
 				332D7ECB18C33F0A007A75D5 /* bg_list_top_red@2x.png in Resources */,
 				1970BC5A191BB7E400F63454 /* ActivateButton@2x.png in Resources */,
@@ -8391,6 +8405,7 @@
 				0402E6DF1A3FCE15006DE13F /* 3_6.png in Resources */,
 				332D7ECF18C33F0A007A75D5 /* btn_add_press.png in Resources */,
 				7A076ADD18E1D90200911291 /* YZSSplieLine.png in Resources */,
+				0464EB361A5E639800763FC5 /* bjq_banner_graybg@2x.png in Resources */,
 				332D7FE018C33F0A007A75D5 /* sign_step2_icon_!@2x.png in Resources */,
 				193FA7A219F0A27A00874F1E /* up.png in Resources */,
 				04D431C6190F89F9004B2806 /* BBComentBG.png in Resources */,
@@ -8435,6 +8450,7 @@
 				332D823B18C33F0A007A75D5 /* bt_im_profile_x@2x.png in Resources */,
 				197FCF9F18F41D5000EE751B /* navBarBg44.png in Resources */,
 				040CEA261A159B4800659596 /* checkversion@2x.png in Resources */,
+				0464EB341A5E639800763FC5 /* bjq_banner_close@2x.png in Resources */,
 				332D7E5818C33F0A007A75D5 /* alarm_im_btn_chatset_press@2x.png in Resources */,
 				1982F7481A0C72820075F35F /* tab_contact.png in Resources */,
 				74FE93261A07D55800F2004D /* close@2x.png in Resources */,
