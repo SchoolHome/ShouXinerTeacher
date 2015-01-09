@@ -33,7 +33,7 @@
         advScroll = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 0, self.frame.size.width, self.frame.size.height)];
         for (int i=0; i<advsArray.count; i++) {
             NSDictionary *advDic = [advsArray objectAtIndex:i];
-            lastTime = [advDic[@"clossButton"] integerValue];
+            lastTime = [advDic[@"closeButton"] integerValue];
             EGOImageView *adImageview = [[EGOImageView alloc] initWithFrame:CGRectMake(i*advScroll.frame.size.width, 0, advScroll.frame.size.width, advScroll.frame.size.height)];
             [adImageview setDelegate:(id<EGOImageViewDelegate>)self];
             [adImageview setImageURL:[NSURL URLWithString:advDic[@"image"]]];
