@@ -293,12 +293,10 @@
         if (![[[PalmUIManagement sharedInstance].advWithGroupResult objectForKey:ASI_REQUEST_HAS_ERROR] boolValue]) {
             NSDictionary *result = [[[PalmUIManagement sharedInstance].advWithGroupResult objectForKey:ASI_REQUEST_DATA] objectForKey:@"content"];
             NSLog(@"ddddd::%@", result);
-            self.webUrl = result[@"url"];
-            self.imageUrl = result[@"image"];
-            /*ADImageview *adImage = [[ADImageview alloc] initWithUrl:[NSURL URLWithString:self.imageUrl]];
+            ADImageview *adImage = [[ADImageview alloc] initWithAdvDic:result];
             adImage.adDelegate = self;
             [[UIApplication sharedApplication].keyWindow addSubview:adImage];
-            [[UIApplication sharedApplication].keyWindow bringSubviewToFront:adImage];*/
+            [[UIApplication sharedApplication].keyWindow bringSubviewToFront:adImage];
         }
     }
     
@@ -349,8 +347,8 @@
     }
 }
 
--(void)imageTapped{
-    ADDetailViewController *adDetailVC = [[ADDetailViewController alloc] initWithUrl:[NSURL URLWithString:self.webUrl]andADType:AD_TYPE_SCREEN];
+-(void)imageTappedURL:(NSURL *)url{
+    ADDetailViewController *adDetailVC = [[ADDetailViewController alloc] initWithUrl:url andADType:AD_TYPE_SCREEN];
     adDetailVC.hidesBottomBarWhenPushed = YES;
     [self.navigationController pushViewController:adDetailVC animated:YES];
 }
