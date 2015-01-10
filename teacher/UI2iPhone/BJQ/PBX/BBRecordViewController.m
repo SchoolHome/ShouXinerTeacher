@@ -30,6 +30,9 @@ static void * SessionRunningAndDeviceAuthorizedContext = &SessionRunningAndDevic
     BOOL isEnteredBackground;
 }
 
+@property (nonatomic) CGFloat screenWidth;
+@property (nonatomic) CGFloat screenHeight;
+
 //UI
 @property (nonatomic, strong) UIButton *recordBtn;
 @property (nonatomic, strong) UIButton *closeBtn;
@@ -80,7 +83,8 @@ static void * SessionRunningAndDeviceAuthorizedContext = &SessionRunningAndDevic
     
     CGFloat height = IOS7? 0.f:-20.f;
     
-
+    self.screenWidth = self.view.bounds.size.width;
+    self.screenHeight = self.view.bounds.size.height;
     
     _closeBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     [_closeBtn setFrame:CGRectMake(20.f, 18.f, 44.f, 32.f)];
@@ -140,7 +144,6 @@ static void * SessionRunningAndDeviceAuthorizedContext = &SessionRunningAndDevic
     // Create the AVCaptureSession
     AVCaptureSession *session = [[AVCaptureSession alloc] init];
     [self setSession:session];
-    
     // Setup the preview view
     [[self previewView] setSession:session];
     AVCaptureVideoPreviewLayer *previewLayer = (AVCaptureVideoPreviewLayer *)[self.previewView layer];
@@ -215,7 +218,22 @@ static void * SessionRunningAndDeviceAuthorizedContext = &SessionRunningAndDevic
         }
          */
     });
+    
+    
+//    [[UIDevice currentDevice] beginGeneratingDeviceOrientationNotifications];
+//    [[NSNotificationCenter defaultCenter] addObserver:self
+//                                             selector:@selector(didRotate:)
+//                                                 name:UIDeviceOrientationDidChangeNotification
+//                                               object:nil];
+    
 }
+
+- (void)didRotate:(NSNotification *)notification
+{
+    NSLog(@"%d",[UIDevice currentDevice].orientation);
+}
+
+
 
 - (void)viewWillAppear:(BOOL)animated
 {
@@ -245,7 +263,6 @@ static void * SessionRunningAndDeviceAuthorizedContext = &SessionRunningAndDevic
             });
         }]];
         NSLog(@"beginstartRunning out block");
-        sleep(1.f);
         [[self session] startRunning];
         NSLog(@"endstartRunning out block");
     });
@@ -267,6 +284,7 @@ static void * SessionRunningAndDeviceAuthorizedContext = &SessionRunningAndDevic
     
     dispatch_async([self sessionQueue], ^{
         [[self session] stopRunning];
+        [self.session removeInput:self.videoDeviceInput];
         
         [[NSNotificationCenter defaultCenter] removeObserver:self name:AVCaptureDeviceSubjectAreaDidChangeNotification object:[[self videoDeviceInput] device]];
         [[NSNotificationCenter defaultCenter] removeObserver:[self runtimeErrorHandlingObserver]];
@@ -455,7 +473,25 @@ static void * SessionRunningAndDeviceAuthorizedContext = &SessionRunningAndDevic
             }
             
             //[[[self movieFileOutput] connectionWithMediaType:AVMediaTypeVideo] setVideoOrientation:[[(AVCaptureVideoPreviewLayer *)[[self previewView] layer] connection] videoOrientation]];
-            //[[self.movieFileOutput connectionWithMediaType:AVMediaTypeVideo] setVideoOrientation:(AVCaptureVideoOrientation)[UIDevice currentDevice].orientation];
+            AVCaptureVideoOrientation videoOrientation = AVCaptureVideoOrientationPortrait;
+            switch ([UIDevice currentDevice].orientation) {
+                case UIDeviceOrientationUnknown:
+                case UIDeviceOrientationPortrait:
+                    videoOrientation = AVCaptureVideoOrientationPortrait;
+                    break;
+                case UIDeviceOrientationPortraitUpsideDown:
+                    videoOrientation = AVCaptureVideoOrientationPortraitUpsideDown;
+                    break;
+                case UIDeviceOrientationLandscapeLeft:
+                    videoOrientation = AVCaptureVideoOrientationLandscapeRight;
+                    break;
+                case UIDeviceOrientationLandscapeRight:
+                    videoOrientation = AVCaptureVideoOrientationLandscapeLeft;
+                    break;
+                default:
+                    break;
+            }
+            [[self.movieFileOutput connectionWithMediaType:AVMediaTypeVideo] setVideoOrientation:videoOrientation];
             [BBRecordViewController setFlashMode:flashStatus forDevice:[[self videoDeviceInput] device]];
             
             
@@ -538,13 +574,28 @@ static void * SessionRunningAndDeviceAuthorizedContext = &SessionRunningAndDevic
 - (void)takePicture: (UIButton *)sender
 {
     sender.enabled = NO;
-    sleep(1.f);
     
+    /*
     for (id viewController in self.navigationController.viewControllers) {
         if ([viewController isKindOfClass:[BBCameraViewController class]]) {
             [self.navigationController popToViewController:viewController animated:NO];
         }
     }
+     */
+    //[[self previewView] removeFromSuperview];
+//    AVCaptureConnection *connection = [self.movieFileOutput connectionWithMediaType:AVMediaTypeVideo];
+//    [self.session removeConnection:connection];
+    
+    
+    for (id viewController in self.navigationController.viewControllers) {
+        if ([viewController isKindOfClass:[BBCameraViewController class]]) {
+            NSMutableArray *tempNavViewControllers = [NSMutableArray arrayWithArray:self.navigationController.viewControllers];
+            [tempNavViewControllers removeObject:viewController];
+            self.navigationController.viewControllers = tempNavViewControllers;
+            break;
+        }
+    }
+    
     
     BBCameraViewController *camera = [[BBCameraViewController alloc] init];
     camera.hidesBottomBarWhenPushed = YES;
@@ -578,7 +629,7 @@ static void * SessionRunningAndDeviceAuthorizedContext = &SessionRunningAndDevic
     if (error)
     {
         NSLog(@"%@", error);
-        [self showProgressWithText:[NSString stringWithFormat:@"%@",error.userInfo[@"NSLocalizedDescription"]] withDelayTime:2.f];
+        //[self showProgressWithText:[NSString stringWithFormat:@"%@",error.userInfo[@"NSLocalizedDescription"]] withDelayTime:2.f];
     }
     
     

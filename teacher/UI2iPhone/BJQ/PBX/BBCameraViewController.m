@@ -192,7 +192,7 @@
 - (void)record: (UIButton *)sender
 {
     sender.enabled = NO;
-    /*
+    
     for (id viewController in self.navigationController.viewControllers) {
         if ([viewController isKindOfClass:[BBRecordViewController class]]) {
             NSMutableArray *tempNavViewControllers = [NSMutableArray arrayWithArray:self.navigationController.viewControllers];
@@ -201,10 +201,12 @@
             break;
         }
     }
-   */
-    sleep(1.f);
+   
+    [self.imagePickerController.view removeFromSuperview];
+    //sleep(1.f);
     BBRecordViewController *record = [[BBRecordViewController alloc] init];
     [self.navigationController pushViewController:record animated:NO];
+
 }
 
 //闪光灯
