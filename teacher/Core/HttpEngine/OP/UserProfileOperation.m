@@ -116,14 +116,14 @@
 }
 
 -(UserProfileOperation *) initPostTopic : (int) groupid withTopicType : (int) topicType withSubject : (int) subject withTitle : (NSString *) title
-                            withContent : (NSString *) content withAttach : (NSString *) attach{
+                            withContent : (NSString *) content withAttach : (NSString *) attach activityid:(NSString *)activeID{
     if ([self initOperation]) {
         self.type = kPostTopic;
         
         NSDictionary *params = [NSDictionary dictionaryWithObjectsAndKeys:[NSNumber numberWithInt:groupid],@"groupid",
                                 [NSNumber numberWithInt:topicType],@"topictype",
                                 [NSNumber numberWithInt:subject],@"subject",
-                                title,@"title",content,@"content",attach,@"attach",nil];
+                                title,@"title",content,@"content",attach,@"attach",activeID,@"activityid", nil];
         NSString *urlStr = [NSString stringWithFormat:@"http://%@/mapi/createTopic",K_HOST_NAME_OF_PALM_SERVER];
         [self setHttpRequestPostWithUrl:urlStr params:params];
     }

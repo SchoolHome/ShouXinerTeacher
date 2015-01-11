@@ -9,6 +9,5 @@
 #import "PalmViewController.h"
 
 @interface BBMeWebViewController : PalmViewController
-@property (nonatomic) BOOL isHiddenHeader;
 @property (nonatomic, strong) NSURL *url;
 @end

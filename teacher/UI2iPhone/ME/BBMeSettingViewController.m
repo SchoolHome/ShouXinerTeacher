@@ -126,7 +126,6 @@
         }else{
             BBMeWebViewController *viewController = [[BBMeWebViewController alloc] init];
             viewController.url = [NSURL URLWithString:[dic objectForKey:@"url"]];
-            viewController.isHiddenHeader = NO;
             [viewController.navigationItem setTitle:[dic objectForKey:@"title"]];
             [self.navigationController pushViewController:viewController animated:YES];
         }

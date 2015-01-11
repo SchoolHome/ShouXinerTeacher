@@ -112,8 +112,8 @@ static PalmUIManagement *sharedInstance = nil;
 
 // 发表Topic
 -(void) postTopic : (int) groupid withTopicType : (int) topicType withSubject : (int) subject withTitle : (NSString *) title
-      withContent : (NSString *) content withAttach : (NSString *) attach{
-    UserProfileOperation *operation =[[UserProfileOperation alloc] initPostTopic:groupid withTopicType:topicType withSubject:subject withTitle:title withContent:content withAttach:attach];
+      withContent : (NSString *) content withAttach : (NSString *) attach activityid:(NSString *)activityID{
+    UserProfileOperation *operation =[[UserProfileOperation alloc] initPostTopic:groupid withTopicType:topicType withSubject:subject withTitle:title withContent:content withAttach:attach activityid:activityID];
     [[PalmNetWorkService sharedInstance] networkEngine:operation];
 }
 

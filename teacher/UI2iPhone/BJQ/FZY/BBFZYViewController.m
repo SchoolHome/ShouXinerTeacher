@@ -58,7 +58,8 @@
                                                  withSubject:_selectedIndex
                                                    withTitle:title
                                                  withContent:thingsTextView.text
-                                                  withAttach:attach];
+                                                  withAttach:attach
+                activityid:@""];
             }
             
         }else{  // 上传失败
@@ -296,7 +297,8 @@
                                          withSubject:_selectedIndex
                                            withTitle:title
                                          withContent:thingsTextView.text
-                                          withAttach:@""];
+                                          withAttach:@""
+                                          activityid:@""];
     }
     
     [thingsTextView resignFirstResponder];

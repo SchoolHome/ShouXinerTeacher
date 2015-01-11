@@ -7,11 +7,16 @@
 //
 
 #import "BBFXDetailViewController.h"
+#import "BBBasePostViewController.h"
+#import <CoreLocation/CoreLocation.h>
 
 @interface BBFXDetailViewController ()
 {
     UIWebView  *adWebview;
     UIActivityIndicatorView *activityIndicator;
+    BOOL isShowNavBar;//根据js判断是否显示nav
+    CLLocationManager *locationManager;//给js提供定位数据
+    NSString *activeID;
 }
 @end
 
@@ -20,7 +25,7 @@
 -(id)init{
     self = [super init];
     if (self) {
-        
+        isShowNavBar = YES;
     }
     return self;
 }
@@ -28,13 +33,22 @@
 -(void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    [self.navigationController setNavigationBarHidden:NO];
+    [self.navigationController setNavigationBarHidden:(!isShowNavBar)];
 }
 
 -(void)viewWillDisappear:(BOOL)animated
 {
     [super viewWillDisappear:animated];
-    [self.navigationController setNavigationBarHidden:NO];
+    [self.navigationController setNavigationBarHidden:NO animated:YES];
+}
+
+- (void)viewDidLoad
+{
+    [super viewDidLoad];
+    if (IOS7) {
+        self.edgesForExtendedLayout = UIRectEdgeNone;
+    }
+    // Do any additional setup after loading the view.
 }
 
 -(void)loadView
@@ -53,7 +67,8 @@
     adWebview.scalesPageToFit = YES;
     adWebview.delegate = (id<UIWebViewDelegate>)self;
     [adWebview.scrollView setMaximumZoomScale:4.f];
-    NSURLRequest *request =[NSURLRequest requestWithURL:self.url];
+//    NSURLRequest *request =[NSURLRequest requestWithURL:self.url];
+    NSURLRequest *request =[NSURLRequest requestWithURL:[NSURL URLWithString:@"http://192.168.11.69:8088/ps-test.html"]];
     [adWebview loadRequest:request];
     [self.view addSubview:adWebview];
     
@@ -68,11 +83,8 @@
     [activityIndicator setActivityIndicatorViewStyle:UIActivityIndicatorViewStyleWhite];
     [view addSubview:activityIndicator];
     [self.view addSubview:view];
-}
-
-- (void)viewDidLoad {
-    [super viewDidLoad];
-    // Do any additional setup after loading the view.
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(successCallBack) name:@"WebDetailNeedCallBack" object:nil];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -95,19 +107,6 @@
     [view removeFromSuperview];
 }
 
--(BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType
-{
-    if (navigationType == UIWebViewNavigationTypeOther) {
-        NSURL *url = [request URL];
-        NSString *backUrl= [url absoluteString];
-        if ([backUrl rangeOfString:@"nativeMethod=goBack"].location != NSNotFound) {
-            [self.navigationController popViewControllerAnimated:YES];
-            return NO;
-        }
-    }
-    return YES;
-}
-
 - (void)webView:(UIWebView *)webView didFailLoadWithError:(NSError *)error
 {
     if (error.code < 0) {
@@ -116,15 +115,84 @@
     }
 }
 
-/*
- #pragma mark - Navigation
- 
- // In a storyboard-based application, you will often want to do a little preparation before navigation
- - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
- // Get the new view controller using [segue destinationViewController].
- // Pass the selected object to the new view controller.
- }
- */
+-(BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType
+{
+    if (navigationType == UIWebViewNavigationTypeOther || navigationType == UIWebViewNavigationTypeLinkClicked) {
+        NSURL *url = [request URL];
+        NSString *funcUrl= [[url absoluteString] stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+        if ([funcUrl rangeOfString:@"nativeMethod=goBack"].location != NSNotFound) {
+            [self.navigationController popViewControllerAnimated:YES];
+            return NO;
+        }
+        if ([funcUrl rangeOfString:@"shouxiner://funcion:"].location != NSNotFound) {
+            NSRange range = [funcUrl rangeOfString:@"shouxiner://funcion:"];
+            NSString *subUrl = [funcUrl substringFromIndex:range.length];
+            NSData* data = [subUrl dataUsingEncoding:NSUTF8StringEncoding];
+            NSError* error = nil;
+            id result = [NSJSONSerialization JSONObjectWithData:data options:0 error:&error];
+            NSDictionary *objDic = result;
+            NSString *funcName = [NSString stringWithFormat:@"%@:", objDic[@"function"]];
+            NSArray *args = objDic[@"args"];
+            SEL selector = NSSelectorFromString(funcName);
+            [self performSelector:selector withObject:args];
+            return NO;
+        }
+    }
+    return YES;
+}
+//隐藏nav
+-(void)setTitleBarVisible:(NSArray *)args
+{
+    isShowNavBar = [args[0] boolValue];
+    if (isShowNavBar) {
+        [adWebview setFrame:CGRectMake(0.f, 0, self.view.frame.size.width, self.screenHeight-44)];
+    }else{
+        [adWebview setFrame:CGRectMake(0.f, 0, self.view.frame.size.width, self.screenHeight)];
+    }
+    [self.navigationController setNavigationBarHidden:(!isShowNavBar) animated:YES];
+}
+//定位
+-(void)getLocate:(NSArray *)args
+{
+    if (!locationManager) {
+        locationManager = [[CLLocationManager alloc]init];
+    }
+    [locationManager setDelegate:(id<CLLocationManagerDelegate>)self];
+    locationManager.desiredAccuracy = kCLLocationAccuracyBest;
+    [locationManager startUpdatingLocation];
+}
+//发表话题
+-(void)publishTopic:(NSArray *)args
+{
+    activeID = args[0];
+    BBBasePostViewController *shareVC = [[BBBasePostViewController alloc] initWithPostType:POST_TYPE_HDFX];
+    shareVC.activeID = activeID;
+    shareVC.activeTitle = args[1];
+    shareVC.activeContent = args[2];
+    [self.navigationController pushViewController:shareVC animated:YES];
+}
+
+-(void)locationManager:(CLLocationManager *)manager didUpdateToLocation:(CLLocation *)newLocation fromLocation:(CLLocation *)oldLocation
+{
+    //经度
+    NSString *lon = [[NSString alloc]initWithFormat:@"%g",newLocation.coordinate.longitude];
+    //纬度
+    NSString *lat = [[NSString alloc]initWithFormat:@"%g",newLocation.coordinate.latitude];
+    [adWebview stringByEvaluatingJavaScriptFromString:[NSString stringWithFormat:@"onShouxinerLocaterComplete(true, %@, %@)", lon, lat]];
+    [locationManager stopUpdatingLocation];
+    locationManager = nil;
+}
+
+-(void)locationManager:(CLLocationManager *)manager didFailWithError:(NSError *)error
+{
+    UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"定位失败" message:@"" delegate:self cancelButtonTitle:@"OK" otherButtonTitles: nil];
+    [alert show];
+}
+
+-(void)successCallBack
+{
+    [adWebview stringByEvaluatingJavaScriptFromString:[NSString stringWithFormat:@"onShouxinerPublishTopicComplete(true, %@)", activeID]];
+}
 
 -(void)dealloc
 {

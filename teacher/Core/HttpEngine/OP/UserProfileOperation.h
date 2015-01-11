@@ -40,7 +40,7 @@ typedef enum{
 -(UserProfileOperation *) initUpdateUserImageFile : (NSData *) imageData withGroupID : (int) groupID;
 
 -(UserProfileOperation *) initPostTopic : (int) groupid withTopicType : (int) topicType withSubject : (int) subject withTitle : (NSString *) title
-                            withContent : (NSString *) content withAttach : (NSString *) attach;
+                            withContent : (NSString *) content withAttach : (NSString *) attach activityid:(NSString *)activityID;
 
 // 拍表现
 -(UserProfileOperation *) initPostPBX : (int) groupid withTitle : (NSString *) title withContent : (NSString *) content

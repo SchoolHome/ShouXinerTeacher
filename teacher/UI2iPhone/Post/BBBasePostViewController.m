@@ -84,6 +84,7 @@ viewImageDeletedDelegate>
                         title = @"随便说";
                         break;
                     default:
+                        title = @"随便说";
                         break;
                 }
                 
@@ -92,8 +93,9 @@ viewImageDeletedDelegate>
                                                withTopicType:_topicType
                                                  withSubject:_selectedIndex
                                                    withTitle:title
-                                                 withContent:thingsTextView.text
-                                                  withAttach:attach];
+                                                 withContent:[NSString stringWithFormat:@"%@%@", self.activeContent, thingsTextView.text]
+                                                  withAttach:attach
+                                                  activityid:self.activeID];
             }
             
         }else{  // 上传失败
@@ -112,9 +114,14 @@ viewImageDeletedDelegate>
         if ([dic[@"hasError"] boolValue]) {
             [self showProgressWithText:@"亲，网络不给力哦！" withDelayTime:0.5];
         }else{
-            
             [self showProgressWithText:@"发送成功" withDelayTime:0.5];
-            [self backToBJQRoot];
+            if (_postType == POST_TYPE_HDFX) {
+                [[NSNotificationCenter defaultCenter] postNotificationName:@"BJQNeedRefresh" object:nil];
+                [[NSNotificationCenter defaultCenter] postNotificationName:@"WebDetailNeedCallBack" object:nil];
+                [self.navigationController popViewControllerAnimated:YES];
+            }else{
+                [self backToBJQRoot];
+            }
         }
     }
     
@@ -367,7 +374,11 @@ viewImageDeletedDelegate>
 }
 
 - (void)backButtonTaped:(id)sender{
-    [self.navigationController popToRootViewControllerAnimated:YES];
+    if (_postType == POST_TYPE_HDFX) {
+        [self.navigationController popViewControllerAnimated:YES];
+    }else{
+        [self.navigationController popToRootViewControllerAnimated:YES];
+    }
 }
 
 - (void)sendButtonTaped
@@ -419,6 +430,7 @@ viewImageDeletedDelegate>
                 title = @"随便说";
                 break;
             default:
+                title = @"随便说";
                 break;
         }
         
@@ -426,8 +438,9 @@ viewImageDeletedDelegate>
                                        withTopicType:_topicType
                                          withSubject:_selectedIndex
                                            withTitle:title
-                                         withContent:thingsTextView.text
-                                          withAttach:@""];
+                                         withContent:[NSString stringWithFormat:@"%@%@", self.activeContent, thingsTextView.text]
+                                          withAttach:@""
+                                          activityid:self.activeID];
     }
     
     [thingsTextView resignFirstResponder];
@@ -475,6 +488,9 @@ viewImageDeletedDelegate>
             
             break;
         default:
+            _placeholder = self.activeContent;
+            self.title = self.activeTitle;
+            _topicType = 4;
             break;
     }
 }
