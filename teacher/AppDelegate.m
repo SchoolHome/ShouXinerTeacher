@@ -90,14 +90,18 @@
 //    [[UINavigationBar appearance] setBackgroundImage:image forBarMetrics:UIBarMetricsDefault];
         [[UINavigationBar appearanceWhenContainedIn:[CustomNavigationController class], nil] setBackgroundImage:image forBarMetrics:UIBarMetricsDefault];
     
-    if (IOS7) {
+    if (IOS6) {
+        //[UIColor colorWithRed:251/255.f green:76/255.f blue:7/255.f alpha:1.f],NSForegroundColorAttributeName,
         NSDictionary *attributes=[NSDictionary dictionaryWithObjectsAndKeys:
                                   [UIColor colorWithRed:251/255.f green:76/255.f blue:7/255.f alpha:1.f],UITextAttributeTextColor,
-                                  [UIColor colorWithRed:251/255.f green:76/255.f blue:7/255.f alpha:1.f],NSForegroundColorAttributeName,
                                   [UIFont boldSystemFontOfSize:18],UITextAttributeFont,
-                                  [NSValue valueWithUIOffset:UIOffsetZero],UITextAttributeTextShadowOffset, nil];
-        //[[UINavigationBar appearance] setTitleTextAttributes:attributes];
+                                  [NSValue valueWithUIOffset:UIOffsetZero],UITextAttributeTextShadowOffset,
+                                   nil];
         [[UINavigationBar appearanceWhenContainedIn:[CustomNavigationController class], nil] setTitleTextAttributes:attributes];
+
+    }else
+    {
+        //[[UINavigationBar appearanceWhenContainedIn:[CustomNavigationController class], nil] setti];
     }
     
     [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleDefault];

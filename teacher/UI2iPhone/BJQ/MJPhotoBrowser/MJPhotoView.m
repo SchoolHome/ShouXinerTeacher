@@ -228,9 +228,9 @@
 }
 
 #pragma mark - UIScrollViewDelegate
-//- (UIView *)viewForZoomingInScrollView:(UIScrollView *)scrollView {
-//	return _imageView;
-//}
+- (UIView *)viewForZoomingInScrollView:(UIScrollView *)scrollView {
+	return _imageView;
+}
 
 #pragma mark - 手势处理
 - (void)handleSingleTap:(UITapGestureRecognizer *)tap {

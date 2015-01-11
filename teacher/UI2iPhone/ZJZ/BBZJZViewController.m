@@ -86,7 +86,7 @@
     segementBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     [segementBtn setFrame:CGRectMake(0.f, 0.f, 125.f, 30.f)];
     [segementBtn setBackgroundImage:[UIImage imageNamed:@"tab_mes"] forState:UIControlStateNormal];
-    [segementBtn setBackgroundImage:[UIImage imageNamed:@"tab_contact"] forState:UIControlStateSelected];
+//    [segementBtn setBackgroundImage:[UIImage imageNamed:@"tab_contact"] forState:UIControlStateSelected];
     [segementBtn setBackgroundImage:nil forState:UIControlStateHighlighted];
     [segementBtn addTarget:self action:@selector(segeValueChanged:event:) forControlEvents:UIControlEventTouchUpInside];
     self.navigationItem.titleView = segementBtn;
@@ -298,16 +298,18 @@
 
 - (void)segeValueChanged:(UIButton *)sender event:(UIEvent *) touchEvent
 {
-    /*
     UITouch *touch = [[touchEvent allTouches] anyObject];
-    if (CGRectContainsPoint(CGRectMake(0.f, 0.f, CGRectGetWidth(segementBtn.frame)/2, CGRectGetHeight(segementBtn.frame)), [touch locationInView:segementBtn]) && listType == LIST_TYPE_MSG_GROUP) {
+    
+    CGPoint point = [touch locationInView:segementBtn];
+    if ((CGRectContainsPoint(CGRectMake(0.f, 0.f, CGRectGetWidth(segementBtn.frame)/2, CGRectGetHeight(segementBtn.frame)), [touch locationInView:segementBtn]) || point.x < 0.f) && listType == LIST_TYPE_MSG_GROUP ) {
         return;
-    }else if (CGRectContainsPoint(CGRectMake(CGRectGetWidth(segementBtn.frame)/2, 0.f, CGRectGetWidth(segementBtn.frame)/2, CGRectGetHeight(segementBtn.frame)), [touch locationInView:segementBtn]) && listType == LIST_TYPE_CONTACTS)
+    }else if ((CGRectContainsPoint(CGRectMake(CGRectGetWidth(segementBtn.frame)/2, 0.f, CGRectGetWidth(segementBtn.frame)/2, CGRectGetHeight(segementBtn.frame)), [touch locationInView:segementBtn]) || point.x > 126.f) && listType == LIST_TYPE_CONTACTS)
     {
         return;
     }
-    */
+    
     sender.selected = !sender.selected;
+    [segementBtn setBackgroundImage:sender.selected ? [UIImage imageNamed:@"tab_contact"] : [UIImage imageNamed:@"tab_mes"] forState:UIControlStateNormal];
     listType = sender.selected ? LIST_TYPE_CONTACTS : LIST_TYPE_MSG_GROUP;
     [self.messageListTableview reloadData];
 }

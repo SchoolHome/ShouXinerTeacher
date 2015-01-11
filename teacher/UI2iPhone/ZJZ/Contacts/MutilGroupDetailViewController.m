@@ -184,7 +184,10 @@
 {
     NSMutableArray *userInfos = [[NSMutableArray alloc] init];
     for (CPUIModelMessageGroupMember *member in self.msgGroup.memberList) {
+        if (member.userInfo) {
             [userInfos addObject:member.userInfo];
+        }
+        
     }
     return [NSArray arrayWithArray:userInfos];
 }
