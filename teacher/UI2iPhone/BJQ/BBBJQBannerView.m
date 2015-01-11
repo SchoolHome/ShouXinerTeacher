@@ -14,7 +14,6 @@
 {
     self = [super initWithFrame:frame];
     if (self) {
-        [self setBackgroundColor:[UIColor redColor]];
     }
     return self;
 }
@@ -22,13 +21,8 @@
 -(id)initWithAdvs:(NSArray *)advs
 {
     advsArray = advs;
-    CGFloat fixY = 0;
-    if ([[[UIDevice currentDevice] systemVersion] floatValue] >= 7.0f)
-    {
-        fixY = 20;
-    }
     CGFloat screenWidth = [UIScreen mainScreen].bounds.size.width;
-    self = [self initWithFrame:CGRectMake(0, fixY, screenWidth, 70)];
+    self = [self initWithFrame:CGRectMake(0, 20, screenWidth, 70)];
     if (self) {
         advScroll = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 0, self.frame.size.width, self.frame.size.height)];
         for (int i=0; i<advsArray.count; i++) {

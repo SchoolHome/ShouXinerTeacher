@@ -70,6 +70,7 @@
         [self removeFromSuperview];
     }
 }
+
 -(void)imageViewLoadedImage:(EGOImageView *)imageView
 {
     CGSize imageSize = imageView.image.size;
