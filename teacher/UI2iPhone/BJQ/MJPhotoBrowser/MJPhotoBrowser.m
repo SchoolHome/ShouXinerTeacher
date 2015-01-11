@@ -95,6 +95,8 @@
 	_photoScrollView.showsVerticalScrollIndicator = NO;
 	_photoScrollView.backgroundColor = [UIColor clearColor];
     _photoScrollView.contentSize = CGSizeMake(frame.size.width * _photos.count, 0);
+    //_photoScrollView.maximumZoomScale = 2.f;
+    //_photoScrollView.minimumZoomScale = 0.5f;
 	[self.view addSubview:_photoScrollView];
     _photoScrollView.contentOffset = CGPointMake(_currentPhotoIndex * frame.size.width, 0);
 }

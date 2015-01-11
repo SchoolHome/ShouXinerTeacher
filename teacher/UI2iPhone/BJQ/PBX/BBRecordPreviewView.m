@@ -63,6 +63,7 @@
 - (void)setSession:(AVCaptureSession *)session
 {
 	[(AVCaptureVideoPreviewLayer *)[self layer] setSession:session];
+
 }
 
 @end

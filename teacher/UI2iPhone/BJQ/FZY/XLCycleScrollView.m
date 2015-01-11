@@ -26,6 +26,8 @@
         _scrollView.contentSize = CGSizeMake(self.bounds.size.width * 3, self.bounds.size.height);
         _scrollView.showsHorizontalScrollIndicator = NO;
         _scrollView.contentOffset = CGPointMake(self.bounds.size.width, 0);
+        _scrollView.maximumZoomScale = 2.f;
+        _scrollView.minimumZoomScale = 0.5f;
         _scrollView.pagingEnabled = YES;
         [self addSubview:_scrollView];
         
@@ -52,6 +54,8 @@
         _scrollView.showsHorizontalScrollIndicator = NO;
         _scrollView.contentOffset = CGPointMake(self.bounds.size.width, 0);
         _scrollView.pagingEnabled = YES;
+        _scrollView.maximumZoomScale = 2.f;
+        _scrollView.minimumZoomScale = 0.5f;
         [self addSubview:_scrollView];
         
         CGRect rect = self.bounds;

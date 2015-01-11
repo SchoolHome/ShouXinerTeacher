@@ -154,7 +154,13 @@
 {
     ContactsStartGroupChatViewController *contactsGroupChat = [[ContactsStartGroupChatViewController alloc] init];
     contactsGroupChat.msgGroup = self.msgGroup;
-    [contactsGroupChat filterExistUserInfo:YES WithSelectedArray:members];
+    NSMutableArray *tempUserInfos = [NSMutableArray array];
+    for (CPUIModelMessageGroupMember *member in members) {
+        if (member.userInfo) {
+            [tempUserInfos addObject:member.userInfo];
+        }
+    }
+    [contactsGroupChat filterExistUserInfo:YES WithSelectedArray:tempUserInfos];
     [self.navigationController pushViewController:contactsGroupChat animated:YES];
 }
 #pragma mark - ViewControllerMethod

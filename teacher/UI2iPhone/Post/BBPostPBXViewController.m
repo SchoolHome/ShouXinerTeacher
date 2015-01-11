@@ -150,7 +150,7 @@
             NSDictionary *resultData = dic[ASI_REQUEST_DATA];
             if ([resultData[@"ret"] isEqualToString:@"OK"])
             {
-                [self closeProgress];
+                //[self closeProgress];
                 NSString *attach = [resultData JSONString];//[data JSONString]
                 BOOL hasHomePage = NO;
                 BOOL hasTopGroup = NO;

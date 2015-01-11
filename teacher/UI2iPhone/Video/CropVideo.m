@@ -199,7 +199,6 @@
     NSMutableDictionary *resDic = [[NSMutableDictionary alloc] init];
     BOOL isSucess = YES;
     AVMutableComposition* mixComposition = [AVMutableComposition composition];
-    
     AVURLAsset* videoAsset = [[AVURLAsset alloc]initWithURL:url options:nil];
     
     long long videoValue = videoAsset.duration.value;
@@ -230,11 +229,32 @@
                                     atTime:kCMTimeZero error:nil];
      */
     
+    
+    
+    
     AVAssetTrack *sourceVideo = [[videoAsset tracksWithMediaType:AVMediaTypeVideo]lastObject];
     [compositionVideoTrack setPreferredTransform:sourceVideo.preferredTransform];
         AVAssetExportSession* _assetExport = [[AVAssetExportSession alloc] initWithAsset:videoAsset
                                                                           presetName:AVAssetExportPresetMediumQuality];
+    /*
+    AVMutableVideoComposition *avMutableVideoComposition = [AVMutableVideoComposition videoComposition];
+    avMutableVideoComposition.renderSize = CGSizeMake(360.0f, 480.0f);
+    avMutableVideoComposition.frameDuration = CMTimeMake(1, 30);
     
+    AVMutableVideoCompositionInstruction *avMutableVideoCompositionInstruction = [AVMutableVideoCompositionInstruction videoCompositionInstruction];
+    
+    [avMutableVideoCompositionInstruction setTimeRange:CMTimeRangeMake(kCMTimeZero, [mixComposition duration])];
+    
+    AVMutableVideoCompositionLayerInstruction *avMutableVideoCompositionLayerInstruction = [AVMutableVideoCompositionLayerInstruction videoCompositionLayerInstructionWithAssetTrack:sourceVideo];
+    [avMutableVideoCompositionLayerInstruction setTransform:sourceVideo.preferredTransform atTime:kCMTimeZero];
+    
+    avMutableVideoCompositionInstruction.layerInstructions = [NSArray arrayWithObject:avMutableVideoCompositionLayerInstruction];
+    
+    
+    avMutableVideoComposition.instructions = [NSArray arrayWithObject:avMutableVideoCompositionInstruction];
+    
+    [_assetExport   setVideoComposition:avMutableVideoComposition];
+     */
     NSURL *exportUrl = [NSURL fileURLWithPath:dstFilePath];
     
     if ([[NSFileManager defaultManager] fileExistsAtPath:dstFilePath]){

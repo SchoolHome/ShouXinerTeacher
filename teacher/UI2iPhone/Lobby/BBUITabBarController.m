@@ -12,6 +12,8 @@
 #import "BBPostHomeworkViewController.h"
 #import "BBPostPBXViewController.h"
 #import "BBCameraViewController.h"
+#import "BBRecordViewController.h"
+
 
 #import "CPUIModelManagement.h"
 #import "CustomNavigationController.h"
