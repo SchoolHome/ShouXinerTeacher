@@ -26,7 +26,10 @@
         if (![result[@"hasError"] boolValue]) {
             [self closeProgress];
             NSDictionary *data = result[@"data"][@"list"];
-            [self setServiceItems:data];
+            if ([data isKindOfClass:[NSDictionary class]]) {
+                [self setServiceItems:data];
+            }
+            
         }else
         {
             [self showProgressWithText:result[@"errorMessage"] withDelayTime:2.f];

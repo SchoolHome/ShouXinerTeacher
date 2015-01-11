@@ -39,6 +39,8 @@
     BOOL isRequestClassList;
     
     UIButton *segementBtn;
+    
+    CPDBModelNotifyMessage *tempCacheNotifyMsg;
 }
 @property (nonatomic, strong)NSArray *tableviewDisplayDataArray;
 @property (nonatomic, strong) NSArray *classModels; //班级
@@ -149,7 +151,7 @@
     };
     dispatch_async(dispatch_get_main_queue(), updateTagBlock);
     
-    
+
 }
 
 
@@ -250,7 +252,39 @@
             [self showProgressWithText:@"班级列表加载失败" withDelayTime:0.1];
         }
     }
+    
+    if ([keyPath isEqualToString:@"publicAccountDic"]) {
+        [[PalmUIManagement sharedInstance] removeObserver:self forKeyPath:@"publicAccountDic"];
+        NSDictionary *result = [PalmUIManagement sharedInstance].publicAccountDic;
+        if (![result[@"hasError"] boolValue]) {
+            [self closeProgress];
+            NSDictionary *data = result[@"data"][@"list"];
+            for (NSDictionary *tempItemModel in data.allValues) {
+                if ([tempItemModel isKindOfClass:[NSDictionary class]]) {
+                    if ([tempItemModel[@"name"] isEqualToString:tempCacheNotifyMsg.fromUserName]) {
 
+                        BBServiceMessageDetailViewController *messageDetail = [[BBServiceMessageDetailViewController alloc] init];
+                        [messageDetail setModel:[BBServiceAccountModel convertByDic:tempItemModel]];
+                        messageDetail.hidesBottomBarWhenPushed = YES;
+                        [self.navigationController pushViewController:messageDetail animated:YES];
+                        [[CPSystemEngine sharedInstance] updateUnreadedMessageStatusChanged:tempCacheNotifyMsg];
+                        return;
+                    }
+                }
+            }
+            if (tempCacheNotifyMsg) {
+                BBServiceMessageDetailViewController *messageDetail = [[BBServiceMessageDetailViewController alloc] init];
+                [messageDetail setNotifyMsgmodel:tempCacheNotifyMsg];
+                messageDetail.hidesBottomBarWhenPushed = YES;
+                [self.navigationController pushViewController:messageDetail animated:YES];
+                [[CPSystemEngine sharedInstance] updateUnreadedMessageStatusChanged:tempCacheNotifyMsg];
+            }else [self showProgressWithText:@"无法查看" withDelayTime:2];
+        }else
+        {
+            [self showProgressWithText:result[@"errorMessage"] withDelayTime:2.f];
+        }
+    }
+    
 }
 #pragma mark BBZJZViewControllerMethod
 
@@ -427,17 +461,25 @@
             };
             dispatch_async(dispatch_get_main_queue(), updateTagBlock);
         }else if ([cell.msgGroup isKindOfClass:[CPDBModelNotifyMessage class]]){
-            CPDBModelNotifyMessage *msgGroup = cell.msgGroup;
+            [[PalmUIManagement sharedInstance] addObserver:self forKeyPath:@"publicAccountDic" options:0 context:nil];
+            
+            tempCacheNotifyMsg = cell.msgGroup;
+            
+            [self showProgressWithText:@"正在获取"];
+            [[PalmUIManagement sharedInstance] getPublicAccount];
+            
             //设置未读数
-        
+            /*
             if (msgGroup) {
                 BBServiceMessageDetailViewController *messageDetail = [[BBServiceMessageDetailViewController alloc] init];
+                BBServiceAccountModel *tempModel = [[BBServiceAccountModel alloc] init];
+                
                 [messageDetail setModel:msgGroup];
                 messageDetail.hidesBottomBarWhenPushed = YES;
                 [self.navigationController pushViewController:messageDetail animated:YES];
                 [[CPSystemEngine sharedInstance] updateUnreadedMessageStatusChanged:msgGroup];
             }else [self showProgressWithText:@"无法查看" withDelayTime:2];
-        
+        */
         }
     }else
     {

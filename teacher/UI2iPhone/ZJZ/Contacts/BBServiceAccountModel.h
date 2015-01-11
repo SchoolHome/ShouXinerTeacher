@@ -7,7 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
-
+#import "CPDBModelNotifyMessage.h"
 @interface BBServiceAccountModel : NSObject
 
 @property (nonatomic)int accountID;

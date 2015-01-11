@@ -32,12 +32,13 @@
         NSDictionary *result = [PalmUIManagement sharedInstance].publicAccountMessages;
         
         if (![result[@"hasError"] boolValue]) {
+            [self closeProgress];
             NSDictionary *data = result[@"data"];
             NSDictionary *list = data[@"list"];
             [self filterData:list];
             
         }else{
-            [self closeProgress];
+            
             [self showProgressWithText:@"获取消息失败,请重试" withDelayTime:1];
             [self.navigationController popViewControllerAnimated:YES];
         }
@@ -52,16 +53,39 @@
         
         
     }
+    
+    if ([keyPath isEqualToString:@"publicMessageResult"]) {
+        NSDictionary *result = [PalmUIManagement sharedInstance].publicMessageResult;
+
+        if (![result[@"hasError"] boolValue]) {
+            [self closeProgress];
+            NSDictionary *data = result[@"data"];
+            NSDictionary *list = data[@"list"];
+            [self filterData:list];
+        }else{
+            
+            [self showProgressWithText:@"获取消息失败,请重试" withDelayTime:1];
+            [self.navigationController popViewControllerAnimated:YES];
+        }
+        
+    }
 }
 
 - (void)viewWillAppear:(BOOL)animated
 {
-    [[PalmUIManagement sharedInstance] addObserver:self forKeyPath:@"publicAccountMessages" options:0 context:nil];
+    if (self.infoStatus == AccountInfoStatusExist) {
+        [[PalmUIManagement sharedInstance] addObserver:self forKeyPath:@"publicAccountMessages" options:0 context:nil];
+    }else   [[PalmUIManagement sharedInstance] addObserver:self forKeyPath:@"publicMessageResult" options:0 context:nil];
+
+
 }
 
 - (void)viewDidDisappear:(BOOL)animated
 {
-    [[PalmUIManagement sharedInstance] removeObserver:self forKeyPath:@"publicAccountMessages"];
+    if (self.infoStatus == AccountInfoStatusExist) [[PalmUIManagement sharedInstance] removeObserver:self forKeyPath:@"publicAccountMessages"];
+    else [[PalmUIManagement sharedInstance] removeObserver:self forKeyPath:@"publicMessageResult"];
+    
+    
 }
 
 - (void)viewDidLoad {
@@ -76,12 +100,15 @@
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:backButton];
     
     
-    // right
-    UIButton *detail = [UIButton buttonWithType:UIButtonTypeCustom];
-    [detail setFrame:CGRectMake(0.f, 7.f, 24.f, 24.f)];
-    [detail setBackgroundImage:[UIImage imageNamed:@"user_alt"] forState:UIControlStateNormal];
-    [detail addTarget:self action:@selector(detailButtonTaped) forControlEvents:UIControlEventTouchUpInside];
-    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:detail];
+    if (self.infoStatus == AccountInfoStatusExist) {
+        // right
+        UIButton *detail = [UIButton buttonWithType:UIButtonTypeCustom];
+        [detail setFrame:CGRectMake(0.f, 7.f, 24.f, 24.f)];
+        [detail setBackgroundImage:[UIImage imageNamed:@"user_alt"] forState:UIControlStateNormal];
+        [detail addTarget:self action:@selector(detailButtonTaped) forControlEvents:UIControlEventTouchUpInside];
+        self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:detail];
+    }
+
     
     
     _detailScrollview = [[UIScrollView alloc] initWithFrame:CGRectMake(15.f, 0.f, self.screenWidth-30.f, self.screenHeight-70.f)];
@@ -89,20 +116,25 @@
     [self.view addSubview:_detailScrollview];
     // Do any additional setup after loading the view.
     
-    __weak BBServiceMessageDetailViewController *weakSelf = self;
-    // 刷新
-    [_detailScrollview addPullToRefreshWithActionHandler:^{
-        weakSelf.loadStatus = AccountMessageLoadStatusRefresh;
-        [[PalmUIManagement sharedInstance] getPublicAccountMessages:weakSelf.model.accountID withMid:@"" withSize:10];
-    }];
+    if (self.infoStatus == AccountInfoStatusExist) {
+        __weak BBServiceMessageDetailViewController *weakSelf = self;
+        // 刷新
+        [_detailScrollview addPullToRefreshWithActionHandler:^{
+            weakSelf.loadStatus = AccountMessageLoadStatusRefresh;
+            [[PalmUIManagement sharedInstance] getPublicAccountMessages:weakSelf.model.accountID withMid:@"" withSize:10];
+        }];
+        
+        // 追加
+        [_detailScrollview addInfiniteScrollingWithActionHandler:^{
+            if (![weakSelf.lastestMid isEqualToString:@""]) {
+                weakSelf.loadStatus = AccountMessageLoadStatusAppend;
+                [[PalmUIManagement sharedInstance] getPublicAccountMessages:weakSelf.model.accountID withMid:weakSelf.lastestMid withSize:10];
+            }
+        }];
+        
+    }
     
-    // 追加
-    [_detailScrollview addInfiniteScrollingWithActionHandler:^{
-        if (![weakSelf.lastestMid isEqualToString:@""]) {
-            weakSelf.loadStatus = AccountMessageLoadStatusAppend;
-            [[PalmUIManagement sharedInstance] getPublicAccountMessages:weakSelf.model.accountID withMid:weakSelf.lastestMid withSize:10];
-        }
-    }];
+
 }
 
 - (void)didReceiveMemoryWarning {
@@ -110,32 +142,39 @@
     // Dispose of any resources that can be recreated.
 }
 
+- (void)setNotifyMsgmodel:(CPDBModelNotifyMessage *)notifyMsgmodel
+{
+    self.infoStatus = AccountInfoStatusMiss;
+     _notifyMsgmodel  = notifyMsgmodel;
+     if (notifyMsgmodel.from.length > 0) {
+     self.title = notifyMsgmodel.fromUserName;
+     //findNotifyMessagesOfCurrentFromJID
+     NSArray *models = [[[CPSystemEngine sharedInstance] dbManagement] findNotifyMessagesOfCurrentFromJID:self.notifyMsgmodel.from];
+     NSString *mids;
+     for (int i = 0; i< models.count; i++) {
+     CPDBModelNotifyMessage *message = models[i];
+     if (message) {
+     if (i == 0) mids = message.mid;
+     else mids = [mids stringByAppendingFormat:@",%@",message.mid];
+     }
+     }
+     
+     [self showProgressWithText:@"正在获取..."];
+     [[PalmUIManagement sharedInstance] getPublicMessage:mids];
+     }
+     
+}
+
 - (void)setModel:(BBServiceAccountModel *)model
 {
+    self.infoStatus = AccountInfoStatusExist;
+    
     _model = model;
     self.title = model.accountName;
     
     [self showProgressWithText:@"正在获取..."];
     [[PalmUIManagement sharedInstance] getPublicAccountMessages:model.accountID withMid:@"" withSize:10];
-    /*
-    _model = model;
-    if (model.from.length > 0) {
-        self.title = model.fromUserName;
-        //findNotifyMessagesOfCurrentFromJID
-        NSArray *models = [[[CPSystemEngine sharedInstance] dbManagement] findNotifyMessagesOfCurrentFromJID:self.model.from];
-        NSString *mids;
-        for (int i = 0; i< models.count; i++) {
-            CPDBModelNotifyMessage *message = models[i];
-            if (message) {
-                if (i == 0) mids = message.mid;
-                else mids = [mids stringByAppendingFormat:@",%@",message.mid];
-            }
-        }
-        
-        [self showProgressWithText:@"正在获取..."];
-        [[PalmUIManagement sharedInstance] getPublicMessage:mids];
-    }
-     */
+
 }
 #pragma mark - ViewCOntroller
 - (void)backButtonTaped
@@ -155,6 +194,7 @@
     //转model
     
     NSMutableArray *tempMessages = [[NSMutableArray alloc] init];
+    
     for (NSString *key in fullData.allKeys) {
         NSArray *tempValue = fullData[key];
         if ([tempValue isKindOfClass:[NSArray class]])

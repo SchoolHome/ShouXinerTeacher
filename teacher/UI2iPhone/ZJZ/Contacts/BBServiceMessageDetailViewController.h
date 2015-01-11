@@ -8,6 +8,7 @@
 
 #import "PalmViewController.h"
 #import "BBServiceAccountModel.h"
+#import "CPDBModelNotifyMessage.h"
 
 #import "SVPullToRefresh.h"
 
@@ -16,8 +17,15 @@ typedef enum{
     AccountMessageLoadStatusAppend,  // 追加
 } AccountMessageLoadStatus;
 
+typedef enum{
+    AccountInfoStatusExist, // 账户信息存在
+    AccountInfoStatusMiss,  // 账户信息不存在
+} AccountInfoStatus;
+
 @interface BBServiceMessageDetailViewController : PalmViewController
 
 @property (nonatomic, strong)BBServiceAccountModel *model;
+@property (nonatomic, strong)CPDBModelNotifyMessage *notifyMsgmodel;
 @property(nonatomic) AccountMessageLoadStatus loadStatus;
+@property(nonatomic) AccountInfoStatus infoStatus;
 @end
