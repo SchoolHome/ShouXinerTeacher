@@ -138,8 +138,8 @@
             [self.navigationController popViewControllerAnimated:YES];
             return NO;
         }
-        if ([funcUrl rangeOfString:@"shouxiner://funcion:"].location != NSNotFound) {
-            NSRange range = [funcUrl rangeOfString:@"shouxiner://funcion:"];
+        if ([funcUrl rangeOfString:@"shouxiner://function:"].location != NSNotFound) {
+            NSRange range = [funcUrl rangeOfString:@"shouxiner://function:"];
             NSString *subUrl = [funcUrl substringFromIndex:range.length];
             NSData* data = [subUrl dataUsingEncoding:NSUTF8StringEncoding];
             NSError* error = nil;
