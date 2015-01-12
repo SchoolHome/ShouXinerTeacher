@@ -93,7 +93,7 @@
             [self showProgressWithText:@"保存成功" withDelayTime:2];
             [self.navigationController popViewControllerAnimated:YES];
         }else{
-            [self showProgressWithText:@"保存失败，请稍后再试" withDelayTime:2];
+            [self showProgressWithText:resultDic[@"errorMessage"] withDelayTime:2];
         }
     }
 }
