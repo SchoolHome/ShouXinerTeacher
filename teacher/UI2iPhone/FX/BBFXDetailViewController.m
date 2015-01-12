@@ -66,8 +66,7 @@
     adWebview.scalesPageToFit = YES;
     adWebview.delegate = (id<UIWebViewDelegate>)self;
     [adWebview.scrollView setMaximumZoomScale:4.f];
-//    NSURLRequest *request =[NSURLRequest requestWithURL:self.url];
-    NSURLRequest *request =[NSURLRequest requestWithURL:[NSURL URLWithString:@"http://192.168.11.69:8088/ps-test.html"]];
+    NSURLRequest *request =[NSURLRequest requestWithURL:self.url];
     [adWebview loadRequest:request];
     [self.view addSubview:adWebview];
     
