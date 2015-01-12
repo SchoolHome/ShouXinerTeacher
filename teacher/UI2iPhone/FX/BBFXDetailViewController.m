@@ -189,6 +189,7 @@
 
 -(void)successCallBack:(NSNotification *)notification
 {
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"BJQNeedRefresh" object:nil];
     [adWebview stringByEvaluatingJavaScriptFromString:[NSString stringWithFormat:@"onShouxinerPublishTopicComplete(true, %@)", [notification object]]];
 }
 

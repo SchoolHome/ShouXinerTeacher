@@ -343,7 +343,7 @@
             for (NSString *key in [allAdvs allKeys]) {
                 [advArray addObject:[allAdvs objectForKey:key]];
             }
-            [self addBannerByAdvs:advArray];
+            [self performSelector:@selector(addBannerByAdvs:) withObject:advArray afterDelay:1];
         }
     }
 }
@@ -617,6 +617,9 @@
     [super viewWillDisappear:animated];
     [inputBar endEdit];
     [self removeObservers];
+    if (nil != bannerView) {
+        [bannerView setHidden:YES];
+    }
 }
 
 -(void) viewDidDisappear:(BOOL)animated{
@@ -649,9 +652,6 @@
         [copyContentButton removeFromSuperview];
         self.contentText = @"";
         copyContentButton = nil;
-    }
-    if (nil != bannerView) {
-        [bannerView setHidden:YES];
     }
 }
 
@@ -1393,6 +1393,9 @@
     bannerView = [[BBBJQBannerView alloc] initWithAdvs:advArray];
     [bannerView setDelegate:(id<BBBJQBannerViewDelegate>)self];
     [self.navigationController.view addSubview:bannerView];
+    if (self.navigationController.viewControllers.count > 1) {
+        [bannerView setHidden:YES];
+    }
 }
 
 -(void)advTappedByURL:(NSURL *)advUrl
