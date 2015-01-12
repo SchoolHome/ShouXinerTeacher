@@ -93,7 +93,7 @@ viewImageDeletedDelegate>
                                                withTopicType:_topicType
                                                  withSubject:_selectedIndex
                                                    withTitle:title
-                                                 withContent:[NSString stringWithFormat:@"%@%@", self.activeContent, thingsTextView.text]
+                                                 withContent:thingsTextView.text
                                                   withAttach:attach
                                                   activityid:self.activeID];
             }
@@ -116,8 +116,9 @@ viewImageDeletedDelegate>
         }else{
             [self showProgressWithText:@"发送成功" withDelayTime:0.5];
             if (_postType == POST_TYPE_HDFX) {
+                NSLog(@"123:::%@", dic);
                 [[NSNotificationCenter defaultCenter] postNotificationName:@"BJQNeedRefresh" object:nil];
-                [[NSNotificationCenter defaultCenter] postNotificationName:@"WebDetailNeedCallBack" object:nil];
+                [[NSNotificationCenter defaultCenter] postNotificationName:@"WebDetailNeedCallBack" object:dic[@"data"][@"topicid"]];
                 [self.navigationController popViewControllerAnimated:YES];
             }else{
                 [self backToBJQRoot];
@@ -438,7 +439,7 @@ viewImageDeletedDelegate>
                                        withTopicType:_topicType
                                          withSubject:_selectedIndex
                                            withTitle:title
-                                         withContent:[NSString stringWithFormat:@"%@%@", self.activeContent, thingsTextView.text]
+                                         withContent:thingsTextView.text
                                           withAttach:@""
                                           activityid:self.activeID];
     }
@@ -680,7 +681,5 @@ viewImageDeletedDelegate>
     }
     return YES;
 }
-
-
 
 @end

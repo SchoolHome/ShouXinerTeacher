@@ -87,7 +87,7 @@
         [view addSubview:activityIndicator];
         [self.view addSubview:view];
         
-        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(successCallBack) name:@"WebDetailNeedCallBack" object:nil];
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(successCallBack:) name:@"WebDetailNeedCallBack" object:nil];
     }
     return self;
 }
@@ -141,7 +141,6 @@
         if ([funcUrl rangeOfString:@"shouxiner://funcion:"].location != NSNotFound) {
             NSRange range = [funcUrl rangeOfString:@"shouxiner://funcion:"];
             NSString *subUrl = [funcUrl substringFromIndex:range.length];
-            NSLog(@"funcUrl:%@---subUrl:%@", funcUrl, subUrl);
             NSData* data = [subUrl dataUsingEncoding:NSUTF8StringEncoding];
             NSError* error = nil;
             id result = [NSJSONSerialization JSONObjectWithData:data options:0 error:&error];
@@ -205,13 +204,14 @@
     [alert show];
 }
 
--(void)successCallBack
+-(void)successCallBack:(NSNotification *)notification
 {
-    [adWebview stringByEvaluatingJavaScriptFromString:[NSString stringWithFormat:@"onShouxinerPublishTopicComplete(true)"]];
+    [adWebview stringByEvaluatingJavaScriptFromString:[NSString stringWithFormat:@"onShouxinerPublishTopicComplete(true, %@)", [notification object]]];
 }
 
 -(void)dealloc
 {
     [adWebview setDelegate:nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"WebDetailNeedCallBack" object:nil];
 }
 @end

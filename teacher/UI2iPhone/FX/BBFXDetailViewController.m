@@ -16,7 +16,6 @@
     UIActivityIndicatorView *activityIndicator;
     BOOL isShowNavBar;//根据js判断是否显示nav
     CLLocationManager *locationManager;//给js提供定位数据
-    NSString *activeID;
 }
 @end
 
@@ -84,7 +83,7 @@
     [view addSubview:activityIndicator];
     [self.view addSubview:view];
     
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(successCallBack) name:@"WebDetailNeedCallBack" object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(successCallBack:) name:@"WebDetailNeedCallBack" object:nil];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -164,9 +163,8 @@
 //发表话题
 -(void)publishTopic:(NSArray *)args
 {
-    activeID = args[0];
     BBBasePostViewController *shareVC = [[BBBasePostViewController alloc] initWithPostType:POST_TYPE_HDFX];
-    shareVC.activeID = activeID;
+    shareVC.activeID = args[0];
     shareVC.activeTitle = args[1];
     shareVC.activeContent = args[2];
     [self.navigationController pushViewController:shareVC animated:YES];
@@ -189,14 +187,15 @@
     [alert show];
 }
 
--(void)successCallBack
+-(void)successCallBack:(NSNotification *)notification
 {
-    [adWebview stringByEvaluatingJavaScriptFromString:[NSString stringWithFormat:@"onShouxinerPublishTopicComplete(true, %@)", activeID]];
+    [adWebview stringByEvaluatingJavaScriptFromString:[NSString stringWithFormat:@"onShouxinerPublishTopicComplete(true, %@)", [notification object]]];
 }
 
 -(void)dealloc
 {
     [adWebview setDelegate:nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"WebDetailNeedCallBack" object:nil];
 }
 
 @end
