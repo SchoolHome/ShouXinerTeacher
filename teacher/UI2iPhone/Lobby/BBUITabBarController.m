@@ -179,8 +179,12 @@
     NSArray *ctrls = [NSArray arrayWithObjects:n1,n2,n3,n4,n5,nil];
     self.viewControllers = ctrls;
     self.tabBar.tintColor = [UIColor clearColor];
-    self.tabBar.shadowImage = [[UIImage alloc] init];
+    //self.tabBar.shadowImage = [[UIImage alloc] init];
     self.selectedIndex = 0;
+    if (IOS7) {
+        [self.tabBar setBarStyle:UIBarStyleBlack];
+    }
+    
     self.delegate = (id<UITabBarControllerDelegate>)self;
     _imageTabBar = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 320, 49)];
     _imageTabBar.image = [UIImage imageNamed:@"Bottomlabel_bg"];
