@@ -27,6 +27,7 @@
 @class BBWSPViewController;
 @interface BBBJQViewController ()<ADImageviewDelegate,OHAttributedLabelDelegate>
 {
+    BBBJQBannerView *bannerView;
 }
 @property (nonatomic,strong) BBTopicModel *tempTopModel;
 @property (nonatomic,strong) BBTopicModel *tempTopModelInput;
@@ -607,6 +608,9 @@
     [super viewWillAppear:animated];
     self.isLoading = NO;
     [self addObservers];
+    if (nil != bannerView) {
+        [bannerView setHidden:NO];
+    }
 }
 
 -(void)viewWillDisappear:(BOOL)animated{
@@ -645,6 +649,9 @@
         [copyContentButton removeFromSuperview];
         self.contentText = @"";
         copyContentButton = nil;
+    }
+    if (nil != bannerView) {
+        [bannerView setHidden:YES];
     }
 }
 
@@ -1383,7 +1390,7 @@
 
 -(void)addBannerByAdvs:(NSArray *)advArray
 {
-    BBBJQBannerView *bannerView = [[BBBJQBannerView alloc] initWithAdvs:advArray];
+    bannerView = [[BBBJQBannerView alloc] initWithAdvs:advArray];
     [bannerView setDelegate:(id<BBBJQBannerViewDelegate>)self];
     [self.navigationController.view addSubview:bannerView];
 }
