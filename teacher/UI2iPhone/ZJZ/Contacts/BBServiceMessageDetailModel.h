@@ -28,4 +28,5 @@ typedef enum
 @property (nonatomic, strong)NSNumber *uid;
 
 + (BBServiceMessageDetailModel  *)convertByDic:(NSDictionary *)dic;
++ (BBServiceMessageDetailModel  *)convertByNotifyMsgDic:(NSDictionary *)dic;
 @end

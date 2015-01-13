@@ -274,9 +274,9 @@
             }
             if (tempCacheNotifyMsg) {
                 BBServiceMessageDetailViewController *messageDetail = [[BBServiceMessageDetailViewController alloc] init];
-                [messageDetail setNotifyMsgmodel:tempCacheNotifyMsg];
                 messageDetail.hidesBottomBarWhenPushed = YES;
                 [self.navigationController pushViewController:messageDetail animated:YES];
+                [messageDetail setNotifyMsgmodel:tempCacheNotifyMsg];
                 [[CPSystemEngine sharedInstance] updateUnreadedMessageStatusChanged:tempCacheNotifyMsg];
             }else [self showProgressWithText:@"无法查看" withDelayTime:2];
         }else

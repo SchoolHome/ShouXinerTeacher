@@ -153,10 +153,10 @@
      NSString *mids;
      for (int i = 0; i< models.count; i++) {
      CPDBModelNotifyMessage *message = models[i];
-     if (message) {
-     if (i == 0) mids = message.mid;
-     else mids = [mids stringByAppendingFormat:@",%@",message.mid];
-     }
+         if (message) {
+             if (i == 0) mids = message.mid;
+             else mids = [mids stringByAppendingFormat:@",%@",message.mid];
+         }
      }
      
      [self showProgressWithText:@"正在获取..."];
@@ -192,7 +192,15 @@
 - (void)filterData:(NSDictionary *)fullData
 {
     //转model
+    /*
+    NSString *str = @"\"sxsoul\" :{\"0101000000000000007ae59e5380c442de1af04f\" : [{\"avatar\" : \"http://att0.shouxiner.com/attachment/get/F000NwIAABPh9QXmrqBUAAFqcGcg8o5LTX_yvCqKpyM3XHiFOQ../logo3\"}]}";
     
+    NSString *json = @"{\"01030000000000002c1b411ee47c7127fe642c49\":[{\"title\":\"“赢”战期末，专家助力！\",\"uid\":101092808,\"avatar\":\"http://att0.shouxiner.com/attachment/get/F000VwUAAMiNBganmFdTAAFwbmcgesclM1H2eSx-Ahh4iAGYgg../logo3\"}]}";
+    
+    NSDictionary *fullDicDic = [json objectFromJSONString];
+    NSDictionary *fullDic = [str objectFromJSONString];
+    NSString *jsonStr = [fullData JSONString];
+     */
     NSMutableArray *tempMessages = [[NSMutableArray alloc] init];
     
     for (NSString *key in fullData.allKeys) {
@@ -202,10 +210,12 @@
                 NSMutableArray *subItems = [[NSMutableArray alloc]initWithCapacity:4];
                 for (int i = 0 ; i < tempValue.count; i++) {
                     NSDictionary *dic = tempValue[i];
-                    BBServiceMessageDetailModel *tempModel = [BBServiceMessageDetailModel convertByDic:dic];
-                    [subItems addObject:tempModel];
-                    if (i == tempValue.count-1) {
-                        self.lastestMid = tempModel.mid;
+                    if ([dic isKindOfClass:[NSDictionary class]]) {
+                        BBServiceMessageDetailModel *tempModel = [BBServiceMessageDetailModel convertByDic:dic];
+                        [subItems addObject:tempModel];
+                        if (i == tempValue.count-1) {
+                            self.lastestMid = tempModel.mid;
+                        }
                     }
                 }
                 [tempMessages addObject:subItems];
@@ -233,9 +243,8 @@
         NSArray *tempObj2 = (NSArray *)obj2;
         BBServiceMessageDetailModel *tempModel1;
         BBServiceMessageDetailModel *tempModel2;
-        tempModel1 = tempObj1.count == 1 ? tempObj1[0] : tempObj1[0][0];
-        tempModel2 = tempObj2.count == 1 ? tempObj2[0] : tempObj2[0][0];
-        
+        if (tempObj1.count > 0)  tempModel1 = tempObj1.count == 1 ? tempObj1[0] : tempObj1[0][0];
+        if (tempObj2.count > 0) tempModel2 = tempObj2.count == 1 ? tempObj2[0] : tempObj2[0][0];
         return tempModel1.ts.integerValue < tempModel2.ts.integerValue;
     }];
     self.messages = [NSArray arrayWithArray:tempMessages];

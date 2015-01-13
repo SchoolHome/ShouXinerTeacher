@@ -325,14 +325,28 @@
             itemImage.tag = 100+i;
             [self addSubview:itemImage];
         }
+        
+        NSString *contactNickNameWhenMemberMiss = @"";
         if (userInfo.headerPath.length) {
             [itemImage setImage:[UIImage imageWithContentsOfFile:userInfo.headerPath]];
         }else
         {
-            if (!userInfo.nickName.length || [userInfo.nickName isEqualToString:[CPUIModelManagement sharedInstance].uiPersonalInfo.nickName]) {
+            //CPUIModelPersonalInfo *personalInfo = [CPUIModelManagement sharedInstance].uiPersonalInfo;
+            if ([member.userName isEqualToString:[CPUIModelManagement sharedInstance].uiPersonalInfo.name]) {
                 [itemImage setImage:[UIImage imageWithContentsOfFile:[CPUIModelManagement sharedInstance].uiPersonalInfo.selfHeaderImgPath]];
-            }else [itemImage setImage:[UIImage imageNamed:@"girl"]];
-            
+            }else {
+                for (CPUIModelUserInfo *contactUserInfo in [CPUIModelManagement sharedInstance].friendArray) {
+                    if ([contactUserInfo.name isEqualToString:member.userName]) {
+                        [itemImage setImage:[UIImage imageWithContentsOfFile:contactUserInfo.headerPath]];
+                        contactNickNameWhenMemberMiss = contactUserInfo.nickName;
+                        break;
+                    }
+                }
+                if ([contactNickNameWhenMemberMiss isEqualToString:@""]) {
+                    [itemImage setImage:[UIImage imageNamed:@"girl"]];
+                    contactNickNameWhenMemberMiss = member.userName;
+                }
+            }
         }
 
         
@@ -346,7 +360,18 @@
             itemNickName.tag = 300+i;
             [self addSubview:itemNickName];
         }
-        itemNickName.text = userInfo.nickName.length ? userInfo.nickName : [CPUIModelManagement sharedInstance].uiPersonalInfo.nickName;
+        
+        if (userInfo.nickName.length) {
+            itemNickName.text = userInfo.nickName;
+        }else if ([member.userName isEqualToString:[CPUIModelManagement sharedInstance].uiPersonalInfo.name]) {
+            itemNickName.text = [CPUIModelManagement sharedInstance].uiPersonalInfo.nickName;
+        }else
+        {
+            if (![contactNickNameWhenMemberMiss isEqualToString:@""]) {
+                itemNickName.text = contactNickNameWhenMemberMiss;
+            }else itemNickName.text = member.userName;
+            
+        }
     }
     
 }

@@ -120,7 +120,7 @@
             CPUIModelUserInfo *userInfo = member.userInfo;
             
             UIImage *image;
-            if (!userInfo.nickName.length || [userInfo.nickName isEqualToString:[CPUIModelManagement sharedInstance].uiPersonalInfo.nickName]) {
+            if ([userInfo.nickName isEqualToString:[CPUIModelManagement sharedInstance].uiPersonalInfo.nickName]) {
                 image = [UIImage imageWithContentsOfFile:[CPUIModelManagement sharedInstance].uiPersonalInfo.selfHeaderImgPath];
             }else image = [UIImage imageWithContentsOfFile:userInfo.headerPath];
             /*
