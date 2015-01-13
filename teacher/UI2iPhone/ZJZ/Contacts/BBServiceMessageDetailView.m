@@ -6,7 +6,7 @@
 //  Copyright (c) 2014年 ws. All rights reserved.
 //
 
-#define Banner_Image_Height 100.f
+#define Banner_Image_Height 120.f
 #define Banner_Image_Width 280.f
 
 #define Item_Image_Widht 40.f
@@ -35,7 +35,7 @@
 //        roundedLayer.borderColor = [[UIColor whiteColor] CGColor];
         
         
-        time = [[UILabel alloc] initWithFrame:CGRectMake(0, 10, self.frame.size.width, 30)];
+        time = [[UILabel alloc] initWithFrame:CGRectMake(0, 14, self.frame.size.width, 30)];
         [self addSubview:time];
         time.backgroundColor = [UIColor colorWithHexString:@"#f2f2f2"];
         time.textColor = [UIColor lightGrayColor];
@@ -92,7 +92,7 @@
         [arrow setImage:[UIImage imageNamed:@"enter"]];
         [back addSubview:arrow];
         
-        [back setFrame:CGRectMake(0.f, CGRectGetMaxY(time.frame), 290.f, self.frame.size.height-CGRectGetHeight(time.frame)-6.f)];
+        [back setFrame:CGRectMake(0.f, CGRectGetMaxY(time.frame), 290.f, self.frame.size.height-CGRectGetHeight(time.frame))];
         
         UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(singleViewTapped)];
         [back addGestureRecognizer:tap];
@@ -114,6 +114,7 @@
                 
                 UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(mutilViewBannerTapped)];
                 [banner addGestureRecognizer:tap];
+                
             }else if(i < 4)
             {
                 UIView *tapView = [[UIView alloc] initWithFrame:CGRectZero];
@@ -135,6 +136,7 @@
                 EGOImageView *itemImageview = [[EGOImageView alloc] initWithPlaceholderImage:nil];
                 [itemImageview setFrame:CGRectMake(CGRectGetMaxX(banner.frame)-Item_Image_Widht, CGRectGetMaxY(line.frame)+2.f, Item_Image_Widht, Item_Image_Widht)];
                 [itemImageview setImageURL:[NSURL URLWithString:model.imageUrl]];
+                itemImageview.contentMode = UIViewContentModeScaleAspectFit;
                 [back addSubview:itemImageview];
                 
                 [tapView setFrame:CGRectMake(CGRectGetMinX(line.frame), CGRectGetMinY(line.frame), CGRectGetWidth(line.frame), CGRectGetMaxY(itemImageview.frame)-CGRectGetMinY(line.frame))];
