@@ -141,8 +141,8 @@ static PalmUIManagement *sharedInstance = nil;
 }
 
 // 激活
--(void) activate : (NSString *) userName withTelPhone : (NSString *) telPhone withEmail : (NSString *) email withPassWord : (NSString *) password{
-    MyOperation *operation = [[MyOperation alloc] initActivate:userName withTelPhone:telPhone withEmail:email withPassWord:password];
+-(void) activate : (NSString *) userName withTelPhone : (NSString *) telPhone withVerifyCode:(NSString *)verfyCode withEmail : (NSString *) email withPassWord : (NSString *) password{
+    MyOperation *operation = [[MyOperation alloc] initActivate:userName withTelPhone:telPhone  withVerifyCode:verfyCode  withEmail:email withPassWord:password];
     [[PalmNetWorkService sharedInstance] networkEngine:operation];
 }
 

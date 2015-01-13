@@ -18,5 +18,5 @@ typedef enum{
 @property (nonatomic) MyType type;
 -(MyOperation *) initGetCredits;
 -(MyOperation *) initCheckVersion;
--(MyOperation *) initActivate : (NSString *) userName withTelPhone : (NSString *) telPhone withEmail : (NSString *) email withPassWord : (NSString *) password;
+-(MyOperation *) initActivate : (NSString *) userName withTelPhone : (NSString *) telPhone withVerifyCode:(NSString *)verfyCode withEmail : (NSString *) email withPassWord : (NSString *) password;
 @end

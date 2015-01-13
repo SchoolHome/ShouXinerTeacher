@@ -167,7 +167,7 @@
 -(void) postForwardNoti : (int) oaid withGroupID : (int) groupID withMessage : (NSString *) message;
 
 // 激活
--(void) activate : (NSString *) userName withTelPhone : (NSString *) telPhone withEmail : (NSString *) email withPassWord : (NSString *) password;
+-(void) activate : (NSString *) userName withTelPhone : (NSString *) telPhone withVerifyCode:(NSString *)verfyCode withEmail : (NSString *) email withPassWord : (NSString *) password;
 
 -(void) userLoginToken;
 // 获取学生列表
