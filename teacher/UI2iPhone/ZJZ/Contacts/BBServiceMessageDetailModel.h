@@ -26,6 +26,7 @@ typedef enum
 @property (nonatomic, strong)NSNumber *ts;
 @property (nonatomic, strong)NSString *userName;
 @property (nonatomic, strong)NSNumber *uid;
+@property (nonatomic, strong)NSString *title;
 
 + (BBServiceMessageDetailModel  *)convertByDic:(NSDictionary *)dic;
 + (BBServiceMessageDetailModel  *)convertByNotifyMsgDic:(NSDictionary *)dic;

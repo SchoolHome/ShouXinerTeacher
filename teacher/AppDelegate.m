@@ -225,7 +225,16 @@
 - (void)applicationWillEnterForeground:(UIApplication *)application{
     [self setLatestActiveTime:[CoreUtils getLongFormatWithNowDate]];
     [[CPUIModelManagement sharedInstance] sysActive];
-    [[PalmUIManagement sharedInstance] foreground];
+    //[[PalmUIManagement sharedInstance] foreground];
+    BBUITabBarController *tabbar = (BBUITabBarController *)self.window.rootViewController;
+    if (tabbar.selectedIndex == 0) {
+        int groupID = [PalmUIManagement sharedInstance].currentGroupInfo.groupid.intValue;
+        if (groupID) {
+            [[PalmUIManagement sharedInstance] getAdvWithGroupID:groupID];
+        }
+        
+    }
+    
     CPLGModelAccount *account = [[CPSystemEngine sharedInstance] accountModel];
     if (account.loginName != nil && account.pwdMD5 != nil && ![account.loginName isEqualToString:@""] && ![account.pwdMD5 isEqualToString:@""]) {
         [[PalmUIManagement sharedInstance] userLoginToken];

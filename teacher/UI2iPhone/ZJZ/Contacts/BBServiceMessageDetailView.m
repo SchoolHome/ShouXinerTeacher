@@ -109,7 +109,7 @@
                 titleLabel.font = [UIFont boldSystemFontOfSize:14.f];
                 titleLabel.backgroundColor = [[UIColor blackColor] colorWithAlphaComponent:0.6];
                 titleLabel.textColor = [UIColor whiteColor];
-                titleLabel.text = model.content;
+                titleLabel.text = model.title;
                 [back addSubview:titleLabel];
                 
                 UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(mutilViewBannerTapped)];
@@ -127,7 +127,7 @@
                 
                 UILabel *readTitle = [[UILabel alloc] initWithFrame:CGRectMake(CGRectGetMinX(banner.frame), CGRectGetMaxY(line.frame)+4, CGRectGetMaxX(banner.frame)-Item_Image_Widht-20.f, 36.f)];
                 readTitle.backgroundColor = [UIColor clearColor];
-                readTitle.text = model.content;
+                readTitle.text = model.title;
                 readTitle.numberOfLines = 2;
                 readTitle.font = [UIFont systemFontOfSize:13.f];
                 readTitle.textColor = [UIColor lightGrayColor];

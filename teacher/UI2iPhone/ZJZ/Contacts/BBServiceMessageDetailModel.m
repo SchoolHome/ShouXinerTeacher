@@ -24,6 +24,7 @@
     tempModel.avatar = [FXStringUtil fliterStringIsNull:dic[@"avatar"]];
     tempModel.userName = [FXStringUtil fliterStringIsNull:dic[@"username"]];
     tempModel.uid = dic[@"uid"];
+    tempModel.title = [FXStringUtil fliterStringIsNull:dic[@"title"]];
     
     return tempModel;
 }

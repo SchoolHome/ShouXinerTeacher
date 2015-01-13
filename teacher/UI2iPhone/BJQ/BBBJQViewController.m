@@ -298,6 +298,9 @@
             adImage.adDelegate = self;
             [[UIApplication sharedApplication].keyWindow addSubview:adImage];
             [[UIApplication sharedApplication].keyWindow bringSubviewToFront:adImage];
+        }else
+        {
+            NSLog(@"%@",[[PalmUIManagement sharedInstance].advWithGroupResult objectForKey:ASI_REQUEST_ERROR_MESSAGE]);
         }
     }
     
