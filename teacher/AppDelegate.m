@@ -231,7 +231,6 @@
         if (groupID) {
             [[PalmUIManagement sharedInstance] getAdvWithGroupID:groupID];
         }
-        
     }
     
     CPLGModelAccount *account = [[CPSystemEngine sharedInstance] accountModel];
