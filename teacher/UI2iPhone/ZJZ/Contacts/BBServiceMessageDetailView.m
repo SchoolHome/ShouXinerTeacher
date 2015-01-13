@@ -9,7 +9,7 @@
 #define Banner_Image_Height 150.f
 #define Banner_Image_Width 270.f
 
-#define Item_Image_Widht 40.f
+#define Item_Image_Widht 50.f
 
 #import "BBServiceMessageDetailView.h"
 
@@ -69,7 +69,7 @@
         
         CGSize titleSize = [model.content sizeWithFont:[UIFont systemFontOfSize:13.f]];
         
-        UILabel *titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(CGRectGetMinX(banner.frame), CGRectGetMaxY(banner.frame)+10.f, Banner_Image_Width, titleSize.height> 50 ? titleSize.height : 50.f)];
+        UILabel *titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(CGRectGetMinX(banner.frame), CGRectGetMaxY(banner.frame)+5.f, Banner_Image_Width, titleSize.height> 50 ? titleSize.height : 50.f)];
         titleLabel.font = [UIFont systemFontOfSize:13.f];
         titleLabel.backgroundColor = [UIColor clearColor];
         titleLabel.textColor = [UIColor lightGrayColor];
