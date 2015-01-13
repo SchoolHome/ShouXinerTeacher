@@ -21,15 +21,6 @@
 
 @implementation ADDetailViewController
 
--(id)init
-{
-    self = [super init];
-    if (self) {
-        isShowNavBar = YES;
-    }
-    return self;
-}
-
 -(void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
@@ -46,6 +37,7 @@
 {
     self = [super init];
     if (self) {
+        isShowNavBar = YES;
         adType = type;
         CGFloat navigationBarHeight = 0;
         CGFloat webviewOriginY = 0;
