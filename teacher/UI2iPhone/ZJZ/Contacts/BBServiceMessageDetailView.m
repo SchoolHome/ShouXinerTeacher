@@ -44,7 +44,7 @@
         
         banner = [[EGOImageView alloc] initWithPlaceholderImage:nil];
         banner.userInteractionEnabled = YES;
-        banner.contentMode = UIViewContentModeScaleAspectFit;
+        banner.contentMode = UIViewContentModeScaleToFill;
         [banner setFrame:CGRectMake(10.f, 5.f, Banner_Image_Width, Banner_Image_Height)];
         [back addSubview:banner];
     }
