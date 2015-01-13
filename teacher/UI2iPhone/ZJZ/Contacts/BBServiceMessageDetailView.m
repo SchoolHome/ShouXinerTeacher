@@ -115,7 +115,7 @@
                 UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(mutilViewBannerTapped)];
                 [banner addGestureRecognizer:tap];
                 
-            }else if(i < 4)
+            }else if(i < 5)
             {
                 UIView *tapView = [[UIView alloc] initWithFrame:CGRectZero];
                 tapView.tag = i;
