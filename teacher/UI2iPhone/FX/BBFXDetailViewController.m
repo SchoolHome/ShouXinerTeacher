@@ -115,25 +115,22 @@
 
 -(BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType
 {
-    NSLog(@"webUrl222:::%@", request.mainDocumentURL);
-    NSURL *url = [request mainDocumentURL];
-    NSString *funcUrl= [[url absoluteString] stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
-    if ([funcUrl rangeOfString:@"nativeMethod=goBack"].location != NSNotFound) {
-        [self.navigationController popViewControllerAnimated:YES];
-        return NO;
-    }
-    if ([funcUrl rangeOfString:@"shouxiner://function:"].location != NSNotFound) {
-        NSRange range = [funcUrl rangeOfString:@"shouxiner://function:"];
-        NSString *subUrl = [funcUrl substringFromIndex:range.length];
-        NSData* data = [subUrl dataUsingEncoding:NSUTF8StringEncoding];
-        NSError* error = nil;
-        id result = [NSJSONSerialization JSONObjectWithData:data options:0 error:&error];
-        NSDictionary *objDic = result;
-        NSString *funcName = [NSString stringWithFormat:@"%@:", objDic[@"function"]];
-        NSArray *args = objDic[@"args"];
-        SEL selector = NSSelectorFromString(funcName);
-        [self performSelector:selector withObject:args];
-        return NO;
+    if (navigationType == UIWebViewNavigationTypeOther || navigationType == UIWebViewNavigationTypeLinkClicked) {
+        NSURL *url = [request URL];
+        NSString *funcUrl= [[url absoluteString] stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+        if ([funcUrl rangeOfString:@"shouxiner://function:"].location != NSNotFound) {
+            NSRange range = [funcUrl rangeOfString:@"shouxiner://function:"];
+            NSString *subUrl = [funcUrl substringFromIndex:range.length];
+            NSData* data = [subUrl dataUsingEncoding:NSUTF8StringEncoding];
+            NSError* error = nil;
+            id result = [NSJSONSerialization JSONObjectWithData:data options:0 error:&error];
+            NSDictionary *objDic = result;
+            NSString *funcName = [NSString stringWithFormat:@"%@:", objDic[@"function"]];
+            NSArray *args = objDic[@"args"];
+            SEL selector = NSSelectorFromString(funcName);
+            [self performSelector:selector withObject:args];
+            return NO;
+        }
     }
     return YES;
 }
@@ -147,6 +144,7 @@
         [adWebview setFrame:CGRectMake(0.f, 0, self.view.frame.size.width, self.screenHeight)];
     }
     [self.navigationController setNavigationBarHidden:(!isShowNavBar) animated:YES];
+    [adWebview stringByEvaluatingJavaScriptFromString:[NSString stringWithFormat:@"onShouxinerSetTitleBarVisibleComplete(true)"]];
 }
 //定位
 -(void)getLocate:(NSArray *)args
@@ -189,6 +187,11 @@
 {
     [[NSNotificationCenter defaultCenter] postNotificationName:@"BJQNeedRefresh" object:nil];
     [adWebview stringByEvaluatingJavaScriptFromString:[NSString stringWithFormat:@"onShouxinerPublishTopicComplete(true, %@)", [notification object]]];
+}
+
+-(void) close:(NSArray *)args
+{
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 -(void)dealloc
