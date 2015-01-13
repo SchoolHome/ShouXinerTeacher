@@ -216,10 +216,6 @@
                         if (i == tempValue.count-1) {
                             self.lastestMid = tempModel.mid;
                         }
-                        
-                        if (tempValue.count == 5) {
-                            NSLog(@"%@",tempModel.mid);
-                        }
                     }
                 }
                 [tempMessages addObject:subItems];
