@@ -105,8 +105,8 @@
                 
                 time.text = [self dateString:model.ts];
                 
-                UILabel *titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(CGRectGetMinX(banner.frame), CGRectGetMaxY(banner.frame)-20.f, self.frame.size.width-20.f, 20.f)];
-                titleLabel.font = [UIFont boldSystemFontOfSize:13.f];
+                UILabel *titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(CGRectGetMinX(banner.frame), CGRectGetMaxY(banner.frame)-26.f, CGRectGetWidth(banner.frame), 26.f)];
+                titleLabel.font = [UIFont boldSystemFontOfSize:14.f];
                 titleLabel.backgroundColor = [[UIColor blackColor] colorWithAlphaComponent:0.6];
                 titleLabel.textColor = [UIColor whiteColor];
                 titleLabel.text = model.content;
@@ -120,7 +120,7 @@
                 tapView.tag = i;
                 [back addSubview:tapView];
                 
-                UIImageView *line = [[UIImageView alloc] initWithFrame:CGRectMake(-1, CGRectGetMaxY(banner.frame)+7.f+(Item_Image_Widht+4)*(i-1), self.frame.size.width+2, 1.f)];
+                UIImageView *line = [[UIImageView alloc] initWithFrame:CGRectMake(-1, CGRectGetMaxY(banner.frame)+6.f+(Item_Image_Widht+4)*(i-1), self.frame.size.width+2, 1.f)];
                 line.backgroundColor = [UIColor colorWithRed:240/255.f green:242/255.f blue:245/255.f alpha:1.f];
                 [back addSubview:line];
                 
@@ -140,10 +140,14 @@
                 [tapView setFrame:CGRectMake(CGRectGetMinX(line.frame), CGRectGetMinY(line.frame), CGRectGetWidth(line.frame), CGRectGetMaxY(itemImageview.frame)-CGRectGetMinY(line.frame))];
                 UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(mutilViewTapped:)];
                 [tapView addGestureRecognizer:tap];
+                
+                if (i == self.models.count-1) {
+                    [back setFrame:CGRectMake(0.f, CGRectGetMaxY(time.frame), 290.f, CGRectGetMaxY(tapView.frame)+10.f)];
+                }
             }
         }
 
-        [back setFrame:CGRectMake(0.f, CGRectGetMaxY(time.frame), self.frame.size.width, self.frame.size.height-CGRectGetHeight(time.frame)-6.f)];
+
     }
 }
 

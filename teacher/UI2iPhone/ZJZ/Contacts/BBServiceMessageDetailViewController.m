@@ -192,15 +192,20 @@
 - (void)filterData:(NSDictionary *)fullData
 {
     //转model
-    /*
-    NSString *str = @"\"sxsoul\" :{\"0101000000000000007ae59e5380c442de1af04f\" : [{\"avatar\" : \"http://att0.shouxiner.com/attachment/get/F000NwIAABPh9QXmrqBUAAFqcGcg8o5LTX_yvCqKpyM3XHiFOQ../logo3\"}]}";
+    /*Test bug
+    NSString *str = @"{\"01010000000000000094c030059f0fcaef8ba960\":[{\"mid\":\"010400000000000003a00ba0ab69e7ee9aa01b54\",\"uid\":100000125,\"username\":\"系统管理员\",\"avatar\":\"http:\/\/att0.shouxiner.com\/attachment\/get\/F000NwIAABPh9QXmrqBUAAFqcGcg8o5LTX_yvCqKpyM3XHiFOQ..\/logo3\",\"type\":1,\"title\":\"123123123\",\"content\":\"12323123123123123123123\",\"ts\":\"1421120060\",\"link\":\"http:\/\/www.shouxiner.com\/webview\/pubMessage?mid=010400000000000003a00ba0ab69e7ee9aa01b54\",\"image\":\"http:\/\/att0.shouxiner.com\/attachment\/get\/F000HQoAAH3h9QUukrRUAAFqcGcg1FpYh59ILlHofe3mnmqHYw..\/mbanner\"},{\"mid\":\"010400000000000003a00ba0ab69e7ee9aa01b54\",\"uid\":100000125,\"username\":\"系统管理员\",\"avatar\":\"http:\/\/att0.shouxiner.com\/attachment\/get\/F000NwIAABPh9QXmrqBUAAFqcGcg8o5LTX_yvCqKpyM3XHiFOQ..\/logo3\",\"type\":1,\"title\":\"123123123\",\"content\":\"12323123123123123123123\",\"ts\":\"1421120060\",\"link\":\"http:\/\/www.shouxiner.com\/webview\/pubMessage?mid=010400000000000003a00ba0ab69e7ee9aa01b54\",\"image\":\"http:\/\/att0.shouxiner.com\/attachment\/get\/F000HQoAAH3h9QUukrRUAAFqcGcg1FpYh59ILlHofe3mnmqHYw..\/mbanner\"},{\"mid\":\"010400000000000003a00ba0ab69e7ee9aa01b54\",\"uid\":100000125,\"username\":\"系统管理员\",\"avatar\":\"http:\/\/att0.shouxiner.com\/attachment\/get\/F000NwIAABPh9QXmrqBUAAFqcGcg8o5LTX_yvCqKpyM3XHiFOQ..\/logo3\",\"type\":1,\"title\":\"123123123\",\"content\":\"12323123123123123123123\",\"ts\":\"1421120060\",\"link\":\"http:\/\/www.shouxiner.com\/webview\/pubMessage?mid=010400000000000003a00ba0ab69e7ee9aa01b54\",\"image\":\"http:\/\/att0.shouxiner.com\/attachment\/get\/F000HQoAAH3h9QUukrRUAAFqcGcg1FpYh59ILlHofe3mnmqHYw..\/mbanner\"}],\"0101000000000000008d4d8956965b8a7bb36c30\":[{\"mid\":\"0104000000000000038a44c7d99785b26f7ca839\",\"uid\":100000125,\"username\":\"系统管理员\",\"avatar\":\"http:\/\/att0.shouxiner.com\/attachment\/get\/F000NwIAABPh9QXmrqBUAAFqcGcg8o5LTX_yvCqKpyM3XHiFOQ..\/logo3\",\"type\":1,\"title\":\"1最终形成\",\"content\":\"擦擦擦把把阿斯蒂芬\",\"ts\":\"1421116386\",\"link\":\"http:\/\/www.shouxiner.com\/webview\/pubMessage?mid=0104000000000000038a44c7d99785b26f7ca839\",\"image\":\"http:\/\/att0.shouxiner.com\/attachment\/get\/F000DgoAAH3h9QXfg7RUAAFqcGcgn4Kyybz21PQ3jl3OLMjdhQ..\/mbanner\"}]}";
+    NSString *testStr = @"sxsoul::: {\"010300000000000027c34338134350f39cb54373\":[{\"title\":\"标题较长标题较长标题较长标题较长\",\"avatar\":\"http://att0.shouxiner.com/attachment/get/F000SAIAAAwAAACpapRRAAFqcGcgqsby5d1zccQVZ-6KD6sOew../logo3\"}]}";
     
     NSString *json = @"{\"01030000000000002c1b411ee47c7127fe642c49\":[{\"title\":\"“赢”战期末，专家助力！\",\"uid\":101092808,\"avatar\":\"http://att0.shouxiner.com/attachment/get/F000VwUAAMiNBganmFdTAAFwbmcgesclM1H2eSx-Ahh4iAGYgg../logo3\"}]}";
     
-    NSDictionary *fullDicDic = [json objectFromJSONString];
-    NSDictionary *fullDic = [str objectFromJSONString];
+    
+    NSDictionary *fullDicDic = [str objectFromJSONString];
+    fullData = [str objectFromJSONString];
+    //NSDictionary *fullDic = [str objectFromJSONString];
     NSString *jsonStr = [fullData JSONString];
-     */
+    */
+    
+    
     NSMutableArray *tempMessages = [[NSMutableArray alloc] init];
     
     for (NSString *key in fullData.allKeys) {
@@ -219,6 +224,9 @@
                     }
                 }
                 [tempMessages addObject:subItems];
+        }else if ([tempValue isKindOfClass:[NSDictionary class]])
+        {
+            
         }
     }
     
@@ -237,14 +245,14 @@
         }
     }
     
-    
+    NSLog(@"%@",tempMessages);
     [tempMessages sortUsingComparator:^NSComparisonResult(id obj1, id obj2) {
         NSArray *tempObj1 = (NSArray *)obj1;
         NSArray *tempObj2 = (NSArray *)obj2;
         BBServiceMessageDetailModel *tempModel1;
         BBServiceMessageDetailModel *tempModel2;
-        if (tempObj1.count > 0)  tempModel1 = tempObj1.count == 1 ? tempObj1[0] : tempObj1[0][0];
-        if (tempObj2.count > 0) tempModel2 = tempObj2.count == 1 ? tempObj2[0] : tempObj2[0][0];
+        if (tempObj1.count > 0)  tempModel1 = tempObj1.count == 1 ? tempObj1[0] : tempObj1[0];
+        if (tempObj2.count > 0) tempModel2 = tempObj2.count == 1 ? tempObj2[0] : tempObj2[0];
         return tempModel1.ts.integerValue < tempModel2.ts.integerValue;
     }];
     self.messages = [NSArray arrayWithArray:tempMessages];
@@ -264,25 +272,32 @@
     int singeViews = 0;
     int mutilViews = 0;
     CGFloat singeViewHeight = 240.f;
-    CGFloat MutilViewHeight = 284.f;
+    CGFloat currentMutilViewHeight = 0.f;
     for (int i = 0; i<self.messages.count; i++) {
         NSArray *tempArray = self.messages[i];
         CGRect frame;
         if (tempArray.count == 1) {
-            frame = CGRectMake(0.f, singeViewHeight*singeViews+MutilViewHeight*mutilViews, CGRectGetWidth(self.detailScrollview.frame), singeViewHeight);
+            frame = CGRectMake(0.f, singeViewHeight*singeViews+currentMutilViewHeight, CGRectGetWidth(self.detailScrollview.frame), singeViewHeight);
             singeViews++;
         }else
         {
-            frame = CGRectMake(0.f, singeViewHeight*singeViews+MutilViewHeight*mutilViews, CGRectGetWidth(self.detailScrollview.frame), MutilViewHeight);
+            CGFloat mutilViewOwnHeight = 200+(tempArray.count-1)*40;
+            
+            frame = CGRectMake(0.f, singeViewHeight*singeViews+currentMutilViewHeight, CGRectGetWidth(self.detailScrollview.frame), mutilViewOwnHeight);
             mutilViews++;
+            
+            currentMutilViewHeight += mutilViewOwnHeight;
         }
+        
+        
+        
         BBServiceMessageDetailView *detailView = [[BBServiceMessageDetailView alloc] initWithFrame:frame];
         detailView.delegate = self;
         [detailView setModels:tempArray];
         [self.detailScrollview addSubview:detailView];
     }
     
-    [self.detailScrollview setContentSize:CGSizeMake(self.screenWidth-30.f, singeViewHeight*singeViews+MutilViewHeight*mutilViews)];
+    [self.detailScrollview setContentSize:CGSizeMake(self.screenWidth-30.f, singeViewHeight*singeViews+currentMutilViewHeight)];
     
     [self closeProgress];
 }
