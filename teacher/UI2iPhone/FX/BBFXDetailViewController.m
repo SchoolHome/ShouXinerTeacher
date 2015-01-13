@@ -115,28 +115,25 @@
 
 -(BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType
 {
-    NSLog(@"webUrl222:::%@", request.URL);
-    if (navigationType == UIWebViewNavigationTypeOther || navigationType == UIWebViewNavigationTypeLinkClicked) {
-        NSURL *url = [request URL];
-        NSString *funcUrl= [[url absoluteString] stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
-        NSLog(@"webUrl:::%@", funcUrl);
-        if ([funcUrl rangeOfString:@"nativeMethod=goBack"].location != NSNotFound) {
-            [self.navigationController popViewControllerAnimated:YES];
-            return NO;
-        }
-        if ([funcUrl rangeOfString:@"shouxiner://function:"].location != NSNotFound) {
-            NSRange range = [funcUrl rangeOfString:@"shouxiner://function:"];
-            NSString *subUrl = [funcUrl substringFromIndex:range.length];
-            NSData* data = [subUrl dataUsingEncoding:NSUTF8StringEncoding];
-            NSError* error = nil;
-            id result = [NSJSONSerialization JSONObjectWithData:data options:0 error:&error];
-            NSDictionary *objDic = result;
-            NSString *funcName = [NSString stringWithFormat:@"%@:", objDic[@"function"]];
-            NSArray *args = objDic[@"args"];
-            SEL selector = NSSelectorFromString(funcName);
-            [self performSelector:selector withObject:args];
-            return NO;
-        }
+    NSLog(@"webUrl222:::%@", request.mainDocumentURL);
+    NSURL *url = [request mainDocumentURL];
+    NSString *funcUrl= [[url absoluteString] stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+    if ([funcUrl rangeOfString:@"nativeMethod=goBack"].location != NSNotFound) {
+        [self.navigationController popViewControllerAnimated:YES];
+        return NO;
+    }
+    if ([funcUrl rangeOfString:@"shouxiner://function:"].location != NSNotFound) {
+        NSRange range = [funcUrl rangeOfString:@"shouxiner://function:"];
+        NSString *subUrl = [funcUrl substringFromIndex:range.length];
+        NSData* data = [subUrl dataUsingEncoding:NSUTF8StringEncoding];
+        NSError* error = nil;
+        id result = [NSJSONSerialization JSONObjectWithData:data options:0 error:&error];
+        NSDictionary *objDic = result;
+        NSString *funcName = [NSString stringWithFormat:@"%@:", objDic[@"function"]];
+        NSArray *args = objDic[@"args"];
+        SEL selector = NSSelectorFromString(funcName);
+        [self performSelector:selector withObject:args];
+        return NO;
     }
     return YES;
 }
