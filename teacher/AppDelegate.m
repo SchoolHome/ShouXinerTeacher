@@ -189,9 +189,8 @@
             BOOL force = [result[@"force"] boolValue];
 //            NSString *version = result[@"version"];
             self.url = result[@"url"];
-            
             if (!recommend && !force) {
-                return;
+                [[NSNotificationCenter defaultCenter] postNotificationName:@"CheckVersionInSetting" object:nil];
             }else if(recommend && !force){
                 UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"有更新" message:@"有新版本更新" delegate:self cancelButtonTitle:@"确定" otherButtonTitles:@"取消", nil];
                 [alert show];

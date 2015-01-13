@@ -26,6 +26,18 @@
     return self;
 }
 
+-(void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(checkUpdateVersion:) name:@"CheckVersionInSetting" object:nil];
+}
+
+-(void)viewWillDisappear:(BOOL)animated
+{
+    [super viewWillDisappear:animated];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"CheckVersionInSetting" object:nil];
+}
+
 -(void)loadView
 {
     [super loadView];
@@ -175,6 +187,11 @@
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+-(void)checkUpdateVersion:(NSNotification *)notification
+{
+    [self showProgressWithText:@"已是最新版本" withDelayTime:1.f];
 }
 
 /*
