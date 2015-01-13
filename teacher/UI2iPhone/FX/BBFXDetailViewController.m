@@ -66,8 +66,7 @@
     adWebview.scalesPageToFit = YES;
     adWebview.delegate = (id<UIWebViewDelegate>)self;
     [adWebview.scrollView setMaximumZoomScale:4.f];
-//    NSURLRequest *request =[NSURLRequest requestWithURL:self.url];
-    NSURLRequest *request =[NSURLRequest requestWithURL:[NSURL URLWithString:@"http://192.168.11.69:8088/ps-test.html"]];
+    NSURLRequest *request =[NSURLRequest requestWithURL:self.url];
     [adWebview loadRequest:request];
     [self.view addSubview:adWebview];
     
@@ -116,15 +115,17 @@
 
 -(BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType
 {
+    NSLog(@"webUrl222:::%@", request.URL);
     if (navigationType == UIWebViewNavigationTypeOther || navigationType == UIWebViewNavigationTypeLinkClicked) {
         NSURL *url = [request URL];
         NSString *funcUrl= [[url absoluteString] stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+        NSLog(@"webUrl:::%@", funcUrl);
         if ([funcUrl rangeOfString:@"nativeMethod=goBack"].location != NSNotFound) {
             [self.navigationController popViewControllerAnimated:YES];
             return NO;
         }
-        if ([funcUrl rangeOfString:@"shouxiner://funcion:"].location != NSNotFound) {
-            NSRange range = [funcUrl rangeOfString:@"shouxiner://funcion:"];
+        if ([funcUrl rangeOfString:@"shouxiner://function:"].location != NSNotFound) {
+            NSRange range = [funcUrl rangeOfString:@"shouxiner://function:"];
             NSString *subUrl = [funcUrl substringFromIndex:range.length];
             NSData* data = [subUrl dataUsingEncoding:NSUTF8StringEncoding];
             NSError* error = nil;
