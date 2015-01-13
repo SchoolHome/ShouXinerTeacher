@@ -42,7 +42,7 @@
 
 }
 
--(MyOperation *) initActivate : (NSString *) userName withTelPhone : (NSString *) telPhone withEmail : (NSString *) email withPassWord : (NSString *) password;{
+-(MyOperation *) initActivate : (NSString *) userName withTelPhone : (NSString *) telPhone withVerifyCode:(NSString *)verifyCode withEmail : (NSString *) email withPassWord : (NSString *) password{
     if ([self initOperation]) {
         self.type = kActivate;
         NSString *urlStr = [NSString stringWithFormat:@"http://%@/mapi/active",K_HOST_NAME_OF_PALM_SERVER];
@@ -57,7 +57,9 @@
         if (nil != password && ![password isEqualToString:@""]) {
             [pa setObject:password forKey:@"password"];
         }
-        
+        if (nil!= verifyCode && ![verifyCode isEqualToString:@""]) {
+            [pa setObject:verifyCode forKey:@"verifyCode"];
+        }
         [self setHttpRequestPostWithUrl:urlStr params:pa];
     }
     return self;

@@ -171,6 +171,12 @@
     }
     [_locationManager startUpdatingLocation];
     [self.window makeKeyAndVisible];
+    
+    //自定义webview的useragent
+    UIWebView* tempWebView = [[UIWebView alloc] initWithFrame:CGRectZero];
+    NSString* userAgent = [tempWebView stringByEvaluatingJavaScriptFromString:@"navigator.userAgent"];
+    NSString *ua = [NSString stringWithFormat:@"%@\\shouxiner-ios-%@-%@", userAgent, [[UIDevice currentDevice] systemVersion], [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleVersion"]];
+    [[NSUserDefaults standardUserDefaults] registerDefaults:@{@"UserAgent" : ua, @"User-Agent" : ua}];
     return YES;
 }
 

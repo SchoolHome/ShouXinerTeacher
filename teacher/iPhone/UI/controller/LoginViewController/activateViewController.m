@@ -254,9 +254,9 @@
             [self showProgressWithText:@"用户名不能为空" withDelayTime:1.0f];
             return;
         }
-        [[PalmUIManagement sharedInstance] activate:username withTelPhone:telPhoneText withEmail:@"" withPassWord:passwordText];
+        [[PalmUIManagement sharedInstance] activate:username withTelPhone:telPhoneText withVerifyCode:smsCode withEmail:@"" withPassWord:passwordText];
     }else{
-        [[PalmUIManagement sharedInstance] activate:@"" withTelPhone:telPhoneText withEmail:@"" withPassWord:passwordText];
+        [[PalmUIManagement sharedInstance] activate:@"" withTelPhone:telPhoneText withVerifyCode:smsCode withEmail:@"" withPassWord:passwordText];
     }
 }
 
