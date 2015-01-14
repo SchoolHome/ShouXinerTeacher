@@ -166,9 +166,9 @@
     }
     UILabel *label = [[UILabel alloc] init];
 #ifdef IS_TEACHER
-    label.text = @"手心网 V4.0 教师版";
+    label.text = @"手心网 V4.1 教师版";
 #else
-    label.text = @"手心网 V4.0 家长版";
+    label.text = @"手心网 V4.1 家长版";
 #endif
     label.textAlignment = NSTextAlignmentCenter;
     label.textColor = [UIColor whiteColor];
