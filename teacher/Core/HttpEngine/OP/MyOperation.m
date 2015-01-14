@@ -58,7 +58,7 @@
             [pa setObject:password forKey:@"password"];
         }
         if (nil!= verifyCode && ![verifyCode isEqualToString:@""]) {
-            [pa setObject:verifyCode forKey:@"verifyCode"];
+            [pa setObject:verifyCode forKey:@"verifycode"];
         }
         [self setHttpRequestPostWithUrl:urlStr params:pa];
     }
