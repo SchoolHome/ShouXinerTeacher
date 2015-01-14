@@ -19,6 +19,8 @@
 @interface PalmUIManagement : NSObject
 
 +(PalmUIManagement *) sharedInstance;
+//是否进入过班级圈，第一次弹出广告
+@property (nonatomic) BOOL isEnteredBJQ;
 // 登陆结果
 @property(nonatomic,strong) CPPTModelLoginResult *loginResult;
 // 当前选择的班级信息

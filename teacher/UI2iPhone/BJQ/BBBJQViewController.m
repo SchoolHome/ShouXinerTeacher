@@ -78,10 +78,19 @@
                 }
                 [PalmUIManagement sharedInstance].currentGroupInfo = _currentGroup;
                 [bjqTableView triggerPullToRefresh];
+                
+                if (![PalmUIManagement sharedInstance].isEnteredBJQ) {
+                    int groupID = self.currentGroup.groupid.intValue;
+                    if (groupID) {
+                        [[PalmUIManagement sharedInstance] getAdvWithGroupID:groupID];
+                    }
+                    [PalmUIManagement sharedInstance].isEnteredBJQ = YES;
+                }
             }
         }else{
             [self showProgressWithText:@"班级列表加载失败" withDelayTime:0.1];
         }
+        
     }
     if ([@"groupTopicListResult" isEqualToString:keyPath])  // 圈信息列表
     {
@@ -616,6 +625,7 @@
     }
 }
 
+
 -(void)viewWillDisappear:(BOOL)animated{
     [super viewWillDisappear:animated];
     [inputBar endEdit];
@@ -956,7 +966,10 @@
     [UIView animateWithDuration:0.2f delay:0 options:UIViewAnimationOptionCurveLinear animations:^{
         self.arrow.transform = endAngle;
     } completion:^(BOOL finished) {
-        
+        int groupID = self.currentGroup.groupid.intValue;
+        if (groupID) {
+            [[PalmUIManagement sharedInstance] getAdvWithGroupID:groupID];
+        }
     }];
 }
 
