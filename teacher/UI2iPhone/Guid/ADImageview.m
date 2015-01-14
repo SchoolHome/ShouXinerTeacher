@@ -33,7 +33,7 @@
 //        bg.backgroundColor  = [UIColor blackColor];
 //        bg.alpha = 0.4;
 //        [self addSubview:bg];
-        self.webUrl = advDic[@"url"];
+        self.webUrl = [NSURL URLWithString:advDic[@"url"]];
         self.imgUrl = [NSURL URLWithString:advDic[@"image"]];
         EGOImageView *adImageview = [[EGOImageView alloc] initWithFrame:CGRectMake(0,0 , 320.f, screenHeight)];
         [adImageview setImageURL:self.imgUrl];
