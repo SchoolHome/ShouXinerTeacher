@@ -20,8 +20,10 @@
         [self addSubview:adScroll];
         
         pageControl = [[UIPageControl alloc] initWithFrame:CGRectMake(0, frame.size.height-25, frame.size.width, 20)];
-        [pageControl setPageIndicatorTintColor:[UIColor colorWithRed:1.0f green:1.0f blue:1.0f alpha:0.5f]];
-        [pageControl setCurrentPageIndicatorTintColor:[UIColor whiteColor]];
+        if ([[[UIDevice currentDevice] systemVersion] floatValue] >= 6.0) {
+            [pageControl setPageIndicatorTintColor:[UIColor colorWithRed:1.0f green:1.0f blue:1.0f alpha:0.5f]];
+            [pageControl setCurrentPageIndicatorTintColor:[UIColor whiteColor]];
+        }
         [pageControl addTarget:self action:@selector(changePage:) forControlEvents:UIControlEventValueChanged];
         [self addSubview:pageControl];
     }
