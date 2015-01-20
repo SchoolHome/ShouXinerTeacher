@@ -12,6 +12,7 @@
 #import "BBFXModel.h"
 #import "BBFXDetailViewController.h"
 #import "BBFXAdScrollView.h"
+#import "BBUITabBarController.h"
 
 @interface BBFXViewController ()
 {
@@ -133,7 +134,6 @@
             [self removeDiscoverHeader];
         }
     }
-    
 }
 
 -(void)removeDiscoverHeader
@@ -217,7 +217,17 @@
     NSInteger index = gridView.rowIndex*3 + gridView.colIndex;
     BBFXModel *model = [self.serviceArray objectAtIndex:index];
     if (model.url && model.url.length>0) {
-        model.isNew = NO;
+        if (model.isNew) {
+            model.isNew = NO;
+            BBUITabBarController *tabBar = (BBUITabBarController *)self.tabBarController;
+            NSInteger count = [tabBar.markYZS.text integerValue];
+            count = count - 1;
+            if (count == 0) {
+                [tabBar.markYZS setHidden:YES];
+            }else{
+                [tabBar.markYZS setText:[NSString stringWithFormat:@"%d", count]];
+            }
+        }
         [gridView.flagNew setHidden:YES];
         BBFXDetailViewController *detailViewController = [[BBFXDetailViewController alloc] init];
         detailViewController.url = [NSURL URLWithString:model.url];

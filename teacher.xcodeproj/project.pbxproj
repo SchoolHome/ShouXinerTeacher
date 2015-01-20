@@ -3882,10 +3882,10 @@
 			children = (
 				0490992B1A0C5ECF00EDD91B /* BBFXViewController.h */,
 				0490992C1A0C5ECF00EDD91B /* BBFXViewController.m */,
-				0490992E1A0C6CA100EDD91B /* BBFXTableViewCell.h */,
-				0490992F1A0C6CA100EDD91B /* BBFXTableViewCell.m */,
 				049099311A0C6CC600EDD91B /* BBFXGridView.h */,
 				049099321A0C6CC600EDD91B /* BBFXGridView.m */,
+				0490992E1A0C6CA100EDD91B /* BBFXTableViewCell.h */,
+				0490992F1A0C6CA100EDD91B /* BBFXTableViewCell.m */,
 				045082DF1A104F700004F8DD /* BBFXAdScrollView.h */,
 				045082E01A104F700004F8DD /* BBFXAdScrollView.m */,
 				045082E21A1061DC0004F8DD /* BBFXDetailViewController.h */,
@@ -9371,8 +9371,8 @@
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer: yuan gao (5PS549TGY5)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: yuan gao (5PS549TGY5)";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Shenyang Idtech Information Technology Co., Ltd.";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Shenyang Idtech Information Technology Co., Ltd.";
 				COPY_PHASE_STRIP = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
@@ -9390,7 +9390,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				ONLY_ACTIVE_ARCH = YES;
-				PROVISIONING_PROFILE = "ff152a9b-3385-446d-87c0-8f28330199e9";
+				PROVISIONING_PROFILE = "87d52740-28f5-48aa-be84-85179f12ddb5";
 				SDKROOT = iphoneos8.1;
 				VALID_ARCHS = "arm64 armv7 armv7s";
 			};
@@ -9413,8 +9413,8 @@
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer: yuan gao (5PS549TGY5)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: yuan gao (5PS549TGY5)";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Shenyang Idtech Information Technology Co., Ltd.";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Shenyang Idtech Information Technology Co., Ltd.";
 				COPY_PHASE_STRIP = YES;
 				ENABLE_NS_ASSERTIONS = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
@@ -9426,7 +9426,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				ONLY_ACTIVE_ARCH = NO;
-				PROVISIONING_PROFILE = "ff152a9b-3385-446d-87c0-8f28330199e9";
+				PROVISIONING_PROFILE = "87d52740-28f5-48aa-be84-85179f12ddb5";
 				SDKROOT = iphoneos8.1;
 				VALIDATE_PRODUCT = YES;
 				VALID_ARCHS = "arm64 armv7 armv7s";
@@ -9439,8 +9439,8 @@
 				ARCHS = "$(ARCHS_STANDARD)";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				CODE_SIGN_IDENTITY = "iPhone Distribution: Shenyang Idtech Information Technology Co., Ltd.";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Shenyang Idtech Information Technology Co., Ltd.";
+				CODE_SIGN_IDENTITY = "iPhone Developer: yuan gao (5PS549TGY5)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: yuan gao (5PS549TGY5)";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
@@ -9462,7 +9462,7 @@
 				ONLY_ACTIVE_ARCH = NO;
 				OTHER_LDFLAGS = "-lxml2";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "6254ECE3-EB9C-46FA-8BF2-1464DF2443C8";
+				PROVISIONING_PROFILE = "26bcf051-d1eb-45c0-9762-0c3f4432bb75";
 				SDKROOT = iphoneos;
 				VALID_ARCHS = armv7;
 				WRAPPER_EXTENSION = app;
@@ -9475,8 +9475,8 @@
 				ARCHS = "$(ARCHS_STANDARD)";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				CODE_SIGN_IDENTITY = "iPhone Distribution: Shenyang Idtech Information Technology Co., Ltd.";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Shenyang Idtech Information Technology Co., Ltd.";
+				CODE_SIGN_IDENTITY = "iPhone Developer: yuan gao (5PS549TGY5)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: yuan gao (5PS549TGY5)";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/teacher/UI2iPhone",
@@ -9498,7 +9498,7 @@
 				);
 				OTHER_LDFLAGS = "-lxml2";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "6254ECE3-EB9C-46FA-8BF2-1464DF2443C8";
+				PROVISIONING_PROFILE = "26bcf051-d1eb-45c0-9762-0c3f4432bb75";
 				SDKROOT = iphoneos;
 				VALID_ARCHS = armv7;
 				WRAPPER_EXTENSION = app;
