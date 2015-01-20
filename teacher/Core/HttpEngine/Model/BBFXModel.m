@@ -16,7 +16,7 @@
         self.url = dic[@"url"];
         self.image = dic[@"image"];
         self.title = dic[@"title"];
-        self.isNew = [dic[@"new"] boolValue];
+        self.isNew = [dic[@"isNew"] boolValue];
     }
     return self;
 }

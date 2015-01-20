@@ -80,27 +80,10 @@
     }
     if ([@"discoverResult" isEqualToString:keyPath]){
         NSDictionary *discoverResult = [PalmUIManagement sharedInstance].discoverResult;
+        NSLog(@"sxsoul:::%@", discoverResult);
         if ([discoverResult[@"errno"] integerValue]==0) {
             NSDictionary *dataResult = discoverResult[@"data"];
-            NSInteger discoverCount = 0;
-            if (![dataResult[@"discover"] isKindOfClass:[NSNull class]]) {
-                NSDictionary *discoverDic = dataResult[@"discover"];
-                for (NSString *key in [discoverDic allKeys]) {
-                    NSDictionary *dic = discoverDic[key];
-                    if ([dic[@"isNew"] boolValue]) {
-                        discoverCount += 1;
-                    }
-                }
-            }
-            if (![dataResult[@"service"] isKindOfClass:[NSNull class]]) {
-                NSDictionary *serviceDic = dataResult[@"service"];
-                for (NSString *key in [serviceDic allKeys]) {
-                    NSDictionary *dic = serviceDic[key];
-                    if ([dic[@"isNew"] boolValue]) {
-                        discoverCount += 1;
-                    }
-                }
-            }
+            NSInteger discoverCount = [dataResult[@"serviceNew"] integerValue];
             if (discoverCount > 0) {
                 self.markYZS.hidden = NO;
                 self.markYZS.text = [NSString stringWithFormat:@"%d", discoverCount];
@@ -312,7 +295,7 @@
     }
     
     if (tabBarController.selectedIndex == 3) { // 点击消失
-        self.markYZS.hidden = YES;
+       // self.markYZS.hidden = YES;
     }
     [[NSNotificationCenter defaultCenter] postNotificationName:@"changeVC" object:nil];
 }
