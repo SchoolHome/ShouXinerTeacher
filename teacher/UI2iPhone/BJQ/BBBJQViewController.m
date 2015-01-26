@@ -457,7 +457,7 @@
 #ifdef IS_TEACHER
     BBJFViewController *jf = [[BBJFViewController alloc] init];
     jf.hidesBottomBarWhenPushed = YES;
-    jf.url = [NSURL URLWithString:@"http://www.shouxiner.com/teacher_jfen/mobile_web_shop"];
+    jf.url = [NSURL URLWithString:@"http://www.shouxiner.com/webview/class_autologin/jfenshop/mobile_index"];
     [self.navigationController pushViewController:jf animated:YES];
 #endif
 }
@@ -466,7 +466,7 @@
 #ifdef IS_TEACHER
     BBJFViewController *jf = [[BBJFViewController alloc] init];
     jf.hidesBottomBarWhenPushed = YES;
-    jf.url = [NSURL URLWithString:@"http://www.shouxiner.com/teacher_jfen/mobile_web_shop"];
+    jf.url = [NSURL URLWithString:@"http://www.shouxiner.com/webview/class_autologin/jfenshop/mobile_index"];
     [self.navigationController pushViewController:jf animated:YES];
 #endif
 }
