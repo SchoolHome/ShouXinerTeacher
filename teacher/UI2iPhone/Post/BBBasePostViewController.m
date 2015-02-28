@@ -116,8 +116,11 @@ viewImageDeletedDelegate>
         }else{
             [self showProgressWithText:@"发送成功" withDelayTime:0.5];
             if (_postType == POST_TYPE_HDFX) {
-                [[NSNotificationCenter defaultCenter] postNotificationName:@"WebDetailNeedCallBack" object:dic[@"data"][@"topicid"]];
-                [self.navigationController popViewControllerAnimated:YES];
+                if (dic[@"data"][@"topicid"]) {
+                    [[NSNotificationCenter defaultCenter] postNotificationName:@"WebDetailNeedCallBack" object:dic[@"data"][@"topicid"]];
+                    [self.navigationController popViewControllerAnimated:YES];
+                }
+
             }else{
                 [self backToBJQRoot];
             }
